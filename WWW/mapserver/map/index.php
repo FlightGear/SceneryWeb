@@ -43,6 +43,79 @@
 <!--    <script src="../openlayers-ys/OpenLayers.js"></script> -->
     <script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
     <script type="text/javascript">
+    // click on map to select a box of coordinates
+    var box_extents = [];
+    var boxes  = new OpenLayers.Layer.Boxes( "Boxes" );
+    OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+                defaultHandlerOptions: {
+                    'single': true,
+                    'double': false,
+                    'pixelTolerance': 0,
+                    'stopSingle': false,
+                    'stopDouble': false
+                },
+
+                initialize: function(options) {
+                    this.handlerOptions = OpenLayers.Util.extend(
+                        {}, this.defaultHandlerOptions
+                    );
+                    OpenLayers.Control.prototype.initialize.apply(
+                        this, arguments
+                    ); 
+                    this.handler = new OpenLayers.Handler.Click(
+                        this, {
+                            'click': this.trigger
+                        }, this.handlerOptions
+                    );
+                }, 
+
+                trigger: function(e) {
+                	if(box_extents.length==4) {
+                		boxes.removeMarker(box);
+                		box_extents=[];
+                		document.getElementById('left').value='';
+						document.getElementById('right').value='';
+						document.getElementById('bottom').value='';
+						document.getElementById('top').value='';
+                	}
+                    var lonlat = map.getLonLatFromViewPortPx(e.xy);
+                    
+                    if(box_extents.length==0) {
+						box_extents[0]=lonlat.lon;
+						box_extents[1]=lonlat.lat;
+					}
+					else {
+						box_extents[2]=lonlat.lon;
+						box_extents[3]=lonlat.lat;
+					}
+					if(box_extents.length==4) {
+						
+						ext = box_extents;
+						
+						
+						bounds = OpenLayers.Bounds.fromArray(ext);
+						
+						
+						box = new OpenLayers.Marker.Box(bounds);
+						
+						box.events.register("click", box, function (e) {
+							this.setBorder("yellow");
+						});
+						boxes.addMarker(box);
+						bounds.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
+						//alert(bounds.toString());
+						var coord1= new OpenLayers.LonLat(box_extents[0],box_extents[1]);
+						coord1.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
+						var coord2= new OpenLayers.LonLat(box_extents[2],box_extents[3]);
+						coord2.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
+						document.getElementById('left').value=coord1.lon;
+						document.getElementById('right').value=coord2.lon;
+						document.getElementById('bottom').value=coord1.lat;
+						document.getElementById('top').value=coord2.lat;
+					}
+                }
+
+            });
 
       var lon = <?php print $_REQUEST["lon"]; ?>;
       var lat = <?php print $_REQUEST["lat"]; ?>;
@@ -297,8 +370,8 @@
 	gshhs.setVisibility(false);
 	fgbuckets.setVisibility(false);
 	csdefault.setVisibility(false);
-
-	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, corine, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault]);
+	
+	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, corine, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault,boxes]);
 
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.PanZoom());
@@ -308,7 +381,15 @@
 	var ll = new OpenLayers.LonLat(lon, lat), zoom;
 	ll.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
 	map.setCenter(ll);
+	
+	// click control
+	var click = new OpenLayers.Control.Click();
+	map.addControl(click);
+	click.activate();
+	
+	
       }
+      
     </script>
   </HEAD>
 
@@ -316,6 +397,14 @@
     <div style=" width:100%; heigth:100%;" id="map"></div> 
     <div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
       <b><a href="http://mapserver.flightgear.org/">Back</a></b> to the intro page.
+      <br/>
+      <form action="download.psp" method="POST">
+      <input type="text" id="left" value=""/>
+      <input type="text" id="right" value=""/><br/>
+      <input type="text" id="bottom" value=""/>
+      <input type="text" id="top" value=""/><br/>
+      <input type="submit" value="Download shapefiles">
+      </form>
     </div>
   </BODY>
 
