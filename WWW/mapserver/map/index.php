@@ -90,6 +90,18 @@
 					}
 					if(box_extents.length==4) {
 						
+						var tmp;
+						if (box_extents[0] > box_extents[2]) {
+							tmp = box_extents[0];
+							box_extents[0] = box_extents[2];
+							box_extents[2] = tmp;
+						}
+						if (box_extents[1] > box_extents[3]) {
+							tmp = box_extents[1];
+							box_extents[1] = box_extents[3];
+							box_extents[3] = tmp;
+						}
+						
 						ext = box_extents;
 						
 						
@@ -398,11 +410,11 @@
     <div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
       <b><a href="/">Back</a></b> to the intro page.
       <br/>
-      <form action="/download.psp" method="POST">
-      <input type="text" id="xmin" value=""/>
-      <input type="text" id="xmax" value=""/><br/>
-      <input type="text" id="ymin" value=""/>
-      <input type="text" id="ymax" value=""/><br/>
+      <form action="../download.psp" method="POST">
+      <input type="text" id="xmin" name="xmin" value=""/>
+      <input type="text" id="xmax" name="xmax" value=""/><br/>
+      <input type="text" id="ymin" name="ymin" value=""/>
+      <input type="text" id="ymax" name="ymax" value=""/><br/>
       <input type="submit" value="Download shapefiles">
       </form>
     </div>
