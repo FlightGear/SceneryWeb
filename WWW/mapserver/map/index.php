@@ -382,6 +382,7 @@
 	gshhs.setVisibility(false);
 	fgbuckets.setVisibility(false);
 	csdefault.setVisibility(false);
+	downloadbox.setVisibility(false);
 	
 	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, corine, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox]);
 
@@ -408,15 +409,21 @@
   <BODY style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
     <div style=" width:100%; heigth:100%;" id="map"></div> 
     <div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
-      <b><a href="/">Back</a></b> to the intro page.
-      <br/>
-      <form action="/download.psp" method="POST">
-      <input type="text" id="xmin" name="xmin" value=""/>
-      <input type="text" id="xmax" name="xmax" value=""/><br/>
-      <input type="text" id="ymin" name="ymin" value=""/>
-      <input type="text" id="ymax" name="ymax" value=""/><br/>
-      <input type="submit" value="Download shapefiles">
-      </form>
+      <table
+        <tr>
+          <td>
+            <b><a href="/">Back</a></b> to the intro page.
+          </td>
+          <td>
+            <form action="/download.psp" method="POST">
+            <input type="text" id="xmin" name="xmin" value=""/>
+            <input type="text" id="xmax" name="xmax" value=""/><br/>
+            <input type="text" id="ymin" name="ymin" value=""/>
+            <input type="text" id="ymax" name="ymax" value=""/><br/>
+            <input type="submit" value="Download shapefiles">
+          </td>
+        </tr>
+      </table>
     </div>
   </BODY>
 
