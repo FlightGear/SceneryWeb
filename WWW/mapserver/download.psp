@@ -1,4 +1,29 @@
 <html>
+<%  import time  %>
+
+<!-- Test-URL:
+    http://mapserver.flightgear.org/download.psp?xmin=6&xmax=7&ymin=50&ymax=51
+-->
+
+<%
+if form.has_key('xmin'):
+    xmin = float("%(xmin)s" % form)
+else:
+    xmin = '-156.84932'
+if form.has_key('xmax'):
+    xmax = float("%(xmax)s" % form)
+else:
+    xmax = '-155.84932'
+if form.has_key('ymin'):
+    ymin = float("%(ymin)s" % form)
+else:
+    ymin = '20.26679'
+if form.has_key('ymax'):
+    ymax = float("%(ymax)s" % form)
+else:
+    ymax = '21.26679'
+# end
+%>
 
 <!-- calls 'dlaction.psp', 'dlcs.psp', 'dlclc.psp' or 'dlosm.psp'
      Conversion of this file into a true Python program as a generic
@@ -15,7 +40,9 @@
     <center>
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</h3>
     </center>
-
+    <p>
+        Local time is: <%=time.strftime("%Y-%m-%d, %H:%M:%S")%>
+    </p>
     Please read the corresponding
     <a href="http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data">NOTES</a>
     on the fine <a href=http://www.osgeo.org/>OSGeo</a> Wiki and use
@@ -48,19 +75,19 @@
               Download <a href="http://wiki.osgeo.org/wiki/Geodata_Repository#On_Offer_.21">individual layers</a>.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="http://mapserver.flightgear.org/dlaction.psp">
+            <form method="post" action="/dlaction.psp">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
-                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax"></td>
+                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin"></td>
+                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax"></td>
+                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin"></td>
+                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
                     <td></td>
                   </tr>
               </table>
@@ -307,19 +334,19 @@
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="http://mapserver.flightgear.org/dlcs">
+            <form method="post" action="/dlcs">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
-                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax"></td>
+                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin"></td>
+                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax"></td>
+                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin"></td>
+                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymin %>"></td>
                     <td></td>
                   </tr>
               </table>
@@ -340,19 +367,19 @@
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="http://mapserver.flightgear.org/dlclc">
+            <form method="post" action="/dlclc">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
-                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax"></td>
+                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin"></td>
+                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax"></td>
+                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin"></td>
+                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymin %>"></td>
                     <td></td>
                   </tr>
               </table>
@@ -373,19 +400,19 @@
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="http://mapserver.flightgear.org/dlosm">
+            <form method="post" action="/dlosm">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
-                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax"></td>
+                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin"></td>
+                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax"></td>
+                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin"></td>
+                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymin %>"></td>
                     <td></td>
                   </tr>
               </table>
@@ -408,6 +435,6 @@
     <img src="downloadsample.png">
     </center>
     <p><hr><p>
-    <p><a href="http://mapserver.flightgear.org/">Back</a> to the intro page.</p>
+    <p><a href="/">Back</a> to the intro page.</p>
   </body>
 </html>
