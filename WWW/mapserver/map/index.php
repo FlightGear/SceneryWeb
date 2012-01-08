@@ -410,7 +410,7 @@
     <div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
       <b><a href="/">Back</a></b> to the intro page.
       <br/>
-      <form action="../download.psp" method="POST">
+      <form action="/download.psp" method="POST">
       <input type="text" id="xmin" name="xmin" value=""/>
       <input type="text" id="xmax" name="xmax" value=""/><br/>
       <input type="text" id="ymin" name="ymin" value=""/>
