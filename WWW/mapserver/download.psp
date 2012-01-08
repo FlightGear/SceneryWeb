@@ -341,12 +341,12 @@ else:
                     <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmin %>"></td>
+                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmax %>"></td>
+                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymin %>"></td>
+                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
                     <td></td>
                   </tr>
               </table>
@@ -374,12 +374,12 @@ else:
                     <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmin %>"></td>
+                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmax %>"></td>
+                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymin %>"></td>
+                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
                     <td></td>
                   </tr>
               </table>
@@ -407,12 +407,12 @@ else:
                     <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmin %>"></td>
+                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= xmax %>"></td>
+                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymin %>"></td>
+                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
                     <td></td>
                   </tr>
               </table>
