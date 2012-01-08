@@ -415,7 +415,7 @@
             <b><a href="/">Back</a></b> to the intro page.
           </td>
           <td>
-            <form action="/download.psp" method="POST">
+            <form action="/shpdl" method="POST">
             <input type="text" id="xmin" name="xmin" value=""/>
             <input type="text" id="xmax" name="xmax" value=""/><br/>
             <input type="text" id="ymin" name="ymin" value=""/>

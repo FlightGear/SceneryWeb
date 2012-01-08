@@ -432,7 +432,7 @@ else:
 <hr>
     <center>
     <p><h4>Sample use (EDLN area):</h4></p>
-    <img src="downloadsample.png">
+    <img src="/downloadsample.png">
     </center>
     <p><hr><p>
     <p><a href="/">Back</a> to the intro page.</p>

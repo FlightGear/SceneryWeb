@@ -1,6 +1,6 @@
 <%
 #
-# called by 'download.psp'
+# called by 'shpdl.psp'
 # calls 'dlaction.sh'
 #
 # Verify input from the web form and store the necessary details in the
