@@ -45,7 +45,7 @@
     <script type="text/javascript">
     // click on map to select a box of coordinates
     var box_extents = [];
-    var boxes  = new OpenLayers.Layer.Boxes( "Boxes" );
+    var downloadbox  = new OpenLayers.Layer.Boxes( "Download-Box" );
     OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
                 defaultHandlerOptions: {
                     'single': true,
@@ -71,12 +71,12 @@
 
                 trigger: function(e) {
                 	if(box_extents.length==4) {
-                		boxes.removeMarker(box);
+                		downloadbox.removeMarker(box);
                 		box_extents=[];
-                		document.getElementById('left').value='';
-						document.getElementById('right').value='';
-						document.getElementById('bottom').value='';
-						document.getElementById('top').value='';
+                		document.getElementById('xmin').value='';
+						document.getElementById('xmax').value='';
+						document.getElementById('ymin').value='';
+						document.getElementById('ymax').value='';
                 	}
                     var lonlat = map.getLonLatFromViewPortPx(e.xy);
                     
@@ -101,17 +101,17 @@
 						box.events.register("click", box, function (e) {
 							this.setBorder("yellow");
 						});
-						boxes.addMarker(box);
+						downloadbox.addMarker(box);
 						bounds.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
 						//alert(bounds.toString());
 						var coord1= new OpenLayers.LonLat(box_extents[0],box_extents[1]);
 						coord1.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
 						var coord2= new OpenLayers.LonLat(box_extents[2],box_extents[3]);
 						coord2.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
-						document.getElementById('left').value=coord1.lon;
-						document.getElementById('right').value=coord2.lon;
-						document.getElementById('bottom').value=coord1.lat;
-						document.getElementById('top').value=coord2.lat;
+						document.getElementById('xmin').value=coord1.lon;
+						document.getElementById('xmax').value=coord2.lon;
+						document.getElementById('ymin').value=coord1.lat;
+						document.getElementById('ymax').value=coord2.lat;
 					}
                 }
 
@@ -371,7 +371,7 @@
 	fgbuckets.setVisibility(false);
 	csdefault.setVisibility(false);
 	
-	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, corine, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault,boxes]);
+	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, corine, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox]);
 
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.PanZoom());
@@ -396,13 +396,13 @@
   <BODY style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
     <div style=" width:100%; heigth:100%;" id="map"></div> 
     <div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
-      <b><a href="http://mapserver.flightgear.org/">Back</a></b> to the intro page.
+      <b><a href="/">Back</a></b> to the intro page.
       <br/>
-      <form action="download.psp" method="POST">
-      <input type="text" id="left" value=""/>
-      <input type="text" id="right" value=""/><br/>
-      <input type="text" id="bottom" value=""/>
-      <input type="text" id="top" value=""/><br/>
+      <form action="/download.psp" method="POST">
+      <input type="text" id="xmin" value=""/>
+      <input type="text" id="xmax" value=""/><br/>
+      <input type="text" id="ymin" value=""/>
+      <input type="text" id="ymax" value=""/><br/>
       <input type="submit" value="Download shapefiles">
       </form>
     </div>
