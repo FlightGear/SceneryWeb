@@ -1,5 +1,4 @@
 <html>
-<%  import time  %>
 
 <!-- Test-URL:
     http://mapserver.flightgear.org/shpdl?xmin=6&xmax=7&ymin=50&ymax=51
@@ -26,8 +25,8 @@ else:
 %>
 
 <!-- calls 'dlaction.psp', 'dlcs.psp', 'dlclc.psp' or 'dlosm.psp'
-     Conversion of this file into a true Python program as a generic
-     abstraction to download features is still pending .... -->
+     Pythonification into a generic abstraction to download features is
+     still pending ....  -->
 
   <head>
     <title>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</title>
@@ -40,9 +39,12 @@ else:
     <center>
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</h3>
     </center>
-    <p>
+
+<!--    <p>
+    <%  import time  %>
         Local time is: <%=time.strftime("%Y-%m-%d, %H:%M:%S")%>
-    </p>
+    </p> -->
+
     Please read the corresponding
     <a href="http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data">NOTES</a>
     on the fine <a href=http://www.osgeo.org/>OSGeo</a> Wiki and use
