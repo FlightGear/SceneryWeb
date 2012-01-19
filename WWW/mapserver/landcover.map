@@ -3136,17 +3136,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_urban"
+      NAME "clc00_urban"
       STYLE
         COLOR 211 0 0
       END
     END
     METADATA
-      "wms_title" "clc_urban"
+      "wms_title" "clc00_urban"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_urban"
+      "wfs_title" "clc00_urban"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3169,17 +3169,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_town"
+      NAME "clc00_town"
       STYLE
         COLOR 239 42 71
       END
     END
     METADATA
-      "wms_title" "clc_town"
+      "wms_title" "clc00_town"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_town"
+      "wfs_title" "clc00_town"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3202,17 +3202,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_industrial"
+      NAME "clc00_industrial"
       STYLE
         COLOR 211 0 155
       END
     END
     METADATA
-      "wms_title" "clc_industrial"
+      "wms_title" "clc00_industrial"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_industrial"
+      "wfs_title" "clc00_industrial"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3235,17 +3235,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_transport"
+      NAME "clc00_transport"
       STYLE
         COLOR 126 126 126
       END
     END
     METADATA
-      "wms_title" "clc_transport"
+      "wms_title" "clc00_transport"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_transport"
+      "wfs_title" "clc00_transport"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3268,17 +3268,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_port"
+      NAME "clc00_port"
       STYLE
         COLOR 155 155 211
       END
     END
     METADATA
-      "wms_title" "clc_port"
+      "wms_title" "clc00_port"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_port"
+      "wfs_title" "clc00_port"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3301,17 +3301,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_airport"
+      NAME "clc00_airport"
       STYLE
         COLOR 155 181 13
       END
     END
     METADATA
-      "wms_title" "clc_airport"
+      "wms_title" "clc00_airport"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_airport"
+      "wfs_title" "clc00_airport"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3334,17 +3334,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_openmining"
+      NAME "clc00_openmining"
       STYLE
         COLOR 126 211 155
       END
     END
     METADATA
-      "wms_title" "clc_openmining"
+      "wms_title" "clc00_openmining"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_openmining"
+      "wfs_title" "clc00_openmining"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3367,17 +3367,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_dump"
+      NAME "clc00_dump"
       STYLE
         COLOR 155 13 42
       END
     END
     METADATA
-      "wms_title" "clc_dump"
+      "wms_title" "clc00_dump"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_dump"
+      "wfs_title" "clc00_dump"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3400,17 +3400,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_construction"
+      NAME "clc00_construction"
       STYLE
         COLOR 183 99 126
       END
     END
     METADATA
-      "wms_title" "clc_construction"
+      "wms_title" "clc00_construction"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_construction"
+      "wfs_title" "clc00_construction"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3433,17 +3433,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_greenspace"
+      NAME "clc00_greenspace"
       STYLE
         COLOR 99 239 0
       END
     END
     METADATA
-      "wms_title" "clc_greenspace"
+      "wms_title" "clc00_greenspace"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_greenspace"
+      "wfs_title" "clc00_greenspace"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3466,17 +3466,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_golfcourse"
+      NAME "clc00_golfcourse"
       STYLE
         COLOR 239 71 0
       END
     END
     METADATA
-      "wms_title" "clc_golfcourse"
+      "wms_title" "clc00_golfcourse"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_golfcourse"
+      "wfs_title" "clc00_golfcourse"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3499,17 +3499,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_drycrop"
+      NAME "clc00_drycrop"
       STYLE
         COLOR 239 239 126
       END
     END
     METADATA
-      "wms_title" "clc_drycrop"
+      "wms_title" "clc00_drycrop"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_drycrop"
+      "wfs_title" "clc00_drycrop"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3532,17 +3532,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_irrcrop"
+      NAME "clc00_irrcrop"
       STYLE
         COLOR 183 183 71
       END
     END
     METADATA
-      "wms_title" "clc_irrcrop"
+      "wms_title" "clc00_irrcrop"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_irrcrop"
+      "wfs_title" "clc00_irrcrop"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3565,17 +3565,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_rice"
+      NAME "clc00_rice"
       STYLE
         COLOR 230 230 0
       END
     END
     METADATA
-      "wms_title" "clc_rice"
+      "wms_title" "clc00_rice"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_rice"
+      "wfs_title" "clc00_rice"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3598,17 +3598,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_vineyard"
+      NAME "clc00_vineyard"
       STYLE
         COLOR 239 155 13
       END
     END
     METADATA
-      "wms_title" "clc_vineyard"
+      "wms_title" "clc00_vineyard"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_vineyard"
+      "wfs_title" "clc00_vineyard"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3631,17 +3631,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_orchard"
+      NAME "clc00_orchard"
       STYLE
         COLOR 239 211 155
       END
     END
     METADATA
-      "wms_title" "clc_orchard"
+      "wms_title" "clc00_orchard"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_orchard"
+      "wfs_title" "clc00_orchard"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3664,17 +3664,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_olives"
+      NAME "clc00_olives"
       STYLE
         COLOR 230 166 0
       END
     END
     METADATA
-      "wms_title" "clc_olives"
+      "wms_title" "clc00_olives"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_olives"
+      "wfs_title" "clc00_olives"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3697,17 +3697,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_cropgrass"
+      NAME "clc00_cropgrass"
       STYLE
         COLOR 155 211 13
       END
     END
     METADATA
-      "wms_title" "clc_cropgrass"
+      "wms_title" "clc00_cropgrass"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_cropgrass"
+      "wfs_title" "clc00_cropgrass"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3730,17 +3730,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_mixedcrop"
+      NAME "clc00_mixedcrop"
       STYLE
         COLOR 239 211 99
       END
     END
     METADATA
-      "wms_title" "clc_mixedcrop"
+      "wms_title" "clc00_mixedcrop"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_mixedcrop"
+      "wfs_title" "clc00_mixedcrop"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3763,17 +3763,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_complexcrop"
+      NAME "clc00_complexcrop"
       STYLE
         COLOR 239 211 99
       END
     END
     METADATA
-      "wms_title" "clc_complexcrop"
+      "wms_title" "clc00_complexcrop"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_complexcrop"
+      "wfs_title" "clc00_complexcrop"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3796,17 +3796,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_naturalcrop"
+      NAME "clc00_naturalcrop"
       STYLE
         COLOR 83 183 71
       END
     END
     METADATA
-      "wms_title" "clc_naturalcrop"
+      "wms_title" "clc00_naturalcrop"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_naturalcrop"
+      "wfs_title" "clc00_naturalcrop"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3829,17 +3829,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_agroforest"
+      NAME "clc00_agroforest"
       STYLE
         COLOR 242 204 166
       END
     END
     METADATA
-      "wms_title" "clc_agroforest"
+      "wms_title" "clc00_agroforest"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_agroforest"
+      "wfs_title" "clc00_agroforest"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3862,17 +3862,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_deciduousforest"
+      NAME "clc00_deciduousforest"
       STYLE
         COLOR 0 183 0
       END
     END
     METADATA
-      "wms_title" "clc_deciduousforest"
+      "wms_title" "clc00_deciduousforest"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_deciduousforest"
+      "wfs_title" "clc00_deciduousforest"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3895,17 +3895,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_evergreenforest"
+      NAME "clc00_evergreenforest"
       STYLE
         COLOR 0 126 99
       END
     END
     METADATA
-      "wms_title" "clc_evergreenforest"
+      "wms_title" "clc00_evergreenforest"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_evergreenforest"
+      "wfs_title" "clc00_evergreenforest"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3928,17 +3928,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_mixedforest"
+      NAME "clc00_mixedforest"
       STYLE
         COLOR 0 126 0
       END
     END
     METADATA
-      "wms_title" "clc_mixedforest"
+      "wms_title" "clc00_mixedforest"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_mixedforest"
+      "wfs_title" "clc00_mixedforest"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3961,17 +3961,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_grassland"
+      NAME "clc00_grassland"
       STYLE
         COLOR 155 211 13
       END
     END
     METADATA
-      "wms_title" "clc_grassland"
+      "wms_title" "clc00_grassland"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_grassland"
+      "wfs_title" "clc00_grassland"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -3994,17 +3994,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_heath"
+      NAME "clc00_heath"
       STYLE
         COLOR 211 211 0
       END
     END
     METADATA
-      "wms_title" "clc_heath"
+      "wms_title" "clc00_heath"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_heath"
+      "wfs_title" "clc00_heath"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4027,17 +4027,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_sclerophyllous"
+      NAME "clc00_sclerophyllous"
       STYLE
         COLOR 166 230 77
       END
     END
     METADATA
-      "wms_title" "clc_sclerophyllous"
+      "wms_title" "clc00_sclerophyllous"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_sclerophyllous"
+      "wfs_title" "clc00_sclerophyllous"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4060,17 +4060,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_scrub"
+      NAME "clc00_scrub"
       STYLE
         COLOR 183 239 0
       END
     END
     METADATA
-      "wms_title" "clc_scrub"
+      "wms_title" "clc00_scrub"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_scrub"
+      "wfs_title" "clc00_scrub"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4093,17 +4093,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_sand"
+      NAME "clc00_sand"
       STYLE
         COLOR 239 239 183
       END
     END
     METADATA
-      "wms_title" "clc_sand"
+      "wms_title" "clc00_sand"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_sand"
+      "wfs_title" "clc00_sand"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4126,17 +4126,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_rock"
+      NAME "clc00_rock"
       STYLE
         COLOR 219 241 79
       END
     END
     METADATA
-      "wms_title" "clc_rock"
+      "wms_title" "clc00_rock"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_rock"
+      "wfs_title" "clc00_rock"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4159,17 +4159,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_barrencover"
+      NAME "clc00_barrencover"
       STYLE
         COLOR 126 211 155
       END
     END
     METADATA
-      "wms_title" "clc_barrencover"
+      "wms_title" "clc00_barrencover"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_barrencover"
+      "wfs_title" "clc00_barrencover"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4192,17 +4192,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_burnt"
+      NAME "clc00_burnt"
       STYLE
         COLOR 0 0 0
       END
     END
     METADATA
-      "wms_title" "clc_burnt"
+      "wms_title" "clc00_burnt"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_burnt"
+      "wfs_title" "clc00_burnt"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4225,17 +4225,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_glacier"
+      NAME "clc00_glacier"
       STYLE
         COLOR 0 0 0
       END
     END
     METADATA
-      "wms_title" "clc_glacier"
+      "wms_title" "clc00_glacier"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_glacier"
+      "wfs_title" "clc00_glacier"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4258,17 +4258,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_marsh"
+      NAME "clc00_marsh"
       STYLE
         COLOR 211 211 0
       END
     END
     METADATA
-      "wms_title" "clc_marsh"
+      "wms_title" "clc00_marsh"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_marsh"
+      "wfs_title" "clc00_marsh"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4291,17 +4291,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_bog"
+      NAME "clc00_bog"
       STYLE
         COLOR 183 71 239
       END
     END
     METADATA
-      "wms_title" "clc_bog"
+      "wms_title" "clc00_bog"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_bog"
+      "wfs_title" "clc00_bog"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4324,17 +4324,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_saltmarsh"
+      NAME "clc00_saltmarsh"
       STYLE
         COLOR 183 126 211
       END
     END
     METADATA
-      "wms_title" "clc_saltmarsh"
+      "wms_title" "clc00_saltmarsh"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_saltmarsh"
+      "wfs_title" "clc00_saltmarsh"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4357,17 +4357,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_saline"
+      NAME "clc00_saline"
       STYLE
         COLOR 230 230 255
       END
     END
     METADATA
-      "wms_title" "clc_saline"
+      "wms_title" "clc00_saline"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_saline"
+      "wfs_title" "clc00_saline"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4390,17 +4390,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_littoral"
+      NAME "clc00_littoral"
       STYLE
         COLOR 239 183 239
       END
     END
     METADATA
-      "wms_title" "clc_littoral"
+      "wms_title" "clc00_littoral"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_littoral"
+      "wfs_title" "clc00_littoral"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4423,17 +4423,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_watercourse"
+      NAME "clc00_watercourse"
       STYLE
         COLOR 0 99 239
       END
     END
     METADATA
-      "wms_title" "clc_watercourse"
+      "wms_title" "clc00_watercourse"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_watercourse"
+      "wfs_title" "clc00_watercourse"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4456,17 +4456,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_lake"
+      NAME "clc00_lake"
       STYLE
         COLOR 0 155 239
       END
     END
     METADATA
-      "wms_title" "clc_lake"
+      "wms_title" "clc00_lake"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_lake"
+      "wfs_title" "clc00_lake"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4489,17 +4489,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_lagoon"
+      NAME "clc00_lagoon"
       STYLE
         COLOR 0 211 239
       END
     END
     METADATA
-      "wms_title" "clc_lagoon"
+      "wms_title" "clc00_lagoon"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_lagoon"
+      "wfs_title" "clc00_lagoon"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4522,17 +4522,17 @@ MAP
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "clc_estuary"
+      NAME "clc00_estuary"
       STYLE
         COLOR 99 211 239
       END
     END
     METADATA
-      "wms_title" "clc_estuary"
+      "wms_title" "clc00_estuary"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "clc_estuary"
+      "wfs_title" "clc00_estuary"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
@@ -4540,6 +4540,1425 @@ MAP
       "gml_include_items" "all"
     END
   END # clc00_estuary
+
+  LAYER
+    NAME clc06_urban
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_urban USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_urban"
+      STYLE
+        COLOR 211 0 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_urban"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_urban"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_urban
+
+  LAYER
+    NAME clc06_town
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_town USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_town"
+      STYLE
+        COLOR 239 42 71
+      END
+    END
+    METADATA
+      "wms_title" "clc06_town"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_town"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_town
+
+  LAYER
+    NAME clc06_industrial
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_industrial USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_industrial"
+      STYLE
+        COLOR 211 0 155
+      END
+    END
+    METADATA
+      "wms_title" "clc06_industrial"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_industrial"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_industrial
+
+  LAYER
+    NAME clc06_transport
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_transport USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_transport"
+      STYLE
+        COLOR 126 126 126
+      END
+    END
+    METADATA
+      "wms_title" "clc06_transport"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_transport"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_transport
+
+  LAYER
+    NAME clc06_port
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_port USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_port"
+      STYLE
+        COLOR 155 155 211
+      END
+    END
+    METADATA
+      "wms_title" "clc06_port"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_port"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_port
+
+  LAYER
+    NAME clc06_airport
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_airport USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_airport"
+      STYLE
+        COLOR 155 181 13
+      END
+    END
+    METADATA
+      "wms_title" "clc06_airport"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_airport"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_airport
+
+  LAYER
+    NAME clc06_openmining
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_openmining USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_openmining"
+      STYLE
+        COLOR 126 211 155
+      END
+    END
+    METADATA
+      "wms_title" "clc06_openmining"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_openmining"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_openmining
+
+  LAYER
+    NAME clc06_dump
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_dump USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_dump"
+      STYLE
+        COLOR 155 13 42
+      END
+    END
+    METADATA
+      "wms_title" "clc06_dump"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_dump"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_dump
+
+  LAYER
+    NAME clc06_construction
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_construction USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_construction"
+      STYLE
+        COLOR 183 99 126
+      END
+    END
+    METADATA
+      "wms_title" "clc06_construction"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_construction"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_construction
+
+  LAYER
+    NAME clc06_greenspace
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_greenspace USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_greenspace"
+      STYLE
+        COLOR 99 239 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_greenspace"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_greenspace"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_greenspace
+
+  LAYER
+    NAME clc06_golfcourse
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_golfcourse"
+      STYLE
+        COLOR 239 71 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_golfcourse"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_golfcourse"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_golfcourse
+
+  LAYER
+    NAME clc06_drycrop
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_drycrop USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_drycrop"
+      STYLE
+        COLOR 239 239 126
+      END
+    END
+    METADATA
+      "wms_title" "clc06_drycrop"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_drycrop"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_drycrop
+
+  LAYER
+    NAME clc06_irrcrop
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_irrcrop"
+      STYLE
+        COLOR 183 183 71
+      END
+    END
+    METADATA
+      "wms_title" "clc06_irrcrop"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_irrcrop"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_irrcrop
+
+  LAYER
+    NAME clc06_rice
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_rice USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_rice"
+      STYLE
+        COLOR 230 230 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_rice"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_rice"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_rice
+
+  LAYER
+    NAME clc06_vineyard
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_vineyard USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_vineyard"
+      STYLE
+        COLOR 239 155 13
+      END
+    END
+    METADATA
+      "wms_title" "clc06_vineyard"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_vineyard"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_vineyard
+
+  LAYER
+    NAME clc06_orchard
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_orchard USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_orchard"
+      STYLE
+        COLOR 239 211 155
+      END
+    END
+    METADATA
+      "wms_title" "clc06_orchard"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_orchard"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_orchard
+
+  LAYER
+    NAME clc06_olives
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_olives USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_olives"
+      STYLE
+        COLOR 230 166 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_olives"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_olives"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_olives
+
+  LAYER
+    NAME clc06_cropgrass
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_cropgrass"
+      STYLE
+        COLOR 155 211 13
+      END
+    END
+    METADATA
+      "wms_title" "clc06_cropgrass"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_cropgrass"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_cropgrass
+
+  LAYER
+    NAME clc06_mixedcrop
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_mixedcrop"
+      STYLE
+        COLOR 239 211 99
+      END
+    END
+    METADATA
+      "wms_title" "clc06_mixedcrop"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_mixedcrop"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_mixedcrop
+
+  LAYER
+    NAME clc06_complexcrop
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_complexcrop"
+      STYLE
+        COLOR 239 211 99
+      END
+    END
+    METADATA
+      "wms_title" "clc06_complexcrop"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_complexcrop"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_complexcrop
+
+  LAYER
+    NAME clc06_naturalcrop
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_naturalcrop"
+      STYLE
+        COLOR 83 183 71
+      END
+    END
+    METADATA
+      "wms_title" "clc06_naturalcrop"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_naturalcrop"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_naturalcrop
+
+  LAYER
+    NAME clc06_agroforest
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_agroforest USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_agroforest"
+      STYLE
+        COLOR 242 204 166
+      END
+    END
+    METADATA
+      "wms_title" "clc06_agroforest"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_agroforest"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_agroforest
+
+  LAYER
+    NAME clc06_deciduousforest
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_deciduousforest"
+      STYLE
+        COLOR 0 183 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_deciduousforest"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_deciduousforest"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_deciduousforest
+
+  LAYER
+    NAME clc06_evergreenforest
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_evergreenforest"
+      STYLE
+        COLOR 0 126 99
+      END
+    END
+    METADATA
+      "wms_title" "clc06_evergreenforest"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_evergreenforest"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_evergreenforest
+
+  LAYER
+    NAME clc06_mixedforest
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_mixedforest"
+      STYLE
+        COLOR 0 126 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_mixedforest"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_mixedforest"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_mixedforest
+
+  LAYER
+    NAME clc06_grassland
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_grassland USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_grassland"
+      STYLE
+        COLOR 155 211 13
+      END
+    END
+    METADATA
+      "wms_title" "clc06_grassland"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_grassland"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_grassland
+
+  LAYER
+    NAME clc06_heath
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_heath USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_heath"
+      STYLE
+        COLOR 211 211 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_heath"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_heath"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_heath
+
+  LAYER
+    NAME clc06_sclerophyllous
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_sclerophyllous"
+      STYLE
+        COLOR 166 230 77
+      END
+    END
+    METADATA
+      "wms_title" "clc06_sclerophyllous"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_sclerophyllous"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_sclerophyllous
+
+  LAYER
+    NAME clc06_scrub
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_scrub USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_scrub"
+      STYLE
+        COLOR 183 239 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_scrub"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_scrub"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_scrub
+
+  LAYER
+    NAME clc06_sand
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_sand USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_sand"
+      STYLE
+        COLOR 239 239 183
+      END
+    END
+    METADATA
+      "wms_title" "clc06_sand"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_sand"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_sand
+
+  LAYER
+    NAME clc06_rock
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_rock USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_rock"
+      STYLE
+        COLOR 219 241 79
+      END
+    END
+    METADATA
+      "wms_title" "clc06_rock"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_rock"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_rock
+
+  LAYER
+    NAME clc06_barrencover
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_barrencover USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_barrencover"
+      STYLE
+        COLOR 126 211 155
+      END
+    END
+    METADATA
+      "wms_title" "clc06_barrencover"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_barrencover"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_barrencover
+
+  LAYER
+    NAME clc06_burnt
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_burnt USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_burnt"
+      STYLE
+        COLOR 0 0 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_burnt"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_burnt"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_burnt
+
+  LAYER
+    NAME clc06_glacier
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_glacier USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_glacier"
+      STYLE
+        COLOR 0 0 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_glacier"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_glacier"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_glacier
+
+  LAYER
+    NAME clc06_marsh
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_marsh USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_marsh"
+      STYLE
+        COLOR 211 211 0
+      END
+    END
+    METADATA
+      "wms_title" "clc06_marsh"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_marsh"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_marsh
+
+  LAYER
+    NAME clc06_bog
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_bog USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_bog"
+      STYLE
+        COLOR 183 71 239
+      END
+    END
+    METADATA
+      "wms_title" "clc06_bog"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_bog"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_bog
+
+  LAYER
+    NAME clc06_saltmarsh
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_saltmarsh"
+      STYLE
+        COLOR 183 126 211
+      END
+    END
+    METADATA
+      "wms_title" "clc06_saltmarsh"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_saltmarsh"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_saltmarsh
+
+  LAYER
+    NAME clc06_saline
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_saline USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_saline"
+      STYLE
+        COLOR 230 230 255
+      END
+    END
+    METADATA
+      "wms_title" "clc06_saline"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_saline"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_saline
+
+  LAYER
+    NAME clc06_littoral
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_littoral USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_littoral"
+      STYLE
+        COLOR 239 183 239
+      END
+    END
+    METADATA
+      "wms_title" "clc06_littoral"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_littoral"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_littoral
+
+  LAYER
+    NAME clc06_watercourse
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_watercourse USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_watercourse"
+      STYLE
+        COLOR 0 99 239
+      END
+    END
+    METADATA
+      "wms_title" "clc06_watercourse"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_watercourse"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_watercourse
+
+  LAYER
+    NAME clc06_lake
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_lake USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_lake"
+      STYLE
+        COLOR 0 155 239
+      END
+    END
+    METADATA
+      "wms_title" "clc06_lake"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_lake"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_lake
+
+  LAYER
+    NAME clc06_lagoon
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_lagoon USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_lagoon"
+      STYLE
+        COLOR 0 211 239
+      END
+    END
+    METADATA
+      "wms_title" "clc06_lagoon"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_lagoon"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_lagoon
+
+  LAYER
+    NAME clc06_estuary
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM clc06_estuary USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "clc06_estuary"
+      STYLE
+        COLOR 99 211 239
+      END
+    END
+    METADATA
+      "wms_title" "clc06_estuary"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "clc06_estuary"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # clc06_estuary
 
   LAYER
     NAME cs_default
