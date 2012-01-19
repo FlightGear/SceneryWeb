@@ -24,7 +24,7 @@ else:
 # end
 %>
 
-<!-- calls 'dlaction.psp', 'dlcs.psp', 'dlclc.psp' or 'dlosm.psp'
+<!-- calls 'dlaction.psp', 'dlcs.psp', 'dlclc00.psp', 'dlclc06.psp' or 'dlosm.psp'
      Pythonification into a generic abstraction to download features is
      still pending ....  -->
 
@@ -365,11 +365,11 @@ else:
             <hr>
             <p><h4>
               Download every polygon from
-              <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">CLC2000v13</a>
+              <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">CLC2000v15</a>
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="/dlclc">
+            <form method="post" action="/dlclc00">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
@@ -389,7 +389,40 @@ else:
             <input type="submit" value="Download" checked>
             </form>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlclc?xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+                <code>http://mapserver.flightgear.org/dlclc00?xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+            </p>
+            </td>
+            </tr>
+            <tr>
+            <td valign="top" align="center">
+            <hr>
+            <p><h4>
+              Download every polygon from
+              <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">CLC2006v15</a>
+              within a given bounding box query.
+            </h4></p>
+             Bounding Box (degrees):
+            <form method="post" action="/dlclc06">
+              <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
+                  <tr>
+                    <td></td>
+                    <td>  North:</td><td> <input type="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                    <td></td>
+                  </tr><tr>
+                    <td>  West:</td><td> <input type="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
+                    <td></td>
+                    <td>  East:</td><td> <input type="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
+                  </tr><tr>
+                    <td></td>
+                    <td>  South:</td><td> <input type="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                    <td></td>
+                  </tr>
+              </table>
+              <p>
+            <input type="submit" value="Download" checked>
+            </form>
+            <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
+                <code>http://mapserver.flightgear.org/dlclc06?xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
             </p>
             </td>
             </tr>

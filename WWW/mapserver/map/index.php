@@ -198,12 +198,20 @@
 	  {layers: 'v0cover', format: 'image/png'}
 	);
 
-	var corine = new OpenLayers.Layer.WMS( "Landcover-DB CLC2000v13",
+	var clc00 = new OpenLayers.Layer.WMS( "Landcover-DB CLC2000v15",
 	  [ "http://1.flightgear.telascience.org/tc?",
 	    "http://2.flightgear.telascience.org/tc?",
 	    "http://3.flightgear.telascience.org/tc?",
 	    "http://4.flightgear.telascience.org/tc?" ],
-	  {layers: 'corine', format: 'image/png'}
+	  {layers: 'clc00', format: 'image/png'}
+	);
+
+	var clc06 = new OpenLayers.Layer.WMS( "Landcover-DB CLC2006v15",
+	  [ "http://1.flightgear.telascience.org/tc?",
+	    "http://2.flightgear.telascience.org/tc?",
+	    "http://3.flightgear.telascience.org/tc?",
+	    "http://4.flightgear.telascience.org/tc?" ],
+	  {layers: 'clc06', format: 'image/png'}
 	);
 
 	var icubed = new OpenLayers.Layer.WMS( "TelaScience i-Cubed", 
@@ -384,7 +392,7 @@
 	csdefault.setVisibility(false);
 	downloadbox.setVisibility(false);
 	
-	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, corine, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox]);
+	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, clc00, clc06, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox]);
 
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.PanZoom());

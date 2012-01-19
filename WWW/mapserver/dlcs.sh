@@ -44,6 +44,8 @@ for LAYER in `${PSQL} "SELECT f_table_name FROM geometry_columns \
     fi
 done
 
+cp -a ${BASEDIR}/landcover/COPYING.gplv2 ${DUMPDIR}/COPYING
+
 zip ${DLDIR}/${UUID}\.zip *
 cd ${DUMPDIR}/.. && rm -rf ${UUID}
 

@@ -3123,14 +3123,14 @@ MAP
   END # tgr_landmarks
 
   LAYER
-    NAME clc_urban
+    NAME clc00_urban
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_urban USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_urban USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3153,17 +3153,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_urban
+  END # clc00_urban
 
   LAYER
-    NAME clc_town
+    NAME clc00_town
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_town USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_town USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3186,17 +3186,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_town
+  END # clc00_town
 
   LAYER
-    NAME clc_industrial
+    NAME clc00_industrial
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_industrial USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_industrial USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3219,17 +3219,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_industrial
+  END # clc00_industrial
 
   LAYER
-    NAME clc_transport
+    NAME clc00_transport
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_transport USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_transport USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3252,17 +3252,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_transport
+  END # clc00_transport
 
   LAYER
-    NAME clc_port
+    NAME clc00_port
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_port USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_port USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3285,17 +3285,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_port
+  END # clc00_port
 
   LAYER
-    NAME clc_airport
+    NAME clc00_airport
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_airport USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_airport USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3318,17 +3318,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_airport
+  END # clc00_airport
 
   LAYER
-    NAME clc_openmining
+    NAME clc00_openmining
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_openmining USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_openmining USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3351,17 +3351,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_openmining
+  END # clc00_openmining
 
   LAYER
-    NAME clc_dump
+    NAME clc00_dump
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_dump USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_dump USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3384,17 +3384,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_dump
+  END # clc00_dump
 
   LAYER
-    NAME clc_construction
+    NAME clc00_construction
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_construction USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_construction USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3417,17 +3417,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_construction
+  END # clc00_construction
 
   LAYER
-    NAME clc_greenspace
+    NAME clc00_greenspace
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_greenspace USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_greenspace USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3450,17 +3450,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_greenspace
+  END # clc00_greenspace
 
   LAYER
-    NAME clc_golfcourse
+    NAME clc00_golfcourse
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3483,17 +3483,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_golfcourse
+  END # clc00_golfcourse
 
   LAYER
-    NAME clc_drycrop
+    NAME clc00_drycrop
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_drycrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_drycrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3516,17 +3516,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_drycrop
+  END # clc00_drycrop
 
   LAYER
-    NAME clc_irrcrop
+    NAME clc00_irrcrop
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3549,17 +3549,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_irrcrop
+  END # clc00_irrcrop
 
   LAYER
-    NAME clc_rice
+    NAME clc00_rice
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_rice USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_rice USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3582,17 +3582,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_rice
+  END # clc00_rice
 
   LAYER
-    NAME clc_vineyard
+    NAME clc00_vineyard
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_vineyard USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_vineyard USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3615,17 +3615,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_vineyard
+  END # clc00_vineyard
 
   LAYER
-    NAME clc_orchard
+    NAME clc00_orchard
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_orchard USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_orchard USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3648,17 +3648,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_orchard
+  END # clc00_orchard
 
   LAYER
-    NAME clc_olives
+    NAME clc00_olives
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_olives USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_olives USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3681,17 +3681,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_olives
+  END # clc00_olives
 
   LAYER
-    NAME clc_cropgrass
+    NAME clc00_cropgrass
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3714,17 +3714,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_cropgrass
+  END # clc00_cropgrass
 
   LAYER
-    NAME clc_mixedcrop
+    NAME clc00_mixedcrop
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3747,17 +3747,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_mixedcrop
+  END # clc00_mixedcrop
 
   LAYER
-    NAME clc_complexcrop
+    NAME clc00_complexcrop
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3780,17 +3780,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_complexcrop
+  END # clc00_complexcrop
 
   LAYER
-    NAME clc_naturalcrop
+    NAME clc00_naturalcrop
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3813,17 +3813,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_naturalcrop
+  END # clc00_naturalcrop
 
   LAYER
-    NAME clc_agroforest
+    NAME clc00_agroforest
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_agroforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_agroforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3846,17 +3846,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_agroforest
+  END # clc00_agroforest
 
   LAYER
-    NAME clc_deciduousforest
+    NAME clc00_deciduousforest
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3879,17 +3879,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_deciduousforest
+  END # clc00_deciduousforest
 
   LAYER
-    NAME clc_evergreenforest
+    NAME clc00_evergreenforest
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3912,17 +3912,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_evergreenforest
+  END # clc00_evergreenforest
 
   LAYER
-    NAME clc_mixedforest
+    NAME clc00_mixedforest
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3945,17 +3945,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_mixedforest
+  END # clc00_mixedforest
 
   LAYER
-    NAME clc_grassland
+    NAME clc00_grassland
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_grassland USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_grassland USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3978,17 +3978,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_grassland
+  END # clc00_grassland
 
   LAYER
-    NAME clc_heath
+    NAME clc00_heath
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_heath USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_heath USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4011,17 +4011,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_heath
+  END # clc00_heath
 
   LAYER
-    NAME clc_sclerophyllous
+    NAME clc00_sclerophyllous
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4044,17 +4044,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_sclerophyllous
+  END # clc00_sclerophyllous
 
   LAYER
-    NAME clc_scrub
+    NAME clc00_scrub
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_scrub USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_scrub USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4077,17 +4077,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_scrub
+  END # clc00_scrub
 
   LAYER
-    NAME clc_sand
+    NAME clc00_sand
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_sand USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_sand USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4110,17 +4110,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_sand
+  END # clc00_sand
 
   LAYER
-    NAME clc_rock
+    NAME clc00_rock
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_rock USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_rock USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4143,17 +4143,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_rock
+  END # clc00_rock
 
   LAYER
-    NAME clc_barrencover
+    NAME clc00_barrencover
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_barrencover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_barrencover USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4176,17 +4176,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_barrencover
+  END # clc00_barrencover
 
   LAYER
-    NAME clc_burnt
+    NAME clc00_burnt
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_burnt USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_burnt USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4209,17 +4209,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_burnt
+  END # clc00_burnt
 
   LAYER
-    NAME clc_glacier
+    NAME clc00_glacier
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_glacier USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_glacier USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4242,17 +4242,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_glacier
+  END # clc00_glacier
 
   LAYER
-    NAME clc_marsh
+    NAME clc00_marsh
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_marsh USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_marsh USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4275,17 +4275,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_marsh
+  END # clc00_marsh
 
   LAYER
-    NAME clc_bog
+    NAME clc00_bog
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_bog USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_bog USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4308,17 +4308,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_bog
+  END # clc00_bog
 
   LAYER
-    NAME clc_saltmarsh
+    NAME clc00_saltmarsh
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4341,17 +4341,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_saltmarsh
+  END # clc00_saltmarsh
 
   LAYER
-    NAME clc_saline
+    NAME clc00_saline
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_saline USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_saline USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4374,17 +4374,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_saline
+  END # clc00_saline
 
   LAYER
-    NAME clc_littoral
+    NAME clc00_littoral
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_littoral USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_littoral USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4407,17 +4407,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_littoral
+  END # clc00_littoral
 
   LAYER
-    NAME clc_watercourse
+    NAME clc00_watercourse
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_watercourse USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_watercourse USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4440,17 +4440,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_watercourse
+  END # clc00_watercourse
 
   LAYER
-    NAME clc_lake
+    NAME clc00_lake
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_lake USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_lake USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4473,17 +4473,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_lake
+  END # clc00_lake
 
   LAYER
-    NAME clc_lagoon
+    NAME clc00_lagoon
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_lagoon USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_lagoon USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4506,17 +4506,17 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_lagoon
+  END # clc00_lagoon
 
   LAYER
-    NAME clc_estuary
+    NAME clc00_estuary
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc_estuary USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00_estuary USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4539,7 +4539,7 @@ MAP
       "wfs_abstract" "FlightGear Landcover-DB - Source: CORINE CLC2000. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # clc_estuary
+  END # clc00_estuary
 
   LAYER
     NAME cs_default
