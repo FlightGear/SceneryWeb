@@ -7,8 +7,8 @@
 
 UUID=${1}
 PGHOST=geoscope.optiputer.net
-PGDATABASE=landcover
 PGUSER=webuser
+PGDATABASE=landcover
 PSQL="psql -h ${PGHOST} -d ${PGDATABASE} -U webuser -tA -c"
 BASEDIR=/home/martin
 PGSQL2SHP=/opt/PostgreSQL/bin/pgsql2shp
@@ -24,7 +24,7 @@ DLDIR=${BASEDIR}/SHPdl
 #UR_GEOMETRY=`GeomSelect ur`
 #BBOX="${LL_GEOMETRY}, ${UR_GEOMETRY}"
 
-mkdir ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
+mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
 
 for LAYER in apt_runway apt_tarmac v0_lake v0_landmass; do
@@ -35,8 +35,8 @@ for LAYER in apt_runway apt_tarmac v0_lake v0_landmass; do
         ${PGSQL2SHP} -f ${DUMPDIR}/${LAYER}.shp \
             -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
             "SELECT * FROM ${LAYER} \
-              WHERE wkb_geometry && \
-              ST_Buffer((SELECT wkb_geometry FROM apt_airfield WHERE icao LIKE 'EHAM'), 2)"
+                WHERE wkb_geometry && \
+                ST_Buffer((SELECT wkb_geometry FROM apt_airfield WHERE icao LIKE 'EHAM'), 2)"
         cp -a ${BASEDIR}/landcover/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
     fi
 done

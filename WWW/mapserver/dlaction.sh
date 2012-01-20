@@ -58,14 +58,14 @@ HasMapLayer
 echo ${SQLFILTER}
 FileName
 
-mkdir ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
+mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
 
 ${PGSQL2SHP} -f ${DUMPDIR}/${LAYER}.shp \
-  -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
-  "SELECT * FROM ${LAYER} \
-    WHERE wkb_geometry && \
-    ST_SetSRID('BOX3D(${BBOX})'::BOX3D, 4326 ) ${SQLFILTER}"
+    -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
+    "SELECT * FROM ${LAYER} \
+        WHERE wkb_geometry && \
+        ST_SetSRID('BOX3D(${BBOX})'::BOX3D, 4326 ) ${SQLFILTER}"
 
 cp -a ${BASEDIR}/landcover/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
 
