@@ -45,7 +45,18 @@
     <script type="text/javascript">
     // click on map to select a box of coordinates
     var box_extents = [];
+    function toggleDldBox(ev) {
+    	if(document.getElementById('dlbox').style.display=="none") {
+    		document.getElementById('dlbox').style.display="inline";
+    	}
+    	else {
+    		document.getElementById('dlbox').style.display="none";
+    	}
+    }
     var downloadbox  = new OpenLayers.Layer.Boxes( "Download-Box" );
+    downloadbox.events.on({
+                    'visibilitychanged': toggleDldBox
+                });
     OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
                 defaultHandlerOptions: {
                     'single': true,
@@ -423,12 +434,15 @@
             <b><a href="/">Back</a></b> to the intro page.
           </td>
           <td>
+           <div id="dlbox" style="display:inline;">
             <form action="/shpdl" method="POST">
             <input type="text" id="xmin" name="xmin" value=""/>
             <input type="text" id="xmax" name="xmax" value=""/><br/>
             <input type="text" id="ymin" name="ymin" value=""/>
             <input type="text" id="ymax" name="ymax" value=""/><br/>
             <input type="submit" value="Download shapefiles">
+            </form>
+           </div>
           </td>
         </tr>
       </table>
