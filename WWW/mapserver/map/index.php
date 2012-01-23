@@ -36,13 +36,32 @@
         width: 100%;
         height: 100%;
       }
+      #slider1 {
+      	  width: 200px;
+      	  position: relative;
+      	  margin-left:30px;
+      	  z-index:2001;
+      	  display:block;
+      	  float:left;
+      }
+      #slider2 {
+      	  width: 200px;
+      	  position: relative;
+      	  margin-left:30px;
+      	  z-index:2001;
+      	  display:block;
+      	  float:left;
+      }
     </style>
-
+    <link rel="stylesheet" href="jquery/jquery-ui-1.8.17.custom.css" type="text/css">
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery-ui-1.8.17.custom.min.js"></script>
     <script src="http://www.openlayers.org/dev/OpenLayers.js"></script>
 <!--    <script src="../OpenLayers-2.10/OpenLayers.js"></script> -->
 <!--    <script src="../openlayers-ys/OpenLayers.js"></script> -->
     <script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
     <script type="text/javascript">
+    jQuery.noConflict();
     // click on map to select a box of coordinates
     var box_extents = [];
     function toggleDldBox(ev) {
@@ -53,6 +72,7 @@
     		document.getElementById('dlbox').style.display="none";
     	}
     }
+    
     var downloadbox  = new OpenLayers.Layer.Boxes( "Download-Box" );
     downloadbox.events.on({
                     'visibilitychanged': toggleDldBox
@@ -419,16 +439,34 @@
 	map.addControl(click);
 	click.activate();
 	
+	jQuery("#slider1").slider({
+			value: 100,
+			slide: function(e, ui) {
+				cslines.setOpacity(ui.value / 100);
+			}
+		});
+	 
+	 jQuery("#slider2").slider({
+			value: 100,
+			slide: function(e, ui) {
+				osmlines.setOpacity(ui.value / 100);
+			}
+		});
 	
       }
       
+        
     </script>
   </HEAD>
 
   <BODY style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
-    <div style=" width:100%; heigth:100%;" id="map"></div> 
+    <div style=" width:100%; height:100%;" id="map"></div> 
+    <div style="position:absolute; bottom:100px;width:700px;z-index: 2001;height:30px;" align="center">
+    <div id="slider1"><span style="position:relative;top:20px;">CS Lines</span><div class="ui-slider-handle"></div></div>
+    <div id="slider2"><span style="position:relative;top:20px;">OSM lines</span><div class="ui-slider-handle"></div></div>
+    </div>>
     <div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
-      <table
+      <table>
         <tr>
           <td>
             <b><a href="/">Back</a></b> to the intro page.
