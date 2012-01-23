@@ -73,9 +73,22 @@
     	}
     }
     
+    function toggleSliders(ev) {
+    	if(document.getElementById('sliders').style.display=="none") {
+    		document.getElementById('sliders').style.display="inline";
+    	}
+    	else {
+    		document.getElementById('sliders').style.display="none";
+    	}
+    }
+    
     var downloadbox  = new OpenLayers.Layer.Boxes( "Download-Box" );
     downloadbox.events.on({
                     'visibilitychanged': toggleDldBox
+                });
+    var opacity_sliders = new OpenLayers.Layer.Boxes( "Opacity Sliders" );
+    opacity_sliders.events.on({
+                    'visibilitychanged': toggleSliders
                 });
     OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
                 defaultHandlerOptions: {
@@ -422,8 +435,9 @@
 	fgbuckets.setVisibility(false);
 	csdefault.setVisibility(false);
 	downloadbox.setVisibility(false);
+	opacity_sliders.setVisibility(false);
 	
-	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, clc00, clc06, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox]);
+	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, clc00, clc06, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox, opacity_sliders]);
 
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.PanZoom());
@@ -461,10 +475,10 @@
 
   <BODY style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
     <div style=" width:100%; height:100%;" id="map"></div> 
-    <div style="position:absolute; bottom:100px;width:700px;z-index: 2001;height:30px;" align="center">
+    <div id="sliders" style="position:absolute; bottom:100px;width:700px;z-index: 2001;height:30px;" align="center">
     <div id="slider1"><span style="position:relative;top:20px;">CS Lines</span><div class="ui-slider-handle"></div></div>
     <div id="slider2"><span style="position:relative;top:20px;">OSM lines</span><div class="ui-slider-handle"></div></div>
-    </div>>
+    </div>
     <div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
       <table>
         <tr>
