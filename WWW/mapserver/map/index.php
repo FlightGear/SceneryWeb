@@ -56,8 +56,8 @@
     <link rel="stylesheet" href="jquery/jquery-ui-1.8.17.custom.css" type="text/css">
     <script src="jquery/jquery-1.7.1.min.js"></script>
     <script src="jquery/jquery-ui-1.8.17.custom.min.js"></script>
-    <script src="http://www.openlayers.org/dev/OpenLayers.js"></script>
-<!--    <script src="../OpenLayers-2.10/OpenLayers.js"></script> -->
+<!--    <script src="http://www.openlayers.org/dev/OpenLayers.js"></script> -->
+    <script src="/ol/OpenLayers.js"></script>
 <!--    <script src="../openlayers-ys/OpenLayers.js"></script> -->
     <script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
     <script type="text/javascript">
