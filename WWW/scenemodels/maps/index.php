@@ -6,7 +6,8 @@
         .olPopup p { margin:0px; font-size: .9em;}
         h2 { margin:0px; font-size: 1.2em;}
 </style>
-<script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<!-- <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script> -->
+<script type="text/javascript" src="http://mapserver.flightgear.org/ol/OpenLayers.js"></script>
 <script src="http://api.maps.yahoo.com/ajaxymap?v=3.0&appid=euzuro-openlayers"></script>
 </head>
 
