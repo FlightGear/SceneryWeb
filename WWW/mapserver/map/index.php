@@ -423,8 +423,8 @@
 	tarmac.setVisibility(true);
 	tarmac850.setVisibility(false);
 	osmtarmac.setVisibility(false);
-	cslines.setVisibility(true);
-	osmlines.setVisibility(false);
+	cslines.setVisibility(false);
+	osmlines.setVisibility(true);
 	osmlinecover.setVisibility(false);
 	noaroads.setVisibility(false);
 	airfield.setVisibility(false);
