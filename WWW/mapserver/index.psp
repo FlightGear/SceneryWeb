@@ -117,7 +117,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       </tr>
     </form>
 
-    <form method="post" action="http://mapserver.flightgear.org/map/?lon=-62.87648&amp;lat=17.69865&amp;zoom=10">">
+    <form method="post" action="http://mapserver.flightgear.org/map/?lon=-62.87648&amp;lat=17.69865&amp;zoom=10">
       <tr>
         <td>Caribbean <a href="http://www.custom-scenery.org/Satellite-Image.304.0.html">Custom Scenery</a> OpenLayers Demo</td>
         <td></td>
