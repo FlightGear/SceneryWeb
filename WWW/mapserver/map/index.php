@@ -209,9 +209,7 @@
 //        );
 
 	var customscene = new OpenLayers.Layer.WMS( "Landcover-DB CS Test",
-	  [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-	    "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-	    "http://3.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+	  [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
 	    "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
 	  {layers: 'cs_herbtundra,cs_heath,cs_barrencover,cs_dirt,cs_rainforest,cs_mixedforest,cs_evergreenforest,cs_deciduousforest,cs_olives,cs_orchard,cs_vineyard,cs_burnt,cs_sclerophyllous,cs_scrub,cs_greenspace,cs_grassland,cs_golfcourse,cs_agroforest,cs_cropgrass,cs_naturalcrop,cs_complexcrop,cs_mixedcrop,cs_rice,cs_irrcrop,cs_drycrop,cs_cemetery,cs_transport,cs_construction,cs_industrial,cs_dump,cs_openmining,cs_lava,cs_rock,cs_saltmarsh,cs_littoral,cs_saline,cs_sand,cs_marsh,cs_bog,cs_estuary,cs_lagoon,cs_floodland,cs_town,cs_suburban,cs_port,cs_urban,cs_polarice,cs_packice,cs_glacier,cs_watercourse,cs_intermittentlake,cs_lake,cs_asphalt,cs_airport', format: 'image/png'},
           {minZoomLevel: 10}
@@ -226,9 +224,7 @@
 //	);
 
 	var csdefault = new OpenLayers.Layer.WMS( "Landcover-DB CS Voidfill",
-	  [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-	    "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-	    "http://3.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+	  [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
 	    "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
 	  {layers: 'cs_default', transparent: 'true', format: 'image/png'},
 	  {isBaseLayer: false}
@@ -340,9 +336,7 @@
 	);
 
 //	var cslines = new OpenLayers.Layer.WMS( "VMap0/CS line features",
-//	  [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-//	    "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-//	    "http://3.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+//	  [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
 //	    "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
 //	  {layers: 'cs_freeway,cs_road,cs_railroad2,cs_railroad1,cs_canal,cs_intermittentstream,cs_stream', format: 'image/png'},
 //	  {isBaseLayer: false}
@@ -412,9 +406,7 @@
 	);
 
 	var osmlinecover = new OpenLayers.Layer.WMS( "OSM line features (polygon, experimental)",
-	  [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-	    "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-	    "http://3.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+	  [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
 	    "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
 	  {layers: 'osm_roadcover', format: 'image/png'},
 	  {isBaseLayer: false}

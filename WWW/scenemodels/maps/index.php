@@ -79,9 +79,7 @@
 			  {isBaseLayer: false} );
 
                 var wmssigns = new OpenLayers.Layer.WMS( "WMS Taxiway Signs",
-                          [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-                          "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-                          "http://3.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+                          [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
                           "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
                           {layers: 'fgs_signs', transparent: 'true', format: 'image/png'},
                           {isBaseLayer: false, maxScale: 5000 });
@@ -110,9 +108,7 @@
 		{type:'png', getURL: get_osm_url, displayOutsideMaxExtent: true, 'buffer':1, transitionEffect: 'resize'} );
 
         var wmsobjects = new OpenLayers.Layer.WMS( "Scenery Objects",
-                [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-                "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-                "http://3.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+                [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
                 "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
                 {layers: 'fgs_staticobjects,fgs_sharedobjects', transparent: 'true', format: 'image/png'},
                 {isBaseLayer: false, maxScale: 12500 });
