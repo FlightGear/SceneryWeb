@@ -79,7 +79,7 @@ MAP
     MINSCALE 1000
 #    MAXSCALE 1550000
     MAXSCALE 10000000
-    IMAGEPATH "/home/martin/MStmp/"
+    IMAGEPATH "/home/fgscenery/MStmp/"
     IMAGEURL "/tmp/"
     LOG "/tmp/mapserv.log"
     TEMPLATE "main.html"

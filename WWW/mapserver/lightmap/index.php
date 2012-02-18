@@ -17,7 +17,7 @@
 
 <?php
     include_once("geoipcity.inc");
-    $gi = geoip_open("/home/martin/GeoIP/GeoLiteCity.dat",GEOIP_STANDARD);
+    $gi = geoip_open("/home/fgscenery/GeoIP/GeoLiteCity.dat",GEOIP_STANDARD);
     $girecord = geoip_record_by_addr($gi,$_SERVER['REMOTE_ADDR']);
     geoip_close($gi);
 ?>
