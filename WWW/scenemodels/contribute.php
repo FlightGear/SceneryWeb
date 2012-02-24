@@ -114,19 +114,18 @@ able to help with converting and importing it for you.
 
 
 <h4><a name="contact"><font color="blue">Upload facilities</a></font></h4>
-Facilities to handle the uploading of your own model data are not yet complete, but the data can currently be submitted in 2 ways:
+<!-- Facilities to handle the uploading of your own model data are not yet complete, but the data can currently be submitted in 2 ways: -->
 <ul>
 	<li> By Email
 		<br>Send a message containing the info above, to (sorry for the anti 
 		spam measures, I'm sure you understand):
 		<br>fgfsdb at stockill dot net
-		<br>or
-<!--		<br>Martin dot Spott at mgras dot net -->
+<!--		<br>or
 		<br>Martin at flightgear dot org
 	<li> By anonymous FTP
     <br>Put all the info described above into an archive (.zip or .tar.gz 
     format) and upload it to:
-    <br>ftp://ftp.ihg.uni-duisburg.de/FlightGear/incoming/ 
+    <br>ftp://ftp.ihg.uni-duisburg.de/FlightGear/incoming/  -->
 <ul>
 </td></tr>
 
