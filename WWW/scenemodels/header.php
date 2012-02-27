@@ -38,6 +38,11 @@ window.onload=startMenu;
 
 <li class="mainitems">
 <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
+<ul class="submenus">
+<li>Add a new shared object position.</li>
+<li>Edit an existing shared object settings.</li>
+<li>Delete an existing shared object position.</li>
+</ul>
 </li>
 
 <li class="mainitems">
