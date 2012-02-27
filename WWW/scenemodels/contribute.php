@@ -32,11 +32,12 @@ give detailed recommendations in order to avoid misunderstandings.
 <tr><th><a name="positions">Contributing Positions</a></th></tr>
 <tr><td>
 <p>If you wish to contribute positions for the many shared models that are 
-already available then these are best submitted in either the stg format used
-in the scenery, or the xml files produced by the UFO scenery editor. These
-files should be emailed to fgfsdb at stockill dot net. If you have data
-available in other formats please contact me at the same address as I may be
-able to help with converting and importing it for you.
+already available then these are best submitted:
+<ul>
+<li>directly through the web forms at http://scenemodels.flightgear.org/submission if you don't have too much of them (mass import will come soon). Those scripts give you the possibility to add, edit and delete positions of shared objects. Please use them in priority as they make the work of maintainers much easier.
+<li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery</a>, or the XML files produced by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO</a> scenery editor and emailed to fgfsdb at stockill dot net.
+If you have data available in other formats please contact me at the same address as I may be able to help with converting and importing it for you.
+</ul>
 
 <h4>Extra options for .stg submissions</h4>
 <p>You can help speed the import process by including all the details about your scenery in an stg file. This can be processed automatically and is by far the quickest way to get your model locations into the database.</p>
@@ -51,7 +52,7 @@ able to help with converting and importing it for you.
 
 <tr><th><a name="models">Contributing Models</a></th></tr>
 <tr><td>
-<p>If you wish to help populate the world with interesting objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:
+<p>If you wish to help populate the world with interesting static objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:
 
 <h4>Mandantory submission items</h4>
 <ul>
@@ -105,7 +106,7 @@ able to help with converting and importing it for you.
             artifacts.  Therefore: Please don't !<br>
 <ul>
 	<li>For groupings of individual models choose a distinct, corresponding position for each of them, never mount multiple models into a single position.
-        <li>Textures should be in PNG format - older models which used rgb textures have been updated.
+        <li>Textures should be in PNG format - older models which used rgb textures have been updated. <b>The textures dimensions have to be a power of two: eg 128x256.</b>
 <!--	<li>Apron, taxiway, runway or other airport pavements are being maintained at <A HREF="http://www.x-plane.org/home/robinp/index.htm#Updates">Robin Peel's airport database</A>. -->
 	<li>As a general rule, do <b>not</b> try to (mis)use 3D models as a substitute for unfinished airfield layout or land cover. Do <b>not</b> place your models at incorrect positions just because the current land cover shapes do not match.
 	<li>Feel invited to send us an early version of your model even if it still has unfinished details. It's always possible to update the respective metadata entry with a refined model - especially when the placement of the model doesn't change any more.
@@ -129,7 +130,6 @@ Facilities to handle the uploading of your own model data are not yet complete, 
     <br>ftp://ftp.ihg.uni-duisburg.de/FlightGear/incoming/ 
 <ul>
 </td></tr>
-
 <tr><th><a name="thumbnails">Contributing Thumbnails</a></th></tr>
 <tr><td>
 <p>A noticeable amount of model submissions are missing a thumbnail. If you
@@ -139,7 +139,6 @@ the respective model. JPEG's of 320x240 make our overview.<br>
 Models are easily identified by their numeric id when you click on the
 thumbnail in the Browser view.
 </td></tr>
-
 </table>
 </body>
 </html>
