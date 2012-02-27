@@ -34,8 +34,8 @@ give detailed recommendations in order to avoid misunderstandings.
 <p>If you wish to contribute positions for the many shared models that are 
 already available then these are best submitted:
 <ul>
-<li>directly through the web forms at http://scenemodels.flightgear.org/submission if you don't have too much of them (mass import will come soon). Those scripts give you the possibility to add, edit and delete positions of shared objects. Please use them in priority as they make the work of maintainers much easier.
-<li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery</a>, or the XML files produced by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO</a> scenery editor and emailed to fgfsdb at stockill dot net.
+<li>directly through <a href="http://scenemodels.flightgear.org/submission">our friendly web forms</a> if you don't have too many of them (mass import will come soon). Those scripts give you the possibility to add, edit and delete positions of shared objects. <b>Please use them in priority as they make the work of maintainers much easier.</b>
+<li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery</a>, or the XML files produced by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO scenery editor</a> and emailed to fgfsdb at stockill dot net.
 If you have data available in other formats please contact me at the same address as I may be able to help with converting and importing it for you.
 </ul>
 
