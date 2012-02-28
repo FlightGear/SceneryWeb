@@ -38,6 +38,11 @@ window.onload=startMenu;
 
 <li class="mainitems">
 <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
+<ul class="submenus">
+<li><a href="http://scenemodels.flightgear.org/submission/shared/index.php">Add a new shared object position.</a></li>
+<li><a href="http://scenemodels.flightgear.org/submission/shared/index_update.php">Edit an existing shared object settings.</a></li>
+<li><a href="http://scenemodels.flightgear.org/submission/shared/index_delete.php">Delete an existing shared object position.</a></li>
+</ul>
 </li>
 
 <li class="mainitems">
