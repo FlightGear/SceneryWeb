@@ -255,22 +255,13 @@
 	);
 
 	var icubed = new OpenLayers.Layer.WMS( "TelaScience i-Cubed", 
-	  [ "http://t1.hypercube.telascience.org/tiles?",
-	    "http://t2.hypercube.telascience.org/tiles?",
-	    "http://t3.hypercube.telascience.org/tiles?",
-	    "http://t4.hypercube.telascience.org/tiles?" ],
-	  {layers: 'landsat7-google', format: 'image/jpeg'} ,
+	  [ "http://1.flightgear.telascience.org/tc?",
+	    "http://2.flightgear.telascience.org/tc?",
+	    "http://3.flightgear.telascience.org/tc?",
+	    "http://4.flightgear.telascience.org/tc?" ],
+	  {layers: 'icubed', format: 'image/png'},
 	  {wrapDateLine: true}
 	);
-
-//	var icubed = new OpenLayers.Layer.WMS( "TelaScience i-Cubed", 
-//	  [ "http://1.flightgear.telascience.org/tc?",
-//	    "http://2.flightgear.telascience.org/tc?",
-//	    "http://3.flightgear.telascience.org/tc?",
-//	    "http://4.flightgear.telascience.org/tc?" ],
-//	  {layers: 'icubed', format: 'image/jpeg'},
-//	  {wrapDateLine: true}
-//	);
 
         var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (Attribution!)");
 
@@ -429,7 +420,7 @@
 	downloadbox.setVisibility(false);
 	opacity_sliders.setVisibility(false);
 	
-	map.addLayers([customscene, v0cover, yahoosat, googlesat, mapnik, clc00, clc06, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox, opacity_sliders]);
+	map.addLayers([customscene, v0cover, yahoosat, googlesat, icubed, mapnik, clc00, clc06, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox, opacity_sliders]);
 
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.PanZoom());
