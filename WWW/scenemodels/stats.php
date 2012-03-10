@@ -39,7 +39,7 @@
       <table>
         <tr><th colspan=2>Models By Author</th></tr>
         <?php
-          $query = "SELECT count(mo_id) AS count,au_name,au_id ";
+          $query = "SELECT count(mo_id) as count,au_name,au_id ";
           $query.= "FROM fgs_models,fgs_authors ";
           $query.= "WHERE mo_author=au_id ";
           $query.= "GROUP BY au_id,au_name ";
