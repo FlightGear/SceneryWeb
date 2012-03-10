@@ -1,18 +1,18 @@
 <html>
-<head>
-<title>Model Position</title>
-<style type="text/css">
-    .olFramedCloudPopupContent { padding: 5px; }
-        .olPopup p { margin:0px; font-size: .9em;}
-        h2 { margin:0px; font-size: 1.2em;}
-</style>
-<!-- <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script> -->
-<script type="text/javascript" src="http://mapserver.flightgear.org/ol/OpenLayers.js"></script>
-<script src="http://api.maps.yahoo.com/ajaxymap?v=3.0&appid=euzuro-openlayers"></script>
-</head>
+  <head>
+    <title>Model Position</title>
+    <style type="text/css">
+      .olFramedCloudPopupContent { padding: 5px; }
+      .olPopup p { margin:0px; font-size: .9em;}
+      h2 { margin:0px; font-size: 1.2em;}
+    </style>
+    <!-- <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script> -->
+    <script type="text/javascript" src="http://mapserver.flightgear.org/ol/OpenLayers.js"></script>
+    <script src="http://api.maps.yahoo.com/ajaxymap?v=3.0&appid=euzuro-openlayers"></script>
+  </head>
 
-<script type="text/javascript">
-<!--
+  <script type="text/javascript">
+    <!--
         var lon = <?php print $_REQUEST["lon"]; ?>;
         var lat = <?php print $_REQUEST["lat"];?>;
         var zoom = <?php print $_REQUEST["zoom"];?>;
@@ -22,7 +22,7 @@
         var x = Math.round ((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
         var y = Math.round ((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
         var z = this.map.getZoom();
-   var limit = Math.pow(2, z);
+        var limit = Math.pow(2, z);
    if (y < 0 || y >= limit)
    {
      return null;
@@ -184,10 +184,9 @@
         feature.popup = null;
       }
     }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-//-->
-</script>
-<body style='margin: 0px;' onload="init();">
-  <div style=" width:100%; height:100%;" id="map"></div>
-</body>
+    //-->
+  </script>
+  <body style='margin: 0px;' onload="init();">
+    <div style=" width:100%; height:100%;" id="map"></div>
+  </body>
 </html>
