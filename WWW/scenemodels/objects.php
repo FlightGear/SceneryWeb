@@ -161,8 +161,8 @@
       <?php
         $prev = $offset-20;
         $next = $offset+20;
-        echo "<a href=\"objects.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description="$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>  ";
-        echo "  <a href=\"objects.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+        echo "<a href=\"objects.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
+        echo "<a href=\"objects.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
         ?>
       </td>
     </tr>
@@ -195,8 +195,8 @@
         <?php
           $prev = $offset-20;
           $next = $offset+20;
-          echo "<a href=\"objects.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description="$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>  ";
-          echo "  <a href=\"objects.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+          echo "<a href=\"objects.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
+          echo "<a href=\"objects.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
         ?>
       </td>
     </tr>

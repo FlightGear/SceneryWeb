@@ -18,7 +18,7 @@
       $query = "SELECT * ";
       $query.= "FROM fgs_authors ";
       $query.= "ORDER BY au_name ";
-      $query.= "LIMITE 10 OFFSET ".$offset;
+      $query.= "LIMIT 10 OFFSET ".$offset;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
