@@ -1,8 +1,3 @@
-<html>
-<head>
-<link rel="stylesheet" href="style.css" type="text/css">
-</head>
-<body>
 <?php include 'header.php';?>
 <h1 align=center>How To Contribute</h1>
 

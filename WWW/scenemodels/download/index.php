@@ -1,20 +1,15 @@
-<HTML>
-<HEAD>
-<TITLE>FGFS Scenery Object Downloads</TITLE>
-<link rel="stylesheet" href="/style.css" type="text/css">
-</HEAD>
-<BODY>
 <?php include '../header.php';?>
-<H1>Scenery Object Downloads</H1>
-Click on any of the 10x10 degree chunks in the image below to
-download the objects for that area.<BR>
-An area with no corresponding link means that no objects are
-available in that area, or if a rebuild is in
-progress, that chunk may not yet be generated.
-<p>Currently a global file is also available <a href="GlobalObjects.tgz">here</a>.
-<p>A collection of shared models can be downloaded <a href="SharedModels.tgz">here</a>.
-<br>(This file is <b>*REQUIRED*</b> if you want to see all the objects, and should be unpacked in your FGROOT directory.)
-<P>
+<h1>Scenery Object Downloads</h1>
+<p>
+  Click on any of the 10x10 degree chunks in the image below to download the objects for that area.<br/>
+  An area with no corresponding link means that no objects are available in that area, or if a rebuild is in progress, that chunk may not yet be  generated.<br/><br/>
+  Currently a global file is also available <a href="GlobalObjects.tgz">here</a>.<br/><br/>
+  A collection of shared models can be downloaded <a href="SharedModels.tgz">here</a>.<br/>
+  (This file is <b>*REQUIRED*</b> if you want to see all the objects, and should be unpacked in your FGROOT directory)
+</p>
+
+<br/><br/>
+
 <IMG SRC="map.png" WIDTH="720" HEIGHT="450" USEMAP="#map">
 <MAP NAME="map">
 <AREA SHAPE=rect COORDS=360,200,380,225 HREF=/download/GlobalObjects.tgz ALT="GlobalObjects.tgz  3.97 Mb  10/15/2005">
@@ -327,10 +322,10 @@ progress, that chunk may not yet be generated.
 <AREA SHAPE=rect COORDS=0,275,20,300 HREF=/download/w180s30.tgz ALT="w180s30.tgz  0.00 Mb  10/15/2005">
 <AREA SHAPE=rect COORDS=0,325,20,350 HREF=/download/w180s50.tgz ALT="w180s50.tgz  0.00 Mb  10/15/2005">
 </MAP>
-<P>In your scenery directory create directories called Objects
-and Terrain.
-<P>Unpack the files from this site in the Objects directory, and the 
-<a href="http://www.flightgear.org/Downloads/scenery-1.0.1.html">
-FlightGear scenery</a> files into the Terrain directory.
-</BODY>
-</HTML>
+
+<p>
+  In your scenery directory create directories called Objects and Terrain.<br/><br/>
+  Unpack the files from this site in the Objects directory, and the <a href="http://www.flightgear.org/Downloads/scenery-1.0.1.html">FlightGear scenery</a> files into the Terrain directory.
+</p>
+</body>
+</html>
