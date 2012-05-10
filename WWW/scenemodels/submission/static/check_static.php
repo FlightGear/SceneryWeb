@@ -63,9 +63,10 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
 if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 
   $targetPath   = "tmp/";
+  mkdir($targetPath);
   if($ac3dName == $xmlName){
-    $xmlName      = $_FILES["xml_file"]['name'];
-    $xmlPath      = $targetPath.$_FILES["xml_file"]['name'];
+    $xmlName    = $_FILES["xml_file"]['name'];
+    $xmlPath    = $targetPath.$_FILES["xml_file"]['name'];
   }
   $thumbPath    = $targetPath.$_FILES["mo_thumbfile"]['name'];
   $ac3dPath     = $targetPath.$_FILES["ac3d_file"]['name'];
@@ -515,7 +516,11 @@ if($fatalerror || $error > 0){
 ###############################################
 ###############################################
 
+if(file_exist($targetPath) && is_dir($targetPath)){
+  echo "ok";
 
+  //rmdir();
+}
 
 ###############################################
 ###############################################
