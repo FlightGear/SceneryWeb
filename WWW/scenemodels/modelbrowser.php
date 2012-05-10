@@ -47,7 +47,6 @@ else
       <script language="javascript" src="images_fgfsdb.js" type="text/javascript"></script>
       <div id="trailimageid" style="position:absolute;z-index:10000;overflow:visible"></div>
       <?php
-echo $query;
         $result=pg_query($query);
         while ($row = pg_fetch_assoc($result)){
       ?>
