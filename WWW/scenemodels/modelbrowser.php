@@ -1,4 +1,6 @@
 <?php
+include 'header.php';
+
   $link=pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
 if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset'])))
 {
@@ -30,12 +32,7 @@ else
   $title="FlightGear Scenery Model Browser";
 };
 ?>
-<html>
-<head>
-<link rel="stylesheet" href="style.css" type="text/css">
-</head>
-<body>
-<?php include 'header.php';?>
+
 <h1 align=center><?php echo $title;?></h1>
 <table>
   <tr class=bottom>
