@@ -63,7 +63,9 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
 if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 
   $targetPath   = "tmp/";
-  mkdir($targetPath);
+  if(!mkdir($targetPath)){
+    echo "Impossible to create 'tmp' directory !";
+  }
   if($ac3dName == $xmlName){
     $xmlName    = $_FILES["xml_file"]['name'];
     $xmlPath    = $targetPath.$_FILES["xml_file"]['name'];
