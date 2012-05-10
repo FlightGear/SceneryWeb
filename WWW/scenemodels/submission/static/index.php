@@ -194,7 +194,7 @@ Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT us
 			// Google Captcha stuff
 			require_once('../captcha/recaptchalib.php');
 			$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-			echo recaptcha_get_html($publickey);
+			//echo recaptcha_get_html($publickey);
 			?>
 			</center>
 			<br />

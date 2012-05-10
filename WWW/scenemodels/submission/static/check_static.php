@@ -5,13 +5,14 @@ require_once('../captcha/recaptchalib.php');
 $fatalerror = 0;
 $error      = 0;
 $errormsg   = "";
-
+/*
 $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
 $resp = recaptcha_check_answer ($privatekey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 if(!$resp->is_valid){
   echo "Wrong captcha ! <a href=\"javascript:history.back()\">Go back and try it again</a>";
   exit();
 }
+*/
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -213,6 +214,7 @@ if($_FILES['xml_file']['name'] != ""){ // if file exist
         }
       }
     }else{
+
       $error += 1;
       $errormsg .= "The format or the extention seems to be wrong for you XML file \"".$xmlName."\". XML file need to be an XML file<br/>";
     }
