@@ -38,17 +38,25 @@ else
 <?php include 'header.php';?>
 <h1 align=center><?php echo $title;?></h1>
 <table>
-<tr class=bottom><td colspan=9 align=center><a href="modelbrowser.php?offset=<?php echo $offset-100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a> <a href="modelbrowser.php?offset=<?php echo $offset+100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a></td></tr>
-<tr><td>
-<script>var noPicture = false</script>
-<script language="javascript" src="images_fgfsdb.js" type="text/javascript"></script>
-<div id="trailimageid" style="position:absolute;z-index:10000;overflow:visible"></div>
-<?php
-$result=pg_query($query);
-while ($row = pg_fetch_assoc($result))
-{
-?>
-<a href="/modeledit.php?id=<?php echo $row["mo_id"];?>"><img border=0 title="<?php echo $row["mo_name"]." [".$row["mo_path"]."]";?>" src="modelthumb.php?id=<?php echo $row["mo_id"];?>" width=100 height=75 onmouseover="showtrail('modelthumb.php?id=<?php echo $row["mo_id"];?>','','','1',5,322);" onmouseout="hidetrail();"></a>
+  <tr class=bottom>
+    <td colspan=9 align=center>
+      <a href="modelbrowser.php?offset=<?php echo $offset-100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a> 
+      <a href="modelbrowser.php?offset=<?php echo $offset+100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <script>var noPicture = false</script>
+      <script language="javascript" src="images_fgfsdb.js" type="text/javascript"></script>
+      <div id="trailimageid" style="position:absolute;z-index:10000;overflow:visible"></div>
+      <?php
+        $result=pg_query($query);
+        while ($row = pg_fetch_assoc($result)){
+      ?>
+        <a href="/modeledit.php?id=<?php echo $row['mo_id'];?>">
+
+
+<img border="0" title="<?php echo $row['mo_name'].' ['.$row['mo_path'].']';?>" src="modelthumb.php?id=<?php echo $row['mo_id'];?>" width=100 height=75 onmouseover="showtrail('modelthumb.php?id=<?php echo $row['mo_id'];?>','','','1',5,322);" onmouseout="hidetrail();"></a>
 <?php
 }
 ?>
