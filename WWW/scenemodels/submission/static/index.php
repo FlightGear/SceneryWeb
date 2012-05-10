@@ -1,49 +1,19 @@
 <?php
-
-// Inserting libs
-
 require_once('../inc/functions.inc.php');
-
-// Checking DB availability before all
-
-$ok=check_availability();
-
-if(!$ok)
-{
- ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<title>Automated Static Models Submission Form</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+  <title>Automated Static Models Submission Form</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
+
 <body>
 <?php include '/home/jstockill/scenemodels/header.php'; ?>
-<br /><br />
-<center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
-<br /><center>The FlightGear team.</center>
-</body>
-</html>-->
-<?php
-}
 
-else
-{
-?>
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<title>Automated Static Models Submission Form</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../../style.css" type="text/css"></link>
-</head>
-<body onload='update_objects();'>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
 <script language="JavaScript">
-<!-- This script is here to check for the consistency of the different fields of the form -->
+// This script is here to check for the consistency of the different fields of the form 
 
 function checkNumeric(objName,minval,maxval,period)
 {
@@ -102,7 +72,7 @@ alert(alertsay);
 return (false);
 }
 }
-//  End -->
+//  End 
 </script>
 <p>
 
