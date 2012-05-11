@@ -676,7 +676,7 @@ if($fatalerror || $error > 0){
   echo "mo_modelfile => ".$modelFile."<br/>";
   echo "mo_shared    => ?????<br/>";
 
-  echo "<br/><br/><br/>";
+  /*echo "<br/><br/><br/>";
   $mo_query  = "INSERT INTO fgsoj_models ";
   $mo_query .= "(mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile) "
   $mo_query .= "VALUES (".$path.", ".$author.", ".$name.", ".$comment.", ".$thumbFile.", ".$modelFile.")";
@@ -686,7 +686,7 @@ if($fatalerror || $error > 0){
   $ob_query  = "INSERT INTO fgsoj_objects ";
   $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) "
   $ob_query .= "VALUES (".$comment.", ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ".$gndelev.", ".$offset.", ".compute_heading($heading).", ".$country.", ".$name.", 1)";
-  echo $ob_query;
+  echo $ob_query;*/
 
 }
 ?>
