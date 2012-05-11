@@ -1,9 +1,0 @@
-<?php
-  unlink('/tmp/static/dessin.xml');
-  unlink('/tmp/static/dessin.ac');
-  unlink('/tmp/static/dessin.png');
-  unlink('/tmp/static/trotro.png');
-  unlink('/tmp/static/dessin_thumbnail.jpeg');
-  rmdir('/tmp/static');
-  exit();
-?>

@@ -5,14 +5,7 @@ require_once('../captcha/recaptchalib.php');
 $fatalerror = 0;
 $error      = 0;
 $errormsg   = "";
-
-/*  unlink('/tmp/static/dessin.xml');
-  unlink('/tmp/static/dessin.ac');
-  unlink('/tmp/static/dessin.png');
-  unlink('/tmp/static/trotro.png');
-  unlink('/tmp/static/dessin_thumbnail.jpeg');
-  rmdir('/tmp/static');
-  exit();*/
+ini_set("auto_detect_line_endings", true);
 
 function clearDir($dossier) {
   $ouverture=@opendir($dossier);
@@ -41,7 +34,6 @@ if(!$resp->is_valid){
   exit();
 }
 */
-
 
 ?>
 
