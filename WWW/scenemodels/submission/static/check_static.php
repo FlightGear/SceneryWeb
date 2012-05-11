@@ -6,26 +6,31 @@ $fatalerror = 0;
 $error      = 0;
 $errormsg   = "";
 
-  unlink('/tmp/static/dessin.xml');
+/*  unlink('/tmp/static/dessin.xml');
   unlink('/tmp/static/dessin.ac');
   unlink('/tmp/static/dessin.png');
   unlink('/tmp/static/trotro.png');
   unlink('/tmp/static/dessin_thumbnail.jpeg');
   rmdir('/tmp/static');
-exit();
+  exit();*/
 
-function refreshTmpDir(){
-  unlink($ac3dPath);
-  unlink($thumbPath);
-  unlink($xmlPath);
-  for($i=0; $i<12; $i++){
-    if($_FILES["png_file"]["name"][$i] != ""){
-      $pngName  = $_FILES["png_file"]["name"][$i];
-      $pngPath  = $targetPath.$pngPath;
-      unlink($pngPath);
+function clearDir($dossier) {
+  $ouverture=@opendir($dossier);
+  if (!$ouverture) return;
+  while($fichier=readdir($ouverture)) {
+    if ($fichier == '.' || $fichier == '..') continue;
+    if (is_dir($dossier."/".$fichier)) {
+      $r=clearDir($dossier."/".$fichier);
+      if (!$r) return false;
+    }else{
+      $r=@unlink($dossier."/".$fichier);
+      if (!$r) return false;
     }
   }
-  rmdir($targetPath);
+  closedir($ouverture);
+  $r=@rmdir($dossier);
+  if (!$r) return false;
+  return true;
 }
 
 /*
@@ -321,6 +326,7 @@ if($fatalerror || $error > 0){
   echo "Error message(s) : <br/>".$errormsg."<br/><br/><br/>";
   echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
   echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
+  clearDir('/tmp/static');
   exit();
 }
 
@@ -536,6 +542,7 @@ if($fatalerror || $error > 0){
   echo "Error message(s) : <br/>".$errormsg."<br/><br/><br/>";
   echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
   echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
+  clearDir('/tmp/static');
   exit();
 }
 
@@ -549,8 +556,10 @@ if($fatalerror || $error > 0){
 
 if(file_exists($targetPath) && is_dir($targetPath)){
   echo "ok";
+  $phar = new PharData('/tmp/static.tar');
+  $phar->buildFromDirectory(dirname(__FILE__) . '/tmp/static');
 
-  refreshTmpDir();
+  clearDir('/tmp/static');
 }
 
 ###############################################
@@ -645,7 +654,7 @@ if($fatalerror || $error > 0){
   echo "Error message(s) : <br/>".$errormsg."<br/><br/><br/>";
   echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
   echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
-  refreshTmpDir();
+  clearDir('/tmp/static');
   exit();
 
 }else{
