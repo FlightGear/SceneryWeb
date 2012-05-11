@@ -11,6 +11,7 @@ $errormsg   = "";
   unlink('/tmp/static/dessin.png');
   unlink('/tmp/static/trotro.png');
   unlink('/tmp/static/dessin_thuhmbnail.jpeg');
+  rmdir('/tmp/static');
 exit();
 
 function refreshTmpDir(){
