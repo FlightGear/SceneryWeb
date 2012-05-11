@@ -6,6 +6,13 @@ $fatalerror = 0;
 $error      = 0;
 $errormsg   = "";
 
+  unlink('/tmp/static/dessin.xml');
+  unlink('/tmp/static/dessin.ac');
+  unlink('/tmp/static/dessin.png');
+  unlink('/tmp/static/trotro.png');
+  unlink('/tmp/static/dessin_thuhmbnail.jpeg');
+exit();
+
 function refreshTmpDir(){
   unlink($ac3dPath);
   unlink($thumbPath);
