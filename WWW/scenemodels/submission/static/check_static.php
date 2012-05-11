@@ -5,7 +5,6 @@ require_once('../captcha/recaptchalib.php');
 $fatalerror = 0;
 $error      = 0;
 $errormsg   = "";
-ini_set("auto_detect_line_endings", true);
 
 function clearDir($dossier) {
   $ouverture=@opendir($dossier);
@@ -399,6 +398,7 @@ if(file_exists($xmlPath)){
 #
 ###############################################
 ###############################################
+print_r($pngAllName);
 
 if(file_exists($ac3dPath)){
 
@@ -425,7 +425,7 @@ if(file_exists($ac3dPath)){
         $data = substr($data, 0, -1);
         if(!in_array($data, $pngAllName)){
           $error += 1;
-          $errormsg .= "The texture(s) reference (".$data.") at line ".($i+1)." seems to have a different name of yours textures file name<br/>";
+          $errormsg .= "The texture reference (".$data.") at line ".($i+1)." seems to have a different name of yours textures file name<br/>";
         }
       }
 
