@@ -561,13 +561,11 @@ if(file_exists($targetPath) && is_dir($targetPath)){
   unlink('/tmp/static.tar');                         // Delete archive file
   rename('/tmp/static.tar.gz', '/tmp/static.tgz');   // Rename compress file
 
-$handle = fopen("/tmp/static.tgz", "r");
-$contents = fread($handle, filesize("/tmp/static.tgz"));
-fclose($handle);
-$modelfile=base64_encode($contents);
+  $handle = fopen("/tmp/static.tgz", "r");
+  $contents = fread($handle, filesize("/tmp/static.tgz"));
+  fclose($handle);
+  $modelFile=base64_encode($contents);               // Dump & encode the file
 
-
- // $modelfile = file_get_contents("/tmp/static.tgz"); // Dump compress file in memory
   unlink('/tmp/static.tgz');                         // Delete compress file
   clearDir('/tmp/static');                           // Delete temporary static directory
 }
@@ -676,8 +674,8 @@ if($fatalerror || $error > 0){
   echo "mo_author    => ".$author."<br/>";
   echo "mo_name      => ".stripslashes(html_entity_decode($name))."<br/>";
   echo "mo_notes     => ".stripslashes(html_entity_decode($comment))."<br/>";
-  echo "mo_thumbfile => ".$contents."<br/><br/><br/><br/>";
-  echo "mo_modelfile => ".$modelfile."<br/>";
+  echo "mo_thumbfile => ".$thumbName."<br/>";
+  echo "mo_modelfile => ".$modelFile."<br/>";
   echo "mo_shared    => ?????<br/>";
 
 }
