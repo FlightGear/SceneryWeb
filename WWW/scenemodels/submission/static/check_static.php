@@ -529,7 +529,7 @@ if($fatalerror || $error > 0){
 ###############################################
 ###############################################
 echo 8;
-if(file_exist($targetPath) && is_dir($targetPath)){
+if(file_exists($targetPath) && is_dir($targetPath)){
   echo "ok";
 
   //rmdir();
