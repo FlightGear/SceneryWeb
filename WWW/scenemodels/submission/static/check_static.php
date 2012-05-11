@@ -555,14 +555,14 @@ if($fatalerror || $error > 0){
 ###############################################
 
 if(file_exists($targetPath) && is_dir($targetPath)){
-  echo "ok";
-  $phar = new PharData('/tmp/static.tar');          // Create archive file
-  $phar->buildFromDirectory('/tmp/static');         // Fills archive file
-  $phar->compress(Phar::GZ);                        // Convert archive file to compress file
-  unlink('/tmp/static.tar');                        // Delete archive file
-  rename('/tmp/static.tar.gz', '/tmp/static.tgz');  // Rename compress file
-
-  clearDir('/tmp/static');
+  $phar = new PharData('/tmp/static.tar');           // Create archive file
+  $phar->buildFromDirectory('/tmp/static');          // Fills archive file
+  $phar->compress(Phar::GZ);                         // Convert archive file to compress file
+  unlink('/tmp/static.tar');                         // Delete archive file
+  rename('/tmp/static.tar.gz', '/tmp/static.tgz');   // Rename compress file
+  $modelfile = file_get_contents("/tmp/static.tgz"); // Dump compress file in memory
+  unlink('/tmp/static.tgz');                         // Delete compress file
+  clearDir('/tmp/static');                           // Delete temporary static directory
 }
 
 ###############################################
@@ -572,7 +572,7 @@ if(file_exists($targetPath) && is_dir($targetPath)){
 #
 ###############################################
 ###############################################
-echo 9;
+
 if($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["gndelev"] != "" && $_POST["offset"] != "" && $_POST["heading"] != ""){
 
   $longitude = strip_tags($_POST["longitude"]);
@@ -618,7 +618,7 @@ if($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["gndelev"] !=
 #
 ###############################################
 ###############################################
-echo 10;
+
 if($_POST["mo_path"] != "" && $_POST["mo_author"] != "" && $_POST["ob_country"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != "" && isset($_POST['comment'])){
 
   $path    = addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES)); // need to use model_exists() before DB insertion
@@ -650,7 +650,7 @@ if($_POST["mo_path"] != "" && $_POST["mo_author"] != "" && $_POST["ob_country"] 
 #
 ###############################################
 ###############################################
-echo 11;
+
 if($fatalerror || $error > 0){
   echo "Number of error : ".$error."<br/>";
   echo "FatalError : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
@@ -670,8 +670,9 @@ if($fatalerror || $error > 0){
   echo "mo_name      => ".stripslashes(html_entity_decode($name))."<br/>";
   echo "mo_notes     => ".stripslashes(html_entity_decode($comment))."<br/>";
   echo "mo_thumbfile => ".$thumbName."<br/>";
-  echo "mo_modelfile => ".$ac3dName."<br/>";
+  echo "mo_modelfile => ".$modelfile."<br/>";
   echo "mo_shared    => ?????<br/>";
+
 }
 ?>
 </body>
