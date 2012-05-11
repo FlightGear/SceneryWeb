@@ -14,6 +14,12 @@ if(!$resp->is_valid){
 }
 */
 
+unlink('/tmp/static/dessin.ac');
+unlink('/tmp/static/dessin.xml');
+unlink('/tmp/static/dessin_thumbnail.jpeg');
+unlink('/tmp/static/dessin.png');
+unlink('/tmp/static/trotro.png');
+rmdir('/tmp/static');
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -62,10 +68,6 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
 ###############################################
 echo 2;
 if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
-
-  if(file_exists('/tmp/static')){
-    rmdir('/tmp/static');
-  }
 
   if(!mkdir('/tmp/static/')){
     $fatalerror = 1;
