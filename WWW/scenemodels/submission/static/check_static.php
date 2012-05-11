@@ -13,6 +13,7 @@ if(!$resp->is_valid){
   exit();
 }
 */
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -34,7 +35,7 @@ include '/home/jstockill/scenemodels/header.php';
 #
 ###############################################
 ###############################################
-
+echo 1;
 function removeExt($fichier){ // This function return the filename without extension
   if(strrpos($fichier, ".")===false) return $fichier;
   else return substr($fichier, 0, strrpos($fichier, "."));
@@ -59,8 +60,12 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
 #
 ###############################################
 ###############################################
-
+echo 2;
 if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
+
+  if(file_exists('/tmp/static')){
+    rmdir('/tmp/static');
+  }
 
   if(!mkdir('/tmp/static/')){
     $fatalerror = 1;
@@ -99,7 +104,7 @@ if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 #
 ###############################################
 ###############################################
-
+echo 3;
 ###
 # STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY
 ###
@@ -306,7 +311,7 @@ if($fatalerror || $error > 0){
 #
 ###############################################
 ###############################################
-
+echo 4;
 if(file_exists($xmlPath)){
 
   $depth = array();
@@ -376,7 +381,7 @@ if(file_exists($xmlPath)){
 #
 ###############################################
 ###############################################
-
+echo 5;
 if(file_exists($ac3dPath)){
 
   if($handle = fopen($ac3dPath, 'r')){
@@ -424,7 +429,7 @@ if(file_exists($ac3dPath)){
 #
 ###############################################
 ###############################################
-
+echo 6;
 for($i=0; $i<12; $i++){
   if($_FILES["png_file"]["name"][$i] != ""){
 
@@ -470,7 +475,7 @@ for($i=0; $i<12; $i++){
 #
 ###############################################
 ###############################################
-
+echo 7;
 if(file_exists($thumbPath)){
 
 
@@ -521,7 +526,7 @@ if($fatalerror || $error > 0){
 #
 ###############################################
 ###############################################
-
+echo 8;
 if(file_exist($targetPath) && is_dir($targetPath)){
   echo "ok";
 
@@ -535,7 +540,7 @@ if(file_exist($targetPath) && is_dir($targetPath)){
 #
 ###############################################
 ###############################################
-
+echo 9;
 if($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["gndelev"] != "" && $_POST["offset"] != "" && $_POST["heading"] != ""){
 
   $longitude = strip_tags($_POST["longitude"]);
@@ -581,7 +586,7 @@ if($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["gndelev"] !=
 #
 ###############################################
 ###############################################
-
+echo 10;
 if($_POST["mo_path"] != "" && $_POST["mo_author"] != "" && $_POST["ob_country"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != "" && isset($_POST['comment'])){
 
   $path    = addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES)); // need to use model_exists() before DB insertion
@@ -613,7 +618,7 @@ if($_POST["mo_path"] != "" && $_POST["mo_author"] != "" && $_POST["ob_country"] 
 #
 ###############################################
 ###############################################
-
+echo 11;
 if($fatalerror || $error > 0){
   echo "Number of error : ".$error."<br/>";
   echo "FatalError : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
