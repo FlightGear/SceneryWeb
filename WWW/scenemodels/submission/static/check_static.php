@@ -676,7 +676,7 @@ if($fatalerror || $error > 0){
   echo "mo_author    => ".$author."<br/>";
   echo "mo_name      => ".stripslashes(html_entity_decode($name))."<br/>";
   echo "mo_notes     => ".stripslashes(html_entity_decode($comment))."<br/>";
-  echo "mo_thumbfile => ".$contentfile."<br/><br/><br/><br/>";
+  echo "mo_thumbfile => ".$contents."<br/><br/><br/><br/>";
   echo "mo_modelfile => ".$modelfile."<br/>";
   echo "mo_shared    => ?????<br/>";
 
