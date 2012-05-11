@@ -556,12 +556,13 @@ if($fatalerror || $error > 0){
 
 if(file_exists($targetPath) && is_dir($targetPath)){
   echo "ok";
-  $phar = new PharData('/tmp/static.tar');
-  $phar->buildFromDirectory(dirname(__FILE__) . '/tmp/static');
-  echo "bis";
+  $phar = new PharData('/tmp/static.tar');          // Create archive file
+  $phar->buildFromDirectory('/tmp/static');         // Fills archive file
+  $phar->compress(Phar::GZ);                        // Convert archive file to compress file
+  unlink('/tmp/static.tar');                        // Delete archive file
+  rename('/tmp/static.tar.gz', '/tmp/static.tgz');  // Rename compress file
 
   clearDir('/tmp/static');
-  echo "rebis";
 }
 
 ###############################################
