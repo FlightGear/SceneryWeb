@@ -422,7 +422,7 @@ if(file_exists($ac3dPath)){
       ###
       if(preg_match('#^texture#', $line)){
         $data = preg_replace('#texture "(.+)"$#', '$1', $line);
-        $data = substr($data, 0, -1);
+        $data = substr($data, 0, -2);
         if(!in_array($data, $pngAllName)){
           $error += 1;
           $errormsg .= "The texture reference (".$data.") at line ".($i+1)." seems to have a different name of yours textures file name<br/>";
