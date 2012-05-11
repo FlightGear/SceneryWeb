@@ -398,7 +398,6 @@ if(file_exists($xmlPath)){
 #
 ###############################################
 ###############################################
-print_r($pngAllName);
 
 if(file_exists($ac3dPath)){
 
@@ -424,6 +423,9 @@ if(file_exists($ac3dPath)){
         $data = preg_replace('#texture "(.+)"$#', '$1', $line);
         $data = substr($data, 0, -2);
         if(!in_array($data, $pngAllName)){
+echo $pngAllName[0];
+echo $data;
+
           $error += 1;
           $errormsg .= "The texture reference (".$data.") at line ".($i+1)." seems to have a different name of yours textures file name<br/>";
         }
