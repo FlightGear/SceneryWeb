@@ -558,8 +558,10 @@ if(file_exists($targetPath) && is_dir($targetPath)){
   echo "ok";
   $phar = new PharData('/tmp/static.tar');
   $phar->buildFromDirectory(dirname(__FILE__) . '/tmp/static');
+  echo "bis";
 
   clearDir('/tmp/static');
+  echo "rebis";
 }
 
 ###############################################
