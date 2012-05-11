@@ -5,6 +5,21 @@ require_once('../captcha/recaptchalib.php');
 $fatalerror = 0;
 $error      = 0;
 $errormsg   = "";
+
+function refreshTmpDir(){
+  unlink($ac3dPath);
+  unlink($thumbPath);
+  unlink($xmlPath);
+  for($i=0; $i<12; $i++){
+    if($_FILES["png_file"]["name"][$i] != ""){
+      $pngName  = $_FILES["png_file"]["name"][$i];
+      $pngPath  = $targetPath.$pngPath;
+      unlink($pngPath);
+    }
+  }
+  rmdir($targetPath);
+}
+
 /*
 $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
 $resp = recaptcha_check_answer ($privatekey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
@@ -14,12 +29,7 @@ if(!$resp->is_valid){
 }
 */
 
-unlink('/tmp/static/dessin.ac');
-unlink('/tmp/static/dessin.xml');
-unlink('/tmp/static/dessin_thumbnail.jpeg');
-unlink('/tmp/static/dessin.png');
-unlink('/tmp/static/trotro.png');
-rmdir('/tmp/static');
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -41,7 +51,7 @@ include '/home/jstockill/scenemodels/header.php';
 #
 ###############################################
 ###############################################
-echo 1;
+
 function removeExt($fichier){ // This function return the filename without extension
   if(strrpos($fichier, ".")===false) return $fichier;
   else return substr($fichier, 0, strrpos($fichier, "."));
@@ -66,7 +76,7 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
 #
 ###############################################
 ###############################################
-echo 2;
+
 if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 
   if(!mkdir('/tmp/static/')){
@@ -106,7 +116,7 @@ if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 #
 ###############################################
 ###############################################
-echo 3;
+
 ###
 # STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY
 ###
@@ -313,7 +323,7 @@ if($fatalerror || $error > 0){
 #
 ###############################################
 ###############################################
-echo 4;
+
 if(file_exists($xmlPath)){
 
   $depth = array();
@@ -383,7 +393,7 @@ if(file_exists($xmlPath)){
 #
 ###############################################
 ###############################################
-echo 5;
+
 if(file_exists($ac3dPath)){
 
   if($handle = fopen($ac3dPath, 'r')){
@@ -431,7 +441,7 @@ if(file_exists($ac3dPath)){
 #
 ###############################################
 ###############################################
-echo 6;
+
 for($i=0; $i<12; $i++){
   if($_FILES["png_file"]["name"][$i] != ""){
 
@@ -477,7 +487,7 @@ for($i=0; $i<12; $i++){
 #
 ###############################################
 ###############################################
-echo 7;
+
 if(file_exists($thumbPath)){
 
 
@@ -528,11 +538,11 @@ if($fatalerror || $error > 0){
 #
 ###############################################
 ###############################################
-echo 8;
+
 if(file_exists($targetPath) && is_dir($targetPath)){
   echo "ok";
 
-  //rmdir();
+  refreshTmpDir();
 }
 
 ###############################################
@@ -627,6 +637,7 @@ if($fatalerror || $error > 0){
   echo "Error message(s) : <br/>".$errormsg."<br/><br/><br/>";
   echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
   echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
+  refreshTmpDir();
   exit();
 
 }else{
