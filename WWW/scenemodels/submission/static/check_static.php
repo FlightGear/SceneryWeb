@@ -547,16 +547,22 @@ if($fatalerror || $error > 0){
 ###############################################
 
 if(file_exists($targetPath) && is_dir($targetPath)){
+
+  $handle    = fopen($thumbPath, "r");
+  $contents  = fread($handle, filesize($thumbPath));
+  fclose($handle);
+  $thumbFile = base64_encode($contents);             // Dump & encode the file
+
   $phar = new PharData('/tmp/static.tar');           // Create archive file
   $phar->buildFromDirectory('/tmp/static');          // Fills archive file
   $phar->compress(Phar::GZ);                         // Convert archive file to compress file
   unlink('/tmp/static.tar');                         // Delete archive file
   rename('/tmp/static.tar.gz', '/tmp/static.tgz');   // Rename compress file
 
-  $handle = fopen("/tmp/static.tgz", "r");
-  $contents = fread($handle, filesize("/tmp/static.tgz"));
+  $handle    = fopen("/tmp/static.tgz", "r");
+  $contents  = fread($handle, filesize("/tmp/static.tgz"));
   fclose($handle);
-  $modelFile=base64_encode($contents);               // Dump & encode the file
+  $modelFile = base64_encode($contents);             // Dump & encode the file
 
   unlink('/tmp/static.tgz');                         // Delete compress file
   clearDir('/tmp/static');                           // Delete temporary static directory
@@ -660,15 +666,27 @@ if($fatalerror || $error > 0){
 }else{
   echo "<font color=\"green\"> Congratulation ! All your files seem to be correct and ready.</font><br/>";
   echo "Following values are available for database insertion : <br/><br/>";
-  echo "mo_id        => ?????</br>";
+  echo "mo_id        => AUTOFILLED</br>";
   echo "mo_path      => ".stripslashes(html_entity_decode($path))."<br/>";
-  echo "mo_modified  => ?????<br/>";
+  echo "mo_modified  => AUTOFILLED<br/>";
   echo "mo_author    => ".$author."<br/>";
   echo "mo_name      => ".stripslashes(html_entity_decode($name))."<br/>";
   echo "mo_notes     => ".stripslashes(html_entity_decode($comment))."<br/>";
-  echo "mo_thumbfile => ".$thumbName."<br/>";
+  echo "mo_thumbfile => ".$thumbFile."<br/>";
   echo "mo_modelfile => ".$modelFile."<br/>";
   echo "mo_shared    => ?????<br/>";
+
+  echo "<br/><br/><br/>";
+  $mo_query  = "INSERT INTO fgsoj_models ";
+  $mo_query .= "(mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile) "
+  $mo_query .= "VALUES (".$path.", ".$author.", ".$name.", ".$comment.", ".$thumbFile.", ".$modelFile.")";
+  echo $mo_query;
+
+  echo "<br/><br/><br/>";
+  $ob_query  = "INSERT INTO fgsoj_objects ";
+  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) "
+  $ob_query .= "VALUES (".$comment.", ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ".$gndelev.", ".$offset.", ".compute_heading($heading).", ".$country.", ".$name.", 1)";
+  echo $ob_query;
 
 }
 ?>
