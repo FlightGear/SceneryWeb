@@ -695,7 +695,7 @@ if($fatalerror || $error > 0){
   $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_tile, ob_submitter, ob_valid, ob_class) ";
   $ob_query .= "VALUES (";
     $ob_query .= "'".$name."', ";                                                         // ob_text
-    $ob_query .= "'ST_PointFromText(\'POINT(".$longitude." ".$latitude.")\', 4326)', ";   // wkb_geometry
+    $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";       // wkb_geometry
     $ob_query .= "'".$gndelev."', ";                                                      // ob_gndelev
     $ob_query .= "'".$offset."', ";                                                       // ob_elevoffset
     $ob_query .= "'".compute_heading($heading)."', ";                                     // ob_heading
