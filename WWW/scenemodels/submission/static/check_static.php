@@ -672,9 +672,10 @@ if($fatalerror || $error > 0){
     $mo_query .= "'".$mo_shared."'";      // mo_shared
   $mo_query .= ") ";
   $mo_query .= "RETURNING mo_id";
-
+echo "ok<br/>";
   # Insert into fgsoj_models and return current mo_id
   $ob_model = pgquery($resource_rw, $mo_query);
+echo $ob_model;
 
   $ob_query  = "INSERT INTO fgsoj_objects ";
   $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
