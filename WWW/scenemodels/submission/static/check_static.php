@@ -665,21 +665,14 @@ if($fatalerror || $error > 0){
 
 }else{
   echo "<font color=\"green\"> Congratulation ! All your files seem to be correct and ready.</font><br/>";
-  echo "Following values are available for database insertion : <br/><br/>";
-  echo "mo_id        => AUTOFILLED</br>";
-  echo "mo_path      => ".stripslashes(html_entity_decode($path))."<br/>";
-  echo "mo_modified  => AUTOFILLED<br/>";
-  echo "mo_author    => ".$author."<br/>";
-  echo "mo_name      => ".stripslashes(html_entity_decode($name))."<br/>";
-  echo "mo_notes     => ".stripslashes(html_entity_decode($comment))."<br/>";
-  echo "mo_thumbfile => ".$thumbFile."<br/>";
-  echo "mo_modelfile => ".$modelFile."<br/>";
-  echo "mo_shared    => ?????<br/>";
 
-  echo "<br/><br/><br/>";
+  # Connection to DB
+  $resource_rw = connect_sphere_rw();
+
   $mo_query  = "INSERT INTO fgsoj_models ";
-  $mo_query .= "(mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
+  $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
   $mo_query .= "VALUES (";
+    $mo_query .= "'DEFAULT', ";           // mo_id
     $mo_query .= "'".$path."', ";         // mo_path
     $mo_query .= "'".$author."', ";       // mo_author
     $mo_query .= "'????', ";              // mo_name
@@ -687,10 +680,12 @@ if($fatalerror || $error > 0){
     $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
     $mo_query .= "'".$modelFile."', ";    // mo_modelfile
     $mo_query .= "'????'";                // mo_shared
-  $mo_query .= ")";
-  echo $mo_query;
+  $mo_query .= ") ";
+  $mo_query .= "RETURNING mo_id";
 
-  echo "<br/><br/><br/>";
+  # Insert into fgsoj_models and return current mo_id
+//  $ob_model = pgquery($resource_rw, $mo_query);
+
   $ob_query  = "INSERT INTO fgsoj_objects ";
   $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_tile, ob_submitter, ob_valid, ob_class) ";
   $ob_query .= "VALUES (";
@@ -700,14 +695,19 @@ if($fatalerror || $error > 0){
     $ob_query .= "'".$offset."', ";                                                       // ob_elevoffset
     $ob_query .= "'".compute_heading($heading)."', ";                                     // ob_heading
     $ob_query .= "'".$country."', ";                                                      // ob_country
-    $ob_query .= "'=mo_id=', ";                                                           // ob_model
+    $ob_query .= "'".$ob_model."', ";                                                     // ob_model
     $ob_query .= "'????', ";                                                              // ob_group
     $ob_query .= "'????', ";                                                              // ob_tile
     $ob_query .= "'????', ";                                                              // ob_submitter
     $ob_query .= "'????', ";                                                              // ob_valid
     $ob_query .= "'????'";                                                                // ob_class
   $ob_query .= ")";
-  echo $ob_query;
+
+  # Insert into fgsoj_objects
+//  $ob_model = pgquery($resource_rw, $mo_query);
+
+  # Close the DB connection
+  pg_close($resource_rw);
 
 }
 ?>
