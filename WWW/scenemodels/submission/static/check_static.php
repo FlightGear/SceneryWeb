@@ -678,14 +678,35 @@ if($fatalerror || $error > 0){
 
   echo "<br/><br/><br/>";
   $mo_query  = "INSERT INTO fgsoj_models ";
-  $mo_query .= "(mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile) ";
-  $mo_query .= "VALUES ('".$path."', '".$author."', '".$name."', '".$comment."', '".$thumbFile."', '".$modelFile."')";
+  $mo_query .= "(mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
+  $mo_query .= "VALUES (";
+    $mo_query .= "'".$path."', ";         // mo_path
+    $mo_query .= "'".$author."', ";       // mo_author
+    $mo_query .= "'????', ";              // mo_name
+    $mo_query .= "'".$comment."', ";      // mo_notes
+    $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
+    $mo_query .= "'".$modelFile."', ";    // mo_modelfile
+    $mo_query .= "'????'";                // mo_shared
+  $mo_query .= ")";
   echo $mo_query;
 
   echo "<br/><br/><br/>";
   $ob_query  = "INSERT INTO fgsoj_objects ";
-  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ";
-  $ob_query .= "VALUES ('".$comment."', ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), '".$gndelev."', '".$offset."', '".compute_heading($heading)."', '".$country."', '".$name."', '1')";
+  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_tile, ob_submitter, ob_valid, ob_class) ";
+  $ob_query .= "VALUES (";
+    $ob_query .= "'".$name."', ";                                                         // ob_text
+    $ob_query .= "'ST_PointFromText(\'POINT(".$longitude." ".$latitude.")\', 4326)', ";   // wkb_geometry
+    $ob_query .= "'".$gndelev."', ";                                                      // ob_gndelev
+    $ob_query .= "'".$offset."', ";                                                       // ob_elevoffset
+    $ob_query .= "'".compute_heading($heading)."', ";                                     // ob_heading
+    $ob_query .= "'".$country."', ";                                                      // ob_country
+    $ob_query .= "'=mo_id=', ";                                                           // ob_model
+    $ob_query .= "'????', ";                                                              // ob_group
+    $ob_query .= "'????', ";                                                              // ob_tile
+    $ob_query .= "'????', ";                                                              // ob_submitter
+    $ob_query .= "'????', ";                                                              // ob_valid
+    $ob_query .= "'????'";                                                                // ob_class
+  $ob_query .= ")";
   echo $ob_query;
 
 }
