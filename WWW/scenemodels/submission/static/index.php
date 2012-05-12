@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-  <title>Automated Static Models Submission Form</title>
+  <title>Automated Models Submission Form</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
@@ -65,7 +65,7 @@
     }
   </script>
 
-  <h1 align=center>Static Models Automated Submission Form</h1>
+  <h1 align=center>Models Automated Submission Form</h1>
   <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database. 
   There are currently 2 477 models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>. 
   Please help us to make it more!
@@ -85,7 +85,7 @@
           <span title="This is the family name of the object you want to add."><a style="cursor: help;">Object's family</a></span>
         </td>
         <td colspan="2">
-          <select name="family_name">
+          <select name="mo_shared">
             <?php
               $resource_r = connect_sphere_r();
               $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
@@ -253,6 +253,16 @@
           <input type="file" name="png_file[]" accept="image/png"><br/>
           <input type="file" name="png_file[]" accept="image/png"><br/>
           <input type="file" name="png_file[]" accept="image/png"><br/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span title="Here you can enter your name">
+            <a style="cursor: help; ">Contributor</a>
+          </span>
+        </td>
+        <td>
+          <input type="text" name="contributor" maxlength="100" size="40" value="Your name" />
         </td>
       </tr>
       <tr>

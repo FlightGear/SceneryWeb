@@ -20,7 +20,7 @@ if(!$resp->is_valid){
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-  <title>Automated Static Models Submission Form</title>
+  <title>Automated Models Submission Form</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
@@ -603,14 +603,23 @@ if($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["gndelev"] !=
 ###############################################
 ###############################################
 
-if($_POST["mo_path"] != "" && $_POST["mo_author"] != "" && $_POST["ob_country"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != "" && isset($_POST['comment'])){
+if(    $_POST["mo_shared"] != ""  && $_POST["mo_path"] != "" && $_POST["mo_author"] != "" 
+    && $_POST["ob_country"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != "" 
+    && isset($_POST['comment'])   && isset($_POST['contributor'])){
 
-  $path    = addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES)); // need to use model_exists() before DB insertion
-  $name    = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
-  $comment = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
-  $author  = $_POST["mo_author"];
-  $country = $_POST["ob_country"];
-  $ipaddr  = $_POST["IPAddr"];
+  $path        = addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
+  $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
+  $comment     = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
+  $contributor = addslashes(htmlentities(strip_tags($_POST["contributor"]), ENT_QUOTES));
+  $mo_shared   = $_POST["mo_shared"];
+  $author      = $_POST["mo_author"];
+  $country     = $_POST["ob_country"];
+  $ipaddr      = $_POST["IPAddr"];
+
+  if(model_exists($path) != 2){
+    $error += 1;
+    $errormsg .= "It seem that your model is already in our database<br/>";
+  }
 
   if(!preg_match('#^[0-9]{1,3}$#', $author)){
     $error += 1;
@@ -656,19 +665,21 @@ if($fatalerror || $error > 0){
     $mo_query .= "'DEFAULT', ";           // mo_id
     $mo_query .= "'".$path."', ";         // mo_path
     $mo_query .= "'".$author."', ";       // mo_author
-    $mo_query .= "'????', ";              // mo_name
+    $mo_query .= "'".$name."', ";         // mo_name
     $mo_query .= "'".$comment."', ";      // mo_notes
     $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
     $mo_query .= "'".$modelFile."', ";    // mo_modelfile
-    $mo_query .= "'????'";                // mo_shared
+    $mo_query .= "'".$mo_shared."'";      // mo_shared
   $mo_query .= ") ";
   $mo_query .= "RETURNING mo_id";
+
+echo $mo_query;
 
   # Insert into fgsoj_models and return current mo_id
 //  $ob_model = pgquery($resource_rw, $mo_query);
 
   $ob_query  = "INSERT INTO fgsoj_objects ";
-  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_tile, ob_submitter, ob_valid, ob_class) ";
+  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
   $ob_query .= "VALUES (";
     $ob_query .= "'".$name."', ";                                                         // ob_text
     $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";       // wkb_geometry
@@ -677,12 +688,11 @@ if($fatalerror || $error > 0){
     $ob_query .= "'".compute_heading($heading)."', ";                                     // ob_heading
     $ob_query .= "'".$country."', ";                                                      // ob_country
     $ob_query .= "'".$ob_model."', ";                                                     // ob_model
-    $ob_query .= "'????', ";                                                              // ob_group
-    $ob_query .= "'????', ";                                                              // ob_tile
-    $ob_query .= "'????', ";                                                              // ob_submitter
-    $ob_query .= "'????', ";                                                              // ob_valid
-    $ob_query .= "'????'";                                                                // ob_class
+    $ob_query .= "'1', ";                                                                 // ob_group
+    $ob_query .= "'".$contributor."'";                                                    // ob_submitter
   $ob_query .= ")";
+
+echo $ob_query;
 
   # Insert into fgsoj_objects
 //  $ob_model = pgquery($resource_rw, $mo_query);
