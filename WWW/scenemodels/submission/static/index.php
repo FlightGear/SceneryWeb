@@ -155,7 +155,7 @@ Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT us
 	<tr>
 		<td><span title="This is a nice picture representing your model in FG the best way."><a style="cursor: help; ">Corresponding 320x240 JPEG thumbnail</a></span></td>
 		<td>
-			<input type=file name="mo_thumbfile"> (i.e : tower_thumbnail.jpeg)
+			<input type=file name="mo_thumbfile" accept="image/jpeg"> (i.e : tower_thumbnail.jpeg)
 		</td>
 	</tr>
 	<tr>
@@ -167,24 +167,24 @@ Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT us
 	<tr>
 		<td><span title="This is the XML file of your model."><a style="cursor: help; ">Corresponding XML File</a></span></td> 
 		<td>
-			<input type=file name="xml_file">(i.e : tower.xml)
+			<input type=file name="xml_file" accept="text/xml">(i.e : tower.xml)
 		</td>
 	</tr>
 	<tr>
 		<td><span title="This(Those) is(are) the PNG texture(s) file of your model. Has to show a factor 2 between height and length."><a style="cursor: help; ">Corresponding PNG Files</a></span></td>
 		<td>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
-			<input type="file" name="png_file[]"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
+			<input type="file" name="png_file[]" accept="image/png"><br/>
 		</td>
 	</tr>
 	<tr>
