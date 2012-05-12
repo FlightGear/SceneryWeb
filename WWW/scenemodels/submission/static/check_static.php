@@ -662,7 +662,7 @@ if($fatalerror || $error > 0){
   $mo_query  = "INSERT INTO fgsoj_models ";
   $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
   $mo_query .= "VALUES (";
-    $mo_query .= "'DEFAULT', ";           // mo_id
+    $mo_query .= "DEFAULT, ";             // mo_id
     $mo_query .= "'".$path."', ";         // mo_path
     $mo_query .= "'".$author."', ";       // mo_author
     $mo_query .= "'".$name."', ";         // mo_name
