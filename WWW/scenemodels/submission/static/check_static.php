@@ -654,8 +654,6 @@ if($fatalerror || $error > 0){
   exit();
 
 }else{
-  echo "<font color=\"green\"> Congratulation ! All your files seem to be correct and ready.</font><br/>";
-
   # Connection to DB
   $resource_rw = connect_sphere_rw();
 
@@ -695,11 +693,10 @@ if($fatalerror || $error > 0){
   # Insert into fgsoj_objects
   pg_query($resource_rw, $ob_query);
 
-echo pg_last_error($resource_rw);
-
   # Close the DB connection
   pg_close($resource_rw);
 
+  echo "<font color=\"green\"> Congratulation ! You contribution has been added to our database</font><br/>";
 }
 ?>
 </body>
