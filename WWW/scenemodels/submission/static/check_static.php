@@ -674,7 +674,7 @@ if($fatalerror || $error > 0){
   $mo_query .= "RETURNING mo_id";
 echo "ok<br/>";
   # Insert into fgsoj_models and return current mo_id
-  $ob_model = pgquery($resource_rw, $mo_query);
+  $ob_model = pg_query($resource_rw, $mo_query);
 echo $ob_model;
 
   $ob_query  = "INSERT INTO fgsoj_objects ";
@@ -694,7 +694,7 @@ echo $ob_model;
 echo $ob_query;
 
   # Insert into fgsoj_objects
-//  $ob_model = pgquery($resource_rw, $mo_query);
+//  $ob_model = pg_query($resource_rw, $mo_query);
 
   # Close the DB connection
   pg_close($resource_rw);
