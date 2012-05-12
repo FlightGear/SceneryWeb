@@ -693,7 +693,7 @@ if($fatalerror || $error > 0){
   $ob_query .= ")";
 
   # Insert into fgsoj_objects
-  pg_query($resource_rw, $mo_query);
+  pg_query($resource_rw, $ob_query);
 
 echo pg_last_error($resource_rw);
 
