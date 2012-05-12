@@ -675,6 +675,7 @@ if($fatalerror || $error > 0){
 echo "ok<br/>";
   # Insert into fgsoj_models and return current mo_id
   $ob_model = pg_query($resource_rw, $mo_query);
+echo pg_last_error($resource_rw);
 echo $ob_model;
 
   $ob_query  = "INSERT INTO fgsoj_objects ";
