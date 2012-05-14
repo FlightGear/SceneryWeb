@@ -64,6 +64,10 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
 
 if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 
+  while(file_exists('/tmp/static')){
+    usleep(500);
+  }
+
   if(!mkdir('/tmp/static/')){
     $fatalerror = 1;
     $error += 1;
