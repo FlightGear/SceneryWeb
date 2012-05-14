@@ -206,32 +206,32 @@
       </tr>
       <tr>
         <td>
-          <span title="This is a nice picture representing your model in FG the best way.">
+          <span title="This is a nice picture representing your model in FG the best way. (eg: tower_thumbnail.jpeg)">
             <a style="cursor: help; ">Corresponding 320x240 JPEG thumbnail</a>
           </span>
         </td>
         <td>
-          <input type=file name="mo_thumbfile" accept="image/jpeg"> (i.e : tower_thumbnail.jpeg)
+          <input type=file name="mo_thumbfile" accept="image/jpeg">
         </td>
       </tr>
       <tr>
         <td>
-          <span title="This is the AC3D file of your model.">
+          <span title="This is the AC3D file of your model. (eg : tower.ac)">
             <a style="cursor: help; ">Corresponding AC3D File</a>
           </span>
         </td> 
         <td>
-          <input type=file name="ac3d_file">(i.e : tower.ac)
+          <input type=file name="ac3d_file">
         </td>
       </tr>
       <tr>
         <td>
-          <span title="This is the XML file of your model.">
+          <span title="This is the XML file of your model.(eg: tower.xml)">
             <a style="cursor: help; ">Corresponding XML File</a>
           </span>
         </td>
         <td>
-          <input type=file name="xml_file" accept="text/xml">(i.e : tower.xml)
+          <input type=file name="xml_file" accept="text/xml">
         </td>
       </tr>
       <tr>

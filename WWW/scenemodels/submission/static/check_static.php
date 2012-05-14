@@ -51,7 +51,7 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
 }else{
   $fatalerror = 1;
   $error += 1;
-  $errormsg .= "You <u>must</u> provide at least 1 thumbnail file, 1 AC file, 1 PNG file file<br/>";
+  $errormsg .= "You <u>must</u> provide at least 1 thumbnail file, 1 AC file<br/>";
 }
 
 ###############################################
