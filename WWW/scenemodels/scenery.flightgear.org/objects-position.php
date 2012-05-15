@@ -213,8 +213,8 @@
           <?php
             $prev = $offset-20;
             $next = $offset+20;
-            echo "<a href=\"objects-position.php#anchor?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
-            echo "<a href=\"objects-position.php#anchor?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+            echo "<a href=\"objects-position.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter#anchor\">Prev</a>";
+            echo "<a href=\"objects-position.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter#anchor\">Next</a>";
           ?>
         </td>
       </tr>
