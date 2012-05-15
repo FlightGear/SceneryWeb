@@ -9,7 +9,7 @@
 
   $filter = "1=1";
 
-  if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family']))){
+  if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family'])) && $_REQUEST['family']>0){
     $family = $_REQUEST['family'];
     $filter.= " and mo_shared=".$_REQUEST['family'];
   }else{
@@ -23,7 +23,7 @@
     $author = "";
   }
 
-  if (isset($_REQUEST['orderby']) && $_REQUEST['orderby']!=""){
+  if (isset($_REQUEST['orderby']) && $_REQUEST['orderby']>0){
     $orderby = $_REQUEST['orderby'];
     $filter.= " ORDER BY=".$_REQUEST['orderby'];
   }else{
