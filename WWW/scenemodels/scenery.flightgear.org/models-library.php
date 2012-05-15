@@ -12,9 +12,20 @@
 
   <div class="postContent">
 
-    <h1>What can do this page ?</h1>
+    <h1>Add a new 3D model</h1>
     <p>
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      In order to add a new 3D model you must use this form : <a href="#">Add a new 3D model</a>
+    </p>
+
+    <h1>Update/delete 3D model</h1>
+    <p>
+      Currently it's not possible to update/delete a 3D model.<br/>
+      3D model are automatically deleted if not used (no available position)
+    </p>
+
+    <h1>3D models library</h1>
+    <p>
+      TABLE
     </p>
     <br/>
 

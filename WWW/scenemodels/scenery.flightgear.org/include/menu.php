@@ -1,4 +1,4 @@
-<?php $link = pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable'); ?>
+<?php include('pgsql.php'); ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -30,7 +30,7 @@
           <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="models-library.php">3D Models library</a></li>
-            <li><a href="objects-position.php">Objects positions</a></li>
+            <li><a href="objects-position.php">Objects positions library</a></li>
           </ul>
           <h4><span>Downloads</span></h4>
           <ul>

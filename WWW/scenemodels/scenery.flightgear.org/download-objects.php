@@ -20,7 +20,7 @@
       (This file is <b>*REQUIRED*</b> if you want to see all the objects, and should be unpacked in your FGROOT directory)
     </p>
 
-<IMG SRC="template/objects-map.png" WIDTH="100%" USEMAP="#map">
+<center><IMG SRC="template/objects-map.png" WIDTH="720px" USEMAP="#map"></center>
 <MAP NAME="map">
 <AREA SHAPE=rect COORDS=360,200,380,225 HREF=http://scenemodels.flightgear.org/download/GlobalObjects.tgz ALT="GlobalObjects.tgz  3.97 Mb  10/15/2005">
 <AREA SHAPE=rect COORDS=360,200,380,225 HREF=http://scenemodels.flightgear.org/download/SharedModels.tgz ALT="SharedModels.tgz  0.71 Mb  10/15/2005">

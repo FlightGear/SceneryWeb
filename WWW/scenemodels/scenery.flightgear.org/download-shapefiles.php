@@ -14,7 +14,7 @@
 
 
 
-  <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows">
+  <table style="border-style:solid; border-width:1px; margin:auto;" cellpadding="1" cellspacing="1" rules="rows">
     <tr>
       <td>
         <iframe
@@ -32,7 +32,7 @@
   </table>  
 
   <br/>
-  <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows">
+  <table style="border-style:solid; border-width:1px; margin:auto;" cellpadding="1" cellspacing="1" rules="rows">
     <form method="post" action="http://mapserver.flightgear.org/icaolayers.php">
       <tr>
         <td>Airport code - OpenLayers:</td>
