@@ -100,3 +100,29 @@
   list-style: disc outside none;
   margin-left: 25px;
 }
+
+/*#########################*/
+/*   TABLE OBJECT/MODELS   */
+/*#########################*/
+
+#main table.objects, #main table.models{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#main table.objects th, #main table.models th{
+  background: gray;
+}
+
+#main table.objects tr:nth-child(even), #main table.models tr:nth-child(even){
+  background: #FBFBFB;
+}
+
+
+
+
+
+
+
+
+

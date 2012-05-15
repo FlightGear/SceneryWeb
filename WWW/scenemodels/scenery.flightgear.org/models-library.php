@@ -88,7 +88,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2"><button style="float:right;">Filter</button></td>
+          <td colspan="4"><button style="float:right;">Filter</button></td>
         </tr>
       </table>
     </fieldset>

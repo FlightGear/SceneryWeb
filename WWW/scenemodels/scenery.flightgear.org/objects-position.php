@@ -110,8 +110,8 @@
       <legend>Filter</legend>
       <table width="1036px">
         <tr>
-          <td>Latitude: </td><td><input type="text" name="lat"/></td>
-          <td>Ground elevation (m): </td><td><input type="text" name="elevation"/></td>
+          <td>Latitude: </td><td><input type="text" name="lat" value="<?php echo $lat; ?>"/></td>
+          <td>Ground elevation (m): </td><td><input type="text" name="elevation" value="<?php echo $elevation; ?>"/></td>
           <td>Model: </td>
           <td>
             <select name="model">
@@ -129,8 +129,8 @@
           </td>
         </tr>
         <tr>
-          <td>Longitude: </td><td><input type="text" name="lon"/></td>
-          <td>Elevation offset: </td><td><input type="text" name="elevoffset"/></td>
+          <td>Longitude: </td><td><input type="text" name="lon" value="<?php echo $longitude; ?>"/></td>
+          <td>Elevation offset: </td><td><input type="text" name="elevoffset" value="<?php echo $elevoffset; ?>"/></td>
           <td>Country: </td>
           <td>
             <select name="country">
@@ -148,8 +148,8 @@
           </td>
         </tr>
         <tr>
-          <td>Heading: </td><td><input type="text" name="heading"/></td>
-          <td>Description: </td><td><input type="text" name="description"/></td>
+          <td>Heading: </td><td><input type="text" name="heading" value="<?php echo $heading; ?>"/></td>
+          <td>Description: </td><td><input type="text" name="description" value="<?php echo $description; ?>"/></td>
           <td>Group: </td>
           <td>
             <select name="group">
