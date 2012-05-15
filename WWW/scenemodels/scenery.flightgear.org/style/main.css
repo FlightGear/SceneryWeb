@@ -108,7 +108,7 @@
 #main table.objects, #main table.models{
   width: 100%;
   border-collapse: collapse;
-  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 
 #main table.objects th, #main table.models th{
@@ -121,6 +121,7 @@
 
 #main table.objects td, #main table.models td{
   border-left: 1px solid black;
+  width: 9%;
 }
 
 
