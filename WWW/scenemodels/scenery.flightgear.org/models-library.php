@@ -7,7 +7,7 @@
     $offset = 0;
   }
 
-  $filter = "";
+  $filter = "1=1";
 
   if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family']))){
     $family = $_REQUEST['family'];
