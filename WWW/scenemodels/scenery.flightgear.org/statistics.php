@@ -21,6 +21,7 @@
   <br/>
   <center><iframe src="http://scenemodels.flightgear.org/maps/index.php?lat=10&lon=0&zoom=2" width="720px" height="450px"></iframe></center>
   <br/>
+  <br/>
 
   <h1>Objects scenery statistics</h1>
 <?php 
@@ -34,13 +35,11 @@
   $row = pg_fetch_assoc($result);
   $signs=$row["count"];
 
-  echo '<p>The database currently contains <a href="models.php">'.$models.' models</a> placed in the scenery as <a href="objects.php">'.$objects.' seperate objects</a>, plus '.$signs.' taxiway signs.</p>';
+  echo '<p>The database currently contains <a href="#">'.$models.' models</a> placed in the scenery as <a href="#">'.$objects.' positionned objects</a>, plus '.$signs.' taxiway signs.</p>';
 ?>
-<table class=main>
-  <tr class=main>
-    <td>
-      <table>
-        <tr><th colspan=2>Objects By Country</th></tr>
+
+      <table class="statistics">
+        <th colspan="2">Objects By Country</th>
         <?php
           $query = "SELECT count(ob_id) AS count,co_name,co_code ";
           $query.= "FROM fgs_objects,fgs_countries ";
@@ -57,10 +56,9 @@
           }
         ?>
       </table>
-    </td>
-    <td>
-      <table>
-        <tr><th colspan=2>Models By Author</th></tr>
+
+      <table class="statistics">
+        <th colspan="2">Models By Author</th>
         <?php
           $query = "SELECT count(mo_id) as count,au_name,au_id ";
           $query.= "FROM fgs_models,fgs_authors ";
@@ -77,12 +75,9 @@
           }
         ?>
       </table>
-    </td>
-  </tr>
-  <tr class=main>
-    <td align=center>
-      <table>
-        <tr><th colspan=2>Recently Updated Objects</th></tr>
+
+      <table class="statistics">
+        <th colspan="2">Recently Updated Objects</th>
         <?php
           $query = "SELECT ob_id,ob_text,ob_modified ";
           $query.= "FROM fgs_objects ";
@@ -97,10 +92,9 @@
           }
         ?>
       </table>
-    </td>
-    <td align=center>
-      <table>
-        <tr><th colspan=2>Recently Updated Models</th></tr>
+
+      <table class="statistics">
+        <th colspan="2">Recently Updated Models</th>
         <?php
           $query = "SELECT mo_id,mo_name,mo_modified ";
           $query.= "FROM fgs_models ";
@@ -115,9 +109,6 @@
           }
         ?>
       </table>
-    </td>
-  </tr>
-</table>
 
   </div>
 
