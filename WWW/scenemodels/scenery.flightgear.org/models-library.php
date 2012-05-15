@@ -1,4 +1,29 @@
-<?php include("include/menu.php"); ?>
+<?php
+  include("include/menu.php");
+
+  if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))){
+    $offset = $_REQUEST['offset'];
+  }else{
+    $offset = 0;
+  }
+
+  $filter = "";
+
+  if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family']))){
+    $model = $_REQUEST['family'];
+    $filter.= " and mo_shared=".$_REQUEST['family'];
+  }else{
+    $model = "";
+  }
+
+  if (isset($_REQUEST['author']) && (preg_match('/^[0-9]+$/u',$_GET['author'])) && $_REQUEST['author']>0){
+    $group = $_REQUEST['author'];
+    $filter.= " and au_author=".$_REQUEST['author'];
+  }else{
+    $group = "";
+  }
+
+?>
 <div id="main">
 
   <div class="postHeaderCompact">
@@ -26,7 +51,7 @@
 
     <h1>Authors</h1>
     <p>
-      Here is the list of all authors, thanks to them :<br/>
+      Here is the list of all authors, thank to them :<br/>
       $LIST-OF-AUTHORS
     </p>
 
@@ -38,7 +63,7 @@
         <tr>
           <td>Family: </td>
           <td>
-            <select name="model">
+            <select name="family">
               <option value="0"></option>
               <?php
                 $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
@@ -51,15 +76,12 @@
           </td>
           <td>Author: </td>
           <td>
-            <select name="group">
+            <select name="author">
               <option value="0"></option>
               <?php
-                $result=pg_query("SELECT au_id,au_name FROM fgs_authors ORDER BY au_name ASC;");
+                $result = pg_query("SELECT au_id, au_name FROM fgs_authors ORDER BY au_name ASC;");
                 while ($row = pg_fetch_assoc($result)){
-                  $groups[$row["gp_id"]]=$row["gp_name"];
-                  echo '<option value="'.$row["gp_id"].'"';
-                  if ($row["gp_id"]==$group) echo " selected";
-                  echo ">".$row["gp_name"]."</option>\n";
+                  echo "<option value=\"".$row["au_id"]."\">".$row["au_name"]."</option>\n";
                 }
               ?>
             </select>
@@ -84,9 +106,8 @@
       $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, mo_modified, mo_shared, CHAR_LENGTH(mo_modelfile) ";
       $query.= "AS mo_modelsize, mg_name, mg_id ";
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
-      $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ";
-      $query.= "ORDER BY mo_modified DESC ";
-      $query.= "LIMIT 10 OFFSET ".$offset;
+      $query.= "WHERE mo_id IS NOT NULL ".$filter." ";
+      $query.= "LIMIT 20 OFFSET ".$offset;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
@@ -144,8 +165,8 @@
           <?php
             $prev = $offset-20;
             $next = $offset+20;
-            echo "<a href=\"objects-position.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
-            echo "<a href=\"objects-position.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+            echo "<a href=\"models-library.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
+            echo "<a href=\"models-library.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
           ?>
         </td>
       </tr>

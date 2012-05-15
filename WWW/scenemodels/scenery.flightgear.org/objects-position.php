@@ -110,15 +110,7 @@
       <table width="1036px">
         <tr>
           <td>Latitude: </td><td><input type="text" name="lat"/></td>
-          <td>Longitude: </td><td><input type="text" name="lon"/></td>
           <td>Ground elevation (m): </td><td><input type="text" name="elevation"/></td>
-        </tr>
-        <tr>
-          <td>Elevation offset: </td><td><input type="text" name="elevoffset"/></td>
-          <td>Heading: </td><td><input type="text" name="heading"/></td>
-          <td>Description: </td><td><input type="text" name="description"/></td>
-        </tr>
-        <tr>
           <td>Model: </td>
           <td>
             <select name="model">
@@ -134,6 +126,10 @@
               ?>
             </select>
           </td>
+        </tr>
+        <tr>
+          <td>Longitude: </td><td><input type="text" name="lon"/></td>
+          <td>Elevation offset: </td><td><input type="text" name="elevoffset"/></td>
           <td>Group: </td>
           <td>
             <select name="group">
@@ -149,6 +145,10 @@
               ?>
             </select>
           </td>
+        </tr>
+        <tr>
+          <td>Heading: </td><td><input type="text" name="heading"/></td>
+          <td>Description: </td><td><input type="text" name="description"/></td>
           <td>Country: </td>
           <td>
             <select name="country">
