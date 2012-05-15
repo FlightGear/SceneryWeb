@@ -77,23 +77,6 @@
       </table>
 
       <table class="statistics">
-        <th colspan="2">Recently Updated Objects</th>
-        <?php
-          $query = "SELECT ob_id,ob_text,ob_modified ";
-          $query.= "FROM fgs_objects ";
-          $query.= "ORDER BY ob_modified DESC ";
-          $query.= "LIMIT 10";
-          $result = pg_query($query);
-          while ($row = pg_fetch_assoc($result)){
-            echo "<tr>\n";
-              echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</td>\n";
-              echo "<td>".$row["ob_modified"]."</td>\n";
-            echo "</tr>\n";
-          }
-        ?>
-      </table>
-
-      <table class="statistics">
         <th colspan="2">Recently Updated Models</th>
         <?php
           $query = "SELECT mo_id,mo_name,mo_modified ";
@@ -105,6 +88,23 @@
             echo "<tr>\n";
               echo "<td><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</td>\n";
               echo "<td>".$row["mo_modified"]."</td>\n";
+            echo "</tr>\n";
+          }
+        ?>
+      </table>
+
+      <table class="statistics">
+        <th colspan="2">Recently Updated Objects</th>
+        <?php
+          $query = "SELECT ob_id,ob_text,ob_modified ";
+          $query.= "FROM fgs_objects ";
+          $query.= "ORDER BY ob_modified DESC ";
+          $query.= "LIMIT 10";
+          $result = pg_query($query);
+          while ($row = pg_fetch_assoc($result)){
+            echo "<tr>\n";
+              echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</td>\n";
+              echo "<td>".$row["ob_modified"]."</td>\n";
             echo "</tr>\n";
           }
         ?>
