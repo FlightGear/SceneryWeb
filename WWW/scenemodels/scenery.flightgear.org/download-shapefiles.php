@@ -13,7 +13,6 @@
   <div class="postContent">
 
 
-
   <table style="border-style:solid; border-width:1px; margin:auto;" cellpadding="1" cellspacing="1" rules="rows">
     <tr>
       <td>
@@ -30,6 +29,7 @@
       </td>
     </tr>
   </table>  
+
 
   <br/>
   <table style="border-style:solid; border-width:1px; margin:auto;" cellpadding="1" cellspacing="1" rules="rows">
@@ -187,6 +187,7 @@
     </tr>
     </form>
   </table>
+
 
   </div>
 

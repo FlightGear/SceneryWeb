@@ -17,16 +17,19 @@
       In order to add a new 3D model you must use this form : <a href="#">Add a new 3D model</a>
     </p>
 
+
     <h1>Update/delete 3D model</h1>
     <p>
       Currently it's not possible to update/delete a 3D model. 3D models are automatically deleted if not used (no available position).
     </p>
+
 
     <h1>Authors</h1>
     <p>
       Here is the list of all authors, thanks to them :<br/>
       $LIST-OF-AUTHORS
     </p>
+
 
     <h1>3D models library</h1>
     <fieldset>
@@ -41,6 +44,7 @@
       $LIST-OF-MODELS
     </p>
     <br/>
+
 
   </div>
 

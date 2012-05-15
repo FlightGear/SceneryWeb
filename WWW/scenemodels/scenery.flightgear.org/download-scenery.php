@@ -11,10 +11,12 @@
   </div>
 
   <div class="postContent">
-  <p>
-    Click on any of the 10x10 degree chunks in the image below to download that area.<br/>
-    An area with no corresponding link means that area is all ocean so there is nothing to download.
-  </p>
+
+    <p>
+      Click on any of the 10x10 degree chunks in the image below to download that area.<br/>
+      An area with no corresponding link means that area is all ocean so there is nothing to download.
+    </p>
+
 <center><IMG SRC="template/scenery-map.png" WIDTH="720px" USEMAP="#map"></center>
 <MAP NAME="map">
 <AREA SHAPE=rect COORDS=360,200,380,225 HREF="http://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Scenery-v2.6.0/e000n00.tgz" ALT="e000n00  48.44 Mb   2/17/2012">

@@ -333,10 +333,12 @@
 <AREA SHAPE=rect COORDS=0,325,20,350 HREF=http://scenemodels.flightgear.org/download/w180s50.tgz ALT="w180s50.tgz  0.00 Mb  10/15/2005">
 </MAP>
 <br/>
+
     <p>
       In your scenery directory create directories called Objects and Terrain.<br/><br/>
       Unpack the files from this site in the Objects directory, and the <a href="http://www.flightgear.org/Downloads/scenery-1.0.1.html">FlightGear scenery</a> files into the Terrain directory.
     </p>
+
 
   </div>
 

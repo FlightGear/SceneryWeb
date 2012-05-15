@@ -13,6 +13,8 @@ if($_GET['action'] == "news"){
   $row = pg_fetch_assoc($result);
   echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
 ?>
+
+
 <rss version="2.0">
   <channel>
     <title>FGFSDB Updates</title>
@@ -41,6 +43,8 @@ if($_GET['action'] == "news"){
     ?>
   </channel>
 </rss>
+
+
 <?php
 ################################################
 #                 RSS : Models                 #
@@ -83,12 +87,16 @@ if($_GET['action'] == "news"){
     ?>
   </channel>
 </rss>
+
+
 <?php
 }else{
 ################################################
 #                       RSS                    #
 ################################################
 ?>
+
+
 <?php include("include/menu.php"); ?>
 <div id="main">
 

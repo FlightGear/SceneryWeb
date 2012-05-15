@@ -12,6 +12,7 @@
 
   <div class="postContent">
 
+
   <h1>Objects scenery coverage</h1>
   <p>In this map you can see all objects already present in our database.</p>
   <ul>Legend:
@@ -22,6 +23,7 @@
   <center><iframe src="http://scenemodels.flightgear.org/maps/index.php?lat=10&lon=0&zoom=2" width="720px" height="450px"></iframe></center>
   <br/>
   <br/>
+
 
   <h1>Objects scenery statistics</h1>
 <?php 
