@@ -10,17 +10,17 @@
   $filter = "";
 
   if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family']))){
-    $model = $_REQUEST['family'];
+    $family = $_REQUEST['family'];
     $filter.= " and mo_shared=".$_REQUEST['family'];
   }else{
-    $model = "";
+    $family = "";
   }
 
   if (isset($_REQUEST['author']) && (preg_match('/^[0-9]+$/u',$_GET['author'])) && $_REQUEST['author']>0){
-    $group = $_REQUEST['author'];
+    $author = $_REQUEST['author'];
     $filter.= " and au_author=".$_REQUEST['author'];
   }else{
-    $group = "";
+    $author = "";
   }
 
 ?>
@@ -56,9 +56,10 @@
     </p>
 
 
-    <h1>3D models library</h1>
+    <h1 id="anchor">3D models library</h1>
     <fieldset>
       <legend>Filter</legend>
+      <form action="models-library.php#anchor" method="GET">
       <table width="1036px">
         <tr>
           <td>Family: </td>
@@ -91,6 +92,7 @@
           <td colspan="4"><button style="float:right;">Filter</button></td>
         </tr>
       </table>
+      </form>
     </fieldset>
     <br/>
 
@@ -111,6 +113,7 @@
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
       $query.= "WHERE mo_id IS NOT NULL ".$filter." ";
       $query.= "LIMIT 20 OFFSET ".$offset;
+echo $query;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
@@ -168,8 +171,8 @@
           <?php
             $prev = $offset-20;
             $next = $offset+20;
-            echo "<a href=\"models-library.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
-            echo "<a href=\"models-library.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+            echo "<a href=\"models-library.php#anchor?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
+            echo "<a href=\"models-library.php#anchor?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
           ?>
         </td>
       </tr>

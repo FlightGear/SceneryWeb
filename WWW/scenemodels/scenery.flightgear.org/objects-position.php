@@ -104,10 +104,10 @@
     </p>
 
 
-    <h1>Objects positions library</h1>
+    <h1 id="anchor">Objects positions library</h1>
     <fieldset>
-      <form action="objects-position.php" method="GET">
       <legend>Filter</legend>
+      <form action="objects-position.php#anchor" method="GET">
       <table width="1036px">
         <tr>
           <td>Latitude: </td><td><input type="text" name="lat" value="<?php echo $lat; ?>"/></td>
@@ -213,8 +213,8 @@
           <?php
             $prev = $offset-20;
             $next = $offset+20;
-            echo "<a href=\"objects-position.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
-            echo "<a href=\"objects-position.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+            echo "<a href=\"objects-position.php#anchor?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
+            echo "<a href=\"objects-position.php#anchor?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
           ?>
         </td>
       </tr>
