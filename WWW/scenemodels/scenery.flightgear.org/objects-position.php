@@ -176,16 +176,16 @@
 
     <table class="objects">
       <tr>
-        <th width="90px">Lat</th>
-        <th width="90px">Lon</th>
+        <th width="82px">Lat</th>
+        <th width="81px">Lon</th>
         <th width="90px">Ground Elevation (m)</th>
-        <th width="80px">Elevation Offset</th>
-        <th width="90px">Heading</th>
+        <th width="72px">Elevation Offset</th>
+        <th width="64px">Heading</th>
         <th>Description</th>
-        <th>Model</th>
+        <th>Model<br/>(Click to edit)</th>
         <th width="100px">Group</th>
         <th width="90px">Country</th>
-        <th width="45px"></th>
+        <th width="38px"></th>
       </tr>
       <?php
         $query = "SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon ";
@@ -195,16 +195,16 @@
         $result=pg_query($query);
         while ($row = pg_fetch_assoc($result)){	
           echo "<tr class=object>\n";
-            echo "<td>".$row["ob_lat"]."</td>\n";
-            echo "<td>".$row["ob_lon"]."</td>\n";
-            echo "<td>".$row["ob_gndelev"]."</td>\n";
-            echo "<td>".$row["ob_elevoffset"]."</td>\n";
-            echo "<td>".$row["ob_heading"]."</td>\n";
+            echo "<td align=\"center\">".$row["ob_lat"]."</td>\n";
+            echo "<td align=\"center\">".$row["ob_lon"]."</td>\n";
+            echo "<td align=\"center\">".$row["ob_gndelev"]."</td>\n";
+            echo "<td align=\"center\">".$row["ob_elevoffset"]."</td>\n";
+            echo "<td align=\"center\">".$row["ob_heading"]."</td>\n";
             echo "<td>".$row["ob_text"]."</td>\n";
             echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$models[$row["ob_model"]]."</a></td>\n";
-            echo "<td>".$groups[$row["ob_group"]]."</td>\n";
-            echo "<td>".$countries[$row["ob_country"]]."</td>\n";
-            echo "<td><a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a></td>\n";
+            echo "<td align=\"center\">".$groups[$row["ob_group"]]."</td>\n";
+            echo "<td align=\"center\">".$countries[$row["ob_country"]]."</td>\n";
+            echo "<td align=\"center\"><a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a></td>\n";
           echo "</tr>\n";
         }
       ?>
