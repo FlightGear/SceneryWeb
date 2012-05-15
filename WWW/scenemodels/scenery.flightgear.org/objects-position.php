@@ -106,6 +106,7 @@
 
     <h1>Objects positions library</h1>
     <fieldset>
+      <form action="objects-position.php" method="GET">
       <legend>Filter</legend>
       <table width="1036px">
         <tr>
@@ -130,25 +131,6 @@
         <tr>
           <td>Longitude: </td><td><input type="text" name="lon"/></td>
           <td>Elevation offset: </td><td><input type="text" name="elevoffset"/></td>
-          <td>Group: </td>
-          <td>
-            <select name="group">
-              <option value="0"></option>
-              <?php
-                $result=pg_query("SELECT gp_id,gp_name FROM fgs_groups;");
-                while ($row = pg_fetch_assoc($result)){
-                  $groups[$row["gp_id"]]=$row["gp_name"];
-                  echo '<option value="'.$row["gp_id"].'"';
-                  if ($row["gp_id"]==$group) echo " selected";
-                  echo ">".$row["gp_name"]."</option>\n";
-                }
-              ?>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Heading: </td><td><input type="text" name="heading"/></td>
-          <td>Description: </td><td><input type="text" name="description"/></td>
           <td>Country: </td>
           <td>
             <select name="country">
@@ -166,13 +148,33 @@
           </td>
         </tr>
         <tr>
+          <td>Heading: </td><td><input type="text" name="heading"/></td>
+          <td>Description: </td><td><input type="text" name="description"/></td>
+          <td>Group: </td>
+          <td>
+            <select name="group">
+              <option value="0"></option>
+              <?php
+                $result=pg_query("SELECT gp_id,gp_name FROM fgs_groups;");
+                while ($row = pg_fetch_assoc($result)){
+                  $groups[$row["gp_id"]]=$row["gp_name"];
+                  echo '<option value="'.$row["gp_id"].'"';
+                  if ($row["gp_id"]==$group) echo " selected";
+                  echo ">".$row["gp_name"]."</option>\n";
+                }
+              ?>
+            </select>
+          </td>
+        </tr>
+        <tr>
           <td colspan="6"><button style="float:right;">Filter</button></td>
         </tr>
       </table>
+      </form>
     </fieldset>
     <br/>
 
-    <table>
+    <table class="objects">
       <tr>
         <th>Lat</th>
         <th>Lon</th>

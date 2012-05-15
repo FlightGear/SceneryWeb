@@ -1,5 +1,5 @@
 <?php 
-include("pgsql.php");
+include("include/pgsql.php");
 
 header("Content-type: image/jpg");
 if (isset($_GET['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))){

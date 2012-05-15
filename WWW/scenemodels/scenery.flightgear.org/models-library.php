@@ -87,11 +87,14 @@
             </select>
           </td>
         </tr>
+        <tr>
+          <td colspan="2"><button style="float:right;">Filter</button></td>
+        </tr>
       </table>
-      <button style="float:right;">Filter</button>
     </fieldset>
     <br/>
-    <table>
+
+    <table class="models">
       <tr>
         <th></th>
         <th>Name</th>
@@ -111,8 +114,8 @@
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
-          echo "<td width=320>\n";
-            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"show-thumb.php?id=".$row["mo_id"]."\"></a>\n";
+          echo "<td>\n";
+            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"show-thumb.php?id=".$row["mo_id"]."\" width=\"160px\"></a>\n";
           echo "</td>\n";
           echo "<td>".$row["mo_name"]."</td>\n";
             echo "<td>".$row["mo_path"]."</td>\n";
