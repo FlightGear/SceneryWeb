@@ -18,9 +18,17 @@
 
   if (isset($_REQUEST['author']) && (preg_match('/^[0-9]+$/u',$_GET['author'])) && $_REQUEST['author']>0){
     $author = $_REQUEST['author'];
-    $filter.= " and au_author=".$_REQUEST['author'];
+    $filter.= " and au_name=".$_REQUEST['author'];
   }else{
     $author = "";
+  }
+
+  if (isset($_REQUEST['orderby']) && $_REQUEST['orderby']!=""){
+    $orderby = $_REQUEST['orderby'];
+    $filter.= " ORDER BY=".$_REQUEST['orderby'];
+  }else{
+    $orderby = "";
+    $filter.= " ORDER BY mo_modified DESC";
   }
 
 ?>
@@ -70,7 +78,9 @@
                 $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
                 while ($row = pg_fetch_assoc($result)){
                   $name = preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-                  echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                  echo '<option value="'.$row["mg_id"].'"';
+                  if($family==$row["mg_id"])echo " selected";
+                  echo '>'.$name.'</option>\n';
                 }
               ?>
             </select>
@@ -82,13 +92,23 @@
               <?php
                 $result = pg_query("SELECT au_id, au_name FROM fgs_authors ORDER BY au_name ASC;");
                 while ($row = pg_fetch_assoc($result)){
-                  echo "<option value=\"".$row["au_id"]."\">".$row["au_name"]."</option>\n";
+                  echo '<option value="'.$row["au_id"].'"';
+                  if($author==$row["au_id"])echo " selected";
+                  echo '>'.$row["au_name"].'</option>\n';
                 }
               ?>
             </select>
           </td>
-        </tr>
-        <tr>
+          <td>Order by: </td>
+          <td>
+            <select name="orderby">
+              <option value="0"></option>
+              <option value="mo_name" <?php if($orderby == "mo_name")echo "selected"; ?>>Name</option>
+              <option value="mo_path" <?php if($orderby == "mo_path")echo "selected"; ?>>Path</option>
+              <option value="au_name" <?php if($orderby == "au_name")echo "selected"; ?>>Author</option>
+              <option value="mo_modified" <?php if($orderby == "mo_modified")echo "selected"; ?>>Last updated</option>
+            </select>
+          </td>
           <td colspan="4"><button style="float:right;">Filter</button></td>
         </tr>
       </table>
@@ -111,7 +131,8 @@
       $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, mo_modified, mo_shared, CHAR_LENGTH(mo_modelfile) ";
       $query.= "AS mo_modelsize, mg_name, mg_id ";
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
-      $query.= "WHERE mo_id IS NOT NULL ".$filter." ";
+      $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ".$filter." ";
+//      $query.= "ORDER BY mo_modified DESC ";
       $query.= "LIMIT 20 OFFSET ".$offset;
 echo $query;
       $result=pg_query($query);
@@ -171,8 +192,8 @@ echo $query;
           <?php
             $prev = $offset-20;
             $next = $offset+20;
-            echo "<a href=\"models-library.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter#anchor\">Prev</a>";
-            echo "<a href=\"models-library.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter#anchor\">Next</a>";
+            echo "<a href=\"models-library.php?offset=".$prev."&family=".$family."&author=".$author."&orderby=".$orderby."&filter=Filter#anchor\">Prev</a> ";
+            echo "<a href=\"models-library.php?offset=".$next."&family=".$family."&author=".$author."&orderby=".$orderby."&filter=Filter#anchor\">Next</a>";
           ?>
         </td>
       </tr>

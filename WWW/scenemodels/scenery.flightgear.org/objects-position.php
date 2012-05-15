@@ -129,7 +129,7 @@
           </td>
         </tr>
         <tr>
-          <td>Longitude: </td><td><input type="text" name="lon" value="<?php echo $longitude; ?>"/></td>
+          <td>Longitude: </td><td><input type="text" name="lon" value="<?php echo $lon; ?>"/></td>
           <td>Elevation offset: </td><td><input type="text" name="elevoffset" value="<?php echo $elevoffset; ?>"/></td>
           <td>Country: </td>
           <td>
@@ -213,7 +213,7 @@
           <?php
             $prev = $offset-20;
             $next = $offset+20;
-            echo "<a href=\"objects-position.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter#anchor\">Prev</a>";
+            echo "<a href=\"objects-position.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter#anchor\">Prev</a> ";
             echo "<a href=\"objects-position.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter#anchor\">Next</a>";
           ?>
         </td>
