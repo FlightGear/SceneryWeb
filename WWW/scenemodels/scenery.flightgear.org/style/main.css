@@ -101,17 +101,17 @@
   margin-left: 25px;
 }
 
-#main .statistics{
+#main table{
   border-collapse: collapse;
   border: 1px solid black;
   margin: 10px;
   float: left;
 }
 
-#main .statistics tr:nth-child(even){
+#main table tr:nth-child(even){
   background: #CCC;
 }
 
-#main .statistics tr:nth-child(odd){
+#main table tr:nth-child(odd){
   background: #FFF;
 }
