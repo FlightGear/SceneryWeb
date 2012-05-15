@@ -112,6 +112,8 @@
 }
 
 #main table.objects th, #main table.models th{
+  border-top: 1px solid black;
+  border-right: 1px solid black;
   background: gray;
 }
 
@@ -120,8 +122,7 @@
 }
 
 #main table.objects td, #main table.models td{
-  border-left: 1px solid black;
-  width: 9%;
+  border-right: 1px solid black;
 }
 
 

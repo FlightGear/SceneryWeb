@@ -176,15 +176,16 @@
 
     <table class="objects">
       <tr>
-        <th>Lat</th>
-        <th>Lon</th>
-        <th>Ground<br>Elevation (m)</th>
-        <th>Elevation<br>Offset</th>
-        <th>Heading</th>
+        <th width="90px">Lat</th>
+        <th width="90px">Lon</th>
+        <th width="90px">Ground Elevation (m)</th>
+        <th width="80px">Elevation Offset</th>
+        <th width="90px">Heading</th>
         <th>Description</th>
         <th>Model</th>
-        <th>Group</th>
-        <th>Country</th>
+        <th width="100px">Group</th>
+        <th width="90px">Country</th>
+        <th width="45px"></th>
       </tr>
       <?php
         $query = "SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon ";
@@ -200,13 +201,10 @@
             echo "<td>".$row["ob_elevoffset"]."</td>\n";
             echo "<td>".$row["ob_heading"]."</td>\n";
             echo "<td>".$row["ob_text"]."</td>\n";
-            echo "<td>".$models[$row["ob_model"]]."</td>\n";
+            echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$models[$row["ob_model"]]."</a></td>\n";
             echo "<td>".$groups[$row["ob_group"]]."</td>\n";
             echo "<td>".$countries[$row["ob_country"]]."</td>\n";
-            echo "<td>\n";
-              echo "<a href=\"objectedit.php?id=".$row["ob_id"]."\">Edit</a> ";
-              echo "<a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>";
-            echo "</td>\n";
+            echo "<td><a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a></td>\n";
           echo "</tr>\n";
         }
       ?>
