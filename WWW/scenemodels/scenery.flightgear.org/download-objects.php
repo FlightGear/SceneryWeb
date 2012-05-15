@@ -337,7 +337,6 @@
       In your scenery directory create directories called Objects and Terrain.<br/><br/>
       Unpack the files from this site in the Objects directory, and the <a href="http://www.flightgear.org/Downloads/scenery-1.0.1.html">FlightGear scenery</a> files into the Terrain directory.
     </p>
-    <br/>
 
   </div>
 

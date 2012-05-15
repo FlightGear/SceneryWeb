@@ -19,13 +19,26 @@
 
     <h1>Update/delete 3D model</h1>
     <p>
-      Currently it's not possible to update/delete a 3D model.<br/>
-      3D model are automatically deleted if not used (no available position)
+      Currently it's not possible to update/delete a 3D model. 3D models are automatically deleted if not used (no available position).
+    </p>
+
+    <h1>Authors</h1>
+    <p>
+      Here is the list of all authors, thanks to them :<br/>
+      $LIST-OF-AUTHORS
     </p>
 
     <h1>3D models library</h1>
+    <fieldset>
+      <legend>Filter</legend>
+      Sort by: <select><option>author|last update|name</option></select>
+      Family: <select><option>All|Static|Shared...</option></select>
+      Number of objects/page: <select><option>10|100|500|1000</option></select>
+      View: <select><option>list|grid</option></select>
+      <button style="float:right;">Filter</button>
+    </fieldset>
     <p>
-      TABLE
+      $LIST-OF-MODELS
     </p>
     <br/>
 

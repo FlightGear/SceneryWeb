@@ -38,6 +38,11 @@
             <li><a href="download-scenery.php">Download scenery</a></li>
             <li><a href="download-shapefiles.php">Download shapefiles</a></li>
           </ul>
+          <!--<h4><span>Tools</span></h4>
+          <ul>
+            <li><a href="#">TerraGear</a></li>
+            <li><a href="#">WorldEditor</a></li>
+          </ul>-->
           <h4><span>Others</span></h4>
           <ul>
             <li><a href="howto-contribute.php">How to contribute</a></li>
@@ -46,7 +51,7 @@
             <li><a href="faq.php">F.A.Q</a></li>
             <li><a href="rss.php">RSS</a></li>
             <br/>
-            <li><a href="validators-access.php">Validators access</a></li>
+            <li><a href="validators-area.php">Validators area</a></li>
           </ul>
         </div>
       </div>

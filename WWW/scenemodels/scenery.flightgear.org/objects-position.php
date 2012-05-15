@@ -19,7 +19,7 @@
 
     <h1>Update/delete object position</h1>
     <p>
-      In order to update/delete an object position you need to browse our objects positions library availble in this page.
+      In order to update/delete an object position you need to browse our objects positions library available in this page.
     </p>
 
     <h1>Objects positions library</h1>
