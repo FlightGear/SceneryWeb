@@ -131,7 +131,7 @@
       $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, mo_modified, mo_shared, CHAR_LENGTH(mo_modelfile) ";
       $query.= "AS mo_modelsize, mg_name, mg_id ";
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
-      $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ".$filter." ";
+      $query.= "WHERE ".$filter." ";
 //      $query.= "ORDER BY mo_modified DESC ";
       $query.= "LIMIT 20 OFFSET ".$offset;
 echo $query;
