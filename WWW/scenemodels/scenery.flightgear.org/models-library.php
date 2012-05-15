@@ -34,15 +34,122 @@
     <h1>3D models library</h1>
     <fieldset>
       <legend>Filter</legend>
-      Sort by: <select><option>author|last update|name</option></select>
-      Family: <select><option>All|Static|Shared...</option></select>
-      Number of objects/page: <select><option>10|100|500|1000</option></select>
-      View: <select><option>list|grid</option></select>
+      <table width="1036px">
+        <tr>
+          <td>Family: </td>
+          <td>
+            <select name="model">
+              <option value="0"></option>
+              <?php
+                $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
+                while ($row = pg_fetch_assoc($result)){
+                  $name = preg_replace('/ /',"&nbsp;",$row["mg_name"]);
+                  echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                }
+              ?>
+            </select>
+          </td>
+          <td>Author: </td>
+          <td>
+            <select name="group">
+              <option value="0"></option>
+              <?php
+                $result=pg_query("SELECT au_id,au_name FROM fgs_authors ORDER BY au_name ASC;");
+                while ($row = pg_fetch_assoc($result)){
+                  $groups[$row["gp_id"]]=$row["gp_name"];
+                  echo '<option value="'.$row["gp_id"].'"';
+                  if ($row["gp_id"]==$group) echo " selected";
+                  echo ">".$row["gp_name"]."</option>\n";
+                }
+              ?>
+            </select>
+          </td>
+        </tr>
+      </table>
       <button style="float:right;">Filter</button>
     </fieldset>
-    <p>
-      $LIST-OF-MODELS
-    </p>
+    <br/>
+    <table>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Path</th>
+        <th>Notes</th>
+        <th>Author</th>
+        <th>Last updated</th>
+        <th>Family</th>
+        <th>Available in database</th>
+      </tr>
+    <?php
+      $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, mo_modified, mo_shared, CHAR_LENGTH(mo_modelfile) ";
+      $query.= "AS mo_modelsize, mg_name, mg_id ";
+      $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
+      $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ";
+      $query.= "ORDER BY mo_modified DESC ";
+      $query.= "LIMIT 10 OFFSET ".$offset;
+      $result=pg_query($query);
+      while ($row = pg_fetch_assoc($result)){
+        echo "<tr>\n";
+          echo "<td width=320>\n";
+            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"show-thumb.php?id=".$row["mo_id"]."\"></a>\n";
+          echo "</td>\n";
+          echo "<td>".$row["mo_name"]."</td>\n";
+            echo "<td>".$row["mo_path"]."</td>\n";
+            echo "<td>".$row["mo_notes"]."</td>\n";
+            echo "<td>".$row["au_name"]."</td>\n";
+            echo "<td>".$row["mo_modified"]."</td>\n";
+            echo "<td>".$row["mg_name"]."</td>\n";
+
+            if ($row["mo_modelsize"]>0){
+              echo "<td>Yes</p>\n";
+
+              if ($row["mo_shared"]==0){	
+                $modelid = $row["mo_id"];
+                $query = "SELECT ST_Y(wkb_geometry), ST_X(wkb_geometry) ";
+                $query.= "AS ob_lat, ob_lon ";
+                $query.= "FROM fgs_objects ";
+                $query.= "WHERE ob_model=".$modelid;
+                $chunks=pg_query($query);
+                while ($chunk = pg_fetch_assoc($chunks)){
+                  $lat=floor($chunk["ob_lat"]/10)*10;
+                  $lon=floor($chunk["ob_lon"]/10)*10;
+                  
+                  if ($lon < 0){
+                    $lon=sprintf("w%03d", 0-$lon);
+                  }else{
+                    $lon=sprintf("e%03d", $lon);
+                  }
+
+                  if ($lat < 0){
+                    $lat=sprintf("s%02d", 0-$lat);
+                  }else{
+                    $lat=sprintf("n%02d", $lat);
+                  }
+
+                  echo " (<a href=\"download/".$lon.$lat.".tgz\">".$lon.$lat."</a>) ";
+                  echo "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a>\n";
+                }
+              }
+            }else{
+              print "<td>No</td>\n";
+            }
+
+            echo "<p align=right><a href=\"modeledit.php?id=".$row["mo_id"]."\">Edit</a></p>\n";
+          echo "</td>\n";
+        echo "</tr>\n";
+      }
+    ?>
+      <tr>
+        <td colspan="11" align="center">
+          <?php
+            $prev = $offset-20;
+            $next = $offset+20;
+            echo "<a href=\"objects-position.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
+            echo "<a href=\"objects-position.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+          ?>
+        </td>
+      </tr>
+    </table>
     <br/>
 
 
