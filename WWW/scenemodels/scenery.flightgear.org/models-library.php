@@ -7,25 +7,25 @@
     $offset = 0;
   }
 
-  $filter = "1=1";
+  $filter = "";
 
   if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family'])) && $_REQUEST['family']>0){
     $family = $_REQUEST['family'];
-    $filter.= " and mo_shared=".$_REQUEST['family'];
+    $filter.= " AND mo_shared=".$_REQUEST['family'];
   }else{
     $family = "";
   }
 
   if (isset($_REQUEST['author']) && (preg_match('/^[0-9]+$/u',$_GET['author'])) && $_REQUEST['author']>0){
     $author = $_REQUEST['author'];
-    $filter.= " and au_name=".$_REQUEST['author'];
+    $filter.= " AND mo_author=".$_REQUEST['author'];
   }else{
     $author = "";
   }
 
   if (isset($_REQUEST['orderby']) && $_REQUEST['orderby']!=0){
     $orderby = $_REQUEST['orderby'];
-    $filter.= " ORDER BY=".$_REQUEST['orderby']." ASC";
+    $filter.= " ORDER BY=".$_REQUEST['orderby']." DESC";
   }else{
     $orderby = "";
     $filter.= " ORDER BY mo_modified DESC";
@@ -131,9 +131,8 @@
       $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, mo_modified, mo_shared, CHAR_LENGTH(mo_modelfile) ";
       $query.= "AS mo_modelsize, mg_name, mg_id ";
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
-      $query.= "GROUP BY mo_id ";
-      $query.= "WHERE ".$filter." ";
-      $query.= "LIMIT 20 OFFSET ".$offset;
+      $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ".$filter." ";
+      $query.= "LIMIT 10 OFFSET ".$offset;
 echo $query;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
