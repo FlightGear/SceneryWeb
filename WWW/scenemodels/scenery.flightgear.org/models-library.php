@@ -9,7 +9,7 @@
 
   $filter = "";
 
-  if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family']))){
+  if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family'])) && $_REQUEST['family']!=""){
     $family = $_REQUEST['family'];
     $filter.= " AND mo_shared=".$_REQUEST['family'];
   }else{
@@ -72,7 +72,7 @@
           <td>Family: </td>
           <td>
             <select name="family">
-              <option value="0"></option>
+              <option value=""></option>
               <?php
                 $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
                 while ($row = pg_fetch_assoc($result)){
@@ -131,7 +131,8 @@
       $query.= "AS mo_modelsize, mg_name, mg_id ";
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
       $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ".$filter." ";
-      $query.= "LIMIT 10 OFFSET ".$offset;
+      $query.= "LIMIT 20 OFFSET ".$offset;
+echo $query;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
