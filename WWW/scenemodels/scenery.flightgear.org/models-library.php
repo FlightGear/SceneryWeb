@@ -24,7 +24,7 @@
   }
   if (isset($_REQUEST['orderby']) && $_REQUEST['orderby']!="0"){
     $orderby = $_REQUEST['orderby'];
-    $filter.= " ORDER BY ".$_REQUEST['orderby']." DESC";
+    $filter.= " ORDER BY ".$_REQUEST['orderby']." ASC";
   }else{
     $orderby = "";
     $filter.= " ORDER BY mo_modified DESC";
