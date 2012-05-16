@@ -9,7 +9,7 @@
 
   $filter = "";
 
-  if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family'])) && $_REQUEST['family']>0){
+  if (isset($_REQUEST['family']) && (preg_match('/^[0-9]+$/u',$_GET['family']))){
     $family = $_REQUEST['family'];
     $filter.= " AND mo_shared=".$_REQUEST['family'];
   }else{
@@ -119,12 +119,12 @@
       <tr>
         <th></th>
         <th>Name</th>
-        <th>Path</th>
+        <th>Path<br/>(click to edit)</th>
         <th>Notes</th>
         <th>Author</th>
-        <th>Last updated</th>
-        <th>Family</th>
-        <th>Available in database</th>
+        <th width="122px">Last updated</th>
+        <th width="100px">Family</th>
+        <th width="70px">Available in database</th>
       </tr>
     <?php
       $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, mo_modified, mo_shared, CHAR_LENGTH(mo_modelfile) ";
@@ -132,56 +132,52 @@
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
       $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ".$filter." ";
       $query.= "LIMIT 10 OFFSET ".$offset;
-echo $query;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
           echo "<td>\n";
-            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"show-thumb.php?id=".$row["mo_id"]."\" width=\"160px\"></a>\n";
+            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"show-thumb.php?id=".$row["mo_id"]."\" width=\"160px\" style=\"margin:4px;\"></a>\n";
           echo "</td>\n";
-          echo "<td>".$row["mo_name"]."</td>\n";
-            echo "<td>".$row["mo_path"]."</td>\n";
-            echo "<td>".$row["mo_notes"]."</td>\n";
-            echo "<td>".$row["au_name"]."</td>\n";
-            echo "<td>".$row["mo_modified"]."</td>\n";
-            echo "<td>".$row["mg_name"]."</td>\n";
+          echo "<td align=\"center\">".$row["mo_name"]."</td>\n";
+          echo "<td align=\"center\"><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_path"]."</a></td>\n";
+          echo "<td>".$row["mo_notes"]."</td>\n";
+          echo "<td align=\"center\">".$row["au_name"]."</td>\n";
+          echo "<td align=\"center\">".$row["mo_modified"]."</td>\n";
+          echo "<td align=\"center\">".$row["mg_name"]."</td>\n";
 
-            if ($row["mo_modelsize"]>0){
-              echo "<td>Yes</p>\n";
+          if ($row["mo_modelsize"]>0){
+            echo "<td align=\"center\">Yes</td>\n";
 
-              if ($row["mo_shared"]==0){	
-                $modelid = $row["mo_id"];
-                $query = "SELECT ST_Y(wkb_geometry), ST_X(wkb_geometry) ";
-                $query.= "AS ob_lat, ob_lon ";
-                $query.= "FROM fgs_objects ";
-                $query.= "WHERE ob_model=".$modelid;
-                $chunks=pg_query($query);
-                while ($chunk = pg_fetch_assoc($chunks)){
-                  $lat=floor($chunk["ob_lat"]/10)*10;
-                  $lon=floor($chunk["ob_lon"]/10)*10;
+            if ($row["mo_shared"]==0){	
+              $modelid = $row["mo_id"];
+              $query = "SELECT ST_Y(wkb_geometry), ST_X(wkb_geometry) ";
+              $query.= "AS ob_lat, ob_lon ";
+              $query.= "FROM fgs_objects ";
+              $query.= "WHERE ob_model=".$modelid;
+              $chunks=pg_query($query);
+              while ($chunk = pg_fetch_assoc($chunks)){
+                $lat=floor($chunk["ob_lat"]/10)*10;
+                $lon=floor($chunk["ob_lon"]/10)*10;
                   
-                  if ($lon < 0){
-                    $lon=sprintf("w%03d", 0-$lon);
-                  }else{
-                    $lon=sprintf("e%03d", $lon);
-                  }
-
-                  if ($lat < 0){
-                    $lat=sprintf("s%02d", 0-$lat);
-                  }else{
-                    $lat=sprintf("n%02d", $lat);
-                  }
-
-                  echo " (<a href=\"download/".$lon.$lat.".tgz\">".$lon.$lat."</a>) ";
-                  echo "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a>\n";
+                if ($lon < 0){
+                  $lon=sprintf("w%03d", 0-$lon);
+                }else{
+                  $lon=sprintf("e%03d", $lon);
                 }
-              }
-            }else{
-              print "<td>No</td>\n";
-            }
 
-            echo "<p align=right><a href=\"modeledit.php?id=".$row["mo_id"]."\">Edit</a></p>\n";
-          echo "</td>\n";
+                if ($lat < 0){
+                  $lat=sprintf("s%02d", 0-$lat);
+                }else{
+                  $lat=sprintf("n%02d", $lat);
+                }
+
+                echo " (<a href=\"download/".$lon.$lat.".tgz\">".$lon.$lat."</a>) ";
+                echo "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a>\n";
+              }
+            }
+          }else{
+            print "<td align=\"center\">No</td>\n";
+          }
         echo "</tr>\n";
       }
     ?>
