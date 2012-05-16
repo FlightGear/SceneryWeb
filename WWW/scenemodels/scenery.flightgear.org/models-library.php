@@ -23,9 +23,8 @@
     $author = "";
   }
 
-  if (isset($_REQUEST['orderby']) && (!preg_match('#[^0-9]#',$_GET['orderby']))){
+  if (isset($_REQUEST['orderby']) && (preg_match('#[^0-9]#',$_GET['orderby']))){
     $orderby = $_REQUEST['orderby'];
-echo 'coucou';
     $filter.= " ORDER BY ".$_REQUEST['orderby']." ASC";
   }else{
     $orderby = "";
