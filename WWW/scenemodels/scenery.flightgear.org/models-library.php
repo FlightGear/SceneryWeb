@@ -133,7 +133,6 @@
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
       $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ".$filter." ";
       $query.= "LIMIT 20 OFFSET ".$offset;
-echo $query;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";

@@ -121,15 +121,6 @@
   background: #FBFBFB;
 }
 
-#main table.objects tr:last-child, #main table.models tr:last-child{
-  border: none;
-}
-
 #main table.objects td, #main table.models td{
   border-right: 1px solid black;
 }
-
-
-
-
-
