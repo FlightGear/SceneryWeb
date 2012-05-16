@@ -22,7 +22,7 @@
   }else{
     $author = "";
   }
-  if (isset($_REQUEST['orderby']) && $_REQUEST['orderby']!="0"){
+  if (isset($_REQUEST['orderby']) && ($_REQUEST['orderby']!="0" || $_REQUEST['orderby']!="")){
     $orderby = $_REQUEST['orderby'];
     $filter.= " ORDER BY ".$_REQUEST['orderby']." ASC";
   }else{
