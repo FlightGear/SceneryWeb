@@ -10,7 +10,7 @@
   <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="../inc/jquery.multifile.js"></script>
   <noscript>
-    <meta http-equiv="refresh" content="1; URL=nojs.php">
+    <meta http-equiv="refresh" content="0; URL=nojs.php">
   </noscript>
 </head>
 
