@@ -7,6 +7,8 @@
   <title>Automated Models Submission Form</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <link rel="stylesheet" href="../../style.css" type="text/css"></link>
+  <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+  <script type="text/javascript" src="../inc/jquery.multifile.js"></script>
 </head>
 
 <body>
@@ -64,6 +66,7 @@
       }
     }
   </script>
+
 
   <h1 align=center>Models Automated Submission Form</h1>
   <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database. 
@@ -211,7 +214,7 @@
           </span>
         </td>
         <td>
-          <input type=file name="mo_thumbfile" accept="image/jpeg">
+          <input type=file name="mo_thumbfile" class="multi" maxlength="1" accept="jpg|jpeg">
         </td>
       </tr>
       <tr>
@@ -221,7 +224,7 @@
           </span>
         </td> 
         <td>
-          <input type=file name="ac3d_file">
+          <input type=file name="ac3d_file" class="multi" maxlength="1" accept="ac">>
         </td>
       </tr>
       <tr>
@@ -231,7 +234,7 @@
           </span>
         </td>
         <td>
-          <input type=file name="xml_file" accept="text/xml">
+          <input type=file name="xml_file" class="multi" maxlength="1" accept="xml">
         </td>
       </tr>
       <tr>
@@ -241,18 +244,7 @@
           </span>
         </td>
         <td>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
-          <input type="file" name="png_file[]" accept="image/png"><br/>
+          <input type="file" name="png_file[]"  class="multi" maxlength="12" accept="png">
         </td>
       </tr>
       <tr>
@@ -268,6 +260,7 @@
       <tr>
         <td colspan="2">
           <center>
+            <input type="checkbox" name="gpl"/> I accept to release all my contribution under GNU GENERAL PUBLIC LICENSE Version 2, June 1991<br/>
             <?php
               // Google Captcha stuff
               require_once('../captcha/recaptchalib.php');
@@ -283,5 +276,23 @@
       </tr>
     </table>
   </form>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  // Check if GPL input is checked
+  $('input[type="submit"]').attr('disabled','disabled');
+
+  $('input[name="gpl"]').change(function(){
+    if($('input[name="gpl"]').is(':checked')){
+      $('input[type="submit"]').removeAttr('disabled');
+    }else{
+      $('input[type="submit"]').attr('disabled','disabled');
+    }
+
+  });
+
+});
+</script>
+
 </body>
 </html>

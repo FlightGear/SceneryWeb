@@ -640,6 +640,11 @@ if(    $_POST["mo_shared"] != ""  && $_POST["mo_path"] != "" && $_POST["mo_autho
   $errormsg .= "Please fill all required fields<br/>";
 }
 
+if(!isset($_POST["gpl"])){
+  $error += 1;
+  $errormsg .= "You haven't accepted the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. In this way, your contribution can't be added in our database<br/>";
+}
+
 ###############################################
 ###############################################
 #
@@ -703,5 +708,6 @@ if($fatalerror || $error > 0){
   echo "<font color=\"green\"> Congratulation ! You contribution has been added to our database</font><br/>";
 }
 ?>
+
 </body>
 </html>
