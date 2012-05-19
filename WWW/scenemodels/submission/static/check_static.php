@@ -729,9 +729,9 @@ if($fatalerror || $error > 0){
     $host = gethostbyaddr($ipaddr);
 
     // Who will receive it ?
-//    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-//    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-    $to = "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
+    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+    $to .= "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
 
     // What is the subject ?
     $subject = "[FG Scenery Submission forms] Automatic shared/static model position request: needs validation.";
