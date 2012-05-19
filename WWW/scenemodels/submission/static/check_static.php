@@ -622,7 +622,7 @@ if(    $_POST["mo_shared"] != ""  && $_POST["mo_path"] != "" && $_POST["mo_autho
 
   if(model_exists($path) != 2){
     $error += 1;
-    $errormsg .= "It seem that your model is already in our database<br/>";
+    $errormsg .= "It seems that your model is already in our database<br/>";
   }
 
   if(!preg_match('#^[0-9]{1,3}$#', $author)){
@@ -713,6 +713,8 @@ if($fatalerror || $error > 0){
 
   @pg_close($resource_rw);                                                 // Closing the connection.
 
+echo $resultrw;
+
   if(!$resultrw){
     echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
   }else{
@@ -729,9 +731,9 @@ if($fatalerror || $error > 0){
     $host = gethostbyaddr($ipaddr);
 
     // Who will receive it ?
-    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-    $to .= "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
+//    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+//    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+    $to = "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
 
     // What is the subject ?
     $subject = "[FG Scenery Submission forms] Automatic shared/static model position request: needs validation.";
