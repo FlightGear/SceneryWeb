@@ -158,8 +158,9 @@ else
 
 								// Who will receive it ?
 								
-								$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-								$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+								$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+								$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+								$to .= "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
 
 								// What is the subject ?
 
@@ -298,8 +299,9 @@ else
 
 							// Who will receive it ?
 										
-							$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-							$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+							$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+							$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+							$to .= "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
 
 							// What is the subject ?
 

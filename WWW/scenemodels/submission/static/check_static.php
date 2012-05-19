@@ -686,24 +686,105 @@ if($fatalerror || $error > 0){
   $ob_model = $ob_model[0];
 
   $ob_query  = "INSERT INTO fgsoj_objects ";
-  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
+//  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
+  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) ";
   $ob_query .= "VALUES (";
     $ob_query .= "'".$name."', ";                                                         // ob_text
     $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";       // wkb_geometry
     $ob_query .= "'".$gndelev."', ";                                                      // ob_gndelev
     $ob_query .= "'".$offset."', ";                                                       // ob_elevoffset
     $ob_query .= "'".compute_heading($heading)."', ";                                     // ob_heading
-    $ob_query .= "'".$country."', ";                                                      // ob_country
+//    $ob_query .= "'".$country."', ";                                                      // ob_country
     $ob_query .= "'".$ob_model."', ";                                                     // ob_model
-    $ob_query .= "'1', ";                                                                 // ob_group
-    $ob_query .= "'".$contributor."'";                                                    // ob_submitter
+    $ob_query .= "'1'";                                                                   // ob_group
+//    $ob_query .= "'".$contributor."'";                                                    // ob_submitter
   $ob_query .= ")";
 
   # Insert into fgsoj_objects
-  pg_query($resource_rw, $ob_query);
+  //pg_query($resource_rw, $ob_query);
 
-  # Close the DB connection
-  pg_close($resource_rw);
+  $sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";
+  $sha_hash = hash('sha256', $sha_to_compute);
+  $zipped_base64_rw_query = gzcompress($ob_query,8);                       // Zipping the Base64'd request.
+  $base64_rw_query = base64_encode($zipped_base64_rw_query);               // Coding in Base64.
+
+  $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_rw_query."');";
+  $resultrw = @pg_query($resource_rw, $query_rw_pending_request);          // Sending the request...
+
+  @pg_close($resource_rw);                                                 // Closing the connection.
+
+  if(!$resultrw){
+    echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
+  }else{
+    echo "<br />Your position has been successfully queued into the FG scenery database update requests!<br />";
+    echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
+    echo "The FG community would like to thank you for your contribution!<br />";
+    echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a>";
+
+    // Sending mail if there is no false and SQL was correctly inserted.
+    date_default_timezone_set('UTC');                                // Sets the time to UTC.
+    $dtg = date('l jS \of F Y h:i:s A');
+
+    $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+    $host = gethostbyaddr($ipaddr);
+
+    // Who will receive it ?
+    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+    $to .= "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
+
+    // What is the subject ?
+    $subject = "[FG Scenery Submission forms] Automatic shared/static model position request: needs validation.";
+
+    // Correctly set the object URL.
+    $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
+    $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+    $html_family_url = htmlspecialchars($family_url);
+    $html_object_url = htmlspecialchars($object_url);
+
+    // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
+    $message0 = "Hi," . "\r\n" .
+    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+    "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
+    "I just wanted to let you know that a new object position and 3D model insertion request is pending." . "\r\n" .
+    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+
+    $message077 = wordwrap($message0, 77, "\r\n");
+
+    // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
+    $message1 = "Family: ".$family_real_name."\r\n" .
+    "[ ".$html_family_url." ]" . "\r\n" .
+    "Object: ".$model_real_name."\r\n" .
+    "[ ".$html_object_url." ]" . "\r\n" .
+    "Latitude: ". $latitude . "\r\n" .
+    "Longitude: ". $longitude . "\r\n" .
+    "Ground elevation: ". $gndelev . "\r\n" .
+    "Elevation offset: ". $offset . "\r\n" .
+    "True (DB) orientation: ". compute_heading($heading) . "\r\n" .
+    "Comment: ". strip_tags($comment) ."\r\n" .
+    "Please click:" . "\r\n" .
+    "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000000BTFFFTFFFTFTFFFF" . "\r\n" .
+    "to locate the object on the map." ;
+
+    $message2 = "\r\n".
+    "Now please click:" . "\r\n" .
+    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."\r\n" .
+    "to confirm the submission" . "\r\n" .
+    "or" . "\r\n" .
+    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."\r\n" .
+    "to reject the submission." . "\r\n" . "\r\n" .
+    "Thanks!" ;
+
+    // Preparing the headers.
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
+    $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
+
+    // Let's send it ! No management of mail() errors to avoid being too talkative...
+    $message = $message077.$message1.$message2;
+
+    @mail($to, $subject, $message, $headers);
+  }
 
   echo "<font color=\"green\"> Congratulation ! You contribution has been added to our database</font><br/>";
 }
