@@ -714,6 +714,7 @@ if($fatalerror || $error > 0){
   @pg_close($resource_rw);                                                 // Closing the connection.
 
 echo $resultrw;
+echo "gogog";
 
   if(!$resultrw){
     echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
