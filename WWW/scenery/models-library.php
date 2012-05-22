@@ -137,7 +137,7 @@
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
           echo "<td>\n";
-            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"show-thumb.php?id=".$row["mo_id"]."\" width=\"160px\" style=\"margin:4px;\"></a>\n";
+            echo "<a href=\"models-library-edit.php?id=".$row["mo_id"]."\"><img src=\"show-thumb.php?id=".$row["mo_id"]."\" width=\"160px\" style=\"margin:4px;\"></a>\n";
           echo "</td>\n";
           echo "<td align=\"center\">".$row["mo_name"]."</td>\n";
           echo "<td align=\"center\"><a href=\"models-library-edit.php?id=".$row["mo_id"]."\">".$row["mo_path"]."</a></td>\n";

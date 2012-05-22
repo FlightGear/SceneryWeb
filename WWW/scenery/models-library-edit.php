@@ -105,7 +105,7 @@
             <?php
               $result=pg_query("SELECT mo_author,au_name FROM fgs_models, fgs_authors WHERE mo_author=au_id AND mo_id = $id;");
               while ($row = pg_fetch_assoc($result)){
-                echo "<br>List all of <a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a>";
+                echo "<br>List all of <a href=\"models-library.php?family=&author=".$row["mo_author"]."&orderby=0#anchor\">".$row["au_name"]."</a>";
               }
             ?>
           </td>
