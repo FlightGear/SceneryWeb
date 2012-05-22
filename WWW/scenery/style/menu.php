@@ -1,3 +1,5 @@
+<?php header('content-type: text/css'); ?>
+
 /*###################################################################*/
 /*                                MENU                               */
 /*###################################################################*/
@@ -31,13 +33,13 @@
 }
 
 #menu div.t{
-  background: url("../template/sidebars.png") no-repeat scroll -500px 0 transparent;
+  background: url("<?php echo $_SERVER[HTTP_HOST]; ?>/template/sidebars.png") no-repeat scroll -500px 0 transparent;
   height: 170px;
   margin-right: 15px;
 }
 
 #menu div.t div{
-  background: url("../template/sidebars.png") no-repeat scroll -985px 0 transparent;
+  background: url("<?php echo $_SERVER[HTTP_HOST]; ?>/template/sidebars.png") no-repeat scroll -985px 0 transparent;
   float: right;
   height: 170px;
   margin-right: -15px;
@@ -45,12 +47,12 @@
 }
 
 #menu div.i{
-  background: url("../template/sidebars.png") repeat-y scroll -1000px 0 transparent;
+  background: url("<?php echo $_SERVER[HTTP_HOST]; ?>/template/sidebars.png") repeat-y scroll -1000px 0 transparent;
   margin-right: 15px;
 }
 
 #menu div.i div.i2{
-  background: url("../template/sidebars.png") repeat-y scroll right 0 transparent;
+  background: url("<?php echo $_SERVER[HTTP_HOST]; ?>/template/sidebars.png") repeat-y scroll right 0 transparent;
   margin: 0 -15px 0 15px;
   padding: 1px 0;
 }
@@ -65,7 +67,7 @@
 }
 
 #menu ul li{
-  background: url("../template/sidebars.png") no-repeat scroll -500px -195px transparent;
+  background: url("<?php echo $_SERVER[HTTP_HOST]; ?>/template/sidebars.png") no-repeat scroll -500px -195px transparent;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
   line-height: 18px;
@@ -74,13 +76,13 @@
 }
 
 #menu div.b{
-  background: url("../template/sidebars.png") no-repeat scroll -500px -170px transparent;
+  background: url("<?php echo $_SERVER[HTTP_HOST]; ?>/template/sidebars.png") no-repeat scroll -500px -170px transparent;
   height: 15px;
   margin-right: 15px;
 }
 
 #menu div.b div{
-  background: url("../template/sidebars.png") no-repeat scroll -985px -170px transparent;
+  background: url("<?php echo $_SERVER[HTTP_HOST]; ?>/template/sidebars.png") no-repeat scroll -985px -170px transparent;
   float: right;
   height: 15px;
   margin-right: -15px;
