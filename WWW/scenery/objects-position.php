@@ -201,7 +201,7 @@
             echo "<td align=\"center\">".$row["ob_elevoffset"]."</td>\n";
             echo "<td align=\"center\">".$row["ob_heading"]."</td>\n";
             echo "<td>".$row["ob_text"]."</td>\n";
-            echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$models[$row["ob_model"]]."</a></td>\n";
+            echo "<td><a href=\"objects-position-edit.php?id=".$row["ob_id"]."\">".$models[$row["ob_model"]]."</a></td>\n";
             echo "<td align=\"center\">".$groups[$row["ob_group"]]."</td>\n";
             echo "<td align=\"center\">".$countries[$row["ob_country"]]."</td>\n";
             echo "<td align=\"center\"><a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a></td>\n";
