@@ -7,11 +7,11 @@
 	<title>FlightGear Scenery</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-	<link href="style/general.php" rel="stylesheet" type="text/css" media="screen"/>
-	<link href="style/header.php"  rel="stylesheet" type="text/css" media="screen"/>
-	<link href="style/menu.php"    rel="stylesheet" type="text/css" media="screen"/>
-	<link href="style/main.php"    rel="stylesheet" type="text/css" media="screen"/>
-	<link href="style/footer.php"  rel="stylesheet" type="text/css" media="screen"/>
+	<link href="style/general.css" rel="stylesheet" type="text/css" media="screen"/>
+	<link href="style/header.css"  rel="stylesheet" type="text/css" media="screen"/>
+	<link href="style/menu.css"    rel="stylesheet" type="text/css" media="screen"/>
+	<link href="style/main.css"    rel="stylesheet" type="text/css" media="screen"/>
+	<link href="style/footer.css"  rel="stylesheet" type="text/css" media="screen"/>
 </head>
 <body>
 
