@@ -65,7 +65,7 @@
         <tr>
           <td>Heading</td>
           <td>
-            <input type="text" size="3" name="heading" <?php if(isset($object["ob_heading"])) echo 'value="'.$object["ob_heading"];.'"'; ?> />
+            <input type="text" size="3" name="heading" <?php if(isset($object["ob_heading"])) echo 'value="'.$object["ob_heading"].'"'; ?> />
           </td>
         </tr>
         <tr>
