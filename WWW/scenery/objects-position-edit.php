@@ -22,7 +22,7 @@
   <div class="postContent">
 
     <form method="post" action="update/object.php">
-      <table border="1" align="center">
+      <table>
         <tr>
           <td>Latitude</td>
           <td>
@@ -110,7 +110,7 @@
               $id=$_REQUEST['id'];
               $result=pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
               while ($row = pg_fetch_assoc($result)){
-                echo '<a href="javascript:popmap('.$row["ob_lat"].','.$row["ob_lon"].')">Map</a>\n';
+                echo '<a href="javascript:popmap('.$row["ob_lat"].','.$row["ob_lon"].')">Map</a>';
               }
             ?>
           </td>
