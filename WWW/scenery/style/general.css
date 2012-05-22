@@ -3,7 +3,7 @@
 /*###################################################################*/
 
 body{
-  background: url("../template/gradient_blueish.png") repeat-x scroll 0 0 #D9D9D9;
+  background: url("http://scenery.flightgear.org/template/gradient_blueish.png") repeat-x scroll 0 0 #D9D9D9;
   width: 1300px;
   margin: 10px auto;
 }

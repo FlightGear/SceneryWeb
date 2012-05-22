@@ -7,7 +7,7 @@
   width: 1300px;
   height: 160px;
   margin-bottom: 6px;
-  background: url("../template/header.png") no-repeat;
+  background: url("http://scenery.flightgear.org/template/header.png") no-repeat;
 }
 
 #header h1{
