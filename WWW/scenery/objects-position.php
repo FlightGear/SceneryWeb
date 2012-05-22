@@ -224,4 +224,12 @@
   </div>
 
 </div>
+
+<script type="text/javascript">
+  function popmap(lat,lon) {
+    popup = window.open("/maps?zoom=12&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
+    popup.focus();
+  }
+</script>
+
 <?php include("include/footer.php"); ?>

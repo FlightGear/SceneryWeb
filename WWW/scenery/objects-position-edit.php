@@ -1,10 +1,12 @@
 <?php
-  include("include/menu.php");
-
   if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))){
-    $id=$_REQUEST['id'];
-    $result=pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
-    $object=pg_fetch_assoc($result);
+    include("include/menu.php");
+
+    $id     = $_REQUEST['id'];
+    $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
+    $object = pg_fetch_assoc($result);
+  }else{
+    header("Location: http://scenery.flightgear.org");
   }
 ?>
 
@@ -107,7 +109,6 @@
         <tr>
           <td>
             <?php
-              $id=$_REQUEST['id'];
               $result=pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
               while ($row = pg_fetch_assoc($result)){
                 echo '<a href="javascript:popmap('.$row["ob_lat"].','.$row["ob_lon"].')">Map</a>';
@@ -115,8 +116,7 @@
             ?>
           </td>
           <td align="center">
-            <input type="hidden" name="id" value="<?php if (isset($id)) echo $id; ?>" />
-            <input type="submit" name="submit" value="add" disabled="disabled" />&nbsp;
+            <input type="hidden" name="id" value="<?php if(isset($id)) echo $id; ?>" />
             <input type="submit" name="submit" value="update" disabled="disabled" />&nbsp;
             <input type="submit" name="submit" value="delete" disabled="disabled" />
           </td>
