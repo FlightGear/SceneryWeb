@@ -140,7 +140,7 @@
             echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"show-thumb.php?id=".$row["mo_id"]."\" width=\"160px\" style=\"margin:4px;\"></a>\n";
           echo "</td>\n";
           echo "<td align=\"center\">".$row["mo_name"]."</td>\n";
-          echo "<td align=\"center\"><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_path"]."</a></td>\n";
+          echo "<td align=\"center\"><a href=\"models-library-edit.php?id=".$row["mo_id"]."\">".$row["mo_path"]."</a></td>\n";
           echo "<td>".$row["mo_notes"]."</td>\n";
           echo "<td align=\"center\">".$row["au_name"]."</td>\n";
           echo "<td align=\"center\">".$row["mo_modified"]."</td>\n";
