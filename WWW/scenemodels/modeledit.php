@@ -15,7 +15,7 @@ function popmap(lat,lon,zoom) {
 </head>
 <body>
 <?php include 'header.php';?>
-<h1 align=center>FlightGear Scenery Model Directory</h1>
+<h1 align="center">FlightGear Scenery Model Directory</h1>
 <?php
 
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
@@ -24,17 +24,17 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 	$model=pg_fetch_assoc($result);
 };
 ?>
-<form method=post action=update/model.php>
-<input type=hidden name=id value=<?php if (isset($id)) print $id;?>>
-<table border=1 align=center>
+<form method="post" action="update/model.php">
+<input type="hidden" name="id" value=<?php if (isset($id)) print $id;?>>
+<table border=1 align="center">
 <tr>
-	<td rowspan=8 width=320><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>"></td>
+	<td rowspan=8 width=320><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>"/></td>
 	<td>Name</td>
-	<td><input type=text size=40 name=name<?php if (isset($model["mo_name"])) print " value=\"".$model["mo_name"]."\""; ?>></td>
+	<td><input type="text" size=40 name=name<?php if (isset($model["mo_name"])) print " value=\"".$model["mo_name"]."\""; ?>></td>
 <tr>
 <tr>
 	<td>Path</td>
-	<td><input type=text size=40 name=path<?php if (isset($model["mo_path"])) print " value=\"".$model["mo_path"]."\""; ?>></td>
+	<td><input type="text" size=40 name=path<?php if (isset($model["mo_path"])) print " value=\"".$model["mo_path"]."\""; ?>></td>
 </tr>
 <tr>
 	<td>Type</td>
@@ -72,14 +72,14 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
 	<td>Last Updated</td>
-	<td><input type=text size=15 name=updated<?php if (isset($model["mo_modified"])) print " value=\"".$model["mo_modified"]; ?>"> </td>
+	<td><input type="text" size=15 name=updated<?php if (isset($model["mo_modified"])) print " value=\"".$model["mo_modified"]; ?>"> </td>
 </tr>
 <tr>
 	<td>Model-ID</td>
 	<td><?php print "$id"; ?></td>
 </tr>
 <tr>
-	<td colspan=2 align=center>
+	<td colspan=2 align="center">
 
 <?php
 $result=pg_query("select mo_shared from fgs_models where mo_id = $id;");
@@ -117,9 +117,9 @@ while ($row = pg_fetch_assoc($result))
 	</td>
 </tr>
 <tr>
-	<td colspan=3><textarea cols=80 rows=10 name=notes><?php if (isset($model["mo_notes"])) print $model["mo_notes"]; ?></textarea></td>
+	<td colspan=3><textarea cols=80 rows=10 name="notes"><?php if (isset($model["mo_notes"])) print $model["mo_notes"]; ?></textarea></td>
 </tr>
-<tr><td colspan=3 align=center><input type=submit name=submit value=add>&nbsp;<input type=submit name=submit value=update>&nbsp;<input type=submit name=submit value=delete></td></tr>
+<tr><td colspan=3 align="center"><input type="submit" name="submit" value="add">&nbsp;<input type="submit" name="submit" value="update">&nbsp;<input type="submit" name="submit" value="delete"></td></tr>
 </table>
 </form>
 

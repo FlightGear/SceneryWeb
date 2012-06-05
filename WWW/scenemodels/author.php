@@ -12,9 +12,9 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </head>
 <body>
 <?php include 'header.php';?>
-<h1 align=center>Scenery Author Details</h1>
+<h1 align="center">Scenery Author Details</h1>
 <form>
-<table align=center border=1>
+<table align="center" border=1>
 <?php
 
 if (isset($id))
@@ -30,7 +30,7 @@ print "<tr><td>Name</td><td>".$author["au_name"]."</td></tr>\n".
 ?>
 </table>
 <p>
-<table align=center border=1>
+<table align="center" border=1>
 <?php
 $result=pg_query("select mo_id,mo_name,mo_modified,mo_path from fgs_models where mo_author=$id order by mo_modified desc,mo_name;");
 while ($row = pg_fetch_assoc($result))

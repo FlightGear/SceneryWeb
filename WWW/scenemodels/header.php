@@ -41,7 +41,7 @@
   <table>
     <tr>
       <td background="/img/titleback.jpg">
-        <img src="/img/fglogosm.jpg">
+        <img src="/img/fglogosm.jpg"/>
       </td>
     </tr>
   </table>

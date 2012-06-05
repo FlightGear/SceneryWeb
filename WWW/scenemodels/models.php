@@ -7,9 +7,9 @@
   }
 </script>
 
-<h1 align=center>FlightGear Scenery Model Directory</h1>
+<h1 align="center">FlightGear Scenery Model Directory</h1>
 
-  <table border=1 width=100%>
+  <table border=1 width="100%">
     <?php
       if(isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
         $offset=$_REQUEST['offset'];
@@ -17,8 +17,8 @@
         $offset=0;
       }
     ?>
-    <tr class=bottom>
-      <td colspan=9 align=center>
+    <tr class="bottom">
+      <td colspan=9 align="center">
         <a href="models.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="models.php?offset=<?php echo $offset+10;?>">Next</a>
       </td>
     </tr>
@@ -33,7 +33,7 @@
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
           echo "<td width=320>\n";
-            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"modelthumb.php?id=".$row["mo_id"]."\"></a>\n";
+            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"modelthumb.php?id=".$row["mo_id"]."\"/></a>\n";
           echo "</td>\n";
           echo "<td>\n";
             echo "<p><b>Name:</b> ".$row["mo_name"]."</p>\n";
@@ -82,8 +82,8 @@
         echo "</tr>\n";
       }
     ?>
-    <tr class=bottom>
-      <td colspan=9 align=center>
+    <tr class="bottom">
+      <td colspan=9 align="center">
         <a href="models.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="models.php?offset=<?php echo $offset+10;?>">Next</a>
       </td>
     </tr>
