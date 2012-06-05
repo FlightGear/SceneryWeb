@@ -1,20 +1,12 @@
-<?php 
-$link=pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
-?>
+<?php include 'header.php';?>
 
-<html>
-<head>
-<link rel="stylesheet" href="style.css" type="text/css">
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
 	popup = window.open("/maps?zoom="+zoom+"&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
-        popup.focus();
+    popup.focus();
 }
 </script>
 
-</head>
-<body>
-<?php include 'header.php';?>
 <h1 align="center">FlightGear Scenery Model Directory</h1>
 <?php
 

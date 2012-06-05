@@ -42,7 +42,7 @@
   <table>
     <tr>
       <td background="/img/titleback.jpg">
-        <img src="/img/fglogosm.jpg" alt="Logo Flightgear"/>
+        <img src="/img/fglogosm.jpg" alt="Flightgear logo"/>
       </td>
     </tr>
   </table>
