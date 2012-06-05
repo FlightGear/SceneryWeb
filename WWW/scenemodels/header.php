@@ -2,6 +2,7 @@
 
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body>
@@ -41,7 +42,7 @@
   <table>
     <tr>
       <td background="/img/titleback.jpg">
-        <img src="/img/fglogosm.jpg"/>
+        <img src="/img/fglogosm.jpg" alt="Logo Flightgear"/>
       </td>
     </tr>
   </table>
