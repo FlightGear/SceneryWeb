@@ -73,14 +73,14 @@
 
   <h1 align=center>Models Automated Submission Form</h1>
   <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database. 
-  There are currently 2 477 models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>. 
+  There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>. 
   Please help us to make it more!
 
   Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for. 
   Please note that all fields are now mandatory.
   <br /><br />
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.<br/><br/>
-  <span style="color:red;">Files <u>must have the same name</u> except for thumbnail file. i.e: XXXX_thumbnail.png (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</span>
+  <span style="color:red;">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.png (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</span>
   <br /><br />
 
 
@@ -192,7 +192,7 @@
       </tr>
       <tr>
         <td>
-          <span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation.">
+          <span title="The orientation (in degrees) for the object you want to add - as it appears in the .stg file (this is NOT the true heading). Let 0 if there is no specific orientation.">
             <a style="cursor: help; ">Orientation</a>
           </span>
         </td>
@@ -222,7 +222,7 @@
       </tr>
       <tr>
         <td>
-          <span title="This is the AC3D file of your model. (eg : tower.ac)">
+          <span title="This is the AC3D file of your model. (eg: tower.ac)">
             <a style="cursor: help; ">Corresponding AC3D File</a>
           </span>
         </td> 
@@ -232,7 +232,7 @@
       </tr>
       <tr>
         <td>
-          <span title="This is the XML file of your model.(eg: tower.xml)">
+          <span title="This is the XML file of your model. (eg: tower.xml)">
             <a style="cursor: help; ">Corresponding XML File</a>
           </span>
         </td>
@@ -242,7 +242,7 @@
       </tr>
       <tr>
         <td>
-          <span title="This(Those) is(are) the PNG texture(s) file of your model. Has to show a factor 2 between height and length.">
+          <span title="This(Those) is(are) the PNG texture(s) file(s) of your model. Has to show a factor 2 in height and length.">
             <a style="cursor: help; ">Corresponding PNG Files</a>
           </span>
         </td>
@@ -252,7 +252,7 @@
       </tr>
       <tr>
         <td>
-          <span title="Here you can enter your name">
+          <span title="If you did not make the 3D model yourself, but were granted to do so, you can enter your name here.">
             <a style="cursor: help; ">Contributor</a>
           </span>
         </td>
@@ -263,7 +263,7 @@
       <tr>
         <td colspan="2">
           <center>
-            <input type="checkbox" name="gpl"/> I accept to release all my contribution under GNU GENERAL PUBLIC LICENSE Version 2, June 1991<br/>
+            <input type="checkbox" name="gpl"/> I accept to release all my contribution under GNU GENERAL PUBLIC LICENSE Version 2, June 1991i.<br/>
             <?php
               // Google Captcha stuff
               require_once('../captcha/recaptchalib.php');
@@ -296,6 +296,5 @@ $(document).ready(function(){
 
 });
 </script>
-
 </body>
 </html>
