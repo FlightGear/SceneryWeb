@@ -1,5 +1,5 @@
 <?php include 'header.php';?>
-<h1 align=center>How To Contribute</h1>
+<h1 align="center">How To Contribute</h1>
 
 <b>Foreword:</b> The instructions on this page are being presented in a
 pretty elaborate, detailed way which might look a bit complicated at first
@@ -51,7 +51,7 @@ If you have data available in other formats please contact me at the same addres
 
 <h4>Mandantory submission items</h4>
 <ul>
-	<li>A package (preferably a TAR- or a ZIP-file) containing all !! files wich belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;<br>
+	<li>A package (preferably a TAR- or a ZIP-file) containing <strong>all</strong> files which belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;<br>
 	<ul>
 	  <li>Multiple models may well be packaged together into a single file - as long as it is obvious to us which files belong to which model (for example by separating models into different directories);
 	  <li>Always choose reasonable (meaningful, descriptive) filenames
@@ -87,7 +87,7 @@ If you have data available in other formats please contact me at the same addres
 	<li>Country in which the model is located (if known to the author);
 	<li>Additional short comment on the author;
 </ul>
-<b> -> </b>After positive experience a simplified procedure is avaliable/recommended upon negotiation.
+<b> -> </b>After positive experience a simplified procedure is available/recommended upon negotiation.
 
 <h4><a name="tips"><font color="red">NOTICE:</font> To save you and us from avoidable and unnecessary extra work:</a></h4>
 <ul>
@@ -134,5 +134,4 @@ Models are easily identified by their numeric id when you click on the
 thumbnail in the Browser view.
 </td></tr>
 </table>
-</body>
-</html>
+<?php include 'footer.php';?>

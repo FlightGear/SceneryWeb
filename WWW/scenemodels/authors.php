@@ -1,7 +1,7 @@
 <?php include 'header.php';?>
 
-  <h1 align=center>FlightGear Scenery Authors Directory</h1>
-  <table border=1 width=100%>
+  <h1 align="center">FlightGear Scenery Authors Directory</h1>
+  <table border=1 width="100%">
     <?php
       if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
         $offset = $_REQUEST['offset'];
@@ -9,8 +9,8 @@
         $offset = 0;
       }
     ?>
-    <tr class=bottom>
-      <td colspan=9 align=center>
+    <tr class="bottom">
+      <td colspan=9 align="center">
         <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
        </td>
     </tr>
@@ -30,11 +30,10 @@
         echo "</tr>\n";
       }
     ?>
-    <tr class=bottom>
-      <td colspan=9 align=center>
+    <tr class="bottom">
+      <td colspan=9 align="center">
         <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
       </td>
     </tr>
   </table>
-</body>
-</html>
+<?php include 'footer.php';?>

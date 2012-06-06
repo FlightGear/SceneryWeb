@@ -13,8 +13,8 @@
 
   echo "<p align=center>The database currently contains <a href=\"models.php\">$models models</a> placed in the scenery as <a href=\"objects.php\">$objects seperate objects</a>, plus $signs taxiway signs.\n";
 ?>
-<table class=main>
-  <tr class=main>
+<table class="main">
+  <tr class="main">
     <td>
       <table>
         <tr><th colspan=2>Objects By Country</th></tr>
@@ -56,8 +56,8 @@
       </table>
     </td>
   </tr>
-  <tr class=main>
-    <td align=center>
+  <tr class="main">
+    <td align="center">
       <table>
         <tr><th colspan=2>Recently Updated Objects</th></tr>
         <?php
@@ -75,7 +75,7 @@
         ?>
       </table>
     </td>
-    <td align=center>
+    <td align="center">
       <table>
         <tr><th colspan=2>Recently Updated Models</th></tr>
         <?php
@@ -95,5 +95,4 @@
     </td>
   </tr>
 </table>
-</body>
-</html>
+<?php include 'footer.php';?>

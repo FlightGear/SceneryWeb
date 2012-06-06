@@ -92,8 +92,8 @@
 </script>
 
 <form action="objects.php" method="get">
-  <table border=1 align=center>
-    <tr valign=bottom>
+  <table border=1 align="center">
+    <tr valign="bottom">
       <th>Lat</th>
       <th>Lon</th>
       <th>Ground<br>Elevation (m)</th>
@@ -154,10 +154,10 @@
         </select>
       </th>
       <th>
-        <input type=submit name=filter value=Filter>
+        <input type="submit" name="filter" value="Filter">
       </th>
     </tr>
-    <tr class=bottom><td colspan=11 align=center>
+    <tr class="bottom"><td colspan=11 align="center">
       <?php
         $prev = $offset-20;
         $next = $offset+20;
@@ -190,8 +190,8 @@
         echo "</tr>\n";
       }
     ?>
-    <tr class=bottom>
-      <td colspan=11 align=center>
+    <tr class="bottom">
+      <td colspan=11 align="center">
         <?php
           $prev = $offset-20;
           $next = $offset+20;
@@ -202,5 +202,5 @@
     </tr>
   </table>
 </form>
-</body>
-</html>
+
+<?php include 'footer.php';?>
