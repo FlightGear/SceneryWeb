@@ -18,7 +18,7 @@ if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0'))
 	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br /><br />
 <?php
 	$id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
@@ -165,7 +165,7 @@ if(!$ok)
 	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
@@ -203,7 +203,7 @@ $resp = recaptcha_check_answer ($privatekey,
 	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 	</head>
 	<body>
-	<?php include '/home/jstockill/scenemodels/header.php'; ?>
+	<?php include '../../header.php'; ?>
 	<br />
 	<?
 	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>." .
@@ -220,7 +220,7 @@ $resp = recaptcha_check_answer ($privatekey,
 <link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br />
 <?php
 $false='0';
@@ -304,7 +304,7 @@ if ($false==0)
 						<td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
 						<td colspan="4"><?php $real_name=object_name($row[4]); echo $real_name; ?></td>
 					</tr>
-						<td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
+						<td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
 						<td colspan="4"><?php echo $row[1]; ?></td>
 						<input name="long" type="hidden" value="<?php echo $long; ?>" />
 						<input name="lat" type="hidden" value="<?php echo $lat; ?>" />

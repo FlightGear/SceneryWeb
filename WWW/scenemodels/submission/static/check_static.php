@@ -27,7 +27,7 @@ if(!$resp->is_valid){
 
 <body>
 <?php
-include '/home/jstockill/scenemodels/header.php';
+include '../../header.php';
 
 ###############################################
 ###############################################

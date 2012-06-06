@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <?php include '/home/jstockill/scenemodels/header.php'; ?>
+  <?php include '../../header.php'; ?>
 
   <script type="text/javascript">
     // This script is here to check for the consistency of the different fields of the form 

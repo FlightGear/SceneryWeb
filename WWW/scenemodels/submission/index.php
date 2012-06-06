@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../style.css" type="text/css"></link>
   </head>
   <body>
-  <?php include '/home/jstockill/scenemodels/header.php'; ?>
+  <?php include '../header.php'; ?>
 
   <br/><br/>
 

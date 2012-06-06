@@ -20,7 +20,7 @@ if(!$ok)
 <link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
@@ -47,7 +47,7 @@ return true;
 </script>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <p>
 <h1 align="center">Positions Automated Mass Import Submission Form</h1>
 <b>Foreword:</b> This automated mass import form goal is to ease the submission when submitter want to add a lot of shared models positions into FG Scenery database. <br />There are currently <?php //count_objects(); ?>
