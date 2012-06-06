@@ -28,7 +28,7 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
 <h1 align="center"><?php echo $title;?></h1>
 <table>
   <tr class="bottom">
-    <td colspan=9 align=center>
+    <td colspan=9 align="center">
       <a href="modelbrowser.php?offset=<?php echo $offset-100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a> 
       <a href="modelbrowser.php?offset=<?php echo $offset+100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
     </td>
@@ -46,7 +46,8 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
           <img border="0" title="<?php echo $row['mo_name'].' ['.$row['mo_path'].']';?>" 
                src="modelthumb.php?id=<?php echo $row['mo_id'];?>" width="100" height="75" 
                onmouseover="showtrail('modelthumb.php?id=<?php echo $row['mo_id'];?>','','','1',5,322);" 
-               onmouseout="hidetrail();" />
+               onmouseout="hidetrail();"
+               alt="" />
         </a>
       <?php
       }
@@ -60,5 +61,4 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
     </td>
   </tr>
 </table>
-</body>
-</html>
+<?php include 'footer.php';?>

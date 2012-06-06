@@ -1,13 +1,5 @@
-<?php 
-$link=pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
-?>
-
-<html>
-<link rel="stylesheet" href="style.css" type="text/css">
-<head>
-</head>
-<body>
 <?php include 'header.php';?>
+
 <script type="text/javascript">
 function popmap(lat,lon) {
         popup = window.open("/maps?zoom=12&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
@@ -115,5 +107,4 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </table>
 </form>
 
-</body>
-</html>
+<?php include 'footer.php';?>

@@ -88,5 +88,4 @@
       </td>
     </tr>
   </table>
-</body>
-</html>
+<?php include 'footer.php';?>

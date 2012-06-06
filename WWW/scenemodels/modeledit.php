@@ -64,7 +64,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
 	<td>Last Updated</td>
-	<td><input type="text" size=15 name=updated<?php if (isset($model["mo_modified"])) print " value=\"".$model["mo_modified"]; ?>"> </td>
+	<td><input type="text" size=15 name="updated<?php if (isset($model["mo_modified"])) print " value=\"".$model["mo_modified"]; ?>"> </td>
 </tr>
 <tr>
 	<td>Model-ID</td>
@@ -115,5 +115,4 @@ while ($row = pg_fetch_assoc($result))
 </table>
 </form>
 
-</body>
-</html>
+<?php include 'footer.php';?>

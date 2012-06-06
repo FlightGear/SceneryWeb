@@ -1,5 +1,5 @@
 <?php include 'header.php';?>
-<h1 align=center>How To Contribute</h1>
+<h1 align="center">How To Contribute</h1>
 
 <b>Foreword:</b> The instructions on this page are being presented in a
 pretty elaborate, detailed way which might look a bit complicated at first
@@ -134,5 +134,4 @@ Models are easily identified by their numeric id when you click on the
 thumbnail in the Browser view.
 </td></tr>
 </table>
-</body>
-</html>
+<?php include 'footer.php';?>
