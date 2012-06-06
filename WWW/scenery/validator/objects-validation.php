@@ -43,6 +43,16 @@
           echo "</tr>\n";
         }
       ?>
+      <tr>
+        <td>46.9733333</td>
+        <td>1.0430556</td>
+        <td>131.98</td>
+        <td></td>
+        <td>0.00</td>
+        <td>(3724) château deau + mât [non balisé] 56.1m</td>
+        <td>water-tower.ac</td>
+        <td><a href="show-objects-validation.php?id=0">Show</a></td>
+      </tr>
     </table>
 
   </div>
