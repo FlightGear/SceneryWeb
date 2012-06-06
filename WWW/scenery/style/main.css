@@ -124,3 +124,13 @@
 #main table.objects td, #main table.models td{
   border-right: 1px solid black;
 }
+
+/*#########################*/
+/*     TEXTURE GALLERY     */
+/*#########################*/
+
+#main ul.gallery li{
+  list-style-type: none;
+  float: left;
+  text-align: center;
+}

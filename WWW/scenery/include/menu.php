@@ -4,14 +4,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 <head>
-	<title>FlightGear Scenery</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>FlightGear Scenery</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-	<link href="http://scenery.flightgear.org/style/general.css" rel="stylesheet" type="text/css" media="screen"/>
-	<link href="http://scenery.flightgear.org/style/header.css"  rel="stylesheet" type="text/css" media="screen"/>
-	<link href="http://scenery.flightgear.org/style/menu.css"    rel="stylesheet" type="text/css" media="screen"/>
-	<link href="http://scenery.flightgear.org/style/main.css"    rel="stylesheet" type="text/css" media="screen"/>
-	<link href="http://scenery.flightgear.org/style/footer.css"  rel="stylesheet" type="text/css" media="screen"/>
+  <link href="http://scenery.flightgear.org/style/general.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="http://scenery.flightgear.org/style/header.css"  rel="stylesheet" type="text/css" media="screen"/>
+  <link href="http://scenery.flightgear.org/style/menu.css"    rel="stylesheet" type="text/css" media="screen"/>
+  <link href="http://scenery.flightgear.org/style/main.css"    rel="stylesheet" type="text/css" media="screen"/>
+  <link href="http://scenery.flightgear.org/style/footer.css"  rel="stylesheet" type="text/css" media="screen"/>
 </head>
 <body>
 
