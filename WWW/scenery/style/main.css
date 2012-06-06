@@ -129,8 +129,11 @@
 /*     TEXTURE GALLERY     */
 /*#########################*/
 
-#main ul.gallery li{
+#main ul.gallery{
   list-style-type: none;
+}
+
+#main ul.gallery li{
   float: left;
   text-align: center;
 }
