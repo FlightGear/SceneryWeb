@@ -20,7 +20,7 @@ if(!$ok)
 	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
@@ -42,7 +42,7 @@ else
 	<script src="../ajax/update_objects.js" type ="text/javascript"></script>
 </head>
 <body onload='update_objects();'>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <script language="JavaScript">
 <!-- This script is here to check for the consistency of the different fields of the form -->
 

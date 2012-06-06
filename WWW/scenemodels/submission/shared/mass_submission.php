@@ -20,7 +20,7 @@ if(!$ok)
 			<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 		</head>
 		<body>
-		<?php include '/home/jstockill/scenemodels/header.php'; ?>
+		<?php include '../../header.php'; ?>
 		<br /><br />
 		<center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 		<br /><center>The FlightGear team.</center>
@@ -58,7 +58,7 @@ else
 						<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 						</head>
 						<body>
-						<?php include '/home/jstockill/scenemodels/header.php';
+						<?php include '../../header.php';
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
 						echo "Else, please report to devel ML or FG Scenery forum<br />.";
 						echo "</body></html>";
@@ -91,7 +91,7 @@ else
 							<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 							</head>
 							<body>
-							<?php include '/home/jstockill/scenemodels/header.php';
+							<?php include '../../header.php';
 							echo "Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n<br />\n<br />\n";
 							$trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;							
 							$tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
@@ -188,7 +188,7 @@ else
 						<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 						</head>
 						<body>
-						<?php include '/home/jstockill/scenemodels/header.php';
+						<?php include '../../header.php';
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?</font><br />\n";
 						echo "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.<br />";
 						echo "</body></html>";
@@ -214,7 +214,7 @@ else
 							<link rel="stylesheet" href="../../style.css" type="text/css">
 							</head>
 							<body>
-							<?php include '/home/jstockill/scenemodels/header.php';
+							<?php include '../../header.php';
 							echo "Signature found.<br /> Now deleting request with number ". $_POST["hsig"].".<br />";
 							echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
 							
@@ -237,7 +237,7 @@ else
 							<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 							</head>
 							<body>
-							<?php include '/home/jstockill/scenemodels/header.php';
+							<?php include '../../header.php';
 							echo "Signature found.<br />Now deleting request with number ". $_POST["hsig"].".<br />";
 							echo "<font color=\"green\">Entry has correctly been deleted from the pending requests table.</font>";
 										
@@ -317,7 +317,7 @@ else
 						<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 						</head>
 						<body>
-						<?php include '/home/jstockill/scenemodels/header.php';
+						<?php include '../../header.php';
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
 						echo "Else, please report to devel ML or FG Scenery forum<br />.";
 						echo "</body></html>";
@@ -355,7 +355,7 @@ else
 							<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 							</head>
 							<body>
-							<?php include '/home/jstockill/scenemodels/header.php';
+							<?php include '../../header.php';
 							echo "Signature found.<br /> Now processing query with request number ". $_POST[hsig].".<br /><br />";
 							echo "<font color=\"red\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
 							
@@ -377,7 +377,7 @@ else
 							<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 							</head>
 							<body>
-							<?php include '/home/jstockill/scenemodels/header.php';
+							<?php include '../../header.php';
 							echo "Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST[hsig].".<br />\n";
 							echo pg_affected_rows($result_rw)." objects were added to the database!<br /><br />\n";
 							echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";

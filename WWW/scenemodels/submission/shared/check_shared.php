@@ -20,7 +20,7 @@ if(!$ok)
 	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
@@ -60,7 +60,7 @@ $resp = recaptcha_check_answer ($privatekey,
 	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 	</head>
 	<body>
-	<?php include '/home/jstockill/scenemodels/header.php'; ?>
+	<?php include '../../header.php'; ?>
 	<br />
 	<?
 	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
@@ -77,7 +77,7 @@ $resp = recaptcha_check_answer ($privatekey,
 <link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br />
 <?php
 $false='0';

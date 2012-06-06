@@ -20,7 +20,7 @@ if(!$ok)
 	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
@@ -60,7 +60,7 @@ if (!$resp->is_valid)
 	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
 	</head>
 	<body>
-	<?php include '/home/jstockill/scenemodels/header.php'; ?>
+	<?php include '../../header.php'; ?>
 	<br />
 	<?
 	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
@@ -77,7 +77,7 @@ else {
 <link rel="stylesheet" href="../../style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '/home/jstockill/scenemodels/header.php'; ?>
+<?php include '../../header.php'; ?>
 <br />
 <?php
 $false='0';
@@ -113,14 +113,14 @@ else
 
 if ($false==0)
 {
-	$tab_lignes = explode("\n",$_POST['stg']);			// Exploding lines by carriage return (\n) in submission input.
+	$tab_lignes = explode("\n",$_POST['stg']);		// Exploding lines by carriage return (\n) in submission input.
 	$tab_lignes = array_map('trim',$tab_lignes);		// Removes blank lines.
-	$tab_lignes = array_filter($tab_lignes);			// Removes blank lines.
+	$tab_lignes = array_filter($tab_lignes);		// Removes blank lines.
 	$tab_lignes = array_slice($tab_lignes,0,100);		// Sélectionne les 15 premiers éléments du tableau (soit les 15 premières lignes non vides)
 
 	$nb_lignes = count($tab_lignes);
-	$global_ko = 0;										// Validates - or no - the right to go further.
-	$cpt_err = 0;										// Counts the number of errors.
+	$global_ko = 0;						// Validates - or no - the right to go further.
+	$cpt_err = 0;						// Counts the number of errors.
 	
 	echo '<center>Counted a number of '.$nb_lignes.' lines submitted.</center><br />';
 	
@@ -166,7 +166,7 @@ if ($false==0)
 					}
 					else
 					{
-					echo "<td><font color=\"red\"><center>Object Error</center></font></td>";
+					echo "<td><font color=\"red\"><center>Object Error!</center></font></td>";
 					$ko=1;
 					$global_ko=1;
 					$cpt_err++;
@@ -177,7 +177,7 @@ if ($false==0)
 					if((strlen($value_tag)<'13') && ($value_tag<'180') && ($value_tag>'-180') && (preg_match('/^[0-9\-\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td>"; $long=$value_tag; }
 					else
 					{
-					echo "<td><font color=\"red\"><center>Longitude Error</center></font></td>";
+					echo "<td><font color=\"red\"><center>Longitude Error!</center></font></td>";
 					$ko=1;
 					$global_ko=1;
 					$cpt_err++;
@@ -188,7 +188,7 @@ if ($false==0)
 					if((strlen($value_tag)<'13') && ($value_tag<'90') && ($value_tag>'-90') && (preg_match('/^[0-9\-\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."<center></td>"; $lat=$value_tag; }
 					else
 					{
-					echo "<td><font color=\"red\"><center>Latitude Error</center></font></td>";
+					echo "<td><font color=\"red\"><center>Latitude Error!</center></font></td>";
 					$ko=1;
 					$global_ko=1;
 					$cpt_err++;
@@ -202,7 +202,7 @@ if ($false==0)
 					if((strlen($value_tag)<'11') && ($value_tag<='360') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td>"; $gndelev=$value_tag; }
 					else
 					{
-					echo "<td><font color=\"red\"><center>Elevation Error</center></font></td>";
+					echo "<td><font color=\"red\"><center>Elevation Error!</center></font></td>";
 					$ko=1;
 					$global_ko=1;
 					$cpt_err++;
@@ -213,7 +213,7 @@ if ($false==0)
 					if((strlen($value_tag)<'6') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td> "; $orientation=$value_tag; }
 					else
 					{
-					echo "<td><font color=\"red\"><center>Orientation Error</center></font></td>";
+					echo "<td><font color=\"red\"><center>Orientation Error!</center></font></td>";
 					$ko=1;
 					$global_ko=1;
 					$cpt_err++;

@@ -29,7 +29,8 @@ Mandatory
 - Check the coherence of strlen everywhere.
 - ob_name workaround for mass import.
 - Be careful : when updating/deleting, have to be precise on the fact that the heading taken from DB is the TRUE heading. (ot make another conversion, ...)
-- Adding a script so send monthly a summary of FG pending requests in DB. (have to see with Martin for croning).
+- OK: adding a script so send monthly a summary of FG pending requests in DB. (have to see with Martin for croning).
+- Take comments into account to merge them into the generated STG file (but how will you remove them ;-)
 
 Static objects
 ==============
