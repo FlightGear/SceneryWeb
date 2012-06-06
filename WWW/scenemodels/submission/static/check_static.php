@@ -620,9 +620,12 @@ if(    $_POST["mo_shared"] != ""  && $_POST["mo_path"] != "" && $_POST["mo_autho
   $country     = $_POST["ob_country"];
   $ipaddr      = $_POST["IPAddr"];
 
-  if(model_exists($path) != 2){
-    $error += 1;
-    $errormsg .= "It seems that your model is already in our database<br/>";
+
+  if($mo_shared != 0){
+    if(model_exists($path) != 2){
+      $error += 1;
+      $errormsg .= "It seems that your model is already in our database<br/>";
+    }
   }
 
   if(!preg_match('#^[0-9]{1,3}$#', $author)){
