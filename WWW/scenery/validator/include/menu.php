@@ -29,29 +29,8 @@
           <h4><span>General</span></h4>
           <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="models-library.php">3D Models library</a></li>
-            <li><a href="objects-position.php">Objects positions library</a></li>
-          </ul>
-          <h4><span>Downloads</span></h4>
-          <ul>
-            <li><a href="download-objects.php">Download objects</a></li>
-            <li><a href="download-scenery.php">Download scenery</a></li>
-            <li><a href="download-shapefiles.php">Download shapefiles</a></li>
-          </ul>
-          <!--<h4><span>Tools</span></h4>
-          <ul>
-            <li><a href="#">TerraGear</a></li>
-            <li><a href="#">WorldEditor</a></li>
-          </ul>-->
-          <h4><span>Others</span></h4>
-          <ul>
-            <li><a href="howto-contribute.php">How to contribute</a></li>
-            <li><a href="statistics.php">Statistics</a></li>
-            <li><a href="links.php">Links</a></li>
-            <li><a href="faq.php">F.A.Q</a></li>
-            <li><a href="rss.php">RSS</a></li>
-            <br/>
-            <li><a href="validators-area.php">Validators area</a></li>
+            <li><a href="models-validation.php">3D Models validation</a></li>
+            <li><a href="objects-validation.php">Objects positions validation</a></li>
           </ul>
         </div>
       </div>
