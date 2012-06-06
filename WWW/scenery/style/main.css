@@ -134,6 +134,7 @@
 }
 
 #main ul.gallery li{
+  list-style-type: none;
   float: left;
   text-align: center;
 }
