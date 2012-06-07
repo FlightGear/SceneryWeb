@@ -49,20 +49,20 @@
 
   <ul id="csstopmenu">
     <li class="mainitems" style="border-left-width: 1px">
-      <div class="headerlinks"><a href="./">Home</a></div>
+      <div class="headerlinks"><a href="/">Home</a></div>
     </li>
     <li class="mainitems">
-      <div class="headerlinks"><a href="contribute.php">Contribute</a></div>
+      <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
       <ul class="submenus">
-        <li><a href="submission/shared/index.php">Add a new shared object position.</a></li>
-        <li><a href="submission/shared/index_update.php">Edit an existing shared object settings.</a></li>
-        <li><a href="submission/shared/index_delete.php">Delete an existing shared object position.</a></li>
+        <li><a href="/submission/shared/index.php">Add a new shared object position.</a></li>
+        <li><a href="/submission/shared/index_update.php">Edit an existing shared object settings.</a></li>
+        <li><a href="/submission/shared/index_delete.php">Delete an existing shared object position.</a></li>
       </ul>
     </li>
     <li class="mainitems">
-      <div class="headerlinks"><a href="models.php">Models</a></div>
+      <div class="headerlinks"><a href="/models.php">Models</a></div>
       <ul class="submenus">
-        <li><a href="modelbrowser.php">Browse All</a></li>
+        <li><a href="/modelbrowser.php">Browse All</a></li>
         <?php
           $query = "SELECT mg_id,mg_name ";
           $query.= "FROM fgs_modelgroups ";
