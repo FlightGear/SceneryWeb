@@ -48,7 +48,7 @@ Currently supported comments are:<br/>
     If you wish to help populate the world with interesting static objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:<br/><br/>
     <b>Mandantory submission items:</b>
     <ul>
-      <li>A package (preferably a TAR- or a ZIP-file) containing all !! files wich belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;
+      <li>A package (preferably a TAR- or a ZIP-file) containing <strong>all</strong> files which belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;
         <ul>
           <li>Multiple models may well be packaged together into a single file - as long as it is obvious to us which files belong to which model (for example by separating models into different directories);</li>
           <li>Always choose reasonable (meaningful, descriptive) filenames for your models. At urban areas having a geometry 'tower.ac' or a texture just named 'red.rgb' or 'concrete.png' might prove not to be unique ;-)</li>
@@ -83,7 +83,7 @@ Currently supported comments are:<br/>
       <li>Country in which the model is located (if known to the author);</li>
       <li>Additional short comment on the author;</li>
     </ul>
-    <b> -> </b>After positive experience a simplified procedure is avaliable/recommended upon negotiation.<br/><br/>
+    <b> -> </b>After positive experience a simplified procedure is available/recommended upon negotiation.<br/><br/>
 
     <br/>
     <h1 id="tips">Tips</h1>

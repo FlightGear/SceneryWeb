@@ -92,12 +92,12 @@
 </script>
 
 <form action="objects.php" method="get">
-  <table border=1 align="center">
+  <table border="1" align="center">
     <tr valign="bottom">
       <th>Lat</th>
       <th>Lon</th>
-      <th>Ground<br>Elevation (m)</th>
-      <th>Elevation<br>Offset</th>
+      <th>Ground<br/>Elevation (m)</th>
+      <th>Elevation<br/>Offset</th>
       <th>Heading</th>
       <th>Description</th>
       <th>Model</th>
@@ -154,7 +154,7 @@
         </select>
       </th>
       <th>
-        <input type="submit" name="filter" value="Filter">
+        <input type="submit" name="filter" value="Filter"/>
       </th>
     </tr>
     <tr class="bottom"><td colspan=11 align="center">
@@ -203,7 +203,7 @@
       }
     ?>
     <tr class="bottom">
-      <td colspan=11 align="center">
+      <td colspan="11" align="center">
         <?php
           echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Prev</a>";
           echo "<a href=\"objects.php?filter=Filter&offset=".$next . $filter_text."\">Next</a>";
