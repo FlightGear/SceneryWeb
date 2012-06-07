@@ -21,24 +21,25 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 
 
     <h1>Validators login</h1>
-    <table>
-      <tr>
-        <td>Username: </td>
-        <td><input type="text" name="login"/></td>
-      </tr>
-      <tr>
-        <td>Password: </td>
-        <td><input type="passwd" name="passwd"/></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td align="right"><input type="submit" value="Login"/></td>
-      </tr>
-      <tr>
-        <td colspan="2" align="right"><a href="#">Forgot password</a></td>
-      </tr>
-    </table>
-
+    <form action="validator/index.php" method="post">
+      <table>
+        <tr>
+          <td>Username: </td>
+          <td><input type="text" name="login"/></td>
+        </tr>
+        <tr>
+          <td>Password: </td>
+          <td><input type="passwd" name="passwd"/></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td align="right"><input type="submit" value="Login"/></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="right"><a href="#">Forgot password</a></td>
+        </tr>
+      </table>
+    </form>
 
   </div>
 
