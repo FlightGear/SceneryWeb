@@ -21,8 +21,13 @@ give detailed recommendations in order to avoid misunderstandings.
 <li class="toclevel-1"><a href="#contact"><span class="toctext"><font color="blue">Upload facilities</font></span></a></li>
 <li class="toclevel-1"><a href="#thumbnails"><span class="toctext">Contributing Thumbnails</span></a></li>
 </ul>
-</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
 </td></tr>
+
+<!--</table>
+<script type="text/javascript">
+if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); }
+</script>
+</td></tr>-->
 
 <tr><th><a name="positions">Contributing Positions</a></th></tr>
 <tr><td>
@@ -98,7 +103,7 @@ If you have data available in other formats please contact me at the same addres
 <b> -> </b> The reason is simple: Depending on the angle of view, the
             operating system, the graphics card and driver, the underlying
             terrain slope, various people might be seeing rendering
-            artifacts.  Therefore: Please don't !<br>
+            artifacts.  Therefore: Please don't !<br/>
 <ul>
 	<li>For groupings of individual models choose a distinct, corresponding position for each of them, never mount multiple models into a single position.
         <li>Textures should be in PNG format - older models which used rgb textures have been updated. <b>The textures dimensions have to be a power of two: eg 128x256.</b>
@@ -109,27 +114,27 @@ If you have data available in other formats please contact me at the same addres
 <b> -> </b> The better your submission complies with these recommendations, the quicker we'll have it imported into the repository.
 
 
-<h4><a name="contact"><font color="blue">Upload facilities</a></font></h4>
+<h4><a name="contact"><font color="blue">Upload facilities</font></a></h4>
 <!-- Facilities to handle the uploading of your own model data are not yet complete, but the data can currently be submitted in 2 ways: -->
 <ul>
 	<li> By Email
-		<br>Send a message containing the info above, to (sorry for the anti 
+		<br/>Send a message containing the info above, to (sorry for the anti 
 		spam measures, I'm sure you understand):
-		<br>fgfsdb at stockill dot net
+		<br/>fgfsdb at stockill dot net
 <!--		<br>or
 		<br>Martin at flightgear dot org
 	<li> By anonymous FTP
     <br>Put all the info described above into an archive (.zip or .tar.gz 
     format) and upload it to:
     <br>ftp://ftp.ihg.uni-duisburg.de/FlightGear/incoming/  -->
-<ul>
+</ul>
 </td></tr>
 <tr><th><a name="thumbnails">Contributing Thumbnails</a></th></tr>
 <tr><td>
 <p>A noticeable amount of model submissions are missing a thumbnail. If you
 like to take some snapshots for us, go ahead, look at the Model Browser
 pages, pick those models which lack a thumbnail and create a nice view on
-the respective model. JPEG's of 320x240 make our overview.<br>
+the respective model. JPEG's of 320x240 make our overview.<br/>
 Models are easily identified by their numeric id when you click on the
 thumbnail in the Browser view.
 </td></tr>

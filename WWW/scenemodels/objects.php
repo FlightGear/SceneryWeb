@@ -161,8 +161,20 @@
       <?php
         $prev = $offset-20;
         $next = $offset+20;
-        echo "<a href=\"objects.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
-        echo "<a href=\"objects.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+        
+        $filter_text="";
+        if($lat!="") $filter_text .= "&lat=".$lat;
+        if($lon!="") $filter_text .= "&lon=".$lon;
+        if($elevation!="") $filter_text .= "&elevation=".$elevation;
+        if($elevoffset!="") $filter_text .= "&elevoffset=".$elevoffset;
+        if($description!="") $filter_text .= "&description=".$description;
+        if($heading!="") $filter_text .= "&heading=".$heading;
+        if($model!="") $filter_text .= "&model=".$model;
+        if($group!="") $filter_text .= "&group=".$group;
+        if($country!="") $filter_text .= "&country=".$country;
+        
+        echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Prev</a>";
+        echo "<a href=\"objects.php?filter=Filter&offset=".$next . $filter_text."\">Next</a>";
         ?>
       </td>
     </tr>
@@ -193,10 +205,8 @@
     <tr class="bottom">
       <td colspan=11 align="center">
         <?php
-          $prev = $offset-20;
-          $next = $offset+20;
-          echo "<a href=\"objects.php?offset=".$prev."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&description=".$description."&heading=".$heading."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Prev</a>";
-          echo "<a href=\"objects.php?offset=".$next."&lat=".$lat."&lon=".$lon."&elevation=".$elevation."&elevoffset=".$elevoffset."&heading=".$heading."&description=".$description."&model=".$model."&group=".$group."&country=".$country."&filter=Filter"."\">Next</a>";
+          echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Prev</a>";
+          echo "<a href=\"objects.php?filter=Filter&offset=".$next . $filter_text."\">Next</a>";
         ?>
       </td>
     </tr>
