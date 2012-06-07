@@ -33,7 +33,7 @@
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
           echo "<td width=320>\n";
-            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"modelthumb.php?id=".$row["mo_id"]."\"/></a>\n";
+            echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"modelthumb.php?id=".$row["mo_id"]."\" alt=\"Model ".$row["mo_id"]."\"/></a>\n";
           echo "</td>\n";
           echo "<td>\n";
             echo "<p><b>Name:</b> ".$row["mo_name"]."</p>\n";
