@@ -1,7 +1,7 @@
 <?php include 'header.php';?>
 
   <h1 align="center">FlightGear Scenery Database Latest News</h1>
-  <table border=1 width="100%">
+  <table border="1" width="100%">
     <?php
       if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
         $offset = $_REQUEST['offset'];
@@ -27,7 +27,7 @@
       }
     ?>
     <tr class="bottom">
-      <td colspan=9 align="center">
+      <td colspan="9" align="center">
         <a href="news.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="news.php?offset=<?php echo $offset+10;?>">Next</a>
       </td>
     </tr>

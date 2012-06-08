@@ -1,5 +1,5 @@
 <?php include 'header.php';?>
-<h1 align=center>FlightGear Scenery Object Statistics</h1>
+<h1 align="center">FlightGear Scenery Object Statistics</h1>
 <?php 
   $result=pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
   $row = pg_fetch_assoc($result);
@@ -11,13 +11,13 @@
   $row = pg_fetch_assoc($result);
   $signs=$row["count"];
 
-  echo "<p align=center>The database currently contains <a href=\"models.php\">$models models</a> placed in the scenery as <a href=\"objects.php\">$objects seperate objects</a>, plus $signs taxiway signs.\n";
+  echo "<p align=\"center\">The database currently contains <a href=\"models.php\">$models models</a> placed in the scenery as <a href=\"objects.php\">$objects seperate objects</a>, plus $signs taxiway signs.\n";
 ?>
 <table class="main">
   <tr class="main">
     <td>
       <table>
-        <tr><th colspan=2>Objects By Country</th></tr>
+        <tr><th colspan="2">Objects By Country</th></tr>
         <?php
           $query = "SELECT count(ob_id) AS count,co_name,co_code ";
           $query.= "FROM fgs_objects,fgs_countries ";
@@ -37,7 +37,7 @@
     </td>
     <td>
       <table>
-        <tr><th colspan=2>Models By Author</th></tr>
+        <tr><th colspan="2">Models By Author</th></tr>
         <?php
           $query = "SELECT count(mo_id) as count,au_name,au_id ";
           $query.= "FROM fgs_models,fgs_authors ";
@@ -48,7 +48,7 @@
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)){
             echo "<tr>\n";
-              echo "<td><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</td>\n";
+              echo "<td><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></td>\n";
               echo "<td>".$row["count"]."</td>\n";
             echo "</tr>\n";
           }
@@ -59,7 +59,7 @@
   <tr class="main">
     <td align="center">
       <table>
-        <tr><th colspan=2>Recently Updated Objects</th></tr>
+        <tr><th colspan="2">Recently Updated Objects</th></tr>
         <?php
           $query = "SELECT ob_id,ob_text,ob_modified ";
           $query.= "FROM fgs_objects ";
@@ -68,7 +68,7 @@
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)){
             echo "<tr>\n";
-              echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</td>\n";
+              echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n";
               echo "<td>".$row["ob_modified"]."</td>\n";
             echo "</tr>\n";
           }
@@ -77,7 +77,7 @@
     </td>
     <td align="center">
       <table>
-        <tr><th colspan=2>Recently Updated Models</th></tr>
+        <tr><th colspan="2">Recently Updated Models</th></tr>
         <?php
           $query = "SELECT mo_id,mo_name,mo_modified ";
           $query.= "FROM fgs_models ";
@@ -86,7 +86,7 @@
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)){
             echo "<tr>\n";
-              echo "<td><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</td>\n";
+              echo "<td><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a></td>\n";
               echo "<td>".$row["mo_modified"]."</td>\n";
             echo "</tr>\n";
           }

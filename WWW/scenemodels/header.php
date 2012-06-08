@@ -14,7 +14,7 @@
     // Please keep this credit intact
 
     startMenu = function() {
-      if (document.all&&document.getElementById) {
+      if (document.all && document.getElementById) {
         cssmenu = document.getElementById("csstopmenu");
 
         for (i=0; i<cssmenu.childNodes.length; i++) {
