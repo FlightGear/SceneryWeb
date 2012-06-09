@@ -28,7 +28,7 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
 <h1 align="center"><?php echo $title;?></h1>
 <table>
   <tr class="bottom">
-    <td colspan=9 align="center">
+    <td colspan="9" align="center">
       <a href="modelbrowser.php?offset=<?php echo $offset-100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a> 
       <a href="modelbrowser.php?offset=<?php echo $offset+100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
     </td>
@@ -55,7 +55,7 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
     </td>
   </tr>
   <tr class="bottom">
-    <td colspan=9 align="center">
+    <td colspan="9" align="center">
       <a href="modelbrowser.php?offset=<?php echo $offset-100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a> 
       <a href="modelbrowser.php?offset=<?php echo $offset+100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
     </td>

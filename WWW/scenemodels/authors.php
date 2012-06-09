@@ -1,7 +1,7 @@
 <?php include 'header.php';?>
 
   <h1 align="center">FlightGear Scenery Authors Directory</h1>
-  <table border=1 width="100%">
+  <table border="1" width="100%">
     <?php
       if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
         $offset = $_REQUEST['offset'];
@@ -10,7 +10,7 @@
       }
     ?>
     <tr class="bottom">
-      <td colspan=9 align="center">
+      <td colspan="9" align="center">
         <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
        </td>
     </tr>
@@ -22,7 +22,7 @@
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
-          echo "<td width=25%>\n";
+          echo "<td width=\"25%\">\n";
             echo "<b>Name: <a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></b>\n";
             echo "<p><b>EMail:</b> *disabled*</p>\n";
           echo "</td>\n";
@@ -31,7 +31,7 @@
       }
     ?>
     <tr class="bottom">
-      <td colspan=9 align="center">
+      <td colspan="9" align="center">
         <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
       </td>
     </tr>
