@@ -28,28 +28,28 @@ Shared objects
 
 Static objects
 ==============
-- numerical ID of the 3D model (mo_id, this procedure asks for a proper fix
-- keep the capability of submitting shared 3D models.
+- numerical ID of the 3D model (mo_id, this procedure asks for a proper fix)
+- keep the capability of submitting shared 3D models. ==> DONE
 - format the texture file names so nobody can send obscure texture file names. "R.png", "techo.png",
-  "anexo.png" and the like.
+  "anexo.png" and the like. ==> DONE
 - provide feedback to people when they're submitting via a form (mandatory field for entering an EMail address
   so the reviewer can get in contact with the submitter and have a predefined feedback button for the reviewer
-  which just responds "please use descriptive texture file names"
-- Note, the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects), containing the position whereas   the bare model, no matter if it's shared or static, goes into the models table (fgs_objects).
-- There are not always textures (AC3D file with simple colors) and there can be multiple textures.
-- concurrent file uploads.
+  which just responds "please use descriptive texture file names" ==> NEED A NEW FIELD (email) IN THE TABLE
+- Note, the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects), containing the position whereas   the bare model, no matter if it's shared or static, goes into the models table (fgs_objects). ==> DONE
+- There are not always textures (AC3D file with simple colors) and there can be multiple textures. ==> DONE
+- concurrent file uploads. ==> DONE
 - 'dos2unix' on every file before submission
 - some committers don't supply an XML header with their models because
   things also appear to work in FlightGear without this header, but if
   it's missing, I _always_ add one for the sake of consistency ....  who
-  knows which XML reader we'll have to satisfy in the future.
+  knows which XML reader we'll have to satisfy in the future. ==> DONE
 - If the file is an XML and available, I'm searching for the first
   occurrence of a "<path>[...]</path>" clause in order to determine which
   AC3D model belongs into this model.  Now that I know the AC3D pathname,
   I'm checking if the file is available, then I start searching the AC3D
   file for reasonable "texture" clauses - usually starts a line with
   "texture" and later on contains something like .rgb, .png, .jpg or
-  .jpeg
+  .jpeg ==> DONE
 - the model-ID is asking for a proper fix. The point is:
   I'm issuing two (or three) SQL statements when importing a model.
   INSERT INTO fgs_models ....  to insert the bare model.  The
@@ -64,19 +64,19 @@ Static objects
   Thus, it would be better to insert the model into "fgs_models",
   retrieve the ID it has been assigned by the DB and to re-use this ID
   for inserting into "fgs_objects".  I think this is possible with
-  PostgreSQL, I just never did it.
+  PostgreSQL, I just never did it. ==> DONE
 - Submitter uploads model in a sane state, EMail ist being set to a
   group of maintainers: "Hey, there's a new model and it passed all
   checks. The submission was assigned ID 12345, get it from the following
-  URL: ....".
+  URL: ....". ==> DONE
 - Maintainer opens URL, looks at the list of files and the file sizes
   as included in the submission, maintainer downloads model for viewing
   in 'osgviewer' - at least that's what I am doing nowadays as a visual
-  check.
-- Captcha
+  check. ==> DONE WITH THE NEW INTERFACE
+- Captcha ==> DONE
 - pg_escape_string
-- Logging options
-- Fake-db testing
-- Live db testing
-- Make sure Javascript is on?
+- Logging options ==> DONE WITH THE NEW INTERFACE
+- Fake-db testing ==> DONE
+- Live db testing ==> WAIT MARTIN VALIDATION
+- Make sure Javascript is on? ==> DONE
 - Make a nice resume of everything submitted (picture, map...)
