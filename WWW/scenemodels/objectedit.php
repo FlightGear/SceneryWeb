@@ -20,11 +20,11 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <table border="1" align="center">
 <tr>
 	<td>Latitude</td>
-	<td><input type="text" size="12" name="lat" <?php if (isset($object["ob_lat"])) print "value=".$object["ob_lat"]; ?>/></td>
+	<td><input type="text" size="12" name="lat" <?php if (isset($object["ob_lat"])) print "value=\"".$object["ob_lat"]."\""; ?>/></td>
 <tr>
 <tr>
 	<td>Longitude</td>
-	<td><input type="text" size="12" name="lon" <?php if (isset($object["ob_lon"])) print "value=".$object["ob_lon"]; ?>/></td>
+	<td><input type="text" size="12" name="lon" <?php if (isset($object["ob_lon"])) print "value=\"".$object["ob_lon"]."\""; ?>/></td>
 </tr>
 <tr>
 	<td>Country</td>
@@ -44,15 +44,15 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
 	<td>Ground Elevation</td>
-	<td><input type="text" size="6" name="gndelev" <?php if (isset($object["ob_gndelev"])) print "value=".$object["ob_gndelev"]; ?>/></td>
+	<td><input type="text" size="6" name="gndelev" <?php if (isset($object["ob_gndelev"])) print "value=\"".$object["ob_gndelev"]."\""; ?>/></td>
 </tr>
 <tr>
 	<td>Elevation Offset</td>
-	<td><input type="text" size="6" name="elevoffset" <?php if (isset($object["ob_elevoffset"])) print "value=".$object["ob_elevoffset"]; ?>/></td>
+	<td><input type="text" size="6" name="elevoffset" <?php if (isset($object["ob_elevoffset"])) print "value=\"".$object["ob_elevoffset"]."\""; ?>/></td>
 </tr>
 <tr>
 	<td>Heading</td>
-	<td><input type="text" size="3" name="heading" <?php if (isset($object["ob_heading"])) print "value=".$object["ob_heading"]; ?>/></td>
+	<td><input type="text" size="3" name="heading" <?php if (isset($object["ob_heading"])) print "value=\"".$object["ob_heading"]."\""; ?>/></td>
 </tr>
 <tr>
 	<td>Group</td>
