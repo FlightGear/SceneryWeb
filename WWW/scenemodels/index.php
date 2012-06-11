@@ -28,7 +28,7 @@
     ?>
     <tr class="bottom">
       <td colspan="9" align="center">
-        <a href="news.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="news.php?offset=<?php echo $offset+10;?>">Next</a>
+        <a href="index.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="news.php?offset=<?php echo $offset+10;?>">Next</a>
       </td>
     </tr>
   </table>
