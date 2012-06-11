@@ -48,8 +48,9 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       <td bgcolor="#DDDDDD"><center>
         <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
         <a href="/shpdl/">Download Shapefiles</a>
-        </p></td>
-        </center>
+        </p></center>
+      </td>
+      </tr>
     </table>  
     <br />
     </center>
@@ -57,7 +58,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     <br />
     <a href="http://worldaerodata.com/countries/">ICAO airport codes From WorldAeroData.com</a>
     <br />
-    <hr width=42>
+    <hr width="42">
     WMS: <a href="http://mapserver.flightgear.org/ms?Service=WMS&amp;Version=1.1.1&amp;request=GetCapabilities">http://mapserver.flightgear.org/ms?Service=WMS&amp;Version=1.1.1&amp;request=GetCapabilities</a>
     <br />
     WFS: <a href="http://mapserver.flightgear.org/ms?Service=WFS&amp;Version=1.0.0&amp;request=GetCapabilities">http://mapserver.flightgear.org/ms?Service=WFS&amp;Version=1.0.0&amp;request=GetCapabilities</a>
@@ -92,16 +93,16 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       <tr>
         <td>Airport code - MS template view:</td>
         <td></td>
-        <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao"></td>
-        <td>  <input type="submit" name="senden" value="ICAO"></td>
+        <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao"/></td>
+        <td>  <input type="submit" name="senden" value="ICAO"/></td>
       </tr>
     </form>
 
     <form method="post" action="http://mapserver.flightgear.org/lonlatmap.php">
       <tr>
-        <td>  MS template view - Longitude:</td><td> <input type="text" size="8" maxlength="8" name="lon"></td>
-        <td>  Latitude:</td><td> <input type="text" size="8" maxlength="8" name="lat"></td>
-        <td>  <input type="submit" name="senden" value="LON/LAT"></td>
+        <td>  MS template view - Longitude:</td><td> <input type="text" size="8" maxlength="8" name="lon"/></td>
+        <td>  Latitude:</td><td> <input type="text" size="8" maxlength="8" name="lat"/></td>
+        <td>  <input type="submit" name="senden" value="LON/LAT"/></td>
       </tr>
     </form>
 
@@ -113,7 +114,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="OpenLayers EDNY"></td>
+        <td>  <input type="submit" name="senden" value="OpenLayers EDNY"/></td>
       </tr>
     </form>
 
@@ -123,7 +124,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="OpenLayers TKPK"></td>
+        <td>  <input type="submit" name="senden" value="OpenLayers TKPK"/></td>
       </tr>
     </form>
 
@@ -133,7 +134,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="OpenLayers PHOG"></td>
+        <td>  <input type="submit" name="senden" value="OpenLayers PHOG"/></td>
       </tr>
     </form>
 
@@ -143,7 +144,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="OpenLayers EGLL"></td>
+        <td>  <input type="submit" name="senden" value="OpenLayers EGLL"/></td>
       </tr>
     </form>
 
@@ -153,7 +154,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="OpenLayers SFO Bay"></td>
+        <td>  <input type="submit" name="senden" value="OpenLayers SFO Bay"/></td>
       </tr>
     </form>
 
@@ -163,7 +164,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="OpenLayers KSFO"></td>
+        <td>  <input type="submit" name="senden" value="OpenLayers KSFO"/></td>
       </tr>
     </form>
 
@@ -175,7 +176,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="Berlin"></td>
+        <td>  <input type="submit" name="senden" value="Berlin"/></td>
       </tr>
     </form>
 
@@ -185,7 +186,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="San Diego"></td>
+        <td>  <input type="submit" name="senden" value="San Diego"/></td>
       </tr>
     </form>
 
@@ -195,7 +196,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td></td>
         <td></td>
         <td></td>
-        <td>  <input type="submit" name="senden" value="New Orleans"></td>
+        <td>  <input type="submit" name="senden" value="New Orleans"/></td>
       </tr>
     </form>
 
@@ -215,7 +216,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     <tr>
       <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao1"></td>
       <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao2"></td>
-      <td>  <input type="submit" value="Distance">  between two airfields</td>
+      <td>  <input type="submit" value="Distance"/>  between two airfields</td>
     </tr>
     </form>
 
@@ -228,7 +229,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
   <hr />
   <center>
   World Custom Scenery - <a href="/git/">TerraGear GIT repository</a>
-  <center>
+  </center>
   <hr />
   <center>
   <p>Read about the background of the whole effort. The pages are a bit
