@@ -14,10 +14,9 @@ Shared objects
   submitters just have to re-enter a captcha phrase would be highly beneficial.
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
 - Take object "SIGN" into account.
-- Add \n to make scripts readable.
 - Check the isset everywhere.
 - In delete, update script put the captcha & comment at the final form, not the first one ?
-- Add ob_text, ob_country, ob_author add/update possibilities.
+- Add ob_text (unitary addition), ob_country, ob_author add/update possibilities.
 - Check for every form & page the referring page & the value of the form submitting.
 - Detect if submitting an already existing object.
 - Use Jquery lib for form checking & asynchronous queries.
@@ -25,7 +24,7 @@ Shared objects
 - Be careful : when updating/deleting, have to be precise on the fact that the heading taken from DB is the TRUE heading. (ot make another conversion, ...)
 - Take comments into account to merge them into the generated STG file (but how will you remove them ;-)
 - Add last date/time on update/delete scripts
-- Without comments it seems possible to update/delete an object ?
+- Without comments it seems possible to update/delete an object ? Check comments REGEXP.
 - In the update form (eg Fence_80 at -4.1862986 47.9750436, chimneys), it seems that the Object's family field is sometimes blank, while it should definitely return something.
 - In the update form, the (eventually former) Object family and model name should be selected by default.
 

@@ -166,7 +166,7 @@ else
 // Checking that orientation exists and is containing only digits, and is >=0 and <=359
 // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
 
-if((isset($_POST['heading'])) && (strlen($_POST['heading'])<=7)) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0'))
+if((isset($_POST['heading'])) && (strlen($_POST['heading'])<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0'))
 	{
 	$heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
 	echo "<font color=\"green\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(compute_heading($heading),1,'.','')."</font><br />";
