@@ -202,7 +202,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 	<tr>
 		<td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit"><a style="cursor: help">Comment</a></span></td>
 		<td>
-			<input type="text" name="comment" maxlength="100" size="40" value="Comment" />
+			<input type="text" name="comment" maxlength="100" size="40" value="" />
 			<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
 		</td>
 	</tr>

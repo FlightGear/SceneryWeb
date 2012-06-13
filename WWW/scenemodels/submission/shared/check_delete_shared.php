@@ -253,7 +253,7 @@ else
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if(isset($_POST['comment']) && (strlen($_POST['comment'])<=100))
+if(isset($_POST['comment']) && (strlen($_POST['comment'])>0)) && (strlen($_POST['comment'])<=100))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	}

@@ -93,7 +93,7 @@ if((isset($_POST['family_name'])) && preg_match('/[0-9]/',$_POST['family_name'])
 	}
 else
 {
-	echo "<font color=\"red\">Family Name mismatch !</font><br />";
+	echo "<font color=\"red\">Family Name mismatch!</font><br />";
 	$false='1';
 }
 
@@ -107,7 +107,7 @@ if((isset($_POST['model_name'])) && preg_match('/[0-9]/',$_POST['model_name']) &
 	}
 else
 {
-	echo "<font color=\"red\">Model Name mismatch !</font><br />";
+	echo "<font color=\"red\">Model Name mismatch!</font><br />";
 	$false='1';
 }
 
@@ -120,7 +120,7 @@ if((isset($_POST['latitude'])) && (strlen($_POST['latitude'])<=13) && (preg_matc
 	}
 else
 {
-	echo "<font color=\"red\">Latitude mismatch !</font><br />";
+	echo "<font color=\"red\">Latitude mismatch!</font><br />";
 	$false='1';
 }
 
@@ -133,7 +133,7 @@ if((isset($_POST['longitude'])) && (strlen($_POST['longitude'])<=13) && (preg_ma
 	}
 else
 {
-	echo "<font color=\"red\">Longitude mismatch !</font><br />";
+	echo "<font color=\"red\">Longitude mismatch!</font><br />";
 	$false = '1';
 }
 
@@ -146,7 +146,7 @@ if((isset($_POST['gndelev'])) && (strlen($_POST['gndelev'])<=10) && (preg_match(
 	}
 else
 {
-	echo "<font color=\"red\">Ground Elevation mismatch !</font><br />";
+	echo "<font color=\"red\">Ground Elevation mismatch!</font><br />";
 	$false='1';
 }
 
@@ -159,7 +159,7 @@ if((isset($_POST['offset'])) && (strlen($_POST['offset'])<=10) && (preg_match('/
 	}
 else
 	{
-	echo "<font color=\"red\">Offset mismatch !</font><br />";
+	echo "<font color=\"red\">Offset mismatch!</font><br />";
 	$false='1';
 	}
 
@@ -173,20 +173,20 @@ if((isset($_POST['heading'])) && (strlen($_POST['heading'])<=7) && (preg_match('
 	}
 else
 	{
-	echo "<font color=\"red\">Orientation mismatch !</font><br />";
+	echo "<font color=\"red\">Orientation mismatch!</font><br />";
 	$false='1';
 	}
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if((isset($_POST['comment'])) && (strlen($_POST['comment'])<=100))
+if((isset($_POST['comment'])) && (strlen($_POST['comment']>0)) && (strlen($_POST['comment'])<=100))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	echo "<font color=\"green\">Comment: ".$sent_comment."</font><br />";
 	}
 else
 	{
-	echo "<font color=\"red\">Comment mismatch !</font><br />";
+	echo "<font color=\"red\">Comment mismatch!</font><br />";
 	$false='1';
 	}
 	

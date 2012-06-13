@@ -116,7 +116,7 @@ else
 									foreach ($data as $data_from_query)
 									{
 										$j++;
-												if ($j==2)								// Managing the data no separated by comma;
+												if ($j==2)								// Managing the data not separated by comma;
 												{
 													$fix = explode(" ",$data_from_query);
 														$k=0;

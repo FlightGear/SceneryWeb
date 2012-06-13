@@ -85,13 +85,13 @@ global $false;
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if(isset($_POST['comment']) && (strlen($_POST['comment']<=100)))
+if(isset($_POST['comment']) && (strlen($_POST['comment']>0)) && (strlen($_POST['comment']<=100)))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	}
 else
 	{
-	echo "<font color=\"red\">Comment mismatch !</font><br />";
+	echo "<font color=\"red\">Comment mismatch!</font><br />";
 	$false='1';
 	exit;
 	}
@@ -148,7 +148,7 @@ if ($false==0)
 			if(!strcmp($value_tag,"OBJECT_SHARED"))	echo "<td><center>".$value_tag."</center></td> ";
 			else
 				{
-				echo "<td><font color=\"red\"><center>Object type Error</center></font></td>";
+				echo "<td><font color=\"red\"><center>Object type Error!</center></font></td>";
 				$ko=1;
 				$global_ko=1;
 				$cpt_err++;

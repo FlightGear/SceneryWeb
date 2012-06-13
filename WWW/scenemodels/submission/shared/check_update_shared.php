@@ -199,7 +199,7 @@ allNum += ch;
 }
 if (!allValid)
 {	
-alertsay = "Please enter only the values :\""
+alertsay = "Please enter only the values:\""
 alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
 alert(alertsay);
 return (false);
@@ -474,13 +474,13 @@ else
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if((isset($_POST['comment'])) && (strlen($_POST['comment']<=100)))
+if((isset($_POST['comment'])) && (strlen($_POST['comment'])>0) && (strlen($_POST['comment']<=100)))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	}
 else
 	{
-	echo "<font color=\"red\">Comment mismatch !</font><br />";
+	echo "<font color=\"red\">Comment mismatch!</font><br />";
 	$false='1';
 	}
 	
