@@ -85,13 +85,13 @@ global $false;
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if(isset($_POST['comment']))
+if(isset($_POST['comment']) && (strlen($_POST['comment']>0)) && (strlen($_POST['comment']<=100)))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	}
 else
 	{
-	echo "<font color=\"red\">Comment mismatch !</font><br />";
+	echo "<font color=\"red\">Comment mismatch!</font><br />";
 	$false='1';
 	exit;
 	}
@@ -148,7 +148,7 @@ if ($false==0)
 			if(!strcmp($value_tag,"OBJECT_SHARED"))	echo "<td><center>".$value_tag."</center></td> ";
 			else
 				{
-				echo "<td><font color=\"red\"><center>Object type Error</center></font></td>";
+				echo "<td><font color=\"red\"><center>Object type Error!</center></font></td>";
 				$ko=1;
 				$global_ko=1;
 				$cpt_err++;
@@ -174,7 +174,7 @@ if ($false==0)
 				} 
 				else if ($j=="3") // Checking Longitude, must contain only figures and ., be >-180 and <180, be 12 characters max.
 				{
-					if((strlen($value_tag)<'13') && ($value_tag<'180') && ($value_tag>'-180') && (preg_match('/^[0-9\-\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td>"; $long=$value_tag; }
+					if((strlen($value_tag)<='13') && ($value_tag<='180') && ($value_tag>='-180') && (preg_match('/^[0-9\-\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td>"; $long=$value_tag; }
 					else
 					{
 					echo "<td><font color=\"red\"><center>Longitude Error!</center></font></td>";
@@ -185,7 +185,7 @@ if ($false==0)
 				}	
 				else if($j=="4") // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 11 characters max.
 				{
-					if((strlen($value_tag)<'13') && ($value_tag<'90') && ($value_tag>'-90') && (preg_match('/^[0-9\-\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."<center></td>"; $lat=$value_tag; }
+					if((strlen($value_tag)<='13') && ($value_tag<='90') && ($value_tag>='-90') && (preg_match('/^[0-9\-\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."<center></td>"; $lat=$value_tag; }
 					else
 					{
 					echo "<td><font color=\"red\"><center>Latitude Error!</center></font></td>";
@@ -199,7 +199,7 @@ if ($false==0)
 				
 				if($j=="5") // Checking Elevation, must contain only figures and . be >=0 and <= 360 and max 6 characters
 				{
-					if((strlen($value_tag)<'11') && ($value_tag<='360') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td>"; $gndelev=$value_tag; }
+					if((strlen($value_tag)<='10') && ($value_tag<='360') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td>"; $gndelev=$value_tag; }
 					else
 					{
 					echo "<td><font color=\"red\"><center>Elevation Error!</center></font></td>";
@@ -210,7 +210,7 @@ if ($false==0)
 				}
 				else if($j=="6") // Checking Orientation, must contain only figures and ., be >0, be 9 characters max.
 				{
-					if((strlen($value_tag)<'6') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td> "; $orientation=$value_tag; }
+					if((strlen($value_tag)<='7') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td> "; $orientation=$value_tag; }
 					else
 					{
 					echo "<td><font color=\"red\"><center>Orientation Error!</center></font></td>";

@@ -116,7 +116,7 @@ else
 									foreach ($data as $data_from_query)
 									{
 										$j++;
-												if ($j==2)								// Managing the data no separated by comma;
+												if ($j==2)								// Managing the data not separated by comma;
 												{
 													$fix = explode(" ",$data_from_query);
 														$k=0;
@@ -133,7 +133,7 @@ else
 															else if($j==5) { echo ""; }
 																else if($j!=1) { echo "<td>".$data_from_query."</td>\n"; }
 									}
-								echo "<td><a href=\"http://mapserver.flightgear.org/map/?lon=".$long."&lat=".$lat."&zoom=14&layers=000000BTFFFTFFFTFTFFFF\">Map</a></td>\n";
+								echo "<td><a href=\"http://mapserver.flightgear.org/map/?lon=".$long."&lat=".$lat."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF\">Map</a></td>\n";
 								echo "</tr>\n";
 								}
 								$i++;
