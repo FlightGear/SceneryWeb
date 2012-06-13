@@ -113,7 +113,7 @@ else
 
 // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
 
-if((isset($_POST['latitude'])) && (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
+if((isset($_POST['latitude'])) && (strlen($_POST['latitude'])<=13) && (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
 	{
 	$lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
 	echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
@@ -126,7 +126,7 @@ else
 
 // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
 
-if((isset($_POST['longitude'])) && (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
+if((isset($_POST['longitude'])) && (strlen($_POST['longitude'])<=13) && (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
 	{
 	$long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
 	echo "<font color=\"green\">Longitude: ".$long."</font><br />";
@@ -139,7 +139,7 @@ else
 
 // Checking that ground elevation exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
 
-if((isset($_POST['gndelev'])) && (preg_match('/^[0-9\-\.]+$/u',$_POST['gndelev'])) && ($_POST['gndelev']<='10000') && ($_POST['gndelev']>='-10000'))
+if((isset($_POST['gndelev'])) && (strlen($_POST['gndelev'])<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['gndelev'])) && ($_POST['gndelev']<='10000') && ($_POST['gndelev']>='-10000'))
 	{
 	$gndelev = number_format(pg_escape_string(stripslashes($_POST['gndelev'])),2,'.','');
 	echo "<font color=\"green\">Ground Elevation: ".$gndelev."</font><br />";
@@ -152,7 +152,7 @@ else
 
 // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
 
-if((isset($_POST['offset'])) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000'))
+if((isset($_POST['offset'])) && (strlen($_POST['offset'])<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000'))
 	{
 	$offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
 	echo "<font color=\"green\">Offset: ".$offset."</font><br />";
@@ -166,7 +166,7 @@ else
 // Checking that orientation exists and is containing only digits, and is >=0 and <=359
 // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
 
-if((isset($_POST['heading'])) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0'))
+if((isset($_POST['heading'])) && (strlen($_POST['heading'])<=7)) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0'))
 	{
 	$heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
 	echo "<font color=\"green\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(compute_heading($heading),1,'.','')."</font><br />";
@@ -179,7 +179,7 @@ else
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if(isset($_POST['comment']))
+if((isset($_POST['comment'])) && (strlen($_POST['comment'])<=100))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	echo "<font color=\"green\">Comment: ".$sent_comment."</font><br />";

@@ -225,41 +225,41 @@ $resp = recaptcha_check_answer ($privatekey,
 $false='0';
 global $false;
 
-// Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
+// Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
 
-if((isset($_POST['latitude'])) && (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
+if((isset($_POST['latitude'])) && (strlen($_POST['latitude'])<=13) && (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
 	{
 	$lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
 	echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
 	}
 else
 {
-	echo "<font color=\"red\">Latitude mismatch !</font><br />";
+	echo "<font color=\"red\">Latitude mismatch!</font><br />";
 	$false='1';
 }
 
-// Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
+// Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
 
-if((isset($_POST['longitude'])) && (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
+if((isset($_POST['longitude'])) && (strlen($_POST['longitude'])<=13) && (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
 	{
 	$long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
 	echo "<font color=\"green\">Longitude: ".$long."</font><br />";
 	}
 else
 {
-	echo "<font color=\"red\">Longitude mismatch !</font><br />";
+	echo "<font color=\"red\">Longitude mismatch!</font><br />";
 	$false = '1';
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if(isset($_POST['comment']))
+if(isset($_POST['comment']) && (strlen($_POST['comment'])<=100))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	}
 else
 	{
-	echo "<font color=\"red\">Comment mismatch !</font><br />";
+	echo "<font color=\"red\">Comment mismatch!</font><br />";
 	$false='1';
 	}
 	
@@ -305,19 +305,19 @@ if ($false==0)
 					</tr>
 						<td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
 						<td colspan="4"><?php echo $row[1]; ?></td>
-						<input name="long" type="hidden" value="<?php echo $long; ?>" />
-						<input name="lat" type="hidden" value="<?php echo $lat; ?>" />
-						<input name="gnd_elev" type="hidden" value="<?php echo $row[1]; ?>" />
+						<input name="long" type="hidden" maxlength="13" value="<?php echo $long; ?> />
+						<input name="lat" type="hidden" maxlength="13" value="<?php echo $lat; ?> />
+						<input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[1]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
 						<td colspan="4"><?php if ($row[2]=="") echo "0"; else echo $row[2]; ?></td>
-						<input name="offset" type="hidden" value="<?php if ($row[2]=="") echo "0"; else echo $row[2]; ?>" />
+						<input name="offset" type="hidden" maxlength="10" value="<?php if ($row[2]=="") echo "0"; else echo $row[2]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
 						<td colspan="4"><?php echo $row[3]; ?></td>
-						<input name="orientation" type="hidden" value="<?php echo $row[3]; ?>" />
+						<input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[3]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
@@ -383,19 +383,19 @@ if ($false==0)
 					<tr>
 						<td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
 						<td colspan="4"><?php echo $row[1]; ?></td>
-						<input name="long" type="hidden" value="<?php echo $long; ?>" />
-						<input name="lat" type="hidden" value="<?php echo $lat; ?>" />
-						<input name="gnd_elev" type="hidden" value="<?php echo $row[1]; ?>" />
+						<input name="long" type="hidden" maxlength="13" value="<?php echo $long; ?>" />
+						<input name="lat" type="hidden" maxlength="13" value="<?php echo $lat; ?>" />
+						<input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[1]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
 						<td colspan="4"><?php if ($row[2]=="") echo "0"; else echo $row[2]; ?></td>
-						<input name="offset" type="hidden" value="<?php if ($row[2]=="") echo "0"; else echo $row[2]; ?>" />
+						<input name="offset" type="hidden" maxlength="10" value="<?php if ($row[2]=="") echo "0"; else echo $row[2]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
 						<td colspan="4"><?php echo $row[3]; ?></td>
-						<input name="orientation" type="hidden" value="<?php echo $row[3]; ?>" />
+						<input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[3]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
