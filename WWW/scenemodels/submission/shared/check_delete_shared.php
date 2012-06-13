@@ -83,9 +83,8 @@ if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0'))
 
 	// Who will receive it ?
 
-	//$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-	//$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
-	$to = "\"Martin SPOTT\" <martin.spott@mgras.net>";
+	$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
+	$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 	
 	// What is the subject ?
 
@@ -121,7 +120,7 @@ if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0'))
 			    "True (DB) orientation: ". $_POST['orientation'] . "\r\n" .
 				"Comment: ". strip_tags($_POST['comment']) ."\r\n" .
 			    "Please click:" . "\r\n" .
-				"http://mapserver.flightgear.org/map/?lon=". $_POST['long'] ."&lat=". $_POST['lat'] ."&zoom=15&layers=B000000TFFFTFFFTFTFFFFF" . "\r\n" .
+				"http://mapserver.flightgear.org/map/?lon=". $_POST['long'] ."&lat=". $_POST['lat'] ."&zoom=15&layers=00B00000TFFFFFFFTFTFTFFF" . "\r\n" .
 			    "to locate the object on the map." ;
 
 	$message2 = "\r\n".
@@ -324,7 +323,7 @@ if ($false==0)
 						<td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
 						<td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[4]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[4]; ?>"></a></td>
 						<td><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></td>
-						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000000BTFFFTFFFTFTFFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 							</iframe>
 						</td>
 					</tr>
@@ -402,7 +401,7 @@ if ($false==0)
 						<td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
 						<td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[4]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[4]; ?>"></a></td>
 						<td><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></td>
-						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000000BTFFFTFFFTFTFFFF" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
+						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
 							</iframe>
 						</td>
 					</tr>

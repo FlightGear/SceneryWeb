@@ -113,7 +113,7 @@ if((isset($_POST['old_long'])) && (isset($_POST['old_lat'])) && (isset($_POST['o
 			    "True (DB) orientation: ". $_POST['old_orientation'] . " => ".compute_heading($_POST['orientation'])."\r\n" .
 				"Comment: ". strip_tags($_POST['comment']) ."\r\n" .
 			    "Please click:" . "\r\n" .
-				"http://mapserver.flightgear.org/map/?lon=". $_POST['longitude'] ."&lat=". $_POST['latitude'] ."&zoom=14&layers=000000BTFFFTFFFTFTFFFF" . "\r\n" .
+				"http://mapserver.flightgear.org/map/?lon=". $_POST['longitude'] ."&lat=". $_POST['latitude'] ."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" . "\r\n" .
 			    "to locate the object on the map (eventually new position)." ;
 
 				
@@ -545,7 +545,7 @@ if ($false==0)
 						<td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
 						<td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[4]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[4]; ?>"></a></td>
 						<td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
-						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000000BTFFFTFFFTFTFFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 							</iframe>
 						</td>
 					</tr>
@@ -624,7 +624,7 @@ if ($false==0)
 						<td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
 						<td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[4]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[4]; ?>"></a></td>
 						<td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
-						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000000BTFFFTFFFTFTFFFF" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
+						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
 							</iframe>
 						</td>
 					</tr>

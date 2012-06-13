@@ -133,7 +133,7 @@ else
 															else if($j==5) { echo ""; }
 																else if($j!=1) { echo "<td>".$data_from_query."</td>\n"; }
 									}
-								echo "<td><a href=\"http://mapserver.flightgear.org/map/?lon=".$long."&lat=".$lat."&zoom=14&layers=000000BTFFFTFFFTFTFFFF\">Map</a></td>\n";
+								echo "<td><a href=\"http://mapserver.flightgear.org/map/?lon=".$long."&lat=".$lat."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF\">Map</a></td>\n";
 								echo "</tr>\n";
 								}
 								$i++;
