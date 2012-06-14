@@ -48,7 +48,7 @@
 
               if ($row["mo_shared"]==0){	
                 $modelid = $row["mo_id"];
-                $query = "SELECT ST_Y(wkb_geometry) AS ob_lat ";
+                $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
                 $query.= "ST_X(wkb_geometry) AS ob_lon ";
                 $query.= "FROM fgs_objects ";
                 $query.= "WHERE ob_model=".$modelid;
