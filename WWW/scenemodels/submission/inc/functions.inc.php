@@ -265,10 +265,10 @@ function check_availability()
 		}
 }
 
-// Computes the stg heading into a true heading before submission to the database.
+// Computes the STG heading into a true heading before submission to the database.
 // ===============================================================================
 
-function compute_heading($stg_heading)
+function heading_stg_to_true($stg_heading)
 {
 	if($stg_heading > '180')
 	{
@@ -279,6 +279,22 @@ function compute_heading($stg_heading)
 	$true_heading = 180 - $stg_heading;
 	}
 	return($true_heading);
+}
+
+// Computes the true heading into a STG heading (for edition purposes).
+//=====================================================================
+
+function heading_true_to_stg($true_heading)
+{
+	if($true_heading > '180')
+	{
+	$stg_heading = 540 - $true_heading;
+	}
+	else
+	{
+	$stg_heading = 180 - $true_heading;
+	}
+	return($stg_heading);
 }
 
 // Check if models exists in DB from a model name sent in parameter.
@@ -294,13 +310,13 @@ function model_exists($model_name)
 	// Starting by checking the existence of the object
 	
 	$mg_id=pg_escape_string($model_name);
-	$tab_path = explode("/",$mg_id); 								// Explodes the fields of the string separated by /
-	$max_tab_path = count($tab_path);								// Counts the number of fields.
-	$queried_mo_path=$tab_path[$max_tab_path-1];					// Returns the last field value.
+	$tab_path = explode("/",$mg_id); 				// Explodes the fields of the string separated by /
+	$max_tab_path = count($tab_path);				// Counts the number of fields.
+	$queried_mo_path=$tab_path[$max_tab_path-1];			// Returns the last field value.
 	
 	// Checking that the label "Model" is correct
 	
-	if(strcmp($tab_path[0],"Models")) { return(1); exit; }			// If ever dumb people try to put something else here.
+	if(strcmp($tab_path[0],"Models")) { return(1); exit; }		// If ever dumb people try to put something else here.
 	
 	// Connecting to the database.
 	
@@ -313,7 +329,7 @@ function model_exists($model_name)
 	
 	// Checking the number of results. Should be 1.
 	
-	if(@pg_num_rows($result) == 1) 									// If object is known, going to check the family next.
+	if(@pg_num_rows($result) == 1) 					// If object is known, going to check the family next.
 	{	
 		// Now proceeding with the family
 		// The family path is the string between Models and the object name. Can be multiple.

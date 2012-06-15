@@ -43,7 +43,7 @@ $resp = recaptcha_check_answer ($privatekey,
 
 	// Preparing the update request
 	
-	$query_update="UPDATE fgs_objects SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['longitude']." ".$_POST['latitude'].")', 4326), ob_gndelev=".$_POST['gndelev'].", ob_elevoffset=".$_POST['offset'].", ob_heading=".compute_heading($_POST['orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 where ob_id=".$_POST['id_to_update'].";";
+	$query_update="UPDATE fgs_objects SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['longitude']." ".$_POST['latitude'].")', 4326), ob_gndelev=".$_POST['gndelev'].", ob_elevoffset=".$_POST['offset'].", ob_heading=".heading_stg_to_true($_POST['orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 where ob_id=".$_POST['id_to_update'].";";
 	
 	// Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
 
@@ -138,28 +138,28 @@ $resp = recaptcha_check_answer ($privatekey,
 	// There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
 
 	$message1 = "Object #: ".$_POST['id_to_update']."\r\n" .
-				"Family: ".$_POST['old_family']." => ".family_name($_POST['family_name'])."\r\n" .
-			    "Object: ".$_POST['old_model_name']." => ".object_name($_POST['model_name'])."\r\n" .
-				"[ ".$html_object_url." ]" . "\r\n" .
-			    "Latitude: ". $_POST['old_lat'] . "  => ".$_POST['latitude']."\r\n" .
-			    "Longitude: ". $_POST['old_long'] . " => ".$_POST['longitude']."\r\n" .
-			    "Ground elevation: ". $_POST['old_gndelev'] . " => ".$_POST['gndelev']."\r\n" .
-			    "Elevation offset: ". $_POST['old_offset'] . " => ".$_POST['offset']."\r\n" .
-			    "True (DB) orientation: ". $_POST['old_orientation'] . " => ".compute_heading($_POST['orientation'])."\r\n" .
-				"Comment: ". strip_tags($_POST['comment']) ."\r\n" .
-			    "Please click:" . "\r\n" .
-				"http://mapserver.flightgear.org/map/?lon=". $_POST['longitude'] ."&lat=". $_POST['latitude'] ."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" . "\r\n" .
-			    "to locate the object on the map (eventually new position)." ;
+		    "Family: ".$_POST['old_family']." => ".family_name($_POST['family_name'])."\r\n" .
+		    "Object: ".$_POST['old_model_name']." => ".object_name($_POST['model_name'])."\r\n" .
+                    "[ ".$html_object_url." ]" . "\r\n" .
+		    "Latitude: ". $_POST['old_lat'] . "  => ".$_POST['latitude']."\r\n" .
+		    "Longitude: ". $_POST['old_long'] . " => ".$_POST['longitude']."\r\n" .
+		    "Ground elevation: ". $_POST['old_gndelev'] . " => ".$_POST['gndelev']."\r\n" .
+		    "Elevation offset: ". $_POST['old_offset'] . " => ".$_POST['offset']."\r\n" .
+		    "True (DB) orientation: ". $_POST['old_orientation'] . " => ".heading_stg_to_true($_POST['orientation'])."\r\n" .
+		    "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
+		    "Please click:" . "\r\n" .
+		    "http://mapserver.flightgear.org/map/?lon=". $_POST['longitude'] ."&lat=". $_POST['latitude'] ."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" . "\r\n" .
+		    "to locate the object on the map (eventually new position)." ;
 
 				
 	$message2 = "\r\n".
-				"Now please click:" . "\r\n" .
-				"http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."\r\n" .
-				"to confirm the update" . "\r\n" .
-				"or" . "\r\n" .
-				"http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."\r\n" .
- 				"to reject the update." . "\r\n" . "\r\n" .
-				"Thanks!" ;
+		    "Now please click:" . "\r\n" .
+		    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."\r\n" .
+		    "to confirm the update" . "\r\n" .
+		    "or" . "\r\n" .
+		    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."\r\n" .
+ 		    "to reject the update." . "\r\n" . "\r\n" .
+		    "Thanks!" ;
 
 	// Preparing the headers.
 
@@ -381,7 +381,7 @@ return (false);
 					Orientation
 					</td>
 					<td>
-					<?php $old_orientation = $_POST[orientation]; echo $old_orientation; ?>
+					<?php $old_orientation = heading_true_to_stg($_POST[orientation]); echo $old_orientation; ?>
 					<input type="hidden" name="old_orientation" value="<?php echo $old_orientation; ?>" />
 					</td>
 					<td>
@@ -546,8 +546,8 @@ if ($false==0)
 					</tr>
 					<tr>
 						<td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-						<td colspan="4"><?php echo $row[3]; ?></td>
-						<input name="orientation" maxlength="7" type="hidden" value="<?php echo $row[3]; ?>" />
+						<td colspan="4"><?php $temp=heading_true_to_stg($row[3]); echo $temp; ?></td>
+						<input name="orientation" maxlength="7" type="hidden" value="<?php echo $temp; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
@@ -632,8 +632,8 @@ if ($false==0)
 					</tr>
 					<tr>
 						<td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-						<td colspan="4"><?php echo $row[3]; ?></td>
-						<input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[3]; ?>" />
+						<td colspan="4"><?php $temp=heading_true_to_stg($row[3]); echo $temp; ?></td>
+						<input name="orientation" type="hidden" maxlength="7" value="<?php echo $temp; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>

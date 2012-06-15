@@ -224,7 +224,7 @@ if ($false==0)
 	if ($ko=='0')
 		{
 		echo "<td><font color=\"green\"><center>OK</center></font></td>";
-		$data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".compute_heading($orientation).", ".$model_id.", 1)"; 
+		$data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($orientation).", ".$model_id.", 1)"; 
 		}
 		else echo "<td><font color=\"red\"><center>KO</center></font></td>"; // Good or not ?
 	echo "</tr>\n";	// Finishes the line.

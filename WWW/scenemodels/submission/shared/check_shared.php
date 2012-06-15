@@ -169,7 +169,7 @@ else
 if((isset($_POST['heading'])) && (strlen($_POST['heading'])<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0'))
 	{
 	$heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
-	echo "<font color=\"green\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(compute_heading($heading),1,'.','')."</font><br />";
+	echo "<font color=\"green\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</font><br />";
 	}
 else
 	{
@@ -200,11 +200,11 @@ if ($false==0)
 	
 	if (($offset == '0') || ($offset == ''))
 	{
-	$query_rw="INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".compute_heading($heading).", ".$model_id.", 1);";
+	$query_rw="INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", ".$model_id.", 1);";
 	}
 	else
 	{
-	$query_rw="INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".compute_heading($heading).", ".$model_id.", 1);";
+	$query_rw="INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", ".$model_id.", 1);";
 	}
 	
 	// Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
@@ -295,7 +295,7 @@ if ($false==0)
 			    "Longitude: ". $long . "\r\n" .
 			    "Ground elevation: ". $gndelev . "\r\n" .
 			    "Elevation offset: ". $offset . "\r\n" .
-			    "True (DB) orientation: ". compute_heading($heading) . "\r\n" .
+			    "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
 				"Comment: ". strip_tags($sent_comment) ."\r\n" .
 			    "Please click:" . "\r\n" .
 				"http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" . "\r\n" .
