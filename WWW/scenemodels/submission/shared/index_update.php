@@ -133,15 +133,6 @@ return (false);
 	</tr>
 	<tr>
 		<td colspan="2">
-			<center>
-			<?php
-			// Google Captcha stuff
-			require_once('../captcha/recaptchalib.php');
-			$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-			echo recaptcha_get_html($publickey);
-			?>
-			</center>
-			<br />
 			<input type="submit" value="Check for objects at this position" />
 		</td>
 	</tr>

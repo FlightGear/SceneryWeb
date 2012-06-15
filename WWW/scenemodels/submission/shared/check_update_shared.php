@@ -6,6 +6,41 @@ require_once('../inc/functions.inc.php');
 
 if((isset($_POST['old_long'])) && (isset($_POST['old_lat'])) && (isset($_POST['old_gndelev'])) && (isset($_POST['old_offset'])) && (isset($_POST['old_orientation'])))
 {	
+
+// Captcha stuff
+
+require_once('../captcha/recaptchalib.php');
+
+// Private key is needed for the server-to-Google auth.
+
+$privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
+$resp = recaptcha_check_answer ($privatekey,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+
+    // What happens when the CAPTCHA was entered incorrectly
+
+	if (!$resp->is_valid)
+	{
+	?>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+	<title>Automated Shared Models Positions Update Form</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	</head>
+	<body>
+	<?php include '../../header.php'; ?>
+	<br />
+	<?
+	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
+         "<br />(reCAPTCHA complained: " . $resp->error . ")");
+	}
+  else {
+
 	// Preparing the update request
 	
 	$query_update="UPDATE fgs_objects SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['longitude']." ".$_POST['latitude'].")', 4326), ob_gndelev=".$_POST['gndelev'].", ob_elevoffset=".$_POST['offset'].", ob_heading=".compute_heading($_POST['orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 where ob_id=".$_POST['id_to_update'].";";
@@ -138,7 +173,8 @@ if((isset($_POST['old_long'])) && (isset($_POST['old_lat'])) && (isset($_POST['o
 
 	@mail($to, $subject, $message, $headers);
 	exit;
-	}	
+	}
+}
 }
 
 // Getting back the update_choice
@@ -355,6 +391,12 @@ return (false);
 					<tr>
 						<td colspan="4">
 						<center>
+						<?php
+						// Google Captcha stuff
+						require_once('../captcha/recaptchalib.php');
+						$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+						echo recaptcha_get_html($publickey);
+						?>
 						<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
 						<input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
 						<input type="submit" name="submit" value="Update this object!" />
@@ -396,41 +438,7 @@ if(!$ok)
 
 else
 {
-
-// Captcha stuff
-
-require_once('../captcha/recaptchalib.php');
-
-// Private key is needed for the server-to-Google auth.
-
-$privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-$resp = recaptcha_check_answer ($privatekey,
-                                $_SERVER["REMOTE_ADDR"],
-                                $_POST["recaptcha_challenge_field"],
-                                $_POST["recaptcha_response_field"]);
-
-    // What happens when the CAPTCHA was entered incorrectly
-
-	if (!$resp->is_valid)
-	{
-	?>
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-	<head>
-	<title>Automated Shared Models Positions Update Form</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
-	</head>
-	<body>
-	<?php include '../../header.php'; ?>
-	<br />
-	<?
-	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
-         "<br />(reCAPTCHA complained: " . $resp->error . ")");
-	}
-  else {
-	?>
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -555,6 +563,11 @@ if ($false==0)
 					<tr>
 						<td colspan="4">
 						<center>
+						<center>
+						<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
+						<input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
+						</center>
+						<br />
 						<input type="submit" name="submit" value="I want to update this object!" />
 						<input type="button" name="cancel" value="Cancel, I made a mistake!" onclick="history.go(-1)"/>
 						</center>
@@ -562,6 +575,8 @@ if ($false==0)
 					</tr>
 				</table>
 				</form>
+				</body>
+				</html>
 		<?php
 		}
 		exit;
@@ -637,6 +652,9 @@ if ($false==0)
 						<center>
 						<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
 						<input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
+						<br />
+						<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
+						<input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
 						<input type="submit" name="submit" value="I want to update the selected object!" />
 						<input type="button" name="cancel" value="Cancel - I made a mistake!" onclick="history.go(-1)"/>
 						</center>
@@ -653,7 +671,6 @@ if ($false==0)
 </body>
 </html>
 <?php
-}
 }
 }
 ?>

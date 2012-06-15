@@ -14,7 +14,6 @@ Shared objects
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
 - Take object "SIGN" into account.
 - Check the isset everywhere.
-- In delete, update script put the captcha & comment at the final form, not the first one ?
 - Add ob_text (unitary addition), ob_country, ob_author add/update possibilities.
 - Check for every form & page the referring page & the value of the form submitting.
 - Detect if submitting an already existing object.
