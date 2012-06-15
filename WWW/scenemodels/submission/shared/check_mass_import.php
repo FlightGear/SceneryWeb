@@ -85,7 +85,7 @@ global $false;
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if(isset($_POST['comment']) && (strlen($_POST['comment']>0)) && (strlen($_POST['comment']<=100)))
+if(isset($_POST['comment']) && (strlen($_POST['comment']>0)) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_GET['description'])) && (strlen($_POST['comment']<=100)))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	}
@@ -99,6 +99,7 @@ else
 // Checking that stg exists and is containing only letters or figures.
 
 //if((isset($_POST['stg'])) && (preg_match('/[a-zA-Z0-9_.-\/]+$/',$_POST['stg'])))
+//(preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_GET['description']))
 //	{
 //	echo "<font color=\"red\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</font><br />";
 //	$false='1';

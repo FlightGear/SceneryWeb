@@ -179,7 +179,7 @@ else
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if((isset($_POST['comment'])) && (strlen($_POST['comment']>0)) && (strlen($_POST['comment'])<=100))
+if((isset($_POST['comment'])) && (strlen($_POST['comment']>0)) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_GET['comment'])) && (strlen($_POST['comment'])<=100))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	echo "<font color=\"green\">Comment: ".$sent_comment."</font><br />";
@@ -288,27 +288,27 @@ if ($false==0)
 	// There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
 
 	$message1 = "Family: ".$family_real_name."\r\n" .
-				"[ ".$html_family_url." ]" . "\r\n" .
-			    "Object: ".$model_real_name."\r\n" .
-				"[ ".$html_object_url." ]" . "\r\n" .
-			    "Latitude: ". $lat . "\r\n" .
-			    "Longitude: ". $long . "\r\n" .
-			    "Ground elevation: ". $gndelev . "\r\n" .
-			    "Elevation offset: ". $offset . "\r\n" .
-			    "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
-				"Comment: ". strip_tags($sent_comment) ."\r\n" .
-			    "Please click:" . "\r\n" .
-				"http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" . "\r\n" .
-			    "to locate the object on the map." ;
+		    "[ ".$html_family_url." ]" . "\r\n" .
+		    "Object: ".$model_real_name."\r\n" .
+		    "[ ".$html_object_url." ]" . "\r\n" .
+		    "Latitude: ". $lat . "\r\n" .
+		    "Longitude: ". $long . "\r\n" .
+		    "Ground elevation: ". $gndelev . "\r\n" .
+		    "Elevation offset: ". $offset . "\r\n" .
+		    "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
+		    "Comment: ". strip_tags($sent_comment) ."\r\n" .
+		    "Please click:" . "\r\n" .
+		    "http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" . "\r\n" .
+		    "to locate the object on the map." ;
 
 	$message2 = "\r\n".
-				"Now please click:" . "\r\n" .
-				"http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."\r\n" .
-				"to confirm the submission" . "\r\n" .
-				"or" . "\r\n" .
-				"http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."\r\n" .
- 				"to reject the submission." . "\r\n" . "\r\n" .
-				"Thanks!" ;
+		    "Now please click:" . "\r\n" .
+		    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."\r\n" .
+		    "to confirm the submission" . "\r\n" .
+		    "or" . "\r\n" .
+		    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."\r\n" .
+ 		    "to reject the submission." . "\r\n" . "\r\n" .
+		    "Thanks!" ;
 
 	// Preparing the headers.
 
