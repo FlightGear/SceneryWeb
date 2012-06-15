@@ -276,7 +276,7 @@ if ($false==0)
 	
 	// Let's see in the database if something exists at this position
 	
-	$query_pos="SELECT ob_id, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
+	$query_pos="SELECT ob_id, ob_modified, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
 	$result = @pg_query($resource_r_deletion, $query_pos);
 	
 	$returned_rows = pg_num_rows($result);
@@ -302,27 +302,31 @@ if ($false==0)
 					</tr>
 					<tr>
 						<td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
-						<td colspan="4"><?php $real_name=object_name($row[4]); echo $real_name; ?></td>
+						<td colspan="4"><?php $real_name=object_name($row[5]); echo $real_name; ?></td>
+					</tr>
+					<tr>
+						<td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
+						<td colspan="4"><?php echo $row[1]; ?></td>
 					</tr>
 						<td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
-						<td colspan="4"><?php echo $row[1]; ?></td>
+						<td colspan="4"><?php echo $row[2]; ?></td>
 						<input name="long" type="hidden" maxlength="13" value="<?php echo $long; ?> />
 						<input name="lat" type="hidden" maxlength="13" value="<?php echo $lat; ?> />
-						<input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[1]; ?>" />
+						<input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[2]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
 						<td colspan="4"><?php if ($row[2]=="") echo "0"; else echo $row[2]; ?></td>
-						<input name="offset" type="hidden" maxlength="10" value="<?php if ($row[2]=="") echo "0"; else echo $row[2]; ?>" />
+						<input name="offset" type="hidden" maxlength="10" value="<?php if ($row[3]=="") echo "0"; else echo $row[3]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-						<td colspan="4"><?php echo $row[3]; ?></td>
-						<input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[3]; ?>" />
+						<td colspan="4"><?php echo $row[4]; ?></td>
+						<input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[4]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
-						<td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[4]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[4]; ?>"></a></td>
+						<td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
 						<td><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></td>
 						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 							</iframe>
@@ -387,28 +391,32 @@ if ($false==0)
 					</tr>
 					<tr>
 						<td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
-						<td colspan="4"><?php $real_name=object_name($row[4]); echo $real_name; ?></td>
+						<td colspan="4"><?php $real_name=object_name($row[5]); echo $real_name; ?></td>
+					</tr>
+					<tr>
+						<td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
+						<td colspan="4"><?php echo $row[1]; ?></td>
 					</tr>
 					<tr>
 						<td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
-						<td colspan="4"><?php echo $row[1]; ?></td>
+						<td colspan="4"><?php echo $row[2]; ?></td>
 						<input name="long" type="hidden" maxlength="13" value="<?php echo $long; ?>" />
 						<input name="lat" type="hidden" maxlength="13" value="<?php echo $lat; ?>" />
-						<input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[1]; ?>" />
+						<input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[2]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
-						<td colspan="4"><?php if ($row[2]=="") echo "0"; else echo $row[2]; ?></td>
-						<input name="offset" type="hidden" maxlength="10" value="<?php if ($row[2]=="") echo "0"; else echo $row[2]; ?>" />
+						<td colspan="4"><?php if ($row[3]=="") echo "0"; else echo $row[3]; ?></td>
+						<input name="offset" type="hidden" maxlength="10" value="<?php if ($row[3]=="") echo "0"; else echo $row[3]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-						<td colspan="4"><?php echo $row[3]; ?></td>
-						<input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[3]; ?>" />
+						<td colspan="4"><?php echo $row[4]; ?></td>
+						<input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[4]; ?>" />
 					</tr>
 					<tr>
 						<td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
-						<td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[4]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[4]; ?>"></a></td>
+						<td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
 						<td><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></td>
 						<td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
 							</iframe>
