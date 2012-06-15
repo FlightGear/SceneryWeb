@@ -8,6 +8,40 @@ require_once('../inc/functions.inc.php');
 
 if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0'))
 {
+// Captcha stuff
+
+require_once('../captcha/recaptchalib.php');
+
+// Private key is needed for the server-to-Google auth.
+
+$privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
+$resp = recaptcha_check_answer ($privatekey,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+
+    // What happens when the CAPTCHA was entered incorrectly
+
+	if (!$resp->is_valid)
+	{
+	?>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+	<title>Automated Shared Models Positions Deletion Form</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	</head>
+	<body>
+	<?php include '../../header.php'; ?>
+	<br />
+	<?
+	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>." .
+         "<br />(reCAPTCHA complained: " . $resp->error . ")");
+	}
+  else {
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -143,7 +177,8 @@ if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0'))
 	$message = $message077.$message1.$message2;
 
 	@mail($to, $subject, $message, $headers);
-	}	
+	}
+}
 }
 else
 {
@@ -175,41 +210,7 @@ if(!$ok)
 
 else
 {
-
-// Captcha stuff
-
-require_once('../captcha/recaptchalib.php');
-
-// Private key is needed for the server-to-Google auth.
-
-$privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-$resp = recaptcha_check_answer ($privatekey,
-                                $_SERVER["REMOTE_ADDR"],
-                                $_POST["recaptcha_challenge_field"],
-                                $_POST["recaptcha_response_field"]);
-
-    // What happens when the CAPTCHA was entered incorrectly
-
-	if (!$resp->is_valid)
-	{
-	?>
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-	<head>
-	<title>Automated Shared Models Positions Deletion Form</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
-	</head>
-	<body>
-	<?php include '../../header.php'; ?>
-	<br />
-	<?
-	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>." .
-         "<br />(reCAPTCHA complained: " . $resp->error . ")");
-	}
-  else {
-	?>
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -253,7 +254,7 @@ else
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-if(isset($_POST['comment']) && (strlen($_POST['comment'])>0)) && (strlen($_POST['comment'])<=100))
+if((isset($_POST['comment'])) && (strlen($_POST['comment'])>0) && (strlen($_POST['comment'])<=100))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	}
@@ -333,6 +334,14 @@ if ($false==0)
 					<tr>
 						<td colspan="4">
 						<center>
+						<?php
+						// Google Captcha stuff
+						require_once('../captcha/recaptchalib.php');
+						$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+						echo recaptcha_get_html($publickey);
+						?>
+						</center>
+						<br />
 						<input type="submit" name="submit" value="Delete this object!" />
 						<input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
 						</center>
@@ -414,7 +423,15 @@ if ($false==0)
 						<center>
 						<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
 						<input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
-						<input type="submit" name="submit" value="Delete selected object!" />
+						<?php
+						// Google Captcha stuff
+						require_once('../captcha/recaptchalib.php');
+						$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+						echo recaptcha_get_html($publickey);
+						?>
+						</center>
+						<br />
+						<input type="submit" name="submit" value="Delete this object!" />
 						<input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
 						</center>
 						</td>
@@ -430,7 +447,6 @@ if ($false==0)
 </body>
 </html>
 <?php
-}
 }
 }
 ?>
