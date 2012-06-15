@@ -6,7 +6,7 @@ require_once('../inc/functions.inc.php');
 
 // Getting back the delete_choice
 
-if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice']))
+if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))
 {
 // Captcha stuff
 
