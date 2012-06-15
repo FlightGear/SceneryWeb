@@ -298,7 +298,7 @@ if ($false==0)
 		    "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
 		    "Comment: ". strip_tags($sent_comment) ."\r\n" .
 		    "Please click:" . "\r\n" .
-		    "http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=00B00000TFFFFFFFTFTFTFFF" . "\r\n" .
+		    "http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
 		    "to locate the object on the map." ;
 
 	$message2 = "\r\n".

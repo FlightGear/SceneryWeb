@@ -2,11 +2,10 @@ Shared objects
 ==============
 Bug/security fixing:
 --------------------
-- Add ob_text (unitary addition), ob_country, ob_author add/update possibilities.
 - Check for every form & page the referring page & the value of the form submitting.
 - Detect if submitting an already existing object.
 - ob_name workaround for mass import.
-- Sanitize comments content (REGEXP+Javascript) - strip tags for comments.
+- Sanitize comments content (Javascript + strip tags).
 - In the update form (eg Fence_80 at -4.1862986 47.9750436, chimneys), it seems that the Object's family field is sometimes blank,
   while it should definitely return something.
 - In the update form, the (eventually former) Object family and model name should be selected by default.
@@ -17,6 +16,7 @@ Features updates (by priority):
 - Enable the user to submit its email to get informed of the process. Enable maintainer to drop a comment.
 - Shows the object picture when selected (Ajax when adding).
 - Shows the object position when selected (map when adding...).
+- Add ob_text (unitary addition), ob_country, ob_author add/update possibilities.
 - Merge Jon's script with ours (objectedit, ...). They should like to the submission forms.
 - When there is an error with the captcha, an error page is being presented, containing a "Go back ..."
   link - but when clicked - all values have to be re-entered from scratch. Preserving the entered values so
