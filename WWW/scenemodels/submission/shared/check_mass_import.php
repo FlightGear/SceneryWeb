@@ -98,17 +98,15 @@ else
 
 // Checking that stg exists and is containing only letters or figures.
 
-//if((isset($_POST['stg'])) && (preg_match('/[a-zA-Z0-9_.-\/]+$/',$_POST['stg'])))
-//(preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_GET['description']))
-//	{
-//	echo "<font color=\"red\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</font><br />";
-//	$false='1';
-//	exit;
-//	}
-//else
-//	{
-//	echo "<font color=\"green\">Content of the STG file seems correct, now proceeding with in-depth checks...</font><br /></br>";
-//	}
+if((isset($_POST['stg'])) && (preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u',$_POST['stg']))) {
+	echo "<font color=\"red\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</font><br />";
+	$false='1';
+	exit;
+	}
+else
+	{
+	echo "<font color=\"green\">Content of the STG file seems correct, now proceeding with in-depth checks...</font><br /></br>";
+	}
 	
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 
@@ -173,7 +171,7 @@ if ($false==0)
 					$cpt_err++;
 					}
 				} 
-				else if ($j=="3") // Checking Longitude, must contain only figures and ., be >-180 and <180, be 12 characters max.
+				else if ($j=="3") // Checking Longitude, must contain only figures and ., be >-180 and <180, be 13 characters max.
 				{
 					if((strlen($value_tag)<='13') && ($value_tag<='180') && ($value_tag>='-180') && (preg_match('/^[0-9\-\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td>"; $long=$value_tag; }
 					else
@@ -184,7 +182,7 @@ if ($false==0)
 					$cpt_err++;
 					} 
 				}	
-				else if($j=="4") // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 11 characters max.
+				else if($j=="4") // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 13 characters max.
 				{
 					if((strlen($value_tag)<='13') && ($value_tag<='90') && ($value_tag>='-90') && (preg_match('/^[0-9\-\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."<center></td>"; $lat=$value_tag; }
 					else
@@ -198,9 +196,10 @@ if ($false==0)
 				
 				// Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
 				
-				if($j=="5") // Checking Elevation, must contain only figures and . be >=0 and <= 360 and max 6 characters
+				if($j=="5") // Checking Elevation, must contain only figures and, be >=0 and <= 360 and max 6 characters
 				{
-					if((strlen($value_tag)<='10') && ($value_tag<='360') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td>"; $gndelev=$value_tag; }
+					if((strlen($value_tag)<='10') && (preg_match('/^[0-9\.]+$/',$value_tag)) && (strlen($value_tag)<=6)) {
+						echo "<td><center>".$value_tag."</center></td>"; $gndelev=$value_tag; }
 					else
 					{
 					echo "<td><font color=\"red\"><center>Elevation Error!</center></font></td>";
@@ -209,9 +208,10 @@ if ($false==0)
 					$cpt_err++;
 					}
 				}
-				else if($j=="6") // Checking Orientation, must contain only figures and ., be >0, be 9 characters max.
+				else if($j=="6") // Checking Orientation, must contain only figures, be >0, be 7 characters max.
 				{
-					if((strlen($value_tag)<='7') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag))) { echo "<td><center>".$value_tag."</center></td> "; $orientation=$value_tag; }
+					if((strlen($value_tag)<='7') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag)) {
+						echo "<td><center>".$value_tag."</center></td> "; $orientation=$value_tag; }
 					else
 					{
 					echo "<td><font color=\"red\"><center>Orientation Error!</center></font></td>";
@@ -318,20 +318,20 @@ if ($false==0)
 
 	$message0 = "Hi," . "\r\n" .
 	            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-				"http://scenemodels.flightgear.org/submission/check_mass_shared_import.php" . "\r\n" .
-			    "I just wanted to let you know that a new shared objects mass insertion request is pending." . "\r\n" .
-			    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued this request." . "\r\n" .
-				"Associated comment: ".$sent_comment;
+		    "http://scenemodels.flightgear.org/submission/check_mass_shared_import.php" . "\r\n" .
+	  	    "I just wanted to let you know that a new shared objects mass insertion request is pending." . "\r\n" .
+	 	    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued this request." . "\r\n" .
+		    "Associated comment: ".$sent_comment;
 		   
 	$message077 = wordwrap($message0, 77, "\r\n");
 
 	// There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
 
 	$message1 = "\r\n".
-				"Now please click:" . "\r\n" .
-				"http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."\r\n" .
-				"to check and confirm or reject the submission" . "\r\n" .
-				"Thanks!" ;
+		    "Now please click:" . "\r\n" .
+		    "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."\r\n" .
+		    "to check and confirm or reject the submission" . "\r\n" .
+		    "Thanks!" ;
 
 	// Preparing the headers.
 

@@ -12,8 +12,10 @@ Bug/security fixing:
 
 Features updates (by priority):
 -------------------------------
+- Review the names of the scripts to have them coherent. Put CSS in a separate directory (/css).
+- Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Make sure Javascript is turned on?
-- Enable the user to submit its email to get informed of the process. Enable maintainer to drop a comment.
+- Enable the user to submit its email to get informed of the process (EXPERIMENTAL support added on unitary addition). Enable maintainer to drop a comment.
 - Shows the object picture when selected (Ajax when adding).
 - Shows the object position when selected (map when adding...).
 - Add ob_text (unitary addition), ob_country, ob_author add/update possibilities.
