@@ -189,11 +189,24 @@ else
 	echo "<font color=\"red\">Comment mismatch!</font><br />";
 	$false='1';
 	}
+
+// Checking that email is valid (if it exists).
+
+if((isset($_POST['email'])) && (strlen($_POST['email']>0)) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['email'])) && (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) && (strlen($_POST['email'])<=50))
+	{
+	$safe_email = pg_escape_string(stripslashes($_POST['email']));
+	echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
+	}
+else
+	{
+	echo "<font color=\"red\">Email mismatch!</font><br />";
+	$failed_mail='1';
+	}
+
 	
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 
-if ($false==0)
-{
+if ($false==0) {
 	echo "<br /><font color=\"green\">Data seems to be OK to be inserted in the database</font><br />";
 	
 	// Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
@@ -277,11 +290,21 @@ if ($false==0)
 
 	// Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
 
+	if($failed_mail!='1') {
 	$message0 = "Hi," . "\r\n" .
 	            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-				"http://scenemodels.flightgear.org/submission/check_positions.php" . "\r\n" .
-			    "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
-			    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+		    "http://scenemodels.flightgear.org/submission/check_positions.php" . "\r\n" .
+		    "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
+		    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email adress ".$safe_email."\r\n" .
+		    "issued the following request:" . "\r\n";
+	}
+	else {
+		$message0 = "Hi," . "\r\n" .
+	            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+		    "http://scenemodels.flightgear.org/submission/check_positions.php" . "\r\n" .
+		    "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
+		    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+	}
 		   
 	$message077 = wordwrap($message0, 77, "\r\n");
 
@@ -303,10 +326,10 @@ if ($false==0)
 
 	$message2 = "\r\n".
 		    "Now please click:" . "\r\n" .
-		    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."\r\n" .
+		    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
 		    "to confirm the submission" . "\r\n" .
 		    "or" . "\r\n" .
-		    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."\r\n" .
+		    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
  		    "to reject the submission." . "\r\n" . "\r\n" .
 		    "Thanks!" ;
 
@@ -321,6 +344,64 @@ if ($false==0)
 	$message = $message077.$message1.$message2;
 
 	@mail($to, $subject, $message, $headers);
+
+	if($failed_mail!='1') {
+	// Tell the submitter that its submission has been sent for validation.
+
+	$to = $safe_email;
+
+	// What is the subject ?
+
+	$subject = "[FG Scenery Submission forms] Automatic shared model position request submission.";
+
+	// Correctly set the object URL.
+	$family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
+	$object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+	$html_family_url = htmlspecialchars($family_url);
+	$html_object_url = htmlspecialchars($object_url);
+
+	// Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
+
+	$message3 = "Hi," . "\r\n" .
+	            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+	 	    "http://scenemodels.flightgear.org/submission/check_positions.php" . "\r\n" .
+		    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
+		    "This new shared object position insertion request has been sent for validation." . "\r\n" .
+		    "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
+		    "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
+	   
+	$message077 = wordwrap($message3, 77, "\r\n");
+
+	// There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
+
+	$message4 = "Family: ".$family_real_name."\r\n" .
+		    "[ ".$html_family_url." ]" . "\r\n" .
+		    "Object: ".$model_real_name."\r\n" .
+		    "[ ".$html_object_url." ]" . "\r\n" .
+		    "Latitude: ". $lat . "\r\n" .
+		    "Longitude: ". $long . "\r\n" .
+		    "Ground elevation: ". $gndelev . "\r\n" .
+		    "Elevation offset: ". $offset . "\r\n" .
+		    "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
+		    "Comment: ". strip_tags($sent_comment) ."\r\n" .
+		    "Please click:" . "\r\n" .
+		    "http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+		    "to locate the object on the map." . "\r\n" .
+		    "This process has been going through antispam measures. However, if this email is not sollicited, please excuse us and report at http://www.flightgear.org/forums/viewforum.php?f=5";
+
+	// Preparing the headers.
+
+	$headers = "MIME-Version: 1.0" . "\r\n";
+	$headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
+	$headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
+
+	// Let's send it ! No management of mail() errors to avoid being too talkative...
+
+	$message = $message077.$message4;
+
+	@mail($to, $subject, $message, $headers);
+
+	}
 	}
 }
 

@@ -61,7 +61,7 @@ else
 						<body>
 						<?php include '../../header.php';
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
-						echo "Else, please report to devel ML or FG Scenery forum<br />.";
+						echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
 						echo "</body></html>";
 						@pg_close($resource_rw);
 						exit;
@@ -160,7 +160,7 @@ else
 								
 								$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
 								$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-								$to .= "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
+								$to .= $_GET["email"];
 
 								// What is the subject ?
 
@@ -169,13 +169,13 @@ else
 								// Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
 
 								$message0 = "Hi,"  . "\r\n" .
-											"This is the automated FG scenery submission PHP form at:" . "\r\n" .
-											"http://scenemodels.flightgear.org/submission/submission.php"  . "\r\n" .
-											"I just wanted to let you know that the object position request nr :" . "\r\n" .
-											$_GET[sig]. "\r\n" .
-										    "has been succesfully treated in the fgs_objects table." . "\r\n" .
-										    "The corresponding pending entry has consequently been deleted" . "\r\n" .
-											"from the pending requests table.";
+									    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+									    "http://scenemodels.flightgear.org/submission/submission.php"  . "\r\n" .
+									    "I just wanted to let you know that the object position request nr :" . "\r\n" .
+									    $_GET[sig]. "\r\n" .
+									    "has been succesfully treated in the fgs_objects table." . "\r\n" .
+									    "The corresponding pending entry has consequently been deleted" . "\r\n" .
+									    "from the pending requests table.";
 									   
 								$message = wordwrap($message0, 77, "\r\n");
 								
@@ -301,7 +301,6 @@ else
 										
 							$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
 							$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-							$to .= "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
 
 							// What is the subject ?
 
