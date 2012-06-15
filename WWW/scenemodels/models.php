@@ -48,8 +48,8 @@
 
               if ($row["mo_shared"]==0){	
                 $modelid = $row["mo_id"];
-                $query = "SELECT ST_Y(wkb_geometry), ST_X(wkb_geometry) ";
-                $query.= "AS ob_lat, ob_lon ";
+                $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
+                $query.= "ST_X(wkb_geometry) AS ob_lon ";
                 $query.= "FROM fgs_objects ";
                 $query.= "WHERE ob_model=".$modelid;
                 $chunks=pg_query($query);

@@ -79,7 +79,11 @@ while ($row = pg_fetch_assoc($result))
 {
 	if ($row["mo_shared"]==0)
 	{	
-		$chunks=pg_query("SELECT ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_model=$id");
+	    $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
+	    $query.= "ST_X(wkb_geometry) AS ob_lon ";
+	    $query.= "FROM fgs_objects ";
+		$query.= "WHERE ob_model=$id";
+		$chunks=pg_query($query);
 		while ($chunk = pg_fetch_assoc($chunks))
 		{
 			$lat=floor($chunk["ob_lat"]/10)*10;
