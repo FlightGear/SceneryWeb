@@ -2,7 +2,6 @@ Shared objects
 ==============
 - Reviews the PREGs and pg escape scheme.
 - Enable the user to submit its email to get informed of the process. Enable maintainer to drop a comment.
-- Strip tags for comments.
 - Add a true heading/STG heading radio button.
 - Make sure Javascript is turned on?
 - Shows the object picture when selected (Ajax when adding).
@@ -24,10 +23,13 @@ Shared objects
 - Be careful : when updating/deleting, have to be precise on the fact that the heading taken from DB is the TRUE heading. (ot make another conversion, ...)
 - Take comments into account to merge them into the generated STG file (but how will you remove them ;-)
 - Add last date/time on update/delete scripts
-- Check comments content (REGEXP+Javascript).
+- Sanitize comments content (REGEXP+Javascript) - strip tags for comments.
 - In the update form (eg Fence_80 at -4.1862986 47.9750436, chimneys), it seems that the Object's family field is sometimes blank, while it should definitely return something.
 - In the update form, the (eventually former) Object family and model name should be selected by default.
-
+- 180° inversion when editing ? For instance :
+  Before : OBJECT_SHARED Models/Industrial/generic_chimney_01.xml -4.261696 48.389953 -593.27 0
+  After  : OBJECT_SHARED Models/Industrial/generic_chimney_01.xml -4.261696 48.389953 -543.88 180
+ 
 Static objects
 ==============
 - numerical ID of the 3D model (mo_id, this procedure asks for a proper fix)
