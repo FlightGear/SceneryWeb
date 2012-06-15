@@ -210,7 +210,8 @@ if ($false==0)
 				}
 				else if($j=="6") // Checking Orientation, must contain only figures, be >0, be 7 characters max.
 				{
-					if((strlen($value_tag)<='7') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag)) {
+					if((strlen($value_tag)<='7') && ($value_tag>='0') && (preg_match('/^[0-9\.]+$/',$value_tag)))
+ 					{
 						echo "<td><center>".$value_tag."</center></td> "; $orientation=$value_tag; }
 					else
 					{
