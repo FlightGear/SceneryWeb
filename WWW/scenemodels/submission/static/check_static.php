@@ -29,16 +29,16 @@ if(!$resp->is_valid){
 <?php
 include '../../header.php';
 
-###############################################
-###############################################
-#
-# STEP 1 : CHECK IF ALL FILES ARE RECEIVED
-#
-###############################################
-###############################################
+################################################
+################################################
+#                                              #
+# STEP 1 : CHECK IF ALL FILES WERE RECEIVED    #
+#                                              #
+################################################
+################################################
 
-function removeExt($fichier){ // This function return the filename without extension
-  if(strrpos($fichier, ".")===false) return $fichier;
+function removeExt($fichier){ // This function returns the filename without extension
+  if(strrpos($fichier, ".") == false) return $fichier;
   else return substr($fichier, 0, strrpos($fichier, "."));
 }
 
@@ -54,13 +54,13 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
   $errormsg .= "You <u>must</u> provide at least 1 thumbnail and 1 AC file!<br/>";
 }
 
-###############################################
-###############################################
-#
-# STEP 2 : CHECK IF ALL FILES MATCH THE NAME RULE
-#
-###############################################
-###############################################
+###########################################################
+###########################################################
+#                                                         #
+# STEP 2 : CHECK IF ALL FILES MATCH THE NAMING CONVENTION #
+#                                                         #
+###########################################################
+###########################################################
 
 if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 
@@ -100,9 +100,9 @@ if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 
 ###############################################
 ###############################################
-#
-# STEP 3 : UPLOAD ALL FILES IN TMP DIRECTORY
-#
+#                                             #
+# STEP 3 : UPLOAD ALL FILES IN TMP DIRECTORY  #
+#                                             #
 ###############################################
 ###############################################
 
@@ -132,7 +132,7 @@ if($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror){ // check size fil
           break;
       }
     }else{
-      if(!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)){ // check upload file
+      if(!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)){ // check uploaded file
         $fatalerror = 1;
         $error += 1;
         $errormsg .= "There has been an error while moving the file \"".$thumbName."\" on the server!<br/>";
@@ -196,7 +196,7 @@ if($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror){ // check size file
 # STEP 3.3 : UPLOAD XML FILE IN TMP DIRECTORY
 ###
 
-if($_FILES['xml_file']['name'] != ""){ // if file exist
+if($_FILES['xml_file']['name'] != ""){ // if file exists
   if($_FILES['xml_file']['size'] < 2000000 && !$fatalerror){ // check size file
 
     if($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName))=="xml" || ShowFileExtension(basename($xmlName))=="XML")){ // check type & extension file
@@ -219,7 +219,7 @@ if($_FILES['xml_file']['name'] != ""){ // if file exist
             break;
         }
       }else{
-        if(!move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)){ // check upload file
+        if(!move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)){ // check uploaded file
           $fatalerror = 1;
           $error += 1;
           $errormsg .= "There has been an error while moving the file \"".$xmlName."\" on the server!<br/>";
@@ -273,7 +273,7 @@ for($i=0; $i<12; $i++){
               break;
           }
         }else{
-          if(!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check upload file
+          if(!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
             $fatalerror = 1;
             $error += 1;
             $errormsg .= "There has been an error while moving the file \"".$pngName."\" on the server!<br/>";
@@ -292,9 +292,9 @@ for($i=0; $i<12; $i++){
   }
 }
 
-###############################################
-# IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS
-###############################################
+######################################################
+# IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS #
+######################################################
 
 if($fatalerror || $error > 0){
   echo "Number of error(s): ".$error."<br/>";
@@ -308,9 +308,9 @@ if($fatalerror || $error > 0){
 
 ###############################################
 ###############################################
-#
-# STEP 4 : CHECK XML FILE
-#
+#                                             #
+# STEP 4 : CHECK XML FILE                     #
+#                                             #
 ###############################################
 ###############################################
 
@@ -334,7 +334,7 @@ if(file_exists($xmlPath)){
   if (!($fp = fopen($xmlPath, "r"))) {
     $fatalerror = 1;
     $error += 1;
-    $errormsg .= "could not open XML \"".$xmlName."\"";
+    $errormsg .= "Could not open XML \"".$xmlName."\"";
   }else{
     while ($data = fread($fp, 4096)) {
       ###
@@ -346,7 +346,6 @@ if(file_exists($xmlPath)){
       }
     }
     xml_parser_free($xml_parser);
-
   }
 
   if(!$error > 0){
@@ -427,9 +426,9 @@ if(file_exists($ac3dPath)){
 
 ###############################################
 ###############################################
-#
-# STEP 6 : CHECK IMAGE FILE
-#
+#                                             #
+# STEP 6 : CHECK IMAGE FILE                   #
+#                                             #
 ###############################################
 ###############################################
 
@@ -473,9 +472,9 @@ for($i=0; $i<12; $i++){
 
 ###############################################
 ###############################################
-#
-# STEP 7 : CHECK THUMBNAIL FILE
-#
+#                                             #
+# STEP 7 : CHECK THUMBNAIL FILE               #
+#                                             #
 ###############################################
 ###############################################
 
@@ -525,9 +524,9 @@ if($fatalerror || $error > 0){
 
 ###############################################
 ###############################################
-#
-# STEP 8 : ARCHIVE AND COMPRESS FILES
-#
+#                                             #
+# STEP 8 : ARCHIVE AND COMPRESS FILES         #
+#                                             #
 ###############################################
 ###############################################
 
@@ -567,7 +566,7 @@ if($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["gndelev"] !=
   $latitude  = strip_tags($_POST["latitude"]);
   $gndelev   = strip_tags($_POST["gndelev"]);
   $offset    = strip_tags($_POST["offset"]);
-  $heading   = strip_tags($_POST["heading"]); // need to use compute_heading() before DB insertion
+  $heading   = strip_tags($_POST["heading"]);
 
   if(preg_match('#[a-zA-Z ]#', $longitude) || ($longitude < -180 || $longitude > 180)){
     $error += 1;
@@ -601,9 +600,9 @@ if($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["gndelev"] !=
 
 ###############################################
 ###############################################
-#
-# STEP 10 : CHECK GENERAL INFORMATION
-#
+#                                             #
+# STEP 10 : CHECK GENERAL INFORMATION         #
+#                                             #
 ###############################################
 ###############################################
 
@@ -644,14 +643,14 @@ if(    $_POST["mo_shared"] != ""  && $_POST["mo_path"] != "" && $_POST["mo_autho
 
 if(!isset($_POST["gpl"])){
   $error += 1;
-  $errormsg .= "You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FG must have this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.<br/>";
+  $errormsg .= "You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FG must wear this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.<br/>";
 }
 
 ###############################################
 ###############################################
-#
-# STEP 11 : RESUME AND SUBMIT VALIDATION
-#
+#                                             #
+# STEP 11 : RESUME AND SUBMIT VALIDATION      #
+#                                             #
 ###############################################
 ###############################################
 
@@ -695,7 +694,7 @@ if($fatalerror || $error > 0){
     $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";       // wkb_geometry
     $ob_query .= "'".$gndelev."', ";                                                      // ob_gndelev
     $ob_query .= "'".$offset."', ";                                                       // ob_elevoffset
-    $ob_query .= "'".compute_heading($heading)."', ";                                     // ob_heading
+    $ob_query .= "'".heading_stg_to_true($heading)."', ";                                     // ob_heading
 //    $ob_query .= "'".$country."', ";                                                      // ob_country
     $ob_query .= "'".$ob_model."', ";                                                     // ob_model
     $ob_query .= "'1'";                                                                   // ob_group
@@ -732,8 +731,7 @@ if($fatalerror || $error > 0){
 
     // Who will receive it ?
     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-    $to .= "\"Clément DE L'HAMAIDE\" <clemaez@hotmail.fr>";
+    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net> ";
 
     // What is the subject ?
     $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
@@ -762,7 +760,7 @@ if($fatalerror || $error > 0){
     "Longitude: ". $longitude . "\r\n" .
     "Ground elevation: ". $gndelev . "\r\n" .
     "Elevation offset: ". $offset . "\r\n" .
-    "True (DB) orientation: ". compute_heading($heading) . "\r\n" .
+    "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
     "Comment: ". strip_tags($comment) ."\r\n" .
     "Please click:" . "\r\n" .
     "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000000BTFFFTFFFTFTFFFF" . "\r\n" .

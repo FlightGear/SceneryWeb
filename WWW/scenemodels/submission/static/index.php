@@ -10,7 +10,7 @@
   <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="../inc/jquery.multifile.js"></script>
   <noscript>
-    <meta http-equiv="refresh" content="0; URL=nojs.php">
+    <meta http-equiv="refresh" content="0; URL=../inc/nojs.php">
   </noscript>
 </head>
 
@@ -202,7 +202,7 @@
       </tr>
       <tr>
         <td>
-          <span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: Hi, this is a new telecommunications model in Brittany, please commit">
+          <span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: Hi, this is a new telecommunications model in Brittany, please commit.">
             <a style="cursor: help">Comment</a>
           </span>
         </td>
@@ -212,7 +212,7 @@
       </tr>
       <tr>
         <td>
-          <span title="This is a nice picture representing your model in FG the best way. (eg: tower_thumbnail.jpeg)">
+          <span title="This is a nice picture representing your model in FG the best way (eg: tower_thumbnail.jpeg).">
             <a style="cursor: help; ">Corresponding 320x240 JPEG thumbnail</a>
           </span>
         </td>
@@ -222,7 +222,7 @@
       </tr>
       <tr>
         <td>
-          <span title="This is the AC3D file of your model. (eg: tower.ac)">
+          <span title="This is the AC3D file of your model (eg: tower.ac).">
             <a style="cursor: help; ">Corresponding AC3D File</a>
           </span>
         </td> 
@@ -232,7 +232,7 @@
       </tr>
       <tr>
         <td>
-          <span title="This is the XML file of your model. (eg: tower.xml)">
+          <span title="This is the XML file of your model (eg: tower.xml).">
             <a style="cursor: help; ">Corresponding XML File</a>
           </span>
         </td>
@@ -263,7 +263,7 @@
       <tr>
         <td colspan="2">
           <center>
-            <input type="checkbox" name="gpl"/> I accept to release all my contribution under GNU GENERAL PUBLIC LICENSE Version 2, June 1991i.<br/>
+            <input type="checkbox" name="gpl"/> I accept to release all my contribution under GNU GENERAL PUBLIC LICENSE Version 2, June 1991.<br/>
             <?php
               // Google Captcha stuff
               require_once('../captcha/recaptchalib.php');
