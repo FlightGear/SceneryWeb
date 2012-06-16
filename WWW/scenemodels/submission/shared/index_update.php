@@ -110,7 +110,7 @@ return (false);
 <b>Foreword:</b> This automated form goal is to ease the update of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>
  objects in the database.
 <br /><br />
-<form name="deletion" method="post" action="check_update_shared.php">
+<form name="edition" method="post" action="check_update_shared.php">
 <table>
 	<tr>
 		<td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
