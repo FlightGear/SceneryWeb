@@ -192,7 +192,7 @@ else
 
 // Checking that email is valid (if it exists).
 
-if((isset($_POST['email'])) && (strlen($_POST['email']>0)) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['email'])) && (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) && (strlen($_POST['email'])<=50))
+if((isset($_POST['email'])) && (strlen($_POST['email']>0)) && (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) && (strlen($_POST['email'])<=50))
 	{
 	$safe_email = pg_escape_string(stripslashes($_POST['email']));
 	echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
