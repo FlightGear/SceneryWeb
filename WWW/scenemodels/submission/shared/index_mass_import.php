@@ -80,9 +80,9 @@ Also note that all fields are now mandatory. Do not insert models not existing i
 			$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
 			echo recaptcha_get_html($publickey);
 			?>
-			</center>
 			<br />
 			<input type="submit" value="Submit mass import" />
+			</center>
 		</td>
 	</tr>
 </table>

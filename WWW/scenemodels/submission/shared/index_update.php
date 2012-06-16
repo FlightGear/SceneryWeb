@@ -133,7 +133,9 @@ return (false);
 	</tr>
 	<tr>
 		<td colspan="2">
+			<center>
 			<input type="submit" value="Check for objects at this position" />
+			</center>
 		</td>
 	</tr>
 </table>

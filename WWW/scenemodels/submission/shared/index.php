@@ -223,9 +223,9 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 			$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
 			echo recaptcha_get_html($publickey);
 			?>
-			</center>
 			<br />
 			<input type="submit" value="Submit position" />
+			</center>
 		</td>
 	</tr>
 </table>

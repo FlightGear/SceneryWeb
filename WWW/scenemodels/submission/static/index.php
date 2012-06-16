@@ -270,12 +270,12 @@
               $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
               //echo recaptcha_get_html($publickey);
             ?>
-          </center>
           <br />
           <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
           <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
           <input type="submit" value="Submit model" />
-        </td>
+	  </center>        
+	</td>
       </tr>
     </table>
   </form>
