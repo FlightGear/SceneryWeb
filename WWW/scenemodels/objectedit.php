@@ -96,7 +96,10 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 	$result=pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
 	while ($row = pg_fetch_assoc($result))
 	{
-	        print "<a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a></td>\n";
+?>
+<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $row["ob_lat"]; ?>&lat=<?php echo $row["ob_lon"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+</iframe>
+<?php
         }
 ?>
 	<td align="center">
