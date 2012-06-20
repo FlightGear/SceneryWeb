@@ -102,9 +102,15 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
         }
 ?>
 	<td align="center">
-	<input type="submit" name="submit" value="update"/>&nbsp;
-	<input type="submit" name="submit" value="delete"/>
-</td></tr>
+	<form name="update" method="post" action="submission/check_update_shared.php">
+	<?php echo "<input name=\"update_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$id."\" />"; ?>
+	<input type="submit" name="submit" value="Update this object"/>
+	</form>
+	<form name="delete" method="post" action="submission/check_delete_shared.php">
+	<?php echo "<input name=\"delete_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$id."\" />"; ?>
+	<input type="submit" name="submit" value="Delete this object"/>
+	</form>
+	</td>
+</tr>
 </table>
-
 <?php include 'footer.php';?>
