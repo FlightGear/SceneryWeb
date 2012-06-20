@@ -21,7 +21,18 @@ function connect_sphere_r()
 	
 	if ($resource_r=='0')
 	{
-	echo "\n<font color=\"red\">An error has occurred while connecting to the database.</font>\n";
+	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"";
+	echo "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+	echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">";
+	echo "<head>";
+	echo "<title>Automated Shared Models Positions Update Form</title>";
+	echo "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" />";
+	echo "<link rel=\"stylesheet\" href=\"../../style.css\" type=\"text/css\"></link>";
+	echo "</head>";
+	echo "<body>";
+	echo "<?php include '../../header.php'; ?>";
+	echo "<br /><br />";
+	echo "\n<font color=\"red\">We're sorry, but an error has occurred while connecting to the database.</font>\n";
 	exit;
 	}
 	else

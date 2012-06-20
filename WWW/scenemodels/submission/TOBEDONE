@@ -5,21 +5,21 @@ Bug/security fixing:
 - Check for every form & page the referring page & the value of the form submitting.
 - Detect if submitting an already existing object.
 - ob_name workaround for mass import.
-- Sanitize comments content (Javascript + strip tags).
-- In the update form (eg Fence_80 at -4.1862986 47.9750436, chimneys), it seems that the Object's family field is sometimes blank,
-  while it should definitely return something.
-- In the update form, the (eventually former) Object family and model name should be selected by default.
+- Sanitize comments +lat/long content (Javascript + strip tags).
+- In the update form (eg Fence_80 at -4.1862986 47.9750436, chimneys, it's the same for buildings), it seems that the Object's family field is
+  sometimes blank, while it should definitely return something. Moreover, the (eventually former) Object family and model name should be selected
+  by default.
 
 Features updates (by priority):
 -------------------------------
 - Review the names of the scripts to have them coherent. Put CSS in a separate directory (/css).
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Make sure Javascript is turned on?
-- Enable the user to submit its email to get informed of the process (EXPERIMENTAL support added on unitary addition). Enable maintainer to drop a comment.
+- Enable the user to submit its email to get informed of the process (EXPERIMENTAL support added and working on unitary addition). Enable maintainer to drop a comment.
 - Shows the object picture when selected (Ajax when adding).
 - Shows the object position when selected (map when adding...).
 - Add ob_text (unitary addition), ob_country, ob_author add/update possibilities.
-- Merge Jon's script with ours (objectedit, ...). They should like to the submission forms.
+- Merge Jon's script with ours (objectedit, ...). They should link to the submission forms.
 - When there is an error with the captcha, an error page is being presented, containing a "Go back ..."
   link - but when clicked - all values have to be re-entered from scratch. Preserving the entered values so
   submitters just have to re-enter a captcha phrase would be highly beneficial.

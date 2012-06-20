@@ -125,14 +125,8 @@ return (false);
 		</td>
 	</tr>
 	<tr>
-		<td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it"><a style="cursor: help">Comment</a></span></td>
-		<td>
-			<input type="text" name="comment" maxlength="100" size="40" value="" />
-			<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
-		</td>
-	</tr>
-	<tr>
 		<td colspan="2">
+			<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
 			<center>
 			<input type="submit" value="Check for objects at this position" />
 			</center>

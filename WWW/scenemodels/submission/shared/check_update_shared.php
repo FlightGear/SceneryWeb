@@ -271,7 +271,7 @@ return (false);
 		</tr>
 		<tr>
 		<td>
-		Object's family
+		<span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span>
 		</td>
 		<td>
 		<?php $old_family=family_name_from_object_id($_POST['update_choice']); echo $old_family; ?>
@@ -318,7 +318,7 @@ return (false);
 					</tr>
 					<tr>
 					<td>
-					Model name
+					<span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span>
 					</td>
 					<td>
 					<?php $old_model_name=object_name($_POST['model_id']);  echo $old_model_name; ?>
@@ -330,7 +330,7 @@ return (false);
 					</tr>
 					<tr>
 					<td>
-					Longitude
+					<span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span>
 					</td>
 					<td>
 					<?php $old_long = $_POST[long]; echo $old_long; ?>
@@ -342,7 +342,7 @@ return (false);
 					</tr>
 					<tr>
 					<td>
-					Latitude
+					<span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span>
 					</td>
 					<td>
 					<?php $old_lat = $_POST[lat]; echo $old_lat; ?>
@@ -354,7 +354,7 @@ return (false);
 					</tr>
 					<tr>
 					<td>
-					Ground Elevation
+					<span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span>
 					</td>
 					<td>
 					<?php $old_gndelev = $_POST[gnd_elev]; echo $old_gndelev; ?>
@@ -366,7 +366,7 @@ return (false);
 					</tr>
 					<tr>
 					<td>
-					Elevation offset
+					<span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span>
 					</td>
 					<td>
 					<?php $old_offset = $_POST[offset]; echo $old_offset; ?>
@@ -378,7 +378,7 @@ return (false);
 					</tr>
 					<tr>
 					<td>
-					Orientation
+					<span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span>
 					</td>
 					<td>
 					<?php $old_orientation = heading_true_to_stg($_POST[orientation]); echo $old_orientation; ?>
@@ -386,6 +386,12 @@ return (false);
 					</td>
 					<td>
 					<input type="text" name="orientation" maxlength="7" value="<?php echo $old_orientation; ?>" onBlur="checkNumeric(this,0,359.999,'.');" />
+					</td>
+					</tr>
+					<tr>
+					<td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it"><a style="cursor: help">Comment</a></span></td>
+					<td>
+					<input type="text" name="comment" maxlength="100" size="40" value="" />
 					</td>
 					</tr>
 					<tr>
@@ -398,7 +404,6 @@ return (false);
 						echo recaptcha_get_html($publickey);
 						?>
 						<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
-						<input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
 						<input type="submit" name="submit" value="Update this object!" />
 						<input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
 						</center>
@@ -456,8 +461,8 @@ global $false;
 
 // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
 
-//if((isset($_POST['latitude'])) && (strlen($_POST['latitude']<=13)) && (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
-if(isset($_POST['latitude']))
+// (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
+if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])<=13)) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
 	{
 	$lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
 	echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
@@ -470,8 +475,8 @@ else
 
 // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
 
-//if((isset($_POST['longitude'])) && (strlen($_POST['longitude']<=13)) && (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
-if(isset($_POST['longitude']))
+// (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) 
+if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13) && ($_POST['longitude']>='-180') && ($_POST['longitude']<='180'))
 	{
 	$long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
 	echo "<font color=\"green\">Longitude: ".$long."</font><br />";
@@ -484,8 +489,8 @@ else
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-//if((isset($_POST['comment'])) && (strlen($_POST['comment'])>0) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment'])) && (strlen($_POST['comment']<=100)))
-if(isset($_POST['comment']))
+// && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
+if((isset($_POST['comment'])) && ((strlen($_POST['comment']))>0) && ((strlen($_POST['comment']))<=100)) 
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	}
@@ -523,7 +528,7 @@ if ($false==0)
 		{
 		while($row = pg_fetch_row($result))
 		{
-		echo "<br />One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.<br /><br />";
+		echo "<br /><center>One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</center><br /><br />";
 		?>
 				<form name="update_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_update_shared.php">
 				<table>
@@ -571,10 +576,7 @@ if ($false==0)
 					<tr>
 						<td colspan="4">
 						<center>
-						<center>
 						<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
-						<input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
-						</center>
 						<br />
 						<input type="submit" name="submit" value="I want to update this object!" />
 						<input type="button" name="cancel" value="Cancel, I made a mistake!" onclick="history.go(-1)"/>
@@ -591,7 +593,7 @@ if ($false==0)
 		}
 		else if($returned_rows > '1') // If we have more than one, the user has to choose...
 		{
-			echo "<br />".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.<br /><br />";
+			echo "<br /><center>".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</center><br /><br />";
 		
 			// Starting multi-solutions form
 		

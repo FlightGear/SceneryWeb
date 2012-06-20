@@ -113,8 +113,8 @@ else
 
 // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
 
-//if((isset($_POST['latitude'])) && (strlen($_POST['latitude'])<=13) && (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
-if(isset($_POST['latitude']))
+// (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) 
+if((isset($_POST['latitude'])) && ((strlen($_POST['latitude']))<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
 	{
 	$lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
 	echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
@@ -127,8 +127,8 @@ else
 
 // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
 
-//if((isset($_POST['longitude'])) && (strlen($_POST['longitude'])<=13) && (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
-if(isset($_POST['longitude']))
+// (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) && 
+if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
 	{
 	$long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
 	echo "<font color=\"green\">Longitude: ".$long."</font><br />";
@@ -141,7 +141,7 @@ else
 
 // Checking that ground elevation exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
 
-if((isset($_POST['gndelev'])) && (strlen($_POST['gndelev'])<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['gndelev'])) && ($_POST['gndelev']<='10000') && ($_POST['gndelev']>='-10000'))
+if((isset($_POST['gndelev'])) && ((strlen($_POST['gndelev']))<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['gndelev'])) && ($_POST['gndelev']<='10000') && ($_POST['gndelev']>='-10000'))
 	{
 	$gndelev = number_format(pg_escape_string(stripslashes($_POST['gndelev'])),2,'.','');
 	echo "<font color=\"green\">Ground Elevation: ".$gndelev."</font><br />";
@@ -154,7 +154,7 @@ else
 
 // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
 
-if((isset($_POST['offset'])) && (strlen($_POST['offset'])<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000'))
+if((isset($_POST['offset'])) && ((strlen($_POST['offset']))<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000'))
 	{
 	$offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
 	echo "<font color=\"green\">Offset: ".$offset."</font><br />";
@@ -168,7 +168,7 @@ else
 // Checking that orientation exists and is containing only digits, and is >=0 and <=359
 // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
 
-if((isset($_POST['heading'])) && (strlen($_POST['heading'])<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0'))
+if((isset($_POST['heading'])) && ((strlen($_POST['heading']))<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0'))
 	{
 	$heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
 	echo "<font color=\"green\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</font><br />";
@@ -181,8 +181,8 @@ else
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
-// if((isset($_POST['comment'])) && (strlen($_POST['comment']>0)) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment'])) && (strlen($_POST['comment'])<=100))
-if(isset($_POST['comment']))
+// (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment'])) 
+if((isset($_POST['comment'])) && ((strlen($_POST['comment']))>0) && ((strlen($_POST['comment']))<=100))
 	{
 	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 	echo "<font color=\"green\">Comment: ".$sent_comment."</font><br />";
@@ -195,15 +195,16 @@ else
 
 // Checking that email is valid (if it exists).
 
-//if((isset($_POST['email'])) && (strlen($_POST['email']>0)) && (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) && (strlen($_POST['email'])<=50))
-if(isset($_POST['email']))
+//(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
+
+if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50)))
 	{
 	$safe_email = pg_escape_string(stripslashes($_POST['email']));
 	echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
 	}
 else
 	{
-	echo "<font color=\"red\">Email mismatch!</font><br />";
+	echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
 	$failed_mail='1';
 	}
 
@@ -299,7 +300,7 @@ if ($false==0) {
 	            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
 		    "http://scenemodels.flightgear.org/submission/check_positions.php" . "\r\n" .
 		    "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
-		    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email adress ".$safe_email."\r\n" .
+		    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
 		    "issued the following request:" . "\r\n";
 	}
 	else {
@@ -391,7 +392,7 @@ if ($false==0) {
 		    "Please click:" . "\r\n" .
 		    "http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
 		    "to locate the object on the map." . "\r\n" .
-		    "This process has been going through antispam measures. However, if this email is not sollicited, please excuse us and report at http://www.flightgear.org/forums/viewforum.php?f=5";
+		    "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
 	// Preparing the headers.
 
