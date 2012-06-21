@@ -2,7 +2,7 @@
 
 // Inserting libs
 
-require_once('../inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 // Getting back the delete_choice
 
@@ -10,7 +10,7 @@ if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_ma
 {
 // Captcha stuff
 
-require_once('../captcha/recaptchalib.php');
+require_once('../../captcha/recaptchalib.php');
 
 // Private key is needed for the server-to-Google auth.
 
@@ -31,14 +31,15 @@ $resp = recaptcha_check_answer ($privatekey,
 	<head>
 	<title>Automated Shared Models Positions Deletion Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 	</head>
 	<body>
-	<?php include '../../header.php'; ?>
+	<?php include '../../inc/header.php'; ?>
 	<br />
 	<?
 	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>." .
          "<br />(reCAPTCHA complained: " . $resp->error . ")");
+	include '../../inc/header.php';
 	}
   else {
 
@@ -49,10 +50,10 @@ $resp = recaptcha_check_answer ($privatekey,
 <head>
 	<title>Automated Shared Models Positions Deletion Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br /><br />
 <?php
 	$id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
@@ -152,9 +153,9 @@ $resp = recaptcha_check_answer ($privatekey,
 			    "Ground elevation: ". $_POST['gnd_elev'] . "\r\n" .
 			    "Elevation offset: ". $_POST['offset'] . "\r\n" .
 			    "True (DB) orientation: ". $_POST['orientation'] . "\r\n" .
-				"Comment: ". strip_tags($_POST['comment']) ."\r\n" .
+			    "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
 			    "Please click:" . "\r\n" .
-				"http://mapserver.flightgear.org/map/?lon=". $_POST['long'] ."&lat=". $_POST['lat'] ."&zoom=15&layers=000B0000TFFFFFFFTFTFTFFF" . "\r\n" .
+			    "http://mapserver.flightgear.org/map/?lon=". $_POST['long'] ."&lat=". $_POST['lat'] ."&zoom=15&layers=000B0000TFFFFFFFTFTFTFFF" . "\r\n" .
 			    "to locate the object on the map." ;
 
 	$message2 = "\r\n".
@@ -196,15 +197,14 @@ if(!$ok)
 <head>
 	<title>Automated Shared Models Positions Deletion Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?
 }
 
@@ -217,10 +217,10 @@ else
 <head>
 <title>Automated Shared Models Positions Deletion Form</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br />
 <?php
 $false='0';
@@ -343,7 +343,7 @@ if ($false==0)
 			<center>
 			<?php
 			// Google Captcha stuff
-			require_once('../captcha/recaptchalib.php');
+			require_once('../../captcha/recaptchalib.php');
 			$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
 			echo recaptcha_get_html($publickey);
 			?>
@@ -434,7 +434,7 @@ if ($false==0)
 						<input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
 						<?php
 						// Google Captcha stuff
-						require_once('../captcha/recaptchalib.php');
+						require_once('../../captcha/recaptchalib.php');
 						$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
 						echo recaptcha_get_html($publickey);
 						?>
@@ -452,8 +452,7 @@ if ($false==0)
 	}
 	}
 ?>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?php
 }
 }

@@ -1,9 +1,9 @@
 <html>
 <head>
-  <link rel="stylesheet" href="/style.css" type="text/css">
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
 </head>
 <body>
-  <?php include '../header.php';?>
+  <?php include '../inc/header.php'; ?>
   <h1 align=center>RSS Feeds</h1>
   <table>
     <tr><th>Keeping Up To Date</th></tr>
@@ -18,5 +18,4 @@
       </td>
     </tr>
   </table>
-</body>
-</html>
+<?php include '../inc/footer.php'; ?>

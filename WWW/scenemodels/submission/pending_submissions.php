@@ -2,7 +2,7 @@
 
 // Inserting libs
 
-require_once('inc/functions.inc.php');
+require_once('../inc/functions.inc.php');
 
 // Opening database connection...
 

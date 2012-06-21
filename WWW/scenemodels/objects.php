@@ -78,7 +78,7 @@
     $description = "";
   }
 
-  include('header.php');
+  include('inc/header.php');
 ?>
 <script type="text/javascript">
   function popobject(id) {
@@ -213,4 +213,4 @@
   </table>
 </form>
 
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

@@ -2,7 +2,7 @@
 
 // Inserting libs
 
-require_once('../inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
 
@@ -17,15 +17,14 @@ if(!$ok)
 <head>
 	<title>Automated Shared Models Positions Submission Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?
 }
 
@@ -36,7 +35,7 @@ else
 
 // Captcha stuff
 
-require_once('../captcha/recaptchalib.php');
+require_once('../../captcha/recaptchalib.php');
 
 // Private key is needed for the server-to-Google auth.
 
@@ -57,14 +56,15 @@ $resp = recaptcha_check_answer ($privatekey,
 	<head>
 	<title>Automated Shared Models Positions Submission Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 	</head>
 	<body>
-	<?php include '../../header.php'; ?>
+	<?php include '../../inc/header.php'; ?>
 	<br />
 	<?
 	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
          "<br />(reCAPTCHA complained: " . $resp->error . ")");
+	<?php include '../../inc/footer.php'; ?>
 	}
   else {
 	?>
@@ -74,10 +74,10 @@ $resp = recaptcha_check_answer ($privatekey,
 <head>
 <title>Automated Shared Models Positions Submission Form</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br />
 <?php
 $false='0';
@@ -411,8 +411,7 @@ if ($false==0) {
 }
 
 ?>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?php
 }
 }

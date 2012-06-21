@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+<?php include 'inc/header.php';?>
 
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
@@ -119,4 +119,4 @@ while ($row = pg_fetch_assoc($result))
 </table>
 </form>
 
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/style.css" type="text/css"></link>
   </head>
   <body>
-  <?php include '../header.php'; ?>
+  <?php include '../inc/header.php'; ?>
 
   <br/><br/>
 
@@ -41,4 +41,4 @@
       </td>
     </tr>
   </table>
-<?php include 'inc/footer.php'; ?>
+<?php include '../inc/footer.php'; ?>

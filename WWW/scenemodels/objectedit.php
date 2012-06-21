@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+<?php include 'inc/header.php';?>
 <h1 align="center">FlightGear Scenery Model Directory</h1>
 <?php
 
@@ -103,4 +103,4 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 	</td>
 </tr>
 </table>
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

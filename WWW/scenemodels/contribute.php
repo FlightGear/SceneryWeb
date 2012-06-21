@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+<?php include 'inc/header.php';?>
 <h1 align="center">How To Contribute</h1>
 
 <b>Foreword:</b> The instructions on this page are being presented in a
@@ -139,4 +139,4 @@ Models are easily identified by their numeric id when you click on the
 thumbnail in the Browser view.
 </td></tr>
 </table>
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

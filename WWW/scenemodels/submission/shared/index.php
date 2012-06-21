@@ -2,7 +2,7 @@
 
 // Inserting libs
 
-require_once('../inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
 
@@ -17,15 +17,14 @@ if(!$ok)
 <head>
 	<title>Automated Shared Models Positions Submission Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?
 }
 
@@ -38,11 +37,11 @@ else
 <head>
 	<title>Automated Shared Models Positions Submission Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 	<script src="../ajax/update_objects.js" type ="text/javascript"></script>
 </head>
 <body onload='update_objects();'>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <script language="JavaScript">
 <!-- This script is here to check for the consistency of the different fields of the form -->
 
@@ -219,7 +218,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 			<center>
 			<?php
 			// Google Captcha stuff
-			require_once('../captcha/recaptchalib.php');
+			require_once('../../captcha/recaptchalib.php');
 			$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
 			echo recaptcha_get_html($publickey);
 			?>
@@ -231,8 +230,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 </table>
 </form>
 </p>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?php
 }
 ?>

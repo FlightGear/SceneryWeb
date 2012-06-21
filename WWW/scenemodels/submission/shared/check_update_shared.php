@@ -2,14 +2,14 @@
 
 // Inserting libs
 
-require_once('../inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 if((isset($_POST['old_long'])) && (isset($_POST['old_lat'])) && (isset($_POST['old_gndelev'])) && (isset($_POST['old_offset'])) && (isset($_POST['old_orientation'])))
 {	
 
 // Captcha stuff
 
-require_once('../captcha/recaptchalib.php');
+require_once('../../captcha/recaptchalib.php');
 
 // Private key is needed for the server-to-Google auth.
 
@@ -30,10 +30,10 @@ $resp = recaptcha_check_answer ($privatekey,
 	<head>
 	<title>Automated Shared Models Positions Update Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 	</head>
 	<body>
-	<?php include '../../header.php'; ?>
+	<?php include '../../inc/header.php'; ?>
 	<br />
 	<?
 	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
@@ -79,10 +79,10 @@ $resp = recaptcha_check_answer ($privatekey,
 	<head>
 		<title>Automated Shared Models Positions Update Form</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 	</head>
 	<body>
-	<?php include '../../header.php'; ?>
+	<?php include '../../inc/header.php'; ?>
 	<br /><br />
 <?php
 	if(!$resultrw)
@@ -188,11 +188,11 @@ if((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0'))
 <head>
 	<title>Automated Shared Models Positions Update Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 	<script src="../ajax/update_objects.js" type ="text/javascript"></script>
 </head>
 <body onload='update_objects();'>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <script language="JavaScript">
 <!-- This script is here to check for the consistency of the different fields of the form -->
 
@@ -399,7 +399,7 @@ return (false);
 						<center>
 						<?php
 						// Google Captcha stuff
-						require_once('../captcha/recaptchalib.php');
+						require_once('../../captcha/recaptchalib.php');
 						$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
 						echo recaptcha_get_html($publickey);
 						?>
@@ -429,15 +429,14 @@ if(!$ok)
 <head>
 	<title>Automated Shared Models Positions Update Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?
 }
 
@@ -450,10 +449,10 @@ else
 <head>
 <title>Automated Shared Models Positions Update Form</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br />
 <?php
 $false='0';
@@ -585,8 +584,7 @@ if ($false==0)
 					</tr>
 				</table>
 				</form>
-				</body>
-				</html>
+				<?php include '../../inc/footer.php'; ?>
 		<?php
 		}
 		exit;
@@ -682,8 +680,7 @@ if ($false==0)
 	}
 	}
 ?>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?php
 }
 }

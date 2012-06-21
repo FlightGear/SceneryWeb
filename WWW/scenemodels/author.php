@@ -5,7 +5,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 
 ?>
 
-<?php include 'header.php';?>
+<?php include 'inc/header.php';?>
 <h1 align="center">Scenery Author Details</h1>
 <form>
 <table align="center" border="1">
@@ -39,4 +39,4 @@ while ($row = pg_fetch_assoc($result))
 ?>
 </table>
 </form>
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

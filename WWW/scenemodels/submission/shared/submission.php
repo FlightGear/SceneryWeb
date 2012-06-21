@@ -2,7 +2,7 @@
 
 // Inserting libs
 
-require_once('../inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
 
@@ -17,15 +17,14 @@ if(!$ok)
 		<head>
 			<title>Automated Shared Models Positions Pending Requests Form</title>
 			<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-			<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+			<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 		</head>
 		<body>
-		<?php include '../../header.php'; ?>
+		<?php include '../../inc/header.php'; ?>
 		<br /><br />
 		<center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 		<br /><center>The FlightGear team.</center>
-		</body>
-		</html>
+		<?php include '../../inc/footer.php'; ?>
 		<?
 	}
 
@@ -56,13 +55,13 @@ else
 						<head>
 						<title>Automated Shared Models Positions Pending Requests Form</title>
 						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-						<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+						<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 						</head>
 						<body>
-						<?php include '../../header.php';
+						<?php include '../../inc/header.php';
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
 						echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
-						echo "</body></html>";
+						include '../../inc/footer.php';
 						@pg_close($resource_rw);
 						exit;
 					}
@@ -95,15 +94,15 @@ else
 							<head>
 							<title>Automated Shared Models Positions Pending Requests Form</title>
 							<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-							<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+							<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 							</head>
 							<body>
-							<?php include '../../header.php';
+							<?php include '../../inc/header.php';
 							echo "Signature found.<br /> Now processing query with request number ". $_GET[sig].".<br /><br />";
 							echo "<font color=\"red\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
 							
 							// Closing the rw connection.
-
+							include '../../inc/footer.php';
 							pg_close($resource_rw);
 							
 							exit;
@@ -117,10 +116,10 @@ else
 							<head>
 							<title>Automated Shared Models Positions Pending Requests Form</title>
 							<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-							<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+							<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 							</head>
 							<body>
-							<?php include '../../header.php';
+							<?php include '../../inc/header.php';
 							echo "Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_GET[sig].".<br /><br />";
 							echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
 							
@@ -135,6 +134,7 @@ else
 								echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
 								// Closing the rw connection.
 
+								include '../../inc/footer.php';
 								pg_close($resource_rw);
 								
 								exit;
@@ -236,13 +236,13 @@ else
 						<head>
 						<title>Automated Shared Models Positions Pending Requests Form</title>
 						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-						<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+						<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 						</head>
 						<body>
-						<?php include '../../header.php';
+						<?php include '../../inc/header.php';
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?</font><br />\n";
 						echo "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.<br />";
-						echo "</body></html>";
+						include '../../inc/footer.php';
 						@pg_close($resource_rw);
 						exit;
 					}
@@ -262,18 +262,17 @@ else
 							<head>
 							<title>Automated Shared Models Positions Pending Requests Form</title>
 							<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-							<link rel="stylesheet" href="../../style.css" type="text/css">
+							<link rel="stylesheet" href="../../css/style.css" type="text/css">
 							</head>
 							<body>
-							<?php include '../../header.php';
+							<?php include '../../inc/header.php';
 							echo "Signature found.<br /> Now deleting request with number ". $_GET[sig].".<br />";
 							echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
 							
 							// Closing the rw connection.
 
-							pg_close($resource_rw);
-							
-							echo "</body></html>";
+							include '../../inc/footer.php';
+							pg_close($resource_rw);					
 							exit;
 						}
 						else
@@ -285,18 +284,17 @@ else
 							<head>
 							<title>Automated Shared Models Positions Pending Requests Form</title>
 							<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-							<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+							<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 							</head>
 							<body>
-							<?php include '../../header.php';
+							<?php include '../../inc/header.php';
 							echo "Signature found.<br />Now deleting request with number ". $_GET[sig].".<br />";
 							echo "<font color=\"green\">Entry has correctly been deleted from the pending requests table.</font>";
 										
 							// Closing the rw connection.
 
+							include '../../inc/footer.php';
 							pg_close($resource_rw);
-						
-							echo "</body></html>";
 							
 							// Sending mail if entry was correctly deleted.
 

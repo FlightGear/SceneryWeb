@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'inc/header.php'; ?>
 <h1 align="center">FlightGear Scenery Object Statistics</h1>
 <?php
 	$result=pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
@@ -98,4 +98,4 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
     </td>
   </tr>
 </table>
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

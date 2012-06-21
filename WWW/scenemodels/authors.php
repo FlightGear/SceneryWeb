@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+<?php include 'inc/header.php';?>
 
   <h1 align="center">FlightGear Scenery Authors Directory</h1>
   <table border="1" width="100%">
@@ -36,4 +36,4 @@
       </td>
     </tr>
   </table>
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

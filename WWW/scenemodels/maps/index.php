@@ -14,8 +14,8 @@
   <script type="text/javascript">
     <!--
         var lon = <?php print $_REQUEST["lon"]; ?>;
-        var lat = <?php print $_REQUEST["lat"];?>;
-        var zoom = <?php print $_REQUEST["zoom"];?>;
+        var lat = <?php print $_REQUEST["lat"]; ?>;
+        var zoom = <?php print $_REQUEST["zoom"]; ?>;
 	var map;
     function get_osm_url (bounds) {
         var res = this.map.getResolution();

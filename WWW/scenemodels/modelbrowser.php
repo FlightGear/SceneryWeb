@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'inc/header.php';
 
 if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))){
   $offset=$_REQUEST['offset'];
@@ -61,4 +61,4 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
     </td>
   </tr>
 </table>
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

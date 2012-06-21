@@ -1,21 +1,21 @@
 <?php
-  require_once('../inc/functions.inc.php');
+  require_once('../../inc/functions.inc.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
   <title>Automated Models Submission Form</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" href="../../style.css" type="text/css"></link>
+  <link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
   <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-  <script type="text/javascript" src="../inc/jquery.multifile.js"></script>
+  <script type="text/javascript" src="../../inc/jquery.multifile.js"></script>
   <noscript>
     <meta http-equiv="refresh" content="0; URL=../inc/nojs.php">
   </noscript>
 </head>
 
 <body>
-  <?php include '../../header.php'; ?>
+  <?php include '../../inc/header.php'; ?>
 
   <script type="text/javascript">
     // This script is here to check for the consistency of the different fields of the form 
@@ -266,7 +266,7 @@
             <input type="checkbox" name="gpl"/> I accept to release all my contribution under GNU GENERAL PUBLIC LICENSE Version 2, June 1991.<br/>
             <?php
               // Google Captcha stuff
-              require_once('../captcha/recaptchalib.php');
+              require_once('../../captcha/recaptchalib.php');
               $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
               //echo recaptcha_get_html($publickey);
             ?>
@@ -296,5 +296,4 @@ $(document).ready(function(){
 
 });
 </script>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>

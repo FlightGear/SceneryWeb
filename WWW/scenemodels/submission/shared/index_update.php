@@ -2,7 +2,7 @@
 
 // Inserting libs
 
-require_once('../inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
 
@@ -17,15 +17,14 @@ if(!$ok)
 <head>
 	<title>Automated Shared Models Positions Update Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?
 }
 
@@ -38,10 +37,10 @@ else
 <head>
 	<title>Automated Shared Models Positions Update Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <script language="JavaScript">
 <!-- This script is here to check for the consistency of the different fields of the form -->
 
@@ -135,8 +134,7 @@ return (false);
 </table>
 </form>
 </p>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?php
 }
 ?>

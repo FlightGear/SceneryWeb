@@ -1,4 +1,4 @@
-<?php include("header.php");?>
+<?php include("inc/header.php");?>
 
 <script type="text/javascript">
   function popmap(lat,lon,zoom) {
@@ -88,4 +88,4 @@
       </td>
     </tr>
   </table>
-<?php include 'footer.php';?>
+<?php include 'inc/footer.php';?>

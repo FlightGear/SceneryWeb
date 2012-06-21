@@ -2,7 +2,7 @@
 
 // Inserting libs
 
-require_once('../inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
 
@@ -17,15 +17,14 @@ if(!$ok)
 <head>
 <title>Automated Shared Models Positions Mass Import Submission Form</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 <?
 }
 else
@@ -37,7 +36,7 @@ else
 <head>
 	<title>Automated Shared Models Positions Mass Import Submission Form</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../style.css" type="text/css"></link>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 	<script src="../ajax/update_objects.js" type ="text/javascript"></script>
 <script type='text/javascript'>
 function validField(fld) {
@@ -47,7 +46,7 @@ return true;
 </script>
 </head>
 <body>
-<?php include '../../header.php'; ?>
+<?php include '../../inc/header.php'; ?>
 <p>
 <h1 align="center">Positions Automated Mass Import Submission Form</h1>
 <b>Foreword:</b> This automated mass import form goal is to ease the submission when submitter want to add a lot of shared models positions into FG Scenery database. <br />There are currently <?php //count_objects(); ?>
@@ -76,7 +75,7 @@ Also note that all fields are now mandatory. Do not insert models not existing i
 			<center>
 			<?php
 			// Google Captcha stuff
-			require_once('../captcha/recaptchalib.php');
+			require_once('../../captcha/recaptchalib.php');
 			$publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
 			echo recaptcha_get_html($publickey);
 			?>
@@ -88,8 +87,7 @@ Also note that all fields are now mandatory. Do not insert models not existing i
 </table>
 </form>
 </p>
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
 
 <?php
 }

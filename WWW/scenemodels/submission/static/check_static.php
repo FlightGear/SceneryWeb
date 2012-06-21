@@ -1,6 +1,6 @@
 <?php
-require_once('../inc/functions.inc.php');
-require_once('../captcha/recaptchalib.php');
+require_once('../../inc/functions.inc.php');
+require_once('../../captcha/recaptchalib.php');
 
 $fatalerror = 0;
 $error      = 0;
@@ -22,12 +22,12 @@ if(!$resp->is_valid){
 <head>
   <title>Automated Models Submission Form</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" href="../../style.css" type="text/css"></link>
+  <link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
 </head>
 
 <body>
 <?php
-include '../../header.php';
+include '../../inc/header.php';
 
 ################################################
 ################################################
@@ -790,5 +790,4 @@ if($fatalerror || $error > 0){
 }
 ?>
 
-</body>
-</html>
+<?php include '../../inc/footer.php'; ?>
