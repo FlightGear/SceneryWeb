@@ -84,8 +84,9 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 	while ($row = pg_fetch_assoc($result))
 	{
 ?>
-<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $row["ob_lon"]; ?>&lat=<?php echo $row["ob_lat"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $row["ob_lon"]; ?>&lat=<?php echo $row["ob_lat"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe>
+&nbsp;
 <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>"/>
 </center>
 <?php

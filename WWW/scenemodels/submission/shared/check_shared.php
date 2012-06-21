@@ -83,6 +83,8 @@ $resp = recaptcha_check_answer ($privatekey,
 $false='0';
 global $false;
 
+echo "<center>";
+
 // Checking that family_id exists and is containing only figures.
 
 if((isset($_POST['family_name'])) && preg_match('/[0-9]/',$_POST['family_name']) && ($_POST['family_name']>'0'))
@@ -127,7 +129,7 @@ else
 
 // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
 
-// (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) && 
+// (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
 if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
 	{
 	$long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
@@ -263,6 +265,7 @@ if ($false==0) {
 	echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
 	echo "The FG community would like to thank you for your contribution!<br />";
 	echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a>";
+	echo "</center>";
 
 	// Sending mail if there is no false and SQL was correctly inserted.
 

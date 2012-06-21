@@ -59,8 +59,10 @@ else
 						</head>
 						<body>
 						<?php include '../../inc/header.php';
+						echo "<center>";
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
 						echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
+						echo "</center>";
 						include '../../inc/footer.php';
 						@pg_close($resource_rw);
 						exit;
@@ -98,8 +100,10 @@ else
 							</head>
 							<body>
 							<?php include '../../inc/header.php';
+							echo "<center>";							
 							echo "Signature found.<br /> Now processing query with request number ". $_GET[sig].".<br /><br />";
 							echo "<font color=\"red\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
+							echo "</center>";
 							
 							// Closing the rw connection.
 							include '../../inc/footer.php';
@@ -120,6 +124,7 @@ else
 							</head>
 							<body>
 							<?php include '../../inc/header.php';
+							echo "<center">;							
 							echo "Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_GET[sig].".<br /><br />";
 							echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
 							
@@ -131,7 +136,7 @@ else
 							
 							if(!resultdel)
 							{
-								echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
+								echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br /></center>";
 								// Closing the rw connection.
 
 								include '../../inc/footer.php';
@@ -141,7 +146,7 @@ else
 							}
 							else
 							{
-								echo "<font color=\"green\">Entry correctly deleted from the pending request table.</font>";
+								echo "<font color=\"green\">Entry correctly deleted from the pending request table.</font></center>";
 								
 								// Closing the rw connection.
 
@@ -240,8 +245,10 @@ else
 						</head>
 						<body>
 						<?php include '../../inc/header.php';
+						echo "<center>\n";						
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?</font><br />\n";
 						echo "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.<br />";
+						echo "</center>";
 						include '../../inc/footer.php';
 						@pg_close($resource_rw);
 						exit;
@@ -266,8 +273,10 @@ else
 							</head>
 							<body>
 							<?php include '../../inc/header.php';
+							echo "<center>\n";
 							echo "Signature found.<br /> Now deleting request with number ". $_GET[sig].".<br />";
-							echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
+							echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />\n";
+							echo "</center>\n";
 							
 							// Closing the rw connection.
 
@@ -288,8 +297,10 @@ else
 							</head>
 							<body>
 							<?php include '../../inc/header.php';
+							echo "<center>";							
 							echo "Signature found.<br />Now deleting request with number ". $_GET[sig].".<br />";
 							echo "<font color=\"green\">Entry has correctly been deleted from the pending requests table.</font>";
+							echo "</center>";
 										
 							// Closing the rw connection.
 
