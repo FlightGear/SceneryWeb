@@ -485,21 +485,8 @@ else
 	echo "<font color=\"red\">Longitude mismatch!</font><br />";
 	$false = '1';
 }
-
-// Checking that comment exists. Just a small verification as it's not going into DB.
-
-// && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
-if((isset($_POST['comment'])) && ((strlen($_POST['comment']))>0) && ((strlen($_POST['comment']))<=100)) 
-	{
-	$sent_comment = pg_escape_string(stripslashes($_POST['comment']));
-	}
-else
-	{
-	echo "<font color=\"red\">Comment mismatch!</font><br />";
-	$false='1';
-	}
 	
-// If there is no false, generating SQL to be inserted into the database pending requests table.
+// If there is no false, generating SQL to check for object.
 
 if ($false==0)
 {
