@@ -6,8 +6,7 @@ Bug/security fixing:
 - Detect if submitting an already existing object.
 - ob_text workaround for mass import (object_name($model_id)).
 - Sanitize comments +lat/long content (Javascript + strip tags).
-- In the update form (eg Fence_80 at -4.1862986 47.9750436, chimneys, it's the same for buildings), it seems that the Object's family field is
-  sometimes blank, while it should definitely return something. Moreover, the (eventually former) Object family and model name should be selected
+- In the update form the (eventually former) Object family and model name should be selected
   by default.
 
 Features updates (by priority):

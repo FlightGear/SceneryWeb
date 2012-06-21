@@ -36,8 +36,8 @@ $resp = recaptcha_check_answer ($privatekey,
 	<?php include '../../inc/header.php'; ?>
 	<br />
 	<?
-	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
-         "<br />(reCAPTCHA complained: " . $resp->error . ")");
+	die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
+         "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
 	}
   else {
 
@@ -311,7 +311,7 @@ return (false);
 
 		else
 		{
-		echo "<br /><font color='red'>Sorry but the database is currently unavailable, please come again soon.</font>";
+		echo "<br /><center><font color='red'>Sorry but the database is currently unavailable, please come again soon.</font></center>";
 		}
 		?>
 					</td>
@@ -357,11 +357,11 @@ return (false);
 					<span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span>
 					</td>
 					<td>
-					<?php $old_gndelev = $_POST[gnd_elev]; echo $old_gndelev; ?>
-					<input type="hidden" name="old_gndelev" maxlength="10" value="<?php echo $old_gndelev; ?>" />
+					<?php $actual_elevation = get_elevation_from_id($id_to_update); ?>
+					<input type="hidden" name="old_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" />
 					</td>
 					<td>
-					<input type="text" name="gndelev" maxlength="10" value="<?php echo $old_gndelev; ?>" onBlur="checkNumeric(this,-10000,10000,'.');" />
+					<input type="text" name="gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onBlur="checkNumeric(this,-10000,10000,'.');" />
 					</td>
 					</tr>
 					<tr>
@@ -369,11 +369,11 @@ return (false);
 					<span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span>
 					</td>
 					<td>
-					<?php $old_offset = $_POST[offset]; echo $old_offset; ?>
-					<input type="hidden" name="old_offset" value="<?php echo $old_offset; ?>" />
+					<?php $actual_offet = get_offset_from_id($id_to_update); ?>
+					<input type="hidden" name="old_offset" value="<?php echo $actual_offset; ?>" />
 					</td>
 					<td>
-					<input type="text" name="offset" maxlength="10" value="<?php echo $old_offset; ?>" onBlur="checkNumeric(this,-10000,10000,'.');" />
+					<input type="text" name="offset" maxlength="10" value="<?php echo $actual_offset; ?>" onBlur="checkNumeric(this,-10000,10000,'.');" />
 					</td>
 					</tr>
 					<tr>
@@ -381,11 +381,11 @@ return (false);
 					<span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span>
 					</td>
 					<td>
-					<?php $old_orientation = heading_true_to_stg($_POST[orientation]); echo $old_orientation; ?>
-					<input type="hidden" name="old_orientation" value="<?php echo $old_orientation; ?>" />
+					<?php $actual_orientation = heading_true_to_stg(get_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
+					<input type="hidden" name="old_orientation" value="<?php echo $actual_orientation; ?>" />
 					</td>
 					<td>
-					<input type="text" name="orientation" maxlength="7" value="<?php echo $old_orientation; ?>" onBlur="checkNumeric(this,0,359.999,'.');" />
+					<input type="text" name="orientation" maxlength="7" value="<?php echo $actual_orientation; ?>" onBlur="checkNumeric(this,0,359.999,'.');" />
 					</td>
 					</tr>
 					<tr>

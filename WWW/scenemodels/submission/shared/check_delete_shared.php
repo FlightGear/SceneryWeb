@@ -37,8 +37,8 @@ $resp = recaptcha_check_answer ($privatekey,
 	<?php include '../../inc/header.php'; ?>
 	<br />
 	<?
-	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>." .
-         "<br />(reCAPTCHA complained: " . $resp->error . ")");
+	die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a><" .
+         "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
 	include '../../inc/header.php';
 	}
   else {
@@ -57,7 +57,7 @@ $resp = recaptcha_check_answer ($privatekey,
 <br /><br />
 <?php
 	$id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
-	echo "<font color=\"green\">You have asked to delete object #".$id_to_delete."</font><br />";
+	echo "<center><font color=\"green\">You have asked to delete object #".$id_to_delete."</font></center><br />";
 		
 	// Preparing the deletion request
 	

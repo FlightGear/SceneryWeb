@@ -196,6 +196,84 @@ function object_model_from_object_id($ob_id)
 	return($mo_id);
 }
 
+// Get the object elevation from an ob_id sent as parameter
+// ========================================================
+
+function get_elevation_from_id($ob_id)
+{
+	
+	// Connecting to the database.
+	
+	$headerlink_family = connect_sphere_r();
+	
+	// Querying...
+	
+	$query = "select ob_gndelev from fgs_objects where ob_id=".$ob_id.";";
+	$result = @pg_query($headerlink_family,$query);
+	
+	while($row = @pg_fetch_assoc($result))
+	{
+    	return $row["ob_gndelev"];
+	}
+
+	// Closing the connection.
+
+	@pg_close($headerlink_family);	
+}
+
+// Get the object offset from an ob_id sent as parameter
+// =====================================================
+
+function get_offset_from_id($ob_id)
+{
+	
+	// Connecting to the database.
+	
+	$headerlink_family = connect_sphere_r();
+	
+	// Querying...
+	
+	$query = "select ob_elevoffset from fgs_objects where ob_id=".$ob_id.";";
+	$result = @pg_query($headerlink_family,$query);
+	
+	while($row = @pg_fetch_assoc($result))
+	{
+	if(($row["ob_elevoffset"])=="") {
+	return(0);
+	}
+	else return($row["ob_elevoffset"]);
+	}
+
+	// Closing the connection.
+
+	@pg_close($headerlink_family);	
+}
+
+// Get the true object orientation from an ob_id sent as parameter
+// ===============================================================
+
+function get_true_orientation_from_id($ob_id)
+{
+	
+	// Connecting to the database.
+	
+	$headerlink_family = connect_sphere_r();
+	
+	// Querying...
+	
+	$query = "select ob_heading from fgs_objects where ob_id=".$ob_id.";";
+	$result = @pg_query($headerlink_family,$query);
+	
+	while($row = @pg_fetch_assoc($result))
+	{
+    	return $row["ob_heading"];
+	}
+
+	// Closing the connection.
+
+	@pg_close($headerlink_family);	
+}
+
 // Returns the number of objects in the database.
 // ==============================================
 

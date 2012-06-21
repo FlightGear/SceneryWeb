@@ -62,8 +62,8 @@ $resp = recaptcha_check_answer ($privatekey,
 	<?php include '../../inc/header.php'; ?>
 	<br />
 	<?
-	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
-         "<br />(reCAPTCHA complained: " . $resp->error . ")");
+	die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
+         "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
 	include '../../inc/footer.php';
 	}
   else {
