@@ -357,7 +357,7 @@ return (false);
 					<span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span>
 					</td>
 					<td>
-					<?php $actual_elevation = get_elevation_from_id($id_to_update); ?>
+					<?php $actual_elevation = get_elevation_from_id($id_to_update); echo $actual_elevation; ?>
 					<input type="hidden" name="old_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" />
 					</td>
 					<td>
@@ -369,7 +369,7 @@ return (false);
 					<span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span>
 					</td>
 					<td>
-					<?php $actual_offset = get_offset_from_id($id_to_update); ?>
+					<?php $actual_offset = get_offset_from_id($id_to_update); echo $actual_offset; ?>
 					<input type="hidden" name="old_offset" value="<?php echo $actual_offset; ?>" />
 					</td>
 					<td>
@@ -389,8 +389,8 @@ return (false);
 					</td>
 					</tr>
 					<tr>
-					<td colspan="2"><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it"><a style="cursor: help">Comment</a></span></td>
-					<td>
+					<td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it"><a style="cursor: help">Comment</a></span></td>
+					<td colspan="2">
 					<input type="text" name="comment" maxlength="100" size="40" value="" />
 					</td>
 					</tr>
