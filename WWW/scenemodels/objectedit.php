@@ -32,11 +32,11 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
 	<td>Ground Elevation</td>
-	<td><?php if (isset($object["ob_gndelev"])) print $object["ob_gndelev"]; ?></td>
+	<td><?php $elevation = get_elevation_from_id($id); echo $elevation; ?></td>
 </tr>
 <tr>
 	<td>Elevation Offset</td>
-	<td><?php if (isset($object["ob_elevoffset"])) print $object["ob_elevoffset"]; ?></td>
+	<td><?php $offset = get_offset_from_id($id); echo $offset; ?></td>
 </tr>
 <tr>
 	<td>Heading</td>
