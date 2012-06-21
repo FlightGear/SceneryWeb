@@ -87,15 +87,15 @@ $resp = recaptcha_check_answer ($privatekey,
 <?php
 	if(!$resultrw)
 	{
-	echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
+	echo "<center>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></center>";
 	exit;
 	}
 	else
 	{
-	echo "Your update request has been successfully queued into the FG scenery database update requests!<br />";
+	echo "<center>Your update request has been successfully queued into the FG scenery database update requests!<br />";
 	echo "Unless it's rejected, the object should be updated in Terrasync within a few days.<br />";
 	echo "The FG community would like to thank you for your contribution!<br />";
-	echo "Want to update, delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a>";
+	echo "Want to update, delete or submit another position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></center>";
 
 	// Sending mail if there is no false and SQL was correctly inserted.
 
@@ -258,15 +258,15 @@ return (false);
 <br /><br />
 <?php
 	$id_to_update = pg_escape_string(stripslashes($_POST['update_choice']));
-	echo "You have asked to update object #".$id_to_update."<br /><br />";
+	echo "<center>You have asked to update object #".$id_to_update."</center><br /><br />";
 	
 ?>
 		<form name="update" method="post" action="check_update_shared.php">
 		<table>
 		<tr>
 		<td></td>
-		<td>Actual value</td>
-		<td>New value</td>
+		<td><center>Actual value</center></td>
+		<td><center>New value</center></td>
 		<input type="hidden" name="id_to_update" value="<?php echo $_POST['update_choice']?>" />
 		</tr>
 		<tr>
@@ -369,7 +369,7 @@ return (false);
 					<span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span>
 					</td>
 					<td>
-					<?php $actual_offet = get_offset_from_id($id_to_update); ?>
+					<?php $actual_offset = get_offset_from_id($id_to_update); ?>
 					<input type="hidden" name="old_offset" value="<?php echo $actual_offset; ?>" />
 					</td>
 					<td>
@@ -389,7 +389,7 @@ return (false);
 					</td>
 					</tr>
 					<tr>
-					<td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it"><a style="cursor: help">Comment</a></span></td>
+					<td colspan="2"><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it"><a style="cursor: help">Comment</a></span></td>
 					<td>
 					<input type="text" name="comment" maxlength="100" size="40" value="" />
 					</td>

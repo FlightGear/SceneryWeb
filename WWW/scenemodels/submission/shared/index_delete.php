@@ -106,8 +106,7 @@ return (false);
 
 <p>
 <h1 align="center">Positions Automated Deletion Form</h1>
-<b>Foreword:</b> This automated form goal is to ease the deletion of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>
- objects in the database.
+<center><b>Foreword:</b> This automated form goal is to ease the deletion of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>  objects in the database.</center>
 <br /><br />
 <form name="deletion" method="post" action="check_delete_shared.php">
 <table>
