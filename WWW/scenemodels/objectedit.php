@@ -19,11 +19,11 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <table border="1" align="center">
 <tr>
 	<td>Latitude</td>
-	<td><?php if (isset($object["ob_lat"])) print $object["ob_lat"]; ?>/></td>
+	<td><?php if (isset($object["ob_lat"])) print $object["ob_lat"]; ?></td>
 <tr>
 <tr>
 	<td>Longitude</td>
-	<td><?php if (isset($object["ob_lon"])) print $object["ob_lon"]; ?>/></td>
+	<td><?php if (isset($object["ob_lon"])) print $object["ob_lon"]; ?></td>
 </tr>
 <tr>
 	<td>Country</td>
@@ -43,15 +43,15 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
 	<td>Ground Elevation</td>
-	<td><?php if (isset($object["ob_gndelev"])) print $object["ob_gndelev"]; ?>/></td>
+	<td><?php if (isset($object["ob_gndelev"])) print $object["ob_gndelev"]; ?></td>
 </tr>
 <tr>
 	<td>Elevation Offset</td>
-	<td><?php if (isset($object["ob_elevoffset"])) print $object["ob_elevoffset"]; ?>/></td>
+	<td><?php if (isset($object["ob_elevoffset"])) print $object["ob_elevoffset"]; ?></td>
 </tr>
 <tr>
 	<td>Heading</td>
-	<td><?php if (isset($object["ob_heading"])) print $object["ob_heading"]; ?>/></td>
+	<td><?php if (isset($object["ob_heading"])) print $object["ob_heading"]; ?></td>
 </tr>
 <tr>
 	<td>Group</td>
@@ -87,7 +87,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
 	<td>Description</td>
-	<td><?php if (isset($object["ob_text"])) print $object["ob_text"]; ?>/></td>
+	<td><?php if (isset($object["ob_text"])) print $object["ob_text"]; ?></td>
 </tr>
 <tr><td>
 <?php
@@ -96,17 +96,17 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 	while ($row = pg_fetch_assoc($result))
 	{
 ?>
-<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $row["ob_lat"]; ?>&lat=<?php echo $row["ob_lon"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $row["ob_lon"]; ?>&lat=<?php echo $row["ob_lat"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe>
 <?php
         }
 ?>
 	<td align="center">
-	<form name="update" method="post" action="submission/check_update_shared.php">
+	<form name="update" method="post" action="submission/shared/check_update_shared.php">
 	<?php echo "<input name=\"update_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$id."\" />"; ?>
 	<input type="submit" name="submit" value="Update this object"/>
 	</form>
-	<form name="delete" method="post" action="submission/check_delete_shared.php">
+	<form name="delete" method="post" action="submission//shared/check_delete_shared.php">
 	<?php echo "<input name=\"delete_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$id."\" />"; ?>
 	<input type="submit" name="submit" value="Delete this object"/>
 	</form>
