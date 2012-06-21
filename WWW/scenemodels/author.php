@@ -1,16 +1,10 @@
 <?php 
-$link=pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 {       $id=$_REQUEST['id'];
 }
 
 ?>
 
-<html>
-<head>
-<link rel="stylesheet" href="style.css" type="text/css">
-</head>
-<body>
 <?php include 'header.php';?>
 <h1 align="center">Scenery Author Details</h1>
 <form>

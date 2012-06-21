@@ -4,7 +4,7 @@
   <head>
     <title>Automated Scenery Objects Submission Forms</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="../style.css" type="text/css"></link>
+    <link rel="stylesheet" href="../css/style.css" type="text/css"></link>
   </head>
   <body>
   <?php include '../header.php'; ?>
