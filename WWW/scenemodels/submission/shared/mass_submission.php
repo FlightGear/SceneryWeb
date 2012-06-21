@@ -60,7 +60,7 @@ else
 						<?php include '../../inc/header.php';
 						echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
 						echo "Else, please report to devel ML or FG Scenery forum.<br />.";
-						<?php include '../../inc/footer.php'; ?>
+						include '../../inc/footer.php';
 						@pg_close($resource_rw);
 						exit;
 					}
@@ -189,7 +189,7 @@ else
 				<?php include '../../inc/header.php';
 				echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?</font><br />\n";
 				echo "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.<br />";
-				<?php include '../../inc/footer.php'; ?>
+				include '../../inc/footer.php';
 				@pg_close($resource_rw);
 				exit;
 				}

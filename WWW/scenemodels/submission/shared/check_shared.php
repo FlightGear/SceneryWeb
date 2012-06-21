@@ -64,7 +64,7 @@ $resp = recaptcha_check_answer ($privatekey,
 	<?
 	die ("Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
          "<br />(reCAPTCHA complained: " . $resp->error . ")");
-	<?php include '../../inc/footer.php'; ?>
+	include '../../inc/footer.php';
 	}
   else {
 	?>
