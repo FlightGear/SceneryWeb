@@ -1,11 +1,4 @@
 <?php include 'header.php';?>
-
-<script type="text/javascript">
-function popmap(lat,lon) {
-        popup = window.open("/maps?zoom=12&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
-	popup.focus();
-}
-</script>
 <h1 align="center">FlightGear Scenery Model Directory</h1>
 <?php
 
@@ -28,17 +21,13 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <tr>
 	<td>Country</td>
 	<td>
-		<select name="country">
-	        <?php
+		<?php
 	        	$result=pg_query("select * from fgs_countries;");
 	                while ($row = pg_fetch_assoc($result))
 	                {
-	                	print "<option value=\"".$row["co_code"]."\"";
-	                	if ($object["ob_country"]==$row["co_code"]) print " selected";
-	                	print ">".$row["co_name"]."\n";
+	                	if ($object["ob_country"]==$row["co_code"]) print $row["co_name"];
 	                }
 	        ?>
-	        </select>
 	</td>
 </tr>
 <tr>
@@ -72,24 +61,22 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <tr>
 	<td>Model</td>
 	<td>
-		<select name="model">
-	        <?php
+		<?php
 	        	$result=pg_query("select mo_id,mo_path from fgs_models;");
 	                while ($row = pg_fetch_assoc($result))
 	                {
-	                	print "<option value=\"".$row["mo_id"]."\"";
-	                	if ($object["ob_model"]==$row["mo_id"]) print " selected";
-	                	print ">".$row["mo_path"]."\n";
+	                	// print "<option value=\"".$row["mo_id"]."\"";
+	                	if ($object["ob_model"]==$row["mo_id"]) print $row["mo_path"];
 	                }
 	        ?>
-	        </select>
 	</td>
 </tr>
 <tr>
 	<td>Description</td>
 	<td><?php if (isset($object["ob_text"])) print $object["ob_text"]; ?></td>
 </tr>
-<tr><td>
+<tr><td>Geographical and model informations</td>
+<td>
 <?php
 	$id=$_REQUEST['id'];
 	$result=pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
@@ -98,15 +85,19 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 ?>
 <iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $row["ob_lon"]; ?>&lat=<?php echo $row["ob_lat"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe>
+<img src="modelthumb.php?id="<?php echo $object["ob_model"]; ?>"/>
 <?php
         }
 ?>
-	<td align="center">
+<img src="2059">
+	</td>
+<tr>
+<td colspan="2" align="center">
 	<form name="update" method="post" action="submission/shared/check_update_shared.php">
 	<?php echo "<input name=\"update_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$id."\" />"; ?>
 	<input type="submit" name="submit" value="Update this object"/>
 	</form>
-	<form name="delete" method="post" action="submission//shared/check_delete_shared.php">
+	<form name="delete" method="post" action="submission/shared/check_delete_shared.php">
 	<?php echo "<input name=\"delete_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$id."\" />"; ?>
 	<input type="submit" name="submit" value="Delete this object"/>
 	</form>
