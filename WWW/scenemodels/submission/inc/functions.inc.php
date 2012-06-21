@@ -148,12 +148,11 @@ function family_name_from_object_id($ob_id)
 	
 	// Querying...
 	
-	$query1 = "select ob_model from fgsoj_objects where ob_id=".$ob_id.";";
+	$query1 = "select ob_model from fgs_objects where ob_id=".$ob_id.";";
 	$result = @pg_query($headerlink_family,$query1);
 	
-	while($row = @pg_fetch_assoc($result))
-	{
-    $mo_id=$row["ob_model"];
+	while($row = @pg_fetch_assoc($result)) {
+	$mo_id=$row["ob_model"];
 	$query2 = "select mo_shared from fgs_models where mo_id=".$mo_id.";";
 	$result2 = @pg_query($headerlink_family,$query2);
 		
@@ -182,7 +181,7 @@ function object_model_from_object_id($ob_id)
 	
 	// Querying...
 	
-	$query1 = "select ob_model from fgsoj_objects where ob_id=".$ob_id.";";
+	$query1 = "select ob_model from fgs_objects where ob_id=".$ob_id.";";
 	$result = @pg_query($headerlink_family,$query1);
 	
 	while($row = @pg_fetch_assoc($result))
@@ -381,8 +380,8 @@ function model_exists($model_name)
 function ob_model_from_name($model_name)
 {	
 	$mg_id=pg_escape_string($model_name);
-	$tab_path = explode("/",$mg_id); 								// Explodes the fields of the string separated by /
-	$max_tab_path = count($tab_path);								// Counts the number of fields.
+	$tab_path = explode("/",$mg_id); 						// Explodes the fields of the string separated by /
+	$max_tab_path = count($tab_path);						// Counts the number of fields.
 	$queried_mo_path=$tab_path[$max_tab_path-1];					// Returns the last field value.
 		
 	// Connecting to the database.
@@ -473,6 +472,8 @@ function ShowFileExtension($filepath)
             return($matches[0]);
         }
 }
+
+// Deletes a directory sent in parameter
 
 function clearDir($dossier)
 {
