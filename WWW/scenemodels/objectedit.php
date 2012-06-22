@@ -90,9 +90,6 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 &nbsp;
 <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>"/>
 </center>
-<?php
-    }
-?>
     </td>
 <tr>
 <td colspan="2" align="center">
