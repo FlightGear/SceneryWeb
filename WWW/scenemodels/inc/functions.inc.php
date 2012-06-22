@@ -210,6 +210,7 @@ function get_object_latitude_from_id($ob_id)
     @pg_close ($headerlink_family);
     
     return ($ob_lat);
+}
     
 // Returns the object longitude from an ob_id sent as parameter
 // ============================================================
@@ -236,6 +237,7 @@ function get_object_longitude_from_id($ob_id)
     @pg_close ($headerlink_family);
     
     return ($ob_long);
+}
 
 // Get the object elevation from an ob_id sent as parameter
 // ========================================================
