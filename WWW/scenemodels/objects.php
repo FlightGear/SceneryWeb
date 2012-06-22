@@ -1,6 +1,4 @@
 <?php 
-  $link=pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass);
-                
   if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))){
     $offset = $_REQUEST['offset'];
   }else{

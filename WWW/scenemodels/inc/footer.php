@@ -7,8 +7,8 @@
 $filename = '/home/fgscenery/WWW/.git/ORIG_HEAD';
 if (file_exists($filename))
 {
-$result = file_get_contents($filename);
-echo "Version&nbsp;".substr($result,0,7)."&nbsp;-&nbsp;" . date("F d Y H:i", filemtime($filename)) ."&nbsp;-&nbsp;";
+    $result = file_get_contents($filename);
+    echo "Version&nbsp;".substr($result,0,7)."&nbsp;-&nbsp;" . date("F d Y H:i", filemtime($filename)) ."&nbsp;-&nbsp;";
 }
 
 ?>
