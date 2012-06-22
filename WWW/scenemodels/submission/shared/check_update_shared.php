@@ -274,7 +274,7 @@ return (false);
 		<span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span>
 		</td>
 		<td>
-		<?php $actual_family = get_family_from_id($id_to_update); echo $actual_family; ?>
+		<?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
 		<input type="hidden" name="old_family" value="<?php echo $old_family; ?>" />
 		</td>
 		<td>
@@ -411,6 +411,7 @@ return (false);
 					</tr>
 				</table>
 				</form>
+				<?php include '../../inc/footer.php'; ?>
 <?php
 }
 else
@@ -464,10 +465,8 @@ global $false;
 if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])<=13)) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
 	{
 	$lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
-	echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
 	}
-else
-{
+else {
 	echo "<font color=\"red\">Latitude mismatch!</font><br />";
 	$false='1';
 }
@@ -478,10 +477,8 @@ else
 if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13) && ($_POST['longitude']>='-180') && ($_POST['longitude']<='180'))
 	{
 	$long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
-	echo "<font color=\"green\">Longitude: ".$long."</font><br />";
 	}
-else
-{
+else {
 	echo "<font color=\"red\">Longitude mismatch!</font><br />";
 	$false = '1';
 }
@@ -490,7 +487,6 @@ else
 
 if ($false==0)
 {
-	echo "<br /><font color=\"green\">Data seems to be OK to be updated from the database</font><br />";
 	
 	// Opening database connection...
 
