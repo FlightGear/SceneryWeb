@@ -10,9 +10,9 @@ require_once('inc/functions.inc.php');
 
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 {   
-    $id=$_REQUEST['id'];
-    $result=pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
-    $object=pg_fetch_assoc($result);
+    $id = $_REQUEST['id'];
+    $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
+    $object = pg_fetch_assoc($result);
 };
 ?>
 <input type="hidden" name="id" value=<?php if (isset($id)) print $id;?>/>
@@ -39,15 +39,15 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
     <td>Ground Elevation</td>
-    <td><?php $elevation = get_elevation_from_id($id); echo $elevation; ?></td>
+    <td><?php $elevation = get_object_elevation_from_id($id); echo $elevation; ?></td>
 </tr>
 <tr>
     <td>Elevation Offset</td>
-    <td><?php $offset = get_offset_from_id($id); echo $offset; ?></td>
+    <td><?php $offset = get_object_offset_from_id($id); echo $offset; ?></td>
 </tr>
 <tr>
     <td>Heading</td>
-    <td><?php if (isset($object["ob_heading"])) print $object["ob_heading"]; ?></td>
+    <td><?php $heading = get_object_true_orientation_from_id($id); echo $heading; ?></td>
 </tr>
 <tr>
     <td>Group</td>
@@ -85,13 +85,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <tr><td>Geographical and model informations</td>
 <td>
 <center>
-<?php
-    $id=$_REQUEST['id'];
-    $result=pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
-    while ($row = pg_fetch_assoc($result))
-    {
-?>
-<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $row["ob_lon"]; ?>&lat=<?php echo $row["ob_lat"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $object["ob_lon"]; ?>&lat=<?php echo $object["ob_lat"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe>
 &nbsp;
 <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>"/>
