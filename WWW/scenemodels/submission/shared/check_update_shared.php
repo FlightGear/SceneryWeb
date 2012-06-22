@@ -325,7 +325,7 @@ return (false);
 					<input type="hidden" name="old_model_name" value="<?php echo $old_model_name; ?>" />
 					</td>
 					<td>
-					<?php echo "<div id=\"form_objects\"></div>"; ?>
+					<<?php echo $old_model_name; ?>
 					</td>
 					</tr>
 					<tr>
@@ -391,7 +391,7 @@ return (false);
 					<tr>
 					<td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it"><a style="cursor: help">Comment</a></span></td>
 					<td colspan="2">
-					<input type="text" name="comment" maxlength="100" size="40" value="" />
+					<center><input type="text" name="comment" maxlength="100" size="40" value="" /></center>
 					</td>
 					</tr>
 					<tr>

@@ -9,7 +9,7 @@
 </p>
 
 <br/><br/>
-
+<center>
 <img src="download.png" width="720" height="450" usemap="#map" alt="Map"/>
 <map name="map">
 <area shape="rect" coords="360,200,380,225" href="/download/GlobalObjects.tgz" alt="GlobalObjects.tgz  3.97 Mb  10/15/2005"/>
@@ -322,7 +322,7 @@
 <area shape="rect" coords="0,275,20,300" href="/download/w180s30.tgz" alt="w180s30.tgz  0.00 Mb  10/15/2005"/>
 <area shape="rect" coords="0,325,20,350" href="/download/w180s50.tgz" alt="w180s50.tgz  0.00 Mb  10/15/2005"/>
 </map>
-
+</center>
 <p>
   In your scenery directory create directories called Objects and Terrain.<br/><br/>
   Unpack the files from this site in the Objects directory, and the <a href="http://www.flightgear.org/Downloads/scenery-1.0.1.html">FlightGear scenery</a> files into the Terrain directory.

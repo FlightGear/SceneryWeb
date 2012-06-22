@@ -1,4 +1,10 @@
-<?php include 'inc/header.php';?>
+<?php include 'inc/header.php';
+
+// Inserting libs
+
+require_once('inc/functions.inc.php');
+
+?>
 <h1 align="center">FlightGear Scenery Model Directory</h1>
 <?php
 
