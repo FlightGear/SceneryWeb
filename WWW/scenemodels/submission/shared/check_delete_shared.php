@@ -127,7 +127,7 @@ $resp = recaptcha_check_answer ($privatekey,
 
 	// Correctly format the data for the mail.
 	
-	$family_name = family_name_from_object_id($id_to_delete);
+	$family_name = get_object_family_from_id($id_to_delete);
 	$model_id = object_model_from_object_id($id_to_delete);
 	$model_name = object_name($model_id);
 	$object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
@@ -301,7 +301,7 @@ if ($false==0)
 		<table>
 		<tr>
 			<td><span title="This is the family name of the object you want to delete."><a style="cursor: help;">Object's family</a></span></td>
-			<td colspan="4"><?php $family_name = family_name_from_object_id($row[0]); echo $family_name; ?></td>		
+			<td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>		
 		</tr>
 		<tr>
 			<td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
@@ -389,7 +389,7 @@ if ($false==0)
 				?>
 				</th>
 				<td><span title="This is the family name of the object you want to delete."><a style="cursor: help;">Object's family</a></span></td>
-				<td colspan="4"><?php $family_name = family_name_from_object_id($row[0]); echo $family_name; ?></td>
+				<td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
 			</tr>
 			<tr>
 				<td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>

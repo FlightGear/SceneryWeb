@@ -274,7 +274,7 @@ return (false);
 		<span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span>
 		</td>
 		<td>
-		<?php $old_family=family_name_from_object_id($_POST['update_choice']); echo $old_family; ?>
+		<?php $actual_family = get_family_from_id($id_to_update); echo $actual_family; ?>
 		<input type="hidden" name="old_family" value="<?php echo $old_family; ?>" />
 		</td>
 		<td>
@@ -321,11 +321,11 @@ return (false);
 					<span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span>
 					</td>
 					<td>
-					<?php $old_model_name=object_name($_POST['model_id']);  echo $old_model_name; ?>
-					<input type="hidden" name="old_model_name" value="<?php echo $old_model_name; ?>" />
+					<?php $actual_model_name = get_object_model_from_id($id_to_update);  echo $actual_model_name; ?>
+					<input type="hidden" name="old_model_name" value="<?php echo $actual_model_name; ?>" />
 					</td>
 					<td>
-					<<?php echo $old_model_name; ?>
+					<?php echo $actual_model_name; ?>
 					</td>
 					</tr>
 					<tr>
@@ -333,11 +333,11 @@ return (false);
 					<span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span>
 					</td>
 					<td>
-					<?php $old_long = $_POST[long]; echo $old_long; ?>
-					<input type="hidden" name="old_long" value="<?php echo $old_long; ?>" />
+					<?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
+					<input type="hidden" name="old_long" value="<?php echo $actual_long; ?>" />
 					</td>
 					<td>
-					<input type="text" name="longitude" maxlength="13" value="<?php echo $old_long; ?>" onBlur="checkNumeric(this,-180,180,'.');" />
+					<input type="text" name="longitude" maxlength="13" value="<?php echo $actual_long; ?>" onBlur="checkNumeric(this,-180,180,'.');" />
 					</td>
 					</tr>
 					<tr>
@@ -345,11 +345,11 @@ return (false);
 					<span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span>
 					</td>
 					<td>
-					<?php $old_lat = $_POST[lat]; echo $old_lat; ?>
-					<input type="hidden" name="old_lat" value="<?php echo $old_lat; ?>" />
+					<?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
+					<input type="hidden" name="old_lat" value="<?php echo $actual_lat; ?>" />
 					</td>
 					<td>
-					<input type="text" name="latitude" maxlength="13" value="<?php echo $old_lat; ?>" onBlur="checkNumeric(this,-90,90,'.'); /">
+					<input type="text" name="latitude" maxlength="13" value="<?php echo $actual_lat; ?>" onBlur="checkNumeric(this,-90,90,'.'); /">
 					</td>
 					</tr>
 					<tr>
@@ -357,7 +357,7 @@ return (false);
 					<span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span>
 					</td>
 					<td>
-					<?php $actual_elevation = get_elevation_from_id($id_to_update); echo $actual_elevation; ?>
+					<?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
 					<input type="hidden" name="old_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" />
 					</td>
 					<td>
@@ -369,7 +369,7 @@ return (false);
 					<span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span>
 					</td>
 					<td>
-					<?php $actual_offset = get_offset_from_id($id_to_update); echo $actual_offset; ?>
+					<?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
 					<input type="hidden" name="old_offset" value="<?php echo $actual_offset; ?>" />
 					</td>
 					<td>
@@ -381,7 +381,7 @@ return (false);
 					<span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span>
 					</td>
 					<td>
-					<?php $actual_orientation = heading_true_to_stg(get_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
+					<?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
 					<input type="hidden" name="old_orientation" value="<?php echo $actual_orientation; ?>" />
 					</td>
 					<td>
@@ -520,7 +520,7 @@ if ($false==0)
 				<table>
 					<tr>
 						<td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
-						<td colspan="4"><?php $family_name = family_name_from_object_id($row[0]); echo $family_name; ?></td>		
+						<td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>		
 					</tr>
 					<tr>
 						<td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
@@ -606,7 +606,7 @@ if ($false==0)
 							?>
 						</th>
 						<td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
-						<td colspan="4"><?php $family_name = family_name_from_object_id($row[0]); echo $family_name; ?></td>
+						<td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
 					</tr>
 					<tr>
 						<td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>

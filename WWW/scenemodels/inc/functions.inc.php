@@ -129,7 +129,7 @@ function object_name($id_object)
 // Returns the name of the family of an ob_id sent as parameter
 // ============================================================
 
-function family_name_from_object_id($ob_id)
+function get_object_family_from_id($ob_id)
 {
     $mg_id = pg_escape_string($ob_id);
     
@@ -161,9 +161,9 @@ function family_name_from_object_id($ob_id)
 // Returns the object model from an ob_id sent as parameter
 // ========================================================
 
-function object_model_from_object_id($ob_id)
+function get_object_model_from_id($ob_id)
 {
-    $mg_id=pg_escape_string($ob_id);
+    $mg_id = pg_escape_string($ob_id);
     
     // Connecting to the database.
     
@@ -185,10 +185,62 @@ function object_model_from_object_id($ob_id)
     return ($mo_id);
 }
 
+// Returns the object latitude from an ob_id sent as parameter
+// ===========================================================
+
+function get_object_latitude_from_id($ob_id)
+{
+    $mg_id = pg_escape_string($ob_id);
+    
+    // Connecting to the database.
+    
+    $headerlink_family = connect_sphere_r();
+    
+    // Querying...
+        
+    $query = "select ST_Y(wkb_geometry) AS ob_lat from fgs_objects where ob_id=".$ob_id.";";
+    $result = @pg_query($headerlink_family,$query);
+    
+    while($row = @pg_fetch_assoc($result)) {
+        $ob_lat = $row["ob_lat"];
+    }
+
+    // Closing the connection.
+
+    @pg_close ($headerlink_family);
+    
+    return ($ob_lat);
+    
+// Returns the object longitude from an ob_id sent as parameter
+// ============================================================
+
+function get_object_longitude_from_id($ob_id)
+{
+    $mg_id = pg_escape_string($ob_id);
+    
+    // Connecting to the database.
+    
+    $headerlink_family = connect_sphere_r();
+    
+    // Querying...
+    
+    $query = "select ST_X(wkb_geometry) AS ob_lon from fgs_objects where ob_id=".$ob_id.";";
+    $result = @pg_query($headerlink_family,$query);
+    
+    while($row = @pg_fetch_assoc($result)) {
+        $ob_long = $row["ob_lon"];
+    }
+
+    // Closing the connection.
+
+    @pg_close ($headerlink_family);
+    
+    return ($ob_long);
+
 // Get the object elevation from an ob_id sent as parameter
 // ========================================================
 
-function get_elevation_from_id($ob_id)
+function get_object_elevation_from_id($ob_id)
 {
     
     // Connecting to the database.
@@ -212,7 +264,7 @@ function get_elevation_from_id($ob_id)
 // Get the object offset from an ob_id sent as parameter
 // =====================================================
 
-function get_offset_from_id($ob_id)
+function get_object_offset_from_id($ob_id)
 {
     
     // Connecting to the database.
@@ -239,7 +291,7 @@ function get_offset_from_id($ob_id)
 // Get the true object orientation from an ob_id sent as parameter
 // ===============================================================
 
-function get_true_orientation_from_id($ob_id)
+function get_object_true_orientation_from_id($ob_id)
 {
     
     // Connecting to the database.
