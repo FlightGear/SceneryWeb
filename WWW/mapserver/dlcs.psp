@@ -81,7 +81,7 @@ ldbconnect.close()
 # Finally call 'dlcs.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
-dumpcmd = ("/home/fgscenery/sceneryweb/mapserver/dlcs.sh %(myuuid)s > /tmp/dlcs.log 2>&1" % myvars)
+dumpcmd = ("/home/fgscenery/WWW/mapserver/dlcs.sh %(myuuid)s > /tmp/dlcs.log 2>&1" % myvars)
 os.system( dumpcmd )
 psp.redirect("/download/%(myuuid)s.zip" % myvars)
 %>
