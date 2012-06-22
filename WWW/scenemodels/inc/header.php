@@ -85,7 +85,7 @@
       <div class="headerlinks"><a href="/authors.php">Authors</a></div>
     </li>
     <li class="mainitems">
-      <div class="headerlinks"><a href="/download/">Download</a></div>
+      <div class="headerlinks"><a href="/download.php">Download</a></div>
       <ul class="submenus">
         <li><a href="/download/GlobalObjects.tgz">Global objects</a></li>
         <li><a href="/download/SharedModels.tgz">Shared models</a></li>
