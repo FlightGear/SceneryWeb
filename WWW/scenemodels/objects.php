@@ -190,7 +190,7 @@
           echo "<td>".$groups[$row["ob_group"]]."</td>\n";
           echo "<td>".$countries[$row["ob_country"]]."</td>\n";
           echo "<td>\n";
-    ?>
+          ?>
             <form name="update" method="post" action="submission/shared/check_update_shared.php">
             <?php echo "<input name=\"update_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$row["ob_id"]."\" />"; ?>
                 <input type="submit" name="submit" value="Update"/>

@@ -138,8 +138,8 @@ $resp = recaptcha_check_answer ($privatekey,
 	// There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
 
 	$message1 = "Object #: ".$_POST['id_to_update']."\r\n" .
-		    "Family: ". get_object_family_from_id($id_to_update)." => ".family_name($_POST['family_name'])."\r\n" .
-		    "Object: ".object_name(get_object_model_from_id($id_to_update))." => ".object_name($_POST['model_name'])."\r\n" .
+		    "Family: ". get_object_family_from_id($_POST['id_to_update']) ." => ".family_name($_POST['family_name'])."\r\n" .
+		    "Object: ". object_name(get_object_model_from_id($_POST['id_to_update'])) ." => ".object_name($_POST['model_name'])."\r\n" .
                     "[ ".$html_object_url." ]" . "\r\n" .
 		    "Latitude: ". get_object_latitude_from_id($_POST['id_to_update']) . "  => ".$_POST['new_lat']."\r\n" .
 		    "Longitude: ". get_object_longitude_from_id($_POST['id_to_update']) . " => ".$_POST['new_long']."\r\n" .
