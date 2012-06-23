@@ -124,7 +124,7 @@ else
 							</head>
 							<body>
 							<?php include '../../inc/header.php';
-							echo "<center">;							
+							echo "<center>";							
 							echo "Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_GET[sig].".<br /><br />";
 							echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
 							

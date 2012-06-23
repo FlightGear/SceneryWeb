@@ -138,8 +138,8 @@ $resp = recaptcha_check_answer ($privatekey,
 	// There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
 
 	$message1 = "Object #: ".$_POST['id_to_update']."\r\n" .
-		    "Family: ".$_POST['old_family']." => ".family_name($_POST['family_name'])."\r\n" .
-		    "Object: ".$_POST['old_model_name']." => ".object_name($_POST['model_name'])."\r\n" .
+		    "Family: ". get_object_family_from_id($id_to_update)." => ".family_name($_POST['family_name'])."\r\n" .
+		    "Object: ".object_name(get_object_model_from_id($id_to_update))." => ".object_name($_POST['model_name'])."\r\n" .
                     "[ ".$html_object_url." ]" . "\r\n" .
 		    "Latitude: ". get_object_latitude_from_id($_POST['id_to_update']) . "  => ".$_POST['new_lat']."\r\n" .
 		    "Longitude: ". get_object_longitude_from_id($_POST['id_to_update']) . " => ".$_POST['new_long']."\r\n" .
@@ -148,7 +148,7 @@ $resp = recaptcha_check_answer ($privatekey,
 		    "True (DB) orientation: ". get_object_true_orientation_from_id($_POST['id_to_update']) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
 		    "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
 		    "Please click:" . "\r\n" .
-		    "http://mapserver.flightgear.org/map/?lon=". $_POST['new_lat'] ."&lat=". $_POST['new_long'] ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+		    "http://mapserver.flightgear.org/map/?lon=". $_POST['new_lon'] ."&lat=". $_POST['new_lat'] ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
 		    "to locate the object on the map (eventually new position)." ;
 
 				
@@ -275,7 +275,6 @@ return (false);
 		</td>
 		<td>
 		<?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
-		<input type="hidden" name="old_family" value="<?php echo $old_family; ?>" />
 		</td>
 		<td>
 		<?php
@@ -322,7 +321,6 @@ return (false);
 					</td>
 					<td>
 					<?php $actual_model_name = object_name(get_object_model_from_id($id_to_update));  echo $actual_model_name; ?>
-					<input type="hidden" name="old_model_name" value="<?php echo $actual_model_name; ?>" />
 					</td>
 					<td>
 					<?php
