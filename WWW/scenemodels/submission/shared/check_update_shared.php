@@ -321,7 +321,7 @@ return (false);
 					<span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span>
 					</td>
 					<td>
-					<?php $actual_model_name = get_object_model_from_id($id_to_update);  echo $actual_model_name; ?>
+					<?php $actual_model_name = object_name(get_object_model_from_id($id_to_update));  echo $actual_model_name; ?>
 					<input type="hidden" name="old_model_name" value="<?php echo $actual_model_name; ?>" />
 					</td>
 					<td>

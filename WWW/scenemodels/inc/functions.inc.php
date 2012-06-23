@@ -158,8 +158,8 @@ function get_object_family_from_id($ob_id)
     @pg_close ($headerlink_family);
 }
 
-// Returns the object model from an ob_id sent as parameter
-// ========================================================
+// Returns the object model id from an ob_id sent as parameter
+// ===========================================================
 
 function get_object_model_from_id($ob_id)
 {
