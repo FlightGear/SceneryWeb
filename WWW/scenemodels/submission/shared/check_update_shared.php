@@ -4,7 +4,7 @@
 
 require_once('../../inc/functions.inc.php');
 
-if((isset($_POST['old_long'])) && (isset($_POST['old_lat'])) && (isset($_POST['old_gndelev'])) && (isset($_POST['old_offset'])) && (isset($_POST['old_orientation'])))
+if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['new_gndelev'])) && (isset($_POST['new_offset'])) && (isset($_POST['new_orientation'])))
 {	
 
 // Captcha stuff
@@ -43,7 +43,7 @@ $resp = recaptcha_check_answer ($privatekey,
 
 	// Preparing the update request
 	
-	$query_update="UPDATE fgs_objects SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['longitude']." ".$_POST['latitude'].")', 4326), ob_gndelev=".$_POST['gndelev'].", ob_elevoffset=".$_POST['offset'].", ob_heading=".heading_stg_to_true($_POST['orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 where ob_id=".$_POST['id_to_update'].";";
+	$query_update="UPDATE fgs_objects SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['new_long']." ".$_POST['new_lat'].")', 4326), ob_gndelev=".$_POST['new_gndelev'].", ob_elevoffset=".$_POST['new_offset'].", ob_heading=".heading_stg_to_true($_POST['new_orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 where ob_id=".$_POST['id_to_update'].";";
 	
 	// Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
 
@@ -333,7 +333,7 @@ return (false);
 					</tr>
 					<tr>
 					<td>
-					<span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span>
+					<span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span>
 					</td>
 					<td>
 					<?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
@@ -344,7 +344,7 @@ return (false);
 					</tr>
 					<tr>
 					<td>
-					<span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span>
+					<span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span>
 					</td>
 					<td>
 					<?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
