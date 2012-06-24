@@ -148,7 +148,7 @@ $resp = recaptcha_check_answer ($privatekey,
 		    "True (DB) orientation: ". get_object_true_orientation_from_id($_POST['id_to_update']) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
 		    "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
 		    "Please click:" . "\r\n" .
-		    "http://mapserver.flightgear.org/map/?lon=". $_POST['new_lon'] ."&lat=". $_POST['new_lat'] ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+		    "http://mapserver.flightgear.org/map/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
 		    "to locate the object on the map (eventually new position)." ;
 
 				

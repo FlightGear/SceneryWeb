@@ -8,6 +8,10 @@ Bug/security fixing:
 - Sanitize comments +lat/long content (Javascript + strip tags).
 - In the update form the (eventually former) Object family and model name should be selected
   by default.
+- add the possibility to add the country in addition and edition.
+- add ob_text in the edition form (in the update would need Ajax).
+- delete form to be fixed
+- correct the pages where there are two headers (static + "header.php").
 
 Features updates (by priority):
 -------------------------------

@@ -19,22 +19,15 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <table border="1" align="center">
 <tr>
     <td>Latitude</td>
-    <td><?php if (isset($object["ob_lat"])) print $object["ob_lat"]; ?></td>
+    <td><?php $latitude = get_object_latitude_from_id($id); echo $latitude; ?></td>
 <tr>
 <tr>
     <td>Longitude</td>
-    <td><?php if (isset($object["ob_lon"])) print $object["ob_lon"]; ?></td>
+    <td><?php $longitude = get_object_longitude_from_id($id); echo $longitude; ?></td>
 </tr>
 <tr>
     <td>Country</td>
-    <td>
-        <?php
-            $result=pg_query("select * from fgs_countries;");
-            while ($row = pg_fetch_assoc($result))
-            {
-                if ($object["ob_country"]==$row["co_code"]) print $row["co_name"];
-            }
-        ?>
+    <td><?php $country = get_country_name_from_country_code($object["ob_country"]); echo $country; ?>
     </td>
 </tr>
 <tr>
@@ -54,7 +47,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
     <td>
         <select name="group">
             <?php
-                $result=pg_query("select * from fgs_groups;");
+                $result = pg_query("select * from fgs_groups;");
                 while ($row = pg_fetch_assoc($result))
                 {
                     print "<option value=\"".$row["gp_id"]."\"";
@@ -69,7 +62,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
     <td>Model</td>
     <td>
         <?php
-            $result=pg_query("select mo_id,mo_path from fgs_models;");
+            $result = pg_query("select mo_id,mo_path from fgs_models;");
             while ($row = pg_fetch_assoc($result))
             {
                 // print "<option value=\"".$row["mo_id"]."\"";
