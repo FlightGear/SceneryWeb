@@ -27,7 +27,8 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
     <td>Country</td>
-    <td><?php $country = get_country_name_from_country_code($object["ob_country"]); echo $country; ?>
+    <td><?php echo $object["ob_country"]; ?>
+    <?php $country = get_country_name_from_country_code($object["ob_country"]); echo $country; ?>
     </td>
 </tr>
 <tr>
@@ -62,11 +63,10 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
     <td>Model</td>
     <td>
         <?php
-            $result = pg_query("select mo_id,mo_path from fgs_models;");
+            $result = pg_query("select mo_id, mo_path from fgs_models;");
             while ($row = pg_fetch_assoc($result))
             {
-                // print "<option value=\"".$row["mo_id"]."\"";
-                if ($object["ob_model"]==$row["mo_id"]) print $row["mo_path"];
+                if ($object["ob_model"] == $row["mo_id"]) print $row["mo_path"];
             }
         ?>
     </td>
@@ -78,7 +78,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <tr><td>Geographical and model informations</td>
 <td>
 <center>
-<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $object["ob_lon"]; ?>&lat=<?php echo $object["ob_lat"]; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $longitude; ?>&lat=<?php echo $latitude; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe>
 &nbsp;
 <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>"/>
