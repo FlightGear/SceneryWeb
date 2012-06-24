@@ -92,7 +92,7 @@ while ($row = pg_fetch_assoc($result))
 	</td>
 </tr>
 <tr>
-	<td colspan="3"><?php if (isset($model["mo_notes"])) print $model["mo_notes"]; ?></td>
+	<td colspan="3"><?php if (isset($model["mo_notes"])) print "<u>Comment:</u>&nbsp;".$model["mo_notes"]; ?></td>
 </tr>
 </table>
 
