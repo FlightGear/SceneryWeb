@@ -22,11 +22,11 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <tr>
 	<td rowspan="8" width="320"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>"/></td>
 	<td>Name</td>
-	<td><?php if (isset($model["mo_name"])) print "value=\"".$model["mo_name"]."\""; ?></td>
+	<td><?php if (isset($model["mo_name"])) print $model["mo_name"]; ?></td>
 <tr>
 <tr>
 	<td>Path</td>
-	<td><?php if (isset($model["mo_path"])) print "value=\"".$model["mo_path"]."\""; ?></td>
+	<td><?php if (isset($model["mo_path"])) print $model["mo_path"]; ?></td>
 </tr>
 <tr>
 	<td>Type</td>
@@ -64,7 +64,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
 	<td>Last Updated</td>
-	<td><?php if (isset($model["mo_modified"])) print "value=\"".$model["mo_modified"]."\""; ?></td>
+	<td><?php if (isset($model["mo_modified"])) print $model["mo_modified"]; ?></td>
 </tr>
 <tr>
 	<td>Model-ID</td>
