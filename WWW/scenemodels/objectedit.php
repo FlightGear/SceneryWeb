@@ -18,6 +18,10 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <input type="hidden" name="id" value=<?php if (isset($id)) print $id;?>/>
 <table border="1" align="center">
 <tr>
+    <td>Unique ID</td>
+    <td><?php echo $id; ?></td>
+</tr>
+<tr>
     <td>Latitude</td>
     <td><?php $latitude = get_object_latitude_from_id($id); echo $latitude; ?></td>
 <tr>
@@ -27,9 +31,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
     <td>Country</td>
-    <td><?php echo $object["ob_country"]; ?>
-    <?php $country = get_country_name_from_country_code($object["ob_country"]); echo $country; ?>
-    </td>
+    <td><?php $country = get_country_name_from_country_code($object["ob_country"]); echo $country; ?></td>
 </tr>
 <tr>
     <td>Ground Elevation</td>
@@ -66,7 +68,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
             $result = pg_query("select mo_id, mo_path from fgs_models;");
             while ($row = pg_fetch_assoc($result))
             {
-                if ($object["ob_model"] == $row["mo_id"]) print $row["mo_path"];
+                if ($object["ob_model"] == $row["mo_id"]) print "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
             }
         ?>
     </td>
