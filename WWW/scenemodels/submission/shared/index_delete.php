@@ -11,16 +11,10 @@ $ok=check_availability();
 if(!$ok)
 {
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<title>Automated Shared Models Positions Deletion Form</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
-</head>
-<body>
-<?php include '../../inc/header.php'; ?>
+<?php
+    $page_title = "Automated Shared Models Positions Deletion Form";
+    include '../../inc/header.php';
+?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
@@ -31,17 +25,12 @@ if(!$ok)
 else
 {
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<title>Automated Shared Models Positions Deletion Form</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
-</head>
-<body>
-<?php include '../../inc/header.php'; ?>
-<script language="JavaScript">
+
+<?php
+    $page_title = "Automated Shared Models Positions Deletion Form";
+    include '../../inc/header.php';
+?>
+<script type="text/javascript">
 <!-- This script is here to check for the consistency of the different fields of the form -->
 
 function checkNumeric(objName,minval,maxval,period)
@@ -61,45 +50,47 @@ function checkNumeric(objName,minval,maxval,period)
 
 function chkNumeric(objName,minval,maxval,period)
 {
-var checkOK = "-0123456789.";
-var checkStr = objName;
-var allValid = true;
-var decPoints = 0;
-var allNum = "";
+    var checkOK = "-0123456789.";
+    var checkStr = objName;
+    var allValid = true;
+    var decPoints = 0;
+    var allNum = "";
 
-for (i = 0;  i < checkStr.value.length;  i++)
-{
-ch = checkStr.value.charAt(i);
-for (j = 0;  j < checkOK.length;  j++)
-if (ch == checkOK.charAt(j))
-break;
-if (j == checkOK.length)
-{
-allValid = false;
-break;
-}
-if (ch != ",")
-allNum += ch;
-}
-if (!allValid)
-{	
-alertsay = "Please enter only the values :\""
-alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
-alert(alertsay);
-return (false);
-}
+    for (i = 0;  i < checkStr.value.length;  i++)
+    {
+        ch = checkStr.value.charAt(i);
+        for (j = 0;  j < checkOK.length;  j++)
+            if (ch == checkOK.charAt(j))
+                break;
+        if (j == checkOK.length)
+        {
+            allValid = false;
+            break;
+        }
+        if (ch != ",")
+            allNum += ch;
+    }
 
-// Sets minimum and maximums
-var chkVal = allNum;
-var prsVal = parseInt(allNum);
-if (chkVal != "" && !(prsVal >= minval && prsVal <= maxval))
-{
-alertsay = "Please enter a value greater than or "
-alertsay = alertsay + "equal to \"" + minval + "\" and less than or "
-alertsay = alertsay + "equal to \"" + maxval + "\" in the \"" + checkStr.name + "\" field."
-alert(alertsay);
-return (false);
-}
+    if (!allValid)
+    {	
+        alertsay = "Please enter only the values :\""
+        alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
+        alert(alertsay);
+        return (false);
+    }
+
+    // Sets minimum and maximums
+    var chkVal = allNum;
+    var prsVal = parseInt(allNum);
+    
+    if (chkVal != "" && !(prsVal >= minval && prsVal <= maxval))
+    {
+        alertsay = "Please enter a value greater than or "
+        alertsay = alertsay + "equal to \"" + minval + "\" and less than or "
+        alertsay = alertsay + "equal to \"" + maxval + "\" in the \"" + checkStr.name + "\" field."
+        alert(alertsay);
+        return (false);
+    }
 }
 //  End -->
 </script>

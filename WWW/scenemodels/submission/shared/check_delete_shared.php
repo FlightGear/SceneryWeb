@@ -364,7 +364,8 @@ if ($false==0)
                 if ($i == 1) {
                     echo "<input type=\"radio\" name=\"delete_choice\" value=\"".$row[0]."\" checked />";
                 }
-                else echo "<input type=\"radio\" name=\"delete_choice\" value=\"".$row[0]."\" />";
+                else
+                    echo "<input type=\"radio\" name=\"delete_choice\" value=\"".$row[0]."\" />";
                 ?>
                 </th>
                 <td><span title="This is the family name of the object you want to delete."><a style="cursor: help;">Object's family</a></span></td>
