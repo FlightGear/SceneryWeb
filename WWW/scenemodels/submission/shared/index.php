@@ -25,7 +25,7 @@ if(!$ok)
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
 <?php include '../../inc/footer.php'; ?>
-<?
+<?php
 }
 
 else
@@ -62,45 +62,46 @@ function checkNumeric(objName,minval,maxval,period)
 
 function chkNumeric(objName,minval,maxval,period)
 {
-var checkOK = "-0123456789.";
-var checkStr = objName;
-var allValid = true;
-var decPoints = 0;
-var allNum = "";
+    var checkOK = "-0123456789.";
+    var checkStr = objName;
+    var allValid = true;
+    var decPoints = 0;
+    var allNum = "";
 
-for (i = 0;  i < checkStr.value.length;  i++)
-{
-ch = checkStr.value.charAt(i);
-for (j = 0;  j < checkOK.length;  j++)
-if (ch == checkOK.charAt(j))
-break;
-if (j == checkOK.length)
-{
-allValid = false;
-break;
-}
-if (ch != ",")
-allNum += ch;
-}
-if (!allValid)
-{	
-alertsay = "Please enter only the values :\""
-alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
-alert(alertsay);
-return (false);
-}
+    for (i = 0;  i < checkStr.value.length;  i++)
+    {
+        ch = checkStr.value.charAt(i);
+        for (j = 0;  j < checkOK.length;  j++)
+            if (ch == checkOK.charAt(j))
+                break;
+        if (j == checkOK.length)
+        {
+            allValid = false;
+            break;
+        }
+        if (ch != ",")
+            allNum += ch;
+    }
+    
+    if (!allValid)
+    {	
+        alertsay = "Please enter only the values :\""
+        alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
+        alert(alertsay);
+        return (false);
+    }
 
-// Sets minimum and maximums
-var chkVal = allNum;
-var prsVal = parseInt(allNum);
-if (chkVal != "" && !(prsVal >= minval && prsVal <= maxval))
-{
-alertsay = "Please enter a value greater than or "
-alertsay = alertsay + "equal to \"" + minval + "\" and less than or "
-alertsay = alertsay + "equal to \"" + maxval + "\" in the \"" + checkStr.name + "\" field."
-alert(alertsay);
-return (false);
-}
+    // Sets minimum and maximums
+    var chkVal = allNum;
+    var prsVal = parseInt(allNum);
+    if (chkVal != "" && !(prsVal >= minval && prsVal <= maxval))
+    {
+        alertsay = "Please enter a value greater than or "
+        alertsay = alertsay + "equal to \"" + minval + "\" and less than or "
+        alertsay = alertsay + "equal to \"" + maxval + "\" in the \"" + checkStr.name + "\" field."
+        alert(alertsay);
+        return (false);
+    }
 }
 //  End -->
 </script>
@@ -127,31 +128,31 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 		if($resource_r!='0')
 		{
 
-		// Show all the families other than the static family
+		    // Show all the families other than the static family
 
-		$result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
+		    $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
 		
-		// Start the select form
+		    // Start the select form
 
-		echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
-		echo "<option selected value=\"0\">Please select a family</option>\n";
-		while ($row = @pg_fetch_assoc($result))
-		{
-		$name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);	
-		echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
-		};
-		echo "</select>";
+		    echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
+		    echo "<option selected value=\"0\">Please select a family</option>\n";
+		    while ($row = @pg_fetch_assoc($result))
+		    {
+		        $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);	
+		        echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+		    };
+		    echo "</select>";
 
-		// Close the database resource
+		    // Close the database resource
 
-		@pg_close($resource_r);
+		    @pg_close($resource_r);
 		}
 
 		// Else, write message.
 
 		else
 		{
-		echo "<br /><font color='red'>Sorry but the database is currently unavailable, please come again soon.</font>";
+		    echo "<br /><font color='red'>Sorry but the database is currently unavailable, please come again soon.</font>";
 		}
 		?>
 		</td>
@@ -208,7 +209,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 	<tr>
 		<td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
 		<td>
-			<input type="text" name="email" maxlength="50 size="40" value="" />
+			<input type="text" name="email" maxlength="50" size="40" value="" />
 		<td>
 		<td>
 		</td>
