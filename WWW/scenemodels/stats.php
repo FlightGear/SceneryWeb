@@ -1,17 +1,17 @@
 <?php include 'inc/header.php'; ?>
 <h1 align="center">FlightGear Scenery Object Statistics</h1>
 <?php
-	$result=pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
-	$row = pg_fetch_assoc($result);
-	$models=$row["count"];
+    $result=pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
+    $row = pg_fetch_assoc($result);
+    $models=$row["count"];
 
-	$result=pg_query("SELECT count(ob_id) AS count FROM fgs_objects;");
-	$row = pg_fetch_assoc($result);
-	$objects=$row["count"];
+    $result=pg_query("SELECT count(ob_id) AS count FROM fgs_objects;");
+    $row = pg_fetch_assoc($result);
+    $objects=$row["count"];
 
-	$result=pg_query("SELECT count(si_id) AS count FROM fgs_signs;");
-  	$row = pg_fetch_assoc($result);
-  	$signs=$row["count"];
+    $result=pg_query("SELECT count(si_id) AS count FROM fgs_signs;");
+    $row = pg_fetch_assoc($result);
+    $signs=$row["count"];
 
 echo "<p align=\"center\">The database currently contains <a href=\"models.php\">$models models</a> placed in the scenery as <a href=\"objects.php\">$objects seperate objects</a>, plus $signs taxiway signs.\n";
 

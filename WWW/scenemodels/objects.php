@@ -79,10 +79,6 @@
   include('inc/header.php');
 ?>
 <script type="text/javascript">
-  function popobject(id) {
-    popup = window.open("submit/editnewobject.php?object="+id, "obj"+id, "height=250,width=640,scrollbars=no,resizable=yes");
-    popup.focus();
-  }
   function popmap(lat,lon) {
     popup = window.open("maps?zoom=12&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
     popup.focus();
@@ -194,8 +190,13 @@
           echo "<td>".$groups[$row["ob_group"]]."</td>\n";
           echo "<td>".$countries[$row["ob_country"]]."</td>\n";
           echo "<td>\n";
-            echo "<a href=\"objectedit.php?id=".$row["ob_id"]."\">Edit</a> ";
-            echo "<a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>";
+          ?>
+            <form name="update" method="post" action="submission/shared/check_update_shared.php">
+            <?php echo "<input name=\"update_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$row["ob_id"]."\" />"; ?>
+                <input type="submit" name="submit" value="Update"/>
+            </form>
+     <?php
+          echo "<a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>";
           echo "</td>\n";
         echo "</tr>\n";
       }
