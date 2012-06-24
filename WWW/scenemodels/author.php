@@ -1,6 +1,7 @@
 <?php 
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
-{       $id=$_REQUEST['id'];
+{       
+    $id=$_REQUEST['id'];
 }
 
 ?>
