@@ -5,13 +5,10 @@ Bug/security fixing:
 - Check for every form & page the referring page & the value of the form submitting.
 - Detect if submitting an already existing object.
 - ob_text workaround for mass import (object_name($model_id)).
-- Sanitize comments +lat/long content (Javascript + strip tags).
+- Sanitize comments +lat/long content (Javascript + strip tags). More checkings in the update script.
 - In the update form the (eventually former) Object family and model name should be selected
   by default.
-- add the possibility to add the country in addition and edition.
-- add ob_text in the edition form (in the update would need Ajax).
 - delete form to be fixed
-- correct the pages where there are two headers (static + "header.php").
 
 Features updates (by priority):
 -------------------------------
@@ -21,7 +18,7 @@ Features updates (by priority):
 - Enable the user to submit its email to get informed of the process (EXPERIMENTAL support added and working on unitary addition). Enable maintainer to drop a comment.
 - Shows the object picture when selected (Ajax when adding).
 - Shows the object position when selected (map when adding...).
-- Add ob_text (unitary addition), ob_country, ob_author add/update possibilities.
+- Add ob_text (unitary addition, because in edition we would need Ajax), ob_country, ob_author add/update possibilities.
 - Merge Jon's script with ours (objectedit, ...). They should link to the submission forms.
 - When there is an error with the captcha, an error page is being presented, containing a "Go back ..."
   link - but when clicked - all values have to be re-entered from scratch. Preserving the entered values so

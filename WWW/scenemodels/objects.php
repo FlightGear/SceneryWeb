@@ -191,9 +191,9 @@
           echo "<td>".$countries[$row["ob_country"]]."</td>\n";
           echo "<td>\n";
           ?>
-            <form name="update" method="post" action="submission/shared/check_update_shared.php">
+            <form name="update_<?php echo $row["ob_id"]; ?>" method="post" action="submission/shared/check_update_shared.php">
             <?php echo "<input name=\"update_choice\" type=\"hidden\" maxlength=\"13\" value=\"".$row["ob_id"]."\" />"; ?>
-                <input type="submit" name="submit" value="Update"/>
+                <input type="submit" name="submit<?php echo $row["ob_id"]; ?>" value="Update"/>
             </form>
      <?php
           echo "<a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>";
