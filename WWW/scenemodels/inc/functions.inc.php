@@ -252,7 +252,7 @@ function get_object_elevation_from_id($ob_id)
     // Querying...
     
     $query = "select ob_gndelev from fgs_objects where ob_id=".$ob_id.";";
-    $result = @pg_query($headerlink_family,$query);
+    $result = @pg_query($headerlink_family, $query);
     
     while($row = @pg_fetch_assoc($result)) {
         return ($row["ob_gndelev"]);
@@ -276,7 +276,7 @@ function get_object_offset_from_id($ob_id)
     // Querying...
     
     $query = "select ob_elevoffset from fgs_objects where ob_id=".$ob_id.";";
-    $result = @pg_query($headerlink_family,$query);
+    $result = @pg_query($headerlink_family, $query);
     
     while ($row = @pg_fetch_assoc($result)) {
         if(($row["ob_elevoffset"]) == "") {
@@ -303,7 +303,7 @@ function get_object_true_orientation_from_id($ob_id)
     // Querying...
     
     $query = "select ob_heading from fgs_objects where ob_id=".$ob_id.";";
-    $result = @pg_query($headerlink_family,$query);
+    $result = @pg_query($headerlink_family, $query);
     
     while ($row = @pg_fetch_assoc($result))    {
         return ($row["ob_heading"]);
@@ -320,13 +320,13 @@ function get_object_true_orientation_from_id($ob_id)
 function count_objects()
 {
 
-    // Connecting to the databse.
+    // Connecting to the database.
     
     $resource = connect_sphere_r();
 
     // Count the number of objects in the database
 
-    $counter = @pg_query($resource,"select count(*) as rows from fgs_objects;");
+    $counter = @pg_query($resource, "select count(*) as rows from fgs_objects;");
 
     while ($line = @pg_fetch_assoc($counter)) {
         echo number_format($line['rows'], '0', '', ' ');
@@ -451,7 +451,7 @@ function model_exists($model_name)
         // Querying to check the existence of the family
         
         $query_family = "select mg_path from fgs_modelgroups where mg_path='".$queried_family_path."';";
-        $result_family = pg_query($headerlink_family,$query_family);
+        $result_family = pg_query($headerlink_family, $query_family);
         
         if (@pg_num_rows($result_family) == 1)    // If the family & model are known, return 0.
         {
@@ -489,7 +489,7 @@ function ob_model_from_name($model_name)
     // Querying...
     
     $query = "select mo_id, mo_path from fgs_models where mo_path = '".$queried_mo_path."';";
-    $result = @pg_query($headerlink,$query);
+    $result = @pg_query($headerlink, $query);
     
     // Checking the number of results. Should be 1.
     
@@ -514,7 +514,7 @@ function list_authors()
     // Querying...
     
     $query = "select au_id,au_name from fgs_authors order by 2 asc;";
-    $result = @pg_query($headerlink_authors,$query);
+    $result = @pg_query($headerlink_authors, $query);
     
     while($row = @pg_fetch_assoc($result)) {
         if($row["au_id"]==1) echo "<option value=\"".$row["au_id"]."\" selected>".$row["au_name"]."</option>\n";
@@ -539,7 +539,7 @@ function list_countries()
     // Querying...
     
     $query = "select * from fgs_countries order by 2 asc;";
-    $result = @pg_query($headerlink_countries,$query);
+    $result = @pg_query($headerlink_countries, $query);
     
     while($row = @pg_fetch_assoc($result)) {
         echo "<option value=\"".$row["co_code"]."\">".$row["co_name"]."</option>\n";
@@ -557,7 +557,7 @@ function get_country_name_from_country_code($country_code)
 
     // Connecting to the database.
     
-    $headerlink_countries = connect_sphere_r();
+    $headerlink_countries = connect_sphere_rw();
     
     // Querying...
     
