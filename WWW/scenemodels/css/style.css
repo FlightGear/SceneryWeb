@@ -1,9 +1,17 @@
+TD.titleback {
+    background-image:url("/img/titleback.jpg");
+}
+
 BODY {
     background: #f0f0f0;
     color: #000000;
     font-size: 14px;
     FONT-FAMILY: Verdana, Arial, Helvetica, Lucida, Sans-Serif;
     text-align: left;
+}
+
+H1 {
+    text-align: center;
 }
 
 A {
