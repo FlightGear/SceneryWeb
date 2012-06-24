@@ -561,11 +561,16 @@ function get_country_name_from_country_code($country_code)
     
     // Querying...
     
-    $query = "select * from fgs_countries where co_code = ".$country_code.";";
-    $result = @pg_query($headerlink_countries,$query);
-
-    while($row = @pg_fetch_assoc($result)) {
+    if($country_code == "") {
+        return("Unknown !");
+    }
+    else {
+        $query = "select * from fgs_countries where co_code = ".$country_code.";";
+        $result = @pg_query($headerlink_countries,$query);
+    
+        while($row = @pg_fetch_assoc($result)) {
         return($row["co_name"]);
+        }
     }
 
     // Closing the connection.
