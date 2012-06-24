@@ -158,6 +158,31 @@ function get_object_family_from_id($ob_id)
     @pg_close ($headerlink_family);
 }
 
+// Returns the group name (LANDMARK, NAVAID...) from an ob_group sent as parameter
+// ===============================================================================
+
+function get_group_name_from_id($ob_group)
+{
+    $group_id = pg_escape_string($ob_group);
+    
+    // Connecting to the database.
+    
+    $headerlink = connect_sphere_r();
+    
+    // Querying...
+    
+    $query = "select * from fgs_groups where gp_id=".$group_id.";";
+    $result = @pg_query($headerlink, $query);
+    
+    while ($row = @pg_fetch_assoc($result)) {
+            return ($row["gp_name"]);
+        }
+
+    // Closing the connection.
+
+    @pg_close ($headerlink);
+}
+
 // Returns the object model id from an ob_id sent as parameter
 // ===========================================================
 

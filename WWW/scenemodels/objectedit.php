@@ -47,19 +47,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
     <td>Group</td>
-    <td>
-        <select name="group">
-            <?php
-                $result = pg_query("select * from fgs_groups;");
-                while ($row = pg_fetch_assoc($result))
-                {
-                    print "<option value=\"".$row["gp_id"]."\"";
-                    if ($object["ob_group"]==$row["gp_id"]) print " selected";
-                    print ">".$row["gp_name"]."\n";
-                }
-            ?>
-            </select>
-    </td>
+    <td><?php $group = get_group_name_from_id($object["ob_group"]); echo $group; ?></td>
 </tr>
 <tr>
     <td>Model</td>
