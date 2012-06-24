@@ -16,7 +16,6 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 	$model=pg_fetch_assoc($result);
 };
 ?>
-<form method="post" action="update/model.php">
 <input type="hidden" name="id" value="<?php if (isset($id)) print $id;?>"/>
 <table border="1" align="center">
 <tr>
@@ -31,32 +30,21 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <tr>
 	<td>Type</td>
 	<td>
-        <select name="shared">
-                <option value="0">
-                
                 <?php
-                	$result=pg_query("select mg_id,mg_name from fgs_modelgroups;");
-                        while ($row = pg_fetch_assoc($result))
-                        {
-                        	print "<option value=\"".$row["mg_id"]."\"";
-                                if ($row["mg_id"]==$model["mo_shared"]) print " selected";
-                                print ">".$row["mg_name"]."\n";
-			}
+                	$result = pg_query("select mg_id,mg_name from fgs_modelgroups;");
+                        while ($row = pg_fetch_assoc($result)) {
+                            if ($row["mg_id"] == $model["mo_shared"]) print $row["mg_name"];
+			            }
 		?>
-                </select>
 	</td>
 </tr>
 <tr>
 	<td>Author</td>
 	<td>
-		<select name="author">
 	        <?php
-	        	$result=pg_query("select * from fgs_authors;");
-	                while ($row = pg_fetch_assoc($result))
-	                {
-	                	print "<option value=\"".$row["au_id"]."\"";
-	                	if ($model["mo_author"]==$row["au_id"]) print " selected";
-	                	print ">".$row["au_name"]."\n";
+	        	$result = pg_query("select * from fgs_authors;");
+	                while ($row = pg_fetch_assoc($result)) {
+	                	if ($model["mo_author"] == $row["au_id"]) print $row["au_name"];
 	                }
 	        ?>
 	        </select>
@@ -74,7 +62,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 	<td colspan="2" align="center">
 
 <?php
-$result=pg_query("select mo_shared from fgs_models where mo_id = $id;");
+$result = pg_query("select mo_shared from fgs_models where mo_id = $id;");
 while ($row = pg_fetch_assoc($result))
 {
 	if ($row["mo_shared"]==0)
@@ -93,15 +81,7 @@ while ($row = pg_fetch_assoc($result))
 	};
 }
 ?>
-
-
-
-		<a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download Model</a>
-		&nbsp;-&nbsp;
-		<a href="update/thumbupload.php<?php if (isset($id)) print "?id=".$id; ?>">Upload Thumbnail</a>
-		&nbsp;-&nbsp;
-		<a href="update/modelupload.php<?php if (isset($id)) print "?id=".$id; ?>">Upload Model</a>
-
+<a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download Model</a>
 <?php
 $result=pg_query("SELECT mo_author,au_name FROM fgs_models, fgs_authors WHERE mo_author=au_id AND mo_id = $id;");
 while ($row = pg_fetch_assoc($result))
@@ -109,14 +89,11 @@ while ($row = pg_fetch_assoc($result))
 	print	"<br>List all of <a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a>";
 }
 ?>
-
 	</td>
 </tr>
 <tr>
 	<td colspan="3"><?php if (isset($model["mo_notes"])) print $model["mo_notes"]; ?></td>
 </tr>
-<tr><td colspan="3" align="center"><input type="submit" name="submit" value="add"/>&nbsp;<input type="submit" name="submit" value="update"/>&nbsp;<input type="submit" name="submit" value="delete"/></td></tr>
 </table>
-</form>
 
 <?php include 'inc/footer.php';?>
