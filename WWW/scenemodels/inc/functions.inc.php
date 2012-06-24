@@ -484,7 +484,7 @@ function ob_model_from_name($model_name)
         
     // Connecting to the database.
     
-    $headerlink = connect_sphere_rw();
+    $headerlink = connect_sphere_r();
     
     // Querying...
     
@@ -557,7 +557,7 @@ function get_country_name_from_country_code($country_code)
 
     // Connecting to the database.
     
-    $headerlink_countries = connect_sphere_rw();
+    $headerlink_countries = connect_sphere_r();
     
     // Querying...
     
@@ -565,8 +565,8 @@ function get_country_name_from_country_code($country_code)
         return("Unknown !");
     }
     else {
-        $query = "select * from fgs_countries where co_code = ".$country_code.";";
-        $result = @pg_query($headerlink_countries,$query);
+        $query = "select * from fgs_countries where co_code = '".$country_code."';";
+        $result = @pg_query($headerlink_countries, $query);
     
         while($row = @pg_fetch_assoc($result)) {
         return($row["co_name"]);
