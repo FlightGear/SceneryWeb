@@ -22,11 +22,11 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <tr>
 	<td rowspan="8" width="320"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>"/></td>
 	<td>Name</td>
-	<td><input type="text" size="40" name="name" <?php if (isset($model["mo_name"])) print "value=\"".$model["mo_name"]."\""; ?>/></td>
+	<td><?php if (isset($model["mo_name"])) print "value=\"".$model["mo_name"]."\""; ?></td>
 <tr>
 <tr>
 	<td>Path</td>
-	<td><input type="text" size="40" name="path" <?php if (isset($model["mo_path"])) print "value=\"".$model["mo_path"]."\""; ?>/></td>
+	<td><?php if (isset($model["mo_path"])) print "value=\"".$model["mo_path"]."\""; ?></td>
 </tr>
 <tr>
 	<td>Type</td>
@@ -64,7 +64,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 </tr>
 <tr>
 	<td>Last Updated</td>
-	<td><input type="text" size="15" name="updated" <?php if (isset($model["mo_modified"])) print "value=\"".$model["mo_modified"]."\""; ?>/> </td>
+	<td><?php if (isset($model["mo_modified"])) print "value=\"".$model["mo_modified"]."\""; ?></td>
 </tr>
 <tr>
 	<td>Model-ID</td>
@@ -113,7 +113,7 @@ while ($row = pg_fetch_assoc($result))
 	</td>
 </tr>
 <tr>
-	<td colspan="3"><textarea cols="80" rows="10" name="notes"><?php if (isset($model["mo_notes"])) print $model["mo_notes"]; ?></textarea></td>
+	<td colspan="3"><?php if (isset($model["mo_notes"])) print $model["mo_notes"]; ?></td>
 </tr>
 <tr><td colspan="3" align="center"><input type="submit" name="submit" value="add"/>&nbsp;<input type="submit" name="submit" value="update"/>&nbsp;<input type="submit" name="submit" value="delete"/></td></tr>
 </table>
