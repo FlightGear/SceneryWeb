@@ -183,7 +183,9 @@
           echo "<td>".$row["ob_lat"]."</td>\n";
           echo "<td>".$row["ob_lon"]."</td>\n";
           echo "<td>".$row["ob_gndelev"]."</td>\n";
-          echo "<td>".$row["ob_elevoffset"]."</td>\n";
+          echo "<td>"
+            if($row["ob_elevoffset"] == "") echo "0"; else echo $row["ob_elevoffset"];
+          echo "</td>\n";
           echo "<td>".$row["ob_heading"]."</td>\n";
           echo "<td>".$row["ob_text"]."</td>\n";
           echo "<td>".$models[$row["ob_model"]]."</td>\n";
@@ -203,7 +205,7 @@
     <tr class="bottom">
       <td colspan="11" align="center">
         <?php
-          echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Prev</a>";
+          echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Prev</a>&nbsp;";
           echo "<a href=\"objects.php?filter=Filter&offset=".$next . $filter_text."\">Next</a>";
         ?>
       </td>
