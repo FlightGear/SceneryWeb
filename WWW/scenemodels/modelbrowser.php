@@ -25,7 +25,7 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
 }
 ?>
 
-<h1 align="center"><?php echo $title;?></h1>
+<h1><?php echo $title;?></h1>
 <table>
   <tr class="bottom">
     <td colspan="9" align="center">

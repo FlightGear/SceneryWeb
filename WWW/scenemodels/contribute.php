@@ -1,5 +1,5 @@
 <?php include 'inc/header.php';?>
-<h1 align="center">How To Contribute</h1>
+<h1>How To Contribute</h1>
 
 <b>Foreword:</b> The instructions on this page are being presented in a
 pretty elaborate, detailed way which might look a bit complicated at first

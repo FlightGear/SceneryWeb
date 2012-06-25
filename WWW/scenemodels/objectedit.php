@@ -5,7 +5,7 @@
 require_once('inc/functions.inc.php');
 
 ?>
-<h1 align="center">FlightGear Scenery Model Directory</h1>
+<h1>FlightGear Scenery Model Directory</h1>
 <?php
 
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))

@@ -7,7 +7,7 @@
   }
 </script>
 
-<h1 align="center">FlightGear Scenery Model Directory</h1>
+<h1>FlightGear Scenery Model Directory</h1>
 
   <table border="1" width="100%">
     <?php

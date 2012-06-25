@@ -7,7 +7,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 ?>
 
 <?php include 'inc/header.php';?>
-<h1 align="center">Scenery Author Details</h1>
+<h1>Scenery Author Details</h1>
 <form>
 <table align="center" border="1">
 <?php
