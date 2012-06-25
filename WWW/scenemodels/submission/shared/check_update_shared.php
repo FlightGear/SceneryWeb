@@ -17,7 +17,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
     $resp = recaptcha_check_answer ($privatekey,
                                     $_SERVER["REMOTE_ADDR"],
                                     $_POST["recaptcha_challenge_field"],
-                                    s$_POST["recaptcha_response_field"]);
+                                    $_POST["recaptcha_response_field"]);
 
     // What happens when the CAPTCHA was entered incorrectly
 
@@ -170,7 +170,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
 
 // Getting back the update_choice
 
-if((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0'))
+if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0')))
 {
 ?>
 <?php
