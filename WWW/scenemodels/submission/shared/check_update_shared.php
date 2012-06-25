@@ -172,11 +172,14 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
 
 if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0')))
 {
-?>
-<?php
     $page_title = "Automated Shared Models Positions Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
+
+    if(isset($_POST['update_choice'])) {
+        $update_choice = $_POST['update_choice'];
+    }
+    else $update_choice = $_GET['update_choice'];
 ?>
 <script src="../ajax/update_objects.js" type ="text/javascript"></script>
 <script type="text/javascript">
@@ -244,9 +247,8 @@ function chkNumeric(objName,minval,maxval,period)
 </script>
 <br /><br />
 <?php
-    $id_to_update = pg_escape_string(stripslashes($_POST['update_choice']));
+    $id_to_update = pg_escape_string(stripslashes($update_choice));
     echo "<center>You have asked to update object #".$id_to_update."</center><br /><br />";
-    
 ?>
         <form name="update" method="post" action="check_update_shared.php">
         <table>
