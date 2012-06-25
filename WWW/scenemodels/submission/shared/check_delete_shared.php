@@ -4,11 +4,10 @@
 
 require_once('../../inc/functions.inc.php');
 
-// Getting back the delete_choice
+// Final step to deletion
 
-if((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))
+if((isset($_POST['step'])) && ($_POST['step'] == '3'))
 {
-// Captcha stuff
 
 require_once('../../captcha/recaptchalib.php');
 
@@ -20,31 +19,21 @@ $resp = recaptcha_check_answer ($privatekey,
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
 
-    // What happens when the CAPTCHA was entered incorrectly
+// What happens when the CAPTCHA was entered incorrectly
 
-    if (!$resp->is_valid)
-    {
-        $page_title = "Automated Shared Models Positions Deletion Form";
-        include '../../inc/header.php';
-    ?>
-    <br />
-    <?
-        die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a><" .
+if (!$resp->is_valid)
+{
+    $page_title = "Automated Shared Models Positions Deletion Form";
+    include '../../inc/header.php';
+    echo "<br />";
+    die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a><" .
             "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
-        include '../../inc/header.php';
     }
     else
     {
-
-?>
-
-<?php
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
-?>
-
-<br /><br />
-<?php
+    echo "<br /><br />";
     $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
     echo "<center><font color=\"green\">You have asked to delete object #".$id_to_delete."</font></center><br />";
         
@@ -80,12 +69,10 @@ $resp = recaptcha_check_answer ($privatekey,
     
     // Talking back to submitter.
 
-    if(!$resultrw)
-    {
+    if(!$resultrw) {
         echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
     }
-    else
-    {
+    else {
         echo "<br />Your position has been successfully queued into the FG scenery database deletion requests!<br />";
         echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
@@ -137,11 +124,11 @@ $resp = recaptcha_check_answer ($privatekey,
         $message1 = "Family: ".$family_name."\r\n" .
                     "Object: ".$model_name."\r\n" .
                     "[ ".$html_object_url." ]" . "\r\n" .
-                    "Latitude: ". $_POST['lat'] . "\r\n" .
-                    "Longitude: ". $_POST['long'] . "\r\n" .
-                    "Ground elevation: ". $_POST['gnd_elev'] . "\r\n" .
-                    "Elevation offset: ". $_POST['offset'] . "\r\n" .
-                    "True (DB) orientation: ". $_POST['orientation'] . "\r\n" .
+                    "Latitude: ". get_object_latitude_from_id($id_to_delete) . "\r\n" .
+                    "Longitude: ". get_object_longitude_from_id($id_to_delete) . "\r\n" .
+                    "Ground elevation: ". get_object_elevation_from_id($id_to_delete) . "\r\n" .
+                    "Elevation offset: ". get_object_offset_from_id($id_to_delete) . "\r\n" .
+                    "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_delete) . "\r\n" .
                     "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                     "Please click:" . "\r\n" .
                     "http://mapserver.flightgear.org/map/?lon=". $_POST['long'] ."&lat=". $_POST['lat'] ."&zoom=15&layers=000B0000TFFFFFFFTFTFTFFF" . "\r\n" .
@@ -169,13 +156,13 @@ $resp = recaptcha_check_answer ($privatekey,
         @mail($to, $subject, $message, $headers);
     }
     }
-}
+    }
 else
 {
 
 // Checking DB availability before all
 
-$ok=check_availability();
+$ok = check_availability();
 
 if(!$ok)
 {
@@ -194,9 +181,6 @@ if(!$ok)
 
 else
 {
-?>
-
-<?php
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
 ?>
@@ -258,7 +242,7 @@ if ($false==0)
     
     // Let's see in the database if something exists at this position
     
-    $query_pos="SELECT ob_id, ob_modified, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
+    $query_pos="SELECT ob_id, ob_modified FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
     $result = @pg_query($resource_r_deletion, $query_pos);
     
     $returned_rows = pg_num_rows($result);
@@ -270,8 +254,7 @@ if ($false==0)
     }
     else
     {
-        if($returned_rows == '1')
-        {
+        if(($returned_rows == '1') || ((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice']))) || ((isset($_GET['delete_choice'])) && ($_GET['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))) {
         while($row = pg_fetch_row($result))
         {
         echo "<br />One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.<br /><br />";
@@ -284,27 +267,22 @@ if ($false==0)
         </tr>
         <tr>
             <td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
-            <td colspan="4"><?php $real_name=object_name($row[5]); echo $real_name; ?></td>
+            <td colspan="4"><?php $real_name = object_name($row[5]); echo $real_name; ?></td>
         </tr>
         <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
             <td colspan="4"><?php echo $row[1]; ?></td>
         </tr>
             <td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
-            <td colspan="4"><?php echo $row[2]; ?></td>
-            <input name="long" type="hidden" maxlength="13" value="<?php echo $long; ?> />
-            <input name="lat" type="hidden" maxlength="13" value="<?php echo $lat; ?> />
-            <input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[2]; ?>" />
+            <td colspan="4"><?php get_object_elevation_from_id($row[0]); ?></td>
         </tr>
         <tr>
             <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
-            <td colspan="4"><?php if ($row[2]=="") echo "0"; else echo $row[2]; ?></td>
-            <input name="offset" type="hidden" maxlength="10" value="<?php if ($row[3]=="") echo "0"; else echo $row[3]; ?>" />
+            <td colspan="4"><?php get_object_offset_from_id($row[0]); ?></td>
         </tr>
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-            <td colspan="4"><?php echo $row[4]; ?></td>
-            <input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[4]; ?>" />
+            <td colspan="4"><?php get_object_true_orientation_from_id($row[0]); ?></td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
@@ -315,6 +293,7 @@ if ($false==0)
             </td>
         </tr>
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
+            <input name="step" type="hidden" value="3" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
             <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
         <tr>
