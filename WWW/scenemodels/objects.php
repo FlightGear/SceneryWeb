@@ -183,8 +183,11 @@
           echo "<td>".$row["ob_lat"]."</td>\n";
           echo "<td>".$row["ob_lon"]."</td>\n";
           echo "<td>".$row["ob_gndelev"]."</td>\n";
-          echo "<td>"
-            if($row["ob_elevoffset"] == "") echo "0"; else echo $row["ob_elevoffset"];
+          echo "<td>";
+            if($row["ob_elevoffset"] == "") {
+                echo "0";
+            }
+            else echo $row["ob_elevoffset"];
           echo "</td>\n";
           echo "<td>".$row["ob_heading"]."</td>\n";
           echo "<td>".$row["ob_text"]."</td>\n";
