@@ -192,6 +192,8 @@
           echo "<td>\n";
           ?>
             <a href="submission/shared/check_update_shared.php?update_choice=<?php echo $row["ob_id"]; ?>">Update</a>
+            &nbsp;
+            <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">Delete</a>
      <?php
           echo "<a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>";
           echo "</td>\n";
