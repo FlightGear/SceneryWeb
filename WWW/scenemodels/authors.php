@@ -1,6 +1,6 @@
 <?php include 'inc/header.php';?>
 
-  <h1 align="center">FlightGear Scenery Authors Directory</h1>
+  <h1>FlightGear Scenery Authors Directory</h1>
   <table border="1" width="100%">
     <?php
       if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){

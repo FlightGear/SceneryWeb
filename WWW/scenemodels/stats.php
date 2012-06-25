@@ -1,5 +1,5 @@
 <?php include 'inc/header.php'; ?>
-<h1 align="center">FlightGear Scenery Object Statistics</h1>
+<h1>FlightGear Scenery Object Statistics</h1>
 <?php
     $result=pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
     $row = pg_fetch_assoc($result);
