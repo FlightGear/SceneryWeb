@@ -17,13 +17,13 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
     $model=pg_fetch_assoc($result);
 };
 ?>
-<input type="hidden" name="id" value="<?php if (isset($id)) print $id;?>"/>
+<!--<input type="hidden" name="id" value="<?php if (isset($id)) print $id;?>"/> NO FORM => IS IT USEFUL-->
 <table border="1">
 <tr>
-    <td rowspan="8" width="320"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>"/></td>
+    <td rowspan="8" width="320"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
     <td>Name</td>
     <td><?php if (isset($model["mo_name"])) print $model["mo_name"]; ?></td>
-<tr>
+</tr>
 <tr>
     <td>Path</td>
     <td><?php if (isset($model["mo_path"])) print $model["mo_path"]; ?></td>
