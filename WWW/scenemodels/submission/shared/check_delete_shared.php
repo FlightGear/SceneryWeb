@@ -28,9 +28,9 @@ if (!$resp->is_valid)
     echo "<br />";
     die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a><" .
             "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
-    }
-    else
-    {
+}
+else
+{
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
     echo "<br /><br />";
@@ -155,8 +155,8 @@ if (!$resp->is_valid)
 
         @mail($to, $subject, $message, $headers);
     }
-    }
-    }
+}
+}
 else
 {
 
@@ -178,7 +178,6 @@ if(!$ok)
 <?php include '../../inc/footer.php'; ?>
 <?
 }
-
 else
 {
     $page_title = "Automated Shared Models Positions Deletion Form";

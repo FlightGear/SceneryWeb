@@ -35,8 +35,8 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
   </tr>
   <tr>
     <td>
-      <script>var noPicture = false</script>
-      <script language="javascript" src="images_fgfsdb.js" type="text/javascript"></script>
+      <script type="text/javascript">var noPicture = false</script>
+      <script src="images_fgfsdb.js" type="text/javascript"></script>
       <div id="trailimageid" style="position:absolute;z-index:10000;overflow:visible"></div>
       <?php
         $result=pg_query($query);
