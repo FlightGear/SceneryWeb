@@ -114,23 +114,23 @@
             {layers: 'fgs_staticobjects,fgs_sharedobjects', transparent: 'true', format: 'image/png'},
             {isBaseLayer: false, maxScale: 12500 });
         
-        var objects = new OpenLayers.Layer.Vector("Scenery Object Details",
-                {    strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})],
-                        protocol: new OpenLayers.Protocol.HTTP({
-                          url: "geojson.php",
-                          format: new OpenLayers.Format.GeoJSON()
-                        }),
-                        styleMap: new OpenLayers.StyleMap({
-                          "default": {
-                            externalGraphic: "arrow.png",
-                            graphicWidth: 14,
-                            graphicHeight: 15,
-                            rotation: "${heading}"
-                          },
-                        }), 
-                        projection: new OpenLayers.Projection("EPSG:4326"),
-                        visibility: true,
-                        minScale: 12500
+        var objects = new OpenLayers.Layer.Vector("Scenery Object Details",{
+            strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})],
+            protocol: new OpenLayers.Protocol.HTTP({
+              url: "geojson.php",
+              format: new OpenLayers.Format.GeoJSON()
+            }),
+            styleMap: new OpenLayers.StyleMap({
+              "default": {
+                externalGraphic: "arrow.png",
+                graphicWidth: 14,
+                graphicHeight: 15,
+                rotation: "${heading}"
+              },
+            }), 
+            projection: new OpenLayers.Projection("EPSG:4326"),
+            visibility: true,
+            minScale: 12500
         });
         
         map.addLayers([yahoosat, mapnik, osmarender, tarmac, osmlines, wmsobjects, objects, wmssigns, wfssigns]);
@@ -165,6 +165,7 @@
         // 'this' is the popup.
         selectControl.unselect(this.feature);
     }
+    
     function onFeatureSelect(evt) {
         feature = evt.feature;
         popup = new OpenLayers.Popup.FramedCloud("featurePopup",
@@ -177,6 +178,7 @@
         popup.feature = feature;
         map.addPopup(popup);
     }
+    
     function onFeatureUnselect(evt) {
         feature = evt.feature;
         if (feature.popup) {

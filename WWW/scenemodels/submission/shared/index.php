@@ -157,22 +157,30 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     </tr>
     <tr>
         <td>
-            <span title="This is the image thumb to check yourself if your are choosing the right model."><a style="cursor: help; ">Model overview</a></span></td>
+            Model overview
         </td>
         <td>
-            <img src="../../modelthumb.php?id=0" id="form_objects_thumb" alt=""/>
+            <img id="form_objects_thumb" alt=""/>
         </td>
     </tr>
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
         <td>
-            <input type="text" name="longitude" maxlength="13" value="" onBlur="checkNumeric(this,-180,180,'.');" />
+            <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map()" onBlur="checkNumeric(this,-180,180,'.');" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span></td>
         <td>
-            <input type="text" name="latitude" maxlength="13" value="" onBlur="checkNumeric(this,-90,90,'.');" />
+            <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map()" onBlur="checkNumeric(this,-90,90,'.');" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Map
+        </td>
+        <td>
+            <iframe id="map" src="map.php?zoom=13&lat=0&lon=0" width="300" height="225"></iframe>
         </td>
     </tr>
     <tr>
