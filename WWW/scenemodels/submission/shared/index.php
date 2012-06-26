@@ -150,13 +150,17 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     <tr>
         <td><span title="This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
         <td>
-<?php
-                
-                // Now everything is done via the Ajax stuff, and the results inserted here.
+            <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
 
-                echo "<div id=\"form_objects\"></div>";
-
-?>
+            <div id="form_objects"></div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span title="This is the image thumb to check yourself if your are choosing the right model."><a style="cursor: help; ">Model overview</a></span></td>
+        </td>
+        <td>
+            <img src="../../modelthumb.php?id=0" id="form_objects_thumb" alt=""/>
         </td>
     </tr>
     <tr>

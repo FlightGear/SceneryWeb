@@ -16,7 +16,7 @@ function update_objects()
 
 function changeObjectsList(hreq)
 {
-  var text="<select name='model_name'>";
+  var text="<select name='model_name' id='model_name' onchange='change_thumb()'>";
 	
   if(hreq.readyState==4) //checks that the request is finished       
   { 
@@ -35,4 +35,13 @@ function changeObjectsList(hreq)
   text+="</select>";
   
   document.getElementById('form_objects').innerHTML =text;
+  change_thumb();
+}
+
+function change_thumb()
+{
+  var newImage = new Image();
+  newImage.src = "";
+
+  document.getElementById('form_objects_thumb').src ="../../modelthumb.php?id="+document.getElementById('model_name').value;  
 }

@@ -16,7 +16,6 @@ Features updates (by priority):
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Make sure Javascript is turned on?
 - Enable the user to submit its email to get informed of the process (EXPERIMENTAL support added and working on unitary addition). Enable maintainer to drop a comment.
-- Shows the object picture when selected (Ajax when adding).
 - Shows the object position when selected (map when adding...).
 - Add ob_text (unitary addition, because in edition we would need Ajax), ob_country, ob_author add/update possibilities.
 - When there is an error with the captcha, an error page is being presented, containing a "Go back ..."
