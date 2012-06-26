@@ -43,7 +43,7 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))){
         while ($row = pg_fetch_assoc($result)){
       ?>
         <a href="/modeledit.php?id=<?php echo $row['mo_id'];?>">
-          <img border="0" title="<?php echo $row['mo_name'].' ['.$row['mo_path'].']';?>" 
+          <img title="<?php echo $row['mo_name'].' ['.$row['mo_path'].']';?>" 
                src="modelthumb.php?id=<?php echo $row['mo_id'];?>" width="100" height="75" 
                onmouseover="showtrail('modelthumb.php?id=<?php echo $row['mo_id'];?>','','','1',5,322);" 
                onmouseout="hidetrail();"
