@@ -86,7 +86,7 @@
 </script>
 
 <form action="objects.php" method="get">
-  <table border="1" align="center">
+  <table border="1">
     <tr valign="bottom">
       <th>Lat</th>
       <th>Lon</th>
@@ -141,7 +141,7 @@
             while ($row = pg_fetch_assoc($result)){
               $countries{$row["co_code"]}=$row["co_name"];
               echo "<option value=\"".$row["co_code"]."\"";
-              if ($row["co_code"]==$country) echo " selected";
+              if ($row["co_code"]==$country) echo " selected=\"selected\"";
               echo ">".$row["co_name"]."</option>\n";
             }
           ?>
@@ -151,7 +151,7 @@
         <input type="submit" name="filter" value="Filter"/>
       </th>
     </tr>
-    <tr class="bottom"><td colspan=11 align="center">
+    <tr class="bottom"><td colspan="11" align="center">
       <?php
         $prev = $offset-20;
         $next = $offset+20;
@@ -179,7 +179,7 @@
       $query.= "LIMIT 20 OFFSET ".$offset;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){	
-        echo "<tr class=object>\n";
+        echo "<tr class=\"object\">\n";
           echo "<td>".$row["ob_lat"]."</td>\n";
           echo "<td>".$row["ob_lon"]."</td>\n";
           echo "<td>".$row["ob_gndelev"]."</td>\n";
