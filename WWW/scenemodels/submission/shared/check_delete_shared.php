@@ -95,7 +95,9 @@ else {
         $family_name = get_object_family_from_id($id_to_delete);
         $model_id = object_model_from_object_id($id_to_delete);
         $model_name = object_name($model_id);
+        $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
         $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+        $html_family_url = htmlspecialchars($family_url);
         $html_object_url = htmlspecialchars($object_url);
     
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
@@ -112,23 +114,23 @@ else {
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
                         "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-        $message1 = "Family: ". get_object_family_from_id($id_to_delete). "\r\n" .
-                    "Object: ". object_name(get_object_model_from_id($id_to_delete). "\r\n" .
-                    "[ ".$html_object_url." ]" . "\r\n" .
-                    "Latitude: ". get_object_latitude_from_id($id_to_delete) . "\r\n" .
-                    "Longitude: ". get_object_longitude_from_id($id_to_delete) . "\r\n" .
-                    "Ground elevation: ". get_object_elevation_from_id($id_to_delete) . "\r\n" .
-                    "Elevation offset: ". get_object_offset_from_id($id_to_delete) . "\r\n" .
-                    "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_delete) . "\r\n" .
-                    "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
-                    "Please click:" . "\r\n" .
-                    "http://mapserver.flightgear.org/map/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=15&layers=000B0000TFFFFFFFTFTFTFFF" . "\r\n" .
-                    "to locate the object on the map." ;
+        $message1 = "Object #: " .$id_to_delete. "\r\n" .
+                    "Family: " .get_object_family_from_id($id_to_delete). "\r\n" .
+                    "Object: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" . "[ ".$html_object_url." ]" . "\r\n" .
+                    "Latitude: " .get_object_latitude_from_id($id_to_delete). "\r\n" .
+                    "Longitude: " .get_object_longitude_from_id($id_to_delete). "\r\n" .
+                    "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
+                    "Elevation offset: " .get_object_offset_from_id($id_to_delete). "\r\n" .
+                    "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
+                    "Comment: " .strip_tags($_POST['comment']). "\r\n" .
+                    "Please click:". "\r\n" .
+                    "http://mapserver.flightgear.org/map/?lon=" .get_object_longitude_from_id($id_to_delete). "&lat=" .get_object_latitude_from_id($id_to_delete). "&zoom=15&layers=000B0000TFFFFFFFTFTFTFFF"."\r\n" .
+                    "to locate the object on the map.";
 
         $message2 = "\r\n".
                     "Now please click:" . "\r\n" .
@@ -137,7 +139,7 @@ else {
                     "or" . "\r\n" .
                     "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                     "to reject the deletion." . "\r\n" . "\r\n" .
-                    "Thanks!" ;
+                    "Thanks!";
 
         // Preparing the headers.
         $headers = "MIME-Version: 1.0" . "\r\n";
@@ -175,18 +177,18 @@ else {
             $message077 = wordwrap($message3, 77, "\r\n");
 
             // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-            $message4 = "Family: ".$family_real_name."\r\n" .
+            $message4 = "Family: " .get_object_family_from_id($id_to_delete). "\r\n" .
                         "[ ".$html_family_url." ]" . "\r\n" .
-                        "Object: ".$model_real_name."\r\n" .
+                        "Object: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
                         "[ ".$html_object_url." ]" . "\r\n" .
-                        "Latitude: ". $lat . "\r\n" .
-                        "Longitude: ". $long . "\r\n" .
-                        "Ground elevation: ". $gndelev . "\r\n" .
-                        "Elevation offset: ". $offset . "\r\n" .
-                        "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
-                        "Comment: ". strip_tags($sent_comment) ."\r\n" .
+                        "Latitude: " .get_object_latitude_from_id($id_to_delete). "\r\n" .
+                        "Longitude: " .get_object_longitude_from_id($id_to_delete). "\r\n" .
+                        "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
+                        "Elevation offset: " .get_object_offset_from_id($id_to_delete). "\r\n" .
+                        "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
+                        "Comment: " .strip_tags($sent_comment) ."\r\n".
                         "Please click:" . "\r\n" .
-                        "http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+                        "http://mapserver.flightgear.org/map/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
                         "to locate the object on the map." . "\r\n" .
                         "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
@@ -202,8 +204,7 @@ else {
     }
 }
 }
-else
-{
+else {
 
 // Checking DB availability before all
 $ok = check_availability();

@@ -212,7 +212,7 @@ if ($false == 0) {
         // What is the subject ?
         $subject = "[FG Scenery Submission forms] Automatic shared model position request: needs validation.";
 
-        // Correctly set the object URL.
+        // Correctly format the data for mail.
         $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
         $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
         $html_family_url = htmlspecialchars($family_url);
@@ -232,16 +232,14 @@ if ($false == 0) {
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
                         "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
            
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-        $message1 = "Family: ".$family_real_name."\r\n" .
-                    "[ ".$html_family_url." ]" . "\r\n" .
-                    "Object: ".$model_real_name."\r\n" .
-                    "[ ".$html_object_url." ]" . "\r\n" .
+        $message1 = "Family: ".$family_real_name."\r\n" . "[ ".$html_family_url." ]" . "\r\n" .
+                    "Object: ".$model_real_name."\r\n" . "[ ".$html_object_url." ]" . "\r\n" .
                     "Latitude: ". $lat . "\r\n" .
                     "Longitude: ". $long . "\r\n" .
                     "Ground elevation: ". $gndelev . "\r\n" .
