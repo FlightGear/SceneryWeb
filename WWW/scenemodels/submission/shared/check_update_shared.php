@@ -511,7 +511,7 @@ if ($false == 0) {
         exit;
     }
     else {
-        if($returned_rows == '1') {// If we have just an answer...
+        if($returned_rows == '1') { // If we have just an answer...
             while($row = pg_fetch_row($result)) {
                 echo "<br /><center>One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</center><br /><br />";
         ?>
@@ -523,29 +523,25 @@ if ($false == 0) {
                     </tr>
                     <tr>
                         <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
-                        <td colspan="4"><?php $real_name=object_name($row[5]); echo $real_name; ?></td>
+                        <td colspan="4"><?php $real_name = object_name($row[5]); echo $real_name; ?></td>
                         <input name="model_id" type="hidden" value="<?php echo $row[5]; ?>" />
                     </tr>
                     <tr>
-                        <td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
+                        <td><span title="This is the last update or submission date/time of the corresponding object.">
+                        <a style="cursor: help; ">Date/Time of last update</a></span></td>
                         <td colspan="4"><?php echo $row[1]; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
-                        <td colspan="4"><?php echo $row[2]; ?></td>
-                        <input name="long" type="hidden" maxlength="13" value="<?php echo $long; ?>" />
-                        <input name="lat" type="hidden" maxlength="13" value="<?php echo $lat; ?>" />
-                        <input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[2]; ?>" />
+                        <td colspan="4"><?php $actual_elevation = get_object_elevation_from_id($row[0]); echo $actual_elevation; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
-                        <td colspan="4"><?php if ($row[3]=="") echo "0"; else echo $row[2]; ?></td>
-                        <input name="offset" maxlength="10" type="hidden" value="<?php if ($row[3]=="") echo "0"; else echo $row[3]; ?>" />
+                        <td colspan="4"><?php $actual_offset = get_object_offset_from_id($row[0]); echo $actual_offset; ?></td>
                     </tr>
                     <tr>
                         <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-                        <td colspan="4"><?php $temp=heading_true_to_stg($row[4]); echo $temp; ?></td>
-                        <input name="orientation" maxlength="7" type="hidden" value="<?php echo $temp; ?>" />
+                        <td colspan="4"><?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $actual_orientation; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
@@ -561,7 +557,6 @@ if ($false == 0) {
                     <tr>
                         <td colspan="4">
                         <center>
-                        <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
                         <br />
                         <input type="submit" name="submit" value="I want to update this object!" />
                         <input type="button" name="cancel" value="Cancel, I made a mistake!" onclick="history.go(-1)"/>
@@ -601,30 +596,27 @@ if ($false == 0) {
                         <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
-                        <td colspan="4"><?php $real_name=object_name($row[5]); echo $real_name; ?></td>
-                        <input name="model_id" type="hidden" value="<?php echo $row[5]; ?>" />
+                        <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
+                        <a style="cursor: help; ">Model name</a></span></td>
+                        <td colspan="4"><?php $real_name = object_name($row[5]); echo $real_name; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
+                        <td><span title="This is the last update or submission date/time of the corresponding object.">
+                        <a style="cursor: help; ">Date/Time of last update</a></span></td>
                         <td colspan="4"><?php echo $row[1]; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
-                        <td colspan="4"><?php echo $row[2]; ?></td>
-                        <input name="long" type="hidden" maxlength="13" value="<?php echo $long; ?>" />
-                        <input name="lat" type="hidden" maxlength="13" value="<?php echo $lat; ?>" />
-                        <input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[2]; ?>" />
+                        <td><span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
+                        <a style="cursor: help; ">Elevation</a></span></td>
+                        <td colspan="4"><?php $actual_elevation = get_object_elevation_from_id($row[0]); echo $actual_elevation; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
-                        <td colspan="4"><?php if ($row[2]=="") echo "0"; else echo $row[3]; ?></td>
-                        <input name="offset" type="hidden" maxlength="10" value="<?php if ($row[3]=="") echo "0"; else echo $row[3]; ?>" />
+                        <td colspan="4"><?php $actual_offset = get_object_offset_from_id($row[0]); echo $actual_offset; ?></td>
                     </tr>
                     <tr>
                         <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-                        <td colspan="4"><?php $temp=heading_true_to_stg($row[4]); echo $temp; ?></td>
-                        <input name="orientation" type="hidden" maxlength="7" value="<?php echo $temp; ?>" />
+                        <td colspan="4">?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $actual_orientation; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
@@ -634,7 +626,7 @@ if ($false == 0) {
                             </iframe>
                         </td>
                     </tr>
-                    <?php
+                <?php
                 $i++;
             }
                 ?>
@@ -644,8 +636,6 @@ if ($false == 0) {
                         <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
                         <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
                         <br />
-                        <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
-                        <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
                         <input type="submit" name="submit" value="I want to update the selected object!" />
                         <input type="button" name="cancel" value="Cancel - I made a mistake!" onclick="history.go(-1)"/>
                         </center>

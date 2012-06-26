@@ -200,10 +200,10 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
         <td colspan="2">
             <center>
 <?php
-                        // Google Captcha stuff
-                        require_once('../../captcha/recaptchalib.php');
-                        $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-                        echo recaptcha_get_html($publickey);
+            // Google Captcha stuff
+            require_once('../../captcha/recaptchalib.php');
+            $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+            echo recaptcha_get_html($publickey);
 ?>
             <br />
             <input type="submit" value="Submit position" />

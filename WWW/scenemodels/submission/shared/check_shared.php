@@ -126,13 +126,11 @@ $resp = recaptcha_check_answer ($privatekey,
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
         // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment'])) 
-        if((isset($_POST['comment'])) && ((strlen($_POST['comment']))>0) && ((strlen($_POST['comment']))<=100))
-        {
+        if((isset($_POST['comment'])) && ((strlen($_POST['comment']))>0) && ((strlen($_POST['comment']))<=100)) {
             $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
             echo "<font color=\"green\">Comment: ".$sent_comment."</font><br />";
         }
-        else
-        {
+        else {
             echo "<font color=\"red\">Comment mismatch!</font><br />";
             $false='1';
         }
@@ -155,12 +153,10 @@ if ($false == 0) {
     
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
     
-    if (($offset == '0') || ($offset == ''))
-    {
+    if (($offset == '0') || ($offset == '')) {
         $query_rw="INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", ".$model_id.", 1);";
     }
-    else
-    {
+    else {
         $query_rw="INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", ".$model_id.", 1);";
     }
     
@@ -219,7 +215,7 @@ if ($false == 0) {
         $html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if($failed_mail!='1') {
+        if($failed_mail != '1') {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
