@@ -293,7 +293,7 @@ function chkNumeric(objName,minval,maxval,period)
 <br /><br />
 <?php
     $id_to_update = pg_escape_string(stripslashes($update_choice));
-    echo "<center>You have asked to update object #".$id_to_update."</center><br /><br />";
+    echo "<center>You have asked to update object #".$id_to_update."</center><br /><br />\n";
 ?>
         <form name="update" method="post" action="check_update_shared.php">
         <table>
@@ -322,7 +322,7 @@ function chkNumeric(objName,minval,maxval,period)
             $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
             
             // Start the select form
-            echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
+            echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
             echo "<option selected value=\"0\">Please select a family</option>\n";
             while ($row = @pg_fetch_assoc($result))
             {
@@ -344,7 +344,8 @@ function chkNumeric(objName,minval,maxval,period)
             </tr>
             <tr>
             <td>
-            <span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span>
+            <span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
+            <a style="cursor: help; ">Model name</a></span>
             </td>
             <td>
             <?php $actual_model_name = object_name(get_object_model_from_id($id_to_update));  echo $actual_model_name; ?>
@@ -358,7 +359,8 @@ function chkNumeric(objName,minval,maxval,period)
             </tr>
             <tr>
             <td>
-            <span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span>
+            <span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000.">
+            <a style="cursor: help; ">Longitude</a></span>
             </td>
             <td>
             <?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
@@ -369,7 +371,8 @@ function chkNumeric(objName,minval,maxval,period)
             </tr>
             <tr>
             <td>
-            <span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span>
+            <span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000.">
+            <a style="cursor: help; ">Latitude</a></span>
             </td>
             <td>
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
@@ -380,7 +383,8 @@ function chkNumeric(objName,minval,maxval,period)
             </tr>
             <tr>
             <td>
-            <span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span>
+            <span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
+            <a style="cursor: help; ">Elevation</a></span>
             </td>
             <td>
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
@@ -391,7 +395,8 @@ function chkNumeric(objName,minval,maxval,period)
             </tr>
             <tr>
             <td>
-            <span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span>
+            <span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground).">
+            <a style="cursor: help; ">Elevation Offset</a></span>
             </td>
             <td>
             <?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
@@ -412,13 +417,15 @@ function chkNumeric(objName,minval,maxval,period)
             </td>
             </tr>
             <tr>
-            <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it"><a style="cursor: help">Comment</a></span></td>
+            <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
+            <a style="cursor: help">Comment</a></span></td>
             <td colspan="2">
             <center><input type="text" name="comment" maxlength="100" size="40" value="" /></center>
             </td>
             </tr>
             <tr>
-            <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+            <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
+            <a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
             <td>
             <input type="text" name="email" maxlength="50" size="40" value="" />
             </td>
@@ -440,8 +447,7 @@ function chkNumeric(objName,minval,maxval,period)
             </tr>
         </table>
         </form>
-        <?php include '../../inc/footer.php'; ?>
-<?php
+        <?php include '../../inc/footer.php';
 }
 else
 {

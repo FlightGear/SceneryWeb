@@ -1,32 +1,22 @@
 <?php
 
 // Inserting libs
-
 require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
-
 $ok=check_availability();
 
 if(!$ok)
 {
-?>
-<?php
     $page_title = "Automated Shared Models Positions Submission Form";
     include '../../inc/header.php';
 ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
-<?php include '../../inc/footer.php'; ?>
-<?php
+<?php include '../../inc/footer.php';
 }
-
-else
-{
-?>
-
-<?php
+else {
     $page_title = "Automated Shared Models Positions Submission Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
@@ -114,34 +104,26 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
                 $resource_r = connect_sphere_r();
                 
                 // If connection is OK
-
-                if($resource_r!='0')
-                {
+                if($resource_r!='0') {
 
                     // Show all the families other than the static family
-
                     $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
                 
                     // Start the select form
-
                     echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
                     echo "<option selected value=\"0\">Please select a family</option>\n";
-                    while ($row = @pg_fetch_assoc($result))
-                    {
+                    while ($row = @pg_fetch_assoc($result)) {
                         $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);        
                         echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
-                    };
+                    }
                     echo "</select>";
 
                     // Close the database resource
-
                     @pg_close($resource_r);
                 }
 
                 // Else, write message.
-
-                else
-                {
+                else  {
                     echo "<br /><font color='red'>Sorry but the database is currently unavailable, please come again soon.</font>";
                 }
 ?>
@@ -231,7 +213,6 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 </table>
 </form>
 </p>
-<?php include '../../inc/footer.php'; ?>
-<?php
+<?php include '../../inc/footer.php';
 }
 ?>
