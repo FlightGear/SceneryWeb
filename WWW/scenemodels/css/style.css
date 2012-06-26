@@ -28,6 +28,10 @@ IMG {
     border: 0px;
 }
 
+P.center {
+    text-align: center;
+}
+
 TD {
     vertical-align: center;
 }

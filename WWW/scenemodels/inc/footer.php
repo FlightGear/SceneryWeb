@@ -1,4 +1,4 @@
-<div style="text-align:center;">
+<p class="center">
 <br />
 <?php
 
@@ -13,6 +13,6 @@ if (file_exists($filename))
 
 ?>
 <a href="https://www.gitorious.org/fg/sceneryweb/commits/master">Version info</a> - <a href="../../TOBEDONE">Volunteer ?</a> - <a href="../../README">README</a> - <a href="../../LICENCE">License</a> - <a href="../../VERSION">History</a>
-</div>
+</p>
 </body>
 </html>
