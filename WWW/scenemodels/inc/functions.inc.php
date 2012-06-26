@@ -542,7 +542,7 @@ function list_authors()
     $result = @pg_query($headerlink_authors, $query);
     
     while($row = @pg_fetch_assoc($result)) {
-        if($row["au_id"]==1) echo "<option value=\"".$row["au_id"]."\" selected>".$row["au_name"]."</option>\n";
+        if($row["au_id"]==1) echo "<option value=\"".$row["au_id"]."\" selected=\"selected\">".$row["au_name"]."</option>\n";
         else echo "<option value=\"".$row["au_id"]."\">".$row["au_name"]."</option>\n";
     }
     

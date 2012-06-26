@@ -1,21 +1,14 @@
 <?php
-  require_once('../../inc/functions.inc.php');
+    require_once('../../inc/functions.inc.php');
+
+    $page_title="Automated Models Submission Form";
+    include '../../inc/header.php';
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-  <title>Automated Models Submission Form</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" href="../../css/style.css" type="text/css"></link>
   <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="../../inc/jquery.multifile.js"></script>
   <noscript>
-    <meta http-equiv="refresh" content="0; URL=../inc/nojs.php">
+    <meta http-equiv="refresh" content="0; URL=../inc/nojs.php"/>
   </noscript>
-</head>
-
-<body>
-  <?php include '../../inc/header.php'; ?>
 
   <script type="text/javascript">
     // This script is here to check for the consistency of the different fields of the form 
@@ -71,20 +64,23 @@
   </script>
 
 
-  <h1 align=center>Models Automated Submission Form</h1>
+  <h1>Models Automated Submission Form</h1>
+  <p>
   <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database. 
   There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>. 
   Please help us to make it more!
 
   Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for. 
   Please note that all fields are now mandatory.
-  <br /><br />
-  Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.<br/><br/>
-  <span style="color:red;">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.png (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</span>
-  <br /><br />
+  </p>
+  <p>
+  Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.
+  </p>
+  <p style="color:red;">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.png (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</p>
 
 
-  <form name="positions" method="POST" action="check_static.php" enctype="multipart/form-data">
+
+  <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
     <table>
       <tr>
         <td>
@@ -113,7 +109,7 @@
           </span>
         </td>
         <td>
-          <input type=text name ="mo_path">
+          <input type="text" name ="mo_path"/>
         </td>
       </tr>
       <tr>
@@ -217,7 +213,7 @@
           </span>
         </td>
         <td>
-          <input type=file name="mo_thumbfile" class="multi" maxlength="1" accept="jpg|jpeg" />
+          <input type="file" name="mo_thumbfile" class="multi" maxlength="1" accept="jpg|jpeg" />
         </td>
       </tr>
       <tr>
@@ -227,7 +223,7 @@
           </span>
         </td> 
         <td>
-          <input type=file name="ac3d_file" class="multi" maxlength="1" accept="ac" />
+          <input type="file" name="ac3d_file" class="multi" maxlength="1" accept="ac" />
         </td>
       </tr>
       <tr>
@@ -237,7 +233,7 @@
           </span>
         </td>
         <td>
-          <input type=file name="xml_file" class="multi" maxlength="1" accept="xml" />
+          <input type="file" name="xml_file" class="multi" maxlength="1" accept="xml" />
         </td>
       </tr>
       <tr>
