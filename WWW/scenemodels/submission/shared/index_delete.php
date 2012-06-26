@@ -19,14 +19,9 @@ if(!$ok)
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
 <?php include '../../inc/footer.php'; ?>
-<?php
 }
-
 else
 {
-?>
-
-<?php
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
 ?>
@@ -111,13 +106,6 @@ function chkNumeric(objName,minval,maxval,period)
 		<td><span title="This is the WGS84 latitude of the object you want to delete. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span></td>
 		<td>
 			<input type="text" name="latitude" maxlength="13" value="0" onBlur="checkNumeric(this,-90,90,'.');" />
-		</td>
-	</tr>
-	<tr>
-		<td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
-		<td>
-			<input type="text" name="comment" maxlength="100" size="40" value="" />
-			<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
 		</td>
 	</tr>
 	<tr>

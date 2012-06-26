@@ -1,18 +1,13 @@
 <?php
 
 // Inserting libs
-
 require_once('../../inc/functions.inc.php');
 
 // Final step to deletion
-
-if((isset($_POST['step'])) && ($_POST['step'] == '3'))
-{
-
+if((isset($_POST['step'])) && ($_POST['step'] == '3')) {
 require_once('../../captcha/recaptchalib.php');
 
 // Private key is needed for the server-to-Google auth.
-
 $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
 $resp = recaptcha_check_answer ($privatekey,
                                 $_SERVER["REMOTE_ADDR"],
@@ -20,55 +15,56 @@ $resp = recaptcha_check_answer ($privatekey,
                                 $_POST["recaptcha_response_field"]);
 
 // What happens when the CAPTCHA was entered incorrectly
-
-if (!$resp->is_valid)
-{
+if (!$resp->is_valid) {
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
     echo "<br />";
     die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a><" .
             "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
 }
-else
-{
+else {
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
     echo "<br /><br />";
     $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
     echo "<center><font color=\"green\">You have asked to delete object #".$id_to_delete."</font></center><br />";
-        
-    // Preparing the deletion request
     
+    // Checking that email is valid (if it exists).
+    //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
+
+    if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
+        $safe_email = pg_escape_string(stripslashes($_POST['email']));
+        echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
+    }
+    else {
+        echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
+        $failed_mail='1';
+     }
+    
+    // Preparing the deletion request
     $query_delete="DELETE from fgs_objects where ob_id=".$id_to_delete.";";
     
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_delete.">";
     $sha_hash = hash('sha256', $sha_to_compute);
     
     // Zipping the Base64'd request.
-    
     $zipped_base64_delete_query = gzcompress($query_delete,8);
     
     // Coding in Base64.
-    
     $base64_delete_query = base64_encode($zipped_base64_delete_query);
     
     // Opening database connection...
-
     $resource_rw = connect_sphere_rw();
     
     // Sending the request...
-    
     $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_delete_query."');";
     $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
     
     // Closing the connection.
-
     @pg_close($resource_rw);
     
     // Talking back to submitter.
-
     if(!$resultrw) {
         echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
     }
@@ -79,30 +75,23 @@ else
         echo "Want to delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
-
         // Sets the time to UTC.
-
         date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
 
         // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-
         $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
         $host = gethostbyaddr($ipaddr);
 
         // OK, let's start with the mail redaction.
-
         // Who will receive it ?
-
         $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
         $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
     
         // What is the subject ?
-
         $subject = "[FG Scenery Submission forms] Automatic shared model position DELETION request: needs validation.";
 
         // Correctly format the data for the mail.
-    
         $family_name = get_object_family_from_id($id_to_delete);
         $model_id = object_model_from_object_id($id_to_delete);
         $model_name = object_name($model_id);
@@ -110,19 +99,26 @@ else
         $html_object_url = htmlspecialchars($object_url);
     
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-
-        $message0 = "Hi," . "\r\n" .
-                    "This is the automated FG scenery deletion PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_delete_shared.php" . "\r\n" .
-                    "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
+        if($failed_mail != '1') {
+            $message0 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
+                        "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
+                        "issued the following request:" . "\r\n";
+        }
+        else {
+            $message0 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
+                        "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
-               
+        }
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-
-        $message1 = "Family: ".$family_name."\r\n" .
-                    "Object: ".$model_name."\r\n" .
+        $message1 = "Family: ". get_object_family_from_id($id_to_delete). "\r\n" .
+                    "Object: ". object_name(get_object_model_from_id($id_to_delete). "\r\n" .
                     "[ ".$html_object_url." ]" . "\r\n" .
                     "Latitude: ". get_object_latitude_from_id($id_to_delete) . "\r\n" .
                     "Longitude: ". get_object_longitude_from_id($id_to_delete) . "\r\n" .
@@ -131,29 +127,78 @@ else
                     "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_delete) . "\r\n" .
                     "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                     "Please click:" . "\r\n" .
-                    "http://mapserver.flightgear.org/map/?lon=". $_POST['long'] ."&lat=". $_POST['lat'] ."&zoom=15&layers=000B0000TFFFFFFFTFTFTFFF" . "\r\n" .
+                    "http://mapserver.flightgear.org/map/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=15&layers=000B0000TFFFFFFFTFTFTFFF" . "\r\n" .
                     "to locate the object on the map." ;
 
         $message2 = "\r\n".
                     "Now please click:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."\r\n" .
+                    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                     "to confirm the deletion" . "\r\n" .
                     "or" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."\r\n" .
-                     "to reject the deletion." . "\r\n" . "\r\n" .
+                    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                    "to reject the deletion." . "\r\n" . "\r\n" .
                     "Thanks!" ;
 
         // Preparing the headers.
-
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "From: \"FG Scenery Deletion forms\" <martin.spott@mgras.net>" . "\r\n";
         $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
         // Let's send it ! No management of mail() errors to avoid being too talkative...
-
         $message = $message077.$message1.$message2;
-
         @mail($to, $subject, $message, $headers);
+        
+        // Mailing the submitter
+        if($failed_mail!='1') {
+             
+            // Tell the submitter that its submission has been sent for validation.
+            $to = $safe_email;
+
+            // What is the subject ?
+            $subject = "[FG Scenery Submission forms] Automatic shared model position deletion request.";
+
+            // Correctly set the object URL.
+            $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
+            $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+            $html_family_url = htmlspecialchars($family_url);
+            $html_object_url = htmlspecialchars($object_url);
+
+            // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
+            $message3 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/check_delete_shared.php" . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
+                        "This shared object position deletion request has been sent for validation." . "\r\n" .
+                        "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
+                        "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
+           
+            $message077 = wordwrap($message3, 77, "\r\n");
+
+            // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
+            $message4 = "Family: ".$family_real_name."\r\n" .
+                        "[ ".$html_family_url." ]" . "\r\n" .
+                        "Object: ".$model_real_name."\r\n" .
+                        "[ ".$html_object_url." ]" . "\r\n" .
+                        "Latitude: ". $lat . "\r\n" .
+                        "Longitude: ". $long . "\r\n" .
+                        "Ground elevation: ". $gndelev . "\r\n" .
+                        "Elevation offset: ". $offset . "\r\n" .
+                        "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
+                        "Comment: ". strip_tags($sent_comment) ."\r\n" .
+                        "Please click:" . "\r\n" .
+                        "http://mapserver.flightgear.org/map/?lon=". $long ."&lat=". $lat ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+                        "to locate the object on the map." . "\r\n" .
+                        "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
+
+            // Preparing the headers.
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
+            $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
+
+            // Let's send it ! No management of mail() errors to avoid being too talkative...
+            $message = $message077.$message4;
+            @mail($to, $subject, $message, $headers);
+        }
     }
 }
 }
@@ -161,25 +206,18 @@ else
 {
 
 // Checking DB availability before all
-
 $ok = check_availability();
 
-if(!$ok)
-{
-?>
-
-<?php
+if(!$ok) {
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
 ?>
 <br /><br />
 <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
 <br /><center>The FlightGear team.</center>
-<?php include '../../inc/footer.php'; ?>
-<?
+<?php include '../../inc/footer.php';
 }
-else
-{
+else {
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
 ?>
@@ -189,29 +227,23 @@ $false='0';
 global $false;
 
 // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-
 // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) 
-if((isset($_POST['latitude'])) && ((strlen($_POST['latitude']))<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90'))
-{
+if((isset($_POST['latitude'])) && ((strlen($_POST['latitude']))<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
     $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
 }
-else
-{
+else {
     echo "<font color=\"red\">Latitude mismatch!</font><br />";
     $false='1';
 }
 
 // Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-
 // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
-if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13)  && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180'))
-{
+if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13)  && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180')) {
     $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     echo "<font color=\"green\">Longitude: ".$long."</font><br />";
 }
-else
-{
+else {
     echo "<font color=\"red\">Longitude mismatch!</font><br />";
     $false = '1';
 }
@@ -219,43 +251,37 @@ else
 // Checking that comment exists. Just a small verification as it's not going into DB.
 
 // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment'])) 
-if((isset($_POST['comment'])) && ((strlen($_POST['comment'])>0)) && ((strlen($_POST['comment']))<=100))
-{
+if((isset($_POST['comment'])) && ((strlen($_POST['comment'])>0)) && ((strlen($_POST['comment']))<=100)) {
     $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 }
-else
-{
+else {
     echo "<font color=\"red\">Comment mismatch!</font><br />";
     $false='1';
 }
     
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 
-if ($false==0)
-{
+if ($false == 0) {
     echo "<br /><font color=\"green\">Data seems to be OK to be deleted from the database</font><br />";
     
     // Opening database connection...
-
     $resource_r_deletion = connect_sphere_r();
     
     // Let's see in the database if something exists at this position
-    
     $query_pos="SELECT ob_id, ob_modified FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
     $result = @pg_query($resource_r_deletion, $query_pos);
-    
     $returned_rows = pg_num_rows($result);
     
-    if ($returned_rows == '0')
-    {
+    // We have only one result
+    if ($returned_rows == '0') {
         echo "<br /><font color=\"red\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).</font><br/>";
         exit;
     }
-    else
-    {
+    
+    // We have more than one result
+    else {
         if(($returned_rows == '1') || ((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice']))) || ((isset($_GET['delete_choice'])) && ($_GET['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))) {
-        while($row = pg_fetch_row($result))
-        {
+        while($row = pg_fetch_row($result)) {
         echo "<br />One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.<br /><br />";
         ?>
         <form name="delete_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php">
@@ -291,10 +317,22 @@ if ($false==0)
                     </iframe>
             </td>
         </tr>
+        <tr>
+		<td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
+		<td>
+			<input type="text" name="comment" maxlength="100" size="40" value="" />
+			<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
+		</td>
+	    </tr>
+        <tr>
+        <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+        <td>
+            <input type="text" name="email" maxlength="50" size="40" value="" />
+        </td>
+        </tr>
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
             <input name="step" type="hidden" value="3" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
-            <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
         <tr>
             <td colspan="4">
             <center>
@@ -317,20 +355,17 @@ if ($false==0)
         }
         exit;
         }
-        else if($returned_rows > '1')
-        {
+        
+        // We have more than one solution
+        else if($returned_rows > '1') {
             echo "<br />".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to delete.<br /><br />";
         
             // Starting multi-solutions form
-        
             echo "<form name=\"delete_position\" method=\"post\" action=\"http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php\"\">";
             echo "<table>";
-            
-            // Just used to put the selected button on the first entry
-            
-            $i = 1;
-            while($row = pg_fetch_row($result))
-            {
+                      
+            $i = 1; // Just used to put the selected button on the first entry
+            while($row = pg_fetch_row($result)) {
             ?>
             <tr>
                 <td colspan="5" background="white"><center><b>Object number #<?php echo $row[0]; ?></b></center>
@@ -342,8 +377,7 @@ if ($false==0)
                 if ($i == 1) {
                     echo "<input type=\"radio\" name=\"delete_choice\" value=\"".$row[0]."\" checked />";
                 }
-                else
-                    echo "<input type=\"radio\" name=\"delete_choice\" value=\"".$row[0]."\" />";
+                else echo "<input type=\"radio\" name=\"delete_choice\" value=\"".$row[0]."\" />";
                 ?>
                 </th>
                 <td><span title="This is the family name of the object you want to delete."><a style="cursor: help;">Object's family</a></span></td>
@@ -385,33 +419,44 @@ if ($false==0)
                 $i++;
                 }
                 ?>
-                    <tr>
-                        <td colspan="5">
-                        <center>
-                        <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
-                        <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
-                        <?php
-                        // Google Captcha stuff
-                        require_once('../../captcha/recaptchalib.php');
-                        $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-                        echo recaptcha_get_html($publickey);
-                        ?>
-                        <br />
-                        <input type="submit" name="submit" value="Delete this object!" />
-                        <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
-                        </center>
-                        </td>
-                    </tr>
-                </table>
-                </form>
+            <tr>
+		    <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
+		    <td>
+			<input type="text" name="comment" maxlength="100" size="40" value="" />
+			<input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
+		    </td>
+	        </tr>
+            <tr>
+            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+            <td>
+            <input type="text" name="email" maxlength="50" size="40" value="" />
+            </td>
+            </tr>
+            <tr>
+            <td colspan="5">
+                <center>
+                <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
+                <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
+                <?php
+                // Google Captcha stuff
+                require_once('../../captcha/recaptchalib.php');
+                $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+                echo recaptcha_get_html($publickey);
+                ?>
+                <br />
+                <input type="submit" name="submit" value="Delete this object!" />
+                <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
+                </center>
+            </td>
+            </tr>
+            </table>
+            </form>
             <?php
         exit();
         }
     }
     }
-?>
-<?php include '../../inc/footer.php'; ?>
-<?php
+include '../../inc/footer.php';
 }
 }
 ?>

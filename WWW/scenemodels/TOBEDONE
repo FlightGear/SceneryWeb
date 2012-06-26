@@ -82,3 +82,7 @@ Static objects
 - Live db testing ==> WAIT MARTIN VALIDATION
 - Make sure Javascript is on? ==> DONE
 - Make a nice resume of everything submitted (picture, map...)
+
+Mapserver
+=========
+- Renew (see Gijs comment) the object click function on the maps to retrieve the information on the selected object. Seems to be broken since a mapserver update.

@@ -233,7 +233,7 @@ else
                                 "http://scenemodels.flightgear.org/submission/mass_submission.php"  . "\r\n" .
                                 "I just wanted to let you know that the mass object insertion request nr:"  . "\r\n" .
                                 "" .$_POST[hsig]. ""."\r\n" .
-                                "has been succesfully deleted from the pending requests table.";
+                                "has been successfully deleted from the pending requests table.";
                                     
                     $message = wordwrap($message0, 77, "\r\n");
                             
@@ -370,7 +370,7 @@ else
                                         "http://scenemodels.flightgear.org/submission/mass_submission.php"  . "\r\n" .
                                         "I just wanted to let you know that the object position request nr :" . "\r\n" .
                                         $_POST[hsig]. "\r\n" .
-                                        "has been succesfully treated in the fgs_objects table." . "\r\n" .
+                                        "has been successfully treated in the fgs_objects table." . "\r\n" .
                                         "The corresponding pending entry has consequently been deleted" . "\r\n" .
                                         "from the pending requests table.";
                                                
