@@ -243,26 +243,29 @@ else {
 $false = 0;
 global $false;
 
-    if(!(isset($_POST['delete_choice'])) || (!isset($_GET['delete_choice']))) { // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-    // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-    // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
-    if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])) <= 13) && ($_POST['latitude'] <= 90) && ($_POST['latitude'] >= -90)) {
-        $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
-    }
-    else {
-        echo "<center><font color=\"red\">Latitude mismatch!</font></center><br />";
-        $false = 1;
-    }
+    if(isset($_POST['delete_choice'])) || (isset($_GET['delete_choice']))) { // We can directly retrieve the object ID through the other forms, therefore no test is needed.
+        $false = 0;
+        else {
+            // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
+            // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
+            if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])) <= 13) && ($_POST['latitude'] <= 90) && ($_POST['latitude'] >= -90)) {
+                $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
+            }
+            else {
+                echo "<center><font color=\"red\">Latitude mismatch!</font></center><br />";
+                $false = 1;
+            }
 
-    // Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-    // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
-    if((isset($_POST['longitude'])) && ((strlen($_POST['longitude'])) <= 13)  && ($_POST['longitude'] <= 180) && ($_POST['longitude'] >= -180)) {
-        $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
-    }
-    else {
-        echo "<center><font color=\"red\">Longitude mismatch!</font><br /></center>";
-        $false = 1;
-    }
+            // Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
+            // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
+            if((isset($_POST['longitude'])) && ((strlen($_POST['longitude'])) <= 13)  && ($_POST['longitude'] <= 180) && ($_POST['longitude'] >= -180)) {
+                $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
+            }
+            else {
+                echo "<center><font color=\"red\">Longitude mismatch!</font><br /></center>";
+                $false = 1;
+            }
+        }
     }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
