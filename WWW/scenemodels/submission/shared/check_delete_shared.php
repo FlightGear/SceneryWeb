@@ -4,7 +4,7 @@
 require_once('../../inc/functions.inc.php');
 
 // Final step to deletion
-if((isset($_POST['step'])) && ($_POST['step'] == '3')) {
+if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_choice']))) {
 require_once('../../captcha/recaptchalib.php');
 
 // Private key is needed for the server-to-Google auth.
@@ -49,7 +49,7 @@ else {
     }
     else {
         echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
-        $failed_mail= 1;
+        $failed_mail = 1;
      }
 
     // Preparing the deletion request
@@ -86,7 +86,6 @@ else {
         echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
         echo "Want to delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a></center>";
-        include '../../inc/footer.php';
 
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
@@ -215,6 +214,7 @@ else {
             $message = $message077.$message4;
             @mail($to, $subject, $message, $headers);
         }
+    include '../../inc/footer.php';
     exit;
     }
 }
@@ -455,8 +455,9 @@ if ($false == 0) {
             <tr>
                 <td colspan="5">
                 <center>
+                <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
                 <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
-                <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
+                <input name="step" type="hidden" value="3" />
                 <?php
                 // Google Captcha stuff
                 require_once('../../captcha/recaptchalib.php');
