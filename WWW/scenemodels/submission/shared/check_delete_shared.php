@@ -297,6 +297,7 @@ if ($false == 0) {
     // We have only one result
     if ($returned_rows == 0) {
         echo "<br /><center></center><font color=\"red\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).</font></center><br/>";
+        include '../../inc/footer.php';
         exit;
     }
 
@@ -344,7 +345,7 @@ if ($false == 0) {
                 <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
                 <td><center><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>"></a></center></td>
                 <td><center><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></center></td>
-                <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
+                <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $longitude; ?>&lat=<? echo $latitude; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
             </tr>
             <tr>
                 <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
@@ -381,7 +382,7 @@ if ($false == 0) {
 
         // If we have more than one solution
         else if($returned_rows > 1) {
-            echo "<br />".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to delete.<br /><br />";
+            echo "<br /><center></center>".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to delete.</center><br />";
 
             // Starting multi-solutions form
             echo "<form name=\"delete_position\" method=\"post\" action=\"http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php\"\">";
@@ -437,7 +438,7 @@ if ($false == 0) {
                 <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
                 <td><center><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>"></a></center></td>
                 <td><center><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></center></td>
-                <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
+                <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $longitude; ?>&lat=<? echo $latitude; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
             </tr>
                 <?php
                 $i++;
