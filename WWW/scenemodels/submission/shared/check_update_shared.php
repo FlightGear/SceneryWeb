@@ -418,8 +418,8 @@ function chkNumeric(objName,minval,maxval,period)
             <tr>
             <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
             <a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
-            <td>
-            <input type="text" name="email" maxlength="50" size="40" value="" />
+            <td colspan="2">
+            <center></center><input type="text" name="email" maxlength="50" size="40" value="" /></center>
             </td>
             </tr>
             <tr>
