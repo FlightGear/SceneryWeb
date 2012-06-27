@@ -221,12 +221,12 @@ if ($false == 0) {
 
     if($global_ko == 1) { // If errors have been found...
         if ($cpt_err == 1) {
-            echo "<font color=\"red\"><center>".$cpt_err." error has been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</center></font><br />";
+            echo "<font color=\"red\"><center>".$cpt_err." error has been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</center></font>";
             include '../../inc/footer.php';
             exit;
         }
         else {
-            echo "<font color=\"red\"><center>".$cpt_err." errors have been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</center></font><br />";
+            echo "<font color=\"red\"><center>".$cpt_err." errors have been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</center></font>";
             include '../../inc/footer.php';
             exit;
         }
