@@ -243,7 +243,7 @@ else {
 $false = 0;
 global $false;
 
-    if(isset($_POST['delete_choice'])) || (isset($_GET['delete_choice']))) { // We can directly retrieve the object ID through the other forms, therefore no test is needed.
+    if((isset($_POST['delete_choice'])) || (isset($_GET['delete_choice']))) { // We can directly retrieve the object ID through the other forms, therefore no test is needed.
         $false = 0;
         else {
             // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
