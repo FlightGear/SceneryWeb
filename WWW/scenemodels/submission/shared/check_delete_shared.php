@@ -25,9 +25,19 @@ if (!$resp->is_valid) {
 else {
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
-    echo "<br /><br />";
     $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
-    echo "<center><font color=\"green\">You have asked to delete object #".$id_to_delete."</font></center><br />";
+    echo "<br /><center><font color=\"green\">You have asked to delete object #".$id_to_delete."</font></center><br />";
+
+    // Should in fact be somewhere like here. Checking that comment exists. Just a small verification as it's not going into DB.
+
+    // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
+    //if((isset($_POST['comment'])) && ((strlen($_POST['comment'])>0)) && ((strlen($_POST['comment']))<=100)) {
+    //    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
+    //}
+    //else {
+    //    echo "<font color=\"red\">Comment mismatch!</font><br />";
+    //    $false='1';
+    //}
 
     // Checking that email is valid (if it exists).
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
@@ -71,7 +81,7 @@ else {
         exit;
     }
     else {
-        echo "<br /><center>Your position has been successfully queued into the FG scenery database deletion requests!<br />";
+        echo "<center>Your position has been successfully queued into the FG scenery database deletion requests!<br />";
         echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
         echo "Want to delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a></center>";
@@ -154,7 +164,7 @@ else {
         @mail($to, $subject, $message, $headers);
 
         // Mailing the submitter
-        if($failed_mail!='1') {
+        if($failed_mail != '1') {
 
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_email;
@@ -251,17 +261,6 @@ else {
     $false = '1';
 }
 
-// Checking that comment exists. Just a small verification as it's not going into DB.
-
-// (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
-//if((isset($_POST['comment'])) && ((strlen($_POST['comment'])>0)) && ((strlen($_POST['comment']))<=100)) {
-//    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
-//}
-//else {
-//    echo "<font color=\"red\">Comment mismatch!</font><br />";
-//    $false='1';
-}
-
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 
 if ($false == '0') {
@@ -328,16 +327,16 @@ if ($false == '0') {
             </td>
         </tr>
         <tr>
-        <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
-        <td colspan="4">
+            <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
+            <td colspan="4">
             <input type="text" name="comment" maxlength="100" size="40" value="" />
-        </td>
+            </td>
         </tr>
         <tr>
-        <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
-        <td colspan="4">
+            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+            <td colspan="4">
             <input type="text" name="email" maxlength="50" size="40" value="" />
-        </td>
+            </td>
         </tr>
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
             <input name="step" type="hidden" value="3" />
@@ -393,34 +392,37 @@ if ($false == '0') {
             </tr>
             <tr>
                 <td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
-                <td colspan="4"><?php $real_name=object_name($row[5]); echo $real_name; ?></td>
+                <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo $model_name; ?></td>
+            </tr>
+            <tr>
+                <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
+                <td colspan="4"><?php $longitude = get_object_longitude_from_id($row[0]); echo $longitude; ?></td>
+            </tr>
+            <tr>
+                <td><span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span></td>
+                <td colspan="4"><?php $latitude = get_object_latitude_from_id($row[0]); echo $latitude; ?></td>
             </tr>
             <tr>
                 <td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
                 <td colspan="4"><?php echo $row[1]; ?></td>
             </tr>
-            <tr>
-                <td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
-                <td colspan="4"><?php echo $row[2]; ?></td>
-                <input name="long" type="hidden" maxlength="13" value="<?php echo $long; ?>" />
-                <input name="lat" type="hidden" maxlength="13" value="<?php echo $lat; ?>" />
-                <input name="gnd_elev" type="hidden" maxlength="10" value="<?php echo $row[2]; ?>" />
+                <td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
+                <td colspan="4"><?php $elevation = get_object_elevation_from_id($row[0]); echo $elevation; ?></td>
             </tr>
             <tr>
                 <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
-                <td colspan="4"><?php if ($row[3]=="") echo "0"; else echo $row[3]; ?></td>
-                <input name="offset" type="hidden" maxlength="10" value="<?php if ($row[3]=="") echo "0"; else echo $row[3]; ?>" />
+                <td colspan="4"><?php $offset = get_object_offset_from_id($row[0]); echo $offset; ?></td>
             </tr>
             <tr>
                 <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-                <td colspan="4"><?php echo $row[4]; ?></td>
-                <input name="orientation" type="hidden" maxlength="7" value="<?php echo $row[4]; ?>" />
+                <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
             </tr>
             <tr>
-                <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>            <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
-                <td><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></td>
-                <td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
-                    </iframe>
+                <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
+                <td><center><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>"></a></center></td>
+                <td><center><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></center></td>
+                <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+                </iframe></center>
                 </td>
             </tr>
                 <?php
@@ -428,20 +430,19 @@ if ($false == '0') {
                 }
                 ?>
             <tr>
-            <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
-            <td>
-            <input type="text" name="comment" maxlength="100" size="40" value="" />
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
-            </td>
+                <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
+                <td colspan="4">
+                <input type="text" name="comment" maxlength="100" size="40" value="" />
+                </td>
             </tr>
             <tr>
-            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
-            <td>
-            <input type="text" name="email" maxlength="50" size="40" value="" />
-            </td>
+                <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+                <td colspan="4">
+                <input type="text" name="email" maxlength="50" size="40" value="" />
+                </td>
             </tr>
             <tr>
-            <td colspan="5">
+                <td colspan="5">
                 <center>
                 <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
                 <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
@@ -455,7 +456,7 @@ if ($false == '0') {
                 <input type="submit" name="submit" value="Delete this object!" />
                 <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
                 </center>
-            </td>
+                </td>
             </tr>
             </table>
             </form>
