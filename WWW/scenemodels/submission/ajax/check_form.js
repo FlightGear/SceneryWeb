@@ -9,10 +9,8 @@ function checkNumeric(objName,minval,maxval,period)
         numberfield.focus();
         return false;
     }
-    else
-    {
-        return true;
-    }
+    
+    return true;
 }
 
 function chkNumeric(objName,minval,maxval,period)
@@ -20,7 +18,7 @@ function chkNumeric(objName,minval,maxval,period)
     var checkOK = "-0123456789.";
     var checkStr = objName;
     var allValid = true;
-    var decPoints = 0;
+    //var decPoints = 0;
     var allNum = "";
 
     for (i = 0;  i < checkStr.value.length;  i++)
@@ -58,3 +56,47 @@ function chkNumeric(objName,minval,maxval,period)
         return (false);
     }
 }
+
+
+function checkText(objName)
+{
+    var textfield = objName;
+    if (chkText(objName) == false)
+    {
+        textfield.select();
+        textfield.focus();
+        return false;
+    }
+    
+    return true;
+}
+
+function chkText(objName)
+{
+    var checkOK = "-0123456789.,;:!?@'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var checkStr = objName;
+    var allValid = true;
+    var allNum = "";
+
+    for (i = 0;  i < checkStr.value.length;  i++)
+    {
+        ch = checkStr.value.charAt(i);
+        for (j = 0;  j < checkOK.length;  j++)
+            if (ch == checkOK.charAt(j))
+                break;
+        if (j == checkOK.length)
+        {
+            allValid = false;
+            break;
+        }
+    }
+    
+    if (!allValid)
+    {
+        alertsay = "Please enter only letters, numbers, and punctuation marks";
+        alertsay = alertsay + " in the \"" + checkStr.name + "\" field.";
+        alert(alertsay);
+        return (false);
+    }
+    
+    return true;
