@@ -314,11 +314,11 @@ if ($false == '0') {
         </tr>
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-            <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $orientation; ?></td>
+            <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
-            <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
+            <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
             <td><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></td>
             <td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
                 </iframe>
@@ -349,7 +349,6 @@ if ($false == '0') {
             $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
             echo recaptcha_get_html($publickey);
             ?>
-            </center>
             <br />
             <input type="submit" name="submit" value="Delete this object!" />
             <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
