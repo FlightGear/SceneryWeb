@@ -96,7 +96,6 @@ if ($false == 0) {
     }
     $i = 0;
     $ko = 0;
-    echo "<center>Now proceeding with in-depth checks!</center><br />";
     echo "<center>\n<table>\n";
     echo "<tr>\n<td><center>Line #</center></td>\n<td><center>Type</center></td>\n<td><center>Model</center></td>\n<td><center>Longitude</center></td>\n<td><center>Latitude</center></td>\n<td><center>Elevation</center></td>\n<td><center>Orientation</center></td>\n<td><center>Result</center></td>\n</tr>\n";
 
@@ -178,7 +177,7 @@ if ($false == 0) {
 
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             if($j == 5) { // Checking Elevation, must contain only figures and, be max 10 characters
-                if(((strlen($value_tag)) <= 10) && (preg_match('/^[0-9\.]+$/', $value_tag))) {
+                if(((strlen($value_tag)) <= 10) && (preg_match('/^[0-9\-\.]+$/', $value_tag))) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $gndelev = $value_tag;
                 }
