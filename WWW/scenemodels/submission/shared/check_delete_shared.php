@@ -266,7 +266,7 @@ global $false;
             echo "<center><font color=\"red\">Longitude mismatch!</font><br /></center>";
             $false = 1;
         }
-        }
+    }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 
@@ -275,10 +275,24 @@ if ($false == 0) {
     // Opening database connection...
     $resource_r_deletion = connect_sphere_r();
 
-    // Let's see in the database if something exists at this position
-    $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
+    if((isset($_POST['delete_choice'])) || (isset($_GET['delete_choice']))) { // Id the delete_choice is sent directly to us from a webform "outside" the submission world
+        if((isset($_POST['delete_choice']))) {
+            $delete_choice = $_POST['delete_choice'];
+        }
+        else {
+            $delete_choice = $_GET['delete_choice'];
+        }
+    // Let's grab the information about this object from the database
+    $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE ob_id = ".$delete_choice.";";
     $result = @pg_query($resource_r_deletion, $query_pos);
     $returned_rows = pg_num_rows($result);
+    }
+    else {
+        // Let's see in the database if something exists at this position
+        $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
+        $result = @pg_query($resource_r_deletion, $query_pos);
+        $returned_rows = pg_num_rows($result);
+    }
 
     // We have only one result
     if ($returned_rows == 0) {
