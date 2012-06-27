@@ -203,6 +203,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
             $message = $message077.$message4;
             @mail($to, $subject, $message, $headers);
         }
+    include '../../inc/footer.php';
     exit;
     }
 }
