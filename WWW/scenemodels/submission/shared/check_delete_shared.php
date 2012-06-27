@@ -281,7 +281,7 @@ if ($false == '0') {
     else {
         if (($returned_rows == '1') || ((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice']))) || ((isset($_GET['delete_choice'])) && ($_GET['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))) {
         while ($row = pg_fetch_row($result)) {
-        echo "<br />You have asked to delete object (#".$row[0].").<br /><br />";
+        echo "<br /><center>You have asked to delete object (#".$row[0].").</center><br /><br />";
         ?>
         <form name="delete_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php">
         <table>
@@ -291,7 +291,7 @@ if ($false == '0') {
         </tr>
         <tr>
             <td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
-            <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo model_name; ?></td>
+            <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo $model_name; ?></td>
         </tr>
         <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
@@ -302,11 +302,11 @@ if ($false == '0') {
         </tr>
         <tr>
             <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
-            <td colspan="4"><?php $offset = get_object_offset_from_id($row[0]); echo $actual_offset; ?></td>
+            <td colspan="4"><?php $offset = get_object_offset_from_id($row[0]); echo $offset; ?></td>
         </tr>
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-            <td colspan="4"><?php get_object_true_orientation_from_id($row[0]); ?></td>
+            <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $orientation; ?></td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
@@ -318,14 +318,14 @@ if ($false == '0') {
         </tr>
         <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
-        <td colspan="2">
+        <td colspan="4">
             <input type="text" name="comment" maxlength="100" size="40" value="" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
         </td>
         </tr>
         <tr>
         <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
-        <td colspan="2">
+        <td colspan="4">
             <input type="text" name="email" maxlength="50" size="40" value="" />
         </td>
         </tr>
