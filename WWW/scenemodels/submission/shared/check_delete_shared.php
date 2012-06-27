@@ -318,7 +318,7 @@ if ($false == '0') {
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
-            <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
+            <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>"></a></td>
             <td><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></td>
             <td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
                 </iframe>
@@ -328,7 +328,6 @@ if ($false == '0') {
         <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
         <td colspan="4">
             <input type="text" name="comment" maxlength="100" size="40" value="" />
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
         </td>
         </tr>
         <tr>
