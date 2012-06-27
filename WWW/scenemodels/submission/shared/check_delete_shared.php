@@ -232,10 +232,9 @@ global $false;
 // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
 if((isset($_POST['latitude'])) && ((strlen($_POST['latitude']))<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
     $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
-    echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
 }
 else {
-    echo "<font color=\"red\">Latitude mismatch!</font><br />";
+    echo "<center><font color=\"red\">Latitude mismatch!</font></center><br />";
     $false='1';
 }
 
@@ -243,10 +242,9 @@ else {
 // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
 if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13)  && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180')) {
     $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
-    echo "<font color=\"green\">Longitude: ".$long."</font><br />";
 }
 else {
-    echo "<font color=\"red\">Longitude mismatch!</font><br />";
+    echo "<center><font color=\"red\">Longitude mismatch!</font><br /></center>";
     $false = '1';
 }
 
@@ -264,7 +262,6 @@ else {
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 
 if ($false == '0') {
-    echo "<br /><font color=\"green\">Data seems to be OK to be deleted from the database</font><br />";
 
     // Opening database connection...
     $resource_r_deletion = connect_sphere_r();
@@ -282,9 +279,9 @@ if ($false == '0') {
 
     // We have more than one result
     else {
-        if(($returned_rows == '1') || ((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice']))) || ((isset($_GET['delete_choice'])) && ($_GET['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))) {
-        while($row = pg_fetch_row($result)) {
-        echo "<br />One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.<br /><br />";
+        if (($returned_rows == '1') || ((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice']))) || ((isset($_GET['delete_choice'])) && ($_GET['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))) {
+        while ($row = pg_fetch_row($result)) {
+        echo "<br />You have asked to delete object (#".$row[0].").<br /><br />";
         ?>
         <form name="delete_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php">
         <table>
@@ -294,18 +291,18 @@ if ($false == '0') {
         </tr>
         <tr>
             <td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
-            <td colspan="4"><?php $real_name = object_name($row[5]); echo $real_name; ?></td>
+            <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo model_name; ?></td>
         </tr>
         <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
             <td colspan="4"><?php echo $row[1]; ?></td>
         </tr>
             <td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
-            <td colspan="4"><?php get_object_elevation_from_id($row[0]); ?></td>
+            <td colspan="4"><?php $elevation = get_object_elevation_from_id($row[0]); echo $elevation; ?></td>
         </tr>
         <tr>
             <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
-            <td colspan="4"><?php get_object_offset_from_id($row[0]); ?></td>
+            <td colspan="4"><?php $offset = get_object_offset_from_id($row[0]); echo $actual_offset; ?></td>
         </tr>
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
@@ -321,14 +318,14 @@ if ($false == '0') {
         </tr>
         <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
-        <td>
+        <td colspan="2">
             <input type="text" name="comment" maxlength="100" size="40" value="" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
         </td>
         </tr>
         <tr>
         <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
-        <td>
+        <td colspan="2">
             <input type="text" name="email" maxlength="50" size="40" value="" />
         </td>
         </tr>

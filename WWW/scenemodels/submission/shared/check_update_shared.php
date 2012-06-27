@@ -25,7 +25,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
     }
     else {
         // Checking that email is valid (if it exists).
-        //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
+        //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
         if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
             echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
@@ -35,31 +35,31 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
             $failed_mail='1';
         }
 
-        // Preparing the update request   
+        // Preparing the update request
         $query_update="UPDATE fgs_objects ".
                       "SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['new_long']." ".$_POST['new_lat'].")', 4326), ob_gndelev=".$_POST['new_gndelev'].", ob_elevoffset=".$_POST['new_offset'].", ob_heading=".heading_stg_to_true($_POST['new_orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 ".
                       "WHERE ob_id=".$_POST['id_to_update'].";";
-    
+
         // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
         $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_update.">";
         $sha_hash = hash('sha256', $sha_to_compute);
-    
+
         // Zipping the Base64'd request.
         $zipped_base64_update_query = gzcompress($query_update,8);
-    
+
         // Coding in Base64.
         $base64_update_query = base64_encode($zipped_base64_update_query);
-    
+
         // Opening database connection...
         $resource_rw = connect_sphere_rw();
-    
+
         // Sending the request...
         $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_update_query."');";
         $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
-    
+
         // Closing the connection.
         @pg_close($resource_rw);
-    
+
         // Talking back to submitter.
         $page_title = "Automated Shared Models Positions Update Form";
         include '../../inc/header.php';
@@ -98,7 +98,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         // Correctly format the data for the mail.
         $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$_POST['model_name'];
         $html_object_url = htmlspecialchars($object_url);
-    
+
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         if($failed_mail!='1') {
             $message0 = "Hi," . "\r\n" .
@@ -115,7 +115,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
                         "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
-           
+
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
@@ -132,7 +132,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
                     "Please click:" . "\r\n" .
                     "http://mapserver.flightgear.org/map/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
                     "to locate the object on the map (eventually new position)." ;
-             
+
         $message2 = "\r\n".
                     "Now please click:" . "\r\n" .
                     "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
@@ -150,10 +150,10 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         // Let's send it ! No management of mail() errors to avoid being too talkative...
         $message = $message077.$message1.$message2;
         @mail($to, $subject, $message, $headers);
-        
-        // Mailing the submitter      
+
+        // Mailing the submitter
         if($failed_mail != '1') {
-        
+
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_email;
 
@@ -259,9 +259,9 @@ function chkNumeric(objName,minval,maxval,period)
         if (ch != ",")
             allNum += ch;
     }
-    
+
     if (!allValid)
-    {    
+    {
         alertsay = "Please enter only the values:\""
         alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
         alert(alertsay);
@@ -285,7 +285,7 @@ function chkNumeric(objName,minval,maxval,period)
 <br /><br />
 <?php
     $id_to_update = pg_escape_string(stripslashes($update_choice));
-    echo "<center>You have asked to update object #".$id_to_update."</center><br /><br />\n";
+    echo "<center>You have asked to update object #".$id_to_update.".</center><br /><br />\n";
 ?>
         <form name="update" method="post" action="check_update_shared.php">
         <table>
@@ -306,19 +306,19 @@ function chkNumeric(objName,minval,maxval,period)
         <?php
 
         $resource_r = connect_sphere_r();
-        
+
         // If connection is OK
         if($resource_r!='0')
         {
             // Show all the families other than the static family
             $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
-            
+
             // Start the select form
             echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
             echo "<option selected value=\"0\">Please select a family</option>\n";
             while ($row = @pg_fetch_assoc($result))
             {
-                $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);    
+                $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
                 echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
             };
             echo "</select>";
@@ -478,7 +478,7 @@ else {
 }
 
 // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-// (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude'])) 
+// (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
 if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13) && ($_POST['longitude']>='-180') && ($_POST['longitude']<='180')) {
     $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
 }
@@ -486,18 +486,18 @@ else {
     echo "<font color=\"red\">Longitude mismatch!</font><br />";
     $false = '1';
 }
-    
+
 // If there is no false, generating SQL to check for object.
 if ($false == 0) {
 
     // Opening database connection...
     $resource_r_update = connect_sphere_r();
-    
+
     // Let's see in the database if something exists at this position
     $query_pos="SELECT ob_id, ob_modified, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
     $result = @pg_query($resource_r_update, $query_pos);
     $returned_rows = pg_num_rows($result);
-    
+
     if ($returned_rows == '0') {
         echo "<br /><font color=\"red\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).</font><br/>";
         exit;
@@ -511,7 +511,7 @@ if ($false == 0) {
                 <table>
                     <tr>
                         <td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
-                        <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>        
+                        <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
@@ -563,11 +563,11 @@ if ($false == 0) {
         }
         else if($returned_rows > '1') {// If we have more than one, the user has to choose...
             echo "<br /><center>".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</center><br /><br />";
-        
+
             // Starting multi-solutions form
             echo "<form name=\"update_position\" method=\"post\" action=\"http://scenemodels.flightgear.org/submission/shared/check_update_shared.php\"\">";
             echo "<table>";
-            
+
             $i = 1; // Just used to put the selected button on the first entry
             while($row = pg_fetch_row($result)) {
 ?>
