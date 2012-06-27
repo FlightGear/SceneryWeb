@@ -42,17 +42,18 @@ else {
     // Checking that email is valid (if it exists).
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 
+    $failed_mail = 0;
     if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
         echo "<center><font color=\"green\">Email: ".$safe_email."</font></center><br />";
     }
     else {
         echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
-        $failed_mail='1';
+        $failed_mail= 1;
      }
 
     // Preparing the deletion request
-    $query_delete="DELETE from fgs_objects where ob_id=".$id_to_delete.";";
+    $query_delete = "DELETE from fgs_objects where ob_id=".$id_to_delete.";";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_delete.">";
@@ -114,7 +115,7 @@ else {
         $html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if($failed_mail != '1') {
+        if($failed_mail != 1) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
@@ -164,7 +165,7 @@ else {
         @mail($to, $subject, $message, $headers);
 
         // Mailing the submitter
-        if($failed_mail != '1') {
+        if($failed_mail != 1) {
 
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_email;

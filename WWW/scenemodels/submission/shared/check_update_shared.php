@@ -26,13 +26,14 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
     else {
         // Checking that email is valid (if it exists).
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+        $failed_mail = 0;
         if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
             echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
         }
         else {
             echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
-            $failed_mail='1';
+            $failed_mail = 1;
         }
 
         // Preparing the update request
@@ -100,7 +101,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         $html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if($failed_mail!='1') {
+        if($failed_mail != 1) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery update PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
@@ -463,11 +464,10 @@ else {
 ?>
 <br />
 <?php
-$false='0';
 global $false;
+$false = '0';
 
 // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-
 // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
 if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])<=13)) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
     $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
