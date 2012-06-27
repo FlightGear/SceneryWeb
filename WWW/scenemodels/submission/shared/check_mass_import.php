@@ -66,7 +66,7 @@ else {
         exit;
     }
     else {
-        echo "<font color=\"green\">The content of the STG file seems correct, now proceeding with in-depth checks...</font><br /></br>";
+        echo "<font color=\"green\"><center>The content of the STG file seems correct, now proceeding with in-depth checks...</center></font><br /></br>";
     }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
@@ -74,7 +74,7 @@ else {
 if ($false == 0) {
     $tab_lines = explode("\n", $_POST['stg']);        // Exploding lines by carriage return (\n) in submission input.
     $tab_lines = array_map('trim', $tab_lines);       // Removing blank lines.
-    $tab_lines = array_filter($tab_liges);            // Removing blank lines.
+    $tab_lines = array_filter($tab_lines);            // Removing blank lines.
     $tab_lines = array_slice($tab_lines, 0, 100);     // Selects the 15th first elements of the tab (the 15th first lines not blank)
 
     $nb_lines = count($tab_lines);
