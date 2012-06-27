@@ -131,7 +131,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "Object #: " .$id_to_delete. "\r\n" .
                     "Family: " .get_object_family_from_id($id_to_delete). "\r\n" .
-                    //"Object: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" . "[ ".$html_object_url." ]" . "\r\n" .
+                    "Object: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
                     "Latitude: " .get_object_latitude_from_id($id_to_delete). "\r\n" .
                     "Longitude: " .get_object_longitude_from_id($id_to_delete). "\r\n" .
                     "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
@@ -187,9 +187,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
 
             // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
             $message4 = "Family: " .get_object_family_from_id($id_to_delete). "\r\n" .
-                        // "[ ".$html_family_url." ]" . "\r\n" .
                         "Object: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
-                        //"[ ".$html_object_url." ]" . "\r\n" .
                         "Latitude: " .get_object_latitude_from_id($id_to_delete). "\r\n" .
                         "Longitude: " .get_object_longitude_from_id($id_to_delete). "\r\n" .
                         "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .

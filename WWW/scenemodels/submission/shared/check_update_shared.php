@@ -25,6 +25,10 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
              "<br />(reCAPTCHA complained: " . $resp->error . ")</center>\n");
     }
     else {
+        // Talking back to submitter.
+        $page_title = "Automated Shared Models Positions Update Form";
+        include '../../inc/header.php';
+
         // Checking that email is valid (if it exists).
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
         $failed_mail = 0;
@@ -62,9 +66,6 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         // Closing the connection.
         @pg_close($resource_rw);
 
-        // Talking back to submitter.
-        $page_title = "Automated Shared Models Positions Update Form";
-        include '../../inc/header.php';
 ?>
     <br /><br />
 <?php

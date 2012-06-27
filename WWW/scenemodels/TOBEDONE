@@ -8,16 +8,16 @@ Bug/security fixing:
 - Sanitize comments +lat/long content (Javascript + strip tags). More checkings in the update script.
 - In the update form the (eventually former) Object family and model name should be selected
   by default.
-- delete form to be fixed
 
 Features updates (by priority):
 -------------------------------
 - Review the names of the scripts to have them coherent.
+- Ask the submitter to send his name in the forms.
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Make sure Javascript is turned on?
-- Enable the user to submit its email to get informed of the process (EXPERIMENTAL support added and working on unitary addition). Enable maintainer to drop a comment.
+- Enable maintainer to drop a comment.
 - Shows the object position when selected (map when adding...).
-- Add ob_text (unitary addition, because in edition we would need Ajax), ob_country, ob_author add/update possibilities.
+- Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
 - When there is an error with the captcha, an error page is being presented, containing a "Go back ..."
   link - but when clicked - all values have to be re-entered from scratch. Preserving the entered values so
   submitters just have to re-enter a captcha phrase would be highly beneficial.
@@ -27,7 +27,7 @@ Features updates (by priority):
 - Automate the altitude calculation (is there a FG server giving this online f(lat, long) ?)
 - Regionalise the maintainers : if lat/lon between x and y, send the validation mail to Jon, Martin or... else
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
- 
+
 Static objects
 ==============
 - numerical ID of the 3D model (mo_id, this procedure asks for a proper fix)
