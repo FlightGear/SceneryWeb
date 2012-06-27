@@ -21,13 +21,13 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         include '../../inc/header.php';
         echo "<br />";
         die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
+             "<br />(reCAPTCHA complained: " . $resp->error . ")</center>\n");
     }
     else {
         // Checking that email is valid (if it exists).
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
         $failed_mail = 0;
-        if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
+        if((isset($_POST['email'])) && ((strlen($_POST['email'])) > 0) && ((strlen($_POST['email']) <= 50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
             echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
         }
@@ -67,17 +67,17 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
 ?>
     <br /><br />
 <?php
-    if(!$resultrw)
-    {
+    if(!$resultrw) {
         echo "<center>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></center>";
+        include '../../inc/footer.php';
         exit;
     }
-    else
-    {
+    else {
         echo "<center>Your update request has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, the object should be updated in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
         echo "Want to update, delete or submit another position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></center>";
+        include '../../inc/footer.php';
 
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
