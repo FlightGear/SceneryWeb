@@ -66,7 +66,7 @@ else {
         exit;
     }
     else {
-        echo "<font color=\"green\"><center>The content of the STG file seems correct, now proceeding with in-depth checks...</center></font><br /></br>";
+        echo "<font color=\"green\"><center>The content of the STG file seems correct, now proceeding with in-depth checks...</center></font><br />";
     }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
@@ -177,8 +177,8 @@ if ($false == 0) {
             }
 
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
-            if($j == 5) { // Checking Elevation, must contain only figures and, be >=0 and <= 360 and max 6 characters
-                if(((strlen($value_tag)) <= 10) && (preg_match('/^[0-9\.]+$/', $value_tag)) && (strlen($value_tag)) <= 6) {
+            if($j == 5) { // Checking Elevation, must contain only figures and, be max 10 characters
+                if(((strlen($value_tag)) <= 10) && (preg_match('/^[0-9\.]+$/', $value_tag))) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $gndelev = $value_tag;
                 }
@@ -189,9 +189,9 @@ if ($false == 0) {
                     $cpt_err++;
                 }
             }
-            else if($j == 6) // Checking Orientation, must contain only figures, be >0, be 7 characters max.
+            else if($j == 6) // Checking Orientation, must contain only figures, be >0, be 17 characters max.
             {
-                if(((strlen($value_tag)) <= 7) && ($value_tag >= 0) && (preg_match('/^[0-9\.]+$/', $value_tag))) {
+                if(((strlen($value_tag)) <= 18) && ($value_tag >= 0) && (preg_match('/^[0-9\.]+$/', $value_tag))) {
                     echo "<td><center>".$value_tag."</center></td> ";
                     $orientation = $value_tag;
                 }
@@ -220,11 +220,15 @@ if ($false == 0) {
     echo "</center>\n<br />";
 
     if($global_ko == 1) { // If errors have been found...
-        if($cpt_err == 1) {
+        if ($cpt_err == 1) {
             echo "<font color=\"red\"><center>".$cpt_err." error has been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</center></font><br />";
+            include '../../inc/footer.php';
+            exit;
         }
         else {
             echo "<font color=\"red\"><center>".$cpt_err." errors have been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</center></font><br />";
+            include '../../inc/footer.php';
+            exit;
         }
         exit;
     }
