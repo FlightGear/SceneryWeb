@@ -3,6 +3,7 @@
 // Inserting libs
 require_once('../../inc/functions.inc.php');
 
+// Final step to edition
 if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['new_gndelev'])) && (isset($_POST['new_offset'])) && (isset($_POST['new_orientation']))) {
 
     // Captcha stuff
@@ -77,7 +78,6 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         echo "Unless it's rejected, the object should be updated in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
         echo "Want to update, delete or submit another position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></center>";
-        include '../../inc/footer.php';
 
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
@@ -116,7 +116,6 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
                         "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
-
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
@@ -153,7 +152,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         @mail($to, $subject, $message, $headers);
 
         // Mailing the submitter
-        if($failed_mail != '1') {
+        if($failed_mail != 1) {
 
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_email;
