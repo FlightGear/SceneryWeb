@@ -34,10 +34,10 @@ else {
 
     if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
-        echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
+        echo "<center><font color=\"green\">Email: ".$safe_email."</font></center><br />";
     }
     else {
-        echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
+        echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
         $failed_mail='1';
      }
 
@@ -66,13 +66,16 @@ else {
 
     // Talking back to submitter.
     if(!$resultrw) {
-        echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
+        echo "<center></center>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</center><br />";
+        include '../../inc/footer.php';
+        exit;
     }
     else {
-        echo "<br />Your position has been successfully queued into the FG scenery database deletion requests!<br />";
+        echo "<br /><center>Your position has been successfully queued into the FG scenery database deletion requests!<br />";
         echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a>";
+        echo "Want to delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a></center>";
+        include '../../inc/footer.php';
 
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
@@ -281,7 +284,7 @@ if ($false == '0') {
     else {
         if (($returned_rows == '1') || ((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice']))) || ((isset($_GET['delete_choice'])) && ($_GET['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))) {
         while ($row = pg_fetch_row($result)) {
-        echo "<br /><center>You have asked to delete object (#".$row[0].").</center><br /><br />";
+        echo "<center>You have asked to delete object (#".$row[0].").</center><br />";
         ?>
         <form name="delete_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php">
         <table>
@@ -320,8 +323,8 @@ if ($false == '0') {
             <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
             <td><center><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>"></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></center></td>
-            <td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
-                </iframe>
+            <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+                </iframe></center>
             </td>
         </tr>
         <tr>
