@@ -460,5 +460,4 @@ if ($false == '0') {
     }
 include '../../inc/footer.php';
 }
-}
 ?>
