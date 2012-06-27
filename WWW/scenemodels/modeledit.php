@@ -10,14 +10,12 @@ function popmap(lat,lon,zoom) {
 <h1>FlightGear Scenery Model Directory</h1>
 <?php
 
-if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
-{
-    $id=$_REQUEST['id'];
-    $result=pg_query("select * from fgs_models where mo_id=$id;");
-    $model=pg_fetch_assoc($result);
+if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
+    $id = $_REQUEST['id'];
+    $result = pg_query("select * from fgs_models where mo_id=$id;");
+    $model = pg_fetch_assoc($result);
 };
 ?>
-<!--<input type="hidden" name="id" value="<?php if (isset($id)) print $id;?>"/> NO FORM => IS IT USEFUL-->
 <table border="1">
 <tr>
     <td rowspan="8" width="320"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
@@ -63,29 +61,25 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 
 <?php
 $result = pg_query("select mo_shared from fgs_models where mo_id = $id;");
-while ($row = pg_fetch_assoc($result))
-{
-    if ($row["mo_shared"]==0)
-    {
+while ($row = pg_fetch_assoc($result)) {
+    if ($row["mo_shared"] == 0) {
         $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
         $query.= "ST_X(wkb_geometry) AS ob_lon ";
         $query.= "FROM fgs_objects ";
         $query.= "WHERE ob_model=$id";
-        $chunks=pg_query($query);
-        while ($chunk = pg_fetch_assoc($chunks))
-        {
-            $lat=floor($chunk["ob_lat"]/10)*10;
-            $lon=floor($chunk["ob_lon"]/10)*10;
+        $chunks = pg_query($query);
+        while ($chunk = pg_fetch_assoc($chunks)) {
+            $lat = floor($chunk["ob_lat"]/10)*10;
+            $lon = floor($chunk["ob_lon"]/10)*10;
             print "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a>&nbsp;-&nbsp";
-        };
-    };
+        }
+    }
 }
 ?>
 <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download Model</a>
 <?php
-$result=pg_query("SELECT mo_author,au_name FROM fgs_models, fgs_authors WHERE mo_author=au_id AND mo_id = $id;");
-while ($row = pg_fetch_assoc($result))
-{
+$result = pg_query("SELECT mo_author,au_name FROM fgs_models, fgs_authors WHERE mo_author=au_id AND mo_id = $id;");
+while ($row = pg_fetch_assoc($result)) {
     print   "<br>List all of <a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a>";
 }
 ?>
@@ -95,5 +89,4 @@ while ($row = pg_fetch_assoc($result))
     <td colspan="3"><?php if (isset($model["mo_notes"])) print "<u>Comment:</u>&nbsp;".$model["mo_notes"]; ?></td>
 </tr>
 </table>
-
-<?php include 'inc/footer.php';?>
+<?php include 'inc/footer.php'; ?>

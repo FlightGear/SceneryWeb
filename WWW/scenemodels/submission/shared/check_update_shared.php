@@ -3,8 +3,7 @@
 // Inserting libs
 require_once('../../inc/functions.inc.php');
 
-if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['new_gndelev'])) && (isset($_POST['new_offset'])) && (isset($_POST['new_orientation'])))
-{
+if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['new_gndelev'])) && (isset($_POST['new_offset'])) && (isset($_POST['new_orientation']))) {
 
     // Captcha stuff
     require_once('../../captcha/recaptchalib.php');
@@ -17,21 +16,14 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
                                     $_POST["recaptcha_response_field"]);
 
     // What happens when the CAPTCHA was entered incorrectly
-    if (!$resp->is_valid)
-    {
-?>
-<?php
+    if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Update Form";
         include '../../inc/header.php';
-?>
-    <br />
-<?php
+        echo "<br />";
         die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
              "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
     }
-    else 
-    {
-    
+    else {
         // Checking that email is valid (if it exists).
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
         if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
@@ -215,8 +207,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
 }
 
 // Getting back the update_choice
-if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0')))
-{
+if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0'))) {
     $page_title = "Automated Shared Models Positions Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
@@ -378,7 +369,7 @@ function chkNumeric(objName,minval,maxval,period)
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
             </td>
             <td>
-            <input type="text" name="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onBlur="checkNumeric(this,-90,90,'.'); /">
+            <input type="text" name="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onBlur="checkNumeric(this,-90,90,'.');" />
             </td>
             </tr>
             <tr>
@@ -431,19 +422,19 @@ function chkNumeric(objName,minval,maxval,period)
             </td>
             </tr>
             <tr>
-                <td colspan="4">
-                <center>
-                <?php
+            <td colspan="4">
+            <center>
+            <?php
                 // Google Captcha stuff
                 require_once('../../captcha/recaptchalib.php');
                 $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                 echo recaptcha_get_html($publickey);
-                ?>
-                <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
-                <input type="submit" name="submit" value="Update this object!" />
-                <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
-                </center>
-                </td>
+            ?>
+            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
+            <input type="submit" name="submit" value="Update this object!" />
+            <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
+            </center>
+            </td>
             </tr>
         </table>
         </form>
