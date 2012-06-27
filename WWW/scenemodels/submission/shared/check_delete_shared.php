@@ -294,6 +294,14 @@ if ($false == '0') {
             <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo $model_name; ?></td>
         </tr>
         <tr>
+            <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><a style="cursor: help; "></a>Longitude</a></span></td>
+            <td colspan="4"><?php $longitude = get_object_longitude_from_id($row[0]); echo $longitude; ?></td>
+        </tr>
+        <tr>
+            <td><span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><a style="cursor: help; "></a>Latitude</a></span></td>
+            <td colspan="4"><?php $latitude = get_object_latitude_from_id($row[0]); echo $latitude; ?></td>
+        </tr>
+        <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><a style="cursor: help; ">Date/Time of last update</a></span></td>
             <td colspan="4"><?php echo $row[1]; ?></td>
         </tr>
