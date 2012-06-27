@@ -296,13 +296,13 @@ if ($false == 0) {
 
     // We have only one result
     if ($returned_rows == 0) {
-        echo "<br /><font color=\"red\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).</font><br/>";
+        echo "<br /><center></center><font color=\"red\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).</font></center><br/>";
         exit;
     }
 
     // We have more than one result
     else {
-        if (($returned_rows == 1) || ((isset($_POST['delete_choice'])) && ($_POST['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice']))) || ((isset($_GET['delete_choice'])) && ($_GET['delete_choice']>'0') && (preg_match('/^[0-9]+$/u',$_POST['delete_choice'])))) {
+        if ($returned_rows == 1) {
             while ($row = pg_fetch_row($result)) {
             echo "<center>You have asked to delete object (#".$row[0].").</center><br />";
             ?>
