@@ -58,13 +58,12 @@ else {
                             if($i > 0) {
                                 echo "<tr>\n";
                                 $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
-                                $trigged_1 = str_replace(")', 4326),","",$trigged_0);     // Removing )", 4326), from data;
-                                $trigged_2 = str_replace("1);","",$trigged_1);            // Removing 1); from data;
-                                $trigged_3 = str_replace(", 1)","",$trigged_2);            // Removing " 1)," - family;
-                                $trigged_4 = str_replace(" NULL","",$trigged_3);        // Removing NULL from offset;
-                                $trigged_5 = str_replace(",,",",",$trigged_4);            // Finally, removing , from data;
-
-                                $data = explode(", ",$trigged_5);                    // Now showing the results
+                                $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
+                                $trigged_2 = str_replace("1);","",$trigged_1);                        // Removing 1); from data;
+                                $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
+                                $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
+                                $trigged_5 = str_replace(",,",",",$trigged_4);                        // Finally, removing , from data;
+                                $data = explode(", ",$trigged_5);                                     // Now showing the results
                                 echo "<td>".$i."</td>\n";
                                 $j=0;
                                 foreach ($data as $data_from_query) {
@@ -149,7 +148,6 @@ else {
 
                     // Closing the rw connection.
                     pg_close($resource_rw);
-
                     include '../../inc/footer.php';
                     exit;
                 }
@@ -175,7 +173,7 @@ else {
                     // $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
                     // What is the subject ?
-                    $subject = "[FG Scenery Submission forms] Automatic shared model DB deletion confirmation.";
+                    $subject = "[FG Scenery Submission forms] Automatic mass import shared model DB deletion confirmation.";
 
                     // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                     $message0 = "Hi,"  . "\r\n" .
@@ -194,6 +192,7 @@ else {
 
                     // Let's send it ! No management of mail() errors to avoid being too talkative...
                     @mail($to, $subject, $message, $headers);
+                    include '../../inc/footer.php';
                     exit;
                 }
             }
@@ -280,7 +279,7 @@ else {
 //                            $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
                             // What is the subject ?
-                            $subject = "[FG Scenery Submission forms] Automatic shared model DB pending request process confirmation.";
+                            $subject = "[FG Scenery Submission forms] Automatic mass shared model submission DB pending request process confirmation.";
 
                             // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                             $message0 = "Hi,"  . "\r\n" .
@@ -300,6 +299,7 @@ else {
 
                             // Let's send it ! No management of mail() errors to avoid being too talkative...
                             @mail($to, $subject, $message, $headers);
+                            include '../../inc/footer.php';
                             exit;
                         }
                     }

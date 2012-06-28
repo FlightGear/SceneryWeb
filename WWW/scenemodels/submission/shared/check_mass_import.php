@@ -244,9 +244,7 @@ if ($false == 0) {
             $data_query_rw = $data_query_rw.$data_rw[$j].", ";
         }
     }
-
     $mass_rw_query = $query_rw.$data_query_rw;
-    printf("Mass query: ",$mass_rw_query);
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$mass_rw_query.">";
@@ -275,7 +273,7 @@ if ($false == 0) {
         exit;
     }
     else {
-        echo "<center></center>Your submission has been successfully queued into the FG scenery database update requests!<br />";
+        echo "<center>Your submission has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
         echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></center>";
