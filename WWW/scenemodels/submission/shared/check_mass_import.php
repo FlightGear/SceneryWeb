@@ -75,7 +75,7 @@ if ($false == 0) {
     $tab_lines = explode("\n", $_POST['stg']);        // Exploding lines by carriage return (\n) in submission input.
     $tab_lines = array_map('trim', $tab_lines);       // Removing blank lines.
     $tab_lines = array_filter($tab_lines);            // Removing blank lines.
-    $tab_lines = array_slice($tab_lines, 0, 100);     // Selects the 15th first elements of the tab (the 15th first lines not blank)
+    $tab_lines = array_slice($tab_lines, 0, 100);     // Selects the 100th first elements of the tab (the 100th first lines not blank)
 
     $nb_lines = count($tab_lines);
     $global_ko = 0;                                     // Validates - or no - the right to go further.
