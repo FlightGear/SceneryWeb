@@ -1,9 +1,11 @@
 // This script is here to check for the consistency of the different fields of the form
 
-function checkNumeric(objName,minval,maxval,period)
+var numbers = "0123456789";
+var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+function checkNumeric(numberfield, minval, maxval, period)
 {
-    var numberfield = objName;
-    if (chkNumeric(objName,minval,maxval,period) == false)
+    if (chkNumeric(numberfield, minval, maxval,period) == false)
     {
         numberfield.select();
         numberfield.focus();
@@ -13,9 +15,9 @@ function checkNumeric(objName,minval,maxval,period)
     return true;
 }
 
-function chkNumeric(objName,minval,maxval,period)
+function chkNumeric(objName, minval, maxval, period)
 {
-    var checkOK = "-0123456789.";
+    var checkOK = numbers+ "-.";
     var checkStr = objName;
     var allValid = true;
     //var decPoints = 0;
@@ -55,14 +57,19 @@ function chkNumeric(objName,minval,maxval,period)
         alert(alertsay);
         return (false);
     }
+    
+    return true;
 }
 
 
-function checkText(objName)
+function checkComment(textfield)
 {
-    var textfield = objName;
-    if (chkText(objName) == false)
+    if (chkComment(textfield.value) == false)
     {
+        alertsay = "Please enter only letters, numbers, and punctuation marks";
+        alertsay = alertsay + " in the \"" + textfield.name + "\" field.";
+        alert(alertsay);
+        
         textfield.select();
         textfield.focus();
         return false;
@@ -71,16 +78,15 @@ function checkText(objName)
     return true;
 }
 
-function chkText(objName)
+function chkComment(checkStr)
 {
-    var checkOK = "-0123456789.,;:!?@'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var checkStr = objName;
+    var checkOK =numbers + letters + ",;:!?@' ";
     var allValid = true;
     var allNum = "";
 
-    for (i = 0;  i < checkStr.value.length;  i++)
+    for (i = 0;  i < checkStr.length;  i++)
     {
-        ch = checkStr.value.charAt(i);
+        ch = checkStr.charAt(i);
         for (j = 0;  j < checkOK.length;  j++)
             if (ch == checkOK.charAt(j))
                 break;
@@ -91,12 +97,71 @@ function chkText(objName)
         }
     }
     
-    if (!allValid)
+    return allValid;
+}
+
+function checkEmail(emailfield)
+{
+    if (chkEmail(emailfield) == false)
     {
-        alertsay = "Please enter only letters, numbers, and punctuation marks";
-        alertsay = alertsay + " in the \"" + checkStr.name + "\" field.";
-        alert(alertsay);
-        return (false);
+        emailfield.select();
+        emailfield.focus();
+        return false;
     }
     
     return true;
+}
+
+function chkEmail(emailfield)
+{
+    var checkOK =numbers + letters + "@_.";
+    var checkStr = emailfield.value;
+    var allValid = true;
+    var allNum = "";
+    
+    if(checkStr.length == 0)
+        return true;
+
+    for (i = 0;  i < checkStr.length;  i++)
+    {
+        ch = checkStr.charAt(i);
+        for (j = 0;  j < checkOK.length;  j++)
+            if (ch == checkOK.charAt(j))
+                break;
+        if (j == checkOK.length)
+        {
+            allValid = false;
+            break;
+        }
+    }
+    
+    if(!allValid)
+    {
+        alertsay = "Please enter only letters, numbers, '@', '_' and '.'";
+        alertsay = alertsay + " in the \"" + emailfield.name + "\" field.";
+        alert(alertsay);
+        
+        return false;
+    }
+    
+    //Checks if the value looks like an email adress
+    var numberOfAt = 0;
+    var numberOfPointAfterAt = 0;
+    for (i = 0;  i < checkStr.length;  i++)
+    {
+        ch = checkStr.charAt(i);
+        
+        if(ch=='@')
+            numberOfAt++;
+        if(numberOfAt>=1 && ch=='.')
+            numberOfPointAfterAt++;
+    }
+    
+    if(numberOfAt != 1 || numberOfPointAfterAt<1)
+    {
+        allValid = false;
+        alert("This is not a valid email adress ");
+    }
+    
+    return allValid;
+}
