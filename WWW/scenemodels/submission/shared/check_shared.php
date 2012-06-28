@@ -69,7 +69,7 @@ $resp = recaptcha_check_answer ($privatekey,
         }
 
         // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-        // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude'])) 
+        // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
         if((isset($_POST['latitude'])) && ((strlen($_POST['latitude']))<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
             $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
             echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
@@ -125,7 +125,7 @@ $resp = recaptcha_check_answer ($privatekey,
         }
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
-        // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment'])) 
+        // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
         if((isset($_POST['comment'])) && ((strlen($_POST['comment']))>0) && ((strlen($_POST['comment']))<=100)) {
             $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
             echo "<font color=\"green\">Comment: ".$sent_comment."</font><br />";
@@ -136,7 +136,7 @@ $resp = recaptcha_check_answer ($privatekey,
         }
 
         // Checking that email is valid (if it exists).
-        //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
+        //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 
         if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
@@ -146,40 +146,40 @@ $resp = recaptcha_check_answer ($privatekey,
             echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
             $failed_mail='1';
         }
-    
+
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 if ($false == 0) {
     echo "<br /><font color=\"green\">Data seems to be OK to be inserted in the database</font><br />";
-    
+
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
-    
-    if (($offset == '0') || ($offset == '')) {
-        $query_rw="INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", ".$model_id.", 1);";
+
+    if (($offset == 0) || ($offset == '')) {
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", ".$model_id.", 1);";
     }
     else {
-        $query_rw="INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", ".$model_id.", 1);";
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", ".$model_id.", 1);";
     }
-    
+
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_rw.">";
     $sha_hash = hash('sha256', $sha_to_compute);
-    
+
     // Zipping the Base64'd request.
     $zipped_base64_rw_query = gzcompress($query_rw,8);
-    
+
     // Coding in Base64.
     $base64_rw_query = base64_encode($zipped_base64_rw_query);
-    
+
     // Opening database connection...
     $resource_rw = connect_sphere_rw();
-    
+
     // Sending the request...
     $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_rw_query."');";
     $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
-    
+
     // Closing the connection.
     @pg_close($resource_rw);
-    
+
     // Talking back to submitter.
     if(!$resultrw) {
         echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
@@ -230,7 +230,7 @@ if ($false == 0) {
                         "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
-           
+
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
@@ -263,10 +263,10 @@ if ($false == 0) {
         // Let's send it ! No management of mail() errors to avoid being too talkative...
         $message = $message077.$message1.$message2;
         @mail($to, $subject, $message, $headers);
-        
+
         // Mailing the submitter
         if($failed_mail != '1') {
-        
+
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_email;
 
@@ -287,7 +287,7 @@ if ($false == 0) {
                         "This new shared object position insertion request has been sent for validation." . "\r\n" .
                         "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
                         "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
-           
+
             $message077 = wordwrap($message3, 77, "\r\n");
 
             // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.

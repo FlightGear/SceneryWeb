@@ -75,7 +75,7 @@ if ($false == 0) {
     $tab_lines = explode("\n", $_POST['stg']);        // Exploding lines by carriage return (\n) in submission input.
     $tab_lines = array_map('trim', $tab_lines);       // Removing blank lines.
     $tab_lines = array_filter($tab_lines);            // Removing blank lines.
-    $tab_lines = array_slice($tab_lines, 0, 100);     // Selects the 15th first elements of the tab (the 15th first lines not blank)
+    $tab_lines = array_slice($tab_lines, 0, 100);     // Selects the 100th first elements of the tab (the 100th first lines not blank)
 
     $nb_lines = count($tab_lines);
     $global_ko = 0;                                     // Validates - or no - the right to go further.
@@ -90,7 +90,7 @@ if ($false == 0) {
         exit;
     }
     if ($nb_lines < 1) {
-        echo "<center><font color=\"red\">No enough lines submitted: 1 line minimum per submission!</center></font>";
+        echo "<center><font color=\"red\">Not enough lines were submitted: 1 line minimum per submission!</center></font>";
         include '../../inc/footer.php';
         exit;
     }
@@ -235,15 +235,14 @@ if ($false == 0) {
         echo "<font color=\"green\"><center>No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.</center></font><br />";
     }
     $query_rw = "INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
-    for ($j=0; $j<$nb_lignes; $j++) { // For each line, add the data content to the request
-        if($j == ($nb_lignes-1)) {
+    for ($j = 0; $j<$nb_lines; $j++) { // For each line, add the data content to the request
+        if($j == ($nb_lines-1)) {
             $data_query_rw = $data_query_rw.$data_rw[$j].";";
         }
         else {
             $data_query_rw = $data_query_rw.$data_rw[$j].", ";
         }
     }
-
     $mass_rw_query = $query_rw.$data_query_rw;
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
@@ -273,10 +272,10 @@ if ($false == 0) {
         exit;
     }
     else {
-        echo "Your submission has been successfully queued into the FG scenery database update requests!<br />";
+        echo "<center>Your submission has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a>";
+        echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></center>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
