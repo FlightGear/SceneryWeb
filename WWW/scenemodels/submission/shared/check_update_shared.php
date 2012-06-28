@@ -408,7 +408,7 @@ $false = '0';
 
 // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
 // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
-if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])<=13)) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
+if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])) <= 13) && ($_POST['latitude'] <= 90) && ($_POST['latitude'] >= -90)) {
     $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
 }
 else {
@@ -418,7 +418,7 @@ else {
 
 // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
 // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
-if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13) && ($_POST['longitude']>='-180') && ($_POST['longitude']<='180')) {
+if((isset($_POST['longitude'])) && ((strlen($_POST['longitude'])) <= 13) && ($_POST['longitude'] >= -180) && ($_POST['longitude'] <= 180)) {
     $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
 }
 else {
@@ -433,7 +433,7 @@ if ($false == 0) {
     $resource_r_update = connect_sphere_r();
 
     // Let's see in the database if something exists at this position
-    $query_pos="SELECT ob_id, ob_modified, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
+    $query_pos = "SELECT ob_id, ob_modified, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
     $result = @pg_query($resource_r_update, $query_pos);
     $returned_rows = pg_num_rows($result);
 
@@ -443,7 +443,7 @@ if ($false == 0) {
     }
     else {
         if($returned_rows == '1') { // If we have just an answer...
-            while($row = pg_fetch_row($result)) {
+            while ($row = pg_fetch_row($result)) {
                 echo "<br /><center>One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</center><br /><br />";
         ?>
                 <form name="update_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_update_shared.php">

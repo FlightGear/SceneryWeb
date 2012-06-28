@@ -16,19 +16,9 @@ function connect_sphere_r()
     $resource_r = @pg_connect('dbname='.$dbrname.' host='.$dbrhost.' user='.$dbruser.' password='.$dbrpass.' sslmode=disable');
 
     // If could not connect to the database
-    if ($resource_r == '0')
-    {
-        echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"";
-        echo "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
-        echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">";
-        echo "<head>";
-        echo "<title>Automated Shared Models Positions Update Form</title>";
-        echo "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" />";
-        echo "<link rel=\"stylesheet\" href=\"../../style.css\" type=\"text/css\"></link>";
-        echo "</head>";
-        echo "<body>";
-        echo "<?php include '../../header.php'; ?>";
-        echo "<br /><br />";
+    if ($resource_r == '0') {
+        include $_SERVER['SERVER_NAME']."/inc/header.php";
+        echo "<br />";
         echo "\n<font color=\"red\">We're sorry, but an error has occurred while connecting to the database.</font>\n";
         exit;
     }
@@ -53,7 +43,7 @@ function connect_sphere_rw()
     $resource_rw = @pg_connect('dbname='.$dbrwname.' host='.$dbrwhost.' user='.$dbrwuser.' password='.$dbrwpass.' sslmode=disable');
 
     // If could not connect to the database
-    if ($resource_rw=='0') {
+    if ($resource_rw == '0') {
         echo "\n<font color=\"red\">An error has occurred while connecting to the database.</font>\n";
         exit;
     }
@@ -73,8 +63,8 @@ function family_name($id_family)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select mg_id,mg_name from fgs_modelgroups where mg_id='".$mg_id."';";
-    $result = @pg_query($headerlink_family,$query);
+    $query = "select mg_id, mg_name from fgs_modelgroups where mg_id='".$mg_id."';";
+    $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result))    {
         $name_family=$row["mg_name"];
@@ -97,8 +87,8 @@ function object_name($id_object)
     $headerlink_object = connect_sphere_r();
 
     // Querying...
-    $query = "select mo_id,mo_name from fgs_models where mo_id='".$mg_id."';";
-    $result = @pg_query($headerlink_object,$query);
+    $query = "select mo_id, mo_name from fgs_models where mo_id='".$mg_id."';";
+    $result = @pg_query($headerlink_object, $query);
 
     // Showing the results.
     while ($row = @pg_fetch_assoc($result)) {
@@ -122,7 +112,7 @@ function get_object_family_from_id($ob_id)
 
     // Querying...
     $query1 = "select ob_model from fgs_objects where ob_id=".$ob_id.";";
-    $result = @pg_query($headerlink_family,$query1);
+    $result = @pg_query($headerlink_family, $query1);
 
     while ($row = @pg_fetch_assoc($result)) {
         $mo_id = $row["ob_model"];
@@ -173,7 +163,7 @@ function get_object_model_from_id($ob_id)
 
     // Querying...
     $query = "select ob_model from fgs_objects where ob_id=".$ob_id.";";
-    $result = @pg_query($headerlink_family,$query);
+    $result = @pg_query($headerlink_family, $query);
 
     while($row = @pg_fetch_assoc($result)) {
         $mo_id=$row["ob_model"];
@@ -196,7 +186,7 @@ function get_object_latitude_from_id($ob_id)
 
     // Querying...
     $query = "select ST_Y(wkb_geometry) AS ob_lat from fgs_objects where ob_id=".$ob_id.";";
-    $result = @pg_query($headerlink_family,$query);
+    $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
         $ob_lat = $row["ob_lat"];
@@ -219,7 +209,7 @@ function get_object_longitude_from_id($ob_id)
 
     // Querying...
     $query = "select ST_X(wkb_geometry) AS ob_lon from fgs_objects where ob_id=".$ob_id.";";
-    $result = @pg_query($headerlink_family,$query);
+    $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
         $ob_long = $row["ob_lon"];
@@ -377,8 +367,8 @@ function heading_true_to_stg($true_heading)
     return ($stg_heading);
 }
 
-// Check if models exists in DB from a model name sent in parameter.
-// =================================================================
+// Checks if models exists in DB from a model name sent in parameter.
+// ==================================================================
 // Model's name is composed of: OBJECT_SHARED Models/
 // a mg_path from fgs_modelgroups;
 // a mo_path from fgs_objects;
@@ -402,14 +392,14 @@ function model_exists($model_name)
 
     // Querying...
     $query = "select mo_path, mo_shared from fgs_models where mo_path = '".$queried_mo_path."';";
-    $result = @pg_query($headerlink_family,$query);
+    $result = @pg_query($headerlink_family, $query);
 
     // Checking the number of results. Should be 1.
     if (@pg_num_rows($result) == 1)                 // If object is known, going to check the family next.
     {
         // Now proceeding with the family
         // The family path is the string between Models and the object name. Can be multiple.
-        for($j=1;$j<($max_tab_path-1);$j++) {
+        for ($j = 1;$j<($max_tab_path-1);$j++) {
             $queried_family_path.=$tab_path[$j]."/";
         }
 
@@ -462,8 +452,8 @@ function ob_model_from_name($model_name)
     @pg_close ($headerlink);
 }
 
-// List the authors of models in FlightGear.
-// =========================================
+// Lists the authors of models in FlightGear.
+// ==========================================
 
 function list_authors()
 {
@@ -471,7 +461,7 @@ function list_authors()
     $headerlink_authors = connect_sphere_r();
 
     // Querying...
-    $query = "select au_id,au_name from fgs_authors order by 2 asc;";
+    $query = "select au_id, au_name from fgs_authors order by 2 asc;";
     $result = @pg_query($headerlink_authors, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -483,8 +473,8 @@ function list_authors()
     @pg_close ($headerlink_family);
 }
 
-// List the countries in FlightGear.
-// =================================
+// Lists the countries in FlightGear.
+// ==================================
 
 function list_countries()
 {
@@ -504,6 +494,7 @@ function list_countries()
 }
 
 // Returning the full name of the country depending on the country code submitted
+// ==============================================================================
 
 function get_country_name_from_country_code($country_code)
 {
@@ -518,8 +509,8 @@ function get_country_name_from_country_code($country_code)
         $query = "select * from fgs_countries where co_code = '".$country_code."';";
         $result = @pg_query($headerlink_countries, $query);
 
-        while($row = @pg_fetch_assoc($result)) {
-        return($row["co_name"]);
+        while ($row = @pg_fetch_assoc($result)) {
+        return ($row["co_name"]);
         }
     }
 
@@ -528,6 +519,7 @@ function get_country_name_from_country_code($country_code)
 }
 
 // Returns the extension of a file sent in parameter
+// =================================================
 
 function ShowFileExtension($filepath)
 {
@@ -543,6 +535,7 @@ function ShowFileExtension($filepath)
 }
 
 // Deletes a directory sent in parameter
+// =====================================
 
 function clearDir($dossier)
 {
@@ -554,7 +547,7 @@ function clearDir($dossier)
             $r = clearDir($dossier."/".$fichier);
             if (!$r) return false;
         } else {
-            $r=@unlink($dossier."/".$fichier);
+            $r = @unlink($dossier."/".$fichier);
             if (!$r) return false;
         }
     }
@@ -563,5 +556,27 @@ function clearDir($dossier)
     $r = @rmdir($dossier);
     if (!$r) return false;
     return true;
+}
+
+// Detects if a submitted object already exists in the database f(lat, lon, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ).
+// ============================================================================================================================
+
+function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset, $ob_heading, $ob_model)
+{
+    // Connecting to the database.
+    $resource_r = connect_sphere_r();
+
+    // Querying...
+    $query = "SELECT ob_id FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$lon." ".$lat.")', 4326) AND ob_gndelev =".$ob_gndelev." AND ob_elevoffset =".$ob_elevoffset." AND ob_heading =".heading_stg_to_true($ob_heading)." AND ob_model=".$ob_model.";";
+    $result = @pg_query($resource_r, $query);
+    $returned_rows = pg_num_rows($result);
+
+    if ($returned_rows > 0) {
+        return 1;
+    }
+    else return 0;
+
+    // Closing the connection.
+    @pg_close ($resource_r);
 }
 ?>

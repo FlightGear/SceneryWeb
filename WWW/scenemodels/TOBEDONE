@@ -10,8 +10,8 @@ Bug/security fixing:
 
 Features updates (by priority):
 -------------------------------
-- Review the names of the scripts to have them coherent.
-- Ask the submitter to send his name in the forms.
+- Review the names of the scripts to keep them coherent.
+- Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Make sure Javascript is turned on?
 - Enable maintainer to drop a comment.
