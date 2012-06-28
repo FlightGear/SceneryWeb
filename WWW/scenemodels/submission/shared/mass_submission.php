@@ -119,7 +119,7 @@ else {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != 0) {
+        if($resource_rw != '0') {
 
             // Checking the presence of sig into the database
             $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
