@@ -201,7 +201,7 @@ else {
     }
 
     // Now managing the insertion
-    if((isset($_POST["submit"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
+    if((isset($_POST["submit"])) && (isset($_POST["hsig"])) && ((strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
