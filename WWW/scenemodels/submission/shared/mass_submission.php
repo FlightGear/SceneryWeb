@@ -156,7 +156,7 @@ else {
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
                     include '../../inc/header.php';
                     echo "<center>Signature found.<br />Now deleting request with number ". $_POST["hsig"].".</center><br />";
-                    echo "</center><font color=\"green\">Entry has correctly been deleted from the pending requests table.</font></center>";
+                    echo "<center><font color=\"green\">Entry has correctly been deleted from the pending requests table.</font></center>";
 
                     // Closing the rw connection.
                     pg_close($resource_rw);
@@ -169,9 +169,8 @@ else {
 
                     // OK, let's start with the mail redaction.
                     // Who will receive it ?
-                    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
-                    // $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-                    // $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+                    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
+                    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
                     // What is the subject ?
                     $subject = "[FG Scenery Submission forms] Automatic mass import shared model DB deletion confirmation.";
@@ -332,10 +331,8 @@ else {
 
                             // OK, let's start with the mail redaction.
                             // Who will receive it ?
-                            $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
-//                            $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
-//                            $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-//                            $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+                              $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
+                            $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
                             // What is the subject ?
                             $subject = "[FG Scenery Submission forms] Automatic mass shared model submission DB pending request process confirmation.";
