@@ -115,11 +115,12 @@ else {
 
     // Managing the cancellation of a mass import by DB maintainer.
 
-    if(((isset($_POST["cancel"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Cancel - Do not import!")) {
-        $resource_rw = connect_sphere_rw();
+    if(((isset($_POST["cancel"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Reject - Do not import!")) {
+
+         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != '0') {
+        if($resource_rw != 0) {
 
             // Checking the presence of sig into the database
             $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
@@ -200,7 +201,7 @@ else {
     }
 
     // Now managing the insertion
-    if((isset($_POST["submit"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"]) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
+    if((isset($_POST["submit"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
