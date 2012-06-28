@@ -248,7 +248,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
         $resource_r = connect_sphere_r();
 
         // If connection is OK
-        if($resource_r!='0')
+        if($resource_r != '0')
         {
             // Show all the families other than the static family
             $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
