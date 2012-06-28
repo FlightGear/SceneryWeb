@@ -61,7 +61,6 @@ function chkNumeric(objName, minval, maxval, period)
     return true;
 }
 
-
 function checkComment(textfield)
 {
     if (chkComment(textfield.value) == false)
@@ -114,7 +113,7 @@ function checkEmail(emailfield)
 
 function chkEmail(emailfield)
 {
-    var checkOK =numbers + letters + "@_.";
+    var checkOK =numbers + letters + "@_-.";
     var checkStr = emailfield.value;
     var allValid = true;
     var allNum = "";
@@ -137,7 +136,7 @@ function chkEmail(emailfield)
     
     if(!allValid)
     {
-        alertsay = "Please enter only letters, numbers, '@', '_' and '.'";
+        alertsay = "Please enter only letters, numbers, '@', '_', '-' and '.'";
         alertsay = alertsay + " in the \"" + emailfield.name + "\" field.";
         alert(alertsay);
         
@@ -160,7 +159,7 @@ function chkEmail(emailfield)
     if(numberOfAt != 1 || numberOfPointAfterAt<1)
     {
         allValid = false;
-        alert("This is not a valid email adress ");
+        alert("This is not a valid email adress!");
     }
     
     return allValid;

@@ -15,8 +15,7 @@ if(!$resp->is_valid){
 }
 */
 
-
-$page_title="Automated Models Submission Form";
+$page_title = "Automated Models Submission Form";
 include '../../inc/header.php';
 
 ################################################
@@ -27,21 +26,16 @@ include '../../inc/header.php';
 ################################################
 ################################################
 
-function removeExt($fichier){ // This function returns the filename without extension
-  if(strrpos($fichier, ".") == false) return $fichier;
-  else return substr($fichier, 0, strrpos($fichier, "."));
+if (($_FILES["mo_thumbfile"]['name'] != "") && ($_FILES["ac3d_file"]['name'] != "")) {
+    $thumbName = remove_file_extension ($_FILES["mo_thumbfile"]['name']);
+    $ac3dName  = remove_file_extension ($_FILES["ac3d_file"]['name']);
+    $xmlName   = remove_file_extension ($_FILES["xml_file"]['name']);
+
 }
-
-if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
-
-  $thumbName = removeExt($_FILES["mo_thumbfile"]['name']);
-  $ac3dName  = removeExt($_FILES["ac3d_file"]['name']);
-  $xmlName   = removeExt($_FILES["xml_file"]['name']);
-
-}else{
-  $fatalerror = 1;
-  $error += 1;
-  $errormsg .= "You <u>must</u> provide at least 1 thumbnail and 1 AC file!<br/>";
+else {
+    $fatalerror = 1;
+    $error += 1;
+    $errormsg .= "You <u>must</u> provide at least 1 thumbnail and 1 AC file!<br/>";
 }
 
 ###########################################################
@@ -52,40 +46,40 @@ if($_FILES["mo_thumbfile"]['name'] != "" && $_FILES["ac3d_file"]['name'] != ""){
 ###########################################################
 ###########################################################
 
-if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
-
-  while(file_exists('/tmp/static')){
-    usleep(500);
-  }
-
-  if(!mkdir('/tmp/static/')){
-    $fatalerror = 1;
-    $error += 1;
-    $errormsg .= "Impossible to create '/tmp/static/' directory!";
-  }
-
-  $targetPath   = "/tmp/static/";
-  if($ac3dName == $xmlName){
-    $xmlName    = $_FILES["xml_file"]['name'];
-    $xmlPath    = $targetPath.$_FILES["xml_file"]['name'];
-  }
-  $thumbPath    = $targetPath.$_FILES["mo_thumbfile"]['name'];
-  $ac3dPath     = $targetPath.$_FILES["ac3d_file"]['name'];
-  $thumbName    = $_FILES["mo_thumbfile"]['name'];
-  $ac3dName     = $_FILES["ac3d_file"]['name'];
-
-  for($i=0; $i<12; $i++){
-    if($_FILES["png_file"]["name"][$i] != ""){
-      $pngAllName[] = $_FILES["png_file"]["name"][$i];
+if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
+    while (file_exists('/tmp/static')) {
+        usleep(500);
     }
-  }
 
-}else{
-  if(!$fatalerror){
-    $fatalerror = 1;
-    $error += 1;
-    $errormsg .= "XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml, tower.ac, tower_thumbnail.jpeg)!<br/>";
-  }
+    if (!mkdir('/tmp/static/')) {
+        $fatalerror = 1;
+        $error += 1;
+        $errormsg .= "Impossible to create '/tmp/static/' directory!";
+    }
+
+    $targetPath   = "/tmp/static/";
+    if ($ac3dName == $xmlName) {
+        $xmlName    = $_FILES["xml_file"]['name'];
+        $xmlPath    = $targetPath.$_FILES["xml_file"]['name'];
+    }
+    $thumbPath    = $targetPath.$_FILES["mo_thumbfile"]['name'];
+    $ac3dPath     = $targetPath.$_FILES["ac3d_file"]['name'];
+    $thumbName    = $_FILES["mo_thumbfile"]['name'];
+    $ac3dName     = $_FILES["ac3d_file"]['name'];
+
+    for ($i=0; $i<12; $i++) {
+        if($_FILES["png_file"]["name"][$i] != "") {
+            $pngAllName[] = $_FILES["png_file"]["name"][$i];
+        }
+    }
+
+}
+else {
+    if (!$fatalerror) {
+        $fatalerror = 1;
+        $error += 1;
+        $errormsg .= "XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml, tower.ac, tower_thumbnail.jpeg)!<br/>";
+    }
 }
 
 ###############################################
@@ -100,50 +94,50 @@ if($thumbName == $ac3dName."_thumbnail" && !$fatalerror){
 # STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY
 ###
 
-if($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror){ // check size file
-
-  if($_FILES['mo_thumbfile']['type'] == "image/jpeg" && (ShowFileExtension(basename($thumbName))=="jpeg" || ShowFileExtension(basename($thumbName))=="JPEG" || ShowFileExtension(basename($thumbName))=="JPG" || ShowFileExtension(basename($thumbName))=="jpg")){ // check type & extension file
-
-    if($_FILES['mo_thumbfile']['error'] != 0){ // If error is detected
-      $error += 1;
-      $errormsg .= "There has been an error while uploading the file \"".$thumbName."\"!<br/>";
-      switch ($_FILES['mo_thumbfile']['error']){
-        case 1:
-          $errormsg .= "The file \"".$thumbName."\" is bigger than this server installation allows!<br/>";
-          break;
-        case 2:
-          $errormsg .= "The file \"".$thumbName."\" is bigger than this form allows!<br/>";
-          break;
-        case 3:
-          $errormsg .= "Only part of the file \"".$thumbName."\" was uploaded!<br/>";
-          break;
-        case 4:
-          $errormsg .= "No file \"".$thumbName."\" was uploaded!<br/>";
-          break;
-      }
-    }else{
-      if(!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)){ // check uploaded file
-        $fatalerror = 1;
-        $error += 1;
-        $errormsg .= "There has been an error while moving the file \"".$thumbName."\" on the server!<br/>";
-      }
+if (($_FILES['mo_thumbfile']['size'] < 2000000) && (!$fatalerror)) { // check file size
+    if(($_FILES['mo_thumbfile']['type'] == "image/jpeg") && ((ShowFileExtension(basename($thumbName))) == "jpeg") || ((ShowFileExtension(basename($thumbName))) == "JPEG") || ((ShowFileExtension(basename($thumbName))) == "JPG") || ((ShowFileExtension(basename($thumbName))) == "jpg")) { // check type & extension file
+        if($_FILES['mo_thumbfile']['error'] != 0) { // If an error is detected
+            $error += 1;
+            $errormsg .= "There has been an error while uploading the file \"".$thumbName."\"!<br/>";
+            switch ($_FILES['mo_thumbfile']['error']) {
+                case 1:
+                    $errormsg .= "The file \"".$thumbName."\" is bigger than this server installation allows!<br/>";
+                    break;
+                case 2:
+                    $errormsg .= "The file \"".$thumbName."\" is bigger than this form allows!<br/>";
+                    break;
+                case 3:
+                    $errormsg .= "Only part of the file \"".$thumbName."\" was uploaded!<br/>";
+                    break;
+                case 4:
+                    $errormsg .= "No file \"".$thumbName."\" was uploaded!<br/>";
+                    break;
+        }
     }
-  }else{
-    $error += 1;
-    $errormsg .= "The file format or extention of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file!<br/>";
-  }
-}else{
-  if(!$fatalerror){
-    $error += 1;
-    $errormsg .= "Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes)!<br/>";
-  }
+    else {
+        if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) { // check uploaded file
+            $fatalerror = 1;
+            $error += 1;
+            $errormsg .= "There has been an error while moving the file \"".$thumbName."\" on the server!<br/>";
+        }
+    }
+    }
+    else {
+        $error += 1;
+        $errormsg .= "The file format or extention of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file!<br/>";
+    }
+    } else {
+    if(!$fatalerror) {
+        $error += 1;
+        $errormsg .= "Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes)!<br/>";
+    }
 }
 
 ###
 # STEP 3.2 : UPLOAD AC3D FILE IN TMP DIRECTORY
 ###
 
-if($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror){ // check size file
+if($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 
   if($_FILES['ac3d_file']['type']=="application/octet-stream" && (ShowFileExtension(basename($ac3dName))=="ac" || ShowFileExtension(basename($ac3dName))=="AC")){ // check type & extension file
 
@@ -244,7 +238,7 @@ for($i=0; $i<12; $i++){
     if($pngsize < 2000000 && !$fatalerror){ // check size file
 
       if($pngType == 'image/png' && (ShowFileExtension(basename($pngName))=="png" || ShowFileExtension(basename($pngName))=="PNG")){ // check type & extension file
-	
+
         if(($pngError)!=0){ // If error is detected
           $error += 1;
           $errormsg .= "There has been an error while uploading the file \"".$pngName."\"!<br/>";
@@ -596,8 +590,8 @@ if($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["gndelev"] !=
 ###############################################
 ###############################################
 
-if(    $_POST["mo_shared"] != ""  && $_POST["mo_path"] != "" && $_POST["mo_author"] != "" 
-    && $_POST["ob_country"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != "" 
+if(    $_POST["mo_shared"] != ""  && $_POST["mo_path"] != "" && $_POST["mo_author"] != ""
+    && $_POST["ob_country"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != ""
     && isset($_POST['comment'])   && isset($_POST['contributor'])){
 
   $path        = addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
