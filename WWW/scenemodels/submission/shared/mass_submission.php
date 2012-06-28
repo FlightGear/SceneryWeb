@@ -227,14 +227,11 @@ else {
                     // Gzuncompress the query
                     $query_rw = gzuncompress($sqlz);
 
-
-                    // ######################################################################################################################
+                    // ####################################################################################################################################################
                     // We have to work on the ob_text field here (working on it before make ob_text hard to parse to show to the maintainer).
-                    // Request currently looks like this
-                    // INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('', ST_PointFromText('POINT(-122.309394 47.460817)', 4326), 120.74, NULL, 359.61, 35, 1), ('', ST_PointFromText('POINT(-122.312628 47.460747)', 4326), 118.45, NULL, 359.62, 35, 1), ('', ST_PointFromText('POINT(-122.312825 47.440444)', 4326), 105.60, NULL, 179.62, 35, 1), ('', ST_PointFromText('POINT(-122.325056 47.44175)', 4326), -70.2, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.325833 47.44)', 4326), -74, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.332778 47.468889)', 4326), -77, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.333361 47.432444)', 4326), -46.8, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.333611 47.47)', 4326), -61, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.343889 47.468056)', 4326), -55.2, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.423611 47.393056)', 4326), -40.9, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.425833 47.394167)', 4326), -50.8, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.430278 47.421944)', 4326), -58.6, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.433611 47.397778)', 4326), -22.7, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.435278 47.398889)', 4326), -19.7, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.441944 47.463611)', 4326), 46, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.441944 47.464444)', 4326), 50.1, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.453611 47.446111)', 4326), 2.08, NULL, 0, 37, 1), ('', ST_PointFromText('POINT(-122.463333 47.419722)', 4326), -14.07, NULL, 0, 37, 1);
-                    // For each insertion, we have to strreplace the ('' by the ob_text corresponding to the object (ob_model)
-                    // This means we have to explode the request once more and, line per line, find the model name and set ob_text='".object_name($_POST['model_name'])."'
-                    // and rebuild the query, taking care of the presence of " or , in the obtext field.
+                    // Sorry, this means we have to explode the request once more and, line per line, find the model name and set ob_text='".object_name($model_name)."'
+                    // and rebuild the query, taking care of the presence of " or , in the ob_text field (while I did not do it in the single addition.
+                    // ####################################################################################################################################################
 
                     $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
@@ -284,12 +281,11 @@ else {
                         }
                         }
                         $mass_rw_query = $query_rw.$data_query_rw;
-                        echo $mass_rw_query;
 
-                    // ######################################################################################################################
+                    // ###########################################################################################################################
 
                     // Sending the request...
-                    $result_rw = @pg_query($resource_rw, $query_rw);
+                    $result_rw = @pg_query($resource_rw, $mass_rw_query);
 
                     if(!$result_rw) {
                         $page_title = "Automated Shared Models Positions Pending Requests Form";
