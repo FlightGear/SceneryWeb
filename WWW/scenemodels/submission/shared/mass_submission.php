@@ -85,8 +85,8 @@ else {
                                         $model = object_name($data_from_query);
                                         echo "<td><a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$data_from_query."\" >".$model."</a></td>\n";
                                     }
-                                    else if($j == 5) { echo ""; }
-                                    else if($j != 1) { echo "<td>".$data_from_query."</td>\n"; }
+                                    else if($j == 5) { echo ""; } // I have to admit I don't know why I wrote this
+                                    else if($j != 1) { echo "<td>".$data_from_query."</td>\n"; } // Nor this. Snip. But must be a reason why.
                                 }
                                 echo "<td><a href=\"http://mapserver.flightgear.org/map/?lon=".$long."&lat=".$lat."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF\">Map</a></td>\n";
                                 echo "</tr>\n";
@@ -267,10 +267,12 @@ else {
                                     $orientation = $data_from_query."</td>\n";
                                 }
                                 else if($j == 4) {
-                                    $model = object_name($data_from_query); echo "Model:".$model."&nbsp;";
+                                    $model = $data_from_query; echo "Model Id:".$model."&nbsp;";
+                                    $ob_text = object_name($data_from_query); echo "Ob Text:".$ob_text."&nbsp;";
                                 }
-                                else if($j == 5) { echo "j5: ".$data_from_query."&nbsp;"; }
+                                else if($j == 5) { echo "j5: ".$data_from_query."&nbsp;<br />"; }
                                 else if($j != 1) { echo "j!=1 ".$data_from_query."&nbsp;"; }
+                                echo "INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".$ob_text."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326, ".$elevation.", ".$offset.", ".heading_stg_to_true($heading).", ".$model.", 1);";
                             }
                         }
                         $i++;
