@@ -237,7 +237,6 @@ if ($false == 0) {
     $query_rw = "INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
     for ($j = 0; $j<$nb_lines; $j++) { // For each line, add the data content to the request
         if($j == ($nb_lines-1)) {
-            echo $data_query_rw;
             $data_query_rw = $data_query_rw.$data_rw[$j].";";
         }
         else {

@@ -115,7 +115,7 @@ else {
 
     // Managing the cancellation of a mass import by DB maintainer.
 
-    if((isset($_POST["cancel"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == 'Cancel - Do not import!')) {
+    if(((isset($_POST["cancel"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Cancel - Do not import!")) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
