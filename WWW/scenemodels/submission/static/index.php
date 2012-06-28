@@ -1,7 +1,6 @@
 <?php
-    require_once('../../inc/functions.inc.php');
-
-    $page_title="Automated Models Submission Form";
+    require_once ('../../inc/functions.inc.php');
+    $page_title = "Automated Models Submission Form";
     include '../../inc/header.php';
 ?>
   <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
@@ -11,7 +10,7 @@
   </noscript>
 
   <script type="text/javascript">
-    // This script is here to check for the consistency of the different fields of the form 
+    // This script is here to check for the consistency of the different fields of the form
     function checkNumeric(objName,minval,maxval,period){
       var numberfield = objName;
       if (chkNumeric(objName,minval,maxval,period) == false){
@@ -42,7 +41,7 @@
         if (ch != ",")
           allNum += ch;
       }
-      if (!allValid){	
+      if (!allValid){
         alertsay = "Please enter only the values :\""
         alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
         alert(alertsay);
@@ -65,20 +64,18 @@
 
 
   <h1>Models Automated Submission Form</h1>
-  <p>
-  <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database. 
-  There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>. 
+  <p align="center">
+  <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database.
+  There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>.
   Please help us to make it more!
 
-  Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for. 
+  Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for.
   Please note that all fields are now mandatory.
   </p>
-  <p>
+  <p align="center">
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.
   </p>
-  <p style="color:red;">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.png (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</p>
-
-
+  <p style="color:red;" align="center">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.png (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</p>
 
   <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
     <table>
@@ -91,12 +88,12 @@
             <?php
               $resource_r = connect_sphere_r();
               $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
-  
+
               while ($row = pg_fetch_assoc($result)){
                 $name = preg_replace('/ /',"&nbsp;",$row["mg_name"]);
                 echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
               }
-  
+
               pg_close($resource_r);
             ?>
           </select>
@@ -221,7 +218,7 @@
           <span title="This is the AC3D file of your model (eg: tower.ac).">
             <a style="cursor: help; ">Corresponding AC3D File</a>
           </span>
-        </td> 
+        </td>
         <td>
           <input type="file" name="ac3d_file" class="multi" maxlength="1" accept="ac" />
         </td>
@@ -270,8 +267,8 @@
           <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
           <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
           <input type="submit" value="Submit model" />
-	  </center>        
-	</td>
+      </center>
+    </td>
       </tr>
     </table>
   </form>
