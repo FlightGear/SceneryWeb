@@ -558,8 +558,8 @@ function clearDir($dossier)
     return true;
 }
 
-// Detects if a submitted object already exists in the database f(lat, lon, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ).
-// ============================================================================================================================
+// Detects if a submitted object already exists in the database f(lat, lon, ob_gndelev, ob_heading, ob_model).
+// ===========================================================================================================
 
 function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset, $ob_heading, $ob_model)
 {
@@ -579,4 +579,16 @@ function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset,
     // Closing the connection.
     @pg_close ($resource_r);
 }
+
+// This function returns the core filename of a file, ie without its native extension.
+=============================================================================
+
+function remove_file_extension($file)
+{
+    if (strrpos ($file, ".") == false)
+        return $file;
+    else
+        return substr($file, 0, strrpos($file, "."));
+}
+
 ?>
