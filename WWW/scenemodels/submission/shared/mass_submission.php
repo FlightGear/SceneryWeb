@@ -1,86 +1,64 @@
 <?php
 
 // Inserting libs
-
 require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
+$ok = check_availability();
 
-$ok=check_availability();
-
-if(!$ok)
-{
-
+if(!$ok) {
     $page_title = "Automated Shared Models Positions Pending Requests Form";
     include '../../inc/header.php';
 ?>
     <br /><br />
     <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
     <br /><center>The FlightGear team.</center>
-    <?php include '../../inc/footer.php'; ?>
-<?php
+    <?php include '../../inc/footer.php';
 }
 
-else
-{
+else {
 
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
-    
-    if((isset($_GET["action"])) && (isset($_GET["sig"])) && (strlen($_GET["sig"])==64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'check'))
-    {
+
+    if((isset($_GET["action"])) && (isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"]) && ($_GET["action"] == 'check')) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
+        if($resource_rw != '0') {
 
-        if($resource_rw!='0')
-        {
-
-        // Checking the presence of sig into the database
-
-            $result = @pg_query($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
-            if (pg_num_rows($result) != '1')
-            {
+            // Checking the presence of sig into the database
+            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
+            if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Shared Models Positions Pending Requests Form";
                 include '../../inc/header.php';
-                
-                echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
-                echo "Else, please report to devel ML or FG Scenery forum.<br />.";
+                echo "<center><font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font></center><br />\n";
+                echo "<center>Else, please report to devel ML or FG Scenery forum.</center><br />.";
                 include '../../inc/footer.php';
                 @pg_close($resource_rw);
                 exit;
             }
-            else
-            {
-                if($_GET["action"] == 'check')    // If action comes from the mass submission script
-                {
-                    while ($row = pg_fetch_row($result))
-                    {            
+            else {
+                if($_GET["action"] == 'check') {  // If action comes from the mass submission script
+                    while ($row = pg_fetch_row($result)) {
                         $sqlzbase64 = $row[1];
-                        
+
                         // Base64 decode the query
-                
                         $sqlz = base64_decode($sqlzbase64);
-                                            
+
                         // Gzuncompress the query
-
                         $query_rw = gzuncompress($sqlz);
-
-
                         $page_title = "Automated Shared Models Positions Pending Requests Form";
                         include '../../inc/header.php';
-
-                        echo "Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n<br />\n<br />\n";
-                        $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;                            
+                        echo "<p align=\"center\">Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n</p>\n";
+                        $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
                         $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         echo "<form name=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
                         echo "<table>\n<tr>\n<td><center>Line #</center></td>\n<td><center>Longitude</center></td>\n<td><center>Latitude</center></td>\n<td><center>Elevation</center></td>\n<td><center>Orientation</center></td>\n<td><center>Model</center></td>\n<td><center>Map</center></td>\n</tr>\n";
-                        $i=0;
-                        foreach ($tab_tags as $value_tag)
-                        {
-                            if($i>0)
-                            {
+                        $i = 0;
+                        foreach ($tab_tags as $value_tag) {
+                            if($i > 0) {
                                 echo "<tr>\n";
-                                $trigged_0 = str_replace("ST_PointFromText('POINT(","",$value_tag); // Removing ST_PointFromText...;
+                                $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);     // Removing )", 4326), from data;
                                 $trigged_2 = str_replace("1);","",$trigged_1);            // Removing 1); from data;
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);            // Removing " 1)," - family;
@@ -122,7 +100,7 @@ else
                             }
                             $i++;
                         }
-                            
+
 ?>
                         <tr>
                         <td colspan="7">
@@ -135,31 +113,31 @@ else
                         </tr>
                         </table>
 <?php
-                                    
+
                     }
                 }
             }
         }
     }
-    
+
     // Managing the cancellation of a mass import by DB maintainer.
-    
+
     if((isset($_POST["cancel"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])==64) && preg_match("/[0-9a-z]/",$_POST["hsig"]) && ($_POST["cancel"]=='Cancel - Do not import!'))
     {
         $resource_rw = connect_sphere_rw();
-            
+
         // If connection is OK
 
         if($resource_rw!='0')
         {
 
             // Checking the presence of sig into the database
-                        
+
             $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
             $result = @pg_query($delete_query);
-                        
+
             // If not ok...
-                    
+
             if (pg_num_rows($result) != '1')
             {
 
@@ -175,10 +153,10 @@ else
             else
             {
                 // Delete the entry from the pending query table.
-                            
+
                 $delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["hsig"] ."';";
                 $resultdel = @pg_query($resource_rw,$delete_request);
-                            
+
                 if(!resultdel)
                 {
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
@@ -186,11 +164,11 @@ else
 
                     echo "Signature found.<br /> Now deleting request with number ". $_POST["hsig"].".<br />";
                     echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
-                            
+
                     // Closing the rw connection.
 
                     pg_close($resource_rw);
-                            
+
                     include '../../inc/footer.php';
                     exit;
                 }
@@ -201,13 +179,13 @@ else
 
                     echo "Signature found.<br />Now deleting request with number ". $_POST["hsig"].".<br />";
                     echo "<font color=\"green\">Entry has correctly been deleted from the pending requests table.</font>";
-                                        
+
                     // Closing the rw connection.
 
                     pg_close($resource_rw);
-                        
+
                     echo "</body></html>";
-                            
+
                     // Sending mail if entry was correctly deleted.
 
                     // Sets the time to UTC.
@@ -218,7 +196,7 @@ else
                     // OK, let's start with the mail redaction.
 
                     // Who will receive it ?
-                            
+
                     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
@@ -234,9 +212,9 @@ else
                                 "I just wanted to let you know that the mass object insertion request nr:"  . "\r\n" .
                                 "" .$_POST[hsig]. ""."\r\n" .
                                 "has been successfully deleted from the pending requests table.";
-                                    
+
                     $message = wordwrap($message0, 77, "\r\n");
-                            
+
                     // Preparing the headers.
 
                     $headers = "MIME-Version: 1.0" . "\r\n";
@@ -246,18 +224,18 @@ else
                     // Let's send it ! No management of mail() errors to avoid being too talkative...
 
                     @mail($to, $subject, $message, $headers);
-                    exit;                    
+                    exit;
                 }
             }
         }
     }
-                
+
     // Now managing the insertion
 
     if((isset($_POST["submit"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])==64) && preg_match("/[0-9a-z]/",$_POST["hsig"]) && ($_POST["submit"]=='Submit the mass import!'))
     {
         $resource_rw = connect_sphere_rw();
-            
+
         // If connection is OK
 
         if($resource_rw!='0')
@@ -280,39 +258,39 @@ else
             else
             {
                 while ($row = pg_fetch_row($result))
-                {            
+                {
                     $sqlzbase64 = $row[1];
-                        
+
                     // Base64 decode the query
-                    
+
                     $sqlz = base64_decode($sqlzbase64);
-                                            
+
                     // Gzuncompress the query
 
                     $query_rw = gzuncompress($sqlz);
-                        
+
                     // Sending the request...
 
                     $result_rw = @pg_query($resource_rw,$query_rw);
-                                    
+
                     if(!$result_rw)
                     {
 
                         $page_title = "Automated Shared Models Positions Pending Requests Form";
                         include '../../inc/header.php';
-                        
+
                         echo "Signature found.<br /> Now processing query with request number ". $_POST[hsig].".<br /><br />";
                         echo "<font color=\"red\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
-                            
+
                         // Closing the rw connection.
-                
+
                         include '../../inc/footer.php';
                         pg_close($resource_rw);
-                            
+
                         exit;
                     }
                     else
-                    {    
+                    {
 
                         $page_title = "Automated Shared Models Positions Pending Requests Form";
                         include '../../inc/header.php';
@@ -320,13 +298,13 @@ else
                         echo "Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST[hsig].".<br />\n";
                         echo pg_affected_rows($result_rw)." objects were added to the database!<br /><br />\n";
                         echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
-                            
+
                         // Delete the entry from the pending query table.
-                    
+
                         $delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["hsig"] ."';";
-                                    
+
                         $resultdel = @pg_query($resource_rw,$delete_request);
-                            
+
                         if(!resultdel)
                         {
                             echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
@@ -334,17 +312,17 @@ else
 
                             pg_close($resource_rw);
                             include '../../inc/footer.php';
-                        
+
                             exit;
                         }
                         else
                         {
                             echo "<font color=\"green\">Entry correctly deleted from the pending request table.</font>";
-                                        
+
                             // Closing the rw connection.
 
                             pg_close($resource_rw);
-                                    
+
                             // Sending mail if SQL was correctly inserted and entry deleted.
 
                             // Sets the time to UTC.
@@ -355,7 +333,7 @@ else
                             // OK, let's start with the mail redaction.
 
                             // Who will receive it ?
-                                        
+
                             $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
                             $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
@@ -373,9 +351,9 @@ else
                                         "has been successfully treated in the fgs_objects table." . "\r\n" .
                                         "The corresponding pending entry has consequently been deleted" . "\r\n" .
                                         "from the pending requests table.";
-                                               
+
                             $message = wordwrap($message0, 77, "\r\n");
-                                        
+
                             // Preparing the headers.
 
                             $headers = "MIME-Version: 1.0" . "\r\n";
@@ -385,12 +363,12 @@ else
                             // Let's send it ! No management of mail() errors to avoid being too talkative...
 
                             @mail($to, $subject, $message, $headers);
-                            exit;                    
+                            exit;
                         }
                     }
                 }
             }
-    
+
         }
     }
 }
