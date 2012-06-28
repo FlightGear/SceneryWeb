@@ -246,7 +246,7 @@ if ($false == 0) {
     }
 
     $mass_rw_query = $query_rw.$data_query_rw;
-    echo ("Mass query: ",$mass_rw_query);
+    printf("Mass query: ",$mass_rw_query);
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$mass_rw_query.">";
