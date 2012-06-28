@@ -24,13 +24,14 @@ else {
 <script src="../ajax/update_objects.js" type ="text/javascript"></script>
 <script src="../ajax/check_form.js" type="text/javascript"></script>
 
-<p>
 <h1>Positions Automated Submission Form</h1>
-<center><b>Foreword:</b> This automated form goal is to ease the submission of shared models positions into FG Scenery database. <br />There are currently <?php count_objects(); ?>
+<p class="center">
+<b>Foreword:</b> This automated form goal is to ease the submission of shared models positions into FG Scenery database. <br />There are currently <?php count_objects(); ?>
  objects in the database. Help us to make it more!
 
 <br />Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for. <br />Also note that all fields are now mandatory.
-If you need some more help, just put your mouse over the left column (eg "Elevation Offset").</center>
+If you need some more help, just put your mouse over the left column (eg "Elevation Offset").
+</p>
 <br /><br />
 <form name="positions" method="post" action="check_shared.php">
 <table width="400">
@@ -150,7 +151,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     </tr>
 </table>
 </form>
-</p>
+
 <?php include '../../inc/footer.php';
 }
 ?>
