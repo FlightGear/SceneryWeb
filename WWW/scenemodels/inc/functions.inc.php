@@ -568,6 +568,7 @@ function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset,
 
     // Querying...
     $query = "SELECT ob_id FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$lon." ".$lat.")', 4326) AND ob_gndelev =".$ob_gndelev." AND ob_elevoffset =".$ob_elevoffset." AND ob_heading =".heading_stg_to_true($ob_heading)." AND ob_model=".$ob_model.";";
+    echo $query;
     $result = @pg_query($resource_r, $query);
     $returned_rows = pg_num_rows($result);
 
