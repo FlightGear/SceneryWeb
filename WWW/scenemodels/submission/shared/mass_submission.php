@@ -258,26 +258,37 @@ else {
                                     $k = 0;
                                     foreach ($fix as $value) {
                                         $k++;
-                                        if ($k == 1) { $long = $value; echo "Long: ".$long."&nbsp;"; }
-                                        if ($k == 2) { $lat = $value; echo "Lat: ".$lat."&nbsp;"; }
-                                        if ($k == 3) { $elevation = $value; echo "Elevation: ".$elevation."&nbsp;"; }
+                                        if ($k == 1) { $long = $value; }
+                                        if ($k == 2) { $lat = $value; }
+                                        if ($k == 3) { $elevation = $value; }
                                     }
                                 }
                                 else if ($j == 3) {
-                                    $orientation = $data_from_query."</td>\n";
+                                    $orientation = $data_from_query;
                                 }
                                 else if($j == 4) {
-                                    $model = $data_from_query; echo "Model Id:".$model."&nbsp;";
-                                    $ob_text = object_name($data_from_query); echo "Ob Text:".$ob_text."&nbsp;";
+                                    $model = $data_from_query;
+                                    $ob_text = object_name($data_from_query);
                                 }
                                 else if($j == 5) { echo "j5: ".$data_from_query."&nbsp;<br />"; }
                                 else if($j != 1) { echo "j!=1 ".$data_from_query."&nbsp;"; }
-                                echo "INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".$ob_text."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326, ".$elevation.", ".$offset.", ".heading_stg_to_true($heading).", ".$model.", 1);";
                             }
+                        $data_rw[$i]="('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", NULL, ".heading_stg_to_true($heading).", ".$model.", 1)";
                         }
                         $i++;
                     }
 
+                        $query_rw = "INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
+                        for ($j = 0; $j<$i; $j++) { // For each line, add the data content to the request
+                        if($j == ($i-1)) {
+                            $data_query_rw = $data_query_rw.$data_rw[$j].";";
+                        }
+                        else {
+                            $data_query_rw = $data_query_rw.$data_rw[$j].", ";
+                        }
+                        }
+                        $mass_rw_query = $query_rw.$data_query_rw;
+                        echo $mass_rw_query;
 
                     // ######################################################################################################################
 
