@@ -3,16 +3,15 @@ Shared objects
 Bug/security fixing:
 --------------------
 - Check for every form & page the referring page & the value of the form submitting.
-- Detect if submitting an already existing object.
-- ob_text workaround for mass import (object_name($model_id)).
 - Sanitize comments +lat/long content (Javascript + strip tags). More checkings in the update script.
 - In the update form the (eventually former) Object family and model name should be selected
   by default.
 
 Features updates (by priority):
 -------------------------------
-- Review the names of the scripts to have them coherent.
-- Ask the submitter to send his name in the forms.
+- Review the names of the scripts to keep them coherent.
+- Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
+- Implement if submitting an already existing object (function already written).
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Make sure Javascript is turned on?
 - Enable maintainer to drop a comment.

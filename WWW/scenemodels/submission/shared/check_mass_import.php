@@ -45,8 +45,18 @@ else {
     global $false;
     $false = 0;
 
-    // Checking that comment exists. Just a small verification as it's not going into DB.
+    // Checking that email is valid (if it exists).
+    //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+    if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
+        $safe_email = pg_escape_string(stripslashes($_POST['email']));
+        echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
+    }
+    else {
+        echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
+        $failed_mail = 1;
+    }
 
+    // Checking that comment exists. Just a small verification as it's not going into DB.
     if(isset($_POST['comment']) && (strlen($_POST['comment']) > 0) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u', $_POST['comment'])) && (strlen($_POST['comment'] <= 100))) {
         $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
     }
@@ -58,7 +68,6 @@ else {
     }
 
     // Checking that stg exists and is containing only letters or figures.
-
     if((isset($_POST['stg'])) && (preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg']))) {
         echo "<center><font color=\"red\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</font></center><br />";
         $false = 1;
@@ -70,12 +79,11 @@ else {
     }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
-
 if ($false == 0) {
-    $tab_lines = explode("\n", $_POST['stg']);        // Exploding lines by carriage return (\n) in submission input.
-    $tab_lines = array_map('trim', $tab_lines);       // Removing blank lines.
-    $tab_lines = array_filter($tab_lines);            // Removing blank lines.
-    $tab_lines = array_slice($tab_lines, 0, 100);     // Selects the 100th first elements of the tab (the 100th first lines not blank)
+    $tab_lines = explode("\n", $_POST['stg']);          // Exploding lines by carriage return (\n) in submission input.
+    $tab_lines = array_map('trim', $tab_lines);         // Removing blank lines.
+    $tab_lines = array_filter($tab_lines);              // Removing blank lines.
+    $tab_lines = array_slice($tab_lines, 0, 100);       // Selects the 100th first elements of the tab (the 100th first lines not blank)
 
     $nb_lines = count($tab_lines);
     $global_ko = 0;                                     // Validates - or no - the right to go further.
@@ -289,26 +297,33 @@ if ($false == 0) {
         // OK, let's start with the mail redaction.
         // Who will receive it ?
 
-        $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
-        //$to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-        //$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+        $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
+        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
         // What is the subject ?
         $subject = "[FG Scenery Submission forms] Automatic mass shared model position request: needs validation.";
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        $message0 = "Hi," . "\r\n" .
-                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_mass_shared_import.php" . "\r\n" .
-                    "I just wanted to let you know that a new shared objects mass insertion request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued this request." . "\r\n" .
-                    "Associated comment: ".$sent_comment;
-        $message077 = wordwrap($message0, 77, "\r\n");
+        if($failed_mail != 1) {
+            $message0 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
+                        "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
+                        "issued the following request:" . "\r\n";
+        }
+        else {
+            $message0 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
+                        "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+        }
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "\r\n".
                     "Now please click:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."\r\n" .
+                    "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email ."\r\n" .
                     "to check and confirm or reject the submission" . "\r\n" .
                     "Thanks!" ;
 
@@ -320,6 +335,37 @@ if ($false == 0) {
         // Let's send it ! No management of mail() errors to avoid being too talkative...
         $message = $message077.$message1;
         @mail($to, $subject, $message, $headers);
+
+        // Mailing the submitter
+        if($failed_mail != 1) {
+
+            // Tell the submitter that its submission has been sent for validation.
+            $to = $safe_email;
+
+            // What is the subject ?
+            $subject = "[FG Scenery Submission forms] Automatic mass shared model position submission request.";
+
+            // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
+            $message3 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n" .
+                        "This new mass shared object position insertion request has been sent for validation." . "\r\n" .
+                        "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
+                        "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
+
+            $message077 = wordwrap($message3, 77, "\r\n");
+            $message4 = "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
+
+            // Preparing the headers.
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
+            $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
+
+            // Let's send it ! No management of mail() errors to avoid being too talkative...
+            $message = $message077.$message4;
+            @mail($to, $subject, $message, $headers);
+        }
     }
 }
 include '../../inc/footer.php';

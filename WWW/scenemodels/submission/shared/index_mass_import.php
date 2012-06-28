@@ -42,6 +42,12 @@ Also note that all fields are now mandatory. Do not insert models not existing i
         <td><textarea name="stg" rows="30" cols="100" onblur="if (!validField(this.value)) alert('Please enter a value in STG field!');"></textarea></td>
     </tr>
     <tr>
+        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+        <td>
+            <input type="text" name="email" maxlength="50" size="40" value="" />
+        </td>
+    </tr>
+    <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit"><a style="cursor: help">Comment</a></span></td>
         <td>
             <input type="text" name="comment" maxlength="100" size="40" value="" />

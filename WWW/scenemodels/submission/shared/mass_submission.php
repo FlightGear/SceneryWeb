@@ -115,11 +115,12 @@ else {
 
     // Managing the cancellation of a mass import by DB maintainer.
 
-    if(((isset($_POST["cancel"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Cancel - Do not import!")) {
-        $resource_rw = connect_sphere_rw();
+    if((isset($_POST["cancel"])) && (isset($_POST["hsig"])) && ((strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
+
+         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != '0') {
+        if($resource_rw != 0) {
 
             // Checking the presence of sig into the database
             $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
@@ -155,7 +156,7 @@ else {
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
                     include '../../inc/header.php';
                     echo "<center>Signature found.<br />Now deleting request with number ". $_POST["hsig"].".</center><br />";
-                    echo "</center><font color=\"green\">Entry has correctly been deleted from the pending requests table.</font></center>";
+                    echo "<center><font color=\"green\">Entry has correctly been deleted from the pending requests table.</font></center>";
 
                     // Closing the rw connection.
                     pg_close($resource_rw);
@@ -168,9 +169,14 @@ else {
 
                     // OK, let's start with the mail redaction.
                     // Who will receive it ?
-                    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
-                    // $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-                    // $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+                    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+                    if(isset($_GET['email'])) {
+                        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                        $to .= $_GET["email"];
+                    }
+                    else {
+                        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                    }
 
                     // What is the subject ?
                     $subject = "[FG Scenery Submission forms] Automatic mass import shared model DB deletion confirmation.";
@@ -181,7 +187,7 @@ else {
                                 "http://scenemodels.flightgear.org/submission/mass_submission.php"  . "\r\n" .
                                 "I just wanted to let you know that the mass object insertion request nr:"  . "\r\n" .
                                 "" .$_POST[hsig]. ""."\r\n" .
-                                "has been successfully deleted from the pending requests table.";
+                                "has been rejected and successfully deleted from the pending requests table.";
 
                     $message = wordwrap($message0, 77, "\r\n");
 
@@ -200,7 +206,8 @@ else {
     }
 
     // Now managing the insertion
-    if((isset($_POST["submit"])) && (isset($_POST["hsig"])) && (strlen($_POST["hsig"]) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
+    if((isset($_POST["submit"])) && (isset($_POST["hsig"])) && ((strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
+
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -330,10 +337,14 @@ else {
 
                             // OK, let's start with the mail redaction.
                             // Who will receive it ?
-                            $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
-//                            $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
-//                            $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-//                            $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+                            $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+                            if(isset($_GET['email'])) {
+                                $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                                $to .= $_GET["email"];
+                            }
+                            else {
+                                $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                            }
 
                             // What is the subject ?
                             $subject = "[FG Scenery Submission forms] Automatic mass shared model submission DB pending request process confirmation.";
@@ -346,7 +357,12 @@ else {
                                         $_POST[hsig]. "\r\n" .
                                         "has been successfully treated in the fgs_objects table." . "\r\n" .
                                         "The corresponding pending entry has consequently been deleted" . "\r\n" .
-                                        "from the pending requests table.";
+                                        "from the pending requests table." . "\r\n" .
+                                        "The corresponding entries will added in Terrasync" . "\r\n" .
+                                        "at 1230Z today or tomorrow is this time has already passed." . "\r\n" .
+                                        "You can follow Terrasync's data update at the following url: " . "\r\n" .
+                                        "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
+                                        "Thanks for your help in making FG better!";
                             $message = wordwrap($message0, 77, "\r\n");
 
                             // Preparing the headers.

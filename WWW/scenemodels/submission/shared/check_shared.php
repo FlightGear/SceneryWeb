@@ -137,14 +137,13 @@ $resp = recaptcha_check_answer ($privatekey,
 
         // Checking that email is valid (if it exists).
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-
         if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
             echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
         }
         else {
             echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
-            $failed_mail='1';
+            $failed_mail = 1;
         }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
@@ -215,7 +214,7 @@ if ($false == 0) {
         $html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if($failed_mail != '1') {
+        if($failed_mail != 1) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
@@ -265,7 +264,7 @@ if ($false == 0) {
         @mail($to, $subject, $message, $headers);
 
         // Mailing the submitter
-        if($failed_mail != '1') {
+        if($failed_mail != 1) {
 
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_email;
