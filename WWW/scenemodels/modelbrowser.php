@@ -47,8 +47,6 @@ else {
         ?>
             <a href="/modeledit.php?id=<?php echo $row['mo_id'];?>">
             <img title="<?php echo $row['mo_name'].' ['.$row['mo_path'].']';?>"
-                rel="lightbox"
-                title="<?php echo $row['mo_id'];?>"
                 src="modelthumb.php?id=<?php echo $row['mo_id'];?>" width="100" height="75"
                 onmouseover="showtrail('modelthumb.php?id=<?php echo $row['mo_id'];?>','','','1',5,322);"
                 onmouseout="hidetrail();"
