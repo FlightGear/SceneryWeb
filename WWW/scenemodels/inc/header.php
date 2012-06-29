@@ -13,9 +13,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="http://<?php echo $_SERVER['SERVER_NAME'];?>/css/style.css" type="text/css"/>
-    <link rel="stylesheet" href="http://<?php echo $_SERVER['SERVER_NAME'];?>/css/lightbox.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/lightbox.css" type="text/css"/>
     <title><?php echo (isset($page_title))?$page_title:"FlightGear Scenery Database";?></title>
+<?php
+    if(!isset($nojs_page)) {
+?>
+    <noscript>
+        <meta http-equiv="refresh" content="0; URL='/inc/nojs.php'"/>
+    </noscript>
+<?php
+    }
+?>
+
   </head>
   <body <?php echo (isset($body_onload))?"onload='$body_onload'":"";?>>
 
