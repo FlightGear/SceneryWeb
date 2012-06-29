@@ -34,13 +34,13 @@ else
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to delete. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
         <td>
-            <input type="text" name="longitude" maxlength="13" value="0" onBlur="checkNumeric(this,-180,180,'.');" />
+            <input type="text" name="longitude" maxlength="13" value="0" onblur="checkNumeric(this,-180,180,'.');" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the WGS84 latitude of the object you want to delete. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span></td>
         <td>
-            <input type="text" name="latitude" maxlength="13" value="0" onBlur="checkNumeric(this,-90,90,'.');" />
+            <input type="text" name="latitude" maxlength="13" value="0" onblur="checkNumeric(this,-90,90,'.');" />
         </td>
     </tr>
     <tr>
