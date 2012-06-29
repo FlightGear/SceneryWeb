@@ -183,7 +183,7 @@ function checkSTG(textfield)
 
 function chkSTG(checkStr)
 {
-    var checkOK = numbers + letters + "_-./";
+    var checkOK = numbers + letters + "_-./ ";
     var allValid = true;
     var allNum = "";
 
