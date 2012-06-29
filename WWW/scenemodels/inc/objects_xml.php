@@ -2,7 +2,7 @@
 
 // Inserting libs
 
-require_once('../../inc/functions.inc.php');
+require_once('functions.inc.php');
 
 ?>
 <?php header('Content-Type: text/xml'); ?>
