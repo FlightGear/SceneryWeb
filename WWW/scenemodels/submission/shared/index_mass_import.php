@@ -56,7 +56,7 @@ Also note that all fields are now mandatory. Do not insert models not existing i
             <center>
             <?php
             // Google Captcha stuff
-            require_once('../../captcha/recaptchalib.php');
+            require_once('../../inc/captcha/recaptchalib.php');
             $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
             echo recaptcha_get_html($publickey);
             ?>

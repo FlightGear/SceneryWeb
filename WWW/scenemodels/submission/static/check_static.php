@@ -1,6 +1,19 @@
 <?php
+
+# List of things to check/update:
+# 1. Dos2Unix of the files, to prevent ^M, eg in .XML files
+# 2. Do more checkings on the form site (JS) + PHP PREGs when we have more time.
+# 3. Manage concurrent access: if two people send a model at the same type, the whole stuff is stored under /tmp/static. We should try to have a random directory (or file name) per submission, during the tests.
+# 4. Continue to have an mail alert system, with a link to #5. But we already store the email data of regular contributors. Therefore they should not be asked for their email...?
+# 5. Have a page showing the whole submission, so both submitter and maintainer have a clear view of what has been submitted, with an AC3D plugin.
+# 6. Use the fgs_position_requests table to store the requests BEFORE they are submitted into the production table. The tricky part is that, when inserting the model into DB, a model id
+#    is returned which is - then - used to insert the model position into fgs_objects. It could be that the second request (position) is left "blank" in the first part of the process (when
+#    the request is stored into the fgs_position_requests table, and then added only once the model is validated (i.e. : we first send the request into fgs_models, retrieve the number, and then
+#    reprocess the second request with the id returned by the DB.)
+# 7. Add an email process to this stuff, so the submitter is informed, and the maintainer can tell him if his model is rejected (which should - hopefully - occur less ;-))
+
 require_once('../../inc/functions.inc.php');
-require_once('../../captcha/recaptchalib.php');
+require_once('../../inc/captcha/recaptchalib.php');
 
 $fatalerror = 0;
 $error      = 0;

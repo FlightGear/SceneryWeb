@@ -140,7 +140,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
             <center>
 <?php
             // Google Captcha stuff
-            require_once('../../captcha/recaptchalib.php');
+            require_once('../../inc/captcha/recaptchalib.php');
             $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
             echo recaptcha_get_html($publickey);
 ?>

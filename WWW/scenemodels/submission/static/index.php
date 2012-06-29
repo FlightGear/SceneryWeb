@@ -5,9 +5,9 @@
 ?>
     <script src="../ajax/check_form.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-    <script type="text/javascript" src="../../inc/jquery.multifile.js"></script>
+    <script type="text/javascript" src="../../inc/js/jquery.multifile.js"></script>
     <noscript>
-        <meta http-equiv="refresh" content="0; URL=../../inc/nojs.php"/>
+        <meta http-equiv="refresh" content="0; URL=../../inc/js/nojs.php"/>
     </noscript>
   <h1>Models Automated Submission Form</h1>
   <p align="center">
@@ -74,6 +74,16 @@
             </td>
             <td>
             <input type="text" name="contributor" maxlength="100" size="40" value="Your name" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
+            <a style="cursor: help; ">Email address</a>
+            </span>
+            </td>
+            <td>
+            <input type="text" name="email" maxlength="100" size="40" value="Your name" onblur="checkEmail(this);" />
             </td>
         </tr>
         <tr>
@@ -204,7 +214,7 @@
             <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
             <?php
             // Google Captcha stuff
-            require_once('../../captcha/recaptchalib.php');
+            require_once('../../inc/captcha/recaptchalib.php');
             $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
             //echo recaptcha_get_html($publickey);
             ?>

@@ -10,7 +10,7 @@
 
 <br/><br/>
 <center>
-<img src="download.png" width="720" height="450" usemap="#map" alt="Map"/>
+<img src="img/download.png" width="720" height="450" usemap="#map" alt="Map"/>
 <map name="map">
 <area shape="rect" coords="360,200,380,225" href="/download/GlobalObjects.tgz" alt="GlobalObjects.tgz  3.97 Mb  10/15/2005"/>
 <area shape="rect" coords="360,200,380,225" href="/download/SharedModels.tgz" alt="SharedModels.tgz  0.71 Mb  10/15/2005"/>

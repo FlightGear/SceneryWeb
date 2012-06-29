@@ -7,7 +7,7 @@ require_once('../../inc/functions.inc.php');
 if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_choice']))) {
 
     // Captacha stuff
-    require_once('../../captcha/recaptchalib.php');
+    require_once('../../inc/captcha/recaptchalib.php');
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
@@ -357,7 +357,7 @@ if ($false == 0) {
                 <center>
                 <?php
                 // Google Captcha stuff
-                require_once('../../captcha/recaptchalib.php');
+                require_once('../../inc/captcha/recaptchalib.php');
                 $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                 echo recaptcha_get_html($publickey);
                 ?>
@@ -454,7 +454,7 @@ if ($false == 0) {
                 <input name="step" type="hidden" value="3" />
                 <?php
                 // Google Captcha stuff
-                require_once('../../captcha/recaptchalib.php');
+                require_once('../../inc/captcha/recaptchalib.php');
                 $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                 echo recaptcha_get_html($publickey);
                 ?>

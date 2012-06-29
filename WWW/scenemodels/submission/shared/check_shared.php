@@ -18,7 +18,7 @@ if(!$ok) {
 else {
 
 // Captcha stuff
-require_once('../../captcha/recaptchalib.php');
+require_once('../../inc/captcha/recaptchalib.php');
 
 // Private key is needed for the server-to-Google auth.
 $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
