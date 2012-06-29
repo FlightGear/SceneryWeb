@@ -1,3 +1,6 @@
+<script src="http://<?php echo $_SERVER['SERVER_NAME'];?>/inc/js/lightbox/jquery-1.7.2.min.js"></script>
+<script src="http://<?php echo $_SERVER['SERVER_NAME'];?>/inc/js/lightbox/lightbox.js"></script>
+
 <script type="text/javascript">
     // CSS Top Menu- By JavaScriptKit.com (http://www.javascriptkit.com)
     // Adopted from SuckerFish menu
