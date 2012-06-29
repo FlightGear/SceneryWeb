@@ -13,6 +13,12 @@ echo "testing Geshi";
     $geshi = new GeSHi($source, $language);
 
     geshi_highlight($source, 'xml', $path);
+?>
 
+<a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">image #1</a>
+<a href="Gasometer.png" rel="lightbox[submission]" title="2nd texture">image #2</a>
+<a href="ladder.png" rel="lightbox[submission]" title="3rd texture">image #3</a>
+
+<?php
 include '../../inc/footer.php';
 ?>
