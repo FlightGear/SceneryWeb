@@ -3,66 +3,12 @@
     $page_title = "Automated Models Submission Form";
     include '../../inc/header.php';
 ?>
-  <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-  <script type="text/javascript" src="../../inc/jquery.multifile.js"></script>
-  <noscript>
-    <meta http-equiv="refresh" content="0; URL=../inc/nojs.php"/>
-  </noscript>
-
-  <script type="text/javascript">
-    // This script is here to check for the consistency of the different fields of the form
-    function checkNumeric(objName,minval,maxval,period){
-      var numberfield = objName;
-      if (chkNumeric(objName,minval,maxval,period) == false){
-        numberfield.select();
-        numberfield.focus();
-        return false;
-      }else{
-        return true;
-      }
-    }
-
-    function chkNumeric(objName,minval,maxval,period){
-      var checkOK = "-0123456789.";
-      var checkStr = objName;
-      var allValid = true;
-      var decPoints = 0;
-      var allNum = "";
-
-      for (i = 0;  i < checkStr.value.length;  i++){
-        ch = checkStr.value.charAt(i);
-        for (j = 0;  j < checkOK.length;  j++)
-        if (ch == checkOK.charAt(j))
-          break;
-        if (j == checkOK.length){
-          allValid = false;
-          break;
-        }
-        if (ch != ",")
-          allNum += ch;
-      }
-      if (!allValid){
-        alertsay = "Please enter only the values :\""
-        alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
-        alert(alertsay);
-        return (false);
-      }
-
-      // Sets minimum and maximums
-      var chkVal = allNum;
-      var prsVal = parseInt(allNum);
-
-      if (chkVal != "" && !(prsVal >= minval && prsVal <= maxval)){
-        alertsay = "Please enter a value greater than or "
-        alertsay = alertsay + "equal to \"" + minval + "\" and less than or "
-        alertsay = alertsay + "equal to \"" + maxval + "\" in the \"" + checkStr.name + "\" field."
-        alert(alertsay);
-        return (false);
-      }
-    }
-  </script>
-
-
+    <script src="../ajax/check_form.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="../../inc/jquery.multifile.js"></script>
+    <noscript>
+        <meta http-equiv="refresh" content="0; URL=../../inc/nojs.php"/>
+    </noscript>
   <h1>Models Automated Submission Form</h1>
   <p align="center">
   <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database.
@@ -159,7 +105,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="longitude" maxlength="11" value="" onBlur="checkNumeric(this,-180,180,'.');" />
+            <input type="text" name="longitude" maxlength="11" value="" onblur="checkNumeric(this,-180,180,'.');" />
             </td>
         </tr>
         <tr>
@@ -209,7 +155,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="comment" maxlength="100" size="40" value="Comment" />
+            <input type="text" name="comment" maxlength="100" size="40" value="" onblur="checkComment(this);" />
             </td>
         </tr>
         <tr>

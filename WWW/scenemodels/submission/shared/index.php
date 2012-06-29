@@ -41,18 +41,18 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 <?php
 
                 $resource_r = connect_sphere_r();
-                
+
                 // If connection is OK
                 if($resource_r!='0') {
 
                     // Show all the families other than the static family
                     $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
-                
+
                     // Start the select form
                     echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
                     echo "<option selected value=\"0\">Please select a family</option>\n";
                     while ($row = @pg_fetch_assoc($result)) {
-                        $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);        
+                        $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
                         echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                     }
                     echo "</select>";
@@ -125,14 +125,14 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><a style="cursor: help">Comment</a></span></td>
         <td>
-            <input type="text" name="comment" maxlength="100" size="40" value="" onblur="checkComment(this);"/>
+            <input type="text" name="comment" maxlength="100" size="40" value="" onblur="checkComment(this);" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
         </td>
     </tr>
     <tr>
         <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
         <td>
-            <input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);"/>
+            <input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);" />
         </td>
     </tr>
     <tr>
