@@ -12,6 +12,6 @@ include_once '../../inc/geshi.php';
     $language = 'xml';
     $geshi = new GeSHi($source, $language);
 
-    geshi_highlight($source, 'xml', $path;
+    geshi_highlight($source, 'xml', $path);
 
 ?>
