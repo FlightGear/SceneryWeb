@@ -3,9 +3,9 @@
 var numbers = "0123456789";
 var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-function checkNumeric(numberfield, minval, maxval, period)
+function checkNumeric(numberfield, minval, maxval)
 {
-    if (chkNumeric(numberfield, minval, maxval,period) == false)
+    if (chkNumeric(numberfield, minval, maxval) == false)
     {
         numberfield.select();
         numberfield.focus();
@@ -15,7 +15,7 @@ function checkNumeric(numberfield, minval, maxval, period)
     return true;
 }
 
-function chkNumeric(objName, minval, maxval, period)
+function chkNumeric(objName, minval, maxval)
 {
     var checkOK = numbers+ "-.";
     var checkStr = objName;
@@ -183,8 +183,7 @@ function checkSTG(textfield)
 
 function chkSTG(checkStr)
 {
-    var checkOK = numbers + letters + "_-./ ";
-        var checkOK = numbers + letters + ",;:!?@' ";
+    var checkOK = numbers + letters + "_-./ \r\n";
     var allValid = true;
     var allNum = "";
 

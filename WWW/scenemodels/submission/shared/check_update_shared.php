@@ -298,7 +298,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             <?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
             </td>
             <td>
-            <input type="text" name="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onBlur="checkNumeric(this,-180,180,'.');" />
+            <input type="text" name="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onblur="checkNumeric(this,-180,180);" />
             </td>
             </tr>
             <tr>
@@ -310,7 +310,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
             </td>
             <td>
-            <input type="text" name="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onBlur="checkNumeric(this,-90,90,'.');" />
+            <input type="text" name="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onblur="checkNumeric(this,-90,90);" />
             </td>
             </tr>
             <tr>
@@ -322,7 +322,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
             </td>
             <td>
-            <input type="text" name="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onBlur="checkNumeric(this,-10000,10000,'.');" />
+            <input type="text" name="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onblur="checkNumeric(this,-10000,10000);" />
             </td>
             </tr>
             <tr>
@@ -334,7 +334,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             <?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
             </td>
             <td>
-            <input type="text" name="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onBlur="checkNumeric(this,-10000,10000,'.');" />
+            <input type="text" name="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onblur="checkNumeric(this,-10000,10000);" />
             </td>
             </tr>
             <tr>
@@ -345,7 +345,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             <?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
             </td>
             <td>
-            <input type="text" name="new_orientation" maxlength="7" value="<?php echo $actual_orientation; ?>" onBlur="checkNumeric(this,0,359.999,'.');" />
+            <input type="text" name="new_orientation" maxlength="7" value="<?php echo $actual_orientation; ?>" onblur="checkNumeric(this,0,359.999);" />
             </td>
             </tr>
             <tr>
@@ -359,7 +359,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
             <a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
             <td colspan="2">
-            <center></center><input type="text" name="email" maxlength="50" size="40" value="" /></center>
+            <center></center><input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);"/></center>
             </td>
             </tr>
             <tr>
