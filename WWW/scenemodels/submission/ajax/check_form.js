@@ -169,7 +169,7 @@ function checkSTG(textfield)
 {
     if (chkSTG(textfield.value) == false)
     {
-        alertsay = "Please enter only letters, numbers, and punctuation marks";
+        alertsay = "Please enter only letters, numbers, underscores, - and /";
         alertsay = alertsay + " in the \"" + textfield.name + "\" field.";
         alert(alertsay);
 
@@ -183,7 +183,7 @@ function checkSTG(textfield)
 
 function chkSTG(checkStr)
 {
-    var checkOK = numbers + letters + "/-_.";
+    var checkOK = numbers + letters + "_-./";
     var allValid = true;
     var allNum = "";
 
