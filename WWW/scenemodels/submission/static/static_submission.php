@@ -4,12 +4,11 @@
 require_once ('../../inc/functions.inc.php');
 $page_title = "Automated Models Submission Form";
 include '../../inc/header.php';
-include_once '../../inc/geshi/geshi.php';
+include '../../inc/geshi/geshi.php';
 
 echo "testing Geshi";
 // Geshi stuff
-    $source = $mavariable = file_get_contents('test.xml');
-    include($mavariable);
+    $source = file_get_contents('test.xml');
     $language = 'xml';
     $geshi = new GeSHi($source, $language);
 
