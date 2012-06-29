@@ -21,8 +21,8 @@ else {
     $body_onload = "update_objects();";
     include '../../inc/header.php';
 ?>
-<script src="../ajax/update_objects.js" type ="text/javascript"></script>
-<script src="../ajax/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/update_objects.js" type ="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 
 <h1>Positions Automated Submission Form</h1>
 <p class="center">

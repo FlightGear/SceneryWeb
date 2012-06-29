@@ -23,7 +23,7 @@ else
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
 ?>
-<script src="../ajax/check_form.js" type="text/javascript"></script>
+<script src="/inc/check_form.js" type="text/javascript"></script>
 
 <p>
 <h1 align="center">Positions Automated Deletion Form</h1>

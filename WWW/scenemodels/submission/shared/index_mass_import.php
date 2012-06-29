@@ -19,7 +19,7 @@ else {
     $page_title = "Automated Shared Models Positions Mass Import Submission Form";
     include '../../inc/header.php';
     ?>
-<script src="../ajax/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 
 <h1>Positions Automated Mass Import Submission Form</h1>
 <p>

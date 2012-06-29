@@ -3,7 +3,7 @@
     $page_title = "Automated Models Submission Form";
     include '../../inc/header.php';
 ?>
-    <script src="../ajax/check_form.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/inc/js/check_form.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="../../inc/js/jquery.multifile.js"></script>
     <noscript>

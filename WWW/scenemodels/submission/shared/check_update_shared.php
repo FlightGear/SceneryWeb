@@ -220,8 +220,8 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
     }
     else $update_choice = $_GET['update_choice'];
 ?>
-<script src="../ajax/update_objects.js" type ="text/javascript"></script>
-<script src="../ajax/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/update_objects.js" type ="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 <br /><br />
 <?php
     $id_to_update = pg_escape_string(stripslashes($update_choice));

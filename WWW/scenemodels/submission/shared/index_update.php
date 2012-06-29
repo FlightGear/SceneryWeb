@@ -28,7 +28,7 @@ else
     include '../../inc/header.php';
 ?>
 
-<script src="../ajax/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 
 <p>
 <h1 align="center">Positions Automated Update Form</h1>
