@@ -115,7 +115,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="longitude" maxlength="11" value="" onblur="checkNumeric(this,-180,180,'.');" />
+            <input type="text" name="longitude" maxlength="11" value="" onblur="checkNumeric(this,-180,180);" />
             </td>
         </tr>
         <tr>
@@ -125,7 +125,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="latitude" maxlength="10" value="" onBlur="checkNumeric(this,-90,90,'.');" />
+            <input type="text" name="latitude" maxlength="10" value="" onblur="checkNumeric(this,-90,90);" />
             </td>
         </tr>
         <tr>
@@ -135,7 +135,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="gndelev" maxlength="10" value="" onBlur="checkNumeric(this,-10000,10000,'.');" />
+            <input type="text" name="gndelev" maxlength="10" value="" onblur="checkNumeric(this,-10000,10000);" />
             </td>
         </tr>
         <tr>
@@ -145,7 +145,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="offset" maxlength="10" value="0" onBlur="checkNumeric(this,-10000,10000,'.');" />
+            <input type="text" name="offset" maxlength="10" value="0" onblur="checkNumeric(this,-10000,10000);" />
             </td>
         </tr>
         <tr>
@@ -155,7 +155,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="heading" maxlength="7" value="" onBlur="checkNumeric(this,0,359.999,'.');" />
+            <input type="text" name="heading" maxlength="7" value="" onblur="checkNumeric(this,0,359.999);" />
             </td>
         </tr>
         <tr>

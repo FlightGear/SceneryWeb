@@ -87,13 +87,13 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
         <td>
-            <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map()" onblur="checkNumeric(this,-180,180,'.');" />
+            <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map()" onblur="checkNumeric(this,-180,180);" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span></td>
         <td>
-            <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map()" onblur="checkNumeric(this,-90,90,'.');" />
+            <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map()" onblur="checkNumeric(this,-90,90);" />
         </td>
     </tr>
     <tr>
@@ -107,19 +107,19 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     <tr>
         <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><a style="cursor: help; ">Elevation</a></span></td>
         <td>
-            <input type="text" name="gndelev" maxlength="10" value="" onblur="checkNumeric(this,-10000,10000,'.');" />
+            <input type="text" name="gndelev" maxlength="10" value="" onblur="checkNumeric(this,-10000,10000);" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><a style="cursor: help; ">Elevation Offset</a></span></td>
         <td>
-            <input type="text" name="offset" maxlength="10" value="0" onblur="checkNumeric(this,-10000,10000,'.');" />
+            <input type="text" name="offset" maxlength="10" value="0" onblur="checkNumeric(this,-10000,10000);" />
         </td>
     </tr>
     <tr>
         <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
         <td>
-            <input type="text" name="heading" maxlength="7" value="" onblur="checkNumeric(this,0,359.999,'.');" />
+            <input type="text" name="heading" maxlength="7" value="" onblur="checkNumeric(this,0,359.999);" />
         </td>
     </tr>
     <tr>
