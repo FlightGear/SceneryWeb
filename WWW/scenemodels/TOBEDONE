@@ -3,7 +3,7 @@ Shared objects
 Bug/security fixing:
 --------------------
 - Check for every form & page the referring page & the value of the form submitting.
-- Sanitize comments +lat/long content (Javascript + strip tags). More checkings in the update script.
+- Sanitize comments +lat/long content (Javascript + PHP stuff and strip tags). More checkings in the update script.
 - In the update form the (eventually former) Object family and model name should be selected
   by default.
 
@@ -81,6 +81,7 @@ Static objects
 - Live db testing ==> WAIT MARTIN VALIDATION
 - Make sure Javascript is on? ==> DONE
 - Make a nice resume of everything submitted (picture, map...)
+- Keep the possibility of updating the static object, its thumbnail, of deleting it ?
 
 Mapserver
 =========

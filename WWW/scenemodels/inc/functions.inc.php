@@ -581,7 +581,7 @@ function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset,
 }
 
 // This function returns the core filename of a file, ie without its native extension.
-=============================================================================
+// ===================================================================================
 
 function remove_file_extension($file)
 {
