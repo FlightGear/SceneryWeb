@@ -594,7 +594,7 @@ function remove_file_extension($file)
 // This functions returns 'shared' if an object is shared, or 'static' if an object is static, based on its id.
 // ============================================================================================================
 
-function is_shared_or_static($id)
+function is_shared_or_static($ob_id)
 {
     // Connecting to the database.
     $resource_r = connect_sphere_r();
