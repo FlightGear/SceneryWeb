@@ -605,7 +605,7 @@ function is_shared_or_static($ob_id)
     $result = @pg_query($resource_r, $query);
 
     while ($row = pg_fetch_row($result)) {
-        if ($row[0] == 0) echo 'static';
+        if ($row[1] == 0) echo 'static';
         else echo 'shared';
     }
 
