@@ -195,7 +195,9 @@
           echo "<td>".$groups[$row["ob_group"]]."</td>\n";
           echo "<td>".$countries[$row["ob_country"]]."</td>\n";
           echo "<td>\n";
-            if ((is_shared_or_static($row["ob_id"])) == 'shared') {
+            $family = is_shared_or_static($row["ob_id"]);
+            echo $family;
+            //if ((is_shared_or_static($row["ob_id"])) == 'shared') {
             ?>
                 <a href="submission/shared/check_update_shared.php?update_choice=<?php echo $row["ob_id"]; ?>">Update</a>
                 &nbsp;
