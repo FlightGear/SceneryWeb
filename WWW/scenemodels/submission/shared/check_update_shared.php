@@ -34,10 +34,10 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         $failed_mail = 0;
         if((isset($_POST['email'])) && ((strlen($_POST['email'])) > 0) && ((strlen($_POST['email']) <= 50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
+            echo "<center><font color=\"green\">Email: ".$safe_email."</font></center><br />";
         }
         else {
-            echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
+            echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
             $failed_mail = 1;
         }
 
