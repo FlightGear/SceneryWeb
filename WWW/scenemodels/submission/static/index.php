@@ -21,7 +21,7 @@
   <p align="center">
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.
   </p>
-  <p style="color:red;" align="center">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.png (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</p>
+  <p style="color:red;" align="center">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.jpeg (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</p>
 
     <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
     <table>
