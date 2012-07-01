@@ -117,7 +117,7 @@ function get_object_family_from_id($ob_id)
     while ($row = @pg_fetch_assoc($result)) {
         $mo_id = $row["ob_model"];
         $query2 = "select mo_shared from fgs_models where mo_id=".$mo_id.";";
-        $result2 = @pg_query($headerlink_family,$query2);
+        $result2 = @pg_query($headerlink_family, $query2);
 
         while ($row2 = @pg_fetch_assoc($result2)) {
             $mg_family = $row2["mo_shared"];
@@ -432,7 +432,7 @@ function ob_model_from_name($model_name)
     $mg_id = pg_escape_string($model_name);
     $tab_path = explode("/",$mg_id);                         // Explodes the fields of the string separated by /
     $max_tab_path = count($tab_path);                        // Counts the number of fields.
-    $queried_mo_path = $tab_path[$max_tab_path-1];                    // Returns the last field value.
+    $queried_mo_path = $tab_path[$max_tab_path-1];           // Returns the last field value.
 
     // Connecting to the database.
     $headerlink = connect_sphere_r();
@@ -589,6 +589,27 @@ function remove_file_extension($file)
         return $file;
     else
         return substr($file, 0, strrpos($file, "."));
+}
+
+// This functions returns 'shared' if an object is shared, or 'static' if an object is static, based on its id.
+// ============================================================================================================
+
+function is_shared_or_static($id)
+{
+    // Connecting to the database.
+    $resource_r = connect_sphere_r();
+
+    // Querying...
+    $query = "SELECT mo_id, mo_shared FROM fgs_models WHERE mo_id =(SELECT ob_model from fgs_objects where ob_id=".$ob_id.";";
+    $result = @pg_query($resource_r, $query);
+
+    while ($row = pg_fetch_row($result)) {
+        if ($row[0] == 0) return 'static';
+        else return 'shared';
+    }
+
+    // Closing the connection.
+    @pg_close ($resource_r);
 }
 
 ?>

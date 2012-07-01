@@ -1,21 +1,16 @@
 <?php include 'inc/header.php';
-
 // Inserting libs
-
 require_once('inc/functions.inc.php');
-
 ?>
 <h1>FlightGear Scenery Model Directory</h1>
 <?php
-
-if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
-{   
+if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
     $id = $_REQUEST['id'];
     $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
     $object = pg_fetch_assoc($result);
-};
+}
 ?>
-<input type="hidden" name="id" value=<?php if (isset($id)) print $id;?>/>
+<input type="hidden" name="id" value=<?php if (isset($id)) print $id; ?> />
 <table border="1" align="center">
 <tr>
     <td>Unique ID</td>
@@ -54,8 +49,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
     <td>
         <?php
             $result = pg_query("select mo_id, mo_path from fgs_models;");
-            while ($row = pg_fetch_assoc($result))
-            {
+            while ($row = pg_fetch_assoc($result)) {
                 if ($object["ob_model"] == $row["mo_id"]) print "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
             }
         ?>
@@ -74,6 +68,11 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>"/>
 </center>
     </td>
+</tr>
+<?php
+// If the object is static, let not user fix it with a shared script...
+if (is_shared_or_static($id) == 'shared') {
+?>
 <tr>
 <td colspan="2" align="center">
     <form name="update" method="post" action="submission/shared/check_update_shared.php">
@@ -86,5 +85,8 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
     </form>
     </td>
 </tr>
+<?php
+}
+?>
 </table>
 <?php include 'inc/footer.php';?>

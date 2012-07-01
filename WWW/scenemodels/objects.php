@@ -1,4 +1,4 @@
-<?php 
+<?php
   if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))){
     $offset = $_REQUEST['offset'];
   }else{
@@ -86,7 +86,7 @@
 </script>
 
 <form action="objects.php" method="get">
-  <table border="1">
+    <table border="1">
     <tr valign="bottom">
       <th>Lat</th>
       <th>Lon</th>
@@ -110,7 +110,7 @@
           <option value="0"></option>
           <?php
             $result=pg_query("SELECT mo_id,mo_path FROM fgs_models ORDER BY mo_path;");
-            while ($row = pg_fetch_assoc($result)){	
+            while ($row = pg_fetch_assoc($result)){
               $models[$row["mo_id"]]=$row["mo_path"];
               echo "<option value=\"".$row["mo_id"]."\"";
               if ($row["mo_id"]==$model) echo " selected";
@@ -155,7 +155,7 @@
       <?php
         $prev = $offset-20;
         $next = $offset+20;
-        
+
         $filter_text="";
         if($lat!="") $filter_text .= "&lat=".$lat;
         if($lon!="") $filter_text .= "&lon=".$lon;
@@ -166,7 +166,7 @@
         if($model!="") $filter_text .= "&model=".$model;
         if($group!="") $filter_text .= "&group=".$group;
         if($country!="") $filter_text .= "&country=".$country;
-        
+
         echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Previous</a>&nbsp;";
         echo "<a href=\"objects.php?filter=Filter&offset=".$next . $filter_text."\">Next</a>";
         ?>
@@ -178,7 +178,7 @@
       $query.= "WHERE ob_id IS NOT NULL ".$filter." ";
       $query.= "LIMIT 20 OFFSET ".$offset;
       $result=pg_query($query);
-      while ($row = pg_fetch_assoc($result)){	
+      while ($row = pg_fetch_assoc($result)){
         echo "<tr class=\"object\">\n";
           echo "<td>".$row["ob_lat"]."</td>\n";
           echo "<td>".$row["ob_lon"]."</td>\n";
@@ -195,11 +195,13 @@
           echo "<td>".$groups[$row["ob_group"]]."</td>\n";
           echo "<td>".$countries[$row["ob_country"]]."</td>\n";
           echo "<td>\n";
-          ?>
-            <a href="submission/shared/check_update_shared.php?update_choice=<?php echo $row["ob_id"]; ?>">Update</a>
-            &nbsp;
-            <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">Delete</a>
-     <?php
+            if (is_shared_or_static($row["ob_id"]) == 'shared') {
+            ?>
+                <a href="submission/shared/check_update_shared.php?update_choice=<?php echo $row["ob_id"]; ?>">Update</a>
+                &nbsp;
+                <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">Delete</a>
+        <?php
+            }
           echo "<a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>";
           echo "</td>\n";
         echo "</tr>\n";
