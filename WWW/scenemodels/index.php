@@ -9,7 +9,7 @@
         $offset = 0;
       }
 
-      $query = "SELECT *, date_trunc('seconds',ne_timestamp) AS formdata ";
+      $query = "SELECT *, date_trunc('seconds',ne_timestamp) AS formdate ";
       $query.= "FROM fgs_news, fgs_authors ";
       $query.= "WHERE au_id = ne_author ";
       $query.= "ORDER BY ne_timestamp DESC ";
