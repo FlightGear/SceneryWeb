@@ -76,7 +76,8 @@
     $description = "";
   }
 
-  include('inc/header.php');
+    include('inc/header.php');
+    include('inc/functions.inc.php');
 ?>
 <script type="text/javascript">
   function popmap(lat,lon) {
