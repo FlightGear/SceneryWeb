@@ -600,7 +600,7 @@ function is_shared_or_static($ob_id)
     $resource_r = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT mo_id, mo_shared FROM fgs_models WHERE mo_id =(SELECT ob_model from fgs_objects where ob_id=".$ob_id.";";
+    $query = "SELECT mo_id, mo_shared FROM fgs_models WHERE mo_id =(SELECT ob_model from fgs_objects where ob_id=".$ob_id.");";
     $result = @pg_query($resource_r, $query);
 
     while ($row = pg_fetch_row($result)) {
