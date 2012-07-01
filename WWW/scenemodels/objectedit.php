@@ -1,4 +1,6 @@
-<?php include 'inc/header.php';
+<?php
+include 'inc/header.php';
+
 // Inserting libs
 require_once('inc/functions.inc.php');
 ?>
@@ -71,6 +73,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
 </tr>
 <?php
 // If the object is static, let not user fix it with a shared script...
+echo is_shared_or_static($id);
 if (is_shared_or_static($id) == 'shared') {
 ?>
 <tr>
