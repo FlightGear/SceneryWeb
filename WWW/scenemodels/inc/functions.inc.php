@@ -601,12 +601,11 @@ function is_shared_or_static($ob_id)
 
     // Querying...
     $query = "SELECT mo_id, mo_shared FROM fgs_models WHERE mo_id =(SELECT ob_model from fgs_objects where ob_id=".$ob_id.");";
-    echo $query;
     $result = @pg_query($resource_r, $query);
 
     while ($row = pg_fetch_row($result)) {
-        if ($row[1] == 0) echo 'static';
-        else echo 'shared';
+        if ($row[1] == 0) return ('static');
+        else return ('shared');
     }
 
     // Closing the connection.
