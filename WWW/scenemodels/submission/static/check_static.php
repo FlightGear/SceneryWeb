@@ -357,9 +357,9 @@ if (file_exists($xmlPath)) {
 
     // Check if the file begin with <?xml> tag
     $xmltag = str_replace(array("<", ">"), array("&lt;", "&gt;"), file_get_contents($xmlPath));
-        if(!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8"\?&gt;#i', $xmltag)) {
+        if(!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
             $error += 1;
-            $errormsg .= "Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;!<br/>";
+            $errormsg .= "Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;!<br/>";
         }
     }
 }
@@ -489,11 +489,12 @@ else {
 ####################################################
 
 if ($fatalerror || $error > 0) {
+    echo "<p span=\"center\">";
     echo "Number of error(s): ".$error."<br/>";
     echo "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
-    echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
+    echo "Error message(s)  : ".$errormsg."<br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
-    echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
+    echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
     clearDir('/tmp/static');
     exit();
 }
