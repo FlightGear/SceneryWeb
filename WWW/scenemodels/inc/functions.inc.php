@@ -503,7 +503,7 @@ function get_country_name_from_country_code($country_code)
 
     // Querying...
     if($country_code == "") {
-        return("Unknown !");
+        return("Unknown!");
     }
     else {
         $query = "select * from fgs_countries where co_code = '".$country_code."';";
