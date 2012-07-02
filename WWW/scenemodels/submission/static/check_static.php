@@ -631,11 +631,12 @@ if (!isset($_POST["gpl"])) {
 ###############################################
 
 if ($fatalerror || $error > 0) {
+    echo "<p span=\"center\">";
     echo "Number of error(s): ".$error."<br/>";
     echo "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
     echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
-    echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
+    echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
     clearDir('/tmp/static');
     exit();
 }
@@ -689,13 +690,13 @@ else {
     @pg_close($resource_rw);                                                 // Closing the connection.
 
     if(!$resultrw) {
-        echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
+        echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
     else {
-        echo "<br />Your position has been successfully queued into the FG scenery database update requests!<br />";
+        echo "<p class=\"center\">Your 3D model insertion request has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to submit another model or position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a>";
+        echo "Want to submit another model or position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></p>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
         date_default_timezone_set('UTC');                                // Sets the time to UTC.
@@ -705,17 +706,15 @@ else {
 
         // Who will receive it ?
         $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-        $to .= "\Julien NGUYEN\" <jnguyen@etu.emse.fr> ";
+        $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr> ";
         //$to .= "\"Martin SPOTT\" <martin.spott@mgras.net> ";
 
         // What is the subject ?
         $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
 
         // Correctly set the object URL.
-        $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
-        $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+        $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$mo_shared;
         $html_family_url = htmlspecialchars($family_url);
-        $html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message0 = "Hi," . "\r\n" .
@@ -727,15 +726,14 @@ else {
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-        $message1 = "Family: ".$family_real_name."\r\n" .
+        $message1 = "Family: ".family_name($mo_shared)."\r\n" .
         "[ ".$html_family_url." ]" . "\r\n" .
-        "Object: ".$model_real_name."\r\n" .
-        "[ ".$html_object_url." ]" . "\r\n" .
         "Latitude: ". $latitude . "\r\n" .
         "Longitude: ". $longitude . "\r\n" .
         "Ground elevation: ". $gndelev . "\r\n" .
         "Elevation offset: ". $offset . "\r\n" .
         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
+        "Description: ". $name ."\r\n" .
         "Comment: ". strip_tags($comment) ."\r\n" .
         "Please click:" . "\r\n" .
         "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000000BTFFFTFFFTFTFFFF" . "\r\n" .
@@ -743,11 +741,8 @@ else {
 
         $message2 = "\r\n".
         "Now please click:" . "\r\n" .
-        "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."\r\n" .
-        "to confirm the submission" . "\r\n" .
-        "or" . "\r\n" .
-        "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."\r\n" .
-        "to reject the submission." . "\r\n" . "\r\n" .
+        "http://scenemodels.flightgear.org/submission/static/static_submission.php?sig=". $sha_hash ."\r\n" .
+        "to view and validate/refuse the submission." . "\r\n" .
         "Thanks!" ;
 
         // Preparing the headers.

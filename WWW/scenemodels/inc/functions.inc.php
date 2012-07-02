@@ -19,7 +19,7 @@ function connect_sphere_r()
     if ($resource_r == '0') {
         include $_SERVER['SERVER_NAME']."/inc/header.php";
         echo "<br />";
-        echo "\n<font color=\"red\">We're sorry, but an error has occurred while connecting to the database.</font>\n";
+        echo "\n<p class=\"center\"><font color=\"red\">We're sorry, but an error has occurred while connecting to the database.</font></p>\n";
         exit;
     }
     else {
@@ -44,7 +44,7 @@ function connect_sphere_rw()
 
     // If could not connect to the database
     if ($resource_rw == '0') {
-        echo "\n<font color=\"red\">An error has occurred while connecting to the database.</font>\n";
+        echo "\n<p class=\"center\"><font color=\"red\">An error has occurred while connecting to the database.</font></p>\n";
         exit;
     }
     else {
