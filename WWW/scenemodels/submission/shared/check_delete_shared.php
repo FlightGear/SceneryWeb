@@ -223,7 +223,7 @@ if(!$ok) {
     include '../../inc/header.php';
 ?>
     <br /><br />
-    <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
+    <p class="center"><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></p>
     <br /><center>The FlightGear team.</center>
     <?php include '../../inc/footer.php';
     exit;

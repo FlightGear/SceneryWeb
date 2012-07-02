@@ -55,7 +55,7 @@ function chkNumeric(objName, minval, maxval)
         alertsay = alertsay + "equal to \"" + minval + "\" and less than or "
         alertsay = alertsay + "equal to \"" + maxval + "\" in the \"" + checkStr.name + "\" field."
         alert(alertsay);
-        return (false);
+        return false;
     }
 
     return true;
@@ -79,7 +79,7 @@ function checkComment(textfield)
 
 function chkComment(checkStr)
 {
-    var checkOK = numbers + letters + ",;:!?@' ";
+    var checkOK = numbers + letters + ",;:!?@'-_ ";
     var allValid = true;
     var allNum = "";
 
@@ -201,4 +201,56 @@ function chkSTG(checkStr)
     }
 
     return allValid;
+}
+
+function checkFilename(objName)
+{
+    if (chkFilename(objName.value) == false)
+    {
+        objName.select();
+        objName.focus();
+        return false;
+    }
+
+    return true;
+}
+
+function chkFilename(checkStr)
+{
+    var checkOK = numbers + letters + ".-_";
+    var allValid = true;
+    var allNum = "";
+
+    for (i = 0;  i < checkStr.length;  i++)
+    {
+        ch = checkStr.charAt(i);
+        for (j = 0;  j < checkOK.length;  j++)
+            if (ch == checkOK.charAt(j))
+                break;
+        if (j == checkOK.length)
+        {
+            alertsay = "File name only accept letters, numbers, '.', '-' and '_'!";
+            alert(alertsay);
+            allValid = false;
+            break;
+        }
+    }
+
+    return allValid;
+}
+
+function checkName(namefield)
+{
+    //TODO
+}
+
+function checkStringNotDefault(objName, defaultValue)
+{
+    if(objName.value == defaultValue)
+    {
+        alertsay = "Please change the value of the " + objName.name + " field!";
+        alert(alertsay);
+    }
+
+    return objName.value == defaultValue;
 }
