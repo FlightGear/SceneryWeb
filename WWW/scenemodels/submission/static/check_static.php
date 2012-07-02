@@ -196,7 +196,7 @@ else {
 
 if ($_FILES['xml_file']['name'] != "") { // if file exists
     if($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
-        if($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName)) == "xml" || ShowFileExtension(basename($xmlName)) == "XML")){ // check type & extension file
+        if($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName)) == "xml" || ShowFileExtension(basename($xmlName)) == "XML")) { // check type & extension file
             if(($_FILES['xml_file']['error'])!=0) { // If error is detected
                 $error += 1;
                 $errormsg .= "There has been an error while uploading the file \"".$xmlName."\"!<br/>";
@@ -295,7 +295,7 @@ for ($i=0; $i<12; $i++) {
 # IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS #
 ######################################################
 
-if($fatalerror || $error > 0) {
+if ($fatalerror || $error > 0) {
     echo "Number of error(s): ".$error."<br/>";
     echo "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
     echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
