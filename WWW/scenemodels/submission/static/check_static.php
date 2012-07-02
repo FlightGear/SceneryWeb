@@ -531,7 +531,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 #
-# STEP 9 : CHECK GEOGRAPHIC INFORMATION
+# STEP 9 : CHECK GEOGRAPHICAL INFORMATION
 #
 ###############################################
 ###############################################
@@ -656,6 +656,7 @@ else {
     $mo_query .= "'".$mo_shared."'";      // mo_shared
   $mo_query .= ") ";
   $mo_query .= "RETURNING mo_id";
+  echo $mo_query;
 
   # Inserts into fgsoj_models and returns current mo_id
   $ob_model = pg_query($resource_rw, $mo_query);
