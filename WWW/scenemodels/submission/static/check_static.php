@@ -729,13 +729,14 @@ else {
         $message1 = "Family: ".family_name($mo_shared)."\r\n" .
         "[ ".$html_family_url." ]" . "\r\n" .
         "Path: ". $path . "\r\n" .
+        "Author: ". $author ."\r\n" .
+        "Description: ". $name ."\r\n" .
+        "Comment: ". strip_tags($comment) ."\r\n" .
         "Latitude: ". $latitude . "\r\n" .
         "Longitude: ". $longitude . "\r\n" .
         "Ground elevation: ". $gndelev . "\r\n" .
         "Elevation offset: ". $offset . "\r\n" .
         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
-        "Description: ". $name ."\r\n" .
-        "Comment: ". strip_tags($comment) ."\r\n" .
         "Please click:" . "\r\n" .
         "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
         "to locate the object on the map." ;
@@ -753,11 +754,8 @@ else {
 
         // Let's send it ! No management of mail() errors to avoid being too talkative...
         $message = $message077.$message1.$message2;
-
         @mail($to, $subject, $message, $headers);
     }
-
-    echo "<font color=\"green\"> Congratulations! Your contribution has been added to our database!</font><br/>";
 }
 include '../../inc/footer.php';
 ?>

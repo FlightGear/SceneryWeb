@@ -4,15 +4,14 @@
 require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
-
 $ok = check_availability();
 
 if(!$ok) {
     $page_title = "Automated Shared Models Positions Pending Requests Form";
     include '../../inc/header.php'; ?>
-    <br /><br />
-    <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
-    <br /><center>The FlightGear team.</center>
+    <p class="center">
+    <font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font>
+    <br />The FlightGear team.</p>
     <?php include '../../inc/footer.php'; ?>
     <?
 }
@@ -49,7 +48,7 @@ else {
                         $query_rw = gzuncompress($sqlz);
 
                         // Sending the request...
-                        $resultrw = @pg_query($resource_rw,$query_rw);
+                        $resultrw = @pg_query($resource_rw, $query_rw);
 
                         if(!$resultrw) {
                             $page_title = "Automated Shared Models Positions Pending Requests Form";

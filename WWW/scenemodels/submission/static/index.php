@@ -200,8 +200,8 @@
         </tr>
         <tr>
             <td>
-            <span title="This(Those) is(are) the PNG texture(s) file(s) of your model. Has to be a factor of 2 in height and length.">
-            <a style="cursor: help; ">Corresponding PNG Files</a>
+            <span title="This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a factor of 2 in height and length.">
+            <a style="cursor: help; ">Corresponding PNG Texture Files</a>
             </span>
             </td>
             <td>
