@@ -46,7 +46,7 @@
         </tr>
         <tr>
             <td>
-            <span title="This is the model path name, ie the name as it's supposed to appear in the .stg file. Please use English language for this path name, unless it's a local specific name. Do NOT use spaces, use - or _ for spaces.">
+            <span title="This is the model path name, ie the name as it's supposed to appear in the .stg file. Please use English language for this path name, unless it's a local specific name. Do NOT use accents or spaces, use - or _ for spaces. No extension either.">
             <a style="cursor: help; ">Model path name</a>
             </span>
             </td>
@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <td>
-            <span title="This is the name of the author. If the author does not exist, please ask the scenery mantainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then use the line below.">
+            <span title="This is the name of the author. If the author does not exist, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then use the line below.">
             <a style="cursor: help; ">Author</a>
             </span>
             </td>
