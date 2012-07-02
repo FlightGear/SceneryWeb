@@ -728,6 +728,7 @@ else {
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "Family: ".family_name($mo_shared)."\r\n" .
         "[ ".$html_family_url." ]" . "\r\n" .
+        "Path: ". $path . "\r\n" .
         "Latitude: ". $latitude . "\r\n" .
         "Longitude: ". $longitude . "\r\n" .
         "Ground elevation: ". $gndelev . "\r\n" .
@@ -736,7 +737,7 @@ else {
         "Description: ". $name ."\r\n" .
         "Comment: ". strip_tags($comment) ."\r\n" .
         "Please click:" . "\r\n" .
-        "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000000BTFFFTFFFTFTFFFF" . "\r\n" .
+        "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
         "to locate the object on the map." ;
 
         $message2 = "\r\n".
