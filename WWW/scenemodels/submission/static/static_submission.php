@@ -67,11 +67,12 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     echo $geshi->parse_code();
 
 ?>
-
+</p>
 <a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">image #1</a>
 <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">image #2</a>
 <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">image #3</a>
-
+<p class="center">
+<input type="text" name="maintainer_comment" value="Drop a comment to user" />
 <input type="submit" name="submit" value="Submit model" />
 <input type="submit" name="reject" value="Reject model" />
 </p>

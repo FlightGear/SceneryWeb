@@ -656,7 +656,6 @@ else {
     $mo_query .= "'".$mo_shared."'";      // mo_shared
   $mo_query .= ") ";
   $mo_query .= "RETURNING mo_id";
-  echo $mo_query;
 
   # Inserts into fgsoj_models and returns current mo_id
   $ob_model = pg_query($resource_rw, $mo_query);
