@@ -35,7 +35,9 @@
 
             while ($row = pg_fetch_assoc($result)) {
                 $name = preg_replace('/ /',"&nbsp;", $row["mg_name"]);
-                echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                // Selecting static family by default
+                if(($row["mg_id"]) == 0) echo "<option value=\"".$row["mg_id"]."\" selected=\"selected\">".$name."</option>\n";
+                else echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
             }
             pg_close ($resource_r);
             ?>
