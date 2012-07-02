@@ -125,21 +125,21 @@ if (($_FILES['mo_thumbfile']['size'] < 2000000) && (!$fatalerror)) { // check fi
                 case 4:
                     $errormsg .= "No file \"".$thumbName."\" was uploaded!<br/>";
                     break;
+            }
         }
-    }
-    else {
-        if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) { // check uploaded file
-            $fatalerror = 1;
-            $error += 1;
-            $errormsg .= "There has been an error while moving the file \"".$thumbName."\" on the server!<br/>";
+        else {
+            if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) { // check uploaded file
+                $fatalerror = 1;
+                $error += 1;
+                $errormsg .= "There has been an error while moving the file \"".$thumbName."\" on the server!<br/>";
+            }
         }
-    }
     }
     else {
         $error += 1;
         $errormsg .= "The file format or extention of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file!<br/>";
     }
-    } else {
+} else {
     if (!$fatalerror) {
         $error += 1;
         $errormsg .= "Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes)!<br/>";
@@ -151,40 +151,40 @@ if (($_FILES['mo_thumbfile']['size'] < 2000000) && (!$fatalerror)) { // check fi
 
 if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 
-  if ($_FILES['ac3d_file']['type'] == "application/octet-stream" && (ShowFileExtension(basename($ac3dName)) == "ac" || ShowFileExtension(basename($ac3dName)) == "AC")) { // check type & extension file
+    if ($_FILES['ac3d_file']['type'] == "application/octet-stream" && (ShowFileExtension(basename($ac3dName)) == "ac" || ShowFileExtension(basename($ac3dName)) == "AC")) { // check type & extension file
 
-    if (($_FILES['ac3d_file']['error']) != 0) { // If error is detected
-        $error += 1;
-        $errormsg .= "There has been an error while uploading the file \"".$ac3dName."\"!<br/>";
-        switch ($_FILES['ac3d_file']['error']){
-            case 1:
-                $errormsg .= "The file \"".$ac3dName."\" is bigger than this server installation allows!<br/>";
-                break;
-            case 2:
-                $errormsg .= "The file \"".$ac3dName."\" is bigger than this form allows!<br/>";
-                break;
-            case 3:
-                $errormsg .= "Only part of the file \"".$ac3dName."\" was uploaded!<br/>";
-                break;
-            case 4:
-                $errormsg .= "No file \"".$ac3dName."\" was uploaded!<br/>";
-                break;
-        }
-    }
-    else {
-        if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) { // check upload file
-            $fatalerror = 1;
+        if (($_FILES['ac3d_file']['error']) != 0) { // If error is detected
             $error += 1;
-            $errormsg .= "There has been an error while moving the file \"".$ac3dName."\" on the server!<br/>";
+            $errormsg .= "There has been an error while uploading the file \"".$ac3dName."\"!<br/>";
+            switch ($_FILES['ac3d_file']['error']){
+                case 1:
+                    $errormsg .= "The file \"".$ac3dName."\" is bigger than this server installation allows!<br/>";
+                    break;
+                case 2:
+                    $errormsg .= "The file \"".$ac3dName."\" is bigger than this form allows!<br/>";
+                    break;
+                case 3:
+                    $errormsg .= "Only part of the file \"".$ac3dName."\" was uploaded!<br/>";
+                    break;
+                case 4:
+                    $errormsg .= "No file \"".$ac3dName."\" was uploaded!<br/>";
+                    break;
+            }
         }
-    }
+        else {
+            if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) { // check upload file
+                $fatalerror = 1;
+                $error += 1;
+                $errormsg .= "There has been an error while moving the file \"".$ac3dName."\" on the server!<br/>";
+            }
+        }
     }
     else {
         $error += 1;
         $errormsg .= "The format or the extention seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file<br/>";
     }
 }
-    else {
+else {
     if (!$fatalerror) {
         $error += 1;
         $errormsg .= "Sorry, but size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).<br/>";
@@ -194,9 +194,9 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 # STEP 3.3 : UPLOAD XML FILE IN TMP DIRECTORY
 #############################################
 
-if ($_FILES['xml_file']['name'] != ""){ // if file exists
+if ($_FILES['xml_file']['name'] != "") { // if file exists
     if($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
-        if($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName)) == "xml" || ShowFileExtension(basename($xmlName)) == "XML")){ // check type & extension file
+        if($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName)) == "xml" || ShowFileExtension(basename($xmlName)) == "XML")) { // check type & extension file
             if(($_FILES['xml_file']['error'])!=0) { // If error is detected
                 $error += 1;
                 $errormsg .= "There has been an error while uploading the file \"".$xmlName."\"!<br/>";
@@ -222,16 +222,16 @@ if ($_FILES['xml_file']['name'] != ""){ // if file exists
                     $errormsg .= "There has been an error while moving the file \"".$xmlName."\" on the server!<br/>";
                 }
             }
-    }
-    else {
-        $error += 1;
-        $errormsg .= "The format or extension of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file!<br/>";
-    }
+        }
+        else {
+            $error += 1;
+            $errormsg .= "The format or extension of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file!<br/>";
+        }
     }
     else {
         if (!$fatalerror) {
-        $error += 1;
-        $errormsg .= "Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$_FILES['xml_file']['size']." bytes)!<br/>";
+            $error += 1;
+            $errormsg .= "Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$_FILES['xml_file']['size']." bytes)!<br/>";
         }
     }
 }
@@ -247,55 +247,55 @@ for ($i=0; $i<12; $i++) {
         $pngError = $_FILES["png_file"]["error"][$i];
         $pngTmp   = $_FILES["png_file"]["tmp_name"][$i];
 
-        if ($pngsize < 2000000 && !$fatalerror){ // check size file
+        if ($pngsize < 2000000 && !$fatalerror) { // check size file
 
-        if ($pngType == 'image/png' && (ShowFileExtension(basename($pngName)) == "png" || ShowFileExtension(basename($pngName)) == "PNG")){ // check type & extension file
+            if ($pngType == 'image/png' && (ShowFileExtension(basename($pngName)) == "png" || ShowFileExtension(basename($pngName)) == "PNG")) { // check type & extension file
 
-        if (($pngError) != 0) { // If error is detected
-            $error += 1;
-            $errormsg .= "There has been an error while uploading the file \"".$pngName."\"!<br/>";
-            switch ($_FILES['png_file']['error']) {
-                case 1:
-                    $errormsg .= "The file \"".$pngName."\" is bigger than this server installation allows!<br/>";
-                    break;
-                case 2:
-                    $errormsg .= "The file \"".$pngName."\" is bigger than this form allows!<br/>";
-                    break;
-                case 3:
-                    $errormsg .= "Only part of the file \"".$pngName."\" was uploaded!<br/>";
-                    break;
-                case 4:
-                    $errormsg .= "No file \"".$pngName."\" was uploaded!<br/>";
-                    break;
+                if (($pngError) != 0) { // If error is detected
+                    $error += 1;
+                    $errormsg .= "There has been an error while uploading the file \"".$pngName."\"!<br/>";
+                    switch ($_FILES['png_file']['error']) {
+                        case 1:
+                            $errormsg .= "The file \"".$pngName."\" is bigger than this server installation allows!<br/>";
+                            break;
+                        case 2:
+                            $errormsg .= "The file \"".$pngName."\" is bigger than this form allows!<br/>";
+                            break;
+                        case 3:
+                            $errormsg .= "Only part of the file \"".$pngName."\" was uploaded!<br/>";
+                            break;
+                        case 4:
+                            $errormsg .= "No file \"".$pngName."\" was uploaded!<br/>";
+                            break;
+                    }
+                }
+                else {
+                    if(!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
+                        $fatalerror = 1;
+                        $error += 1;
+                        $errormsg .= "There has been an error while moving the file \"".$pngName."\" on the server!<br/>";
+                    }
+                }
             }
-        }
-        else {
-            if(!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
-                $fatalerror = 1;
+            else {
                 $error += 1;
-                $errormsg .= "There has been an error while moving the file \"".$pngName."\" on the server!<br/>";
+                $errormsg .= "The format or extension of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file!<br/>";
             }
         }
-        }
         else {
-        $error += 1;
-        $errormsg .= "The format or extension of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file!<br/>";
+            if(!$fatalerror) {
+                $error += 1;
+                $errormsg .= "Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes)!<br/>";
+            }
         }
     }
-    else {
-        if(!$fatalerror) {
-            $error += 1;
-            $errormsg .= "Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes)!<br/>";
-        }
-    }
-  }
 }
 
 ######################################################
 # IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS #
 ######################################################
 
-if($fatalerror || $error > 0) {
+if ($fatalerror || $error > 0) {
     echo "Number of error(s): ".$error."<br/>";
     echo "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
     echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
@@ -343,20 +343,20 @@ if (file_exists($xmlPath)) {
                 $errormsg .= "XML error : ".xml_error_string(xml_get_error_code($xml_parser))." at line ".xml_get_current_line_number($xml_parser)."<br/>";
             }
         }
-    xml_parser_free($xml_parser);
+        xml_parser_free($xml_parser);
     }
 
     if(!$error > 0) {
 
-    // Check if <path> == $ac3dName
-    $xmlcontent = simplexml_load_file($xmlPath);
+        // Check if <path> == $ac3dName
+        $xmlcontent = simplexml_load_file($xmlPath);
         if($ac3dName != $xmlcontent->path) {
             $error += 1;
             $errormsg .= "The value of your &lt;path&gt; tag doesn't match the name of your AC file!<br/>";
         }
 
-    // Check if the file begin with <?xml> tag
-    $xmltag = str_replace(array("<", ">"), array("&lt;", "&gt;"), file_get_contents($xmlPath));
+        // Check if the file begin with <?xml> tag
+        $xmltag = str_replace(array("<", ">"), array("&lt;", "&gt;"), file_get_contents($xmlPath));
         if(!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
             $error += 1;
             $errormsg .= "Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;!<br/>";
@@ -379,31 +379,31 @@ else {
 
 if (file_exists($ac3dPath)) {
     if ($handle = fopen($ac3dPath, 'r')) {
-    $i = 0;
-    while (!feof($handle)) {
-        $line = fgets($handle);
-        $line = rtrim($line, "\r\n") . PHP_EOL;
+        $i = 0;
+        while (!feof($handle)) {
+            $line = fgets($handle);
+            $line = rtrim($line, "\r\n") . PHP_EOL;
 
-        // Check if the file begins with the string "AC3D"
-        if ($i == 0) {
-            if (substr($line,0,4) != "AC3D") {
-                $error += 1;
-                $errormsg .= "The AC file doesn't seem to be a valid AC3D file. The first line needs to show \"AC3Dx\" with x = version<br/>";
+            // Check if the file begins with the string "AC3D"
+            if ($i == 0) {
+                if (substr($line,0,4) != "AC3D") {
+                    $error += 1;
+                    $errormsg .= "The AC file doesn't seem to be a valid AC3D file. The first line needs to show \"AC3Dx\" with x = version<br/>";
+                }
             }
-        }
 
-        // Check if the texture reference matches $pngName
-        if (preg_match('#^texture#', $line)) {
-            $data = preg_replace('#texture "(.+)"$#', '$1', $line);
-            $data = substr($data, 0, -1);
-            if (!in_array($data, $pngAllName)) {
-                $error += 1;
-                $errormsg .= "The texture reference (".$data.") at line ".($i+1)." seems to have a different name of your texture(s) file(s) name(s)!<br/>";
+            // Check if the texture reference matches $pngName
+            if (preg_match('#^texture#', $line)) {
+                $data = preg_replace('#texture "(.+)"$#', '$1', $line);
+                $data = substr($data, 0, -1);
+                if (!in_array($data, $pngAllName)) {
+                    $error += 1;
+                    $errormsg .= "The texture reference (".$data.") at line ".($i+1)." seems to have a different name of your texture(s) file(s) name(s)!<br/>";
+                }
             }
+            $i++;
         }
-    $i++;
-    }
-    fclose($handle);
+        fclose($handle);
     }
 }
 else {
@@ -425,30 +425,30 @@ for ($i=0; $i<12; $i++) {
         $pngPath  = $targetPath.$_FILES["png_file"]["name"][$i];
         $pngName  = $_FILES["png_file"]["name"][$i];
 
-    if(file_exists($pngPath)){
-        $tmp    = getimagesize($pngPath);
-        $width  = $tmp[0];
-        $height = $tmp[1];
-        $mime   = $tmp["mime"];
-        $validDimension = array(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192);
+        if(file_exists($pngPath)){
+            $tmp    = getimagesize($pngPath);
+            $width  = $tmp[0];
+            $height = $tmp[1];
+            $mime   = $tmp["mime"];
+            $validDimension = array(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192);
 
-        // Check if PNG file is a valid PNG file (compare the type file)
-        if ($mime != "image/png") {
-            $error += 1;
-            $errormsg .= "Your texture file doesn't seem to be a PNG file. Please upload a valid PNG file!<br/>";
-        }
+            // Check if PNG file is a valid PNG file (compare the type file)
+            if ($mime != "image/png") {
+                $error += 1;
+                $errormsg .= "Your texture file doesn't seem to be a PNG file. Please upload a valid PNG file!<br/>";
+            }
 
-        // Check if PNG dimensions are a multiple of ^2
-        if(!in_array($height, $validDimension) || !in_array($width, $validDimension)) {
-            $error += 1;
-            $errormsg .= "The size in pixels of your texture file (".$pngName.") appears not to be a power of 2!<br/>";
+            // Check if PNG dimensions are a multiple of ^2
+            if(!in_array($height, $validDimension) || !in_array($width, $validDimension)) {
+                $error += 1;
+                $errormsg .= "The size in pixels of your texture file (".$pngName.") appears not to be a power of 2!<br/>";
+            }
         }
-    }
-    else {
-        $fatalerror = 1;
-        $error += 1;
-        $errormsg .= "The texture file doesn't exist on the server. Please try to upload it again!<br/>";
-    }
+        else {
+            $fatalerror = 1;
+            $error += 1;
+            $errormsg .= "The texture file doesn't exist on the server. Please try to upload it again!<br/>";
+        }
     }
 }
 
@@ -641,11 +641,11 @@ if ($fatalerror || $error > 0) {
     exit();
 }
 else {
-  # Connection to DB
-  $resource_rw = connect_sphere_rw();
-  $mo_query  = "INSERT INTO fgsoj_models ";
-  $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
-  $mo_query .= "VALUES (";
+    # Connection to DB
+    $resource_rw = connect_sphere_rw();
+    $mo_query  = "INSERT INTO fgsoj_models ";
+    $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
+    $mo_query .= "VALUES (";
     $mo_query .= "DEFAULT, ";             // mo_id
     $mo_query .= "'".$path."', ";         // mo_path
     $mo_query .= "'".$author."', ";       // mo_author
@@ -654,18 +654,18 @@ else {
     $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
     $mo_query .= "'".$modelFile."', ";    // mo_modelfile
     $mo_query .= "'".$mo_shared."'";      // mo_shared
-  $mo_query .= ") ";
-  $mo_query .= "RETURNING mo_id";
+    $mo_query .= ") ";
+    $mo_query .= "RETURNING mo_id";
 
-  # Inserts into fgsoj_models and returns current mo_id
-  $ob_model = pg_query($resource_rw, $mo_query);
-  $ob_model = pg_fetch_row($ob_model);
-  $ob_model = $ob_model[0];
+    # Inserts into fgsoj_models and returns current mo_id
+    $ob_model = pg_query($resource_rw, $mo_query);
+    $ob_model = pg_fetch_row($ob_model);
+    $ob_model = $ob_model[0];
 
-  $ob_query  = "INSERT INTO fgsoj_objects ";
+    $ob_query  = "INSERT INTO fgsoj_objects ";
 //  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
-  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) ";
-  $ob_query .= "VALUES (";
+    $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) ";
+    $ob_query .= "VALUES (";
     $ob_query .= "'".$name."', ";                                                         // ob_text
     $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";       // wkb_geometry
     $ob_query .= "'".$gndelev."', ";                                                      // ob_gndelev
