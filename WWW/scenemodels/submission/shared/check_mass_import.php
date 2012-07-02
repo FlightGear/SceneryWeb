@@ -11,7 +11,7 @@ if(!$ok) {
     include '../../inc/header.php';
 ?>
 <br /><br />
-<center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
+<p class="center"><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></p>
 <br /><center>The FlightGear team.</center>
 <?php include '../../inc/footer.php';
 }
@@ -280,10 +280,10 @@ if ($false == 0) {
         exit;
     }
     else {
-        echo "<center>Your submission has been successfully queued into the FG scenery database update requests!<br />";
+        echo "<p class=\"center\">Your submission has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></center>";
+        echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></p>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.

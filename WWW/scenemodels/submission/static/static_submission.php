@@ -6,7 +6,7 @@ $page_title = "Automated Models Submission Form";
 include '../../inc/header.php';
 include '../../inc/geshi/geshi.php';
 
-echo "<p align=\"center\"></p>Hi, this is the static submission. The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>";
+echo "<p class=\"center\"></p>Hi, this is the static submission. The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>";
 
 // Geshi stuff
     $source = file_get_contents('test.xml');

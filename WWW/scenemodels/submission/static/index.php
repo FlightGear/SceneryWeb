@@ -6,11 +6,9 @@
     <script type="text/javascript" src="/inc/js/check_form.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="../../inc/js/jquery.multifile.js"></script>
-    <noscript>
-        <meta http-equiv="refresh" content="0; URL=../../inc/js/nojs.php"/>
-    </noscript>
+
   <h1>Models Automated Submission Form</h1>
-  <p align="center">
+  <p class="center">
   <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database.
   There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>.
   Please help us to make it more!
@@ -18,10 +16,10 @@
   Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for.
   Please note that all fields are now mandatory.
   </p>
-  <p align="center">
+  <p class="center">
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.
   </p>
-  <p style="color:red;" align="center">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.jpeg (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</p>
+  <p style="color:red;" class="center">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.jpeg (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</p>
 
     <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
     <table>
@@ -51,7 +49,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name ="mo_path" />
+            <input type="text" name ="mo_path" value="" onblur="checkStringNotDefault(this,'');checkFilename(this);"/>
             </td>
         </tr>
         <tr>
@@ -73,7 +71,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="contributor" maxlength="100" size="40" value="Your name" />
+            <input type="text" name="contributor" maxlength="100" size="40" value="Your name" onblur="checkStringNotDefault(this,'Your name');checkName(this)"/>
             </td>
         </tr>
         <tr>
@@ -83,7 +81,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="email" maxlength="100" size="40" value="Your name" onblur="checkEmail(this);" />
+            <input type="text" name="email" maxlength="100" size="40" value="Your email" onblur="checkEmail(this);" />
             </td>
         </tr>
         <tr>
@@ -105,7 +103,7 @@
             </span>
             </td>
             <td>
-            <input type="text" name="mo_name" maxlength="100" size="40" value="Tell us more about your model." />
+            <input type="text" name="mo_name" maxlength="100" size="40" value="Tell us more about your model." onblur="checkComment(this);"/>
             </td>
         </tr>
         <tr>
