@@ -585,7 +585,7 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_path"] != "") && ($_POST["mo_auth
     && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
     && (isset($_POST['comment'])) && (isset($_POST['contributor']))) {
 
-        $path        = addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
+        $path        = $xmlName;//addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
         $comment     = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
         $contributor = addslashes(htmlentities(strip_tags($_POST["contributor"]), ENT_QUOTES));
