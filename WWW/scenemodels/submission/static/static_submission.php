@@ -4,9 +4,9 @@
 require_once ('../../inc/functions.inc.php');
 $page_title = "Automated Models Submission Form";
 include '../../inc/header.php';
-include '../../inc/geshi/geshi.php';
+include_once '../../inc/geshi/geshi.php';
 
-echo "<p class=\"center\"></p>Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.";
+echo "<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>";
 echo "<p class=\"center\">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>";
 
 // Geshi stuff
@@ -15,8 +15,8 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     $geshi = new GeSHi($source, $language);
     $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
     $geshi->set_line_style('background: #fcfcfc;');
+    echo $geshi->parse_code();
 
-    geshi_highlight($source, 'xml', $path);
 ?>
 
 <a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">image #1</a>
