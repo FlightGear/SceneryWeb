@@ -129,8 +129,6 @@ include '../../inc/header.php';
 $ok = check_availability();
 
 if(!$ok) {
-    $page_title = "Automated Shared Models Positions Pending Requests Form";
-    include '../../inc/header.php'; ?>
     <p class="center"><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font>
     <br />The FlightGear team.</p>
     <?php include '../../inc/footer.php'; ?>
@@ -147,8 +145,6 @@ else {
         // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
-                $page_title = "Automated Shared Models Positions Pending Requests Form";
-                include '../../inc/header.php';
                 echo "<center>";
                 echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
                 echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
