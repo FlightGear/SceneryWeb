@@ -80,7 +80,7 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
     $ac3dName     = $_FILES["ac3d_file"]['name'];
 
     for ($i=0; $i<12; $i++) {
-        if($_FILES["png_file"]["name"][$i] != "") {
+        if(isset($_FILES["png_file"]["name"][$i])) {
             $pngAllName[] = $_FILES["png_file"]["name"][$i];
         }
     }
@@ -238,7 +238,7 @@ if ($_FILES['xml_file']['name'] != "") { // if file exists
 #############################################
 
 for ($i=0; $i<12; $i++) {
-    if ($_FILES["png_file"]["name"][$i] != "") {
+    if (isset($_FILES["png_file"]["name"][$i])) {
         $pngName  = $_FILES["png_file"]["name"][$i];
         $pngType  = $_FILES["png_file"]["type"][$i];
         $pngsize  = $_FILES["png_file"]["size"][$i];
@@ -419,7 +419,7 @@ else {
 ###############################################
 
 for ($i=0; $i<12; $i++) {
-    if ($_FILES["png_file"]["name"][$i] != "") {
+    if (isset($_FILES["png_file"]["name"][$i])) {
         $pngPath  = $targetPath.$_FILES["png_file"]["name"][$i];
         $pngName  = $_FILES["png_file"]["name"][$i];
 
