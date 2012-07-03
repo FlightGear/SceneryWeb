@@ -175,7 +175,7 @@
             </span>
             </td>
             <td>
-            <input type="file" name="ac3d_file" class="multi" maxlength="1"/>
+            <input type="file" name="ac3d_file" class="multi" maxlength="1" accept="ac"/>
             </td>
         </tr>
         <tr>
