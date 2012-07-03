@@ -747,7 +747,7 @@ else {
         $message1 = "Family: ".family_name($mo_shared)."\r\n" .
         "[ ".$html_family_url." ]" . "\r\n" .
         "Path: ". $path . "\r\n" .
-        "Author: ". $author ."\r\n" .
+        "Author: ". get_authors_name_from_authors_id($author) ."\r\n" .
         "Description: ". $name ."\r\n" .
         "Comment: ". strip_tags($comment) ."\r\n" .
         "Latitude: ". $latitude . "\r\n" .
@@ -803,7 +803,7 @@ else {
             $message4 = "Family: ".family_name($mo_shared)."\r\n" .
                         "[ ".$html_family_url." ]" . "\r\n" .
                         "Path: ". $path . "\r\n" .
-                        "Author: ". $author ."\r\n" .
+                        "Author: ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description: ". $name ."\r\n" .
                         "Comment: ". strip_tags($comment) ."\r\n" .
                         "Latitude: ". $latitude . "\r\n" .

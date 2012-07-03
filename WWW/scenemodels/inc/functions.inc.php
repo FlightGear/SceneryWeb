@@ -283,6 +283,28 @@ function get_object_true_orientation_from_id($ob_id)
     @pg_close ($headerlink_family);
 }
 
+// Returns the author's name from an author's id sent as parameter
+// ===============================================================
+
+function get_authors_name_from_authors_id($au_id)
+{
+    $au_id = pg_escape_string($au_id);
+
+    // Connecting to the database.
+    $headerlink = connect_sphere_r();
+
+    // Querying...
+    $query = "select au_name from fgs_authors where au_id=".$au_id.";";
+    $result = @pg_query($headerlink, $query);
+
+    while ($row = @pg_fetch_assoc($result)) {
+            return ($row["au_name"]);
+    }
+
+    // Closing the connection.
+    @pg_close ($headerlink);
+}
+
 // Returns the number of objects in the database.
 // ==============================================
 
