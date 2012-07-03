@@ -87,7 +87,7 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     <tr>
         <td>Email</td>
         <td><?php echo $_GET["email"]; ?></td>
-        <input type="hidden" value="<?php echo $_GET["email"]; ?>">
+        <input type="hidden" name="email" value="<?php echo $_GET["email"]; ?>">
     </tr>
     <tr>
         <td>Family</td>
