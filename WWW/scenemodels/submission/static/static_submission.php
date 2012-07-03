@@ -72,7 +72,8 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
 <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">image #2</a>
 <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">image #3</a>
 <p class="center">
-<input type="text" name="maintainer_comment" value="Drop a comment to the user" />
+Submitter: <?php echo $_GET["email"]; ?>
+<input type="text" name="maintainer_comment" value="Drop a comment to the submitter" />
 <input type="submit" name="submit" value="Submit model" />
 <input type="submit" name="reject" value="Reject model" />
 </p>

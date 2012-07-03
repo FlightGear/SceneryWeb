@@ -371,9 +371,9 @@ else {
 
 ###############################################
 ###############################################
-#
-# STEP 5 : CHECK AC3D FILE
-#
+#                                             #
+# STEP 5 : CHECK AC3D FILE                    #
+#                                             #
 ###############################################
 ###############################################
 
@@ -530,9 +530,9 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 
 ###############################################
 ###############################################
-#
-# STEP 9 : CHECK GEOGRAPHICAL INFORMATION
-#
+#                                             #
+# STEP 9 : CHECK GEOGRAPHICAL INFORMATION     #
+#                                             #
 ###############################################
 ###############################################
 
@@ -693,6 +693,15 @@ else {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
     else {
+        $failed_mail = 0;
+        if ((isset($_POST['email'])) && ((strlen($_POST['email'])) > 0) && ((strlen($_POST['email']) <= 50))) {
+            $safe_email = pg_escape_string(stripslashes($_POST['email']));
+            echo "<center><font color=\"green\">Email: ".$safe_email."</font></center><br />";
+        }
+        else {
+            echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
+            $failed_mail = 1;
+        }
         echo "<p class=\"center\">Your 3D model insertion request has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
@@ -718,11 +727,22 @@ else {
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message0 = "Hi," . "\r\n" .
-        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-        "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
-        "I just wanted to let you know that a new 3D model import request is pending." . "\r\n" .
-        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
 
+        if($failed_mail != 1) {
+            $message0 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
+                        "I just wanted to let you know that a new 3D model import request is pending." . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
+                        "issued the following request:" . "\r\n";
+        }
+        else {
+            $message0 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
+                        "I just wanted to let you know that a new 3D model import request is pending." . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+        }
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
@@ -743,8 +763,8 @@ else {
 
         $message2 = "\r\n".
         "Now please click:" . "\r\n" .
-        "http://scenemodels.flightgear.org/submission/static/static_submission.php?sig=". $sha_hash ."\r\n" .
-        "to view and validate/refuse the submission." . "\r\n" .
+        "http://scenemodels.flightgear.org/submission/static/static_submission.php?sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+        "to view and confirm/refuse the submission." . "\r\n" .
         "Thanks!" ;
 
         // Preparing the headers.
@@ -755,6 +775,57 @@ else {
         // Let's send it ! No management of mail() errors to avoid being too talkative...
         $message = $message077.$message1.$message2;
         @mail($to, $subject, $message, $headers);
+
+                // Mailing the submitter
+        if($failed_mail != 1) {
+
+            // Tell the submitter that its submission has been sent for validation.
+            $to = $safe_email;
+
+            // What is the subject ?
+            $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
+
+            // Correctly set the object URL.
+            //$family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
+            //$object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+            //$html_family_url = htmlspecialchars($family_url);
+            //$html_object_url = htmlspecialchars($object_url);
+
+            // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
+            $message3 = "Hi," . "\r\n" .
+                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                        "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
+                        "This 3D model import request has been sent for validation." . "\r\n" .
+                        "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
+                        "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
+            $message077 = wordwrap($message3, 77, "\r\n");
+
+            // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
+            $message4 = "Family: ".family_name($mo_shared)."\r\n" .
+                        "[ ".$html_family_url." ]" . "\r\n" .
+                        "Path: ". $path . "\r\n" .
+                        "Author: ". $author ."\r\n" .
+                        "Description: ". $name ."\r\n" .
+                        "Comment: ". strip_tags($comment) ."\r\n" .
+                        "Latitude: ". $latitude . "\r\n" .
+                        "Longitude: ". $longitude . "\r\n" .
+                        "Ground elevation: ". $gndelev . "\r\n" .
+                        "Elevation offset: ". $offset . "\r\n" .
+                        "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
+                        "Please click:" . "\r\n" .
+                        "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+                        "to locate the object on the map." ;
+
+            // Preparing the headers.
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
+            $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
+
+            // Let's send it ! No management of mail() errors to avoid being too talkative...
+            $message = $message077.$message4;
+            @mail($to, $subject, $message, $headers);
+        }
     }
 }
 include '../../inc/footer.php';
