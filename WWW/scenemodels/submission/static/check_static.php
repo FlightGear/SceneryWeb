@@ -317,12 +317,18 @@ if (file_exists($xmlPath)) {
 
     function startElement($parser, $name, $attrs) {
         global $depth;
-        $depth[$parser]++;
+        $parserInt = intval($parser);
+        if(!isset($depth[$parserInt]))
+            $depth[$parserInt]=0;
+        $depth[$parserInt]++;
     }
 
     function endElement($parser, $name) {
         global $depth;
-        $depth[$parser]--;
+        $parserInt = intval($parser);
+        if(!isset($depth[$parserInt]))
+            $depth[$parserInt]=0;
+        $depth[$parserInt]--;
     }
 
     xml_set_element_handler($xml_parser, "startElement", "endElement");
