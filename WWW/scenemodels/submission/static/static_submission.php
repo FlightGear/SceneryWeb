@@ -61,12 +61,10 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
 ?>
 <form name="validation" method="post" action="static_submission.php">
 <table>
-    <th>
-        <td>Data
-        </td>
-        <td>Value
-        </td>
-    </th>
+    <tr>
+        <th>Data</th>
+        <th>Value</th>
+    </tr>
     <tr>
         <td>Author</td>
         <td></td>
