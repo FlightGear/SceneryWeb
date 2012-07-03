@@ -107,13 +107,6 @@ if ((isset($_POST["action"]))) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Submit model") {
-        echo "Inserting query into DB";
-        echo "Deleting pending queries";
-        echo "The user submission has been accepted. Will let user know.";
-        echo "You can see the corresponding submission here :";
-        echo $_POST["email"];
-        echo $_POST["maintainer_comment"];
-
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -222,37 +215,14 @@ if ((isset($_POST["action"]))) {
 
                                 // Let's send it ! No management of mail() errors to avoid being too talkative...
                                 @mail($to, $subject, $message, $headers);
+                                include '../../inc/footer.php';
                                 exit;
                             }
                         }
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
-
     include '../../inc/footer.php';
 }
 

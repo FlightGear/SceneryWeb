@@ -81,7 +81,14 @@ Static objects
 - Live db testing ==> WAIT MARTIN VALIDATION
 - Make sure Javascript is on? ==> DONE
 - Make a nice resume of everything submitted (picture, map...)
-- Keep the possibility of updating the static object, its thumbnail, or deleting it ?
+
+For later:
+==========
+- Keep the possibility of updating the static object, its thumbnail, or
+  deleting it ?
+- The usual (suspects ;-)) 3D model feeders are entered in the DB. How
+  to use their email and validation scheme? => JS : if the author is
+  known, the maintainer and email field should disappear.
 
 Mapserver
 =========
