@@ -1,4 +1,15 @@
 <?php
+if ((isset($_POST["submit"])) && ($_POST["submit"] == "Submit model")) {
+    // Inserting libs
+    require_once ('../../inc/functions.inc.php');
+    $page_title = "Automated Models Submission Form";
+    include '../../inc/header.php';
+    echo $_POST["email"];
+    echo $_POST["maintainer_comment"];
+    include '../../inc/footer.php';
+}
+
+else {
 
 // Inserting libs
 require_once ('../../inc/functions.inc.php');
@@ -76,7 +87,7 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     <tr>
         <td>Email</td>
         <td><?php echo $_GET["email"]; ?></td>
-        <input type="hidden" value=<?php echo $_GET["email"]; ?>">
+        <input type="hidden" value="<?php echo $_GET["email"]; ?>">
     </tr>
     <tr>
         <td>Family</td>
@@ -164,8 +175,5 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
 </p>
 <?php
 include '../../inc/footer.php';
-
-if ((isset($_POST["submit"])) && ($_POST["submit"] == "Submit model")) {
-    echo $_POST["maintainer_comment"];
 }
 ?>
