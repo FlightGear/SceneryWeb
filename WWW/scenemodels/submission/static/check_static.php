@@ -579,7 +579,7 @@ else {
 ###############################################
 ###############################################
 
-if (($_POST["mo_shared"] != "") && ($_POST["mo_path"] != "") && ($_POST["mo_author"] != "")
+if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
     && (isset($_POST['comment'])) && (isset($_POST['contributor']))) {
 
