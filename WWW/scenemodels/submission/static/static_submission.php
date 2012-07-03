@@ -1,11 +1,36 @@
 <?php
-if ((isset($_POST["submit"])) && ($_POST["submit"] == "Submit model")) {
+if ((isset($_POST["action"]))) {
     // Inserting libs
     require_once ('../../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
     include '../../inc/header.php';
-    echo $_POST["email"];
-    echo $_POST["maintainer_comment"];
+
+    // Prepare a generic mail
+
+    // If $action=reject
+        // - Drop fgs_position_requests;
+        // - Send 2 mails
+
+    if($_POST["action"] == "Reject model") {
+        echo "Deleting corresponding pending query";
+        echo "The user submission has been rejected. Will let user know.";
+        echo $_POST["email"];
+        echo $_POST["maintainer_comment"];
+    }
+
+    // If $action=accept
+        // - Execute both requests
+        // - Send 2 mails
+
+    if($_POST["action"] == "Submit model") {
+        echo "Inserting query into DB";
+        echo "Deleting pending queries";
+        echo "The user submission has been accepted. Will let user know.";
+        echo "You can see the corresponding submission here :";
+        echo $_POST["email"];
+        echo $_POST["maintainer_comment"];
+    }
+
     include '../../inc/footer.php';
 }
 
@@ -154,9 +179,11 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
+            <center>
             <a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">#1<img src="ContainerCrane.png"></a>
             <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">#2<img src="ATR42BR0.bmp"></a>
             <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">#3<img src="ATR42BR2.bmp"></a>
+            </center>
         </td>
     </tr>
     <tr>
@@ -166,8 +193,9 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     </tr>
     <tr>
         <td>Action</td>
-        <td><center><input type="submit" name="submit" value="Submit model" />
-        <input type="submit" name="reject" value="Reject model" />
+        <td><center>
+        <input type="submit" name="action" value="Submit model" />
+        <input type="submit" name="action" value="Reject model" />
         </center></td>
     </tr>
 </form>
