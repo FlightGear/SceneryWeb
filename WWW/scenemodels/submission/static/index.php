@@ -165,7 +165,7 @@
             </span>
             </td>
             <td>
-            <input type="file" name="mo_thumbfile" class="multi" maxlength="1" accept="image/jpeg" />
+            <input type="file" name="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" />
             </td>
         </tr>
         <tr>
