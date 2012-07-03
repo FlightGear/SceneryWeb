@@ -76,6 +76,7 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     <tr>
         <td>Email</td>
         <td><?php echo $_GET["email"]; ?></td>
+        <input type="hidden" value=<?php echo $_GET["email"]; ?>">
     </tr>
     <tr>
         <td>Family</td>
@@ -142,9 +143,9 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
-            <a href="#" class="lightbox" rel="lightbox[submission]" title="1st texture"><img src="ContainerCrange.png">image #1</a>
-            <a href="#" class="lightbox" rel="lightbox[submission]" title="2nd texture"><img src="ATR42BR0.bmp">image #2</a>
-            <a href="#" class="lightbox" rel="lightbox[submission]" title="3rd texture"><img src="ATR42BR2.bmp">image #3</a>
+            <a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">#1<img src="ContainerCrane.png"></a>
+            <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">#2<img src="ATR42BR0.bmp"></a>
+            <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">#3<img src="ATR42BR2.bmp"></a>
         </td>
     </tr>
     <tr>
@@ -164,8 +165,7 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
 <?php
 include '../../inc/footer.php';
 
-if ((isset($_POST["submit"])) && ($_POST["submit"] = "Submit model"))
-{
-
+if ((isset($_POST["submit"])) && ($_POST["submit"] == "Submit model")) {
+    echo $_POST["maintainer_comment"];
 }
 ?>
