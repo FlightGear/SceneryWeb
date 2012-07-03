@@ -68,12 +68,14 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
 
 ?>
 </p>
+<p class="center">
 <a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">image #1</a>
 <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">image #2</a>
 <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">image #3</a>
+</p>
 <p class="center">
-Submitter: <?php echo $_GET["email"]; ?>
-<input type="text" name="maintainer_comment" value="Drop a comment to the submitter" />
+Submitter: <?php echo $_GET["email"]; ?><br />
+<input type="text" name="maintainer_comment" value="Drop a comment to the submitter" /><br />
 <input type="submit" name="submit" value="Submit model" />
 <input type="submit" name="reject" value="Reject model" />
 </p>
