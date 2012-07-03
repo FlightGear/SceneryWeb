@@ -245,14 +245,14 @@ if(!$ok) {
     <?php include '../../inc/footer.php';
 }
 else {
-    // Check the presence of "action", the presence of "signature", its length (64) and its content.
+    // Check the presence of "signature", its length (64) and its content.
     if ((isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if($resource_rw != '0') {
 
-        // Checking the presence of sig into the database
+            // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 echo "<center>";
@@ -273,8 +273,43 @@ else {
                         // Gzuncompress the query
                         $query_rw = gzuncompress($sqlz);
                         echo $query_rw;
-            }
-        }
+
+                        $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
+                        $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
+                        foreach ($tab_tags as $value_tag) {
+                                $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
+                                $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
+                                $trigged_2 = str_replace("1);","",$trigged_1);                        // Removing 1); from data;
+                                $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
+                                $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
+                                $trigged_5 = str_replace(",,",",",$trigged_4);                        // Finally, removing , from data;
+                                $data = explode(", ",$trigged_5);                                     // Now showing the results
+                                $j = 0;
+                                foreach ($data as $data_from_query) {
+                                    $j++;
+                                    if($j == 2) { // Managing the data not separated by comma;
+                                        $fix = explode(" ",$data_from_query);
+                                        $k = 0;
+                                        foreach ($fix as $value) {
+                                            $k++;
+                                            if ($k == 1) { $long = $value; echo $value; }
+                                            if ($k == 2) { $lat = $value; echo $value; }
+                                            if ($k == 3) { echo $value; }
+                                        }
+                                    }
+                                    else if ($j == 3) {
+                                        echo $data_from_query;
+                                    }
+                                    else if($j == 4) {
+                                        $model = object_name($data_from_query);
+                                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$data_from_query."\" >".$model."</a>\n";
+                                    }
+                                    else if($j == 5) { echo ""; } // I have to admit I don't know why I wrote this
+                                    else if($j != 1) { echo $data_from_query."\n"; } // Nor this. Snip. But must be a reason why.
+                                }
+                        }
+                    }
+                }
         }
     }
 }
