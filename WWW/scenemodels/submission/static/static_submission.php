@@ -80,9 +80,11 @@ if ((isset($_POST["action"]))) {
                         $message0 = "Hi,"  . "\r\n" .
                                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                                     "http://scenemodels.flightgear.org/static/static_submission.php"  . "\r\n" .
-                                    "I just wanted to let you know that the 3D model import named  Blah."."\r\n" .
+                                    "I just wanted to let you know that the 3D model import named Blah."."\r\n" .
                                     "has been rejected and successfully deleted from the pending requests table"."\r\n" .
-                                    "with the following comment".$_POST["maintainer_comment"].".";
+                                    "with the following comment :\"".$_POST["maintainer_comment"]."."."\r\n" .
+                                    "We're sorry about this. Please use the maintainer's comment to enhance or correct"."\r\n" .
+                                    "your model before submitting it again.";
 
                         $message = wordwrap($message0, 77, "\r\n");
 
@@ -147,7 +149,7 @@ else {
             if (pg_num_rows($result) != 1) {
                 echo "<center>";
                 echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
-                echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
+                echo "Else, please report to fg-devel ML or FG Scenery forum.<br />";
                 echo "</center>";
                 include '../../inc/footer.php';
                 @pg_close($resource_rw);
