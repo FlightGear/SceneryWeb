@@ -22,8 +22,6 @@ if ((isset($_POST["action"]))) {
                 // Checking the presence of sig into the database
                 $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';");
                 if (pg_num_rows($result) != 1) {
-                    $page_title = "Automated Shared Models Positions Pending Requests Form";
-                    include '../../inc/header.php';
                     echo "<center>";
                     echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
                     echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
@@ -38,8 +36,6 @@ if ((isset($_POST["action"]))) {
                     $resultdel = @pg_query($resource_rw, $delete_request);
 
                     if (!resultdel) {
-                        $page_title = "Automated Shared Models Positions Pending Requests Form";
-                        include '../../inc/header.php';
                         echo "<center>\n";
                         echo "Signature found.<br /> Now deleting request with number ". $_POST[sig].".<br />";
                         echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />\n";
@@ -51,8 +47,6 @@ if ((isset($_POST["action"]))) {
                         exit;
                     }
                     else {
-                        $page_title = "Automated Shared Models Positions Pending Requests Form";
-                        include '../../inc/header.php';
                         echo "<center>";
                         echo "Signature found.<br />Now deleting request with number ". $_POST[sig].".<br />";
                         echo "<font color=\"green\">Entry has correctly been deleted from the pending requests table.</font>";
@@ -87,7 +81,8 @@ if ((isset($_POST["action"]))) {
                                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                                     "http://scenemodels.flightgear.org/static/static_submission.php"  . "\r\n" .
                                     "I just wanted to let you know that the 3D model import named  Blah."."\r\n" .
-                                    "has been rejected and successfully deleted from the pending requests table.";
+                                    "has been rejected and successfully deleted from the pending requests table"."\r\n" .
+                                    "with the following comment".$_POST["maintainer_comment"].".";
 
                         $message = wordwrap($message0, 77, "\r\n");
 
@@ -102,6 +97,7 @@ if ((isset($_POST["action"]))) {
                         }
                     }
                     echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
+    exit;
     }}}
 
     // If $action=accept
@@ -120,7 +116,7 @@ if ((isset($_POST["action"]))) {
     include '../../inc/footer.php';
 }
 
-else {
+if (!(isset($_POST["action"]))) {
 
 // Inserting libs
 require_once ('../../inc/functions.inc.php');
