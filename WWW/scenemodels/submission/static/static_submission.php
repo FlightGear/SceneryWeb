@@ -13,7 +13,7 @@ if ((isset($_POST["action"]))) {
 
     if($_POST["action"] == "Reject model") {
         echo "<center>Deleting corresponding pending query.</center>";
-            if ((isset($_POST["sig"])) {
+            if ((isset($_POST["sig"]))) {
                 $resource_rw = connect_sphere_rw();
 
                 // If connection is OK
@@ -86,7 +86,7 @@ if ((isset($_POST["action"]))) {
                         $message0 = "Hi,"  . "\r\n" .
                                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                                     "http://scenemodels.flightgear.org/static/static_submission.php"  . "\r\n" .
-                                    "I just wanted to let you know that the 3D model import named " .echo("Blah"). ""."\r\n" .
+                                    "I just wanted to let you know that the 3D model import named  Blah."."\r\n" .
                                     "has been rejected and successfully deleted from the pending requests table.";
 
                         $message = wordwrap($message0, 77, "\r\n");
@@ -101,7 +101,7 @@ if ((isset($_POST["action"]))) {
                         exit;
                         }
                     }
-                    echo "The user submission has been rejected with the following warning: ".echo $_POST["maintainer_comment"].". User has been informed by mail.";
+                    echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
     }}}
 
     // If $action=accept
