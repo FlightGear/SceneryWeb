@@ -726,8 +726,6 @@ else {
         $html_family_url = htmlspecialchars($family_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        $message0 = "Hi," . "\r\n" .
-
         if($failed_mail != 1) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
