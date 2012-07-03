@@ -10,7 +10,7 @@
 #    is returned which is - then - used to insert the model position into fgs_objects. It could be that the second request (position) is left "blank" in the first part of the process (when
 #    the request is stored into the fgs_position_requests table, and then added only once the model is validated (i.e. : we first send the request into fgs_models, retrieve the number, and then
 #    reprocess the second request with the id returned by the DB.)
-# 7. Add an email process to this stuff, so the submitter is informed, and the maintainer can tell him why his model is rejected (which should - hopefully - occur less ;-))
+# 7. Add an email process to this stuff, so the maintainer can tell the submitter why his model is rejected (which should - hopefully - occur less ;-))
 # 8. Detect if submitting an already existing model. User should be redirected to the model_edit script to come.
 
 require_once('../../inc/functions.inc.php');
