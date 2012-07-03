@@ -58,27 +58,114 @@ else {
 echo "<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>";
 echo "<p class=\"center\">";
 echo "<p class=\"center\">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>";
-// Geshi stuff
-    $source = file_get_contents('test.xml');
-    $language = 'xml';
-    $geshi = new GeSHi($source, $language);
-    $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-    $geshi->set_line_style('background: #fcfcfc;');
-    echo $geshi->parse_code();
-
 ?>
-</p>
-<p class="center">
-<a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">image #1</a>
-<a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">image #2</a>
-<a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">image #3</a>
-</p>
-<p class="center">
-Submitter: <?php echo $_GET["email"]; ?><br />
-<input type="text" name="maintainer_comment" value="Drop a comment to the submitter" /><br />
-<input type="submit" name="submit" value="Submit model" />
-<input type="submit" name="reject" value="Reject model" />
+<form name="validation" method="post" action="static_submission.php">
+<table>
+    <th>
+        <td>Data
+        </td>
+        <td>Value
+        </td>
+    </th>
+    <tr>
+        <td>Author</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Contributor</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td><?php echo $_GET["email"]; ?></td>
+    </tr>
+    <tr>
+        <td>Family</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Proposed Path Name</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Comment</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Latitude</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Longitude</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Country</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Ground Elevation</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Elevation offset</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>True DB orientation</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Corresponding Thumbnail</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Corresponding AC3D File</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Corresponding XML File</td>
+        <td>
+            <?php
+            // Geshi stuff
+            $source = file_get_contents('test.xml');
+            $language = 'xml';
+            $geshi = new GeSHi($source, $language);
+            $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+            $geshi->set_line_style('background: #fcfcfc;');
+            echo $geshi->parse_code();
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Corresponding PNG Texture Files</td>
+        <td>
+            <a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">image #1</a>
+            <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">image #2</a>
+            <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">image #3</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Leave a comment to the submitter
+        </td>
+        <td><input type="text" name="maintainer_comment" size="100" value="Drop a comment to the submitter" /></td>
+    </tr>
+    <tr colspan="2">
+        <input type="submit" name="submit" value="Submit model" />
+        <input type="submit" name="reject" value="Reject model" />
+    </tr>
+</form>
+</table>
 </p>
 <?php
 include '../../inc/footer.php';
+
+if ((isset($_POST["submit"])) && ($_POST["submit"] = "Submit model"))
+{
+
+}
 ?>
