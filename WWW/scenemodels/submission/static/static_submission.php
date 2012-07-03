@@ -152,9 +152,11 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
         </td>
         <td><input type="text" name="maintainer_comment" size="100" value="Drop a comment to the submitter" /></td>
     </tr>
-    <tr colspan="2">
+    <tr>
+        <td colspan="2">
         <input type="submit" name="submit" value="Submit model" />
         <input type="submit" name="reject" value="Reject model" />
+        </td>
     </tr>
 </form>
 </table>
