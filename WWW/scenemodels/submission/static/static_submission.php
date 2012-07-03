@@ -12,11 +12,97 @@ if ((isset($_POST["action"]))) {
         // - Send 2 mails
 
     if($_POST["action"] == "Reject model") {
-        echo "Deleting corresponding pending query";
-        echo "The user submission has been rejected. Will let user know.";
-        echo $_POST["email"];
-        echo $_POST["maintainer_comment"];
-    }
+        echo "<center>Deleting corresponding pending query.</center>";
+            if ((isset($_POST["sig"])) {
+                $resource_rw = connect_sphere_rw();
+
+                // If connection is OK
+                if ($resource_rw != '0') {
+
+                // Checking the presence of sig into the database
+                $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';");
+                if (pg_num_rows($result) != 1) {
+                    $page_title = "Automated Shared Models Positions Pending Requests Form";
+                    include '../../inc/header.php';
+                    echo "<center>";
+                    echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
+                    echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
+                    echo "</center>";
+                    include '../../inc/footer.php';
+                    @pg_close($resource_rw);
+                    exit;
+                }
+                else {
+                    // Delete the entry from the pending query table.
+                    $delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';";
+                    $resultdel = @pg_query($resource_rw, $delete_request);
+
+                    if (!resultdel) {
+                        $page_title = "Automated Shared Models Positions Pending Requests Form";
+                        include '../../inc/header.php';
+                        echo "<center>\n";
+                        echo "Signature found.<br /> Now deleting request with number ". $_POST[sig].".<br />";
+                        echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />\n";
+                        echo "</center>\n";
+
+                        // Closing the rw connection.
+                        include '../../inc/footer.php';
+                        pg_close($resource_rw);
+                        exit;
+                    }
+                    else {
+                        $page_title = "Automated Shared Models Positions Pending Requests Form";
+                        include '../../inc/header.php';
+                        echo "<center>";
+                        echo "Signature found.<br />Now deleting request with number ". $_POST[sig].".<br />";
+                        echo "<font color=\"green\">Entry has correctly been deleted from the pending requests table.</font>";
+                        echo "</center>";
+
+                        // Closing the rw connection.
+                        include '../../inc/footer.php';
+                        pg_close($resource_rw);
+
+                        // Sending mail if entry was correctly deleted.
+                        // Sets the time to UTC.
+
+                        date_default_timezone_set('UTC');
+                        $dtg = date('l jS \of F Y h:i:s A');
+
+                        // OK, let's start with the mail redaction.
+                        // Who will receive it ?
+                        $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+                        if(isset($_POST['email'])) {
+                            // $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                            $to .= $_POST["email"];
+                        }
+                        else {
+                            // $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                        }
+
+                        // What is the subject ?
+                        $subject = "[FG Scenery Submission forms] Automatic 3D model insertion DB reject and deletion confirmation.";
+
+                        // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
+                        $message0 = "Hi,"  . "\r\n" .
+                                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                                    "http://scenemodels.flightgear.org/static/static_submission.php"  . "\r\n" .
+                                    "I just wanted to let you know that the 3D model import named " .echo("Blah"). ""."\r\n" .
+                                    "has been rejected and successfully deleted from the pending requests table.";
+
+                        $message = wordwrap($message0, 77, "\r\n");
+
+                        // Preparing the headers.
+                        $headers = "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "From: \"FG Scenery Pending Requests forms\" <martin.spott@mgras.net>" . "\r\n";
+                        $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
+
+                        // Let's send it ! No management of mail() errors to avoid being too talkative...
+                        @mail($to, $subject, $message, $headers);
+                        exit;
+                        }
+                    }
+                    echo "The user submission has been rejected with the following warning: ".echo $_POST["maintainer_comment"].". User has been informed by mail.";
+    }}}
 
     // If $action=accept
         // - Execute both requests
@@ -56,7 +142,7 @@ if(!$ok) {
 }
 else {
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
-    if ((isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"])) {
+    if ((isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -194,6 +280,7 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
     <tr>
         <td>Action</td>
         <td><center>
+        <input type="hidden" name="sig" value="<?php echo $_GET["sig"]; ?>" />
         <input type="submit" name="action" value="Submit model" />
         <input type="submit" name="action" value="Reject model" />
         </center></td>

@@ -171,7 +171,7 @@ else {
                     else {
                         // Delete the entry from the pending query table.
                         $delete_request = "delete from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';";
-                        $resultdel = @pg_query($resource_rw,$delete_request);
+                        $resultdel = @pg_query($resource_rw, $delete_request);
 
                         if (!resultdel) {
                             $page_title = "Automated Shared Models Positions Pending Requests Form";
