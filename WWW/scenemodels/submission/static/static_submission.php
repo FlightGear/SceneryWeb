@@ -129,10 +129,10 @@ include '../../inc/header.php';
 $ok = check_availability();
 
 if(!$ok) {
+?>
     <p class="center"><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font>
     <br />The FlightGear team.</p>
-    <?php include '../../inc/footer.php'; ?>
-    <?
+    <?php include '../../inc/footer.php';
 }
 else {
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
