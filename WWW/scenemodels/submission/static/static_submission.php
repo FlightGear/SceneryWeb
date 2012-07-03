@@ -11,7 +11,7 @@ if ((isset($_POST["action"]))) {
         // - Drop fgs_position_requests;
         // - Send 2 mails
 
-    if($_POST["action"] == "Reject model") {
+    if ($_POST["action"] == "Reject model") {
         echo "<center>Deleting corresponding pending query.</center>";
             if ((isset($_POST["sig"]))) {
                 $resource_rw = connect_sphere_rw();
@@ -37,7 +37,7 @@ if ((isset($_POST["action"]))) {
 
                     if (!resultdel) {
                         echo "<center>\n";
-                        echo "Signature found.<br /> Now deleting request with number ". $_POST[sig].".<br />";
+                        echo "Signature found.<br /> Now deleting request with number ". $_POST["sig"].".<br />";
                         echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />\n";
                         echo "</center>\n";
 
@@ -48,7 +48,7 @@ if ((isset($_POST["action"]))) {
                     }
                     else {
                         echo "<center>";
-                        echo "Signature found.<br />Now deleting request with number ". $_POST[sig].".<br />";
+                        echo "Signature found.<br />Now deleting request with number ". $_POST["sig"]." with comment \"". $_POST["maintainer_comment"] ."\".<br />";
                         echo "<font color=\"green\">Entry has correctly been deleted from the pending requests table.</font>";
                         echo "</center>";
 
@@ -82,9 +82,9 @@ if ((isset($_POST["action"]))) {
                                     "http://scenemodels.flightgear.org/static/static_submission.php"  . "\r\n" .
                                     "I just wanted to let you know that the 3D model import named Blah."."\r\n" .
                                     "has been rejected and successfully deleted from the pending requests table"."\r\n" .
-                                    "with the following comment :\"".$_POST["maintainer_comment"]."."."\r\n" .
-                                    "We're sorry about this. Please use the maintainer's comment to enhance or correct"."\r\n" .
-                                    "your model before submitting it again.";
+                                    "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
+                                    "We're sorry about this. Please use the maintainer's comment to enhance or"."\r\n" .
+                                    "correct your model before submitting it again.";
 
                         $message = wordwrap($message0, 77, "\r\n");
 
@@ -106,13 +106,151 @@ if ((isset($_POST["action"]))) {
         // - Execute both requests
         // - Send 2 mails
 
-    if($_POST["action"] == "Submit model") {
+    if ($_POST["action"] == "Submit model") {
         echo "Inserting query into DB";
         echo "Deleting pending queries";
         echo "The user submission has been accepted. Will let user know.";
         echo "You can see the corresponding submission here :";
         echo $_POST["email"];
         echo $_POST["maintainer_comment"];
+
+        $resource_rw = connect_sphere_rw();
+
+        // If connection is OK
+        if ($resource_rw != '0') {
+
+        // Checking the presence of sig into the database
+            $result = @pg_query($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';");
+            if (pg_num_rows($result) != 1) {
+                echo "<center>";
+                echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
+                echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
+                echo "</center>";
+                @pg_close($resource_rw);
+                include '../../inc/footer.php';
+                exit;
+            }
+            else {
+                    while ($row = pg_fetch_row($result)) {
+                        $sqlzbase64 = $row[1];
+
+                        // Base64 decode the query
+                        $sqlz = base64_decode($sqlzbase64);
+
+                        // Gzuncompress the query
+                        $query_rw = gzuncompress($sqlz);
+
+                        // Sending the request...
+                        $resultrw = @pg_query($resource_rw, $query_rw);
+
+                        if(!$resultrw) {
+                            echo "<center>";
+                            echo "Signature found.<br /> Now processing query with request number ". $_POST[sig].".<br /><br />";
+                            echo "<font color=\"red\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
+                            echo "</center>";
+
+                            // Closing the rw connection.
+                            include '../../inc/footer.php';
+                            pg_close($resource_rw);
+                            exit;
+                        }
+                        else {
+                            echo "<center>";
+                            echo "Signature found.<br /> Now processing INSERT model query with number ". $_POST[sig].".<br /><br />";
+                            echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
+
+                            // Delete the entry from the pending query table.
+                            $delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';";
+                            $resultdel = @pg_query($resource_rw, $delete_request);
+
+                            if(!resultdel) {
+                                echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br /></center>";
+
+                                // Closing the rw connection.
+                                include '../../inc/footer.php';
+                                pg_close($resource_rw);
+                                exit;
+                            }
+                            else {
+                                echo "<font color=\"green\">Entry correctly deleted from the pending request table.</font></center>";
+
+                                // Closing the rw connection.
+                                pg_close($resource_rw);
+
+                                // Sending mail if SQL was correctly inserted and entry deleted.
+                                // Sets the time to UTC.
+                                date_default_timezone_set('UTC');
+                                $dtg = date('l jS \of F Y h:i:s A');
+
+                                // OK, let's start with the mail redaction.
+                                // Who will receive it ?
+                                $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
+                                if(isset($_POST['email'])) {
+                                //$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                                $to .= $_POST["email"];
+                                }
+                                else {
+                                //$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                                }
+
+                                // What is the subject ?
+                                $subject = "[FG Scenery Submission forms] Automatic 3D model insertion DB insertion confirmation.";
+
+                                // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
+                                $message0 = "Hi,"  . "\r\n" .
+                                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                                        "http://scenemodels.flightgear.org/submission/static/static_submission.php"  . "\r\n" .
+                                        "I just wanted to let you know that the 3D model import named Blah." . "\r\n" .
+                                        "has been successfully treated in the pending requests table." . "\r\n" .
+                                        "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
+                                        "The corresponding pending entry has consequently been deleted" . "\r\n" .
+                                        "from the pending requests table." . "\r\n" .
+                                        "The corresponding entry will be added in Terrasync" . "\r\n" .
+                                        "at 1230Z today or tomorrow if this time has already passed." . "\r\n" .
+                                        "You can follow Terrasync's data update at the following url: " . "\r\n" .
+                                        "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
+                                        "You can also check the model direcly at http://scenemodels.flightgear.org/" ."\r\n" .
+                                        "Thanks for your help in making FG better!";
+
+                                $message = wordwrap($message0, 77, "\r\n");
+
+                                // Preparing the headers.
+
+                                $headers = "MIME-Version: 1.0" . "\r\n";
+                                $headers .= "From: \"FG Scenery Pending Requests forms\" <martin.spott@mgras.net>" . "\r\n";
+                                $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
+
+                                // Let's send it ! No management of mail() errors to avoid being too talkative...
+                                @mail($to, $subject, $message, $headers);
+                                exit;
+                            }
+                        }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     include '../../inc/footer.php';
