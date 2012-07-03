@@ -165,7 +165,7 @@
             </span>
             </td>
             <td>
-            <input type="file" name="mo_thumbfile" class="multi" maxlength="1" accept="jpg|jpeg" />
+            <input type="file" name="mo_thumbfile" class="multi" maxlength="1" accept="image/jpeg" />
             </td>
         </tr>
         <tr>
@@ -175,7 +175,7 @@
             </span>
             </td>
             <td>
-            <input type="file" name="ac3d_file" class="multi" maxlength="1" accept="ac" />
+            <input type="file" name="ac3d_file" class="multi" maxlength="1"/>
             </td>
         </tr>
         <tr>
@@ -185,7 +185,7 @@
             </span>
             </td>
             <td>
-            <input type="file" name="xml_file" class="multi" maxlength="1" accept="xml" />
+            <input type="file" name="xml_file" class="multi" maxlength="1" accept="text/xml" />
             </td>
         </tr>
         <tr>
@@ -195,7 +195,7 @@
             </span>
             </td>
             <td>
-            <input type="file" name="png_file[]" class="multi" maxlength="12" accept="png" />
+            <input type="file" name="png_file[]" class="multi" maxlength="12" accept="image/png" />
             </td>
         </tr>
         <tr>
