@@ -140,11 +140,11 @@ echo "<p class=\"center\">The following model has passed all (numerous) verifica
         </td>
     </tr>
     <tr>
-        <td>Corresponding PNG Texture Files</td>
+        <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
-            <a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">image #1</a>
-            <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">image #2</a>
-            <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">image #3</a>
+            <a href="#" class="lightbox" rel="lightbox[submission]" title="1st texture"><img src="ContainerCrange.png">image #1</a>
+            <a href="#" class="lightbox" rel="lightbox[submission]" title="2nd texture"><img src="ATR42BR0.bmp">image #2</a>
+            <a href="#" class="lightbox" rel="lightbox[submission]" title="3rd texture"><img src="ATR42BR2.bmp">image #3</a>
         </td>
     </tr>
     <tr>
