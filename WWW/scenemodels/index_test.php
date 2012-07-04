@@ -35,5 +35,10 @@ $affimage = rand(1, 2477);
         </tr>
     </table>
 </center>
+<?php
+    for ($i=0; $i<2477; $i++) {
+            echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i." rel=\"lightbox[submission]\" title=\"1st texture\">#1<img src=\"modelthumb.php?id=".$i."\"></a>";
+}
+?>
 </body>
 </html>
