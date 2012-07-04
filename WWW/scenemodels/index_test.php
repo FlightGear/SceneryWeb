@@ -4,6 +4,9 @@
 ?>
 <html>
 <head>
+</head>
+<body>
+<center>
 <?php
 $nbimages = 4;
 $nomimages = array();
@@ -12,7 +15,8 @@ for ($i = 1; $i <= count_models(); $i++) {
 }
 srand((double)microtime()*1000000);
 $affimage = rand(1,$nbimages);
-print("<img src=".$nomimages[$affimage]." border=0 width=150 height=112 alt=\"Image aléatoire\">");
+print("<img src=\"modelthumb.php?id=".$affimage."\"" width="100" height="75".$nomimages[$affimage]." border=0 width=150 height=112 alt=\"Random picture\">");
 ?>
+</center>
 </body>
 </html>
