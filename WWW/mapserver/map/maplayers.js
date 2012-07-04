@@ -170,13 +170,20 @@
 	);
 
 	var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
-	  [ "http://1.flightgear.telascience.org/tc?",
-	    "http://2.flightgear.telascience.org/tc?",
-	    "http://3.flightgear.telascience.org/tc?",
-	    "http://4.flightgear.telascience.org/tc?" ],
-	  {layers: 'sceneobject', transparent: 'true', format: 'image/png'},
+	  [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+	    "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
+	  {layers: 'fgs_objects', transparent: 'true', format: 'image/png'},
 	  {isBaseLayer: false}
 	);
+
+//	var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
+//	  [ "http://1.flightgear.telascience.org/tc?",
+//	    "http://2.flightgear.telascience.org/tc?",
+//	    "http://3.flightgear.telascience.org/tc?",
+//	    "http://4.flightgear.telascience.org/tc?" ],
+//	  {layers: 'sceneobject', transparent: 'true', format: 'image/png'},
+//	  {isBaseLayer: false}
+//	);
 
 	var gshhs = new OpenLayers.Layer.WMS( "GSHHS coastline (polygon)",
 	  [ "http://1.flightgear.telascience.org/tc?",

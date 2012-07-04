@@ -61,7 +61,7 @@
 <!--    <script src="../openlayers-ys/OpenLayers.js"></script> -->
     <script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 
-    <script language='javascript' src='http://mapserver.flightgear.org/map/maplayers.js' type='text/javascript'></script>
+    <script src='http://mapserver.flightgear.org/map/maplayers.js' type='text/javascript'></script>
 
     <script type="text/javascript">
     jQuery.noConflict();
