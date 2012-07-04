@@ -6,7 +6,7 @@ include 'inc/header.php';
 Click on any of the 10x10 degree chunks in the image below to download that area.<br />
 An area with no corresponding link means that area is all ocean so there is nothing to download.
 <P>
-<IMG SRC="map-1.0.0.png" WIDTH="720" HEIGHT="450" USEMAP="#map">
+<IMG SRC="img/map-1.0.0.png" WIDTH="720" HEIGHT="450" USEMAP="#map">
 <MAP NAME="map">
     <AREA SHAPE=rect COORDS=360,200,380,225 HREF="http://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Scenery-v2.6.0/e000n00.tgz" ALT="e000n00  48.44 Mb   2/17/2012">
     <AREA SHAPE=rect COORDS=360,175,380,200 HREF="http://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Scenery-v2.6.0/e000n10.tgz" ALT="e000n10  64.96 Mb   2/17/2012">
