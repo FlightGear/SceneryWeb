@@ -30,8 +30,7 @@ $affimage = rand(1, 2477);
             <center>
             <iframe
                 src="modelthumb.php?id=<?php echo $affimage; ?>"
-                width="480" height="360"
-                scrolling="no" align="center"
+                width="480" height="360" scrolling="no" style="text-align:center"
                 marginwidth="2" marginheight="2"
                 frameborder="0" alt="Random picture">
             </iframe>
