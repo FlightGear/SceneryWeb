@@ -30,8 +30,8 @@ $affimage = rand(1, 2477);
             <center>
             <?php
             for ($i=0; $i<2477; $i++) {
-                    if($i == $affimage) {
-                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i." rel=\"lightbox[submission]\" title=\"1st texture\"><img src="modelthumb.php?id=".$affimage."\"></a>\n";
+                    if ($i == $affimage) {
+                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i." rel=\"lightbox[submission]\" title=\"1st texture\"><img src=\"modelthumb.php?id=".$affimage."\"></a>\n";
                     }
                     else
                         echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i." rel=\"lightbox[submission]\" title=\"1st texture\"></a>\n";
