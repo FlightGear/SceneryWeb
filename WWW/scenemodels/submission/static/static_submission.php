@@ -282,7 +282,8 @@ else {
                                 echo "trigged0 :".$trigged_0."<br />";
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
                                 echo "trigged1 :".$trigged_1."<br />";
-                                $trigged_2 = str_replace("1);","",$trigged_1);                        // Removing 1); from data;
+                                // Ok util there
+                                $trigged_2 = str_replace("'1')","",$trigged_1);                        // Removing 1); from data;
                                 echo "trigged2 :".$trigged_2."<br />";
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
                                 echo "trigged3 :".$trigged_3."<br />";
