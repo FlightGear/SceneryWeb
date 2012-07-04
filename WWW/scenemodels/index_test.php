@@ -10,7 +10,6 @@
 <?php
 srand((double)microtime()*1000000);
 $affimage = rand(1, 2477);
-echo result: $affimage;
 echo "<img src=\"modelthumb.php?id=";
 echo $affimage;
 echo "\" width=\"320\" height=\"240\"";
