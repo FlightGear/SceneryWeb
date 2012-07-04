@@ -292,7 +292,9 @@ else {
                                 echo "trigged5 :".$trigged_5."<br />";
                                 $trigged_6 = str_replace("'","",$trigged_5);                        // Finally, removing ' from data;
                                 echo "trigged6 :".$trigged_6."<br />";
-                                $data = explode(" ",$trigged_6);                                     // Now showing the results
+                                $trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
+                                echo "trigged7 :".$trigged_7."<br />";
+                                $data = explode(" ",$trigged_7);                                     // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
                                     $j++;
