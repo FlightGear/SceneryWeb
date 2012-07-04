@@ -282,7 +282,7 @@ else {
                                 echo "trigged0 :".$trigged_0."<br />";
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
                                 echo "trigged1 :".$trigged_1."<br />";
-                                $trigged_2 = str_replace("'1')","",$trigged_1);                        // Removing 1); from data;
+                                $trigged_2 = str_replace(", '1')","",$trigged_1);                        // Removing 1); from data;
                                 echo "trigged2 :".$trigged_2."<br />";
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
                                 echo "trigged3 :".$trigged_3."<br />";
@@ -290,9 +290,9 @@ else {
                                 echo "trigged4 :".$trigged_4."<br />";
                                 $trigged_5 = str_replace("VALUES (","",$trigged_4);                      // Removing VALUES(;
                                 echo "trigged5 :".$trigged_5."<br />";
-                                $trigged_6 = str_replace(",,",",",$trigged_5);                        // Finally, removing , from data;
+                                $trigged_6 = str_replace(",","",$trigged_5);                        // Finally, removing , from data;
                                 echo "trigged6 :".$trigged_6."<br />";
-                                $data = explode(", ",$trigged_5);                                     // Now showing the results
+                                $data = explode(" ",$trigged_6);                                     // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
                                     $j++;
