@@ -1,16 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-  <head>
-    <title>Automated Scenery Objects Submission Forms</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="../css/style.css" type="text/css"></link>
-  </head>
-  <body>
-  <?php include '../inc/header.php'; ?>
-
+<?php
+  $page_title = "Automated Scenery Submission Forms";
+  include '../inc/header.php';
+?>
   <br/><br/>
-
   <h1 align="center">FG scenery objects submission forms.</h1>
   <b>Foreword: </b>The goal of those automated forms is to make the submission of positions and models into FG Scenery database faster, easier and better, in:
   <ul>
@@ -18,9 +10,7 @@
     <li>helping the maintainers through an automated process (no human interactions, automated consistency checks).</li>
   </ul>
   Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what items those forms are looking for. All submissions are being followed and logged, so <b>DO NOT TAKE THIS</b> as a sandbox.
-
   <br/><br/>
-
   <table>
     <tr align="left">
       <td align="left">

@@ -70,6 +70,9 @@
       <div class="headerlinks"><a href="/authors.php">Authors</a></div>
     </li>
     <li class="mainitems">
+        <div class="headerlinks"><a href="/mapserver.php">Mapserver</a></div>
+    </li>
+    <li class="mainitems">
       <div class="headerlinks"><a href="/download.php">Download</a></div>
       <ul class="submenus">
         <li><a href="scenery_download.php">Download scenery</a></li>
