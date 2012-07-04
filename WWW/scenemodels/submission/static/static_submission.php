@@ -295,7 +295,7 @@ else {
                                 $trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
                                 echo "trigged7 :".$trigged_7."<br />";
                                 $data = explode(" ",$trigged_7);                                     // Now showing the results
-                                $j = 0;
+                                $j = 1;
                                 foreach ($data as $data_from_query) {
                                     $j++;
                                     if ($j == 1) echo "lat =".$data_from_query."<br />";
