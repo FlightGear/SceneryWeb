@@ -18,7 +18,7 @@ include 'inc/header.php';
 </center>
     <hr />
 <!-- include 'include/locateIp.php'; -->
-    <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows">
+    <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows" width="70%">
       <tr>
       <td>
         <iframe
