@@ -317,20 +317,13 @@ else {
                         }
                         echo "<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>";
                         echo "<p class=\"center\">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>";
-                        ?>
-
-
-
-
-
-
 
                     }
                 }
         }
     }
 }
-
+?>
 
 <form name="validation" method="post" action="static_submission.php">
 <table>
