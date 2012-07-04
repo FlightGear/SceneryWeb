@@ -2,6 +2,7 @@
 $page_title = "FlightGear World Scenery v2.6.0";
 include 'inc/header.php';
 ?>
+<h1>FlightGear World Scenery v2.6.0</h1>
 Click on any of the 10x10 degree chunks in the image below to download that area.<br />
 An area with no corresponding link means that area is all ocean so there is nothing to download.
 <P>
