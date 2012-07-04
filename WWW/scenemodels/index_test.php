@@ -10,11 +10,13 @@
 <?php
 $nbimages = 4;
 $nomimages = array();
-for ($i = 1; $i <= count_models(); $i++) {
+for ($i = 1; $i <= 2477; $i++) {
     $nomimages[$i]="image".$i.".jpg";
+    echo $nomimages[$i];
 }
 srand((double)microtime()*1000000);
-$affimage = rand(1,$nbimages);
+$affimage = rand(1, $nbimages);
+echo $affimage;
 echo "<img src=\"modelthumb.php?id=";
 echo $affimage;
 echo "\" width=\"100\" height=\"75\"";
