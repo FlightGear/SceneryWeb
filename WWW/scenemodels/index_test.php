@@ -28,7 +28,7 @@ $affimage = rand(1, 2477);
         </td>
         <td>
             <iframe
-                src="modelthum.php?id=<?php echo $affimage; ?>"
+                src="modelthumb.php?id=<?php echo $affimage; ?>"
                 width="320" height="240"
                 scrolling="no"
                 marginwidth="2" marginheight="2"
