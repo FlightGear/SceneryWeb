@@ -13,17 +13,18 @@ if ((isset($_POST["action"]))) {
 
     if ($_POST["action"] == "Reject model") {
         echo "<center>Deleting corresponding pending query.</center>";
-            if ((isset($_POST["sig"]))) {
+            if ((isset($_POST["ob_sig"])) && (isset($_POST["mo_sig"]))) {
                 $resource_rw = connect_sphere_rw();
 
                 // If connection is OK
                 if ($resource_rw != '0') {
 
                 // Checking the presence of sig into the database
-                $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';");
-                if (pg_num_rows($result) != 1) {
+                $ob_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';");
+                $mo_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';");
+                if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                     echo "<center>";
-                    echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
+                    echo "<font color=\"red\">Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?</font><br />\n";
                     echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
                     echo "</center>";
                     include '../../inc/footer.php';
@@ -32,12 +33,14 @@ if ((isset($_POST["action"]))) {
                 }
                 else {
                     // Delete the entry from the pending query table.
-                    $delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';";
-                    $resultdel = @pg_query($resource_rw, $delete_request);
+                    $ob_delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';";
+                    $mo_delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';";
+                    $ob_resultdel = @pg_query($resource_rw, $ob_delete_request);
+                    $mo_resultdel = @pg_query($resource_rw, $mo_delete_request);
 
-                    if (!resultdel) {
+                    if ((!$ob_resultdel) || (!$mo_resultdel)) {
                         echo "<center>\n";
-                        echo "Signature found.<br /> Now deleting request with number ". $_POST["sig"].".<br />";
+                        echo "Signature found.<br /> Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
                         echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />\n";
                         echo "</center>\n";
 
@@ -48,8 +51,8 @@ if ((isset($_POST["action"]))) {
                     }
                     else {
                         echo "<center>";
-                        echo "Signature found.<br />Now deleting request with number ". $_POST["sig"]." with comment \"". $_POST["maintainer_comment"] ."\".<br />";
-                        echo "<font color=\"green\">Entry has correctly been deleted from the pending requests table.</font>";
+                        echo "Signature found.<br />Now deleting request with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".<br />";
+                        echo "<font color=\"green\">Entries have correctly been deleted from the pending requests table.</font>";
                         echo "</center>";
 
                         // Closing the rw connection.
@@ -415,7 +418,8 @@ else {
     <tr>
         <td>Action</td>
         <td><center>
-        <input type="hidden" name="sig" value="<?php echo $_GET["sig"]; ?>" />
+        <input type="hidden" name="ob_sig" value="<?php echo $_GET["ob_sig"]; ?>" />
+        <input type="hidden" name="mo_sig" value="<?php echo $_GET["mo_sig"]; ?>" />
         <input type="submit" name="action" value="Submit model" />
         <input type="submit" name="action" value="Reject model" />
         </center></td>

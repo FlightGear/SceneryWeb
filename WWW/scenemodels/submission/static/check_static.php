@@ -684,13 +684,22 @@ else {
     # Insert into fgsoj_objects
     //pg_query($resource_rw, $ob_query);
 
-    $sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";
-    $sha_hash = hash('sha256', $sha_to_compute);
-    $zipped_base64_rw_query = gzcompress($ob_query,8);                       // Zipping the Base64'd request.
-    $base64_rw_query = base64_encode($zipped_base64_rw_query);               // Coding in Base64.
+    // Object Stuff into pending requests table.
+    $ob_sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";
+    $ob_sha_hash = hash('sha256', $ob_sha_to_compute);
+    $ob_zipped_base64_rw_query = gzcompress($ob_query, 8);                       // Zipping the Base64'd request.
+    $ob_base64_rw_query = base64_encode($ob_zipped_base64_rw_query);               // Coding in Base64.
+    $ob_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$ob_base64_rw_query."');";
+    $resultrw = @pg_query($resource_rw, $ob_query_rw_pending_request);          // Sending the request...
 
-    $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $query_rw_pending_request);          // Sending the request...
+    // Model stuff into pending requests table.
+    $mo_sha_to_compute = "<".microtime()."><".$ipaddr."><".$mo_query.">";
+    $mo_sha_hash = hash('sha256', $mo_sha_to_compute);
+    $mo_zipped_base64_rw_query = gzcompress($mo_query, 8);                       // Zipping the Base64'd request.
+    $mo_base64_rw_query = base64_encode($mo_zipped_base64_rw_query);               // Coding in Base64.
+    $mo_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$mo_base64_rw_query."');";
+    $resultrw = @pg_query($resource_rw, $mo_query_rw_pending_request);          // Sending the request...
+
     @pg_close($resource_rw);                                                 // Closing the connection.
 
     if(!$resultrw) {
@@ -765,7 +774,7 @@ else {
 
         $message2 = "\r\n".
         "Now please click:" . "\r\n" .
-        "http://scenemodels.flightgear.org/submission/static/static_submission.php?sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+        "http://scenemodels.flightgear.org/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_email."\r\n" .
         "to view and confirm/refuse the submission." . "\r\n" .
         "Thanks!" ;
 
@@ -799,7 +808,8 @@ else {
                         "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
                         "This 3D model import request has been sent for validation." . "\r\n" .
-                        "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
+                        "The first part of the unique of this request is ".substr($ob_sha_hash,0,10). "... (object)" . "\r\n" .
+                        "and ".substr($mo_sha_hash,0,10). "... (model)" . "\r\n" .
                         "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
             $message077 = wordwrap($message3, 77, "\r\n");
 
