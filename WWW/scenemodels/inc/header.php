@@ -31,7 +31,7 @@
 
   <table>
     <tr>
-      <td class="titleback">
+      <td>
         <img src="/img/banner.jpg" alt="Flightgear logo"/>
       </td>
     </tr>
