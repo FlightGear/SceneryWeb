@@ -272,24 +272,24 @@ else {
 
                         // Gzuncompress the query
                         $query_rw = gzuncompress($sqlz);
-                        echo $query_rw;
+                        echo "Raw query :".$query_rw."<br />";
 
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
                         echo "trigged :".$trigged_query_rw."<br/>";
                         $tab_tags = explode(", (", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         foreach ($tab_tags as $value_tag) {
                                 $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
-                                echo $trigged_0;
+                                echo "trigged0 :".$trigged_0."<br />";
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
-                                echo $trigged_1;
+                                echo "trigged1 :".$trigged_1."<br />";
                                 $trigged_2 = str_replace("1);","",$trigged_1);                        // Removing 1); from data;
-                                echo $trigged_2;
+                                echo "trigged2 :".$trigged_2."<br />";
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
-                                echo $trigged_3;
+                                echo "trigged3 :".$trigged_3."<br />";
                                 $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
-                                echo $trigged_4;
+                                echo "trigged4 :".$trigged_4."<br />";
                                 $trigged_5 = str_replace(",,",",",$trigged_4);                        // Finally, removing , from data;
-                                echo $trigged_5;
+                                echo "trigged5 :".$trigged_5."<br />";
                                 $data = explode(", ",$trigged_5);                                     // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
