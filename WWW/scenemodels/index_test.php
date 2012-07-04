@@ -7,14 +7,36 @@
 </head>
 <body>
 <center>
+<h3>FlightGear Scenery Main</h3>
+
 <?php
 srand((double)microtime()*1000000);
 $affimage = rand(1, 2477);
-echo "<img src=\"modelthumb.php?id=";
-echo $affimage;
-echo "\" width=\"320\" height=\"240\"";
-echo " border=0 alt=\"Random picture\">";
+// There is still the problem of the "no image". Should have to do a md5sum on the Base64 to check the returned image is not blank.
 ?>
+
+<table style="border-style: solid; border-width: 1px;\" cellpadding="1\" cellspacing="1" rules="rows">
+        <tr>
+        <td>
+            <iframe
+                src="http://mapserver.flightgear.org/lightmap/?lon=-117.12099&amp;lat=32.73356&amp;zoom=12"
+                width="320" height="240"
+                scrolling="no"
+                marginwidth="2" marginheight="2"
+                frameborder="0">
+            </iframe>
+        </td>
+        <td>
+            <iframe
+                src="modelthum.php?id=<?php echo $affimage; ?>"
+                width="320" height="240"
+                scrolling="no"
+                marginwidth="2" marginheight="2"
+                frameborder="0" alt="Random picture">
+            </iframe>
+        </td>
+        </tr>
+    </table>
 </center>
 </body>
 </html>
