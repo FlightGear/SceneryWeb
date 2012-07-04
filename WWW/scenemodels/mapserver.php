@@ -4,6 +4,7 @@ $body_onload = "init()";
 include 'inc/header.php';
 ?>
 <h1>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h1>
+<center>
     Please read the corresponding
     <a href="http://wiki.osgeo.org/wiki/Geodata_Repository#PostGIS_serving_vector_data">NOTES</a>
     on the fine <a href="http://www.osgeo.org/">OSGeo</a> Wiki -<br />
@@ -14,6 +15,7 @@ include 'inc/header.php';
     The latest reference to Custom Scenery land cover classes is available on
     <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">this page</a>.
     </p>
+</center>
     <hr />
 <!-- include 'include/locateIp.php'; -->
     <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows">
@@ -21,7 +23,7 @@ include 'inc/header.php';
       <td>
         <iframe
           src="http://mapserver.flightgear.org/lightmap/?lon=-117.12099&amp;lat=32.73356&amp;zoom=12"
-          width="600" height="450"
+          width="450" height="450"
           scrolling="no"
           marginwidth="2" marginheight="2"
           frameborder="0">
@@ -35,7 +37,6 @@ include 'inc/header.php';
       </tr>
     </table>
     <br />
-    </center>
     <a href="http://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport codes From Wikipedia</a>
     <br />
     <a href="http://worldaerodata.com/countries/">ICAO airport codes From WorldAeroData.com</a>
@@ -47,9 +48,8 @@ include 'inc/header.php';
     <br />
     TileCache: <a href="http://mapserver.flightgear.org/tc">http://mapserver.flightgear.org/tc</a>
     (EPSG:900913 !!)
-    <center>
     <hr />
-
+    </center>
     <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows">
 
     <form method="post" action="http://mapserver.flightgear.org/icaolayers.php">
