@@ -4,11 +4,11 @@
 ?>
 <html>
 <head>
+    <link rel="stylesheet" href="/css/lightbox.css" type="text/css"/>
 </head>
 <body>
-<center>
-<h3>FlightGear Scenery Main</h3>
-
+<script type="text/javascript" src="/inc/js/lightbox/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/inc/js/lightbox/lightbox.js"></script>
 <?php
 srand((double)microtime()*1000000);
 $affimage = rand(1, 2477);
@@ -28,17 +28,20 @@ $affimage = rand(1, 2477);
         </td>
         <td>
             <center>
-            <img src="modelthumb.php?id=<?php echo $affimage; ?>"
+            <?php
+            for ($i=0; $i<2477; $i++) {
+                    if($i == $affimage) {
+                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i." rel=\"lightbox[submission]\" title=\"1st texture\"><img src="modelthumb.php?id=".$affimage."\"></a>\n";
+                    }
+                    else
+                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i." rel=\"lightbox[submission]\" title=\"1st texture\"></a>\n";
+            }
+?>
             </center><br />
             <center>Discover this model and more <a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $affimage; ?>">here</a></center>
         </td>
         </tr>
     </table>
 </center>
-<?php
-    for ($i=0; $i<2477; $i++) {
-            echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i." rel=\"lightbox[submission]\" title=\"1st texture\"></a>";
-}
-?>
 </body>
 </html>
