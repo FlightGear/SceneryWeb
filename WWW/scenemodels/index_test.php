@@ -9,6 +9,8 @@
 <body>
 <script type="text/javascript" src="/inc/js/lightbox/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/inc/js/lightbox/lightbox.js"></script>
+<center>
+<h3>FlightGear Scenery Main</h1>
 <?php
 srand((double)microtime()*1000000);
 $affimage = rand(1, 2477);
@@ -31,10 +33,10 @@ $affimage = rand(1, 2477);
             <?php
             for ($i=0; $i<2477; $i++) {
                     if ($i == $affimage) {
-                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i."\" rel=\"lightbox[submission]\" title=\"".$i."st texture\"><img src=\"modelthumb.php?id=".$affimage."\"></a>\n";
+                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i."\" rel=\"lightbox[submission]\" title=\"".$i."th texture\"><img src=\"modelthumb.php?id=".$affimage."\"></a>\n";
                     }
                     else
-                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i."\" rel=\"lightbox[submission]\" title=\"1st texture\"></a>\n";
+                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i."\" rel=\"lightbox[submission]\" title=\"".$i."th texture\"></a>\n";
             }
 ?>
             </center><br />
