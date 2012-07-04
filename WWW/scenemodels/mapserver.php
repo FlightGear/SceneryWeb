@@ -37,6 +37,7 @@ include 'inc/header.php';
       </tr>
     </table>
     <br />
+    <center>
     <a href="http://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport codes From Wikipedia</a>
     <br />
     <a href="http://worldaerodata.com/countries/">ICAO airport codes From WorldAeroData.com</a>
@@ -203,6 +204,8 @@ include 'inc/header.php';
     </form>
   </table>
   <hr />
+  </center>
+  <center>
   In order to retrieve airfield locations, please use this syntax:<br />
   http://mapserver.flightgear.org/loc.php?icao=&#60add your ICAO code here&#62
   </center>
@@ -216,7 +219,6 @@ include 'inc/header.php';
   outdated but the bottom line is still valid
   <br />
   <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a>
-
   </center>
 <?php
 include('inc/footer.php');
