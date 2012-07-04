@@ -18,9 +18,9 @@ include 'inc/header.php';
 </center>
     <hr />
 <!-- include 'include/locateIp.php'; -->
-    <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows" width="70%">
+    <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows" width="600px">
       <tr>
-      <td>
+      <td><center>
         <iframe
           src="http://mapserver.flightgear.org/lightmap/?lon=-117.12099&amp;lat=32.73356&amp;zoom=12"
           width="450" height="450"
@@ -28,6 +28,7 @@ include 'inc/header.php';
           marginwidth="2" marginheight="2"
           frameborder="0">
         </iframe>
+        </center>
       </td>
       <td bgcolor="#DDDDDD"><center>
         <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
