@@ -8,19 +8,12 @@
 <body>
 <center>
 <?php
-$nbimages = 4;
-$nomimages = array();
-for ($i = 1; $i <= 2477; $i++) {
-    $nomimages[$i]="image".$i.".jpg";
-    echo $nomimages[$i];
-}
 srand((double)microtime()*1000000);
-$affimage = rand(1, $nbimages);
-echo $affimage;
+$affimage = rand(1, 2477);
+echo result: $affimage;
 echo "<img src=\"modelthumb.php?id=";
 echo $affimage;
 echo "\" width=\"320\" height=\"240\"";
-echo $nomimages[$affimage];
 echo " border=0 alt=\"Random picture\">";
 ?>
 </center>
