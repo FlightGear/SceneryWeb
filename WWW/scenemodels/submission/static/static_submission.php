@@ -298,25 +298,12 @@ else {
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
                                     $j++;
-                                    if($j == 2) { // Managing the data not separated by comma;
-                                        $fix = explode(" ",$data_from_query);
-                                        $k = 0;
-                                        foreach ($fix as $value) {
-                                            $k++;
-                                            if ($k == 1) { $long = $value; echo $value; }
-                                            if ($k == 2) { $lat = $value; echo $value; }
-                                            if ($k == 3) { echo $value; }
-                                        }
-                                    }
-                                    else if ($j == 3) {
-                                        echo $data_from_query;
-                                    }
-                                    else if($j == 4) {
-                                        $model = object_name($data_from_query);
-                                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$data_from_query."\" >".$model."</a>\n";
-                                    }
-                                    else if($j == 5) { echo ""; } // I have to admit I don't know why I wrote this
-                                    else if($j != 1) { echo $data_from_query."\n"; } // Nor this. Snip. But must be a reason why.
+                                    if ($j == 1) echo "lat =".$data_from_query."<br />";
+                                    if ($j == 2) echo "long =".$data_from_query."<br />";
+                                    if ($j == 3) echo "gndelev =".$data_from_query."<br />";
+                                    if ($j == 4) echo "offset =".$data_from_query."<br />";
+                                    if ($j == 5) echo "heading =".$data_from_query."<br />";
+                                    if ($j == 6) echo "model =".$data_from_query."<br />";
                                 }
                         }
                         echo "<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>";
