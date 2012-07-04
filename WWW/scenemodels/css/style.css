@@ -1,3 +1,7 @@
+TD.titleback {
+    background-image:url("/img/titleback.jpg");
+}
+
 BODY {
     background: #f0f0f0;
     color: #000000;
