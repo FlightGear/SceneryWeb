@@ -19,9 +19,9 @@ $affimage = rand(1, $nbimages);
 echo $affimage;
 echo "<img src=\"modelthumb.php?id=";
 echo $affimage;
-echo "\" width=\"100\" height=\"75\"";
+echo "\" width=\"320\" height=\"240\"";
 echo $nomimages[$affimage];
-echo " border=0 width=150 height=112 alt=\"Random picture\">";
+echo " border=0 alt=\"Random picture\">";
 ?>
 </center>
 </body>
