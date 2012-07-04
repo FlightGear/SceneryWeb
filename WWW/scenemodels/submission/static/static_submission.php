@@ -264,7 +264,7 @@ else {
                 exit;
             }
             else {
-                   while ($row = pg_fetch_row($result)) {
+                    while ($row = pg_fetch_row($result)) {
                         $sqlzbase64 = $row[1];
 
                         // Base64 decode the query
@@ -275,14 +275,20 @@ else {
                         echo $query_rw;
 
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
-                        $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
+                        $tab_tags = explode(", (", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         foreach ($tab_tags as $value_tag) {
                                 $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
+                                echo $trigged_0;
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
+                                echo $trigged_1;
                                 $trigged_2 = str_replace("1);","",$trigged_1);                        // Removing 1); from data;
+                                echo $trigged_2;
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
+                                echo $trigged_3;
                                 $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
+                                echo $trigged_4;
                                 $trigged_5 = str_replace(",,",",",$trigged_4);                        // Finally, removing , from data;
+                                echo $trigged_5;
                                 $data = explode(", ",$trigged_5);                                     // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
@@ -308,16 +314,23 @@ else {
                                     else if($j != 1) { echo $data_from_query."\n"; } // Nor this. Snip. But must be a reason why.
                                 }
                         }
+                        echo "<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>";
+                        echo "<p class=\"center\">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>";
+                        ?>
+
+
+
+
+
+
+
                     }
                 }
         }
     }
 }
 
-echo "<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>";
-echo "<p class=\"center\">";
-echo "<p class=\"center\">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>";
-?>
+
 <form name="validation" method="post" action="static_submission.php">
 <table>
     <tr>
