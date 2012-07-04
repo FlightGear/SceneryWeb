@@ -15,7 +15,11 @@ for ($i = 1; $i <= count_models(); $i++) {
 }
 srand((double)microtime()*1000000);
 $affimage = rand(1,$nbimages);
-print("<img src=\"modelthumb.php?id=".$affimage."\"" width="100" height="75".$nomimages[$affimage]." border=0 width=150 height=112 alt=\"Random picture\">");
+echo "<img src=\"modelthumb.php?id=";
+echo $affimage;
+echo "\" width=\"100\" height=\"75\"";
+echo $nomimages[$affimage];
+echo " border=0 width=150 height=112 alt=\"Random picture\">";
 ?>
 </center>
 </body>
