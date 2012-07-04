@@ -295,15 +295,15 @@ else {
                                 $trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
                                 echo "trigged7 :".$trigged_7."<br />";
                                 $data = explode(" ",$trigged_7);                                     // Now showing the results
-                                $j = 1;
+                                $j = 0;
                                 foreach ($data as $data_from_query) {
+                                    if ($j == 0) echo "lat =".$data_from_query."<br />";
+                                    if ($j == 1) echo "long =".$data_from_query."<br />";
+                                    if ($j == 2) echo "gndelev =".$data_from_query."<br />";
+                                    if ($j == 3) echo "offset =".$data_from_query."<br />";
+                                    if ($j == 4) echo "heading =".$data_from_query."<br />";
+                                    if ($j == 5) echo "model =".$data_from_query."<br />";
                                     $j++;
-                                    if ($j == 1) echo "lat =".$data_from_query."<br />";
-                                    if ($j == 2) echo "long =".$data_from_query."<br />";
-                                    if ($j == 3) echo "gndelev =".$data_from_query."<br />";
-                                    if ($j == 4) echo "offset =".$data_from_query."<br />";
-                                    if ($j == 5) echo "heading =".$data_from_query."<br />";
-                                    if ($j == 6) echo "model =".$data_from_query."<br />";
                                 }
                         }
                         echo "<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>";
