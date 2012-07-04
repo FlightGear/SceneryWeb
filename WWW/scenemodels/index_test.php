@@ -33,10 +33,10 @@ $affimage = rand(1, 2477);
             <?php
             for ($i=0; $i<2477; $i++) {
                     if ($i == $affimage) {
-                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i."\" rel=\"lightbox[submission]\" title=\"".$i."th texture\"><img src=\"modelthumb.php?id=".$affimage."\"></a>\n";
+                        echo "<a href=\"#\" rel=\"lightbox[submission]\" title=\"".$i."th texture\"><img src=\"modelthumb.php?id=".$affimage."\"></a>\n";
                     }
                     else
-                        echo "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$i."\" rel=\"lightbox[submission]\" title=\"".$i."th texture\"></a>\n";
+                        echo "<a href=\"#\" rel=\"lightbox[submission]\" title=\"".$i."th texture\"></a>\n";
             }
 ?>
             </center><br />
