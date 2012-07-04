@@ -31,12 +31,11 @@ $affimage = rand(1, 2477);
             <iframe
                 src="modelthumb.php?id=<?php echo $affimage; ?>"
                 width="480" height="360"
-                scrolling="no"
+                scrolling="no" align="center"
                 marginwidth="2" marginheight="2"
                 frameborder="0" alt="Random picture">
             </iframe>
-            Discover this model and more <a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $affimage; ?>">here</a>
-            </center>
+            <center>Discover this model and more <a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $affimage; ?>">here</a></center>
         </td>
         </tr>
     </table>
