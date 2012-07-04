@@ -290,7 +290,7 @@ else {
                                 echo "trigged4 :".$trigged_4."<br />";
                                 $trigged_5 = str_replace("VALUES (","",$trigged_4);                      // Removing VALUES(;
                                 echo "trigged5 :".$trigged_5."<br />";
-                                $trigged_6 = str_replace(",","",$trigged_5);                        // Finally, removing , from data;
+                                $trigged_6 = str_replace("'","",$trigged_5);                        // Finally, removing ' from data;
                                 echo "trigged6 :".$trigged_6."<br />";
                                 $data = explode(" ",$trigged_6);                                     // Now showing the results
                                 $j = 0;
