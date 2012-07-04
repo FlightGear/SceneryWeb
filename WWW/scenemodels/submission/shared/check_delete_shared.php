@@ -115,7 +115,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
-                        "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
+                        "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                         "issued the following request:" . "\r\n";
         }
@@ -123,7 +123,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
-                        "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
+                        "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
         $message077 = wordwrap($message0, 77, "\r\n");
