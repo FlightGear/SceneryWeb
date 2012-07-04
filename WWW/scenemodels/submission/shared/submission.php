@@ -96,7 +96,7 @@ else {
                                 // OK, let's start with the mail redaction.
                                 // Who will receive it ?
                                 $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-                                if(isset($_GET['email'])) {
+                                if (isset($_GET['email'])) {
                                 $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
                                 $to .= $_GET["email"];
                                 }

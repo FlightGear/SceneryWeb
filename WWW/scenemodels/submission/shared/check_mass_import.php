@@ -319,6 +319,7 @@ if ($false == 0) {
                         "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
+        $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "\r\n".
