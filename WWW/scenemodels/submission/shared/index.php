@@ -101,7 +101,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
             Map
         </td>
         <td>
-            <iframe id="map" src="map.php?zoom=13&lat=0&lon=0" width="300" height="225"></iframe>
+            <iframe id="map" src="http://mapserver.flightgear.org/submap/?zoom=13&lat=0&lon=0" width="300" height="225"></iframe>
         </td>
     </tr>
     <tr>
