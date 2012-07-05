@@ -381,7 +381,7 @@ else {
                                                 echo "six: ".$mo_modelfile;
                                                 }
                                                     else if ($j == 7) {
-                                                        $mo_shared = str_replace("'"), "", $value_tag);
+                                                        $mo_shared = str_replace("'", "", $value_tag);
                                                         echo "seven:" .$mo_shared;
                                                     }
                         }
