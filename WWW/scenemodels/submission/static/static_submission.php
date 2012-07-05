@@ -355,7 +355,7 @@ else {
                                         $mo_name = str_replace("'", "", $value_tag);
                                     }
                                         else if ($j == 4) {
-                                            $mo_comment = str_replace("'", "", $value_tag);
+                                            $mo_notes = str_replace("'", "", $value_tag);
                                         }
                                             else if ($j == 5) {
                                                 $mo_thumbfile = str_replace("'", "", $value_tag);
