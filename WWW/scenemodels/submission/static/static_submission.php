@@ -427,8 +427,12 @@ else {
     </tr>
     <tr>
         <td>Map</td>
-        <td><center><iframe id="map" src="http://mapserver.flightgear.org/submap/?zoom=13&lat=<?php echo $ob_lat; ?>&lon=<?php echo $ob_long; ?>&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
-</iframe></center></td>
+        <td>
+        <center>
+        <iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $ob_long; ?>&lat=<?php echo $ob_lat; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF13" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+        </iframe>
+        </center>
+        </td>
     </tr>
     <tr>
         <td>Country</td>
@@ -448,7 +452,7 @@ else {
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><img src="#"><?php header("Content-type: image/jpg"); echo $mo_thumbfile; ?></img></td>
+        <td><img src="get_thumbnail_from_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></img></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
