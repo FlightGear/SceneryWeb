@@ -34,7 +34,7 @@
                             $j++;
                             if ($j == 5) {
                                 $mo_thumbfile = str_replace("'", "", $value_tag);
-                                echo $mo_thumbfile;
+                                echo base64_decode($mo_thumbfile);
                             }
                         }
                     }
