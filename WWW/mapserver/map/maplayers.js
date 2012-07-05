@@ -206,7 +206,7 @@
 	var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
 	  [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
 	    "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
-	  {layers: 'fgs_objects', transparent: 'true', format: 'image/png'},
+	  {layers: 'fgs_staticobjects,fgs_sharedobjects', transparent: 'true', format: 'image/png'},
 	  {isBaseLayer: false}
 	);
 
