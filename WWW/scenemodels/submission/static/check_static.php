@@ -662,9 +662,9 @@ else {
     $mo_query .= "RETURNING mo_id";
 
     # Inserts into fgsoj_models and returns current mo_id
-    $ob_model = pg_query($resource_rw, $mo_query);
-    $ob_model = pg_fetch_row($ob_model);
-    $ob_model = $ob_model[0];
+    //$ob_model = pg_query($resource_rw, $mo_query);
+    //$ob_model = pg_fetch_row($ob_model);
+    //$ob_model = $ob_model[0];
 
     $ob_query  = "INSERT INTO fgsoj_objects ";
 //  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
@@ -680,9 +680,6 @@ else {
     $ob_query .= "'1'";                                                                   // ob_group
 //    $ob_query .= "'".$contributor."'";                                                    // ob_submitter
     $ob_query .= ")";
-
-    # Insert into fgsoj_objects
-    //pg_query($resource_rw, $ob_query);
 
     // Object Stuff into pending requests table.
     $ob_sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";
