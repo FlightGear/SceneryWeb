@@ -351,8 +351,8 @@ else {
                         // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
 
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
-                        echo "trigged :".substr($trigged_query_rw,0,500)."<br/>";
-                        $tab_tags = explode("', '", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
+                        echo "trigged :<br />".substr($trigged_query_rw,0,500)."<br/>";
+                        $tab_tags = explode("', '", $trigged_query_rw); // Separating the data based on ', '
                         foreach ($tab_tags as $value_tag) {
                                 //$trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
                                 //echo "trigged0 :".$trigged_0."<br />";
@@ -371,9 +371,9 @@ else {
                                 //$trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
                                 //echo "trigged7 :".$trigged_7."<br />";
                                 $j = 0;
-                                if ($j == 1) { echo $value_tag; $mo_path = $value_tag; }
-                                if ($j == 2) { echo $value_tag; $mo_author = $value_tag; }
-                                if ($j == 3) { echo $value_tag; $mo_name = $value_tag; }
+                                if ($j == 1) { echo "one :".$value_tag; $mo_path = $value_tag; }
+                                if ($j == 2) { echo "two :".$value_tag; $mo_author = $value_tag; }
+                                if ($j == 3) { echo "three: ".$value_tag; $mo_name = $value_tag; }
                                 // if ($j == 4) $ob_elevoffset = $data_from_query;
                                 // if ($j == 5) $ob_heading = $data_from_query;
                                 // if ($j == 6) ; // Not using model for now, it's not yet inserted
