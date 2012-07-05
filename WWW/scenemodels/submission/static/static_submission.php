@@ -373,7 +373,7 @@ else {
                                             echo "four: ".$mo_notes;
                                         }
                                             else if ($j == 5) {
-                                                $mo_thumbfile = ("'", "", $value_tag);
+                                                $mo_thumbfile = str_replace("'", "", $value_tag);
                                                 echo "five: ".$mo_thumbfile;
                                             }
 
