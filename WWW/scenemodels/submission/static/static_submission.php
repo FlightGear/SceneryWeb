@@ -249,14 +249,14 @@ if(!$ok) {
 }
 else {
     // Check the presence of "signature", its length (64) and its content.
-    if ((isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"])) {
+    if ((isset($_GET["ob_sig"])) && ((strlen($_GET["ob_sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["ob_sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
+            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["ob_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 echo "<center>";
                 echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
@@ -361,6 +361,10 @@ else {
     <tr>
         <td>Longitude</td>
         <td><?php echo $ob_long; ?></td>
+    </tr>
+    <tr>
+        <td>Map</td>
+        <td></td>
     </tr>
     <tr>
         <td>Country</td>
