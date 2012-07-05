@@ -1,5 +1,5 @@
 <?php
-header("Content-type: image/jpg");
+//header("Content-type: image/jpg");
     if ((isset($_GET["mo_sig"])) && ((strlen($_GET["mo_sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["mo_sig"])) {
         $resource_rw = connect_sphere_rw();
 
@@ -26,32 +26,15 @@ header("Content-type: image/jpg");
 
                         // Gzuncompress the query
                         $query_rw = gzuncompress($sqlz);
-                        //echo "Raw mo_query :".substr($query_rw,0,500)."<br />";
-
-                        // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
-                        // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
-
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
                         $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
                         $j = 0;
                         foreach ($tab_tags as $value_tag) {
                             $j++;
-                            if ($j == 1) {
-                                $mo_path = str_replace(".xml", "", (str_replace("'", "", $value_tag)));
+                            if ($j == 5) {
+                                $mo_thumbfile = str_replace("'", "", $value_tag);
+                                echo $mo_thumbfile;
                             }
-                                else if ($j == 2) {
-                                    $mo_author = get_authors_name_from_authors_id(str_replace("'", "", $value_tag));
-                                }
-                                    else if ($j == 3) {
-                                        $mo_name = str_replace("'", "", $value_tag);
-                                    }
-                                        else if ($j == 4) {
-                                            $mo_notes = str_replace("'", "", $value_tag);
-                                        }
-                                            else if ($j == 5) {
-                                                $mo_thumbfile = str_replace("'", "", $value_tag);
-                                                echo $mo_thumbfile;
-                                            }
                         }
                     }
                 }

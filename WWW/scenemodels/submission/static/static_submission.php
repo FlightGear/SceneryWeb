@@ -452,7 +452,7 @@ else {
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><img src="get_thumbnail_from_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></img></td>
+        <td><img src="get_thumbnail_from_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
