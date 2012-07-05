@@ -135,13 +135,13 @@
         
         map.addLayers([yahoosat, mapnik, osmarender, tarmac, osmlines, wmsobjects, jsonobjects, wmssigns, wfssigns]);
 
-        objects.events.on({
+        jsonobjects.events.on({
             'featureselected': onFeatureSelect,
             'featureunselected': onFeatureUnselect
         });
 
         selectControl = new OpenLayers.Control.SelectFeature(
-          [objects],
+          [jsonobjects],
           {
             clickout: true, toggle: true,
             multiple: true, hover: false,
