@@ -376,10 +376,14 @@ else {
                                                 $mo_thumbfile = str_replace("'", "", $value_tag);
                                                 echo "five: ".$mo_thumbfile;
                                             }
-
-                            // if ($j == 4) $ob_elevoffset = $data_from_query;
-                            // if ($j == 5) $ob_heading = $data_from_query;
-                            // if ($j == 6) ; // Not using model for now, it's not yet inserted
+                                                else if ($j == 6) {
+                                                $mo_modelfile = str_replace("'", "", $value_tag);
+                                                echo "six: ".$mo_modelfile;
+                                                }
+                                                    else if ($j == 7) {
+                                                        $mo_shared = str_replace("'"), "", $value_tag);
+                                                        echo "seven:" .$mo_shared;
+                                                    }
                         }
 
 
@@ -415,7 +419,7 @@ else {
     </tr>
     <tr>
         <td>Family</td>
-        <td></td>
+        <td><?php echo $mo_shared; ?></td>
     </tr>
     <tr>
         <td>Proposed Path Name</td>
@@ -460,11 +464,11 @@ else {
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><?php header("Content-type: image/jpg"); echo $mo_thumbfile; ?></td>
+        <td><img src="#"><?php header("Content-type: image/jpg"); echo $mo_thumbfile; ?></img></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
-        <td></td>
+        <td><img src="#"><?php echo $mo_modelfile; ?></td>
     </tr>
     <tr>
         <td>Corresponding XML File</td>
