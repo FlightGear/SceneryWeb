@@ -460,7 +460,7 @@ else {
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td></td>
+        <td><?php header("Content-type: image/jpg"); echo $mo_thumbfile; ?></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
