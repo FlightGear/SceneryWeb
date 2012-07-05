@@ -98,6 +98,7 @@ else {
                         <tr>
                         <td colspan="7">
                         <center>
+                        <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET[email]."\" />"; ?>
                         <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET[sig]."\" />"; ?>
                         <input type="submit" name="submit" value="Submit the mass import!" />
                         <input type="submit" name="cancel" value="Reject - Do not import!" />
@@ -170,9 +171,9 @@ else {
                     // OK, let's start with the mail redaction.
                     // Who will receive it ?
                     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-                    if (isset($_GET["email"])) {
+                    if (isset($_POST["email"])) {
                         $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, " ;
-                        $to .= $_GET["email"];
+                        $to .= $_POST["email"];
                     }
                     else {
                         $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";

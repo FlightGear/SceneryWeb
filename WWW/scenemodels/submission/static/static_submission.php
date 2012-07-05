@@ -248,15 +248,17 @@ if(!$ok) {
     <?php include '../../inc/footer.php';
 }
 else {
-    // Check the presence of "signature", its length (64) and its content.
-    if ((isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"])) {
+
+    // Working on the object, first
+    // Check the presence of "ob_sig", its length (64) and its content.
+    if ((isset($_GET["ob_sig"])) && ((strlen($_GET["ob_sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["ob_sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
+            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["ob_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 echo "<center>";
                 echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
@@ -309,15 +311,86 @@ else {
                                     $j++;
                                 }
                         }
-                        echo "<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>";
-                        echo "<p class=\"center\">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>";
 
                     }
                 }
         }
     }
+
+    // Working on the model, now
+    // Check the presence of "mo_sig", its length (64) and its content.
+    if ((isset($_GET["mo_sig"])) && ((strlen($_GET["mo_sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["mo_sig"])) {
+        $resource_rw = connect_sphere_rw();
+
+        // If connection is OK
+        if($resource_rw != '0') {
+
+            // Checking the presence of sig into the database
+            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["mo_sig"] ."';");
+            if (pg_num_rows($result) != 1) {
+                echo "<center>";
+                echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
+                echo "Else, please report to fg-devel ML or FG Scenery forum.<br />";
+                echo "</center>";
+                include '../../inc/footer.php';
+                @pg_close($resource_rw);
+                exit;
+            }
+            else {
+                    while ($row = pg_fetch_row($result)) {
+                        $sqlzbase64 = $row[1];
+
+                        // Base64 decode the query
+                        $sqlz = base64_decode($sqlzbase64);
+
+                        // Gzuncompress the query
+                        $query_rw = gzuncompress($sqlz);
+                        //echo "Raw mo_query :".substr($query_rw,0,500)."<br />";
+
+                        // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
+                        // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
+
+                        $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
+                        echo "trigged :".substr($trigged_query_rw,0,500)."<br/>";
+                        $tab_tags = explode("', '", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
+                        foreach ($tab_tags as $value_tag) {
+                                //$trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
+                                //echo "trigged0 :".$trigged_0."<br />";
+                                //$trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
+                                //echo "trigged1 :".$trigged_1."<br />";
+                                //$trigged_2 = str_replace(", '1')","",$trigged_1);                        // Removing 1); from data;
+                                //echo "trigged2 :".$trigged_2."<br />";
+                                //$trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
+                                // echo "trigged3 :".$trigged_3."<br />";
+                                //$trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
+                                //echo "trigged4 :".$trigged_4."<br />";
+                                //$trigged_5 = str_replace("VALUES (","",$trigged_4);                      // Removing VALUES(;
+                                //echo "trigged5 :".$trigged_5."<br />";
+                                //$trigged_6 = str_replace("'","",$trigged_5);                        // Finally, removing ' from data;
+                                //echo "trigged6 :".$trigged_6."<br />";
+                                //$trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
+                                //echo "trigged7 :".$trigged_7."<br />";
+                                $j = 0;
+                                if ($j == 1) $mo_path = $value_tag;
+                                if ($j == 2) $mo_author = $value_tag;
+                                if ($j == 3) $mo_name = $value_tag;
+                                // if ($j == 4) $ob_elevoffset = $data_from_query;
+                                // if ($j == 5) $ob_heading = $data_from_query;
+                                // if ($j == 6) ; // Not using model for now, it's not yet inserted
+                                $j++;
+                        }
+
+
+                    }
+                }
+        }
+    }
+
 }
 ?>
+
+<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>
+<p class=\"center\">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
 <form name="validation" method="post" action="static_submission.php">
 <table>
@@ -327,7 +400,7 @@ else {
     </tr>
     <tr>
         <td>Author</td>
-        <td></td>
+        <td><?php echo $mo_author; ?></td>
     </tr>
     <tr>
         <td>Contributor</td>
@@ -344,11 +417,11 @@ else {
     </tr>
     <tr>
         <td>Proposed Path Name</td>
-        <td></td>
+        <td><?php echo $mo_path; ?></td>
     </tr>
     <tr>
         <td>Description</td>
-        <td></td>
+        <td><?php echo $mo_name; ?></td>
     </tr>
     <tr>
         <td>Comment</td>
@@ -361,6 +434,11 @@ else {
     <tr>
         <td>Longitude</td>
         <td><?php echo $ob_long; ?></td>
+    </tr>
+    <tr>
+        <td>Map</td>
+        <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $ob_long; ?>&lat=<?php echo $ob_lat; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+</iframe></center></td>
     </tr>
     <tr>
         <td>Country</td>
