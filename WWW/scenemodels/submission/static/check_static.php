@@ -689,7 +689,7 @@ else {
     $ob_sha_hash = hash('sha256', $ob_sha_to_compute);
     $ob_zipped_base64_rw_query = gzcompress($ob_query, 8);                       // Zipping the Base64'd request.
     $ob_base64_rw_query = base64_encode($ob_zipped_base64_rw_query);               // Coding in Base64.
-    $ob_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$ob_base64_rw_query."');";
+    $ob_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$ob_sha_hash."', '".$ob_base64_rw_query."');";
     $resultrw = @pg_query($resource_rw, $ob_query_rw_pending_request);          // Sending the request...
 
     // Model stuff into pending requests table.
@@ -697,7 +697,7 @@ else {
     $mo_sha_hash = hash('sha256', $mo_sha_to_compute);
     $mo_zipped_base64_rw_query = gzcompress($mo_query, 8);                       // Zipping the Base64'd request.
     $mo_base64_rw_query = base64_encode($mo_zipped_base64_rw_query);               // Coding in Base64.
-    $mo_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$mo_base64_rw_query."');";
+    $mo_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$mo_sha_hash."', '".$mo_base64_rw_query."');";
     $resultrw = @pg_query($resource_rw, $mo_query_rw_pending_request);          // Sending the request...
 
     @pg_close($resource_rw);                                                 // Closing the connection.
