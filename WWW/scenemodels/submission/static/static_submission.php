@@ -301,7 +301,6 @@ else {
                                     $j++;
                                 }
                         }
-
                     }
                 }
         }
@@ -335,11 +334,9 @@ else {
 
                         // Gzuncompress the query
                         $query_rw = gzuncompress($sqlz);
-                        //echo "Raw mo_query :".substr($query_rw,0,500)."<br />";
 
                         // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
                         // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
-
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
                         $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
                         $j = 0;
@@ -452,11 +449,11 @@ else {
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><img src="get_thumbnail_from_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></td>
+        <td><center><img src="get_thumbnail_from_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
-        <td><img src="#"><?php echo $mo_modelfile; ?></td>
+        <td><?php echo substr($mo_modelfile,0,100); ?>...</td>
     </tr>
     <tr>
         <td>Corresponding XML File</td>
@@ -498,7 +495,6 @@ else {
     </tr>
 </form>
 </table>
-</p>
 <?php
 include '../../inc/footer.php';
 }
