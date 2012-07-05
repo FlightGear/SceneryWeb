@@ -277,28 +277,18 @@ else {
 
                         // Gzuncompress the query
                         $query_rw = gzuncompress($sqlz);
-                        //echo "Raw query :".$query_rw."<br />";
 
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
-                        //echo "trigged :".$trigged_query_rw."<br/>";
                         $tab_tags = explode(", (", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         foreach ($tab_tags as $value_tag) {
                                 $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
-                                //echo "trigged0 :".$trigged_0."<br />";
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
-                                //echo "trigged1 :".$trigged_1."<br />";
                                 $trigged_2 = str_replace(", '1')","",$trigged_1);                        // Removing 1); from data;
-                                //echo "trigged2 :".$trigged_2."<br />";
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
-                                // echo "trigged3 :".$trigged_3."<br />";
                                 $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
-                                //echo "trigged4 :".$trigged_4."<br />";
                                 $trigged_5 = str_replace("VALUES (","",$trigged_4);                      // Removing VALUES(;
-                                //echo "trigged5 :".$trigged_5."<br />";
                                 $trigged_6 = str_replace("'","",$trigged_5);                        // Finally, removing ' from data;
-                                //echo "trigged6 :".$trigged_6."<br />";
                                 $trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
-                                //echo "trigged7 :".$trigged_7."<br />";
                                 $data = explode(" ",$trigged_7);                                     // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
@@ -351,38 +341,30 @@ else {
                         // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
 
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
-                        echo "trigged :<br />".substr($trigged_query_rw,0,500)."<br/>";
                         $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
                         $j = 0;
                         foreach ($tab_tags as $value_tag) {
                             $j++;
                             if ($j == 1) {
                                 $mo_path = str_replace(".xml", "", (str_replace("'", "", $value_tag)));
-                                echo "one :".$mo_path;
                             }
                                 else if ($j == 2) {
                                     $mo_author = get_authors_name_from_authors_id(str_replace("'", "", $value_tag));
-                                    echo "two:".$mo_author;
                                 }
                                     else if ($j == 3) {
                                         $mo_name = str_replace("'", "", $value_tag);
-                                        echo "three: ".$mo_name;
                                     }
                                         else if ($j == 4) {
                                             $mo_comment = str_replace("'", "", $value_tag);
-                                            echo "four: ".$mo_notes;
                                         }
                                             else if ($j == 5) {
                                                 $mo_thumbfile = str_replace("'", "", $value_tag);
-                                                echo "five: ".$mo_thumbfile;
                                             }
                                                 else if ($j == 6) {
                                                 $mo_modelfile = str_replace("'", "", $value_tag);
-                                                echo "six: ".$mo_modelfile;
                                                 }
                                                     else if ($j == 7) {
                                                         $mo_shared = str_replace("'", "", $value_tag);
-                                                        echo "seven:" .$mo_shared;
                                                     }
                         }
 
