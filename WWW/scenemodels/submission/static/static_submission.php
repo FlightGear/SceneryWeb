@@ -353,37 +353,21 @@ else {
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
                         echo "trigged :<br />".substr($trigged_query_rw,0,500)."<br/>";
                         $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
+                        $j = 0;
                         foreach ($tab_tags as $value_tag) {
-                                //$trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
-                                //echo "trigged0 :".$trigged_0."<br />";
-                                //$trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
-                                //echo "trigged1 :".$trigged_1."<br />";
-                                //$trigged_2 = str_replace(", '1')","",$trigged_1);                        // Removing 1); from data;
-                                //echo "trigged2 :".$trigged_2."<br />";
-                                //$trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
-                                // echo "trigged3 :".$trigged_3."<br />";
-                                //$trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
-                                //echo "trigged4 :".$trigged_4."<br />";
-                                //$trigged_5 = str_replace("VALUES (","",$trigged_4);                      // Removing VALUES(;
-                                //echo "trigged5 :".$trigged_5."<br />";
-                                //$trigged_6 = str_replace("'","",$trigged_5);                        // Finally, removing ' from data;
-                                //echo "trigged6 :".$trigged_6."<br />";
-                                //$trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
-                                //echo "trigged7 :".$trigged_7."<br />";
-                                $j = 1;
-                                if ($j == 1) {
-                                    echo "one :".$value_tag; $mo_path = $value_tag;
+                            $j++;
+                            if ($j == 1) {
+                                echo "one :".$value_tag; $mo_path = $value_tag;
+                            }
+                                else if ($j == 2) {
+                                    echo "two :".$value_tag; $mo_author = $value_tag;
                                 }
-                                    else if ($j == 2) {
-                                        echo "two :".$value_tag; $mo_author = $value_tag;
+                                    else if ($j == 3) {
+                                        echo "three: ".$value_tag; $mo_name = $value_tag;
                                     }
-                                        else if ($j == 3) {
-                                            echo "three: ".$value_tag; $mo_name = $value_tag;
-                                        }
-                                // if ($j == 4) $ob_elevoffset = $data_from_query;
-                                // if ($j == 5) $ob_heading = $data_from_query;
-                                // if ($j == 6) ; // Not using model for now, it's not yet inserted
-                                $j++;
+                            // if ($j == 4) $ob_elevoffset = $data_from_query;
+                            // if ($j == 5) $ob_heading = $data_from_query;
+                            // if ($j == 6) ; // Not using model for now, it's not yet inserted
                         }
 
 
