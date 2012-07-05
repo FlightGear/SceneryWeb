@@ -345,7 +345,7 @@ else {
 
                         // Gzuncompress the query
                         $query_rw = gzuncompress($sqlz);
-                        echo "Raw mo_query :".substr($query_rw,0,80)."<br />";
+                        echo "Raw mo_query :".substr($query_rw,0,500)."<br />";
 
                         // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
                         // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
@@ -373,12 +373,12 @@ else {
                                 $data = explode(" ",$trigged_7);                                     // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
-                                    if ($j == 1) $ob_lat = $data_from_query;
-                                    if ($j == 2) $ob_long = $data_from_query;
-                                    if ($j == 3) $ob_gndelev = $data_from_query;
-                                    if ($j == 4) $ob_elevoffset = $data_from_query;
-                                    if ($j == 5) $ob_heading = $data_from_query;
-                                    if ($j == 6) ; // Not using model for now, it's not yet inserted
+                                   // if ($j == 1) $ob_lat = $data_from_query;
+                                   // if ($j == 2) $ob_long = $data_from_query;
+                                   // if ($j == 3) $ob_gndelev = $data_from_query;
+                                   // if ($j == 4) $ob_elevoffset = $data_from_query;
+                                   // if ($j == 5) $ob_heading = $data_from_query;
+                                   // if ($j == 6) ; // Not using model for now, it's not yet inserted
                                     $j++;
                                 }
                         }
