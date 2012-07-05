@@ -371,14 +371,13 @@ else {
                                 //$trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
                                 //echo "trigged7 :".$trigged_7."<br />";
                                 $j = 0;
-                                   if ($j == 1) $mo_path = $value_tag;
-                                   if ($j == 2) $mo_author = $data_from_query;
-                                   if ($j == 3) $mo_name = $data_from_query;
-                                   // if ($j == 4) $ob_elevoffset = $data_from_query;
-                                   // if ($j == 5) $ob_heading = $data_from_query;
-                                   // if ($j == 6) ; // Not using model for now, it's not yet inserted
-                                    $j++;
-                                }
+                                if ($j == 1) $mo_path = $value_tag;
+                                if ($j == 2) $mo_author = $data_from_query;
+                                if ($j == 3) $mo_name = $data_from_query;
+                                // if ($j == 4) $ob_elevoffset = $data_from_query;
+                                // if ($j == 5) $ob_heading = $data_from_query;
+                                // if ($j == 6) ; // Not using model for now, it's not yet inserted
+                                $j++;
                         }
 
 
