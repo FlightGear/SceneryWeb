@@ -1,4 +1,5 @@
 var box_extents = [];
+
 function toggleDldBox(ev) {
     if(document.getElementById('dlbox').style.display=="none") {
         document.getElementById('dlbox').style.display="inline";
@@ -7,10 +8,12 @@ function toggleDldBox(ev) {
         document.getElementById('dlbox').style.display="none";
     }
 }
+
 var downloadbox = new OpenLayers.Layer.Boxes( "Download-Box" );
 downloadbox.events.on({
     'visibilitychanged': toggleDldBox
 });
+
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
     defaultHandlerOptions: {
         'single': true,
