@@ -50,5 +50,5 @@ function update_map()
     var latitude = document.getElementById('latitude').value;
     
     if(longitude!="" && latitude!="")
-        document.getElementById('map').src = "map.php?zoom=13&lat="+latitude+"&lon="+longitude;
+        document.getElementById('map').src = "http://mapserver.flightgear.org/submap/?zoom=13&lat="+latitude+"&lon="+longitude;
 }
