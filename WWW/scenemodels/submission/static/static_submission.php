@@ -365,13 +365,18 @@ else {
                                     echo "two:".$mo_author;
                                 }
                                     else if ($j == 3) {
-                                        $mo_description = str_replace("'", "", $value_tag);
-                                        echo "three: ".$mo_description;
+                                        $mo_name = str_replace("'", "", $value_tag);
+                                        echo "three: ".$mo_name;
                                     }
-                                    else if ($j == 4) {
-                                        $mo_comment = str_replace("'", "", $value_tag);
-                                        echo "four: ".$mo_comment;
-                                    }
+                                        else if ($j == 4) {
+                                            $mo_comment = str_replace("'", "", $value_tag);
+                                            echo "four: ".$mo_notes;
+                                        }
+                                            else if ($j == 5) {
+                                                $mo_thumbfile = ("'", "", $value_tag);
+                                                echo "five: ".$mo_thumbfile;
+                                            }
+
                             // if ($j == 4) $ob_elevoffset = $data_from_query;
                             // if ($j == 5) $ob_heading = $data_from_query;
                             // if ($j == 6) ; // Not using model for now, it's not yet inserted
@@ -417,12 +422,12 @@ else {
         <td><?php echo $mo_path; ?></td>
     </tr>
     <tr>
-        <td>Description</td>
-        <td><?php echo $mo_description; ?></td>
+        <td>Full Name</td>
+        <td><?php echo $mo_name; ?></td>
     </tr>
     <tr>
-        <td>Comment</td>
-        <td><?php echo $mo_comment; ?></td>
+        <td>Notes</td>
+        <td><?php echo $mo_notes; ?></td>
     </tr>
     <tr>
         <td>Latitude</td>
@@ -434,7 +439,7 @@ else {
     </tr>
     <tr>
         <td>Map</td>
-        <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $ob_lat; ?>&lat=<?php echo $ob_long; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+        <td><center><iframe id="map" src="http://mapserver.flightgear.org/submap/?zoom=13&lat=<?php echo $ob_lat; ?>&lon=<?php echo $ob_long; ?>&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe></center></td>
     </tr>
     <tr>
