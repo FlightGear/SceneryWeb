@@ -365,7 +365,12 @@ else {
                                     echo "two:".$mo_author;
                                 }
                                     else if ($j == 3) {
-                                        echo "three: ".$value_tag; $mo_name = $value_tag;
+                                        $mo_description = str_replace("'", "", $value_tag);
+                                        echo "three: ".$mo_description;
+                                    }
+                                    else if ($j == 4) {
+                                        $mo_comment = str_replace("'", "", $value_tag);
+                                        echo "four: ".$mo_comment;
                                     }
                             // if ($j == 4) $ob_elevoffset = $data_from_query;
                             // if ($j == 5) $ob_heading = $data_from_query;
@@ -413,11 +418,11 @@ else {
     </tr>
     <tr>
         <td>Description</td>
-        <td><?php echo $mo_name; ?></td>
+        <td><?php echo $mo_description; ?></td>
     </tr>
     <tr>
         <td>Comment</td>
-        <td></td>
+        <td><?php echo $mo_comment; ?></td>
     </tr>
     <tr>
         <td>Latitude</td>
@@ -429,7 +434,7 @@ else {
     </tr>
     <tr>
         <td>Map</td>
-        <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $ob_at; ?>&lat=<?php echo $ob_long; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+        <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $ob_lat; ?>&lat=<?php echo $ob_long; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe></center></td>
     </tr>
     <tr>
