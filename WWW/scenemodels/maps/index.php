@@ -114,7 +114,7 @@
             {layers: 'fgs_staticobjects,fgs_sharedobjects', transparent: 'true', format: 'image/png'},
             {isBaseLayer: false, maxScale: 12500 });
         
-        var objects = new OpenLayers.Layer.Vector("Scenery Object Details",{
+        var jsonobjects = new OpenLayers.Layer.Vector("Scenery Object Details",{
             strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})],
             protocol: new OpenLayers.Protocol.HTTP({
               url: "geojson.php",
@@ -133,7 +133,7 @@
             minScale: 12500
         });
         
-        map.addLayers([yahoosat, mapnik, osmarender, tarmac, osmlines, wmsobjects, objects, wmssigns, wfssigns]);
+        map.addLayers([yahoosat, mapnik, osmarender, tarmac, osmlines, wmsobjects, jsonobjects, wmssigns, wfssigns]);
 
         objects.events.on({
             'featureselected': onFeatureSelect,
