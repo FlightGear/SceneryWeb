@@ -352,7 +352,7 @@ else {
 
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
                         echo "trigged :<br />".substr($trigged_query_rw,0,500)."<br/>";
-                        $tab_tags = explode("', '", $trigged_query_rw); // Separating the data based on ', '
+                        $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
                         foreach ($tab_tags as $value_tag) {
                                 //$trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
                                 //echo "trigged0 :".$trigged_0."<br />";
@@ -370,7 +370,7 @@ else {
                                 //echo "trigged6 :".$trigged_6."<br />";
                                 //$trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
                                 //echo "trigged7 :".$trigged_7."<br />";
-                                $j = 0;
+                                $j = 1;
                                 if ($j == 1) { echo "one :".$value_tag; $mo_path = $value_tag; }
                                 if ($j == 2) { echo "two :".$value_tag; $mo_author = $value_tag; }
                                 if ($j == 3) { echo "three: ".$value_tag; $mo_name = $value_tag; }
@@ -389,8 +389,8 @@ else {
 }
 ?>
 
-<p class=\"center\">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>
-<p class=\"center\">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
+<p class="center">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>
+<p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
 <form name="validation" method="post" action="static_submission.php">
 <table>
