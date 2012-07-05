@@ -357,10 +357,12 @@ else {
                         foreach ($tab_tags as $value_tag) {
                             $j++;
                             if ($j == 1) {
-                                echo "one :".$value_tag; $mo_path = $value_tag;
+                                $mo_path = str_replace(".xml", "", (str_replace("'", "", $value_tag)));
+                                echo "one :".$mo_path;
                             }
                                 else if ($j == 2) {
-                                    echo "two :".$value_tag; $mo_author = $value_tag;
+                                    $mo_author = get_authors_name_from_authors_id(str_replace("'", "", $value_tag));
+                                    echo "two:".$mo_author;
                                 }
                                     else if ($j == 3) {
                                         echo "three: ".$value_tag; $mo_name = $value_tag;
@@ -427,7 +429,7 @@ else {
     </tr>
     <tr>
         <td>Map</td>
-        <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $ob_long; ?>&lat=<?php echo $ob_lat; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+        <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $ob_at; ?>&lat=<?php echo $ob_long; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe></center></td>
     </tr>
     <tr>
