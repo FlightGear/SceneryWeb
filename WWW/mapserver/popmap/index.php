@@ -36,7 +36,7 @@
                 if (url instanceof Array) {
                     url = this.selectUrl(path, url);
                 }
-            return url + path;
+                return url + path;
             }
         }
 
@@ -191,7 +191,7 @@
             }
         }
         //-->
-       </script>
+        </script>
     </head>
 
     <body style='margin: 0px;' onload="init();">
