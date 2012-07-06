@@ -481,7 +481,7 @@ else {
     //echo "Is compressed: ".var_dump($file->isCompressed())."<br />";
     //echo "Is BZ2: ".var_dump($file->isCompressed(Phar::BZ2))."<br />";
     //echo "Is GZ: ".var_dump($file->isCompressed(Phar::GZ))."<br />";
-    }
+    //}
 
     //$p = new PharData($file);
     //foreach($p as $fichier) {
@@ -541,6 +541,6 @@ else {
 </form>
 </table>
 <?php
-include '../../inc/footer.php';
 }
+include '../../inc/footer.php';
 ?>
