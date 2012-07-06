@@ -472,14 +472,15 @@ else {
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_files.tar.gz
     }
 
-    $p = new PharData('/tmp/submission/submitted_files.tar', 0, $file);
-    $p->decompressFiles();
-    foreach ($p as $file) {
-    echo "File name: ".var_dump($file->getFileName())."<br />";
-    $p->decompress();
-    echo "Is compressed: ".var_dump($file->isCompressed())."<br />";
-    echo "Is BZ2: ".var_dump($file->isCompressed(Phar::BZ2))."<br />";
-    echo "Is GZ: ".var_dump($file->isCompressed(Phar::GZ))."<br />";
+    system('tar xvzf /tmp/submission/submitted_files.tar.gz');
+    //$p = new PharData('/tmp/submission/submitted_files.tar', 0, $file);
+    //$p->decompressFiles();
+    //foreach ($p as $file) {
+    //echo "File name: ".var_dump($file->getFileName())."<br />";
+    //$p->decompress();
+    //echo "Is compressed: ".var_dump($file->isCompressed())."<br />";
+    //echo "Is BZ2: ".var_dump($file->isCompressed(Phar::BZ2))."<br />";
+    //echo "Is GZ: ".var_dump($file->isCompressed(Phar::GZ))."<br />";
     }
 
     //$p = new PharData($file);
