@@ -454,6 +454,9 @@ else {
 <?php
 // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
 
+    unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
+    clearDir('/tmp/submission');                       // Deletes temporary submission directory
+
     while (file_exists('/tmp/submission')) {
         usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     }
@@ -466,7 +469,7 @@ else {
     if (file_exists($targetPath) && is_dir($targetPath)) {
         $archive = base64_decode($mo_modelfile);            // DeBase64 file
         $file = '/tmp/submission/submitted_files.tar.gz';   // Defines the destination file
-        file_put_contents($file, $mo_modelfile);            // Writes the content of $mo_modelfile into submitted_file.tar.gz
+        file_put_contents($file, $archive);            // Writes the content of $mo_modelfile into submitted_file.tar.gz
 
         $dir = opendir("/tmp/submission");
         while($file = readdir($dir)) {
