@@ -493,7 +493,6 @@ else {
         echo "$file <br />\n";
     }
     closedir($dir);
-    }
 ?>
     <tr>
         <td>Corresponding AC3D File</td>
