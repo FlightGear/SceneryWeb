@@ -472,11 +472,18 @@ else {
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_file.tar.gz
 
     $p = new PharData($file);
+    $p->decompressFiles();
+    foreach ($p as $file) {
+    var_dump($file->getFileName());
+    var_dump($file->isCompressed());
+    var_dump($file->isCompressed(Phar::BZ2));
+    var_dump($file->isCompressed(Phar::GZ));
 
-    foreach($p as $fichier) {
-        echo $fichier."<br />";
-    $p->decompress(Phar::GZ);
-    }
+    //$p = new PharData($file);
+    //foreach($p as $fichier) {
+    //    echo $fichier."<br />";
+    //$p->decompress(Phar::GZ);
+    //}
     //$p->decompress(Phar::GZ);
 
     $dir = opendir("/tmp/submission");
