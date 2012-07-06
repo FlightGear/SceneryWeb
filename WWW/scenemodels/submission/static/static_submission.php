@@ -477,8 +477,8 @@ else {
     $p = new PharData($file);
     foreach($p as $fichier) {
         echo $fichier."<br />";
-        $fichier->decompress();
     }
+    $p->decompressFiles();
 
     //$phar->decompressFiles();
 
