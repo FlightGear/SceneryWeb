@@ -60,7 +60,7 @@ else {
 
 if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
     while (file_exists('/tmp/static')) {
-        usleep(500);
+        usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     }
 
     if (!mkdir('/tmp/static/')) {

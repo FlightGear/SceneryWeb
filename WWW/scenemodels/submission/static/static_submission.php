@@ -451,6 +451,37 @@ else {
         <td>Corresponding Thumbnail</td>
         <td><center><img src="get_thumbnail_from_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></center></td>
     </tr>
+<?php
+// Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
+
+    while (file_exists('/tmp/submission')) {
+        usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
+    }
+
+    if (!mkdir('/tmp/submission/')) {
+        echo "Impossible to create '/tmp/submission/' directory!";
+    }
+    $targetPath = '/tmp/submission';
+
+    if (file_exists($targetPath) && is_dir($targetPath)) {
+        $archive = base64_decode($mo_modelfile);            // DeBase64 file
+        $file = '/tmp/submission/submitted_files.tar.gz';   // Defines the destination file
+        file_put_contents($file, $mo_modelfile);            // Writes the content of $mo_modelfile into submitted_file.tar.gz
+
+        $dir = opendir("/tmp/submission");
+        while($file = readdir($dir)) {
+            echo "$file <br />\n";
+        }
+        closedir($dir);
+
+        //$phar = new PharData('/tmp/static.tar');           // Creates archive file
+        //$phar->buildFromDirectory('/tmp/static');          // Fills archive file
+        //$phar->compress(Phar::GZ);                         // Converts archive file to compress file
+
+        //unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
+        //clearDir('/tmp/submission');                       // Deletes temporary submission directory
+    }
+?>
     <tr>
         <td>Corresponding AC3D File</td>
         <td><?php echo substr($mo_modelfile,0,100); ?>...</td>
