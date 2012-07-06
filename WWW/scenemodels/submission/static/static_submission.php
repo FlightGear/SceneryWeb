@@ -477,7 +477,7 @@ else {
         }
         closedir($dir);
 
-    $lines = gzfile('/tmp/submission/submitted_filtes.tar.gz');
+    $lines = gzfile('/tmp/submission/submitted_files.tar.gz');
     foreach ($lines as $line) {
         echo $line;
     }
