@@ -471,35 +471,18 @@ else {
         $file = '/tmp/submission/submitted_files.tar.gz';   // Defines the destination file
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_file.tar.gz
 
-    //    $last_line = system('gunzip /tmp/submission/submitted_files.tar.gz');
-    //    $last_line = system('tar x /tmp/submission/submitted_files.tar');
-
     $p = new PharData($file);
     foreach($p as $fichier) {
         echo $fichier."<br />";
-    $p->decompressFiles();
+    $p->decompress(Phar::GZ);
     }
+    $p->decompress(Phar::GZ);
 
-
-    //$phar->decompressFiles();
-
-        $dir = opendir("/tmp/submission");
-        while($file = readdir($dir)) {
-            echo "$file <br />\n";
-        }
-        closedir($dir);
-
-    //$lines = gzfile('/tmp/submission/submitted_files.tar.gz');
-    //foreach ($lines as $line) {
-    //    echo $line;
-    //}
-
-        //$phar = new PharData('/tmp/static.tar');           // Creates archive file
-        //$phar->buildFromDirectory('/tmp/static');          // Fills archive file
-        //$phar->compress(Phar::GZ);                         // Converts archive file to compress file
-
-        //unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
-        //clearDir('/tmp/submission');                       // Deletes temporary submission directory
+    $dir = opendir("/tmp/submission");
+    while($file = readdir($dir)) {
+        echo "$file <br />\n";
+    }
+    closedir($dir);
     }
 ?>
     <tr>
