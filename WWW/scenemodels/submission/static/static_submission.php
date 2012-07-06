@@ -474,10 +474,10 @@ else {
     //    $last_line = system('gunzip /tmp/submission/submitted_files.tar.gz');
     //    $last_line = system('tar x /tmp/submission/submitted_files.tar');
 
-    $toto = new PharData($file);
-    foreach($toto as $fichier) {
+    $p = new PharData($file);
+    foreach($p as $fichier) {
         echo $fichier."<br />";
-        $toto->decompress();
+        $fichier->decompress();
     }
 
     //$phar->decompressFiles();
