@@ -81,11 +81,6 @@
         'visibilitychanged': toggleSliders
     });
 
-    var downloadbox = new OpenLayers.Layer.Boxes( "Download-Box" );
-    downloadbox.events.on({
-        'visibilitychanged': toggleDldBox
-    });
-
     var lon = <?php print $_REQUEST["lon"]; ?>;
     var lat = <?php print $_REQUEST["lat"]; ?>;
     var zoom = <?php print $_REQUEST["zoom"]; ?>;
