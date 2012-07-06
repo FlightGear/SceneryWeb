@@ -470,6 +470,7 @@ else {
         $archive = base64_decode($mo_modelfile);            // DeBase64 file
         $file = '/tmp/submission/submitted_files.tar.gz';   // Defines the destination file
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_file.tar.gz
+    }
 
     $p = new PharData($file);
     $p->decompressFiles();
