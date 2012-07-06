@@ -474,9 +474,9 @@ else {
     $p = new PharData($file);
     foreach($p as $fichier) {
         echo $fichier."<br />";
-    //$p->decompress(Phar::GZ);
-    }
     $p->decompress(Phar::GZ);
+    }
+    //$p->decompress(Phar::GZ);
 
     $dir = opendir("/tmp/submission");
     while($file = readdir($dir)) {
