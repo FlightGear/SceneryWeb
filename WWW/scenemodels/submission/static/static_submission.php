@@ -454,7 +454,7 @@ else {
 <?php
 // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
 
-    //unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
+    unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
     clearDir('/tmp/submission');                       // Deletes temporary submission directory
 
     //while (file_exists('/tmp/submission')) {
@@ -476,6 +476,11 @@ else {
             echo "$file <br />\n";
         }
         closedir($dir);
+
+    $lines = gzfile('/tmp/submission/submitted_filtes.tar.gz');
+    foreach ($lines as $line) {
+        echo $line;
+    }
 
         //$phar = new PharData('/tmp/static.tar');           // Creates archive file
         //$phar->buildFromDirectory('/tmp/static');          // Fills archive file
