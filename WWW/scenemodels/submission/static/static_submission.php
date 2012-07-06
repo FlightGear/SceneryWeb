@@ -475,10 +475,10 @@ else {
     $p = new PharData($file);
     $p->decompressFiles();
     foreach ($p as $file) {
-    var_dump($file->getFileName());
-    var_dump($file->isCompressed());
-    var_dump($file->isCompressed(Phar::BZ2));
-    var_dump($file->isCompressed(Phar::GZ));
+    echo "File name: ".var_dump($file->getFileName())."<br />";
+    echo "Is compressed: ".var_dump($file->isCompressed())."<br />";
+    echo "Is BZ2: ".var_dump($file->isCompressed(Phar::BZ2))."<br />";
+    echo "Is GZ: ".var_dump($file->isCompressed(Phar::GZ))."<br />";
 
     //$p = new PharData($file);
     //foreach($p as $fichier) {
