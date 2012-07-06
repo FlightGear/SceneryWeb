@@ -472,7 +472,7 @@ else {
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_file.tar.gz
     }
 
-    $p = new Phar($file);
+    $p = new PharData($file);
     $p->decompressFiles();
     foreach ($p as $file) {
     echo "File name: ".var_dump($file->getFileName())."<br />";
