@@ -474,11 +474,12 @@ else {
     //    $last_line = system('gunzip /tmp/submission/submitted_files.tar.gz');
     //    $last_line = system('tar x /tmp/submission/submitted_files.tar');
 
-    $p = new Phar($file);
+    $p = new PharData($file);
     foreach($p as $fichier) {
         echo $fichier."<br />";
+    $p->decompressFiles()
     }
-    $p->decompress;
+
 
     //$phar->decompressFiles();
 
