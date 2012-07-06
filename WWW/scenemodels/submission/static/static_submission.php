@@ -454,6 +454,7 @@ else {
 <?php
 // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
 
+    // This should be done at the end of the script
     unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
     clearDir('/tmp/submission');                       // Deletes temporary submission directory
 
