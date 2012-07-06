@@ -468,11 +468,12 @@ else {
 
     if (file_exists($targetPath) && is_dir($targetPath)) {
         $archive = base64_decode($mo_modelfile);            // DeBase64 file
+        echo $archive;
         $file = '/tmp/submission/submitted_files.tar.gz';   // Defines the destination file
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_file.tar.gz
     }
 
-    $p = new PharData('/tmp/submission/', 0, $file);
+    $p = new PharData('/tmp/submission/submitted_filtes.tar', 0, $file);
     $p->decompressFiles();
     foreach ($p as $file) {
     echo "File name: ".var_dump($file->getFileName())."<br />";
