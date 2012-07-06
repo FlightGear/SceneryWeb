@@ -472,7 +472,7 @@ else {
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_files.tar.gz
     }
 
-    system('tar xvzf /tmp/submission/submitted_files.tar.gz /tmp/submission');
+    system('tar xvzf /tmp/submission/submitted_files.tar.gz -C /tmp/submission');
     //$p = new PharData('/tmp/submission/submitted_files.tar', 0, $file);
     //$p->decompressFiles();
     //foreach ($p as $file) {
