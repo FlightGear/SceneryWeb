@@ -454,8 +454,8 @@ else {
 <?php
 // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
 
-    unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
-    clearDir('/tmp/submission');                       // Deletes temporary submission directory
+    //unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
+    //clearDir('/tmp/submission');                       // Deletes temporary submission directory
 
     //while (file_exists('/tmp/submission')) {
     //    usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
