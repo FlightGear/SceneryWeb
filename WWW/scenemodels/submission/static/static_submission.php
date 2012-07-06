@@ -475,7 +475,11 @@ else {
     //    $last_line = system('tar x /tmp/submission/submitted_files.tar');
 
     $phar = new PharData($file);
-    $phar->decompressFiles();
+    foreach($archive as $file) {
+        echo "$file\n";
+}
+
+    //$phar->decompressFiles();
 
         $dir = opendir("/tmp/submission");
         while($file = readdir($dir)) {
