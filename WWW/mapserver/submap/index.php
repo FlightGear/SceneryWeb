@@ -24,8 +24,9 @@
             map = new OpenLayers.Map ("map", {
                 displayProjection: new OpenLayers.Projection("EPSG:4326"),
                 controls:[
-                new OpenLayers.Control.MouseDefaults(),
-                new OpenLayers.Control.MousePosition()],
+                    new OpenLayers.Control.MouseDefaults(),
+                    new OpenLayers.Control.MousePosition()
+                ],
                 maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
                 numZoomLevels:18, maxResolution:156543.0339, units:'m', projection: "EPSG:900913"}
             );

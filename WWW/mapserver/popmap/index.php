@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Model Position</title>
+
         <style type="text/css">
             .olFramedCloudPopupContent { padding: 5px; }
             .olPopup p { margin:0px; font-size: .9em;}
@@ -24,10 +25,10 @@
             map = new OpenLayers.Map ("map", {
                 displayProjection: new OpenLayers.Projection("EPSG:4326"),
                 controls:[
-                    new OpenLayers.Control.Permalink(),
                     new OpenLayers.Control.MouseDefaults(),
-                    new OpenLayers.Control.LayerSwitcher(),
                     new OpenLayers.Control.MousePosition(),
+                    new OpenLayers.Control.Permalink(),
+                    new OpenLayers.Control.LayerSwitcher(),
                     new OpenLayers.Control.PanZoomBar(),
                     new OpenLayers.Control.ScaleLine()
                 ],
