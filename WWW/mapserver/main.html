@@ -1,0 +1,350 @@
+<!-- MapServer Template -->
+<html>
+<head>
+  <title>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="VMap0, VMap1, GSHHS, PGS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
+  <meta name="description" content="TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, PGS, SWBD and NIMA DAFIF Airfield database." />
+
+<script language="javascript">
+  var pansize = 0.80;
+
+  function pan(direction) {    
+    var x, y;
+
+    if(direction == 'n') {
+      x = ([mapwidth]-1)/2.0;
+      y = 0 - [mapheight]*pansize + [mapheight]/2.0;
+    } else if(direction == 'nw') {
+      x = 0 - [mapwidth]*pansize + [mapwidth]/2.0;
+      y = 0 - [mapheight]*pansize + [mapheight]/2.0;
+    } else if(direction == 'ne') {
+      x = ([mapwidth]-1) + [mapwidth]*pansize - [mapwidth]/2.0;
+      y = 0 - [mapheight]*pansize + [mapheight]/2.0;
+    } else if(direction == 's') {
+      x = ([mapwidth]-1)/2.0;
+      y = ([mapheight]-1) + [mapheight]*pansize - [mapheight]/2.0;
+    } else if(direction == 'sw') {
+      x = 0 - [mapwidth]*pansize + [mapwidth]/2.0;
+      y = ([mapheight]-1) + [mapheight]*pansize - [mapheight]/2.0;
+    } else if(direction == 'se') {
+      x = ([mapwidth]-1) + [mapwidth]*pansize - [mapwidth]/2.0;
+      y = ([mapheight]-1) + [mapheight]*pansize - [mapheight]/2.0;
+    } else if(direction == 'e') {
+      x = ([mapwidth]-1) + [mapwidth]*pansize - [mapwidth]/2.0;
+      y = ([mapheight]-1)/2.0;
+    } else if(direction == 'w') {
+      x = 0 - [mapwidth]*pansize + [mapwidth]/2.0;
+      y = ([mapheight]-1)/2.0;
+    }
+
+    document.mapserv.imgxy.value = x + " " + y;
+    document.mapserv.submit();
+  }
+</script>
+
+</head>
+<body bgcolor=#FFFFFF>
+
+<center><h3>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h3></center>
+<hr>
+<form method=GET action="[program]" name="mapserv">
+
+<center>
+<table border=0 cellspacing=0 cellpadding=4>
+<tr>
+<td valign="top" align=center>
+  <table width="390" border="2" cellspacing="0" cellpadding="0" align="center" bgcolor="#EEEEEE">
+    <tr>
+      <td align="right" width="18"><a href="javascript:pan('nw')"><img src="[root]/graphics/nw.gif" width="18" height="18" border="0" alt="pan northwest"></a></td>
+      <td align="center"><a href="javascript:pan('n')"><img src="[root]/graphics/n.gif" width="23" height="18" border="0" alt="pan north"></a></td>
+      <td align="left" width="18"><a href="javascript:pan('ne')"><img src="[root]/graphics/ne.gif" width="18" height="18" border="0" alt="pan northeast"></a></td>
+    </tr>
+    <tr>
+      <td align="right" width="18"><a href="javascript:pan('w')"><img src="[root]/graphics/w.gif" width="18" height="23" border="0" alt="pan west"></a></td>
+      <td align="center"><INPUT type="image" name="img" src="[img]" width="[mapwidth]" height="[mapheight]" border="0" alt="this is the map"></td>
+      <td align="left" width="18"><a href="javascript:pan('e')"><img src="[root]/graphics/e.gif" width="18" height="23" border="0" alt="pan east"></a></td>
+    </tr>
+    <tr>
+      <td align="right" width="18"><a href="javascript:pan('sw')"><img src="[root]/graphics/sw.gif" width="18" height="18" border="0" alt="pan southwest"></a></td>
+      <td align="center"><a href="javascript:pan('s')"><img src="[root]/graphics/s.gif" width="23" height="18" border="0" alt="pan south"></a></td>
+      <td align="left" width="18"><a href="javascript:pan('se')"><img src="[root]/graphics/se.gif" width="18" height="18" border="0" alt="pan southeast"></a></td>
+    </tr>
+    <tr><td bgcolor="#EEEEEE" colspan="3">      
+      <img title="scalebar (km)" alt="scalebar (km)" src="[scalebar]">
+    </td></tr>
+  </table>  
+</td>
+<td valign="top" bgcolor=#ffffff>
+  <table cellpadding="5" cellspacing="0" border="0" bgcolor="#ffffff">
+    <tr><td>
+      <center><input type="submit" value="Refresh/Query" checked></center>
+      <p>
+
+      <hr>
+
+      <p>
+      <b>Select Layers to Display: </b><br>
+      <select multiple name="layer" size=14>
+        <option value=''>-- VMap0:
+        <option value='v0_landmass' [v0_landmass_select]> v0_landmass
+        <option value='v0_floodland' [v0_floodland_select]> v0_floodland
+        <option value='v0_sand' [v0_sand_select]> v0_sand
+        <option value='v0_lava' [v0_lava_select]> v0_lava
+        <option value='v0_glacier' [v0_glacier_select]> v0_glacier
+        <option value='v0_packice' [v0_packice_select]> v0_packice
+        <option value='v0_polarice' [v0_polarice_select]> v0_polarice
+        <option value='v0_littoral' [v0_littoral_select]> v0_littoral
+        <option value='v0_barrencover' [v0_barrencover_select]> v0_barrencover
+        <option value='v0_grasscover' [v0_grasscover_select]> v0_grasscover
+        <option value='v0_scrubcover' [v0_scrubcover_select]> v0_scrubcover
+        <option value='v0_marsh' [v0_marsh_select]> v0_marsh
+        <option value='v0_bog' [v0_bog_select]> v0_bog
+        <option value='v0_herbtundracover' [v0_herbtundracover_select]> v0_herbtundracover
+        <option value='v0_mixedcroppasturecover' [v0_mixedcroppasturecover_select]> v0_mixedcroppasturecover
+        <option value='v0_drycroppasturecover' [v0_drycroppasturecover_select]> v0_drycroppasturecover
+        <option value='v0_irrcroppasturecover' [v0_irrcroppasturecover_select]> v0_irrcroppasturecover
+        <option value='v0_deciduousbroadcover' [v0_deciduousbroadcover_select]> v0_deciduousbroadcover
+        <option value='v0_evergreenbroadcover' [v0_evergreenbroadcover_select]> v0_evergreenbroadcover
+        <option value='v0_mixedforestcover' [v0_mixedforestcover_select]> v0_mixedforestcover
+        <option value='v0_lake' [v0_lake_select]> v0_lake
+        <option value='v0_intermittentlake' [v0_intermittentlake_select]> v0_intermittentlake
+        <option value='v0_urban' [v0_urban_select]> v0_urban
+        <option value='v0_stream' [v0_stream_select]> v0_stream
+        <option value='v0_intermittentstream' [v0_intermittentstream_select]> v0_intermittentstream
+        <option value='v0_canal' [v0_canal_select]> v0_canal
+        <option value='v0_road' [v0_road_select]> v0_road
+        <option value='v0_freeway' [v0_freeway_select]> v0_freeway
+        <option value='v0_railroad1' [v0_railroad1_select]> v0_railroad1
+        <option value='v0_railroad2' [v0_railroad2_select]> v0_railroad2
+        <option value='v0_depthcontour' [v0_depthcontour_select]> v0_depthcontour
+        <option value='v0_elevcontour' [v0_elevcontour_select]> v0_elevcontour
+        <option value='v0_town' [v0_town_select]> v0_town
+        <option value=''>-- VMap1:
+        <option value='v1_landmass' [v1_landmass_select]> v1_landmass
+        <option value='v1_floodland' [v1_floodland_select]> v1_floodland
+        <option value='v1_lava' [v1_lava_select]> v1_lava
+        <option value='v1_sand' [v1_sand_select]> v1_sand
+        <option value='v1_glacier' [v1_glacier_select]> v1_glacier
+        <option value='v1_snowfield' [v1_snowfield_select]> v1_snowfield
+        <option value='v1_icefield' [v1_icefield_select]> v1_icefield
+        <option value='v1_miscice' [v1_miscice_select]> v1_miscice
+        <option value='v1_packice' [v1_packice_select]> v1_packice
+        <option value='v1_polarice' [v1_polarice_select]> v1_polarice
+        <option value='v1_seaice' [v1_seaice_select]> v1_seaice
+        <option value='v1_boulder' [v1_boulder_select]> v1_boulder
+        <option value='v1_barrencover' [v1_barrencover_select]> v1_barrencover
+        <option value='v1_mixedcover' [v1_mixedcover_select]> v1_mixedcover
+        <option value='v1_park' [v1_park_select]> v1_park
+        <option value='v1_harbour' [v1_harbour_select]> v1_harbour
+        <option value='v1_railyard' [v1_railyard_select]> v1_railyard
+        <option value='v1_powerplant' [v1_powerplant_select]> v1_powerplant
+        <option value='v1_grasscover' [v1_grasscover_select]> v1_grasscover
+        <option value='v1_bog' [v1_bog_select]> v1_bog
+        <option value='v1_marsh' [v1_marsh_select]> v1_marsh
+        <option value='v1_mixedswamp' [v1_mixedswamp_select]> v1_mixedswamp
+        <option value='v1_ricefield' [v1_ricefield_select]> v1_ricefield
+        <option value='v1_cropland' [v1_cropland_select]> v1_cropland
+        <option value='v1_mixedcrop' [v1_mixedcrop_select]> v1_mixedcrop
+        <option value='v1_herbtundracover' [v1_herbtundracover_select]> v1_herbtundracover
+        <option value='v1_orchard' [v1_orchard_select]> v1_orchard
+        <option value='v1_vineyard' [v1_vineyard_select]> v1_vineyard
+        <option value='v1_mixedorchard' [v1_mixedorchard_select]> v1_mixedorchard
+        <option value='v1_nipapalm' [v1_nipapalm_select]> v1_nipapalm
+        <option value='v1_palm' [v1_palm_select]> v1_palm
+        <option value='v1_mangrove' [v1_mangrove_select]> v1_mangrove
+        <option value='v1_mixedforest' [v1_mixedforest_select]> v1_mixedforest
+        <option value='v1_drylake' [v1_drylake_select]> v1_drylake
+        <option value='v1_intermittentlake' [v1_intermittentlake_select]> v1_intermittentlake
+        <option value='v1_lake' [v1_lake_select]> v1_lake
+        <option value='v1_misclake' [v1_misclake_select]> v1_misclake
+        <option value='v1_saltlake' [v1_saltlake_select]> v1_saltlake
+        <option value='v1_reservoir' [v1_reservoir_select]> v1_reservoir
+        <option value='v1_watercourse' [v1_watercourse_select]> v1_watercourse
+        <option value='v1_disposal' [v1_disposal_select]> v1_disposal
+        <option value='v1_saltmine' [v1_saltmine_select]> v1_saltmine
+        <option value='v1_openpit' [v1_openpit_select]> v1_openpit
+        <option value='v1_miscextraction' [v1_miscextraction_select]> v1_miscextraction
+        <option value='v1_industry' [v1_industry_select]> v1_industry
+        <option value='v1_treatment' [v1_treatment_select]> v1_treatment
+        <option value='v1_building' [v1_building_select]> v1_building
+        <option value='v1_fortification' [v1_fortification_select]> v1_fortification
+        <option value='v1_urban' [v1_urban_select]> v1_urban
+        <option value='v1_settlement' [v1_settlement_select]> v1_settlement
+        <option value='v1_ruin' [v1_ruin_select]> v1_ruin
+        <option value='v1_ditch' [v1_ditch_select]> v1_ditch
+        <option value='v1_intermittentstream' [v1_intermittentstream_select]> v1_intermittentstream
+        <option value='v1_stream' [v1_stream_select]> v1_stream
+        <option value='v1_canal' [v1_canal_select]> v1_canal
+        <option value='v1_siderail' [v1_siderail_select]> v1_siderail
+        <option value='v1_railroad1' [v1_railroad1_select]> v1_railroad1
+        <option value='v1_railroad2' [v1_railroad2_select]> v1_railroad2
+        <option value='v1_miscrailroad' [v1_miscrailroad_select]> v1_miscrailroad
+        <option value='v1_road' [v1_road_select]> v1_road
+        <option value='v1_freeway' [v1_freeway_select]> v1_freeway
+        <option value='v1_motorway' [v1_motorway_select]> v1_motorway
+        <option value='v1_firebreak' [v1_firebreak_select]> v1_firebreak
+        <option value='v1_pipeline' [v1_pipeline_select]> v1_pipeline
+        <option value='v1_waterintake' [v1_waterintake_select]> v1_waterintake
+        <option value='v1_town' [v1_town_select]> v1_town
+        <option value=''>-- AptNav:
+        <option value='apt_airfield' [apt_airfield_select]> apt_airfield
+        <option value='apt_fix' [apt_fix_select]> apt_fix
+        <option value='apt_navaid' [apt_navaid_select]> apt_navaid
+        <option value='apt_runway_misc' [apt_runway_misc_select]> apt_runway_misc
+        <option value='apt_tarmac_misc' [apt_tarmac_misc_select]> apt_tarmac_misc
+        <option value=''>-- GSHHS:
+        <option value='gshhs_coastline' [gshhs_coastline_select]> gshhs_coastline
+        <option value='gshhs_lakes' [gshhs_lakes_select]> gshhs_lakes
+        <option value='gshhs_islands' [gshhs_islands_select]> gshhs_islands
+        <option value='gshhs_ponds' [gshhs_ponds_select]> gshhs_ponds
+        <option value=''>-- PGS:
+        <option value='pgs' [pgs_select]> pgs
+        <option value=''>-- SWBD:
+        <option value='swbd' [swbd_select]> swbd
+        <option value=''>-- MGRS:
+        <option value='mgrs' [mgrs_select]> mgrs
+        <option value=''>-- TIGER:
+        <option value='tgr_landmarks' [tgr_landmarks_select]> tgr_landmarks
+        <option value='tgr_waterbodies' [tgr_waterbodies_select]> tgr_waterbodies
+        <option value='tgr_motorway' [tgr_motorway_select]> tgr_motorway
+        <option value='tgr_primary' [tgr_primary_select]> tgr_primary
+        <option value='tgr_secondary' [tgr_secondary_select]> tgr_secondary
+        <option value='tgr_minor_roads' [tgr_minor_roads_select]> tgr_minor_roads
+        <option value='tgr_railroads' [tgr_railroads_select]> tgr_railroads
+        <option value='tgr_waterways' [tgr_waterways_select]> tgr_waterways
+        <option value=''>-- StatsCan:
+        <option value='grnf_roads' [grnf_roads_select]> grnf_roads
+        <option value=''>-- OSM:
+        <option value='osm_motorway' [osm_motorway_select]> osm_motorway
+        <option value='osm_trunk' [osm_trunk_select]> osm_trunk
+        <option value='osm_primary' [osm_primary_select]> osm_primary
+        <option value='osm_secondary' [osm_secondary_select]> osm_secondary
+        <option value='osm_tertiary' [osm_tertiary_select]> osm_tertiary
+        <option value='osm_unclassified' [osm_unclassified_select]> osm_unclassified
+        <option value='osm_track' [osm_track_select]> osm_track
+        <option value='osm_residential' [osm_residential_select]> osm_residential
+        <option value='osm_service' [osm_service_select]> osm_service
+        <option value='osm_bridleway' [osm_bridleway_select]> osm_bridleway
+        <option value='osm_cycleway' [osm_cycleway_select]> osm_cycleway
+        <option value='osm_footway' [osm_footway_select]> osm_footway
+        <option value='osm_pedestrian' [osm_pedestrian_select]> osm_pedestrian
+        <option value='osm_steps' [osm_steps_select]> osm_steps
+        <option value='osm_rail' [osm_rail_select]> osm_rail
+        <option value='osm_tram' [osm_tram_select]> osm_tram
+        <option value='osm_light_rail' [osm_light_rail_select]> osm_light_rail
+        <option value='osm_river' [osm_river_select]> osm_river
+        <option value='osm_canal' [osm_canal_select]> osm_canal
+        <option value='osm_stream' [osm_stream_select]> osm_stream
+        <option value='osm_drain' [osm_drain_select]> osm_drain
+        <option value=''>-- SRTM:
+        <option value='srtm_elevation' [srtm_elevation_select]> srtm_elevation
+        <option value=''>-- GeoNames:
+        <option value='geonam_10k' [geonam_10k_select]> geonam_10k
+        <option value='geonam_10k-50k' [geonam_10k-50k_select]> geonam_10k-50k
+        <option value='geonam_50k-100k' [geonam_50k-100k_select]> geonam_50k-100k
+        <option value='geonam_100k-500k' [geonam_100k-500k_select]> geonam_100k-500k
+        <option value='geonam_500k-1M' [geonam_500k-1M_select]> geonam_500k-1M
+        <option value='geonam_gt1M' [geonam_gt1M_select]> geonam_gt1M
+        <option value=''>-- FGSODB:
+        <option value='fgs_objects' [fgs_objects_select]> fgs_objects
+        <option value='fgs_signs' [fgs_signs_select]> fgs_signs
+        <option value=''>-- MODIS:
+        <option value='modis_fire_7d' [modis_fire_7d_select]> modis_fire_7d
+        <option value=''>-- Custom Scenery:
+        <option value='cs_herbtundra' [cs_herbtundra_select]> cs_herbtundra
+        <option value='cs_heath' [cs_heath_select]> cs_heath
+        <option value='cs_barrencover' [cs_barrencover_select]> cs_barrencover
+        <option value='cs_dirt' [cs_dirt_select]> cs_dirt
+        <option value='cs_rainforest' [cs_rainforest_select]> cs_rainforest
+        <option value='cs_mixedforest' [cs_mixedforest_select]> cs_mixedforest
+        <option value='cs_evergreenforest' [cs_evergreenforest_select]> cs_evergreenforest
+        <option value='cs_deciduousforest' [cs_deciduousforest_select]> cs_deciduousforest
+        <option value='cs_olives' [cs_olives_select]> cs_olives
+        <option value='cs_orchard' [cs_orchard_select]> cs_orchard
+        <option value='cs_vineyard' [cs_vineyard_select]> cs_vineyard
+        <option value='cs_burnt' [cs_burnt_select]> cs_burnt
+        <option value='cs_sclerophyllous' [cs_sclerophyllous_select]> cs_sclerophyllous
+        <option value='cs_scrub' [cs_scrub_select]> cs_scrub
+        <option value='cs_greenspace' [cs_greenspace_select]> cs_greenspace
+        <option value='cs_grassland' [cs_grassland_select]> cs_grassland
+        <option value='cs_golfcourse' [cs_golfcourse_select]> cs_golfcourse
+        <option value='cs_agroforest' [cs_agroforest_select]> cs_agroforest
+        <option value='cs_cropgrass' [cs_cropgrass_select]> cs_cropgrass
+        <option value='cs_naturalcrop' [cs_naturalcrop_select]> cs_naturalcrop
+        <option value='cs_complexcrop' [cs_complexcrop_select]> cs_complexcrop
+        <option value='cs_mixedcrop' [cs_mixedcrop_select]> cs_mixedcrop
+        <option value='cs_rice' [cs_rice_select]> cs_rice
+        <option value='cs_irrcrop' [cs_irrcrop_select]> cs_irrcrop
+        <option value='cs_drycrop' [cs_drycrop_select]> cs_drycrop
+        <option value='cs_cemetery' [cs_cemetery_select]> cs_cemetery
+        <option value='cs_transport' [cs_transport_select]> cs_transport
+        <option value='cs_construction' [cs_construction_select]> cs_construction
+        <option value='cs_industrial' [cs_industrial_select]> cs_industrial
+        <option value='cs_dump' [cs_dump_select]> cs_dump
+        <option value='cs_openmining' [cs_openmining_select]> cs_openmining
+        <option value='cs_lava' [cs_lava_select]> cs_lava
+        <option value='cs_rock' [cs_rock_select]> cs_rock
+        <option value='cs_saltmarsh' [cs_saltmarsh_select]> cs_saltmarsh
+        <option value='cs_littoral' [cs_littoral_select]> cs_littoral
+        <option value='cs_saline' [cs_saline_select]> cs_saline
+        <option value='cs_sand' [cs_sand_select]> cs_sand
+        <option value='cs_marsh' [cs_marsh_select]> cs_marsh
+        <option value='cs_bog' [cs_bog_select]> cs_bog
+        <option value='cs_estuary' [cs_estuary_select]> cs_estuary
+        <option value='cs_lagoon' [cs_lagoon_select]> cs_lagoon
+        <option value='cs_floodland' [cs_floodland_select]> cs_floodland
+        <option value='cs_town' [cs_town_select]> cs_town
+        <option value='cs_suburban' [cs_suburban_select]> cs_suburban
+        <option value='cs_port' [cs_port_select]> cs_port
+        <option value='cs_urban' [cs_urban_select]> cs_urban
+        <option value='cs_polarice' [cs_polarice_select]> cs_polarice
+        <option value='cs_packice' [cs_packice_select]> cs_packice
+        <option value='cs_glacier' [cs_glacier_select]> cs_glacier
+        <option value='cs_watercourse' [cs_watercourse_select]> cs_watercourse
+        <option value='cs_intermittentlake' [cs_intermittentlake_select]> cs_intermittentlake
+        <option value='cs_lake' [cs_lake_select]> cs_lake
+        <option value='cs_asphalt' [cs_asphalt_select]> cs_asphalt
+        <option value='cs_airport' [cs_airport_select]> cs_airport
+        <option value='cs_default' [cs_default_select]> cs_default
+        <option value='cs_freeway' [cs_freeway_select]> cs_freeway
+        <option value='cs_road' [cs_road_select]> cs_road
+        <option value='cs_railroad2' [cs_railroad2_select]> cs_railroad2
+        <option value='cs_railroad1' [cs_railroad1_select]> cs_railroad1
+        <option value='cs_canal' [cs_canal_select]> cs_canal
+        <option value='cs_intermittentstream' [cs_intermittentstream_select]> cs_intermittentstream
+        <option value='cs_stream' [cs_stream_select]> cs_stream
+      </select>
+
+      <p>
+      Zoom In <input type=radio name=zoomdir value=1 [zoomdir_1_check]> 
+      Pan <input type=radio name=zoomdir value=0 [zoomdir_0_check]>
+      Zoom Out <input type=radio name=zoomdir value=-1 [zoomdir_-1_check]>
+      <p>
+      Zoom Size <input type=text name=zoomsize size=4 value=[zoomsize]>
+      <p>
+
+      <font size=+1><b>Legend</b></font><br><hr>
+      <img src="[legend]"><hr>
+    </td></tr></table>
+
+  </td></tr>
+</table>
+</center>
+
+<input type="hidden" name="imgxy" value="[center]">
+<input type="hidden" name="imgext" value="[mapext]">
+<input type="hidden" name="root" value="[root]">
+<input type="hidden" name="savequery" value="true">
+
+<input type="hidden" name="program" value="[program]">
+<!-- <input type="hidden" name="map_web_template" value="[map_web_template]"> -->
+
+</form>
+
+<div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
+  <b><a href="/">Back</a></b> to the intro page.
+</div>
+
+</body></html>
