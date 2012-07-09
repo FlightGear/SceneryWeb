@@ -317,12 +317,14 @@ if ($false == 0) {
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
                         "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued a mass shared object position request." . "\r\n";
         }
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "\r\n".
+                    "with the following comment :" .
+                    strip_tags($sent_comment) ."\r\n" .
                     "Now please click:" . "\r\n" .
                     "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email ."\r\n" .
                     "to check and confirm or reject the submission" . "\r\n" .
