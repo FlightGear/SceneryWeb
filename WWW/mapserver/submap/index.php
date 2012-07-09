@@ -33,6 +33,7 @@
 
             map.addLayers([googlesat, tarmac, osmlines, airport850, wmsobjects, wmssigns, wfssigns]);
             map.addControl(new OpenLayers.Control.KeyboardDefaults());
+            map.addControl(new OpenLayers.Control.PanZoom());
 
             if (!map.getCenter()) {
                 map.setCenter (new OpenLayers.LonLat(lon, lat).transform(map.displayProjection, map.getProjectionObject()), zoom);
