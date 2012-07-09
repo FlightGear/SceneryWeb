@@ -131,7 +131,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
                     "True (DB) orientation: ". get_object_true_orientation_from_id($_POST['id_to_update']) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
                     "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                     "Please click:" . "\r\n" .
-                    "http://mapserver.flightgear.org/map/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+                    "http://mapserver.flightgear.org/submap/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14" . "\r\n" .
                     "to locate the object on the map (eventually new position)." ;
 
         $message2 = "\r\n".
@@ -190,7 +190,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
                         "True (DB) orientation: ". get_object_true_orientation_from_id($_POST['id_to_update']) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
                         "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                         "Please click:" . "\r\n" .
-                        "http://mapserver.flightgear.org/map/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+                        "http://mapserver.flightgear.org/submap/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14" . "\r\n" .
                         "to locate the object on the map (eventually new position)." . "\r\n" .
                         "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
@@ -478,7 +478,7 @@ if ($false == 0) {
                         <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
                         <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
                         <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
-                        <td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+                        <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
                             </iframe>
                         </td>
                     </tr>
@@ -553,7 +553,7 @@ if ($false == 0) {
                         <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
                         <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
                         <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
-                        <td><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
+                        <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
                             </iframe>
                         </td>
                     </tr>

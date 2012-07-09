@@ -139,7 +139,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
                     "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
                     "Comment: " .strip_tags($_POST['comment']). "\r\n" .
                     "Please click:". "\r\n" .
-                    "http://mapserver.flightgear.org/map/?lon=" .get_object_longitude_from_id($id_to_delete). "&lat=" .get_object_latitude_from_id($id_to_delete). "&zoom=15&layers=000B0000TFFFFFFFTFTFTFFF"."\r\n" .
+                    "http://mapserver.flightgear.org/submap/?lon=" .get_object_longitude_from_id($id_to_delete). "&lat=" .get_object_latitude_from_id($id_to_delete). "&zoom=15"."\r\n" .
                     "to locate the object on the map.";
 
         $message2 = "\r\n".
@@ -195,7 +195,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
                         "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
                         "Comment: " .strip_tags($_POST['comment']) ."\r\n".
                         "Please click:" . "\r\n" .
-                        "http://mapserver.flightgear.org/map/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+                        "http://mapserver.flightgear.org/submap/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14" . "\r\n" .
                         "to locate the object on the map." . "\r\n" .
                         "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
@@ -339,7 +339,7 @@ if ($false == 0) {
                 <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
                 <td><center><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>"></a></center></td>
                 <td><center><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></center></td>
-                <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $longitude; ?>&lat=<? echo $latitude; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
+                <td><center><iframe src="http://mapserver.flightgear.org/submap/?lon=<? echo $longitude; ?>&lat=<? echo $latitude; ?>&zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
             </tr>
             <tr>
                 <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><a style="cursor: help">Comment</a></span></td>
@@ -432,7 +432,7 @@ if ($false == 0) {
                 <td><span title="This is the picture of the object you want to delete"><a style="cursor: help; ">Picture</a></span></td>
                 <td><center><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>"></a></center></td>
                 <td><center><span title="This is the map around the object you want to delete"><a style="cursor: help; ">Map</a></span></center></td>
-                <td><center><iframe src="http://mapserver.flightgear.org/map/?lon=<? echo $longitude; ?>&lat=<? echo $latitude; ?>&zoom=14&layers=000B0000TFFFFFFFTFTFTFFF" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
+                <td><center><iframe src="http://mapserver.flightgear.org/submap/?lon=<? echo $longitude; ?>&lat=<? echo $latitude; ?>&zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
             </tr>
                 <?php
                 $i++;

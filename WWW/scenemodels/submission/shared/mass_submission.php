@@ -88,7 +88,7 @@ else {
                                     else if($j == 5) { echo ""; } // I have to admit I don't know why I wrote this
                                     else if($j != 1) { echo "<td>".$data_from_query."</td>\n"; } // Nor this. Snip. But must be a reason why.
                                 }
-                                echo "<td><a href=\"http://mapserver.flightgear.org/map/?lon=".$long."&lat=".$lat."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF\">Map</a></td>\n";
+                                echo "<td><a href=\"http://mapserver.flightgear.org/submap/?lon=".$long."&lat=".$lat."&zoom=14\">Map</a></td>\n";
                                 echo "</tr>\n";
                             }
                             $i++;

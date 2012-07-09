@@ -64,7 +64,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
 <tr><td>Geographical and model informations</td>
 <td>
 <center>
-<iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $longitude; ?>&lat=<?php echo $latitude; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+<iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&lat=<?php echo $latitude; ?>&zoom=14" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe>
 &nbsp;
 <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>"/>

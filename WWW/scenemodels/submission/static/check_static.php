@@ -766,7 +766,7 @@ else {
         "Elevation offset: ". $offset . "\r\n" .
         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
         "Please click:" . "\r\n" .
-        "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+        "http://mapserver.flightgear.org/submap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
         "to locate the object on the map." ;
 
         $message2 = "\r\n".
@@ -823,7 +823,7 @@ else {
                         "Elevation offset: ". $offset . "\r\n" .
                         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Please click:" . "\r\n" .
-                        "http://mapserver.flightgear.org/map/?lon=". $longitude ."&lat=". $latitude ."&zoom=14&layers=000B0000TFFFTFFFTFTFTFFF" . "\r\n" .
+                        "http://mapserver.flightgear.org/submap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
                         "to locate the object on the map." ;
 
             // Preparing the headers.

@@ -426,7 +426,7 @@ else {
         <td>Map</td>
         <td>
         <center>
-        <iframe src="http://mapserver.flightgear.org/map/?lon=<?php echo $ob_long; ?>&lat=<?php echo $ob_lat; ?>&zoom=14&layers=000B0000TFFFTFFFTFTFFFFF" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+        <iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $ob_long; ?>&lat=<?php echo $ob_lat; ?>&zoom=14" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
         </iframe>
         </center>
         </td>
