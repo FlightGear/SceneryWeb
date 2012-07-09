@@ -449,7 +449,7 @@ else {
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><center><img src="get_thumbnail_from_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></center></td>
+        <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></center></td>
     </tr>
 <?php
 // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
@@ -462,18 +462,18 @@ else {
     //    usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     //}
 
-    if (!mkdir('/tmp/submission/')) {
-        echo "Impossible to create '/tmp/submission/' directory!";
+    if (!mkdir('/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/')) {
+        echo "Impossible to create '/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/' directory!";
     }
     $targetPath = '/tmp/submission';
 
     if (file_exists($targetPath) && is_dir($targetPath)) {
         $archive = base64_decode($mo_modelfile);            // DeBase64 file
-        $file = '/tmp/submission/submitted_files.tar.gz';   // Defines the destination file
+        $file = '/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/submitted_files.tar.gz';   // Defines the destination file
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_files.tar.gz
     }
 
-    system('tar xvzf /tmp/submission/submitted_files.tar.gz -C /tmp/submission');
+    system('tar xvzf /home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/ -C /home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/');
 
     $dir = opendir("/tmp/submission");
     while ($file = readdir($dir)) {
@@ -498,7 +498,7 @@ else {
         <td>
             <?php
             // Geshi stuff
-            $file = '/tmp/submission/'.$xml_file;
+            $file = '/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/'.$xml_file;
             $source = file_get_contents($file);
             $language = 'xml';
             $geshi = new GeSHi($source, $language);
@@ -512,7 +512,7 @@ else {
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
             <center>
-            <a href="<?php echo '/tmp/submission/'.$png_file; ?>" rel="lightbox[submission]" title="1st texture">#1<img src="<?php echo '/tmp/submission/'.$png_file; ?>"></a>
+            <a href="<?php echo '/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/'.$png_file; ?>" rel="lightbox[submission]" title="1st texture">#1<img src="<?php echo '/tmp/submission/'.$png_file; ?>"></a>
             <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">#2<img src="ATR42BR0.bmp"></a>
             <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">#3<img src="ATR42BR2.bmp"></a>
             </center>
