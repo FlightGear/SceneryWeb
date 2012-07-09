@@ -1,22 +1,30 @@
 <?php
-    $link=pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
+
+// Connecting to the database
+$link = pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
+
+// Is any boundary box defined?
+
     if (isset($_REQUEST['bbox']) && (preg_match('/^[0-9\,\-\.]+$/u',$_GET['bbox']))) {
         $bounds = explode(",",$_REQUEST['bbox']);
         //echo $bounds[0]." ".$bounds[1]." ".$bounds[2]." ".$bounds[3]."\n";
-    } else {
-        echo "no bbox\n";
+    }
+    else {
+        echo "No bbox defined!\n";
     }
 
-    $query = "SELECT ob_id, ob_text, ob_model, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, ob_heading ";
-    $query.= "FROM fgs_objects ";
-    $query.= "WHERE ST_Within(wkb_geometry, ST_GeomFromText('POLYGON((".$bounds[0]." ".$bounds[1].",".$bounds[0]." ".$bounds[3].",".$bounds[2]." ".$bounds[3].",".$bounds[2]." ".$bounds[1].",".$bounds[0]." ".$bounds[1]."))',4326)) ";
-    $query.= "LIMIT 400";
+// Preparing the query
+$query = "SELECT ob_id, ob_text, ob_model, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, ob_heading ";
+$query.= "FROM fgs_objects ";
+$query.= "WHERE ST_Within(wkb_geometry, ST_GeomFromText('POLYGON((".$bounds[0]." ".$bounds[1].",".$bounds[0]." ".$bounds[3].",".$bounds[2]." ".$bounds[3].",".$bounds[2]." ".$bounds[1].",".$bounds[0]." ".$bounds[1]."))',4326)) ";
+$query.= "LIMIT 400";
 
     //echo $query."\n\n\n";
 ?>
 {"type":"FeatureCollection",
     "features":[
         <?php
+            // Grabbing data from query
             $result = pg_query($query);
             while ($row = pg_fetch_assoc($result)){
         ?>
