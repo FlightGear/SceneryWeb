@@ -11,9 +11,10 @@ $dir = opendir("/tmp/submission");
 
     while ($file = readdir($dir)) {
         if (ShowFileExtension($file) == "png") {
-            $texture = "/tmp/submission/".$file;
-            $content = file_get_contents($texture);
-            var_dump($content);
+            $fichier = '/tmp/submission/'.$file;
+            $texture = imagecreatefrompng($fichier);
+            imagepng($texture);
+            imagedestroy($texture);
         }
     }
 ?>
