@@ -477,22 +477,29 @@ else {
 
     $dir = opendir("/tmp/submission");
     while ($file = readdir($dir)) {
-        if (ShowFileExtension($file) == "ac") echo "AC3D file: $file <br />\n";
-        if (ShowFileExtension($file) == "png") echo "PNG file: $file <br />\n";
-        if (ShowFileExtension($file) == "xml") echo "XML file: $file <br />\n";
+        if (ShowFileExtension($file) == "ac") {
+            $ac3d_file = $file; echo "AC3D file: $ac3d_file <br />\n";
+        }
+        if (ShowFileExtension($file) == "png") {
+            $png_file = $file; echo "PNG file: $png_file <br />\n";
+        }
+        if (ShowFileExtension($file) == "xml") {
+            $xml_file = $file; echo "XML file: $xml_file <br />\n";
+        }
     }
     closedir($dir);
 ?>
     <tr>
         <td>Corresponding AC3D File</td>
-        <td><?php echo substr($mo_modelfile,0,100); ?>...</td>
+        <td><?php echo $ac3d_file; ?>...</td>
     </tr>
     <tr>
         <td>Corresponding XML File</td>
         <td>
             <?php
             // Geshi stuff
-            $source = file_get_contents('test.xml');
+            $file = '/tmp/submission/'.$xml_file;
+            $source = file_get_contents($file);
             $language = 'xml';
             $geshi = new GeSHi($source, $language);
             $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
@@ -505,7 +512,7 @@ else {
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
             <center>
-            <a href="ContainerCrane.png" rel="lightbox[submission]" title="1st texture">#1<img src="ContainerCrane.png"></a>
+            <a href="<?php echo $png_file ?>" rel="lightbox[submission]" title="1st texture">#1<img src="<?php echo $png_file; ?>"></a>
             <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">#2<img src="ATR42BR0.bmp"></a>
             <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">#3<img src="ATR42BR2.bmp"></a>
             </center>
