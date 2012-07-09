@@ -53,7 +53,7 @@ else {
                         $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         echo "<form name=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
                         echo "<table>\n<tr>\n<td><center>Line #</center></td>\n<td><center>Longitude</center></td>\n<td><center>Latitude</center></td>\n<td><center>Elevation</center></td>\n<td><center>Orientation</center></td>\n<td><center>Model</center></td>\n<td><center>Map</center></td>\n</tr>\n";
-                        $i = 0;
+                        $i = 1;
                         foreach ($tab_tags as $value_tag) {
                             if($i > 0) {
                                 echo "<tr>\n";
@@ -64,7 +64,7 @@ else {
                                 $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
                                 $trigged_5 = str_replace(",,",",",$trigged_4);                        // Finally, removing , from data;
                                 $data = explode(", ",$trigged_5);                                     // Now showing the results
-                                echo "<td>".$i."</td>\n";
+                                echo "<td><center>".$i."</center></td>\n";
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
                                     $j++;

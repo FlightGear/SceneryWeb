@@ -102,14 +102,14 @@ if ($false == 0) {
         include '../../inc/footer.php';
         exit;
     }
-    $i = 0;
+    $i = 1;
     $ko = 0;
     echo "<center>\n<table>\n";
     echo "<tr>\n<td><center>Line #</center></td>\n<td><center>Type</center></td>\n<td><center>Model</center></td>\n<td><center>Longitude</center></td>\n<td><center>Latitude</center></td>\n<td><center>Elevation</center></td>\n<td><center>Orientation</center></td>\n<td><center>Result</center></td>\n</tr>\n";
 
     foreach ($tab_lines as $value) { // Now printing the lines...
         echo "<tr>";
-        echo "<td><center>".($i+1)."</center></td>";
+        echo "<td><center>".($i)."</center></td>";
         $tab_tags = explode(" ",$value);
         $j = 1;
 
@@ -310,20 +310,20 @@ if ($false == 0) {
                         "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
                         "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
-                        "issued the following request:" . "\r\n";
+                        "issued a mass shared object insertion request." . "\r\n";
         }
         else {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
                         "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued a mass shared object position request." . "\r\n";
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued a mass shared object insertion request." . "\r\n";
         }
         $message077 = wordwrap($message0, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "\r\n".
-                    "with the following comment :" .
+                    "Comment added by user: " .
                     strip_tags($sent_comment) ."\r\n" .
                     "Now please click:" . "\r\n" .
                     "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email ."\r\n" .
