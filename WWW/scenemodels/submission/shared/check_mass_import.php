@@ -242,7 +242,7 @@ if ($false == 0) {
     else { // Else, proceed on with the request generation
         echo "<font color=\"green\"><center>No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.</center></font><br />";
     }
-    $query_rw = "INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
+    $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
     for ($j = 0; $j<=$nb_lines; $j++) { // For each line, add the data content to the request
         if($j == ($nb_lines)) {
             $data_query_rw = $data_query_rw.$data_rw[$j].";";
