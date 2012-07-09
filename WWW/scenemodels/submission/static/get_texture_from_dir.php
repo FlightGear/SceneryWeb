@@ -11,7 +11,8 @@ $dir = opendir("/tmp/submission");
 
     while ($file = readdir($dir)) {
         if (ShowFileExtension($file) == "png") {
-            $content = file_get_contents($file);
+            $texture = "/tmp/submission/".$file;
+            $content = file_get_contents($texture);
             var_dump($content);
         }
     }
