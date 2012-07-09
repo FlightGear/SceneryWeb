@@ -31,7 +31,7 @@
                 numZoomLevels:18, maxResolution:156543.0339, units:'m', projection: "EPSG:900913"}
             );
 
-            map.addLayers([yahoosat, mapnik, osmarender, tarmac, osmlines, wmsobjects, wmssigns, wfssigns]);
+            map.addLayers([googlesat, tarmac, osmlines, airport850, wmsobjects, wmssigns, wfssigns]);
             map.addControl(new OpenLayers.Control.KeyboardDefaults());
 
             if (!map.getCenter()) {
