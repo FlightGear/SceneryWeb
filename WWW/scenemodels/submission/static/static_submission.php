@@ -462,18 +462,18 @@ else {
     //    usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     //}
 
-    if (!mkdir('/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/')) {
-        echo "Impossible to create '/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/' directory!";
+    if (!mkdir('/tmp/submission/')) {
+        echo "Impossible to create '/tmp/submission/' directory!";
     }
     $targetPath = '/tmp/submission';
 
     if (file_exists($targetPath) && is_dir($targetPath)) {
         $archive = base64_decode($mo_modelfile);            // DeBase64 file
-        $file = '/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/submitted_files.tar.gz';   // Defines the destination file
+        $file = '/tmp/submission/submitted_files.tar.gz';   // Defines the destination file
         file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_files.tar.gz
     }
 
-    system('tar xvzf /home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/ -C /home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/');
+    system('tar xvzf /tmp/submission/submitted_files.tar.gz -C /tmp/submission');
 
     $dir = opendir("/tmp/submission");
     while ($file = readdir($dir)) {
@@ -498,7 +498,7 @@ else {
         <td>
             <?php
             // Geshi stuff
-            $file = '/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/'.$xml_file;
+            $file = '/tmp/submission/'.$xml_file;
             $source = file_get_contents($file);
             $language = 'xml';
             $geshi = new GeSHi($source, $language);
@@ -512,7 +512,7 @@ else {
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
             <center>
-            <a href="<?php echo '/home/fgscenery/WWW/scenemodels/submission/static/submission_tmp/'.$png_file; ?>" rel="lightbox[submission]" title="1st texture">#1<img src="<?php echo '/tmp/submission/'.$png_file; ?>"></a>
+            <a href="" rel="lightbox[submission]" title="1st texture">#1<img src="get_texture_from_dir.php"></a>
             <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">#2<img src="ATR42BR0.bmp"></a>
             <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">#3<img src="ATR42BR2.bmp"></a>
             </center>
