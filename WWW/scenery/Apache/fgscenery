@@ -1,0 +1,8 @@
+<VirtualHost *:80>
+	ServerName scenery.flightgear.org
+	DocumentRoot /home/fgscenery/WWW/scenery
+	php_value auto_prepend_file /home/jstockill/etc/config.php
+	ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
+	ErrorLog ${APACHE_LOG_DIR}/scenery.flightgear.org-error.log
+	CustomLog ${APACHE_LOG_DIR}/scenery.flightgear.org-access.log combined
+</VirtualHost>
