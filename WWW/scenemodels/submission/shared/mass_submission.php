@@ -53,7 +53,7 @@ else {
                         $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         echo "<form name=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
                         echo "<table>\n<tr>\n<td><center>Line #</center></td>\n<td><center>Longitude</center></td>\n<td><center>Latitude</center></td>\n<td><center>Elevation</center></td>\n<td><center>Orientation</center></td>\n<td><center>Model</center></td>\n<td><center>Map</center></td>\n</tr>\n";
-                        $i = 1;
+                        $i = 0;
                         foreach ($tab_tags as $value_tag) {
                             if($i > 0) {
                                 echo "<tr>\n";
