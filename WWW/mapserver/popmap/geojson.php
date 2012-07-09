@@ -25,7 +25,7 @@
             "properties":{
                 "heading": <?php echo $row["ob_heading"];?>,
                 "title": "Object #<?php echo $row["ob_id"];?> - <?php echo $row["ob_text"];?>",
-                "description": "<img src=/modelthumb.php?id=<?php echo $row["ob_model"];?>>"
+                "description": "<img src=http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row["ob_model"];?>>"
             },
             "geometry":{
                 "type": "Point","coordinates": [<?php echo $row["ob_lon"];?>, <?php echo $row["ob_lat"];?>]
