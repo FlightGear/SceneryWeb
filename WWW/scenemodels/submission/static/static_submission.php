@@ -474,28 +474,14 @@ else {
     }
 
     system('tar xvzf /tmp/submission/submitted_files.tar.gz -C /tmp/submission');
-    //$p = new PharData('/tmp/submission/submitted_files.tar', 0, $file);
-    //$p->decompressFiles();
-    //foreach ($p as $file) {
-    //echo "File name: ".var_dump($file->getFileName())."<br />";
-    //$p->decompress();
-    //echo "Is compressed: ".var_dump($file->isCompressed())."<br />";
-    //echo "Is BZ2: ".var_dump($file->isCompressed(Phar::BZ2))."<br />";
-    //echo "Is GZ: ".var_dump($file->isCompressed(Phar::GZ))."<br />";
-    //}
 
-    //$p = new PharData($file);
-    //foreach($p as $fichier) {
-    //    echo $fichier."<br />";
-    //$p->decompress(Phar::GZ);
-    //}
-    //$p->decompress(Phar::GZ);
-
-    //$dir = opendir("/tmp/submission");
-    //while($file = readdir($dir)) {
-    //    echo "$file <br />\n";
-    //}
-    //closedir($dir);
+    $dir = opendir("/tmp/submission");
+    while ($file = readdir($dir)) {
+        if (ShowFileExtension($file) == "ac") echo "AC3D file: $file <br />\n";
+        if (ShowFileExtension($file) == "png") echo "PNG file: $file <br />\n";
+        if (ShowFileExtension($file) == "xml") echo "XML file: $file <br />\n";
+    }
+    closedir($dir);
 ?>
     <tr>
         <td>Corresponding AC3D File</td>
