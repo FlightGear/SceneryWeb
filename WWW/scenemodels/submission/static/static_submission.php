@@ -511,8 +511,8 @@ else {
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
-            <center>
                 <img src="get_texture_from_dir.php">
+            <center>
             </center>
         </td>
     </tr>
@@ -532,6 +532,7 @@ else {
     </tr>
 </form>
 </table>
+<center>This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</center>
 <?php
 }
 include '../../inc/footer.php';
