@@ -20,7 +20,7 @@
           <li><a href="shared/index.php">adding shared objects positions.</a></li>
           <li><a href="shared/index_delete.php">deleting shared objects positions</a> (delete an existing shared object).</li>
           <li><a href="shared/index_update.php">editing shared objects</a> (editing position, model, offset of an object...).</li>
-          <li><a href="shared/index_mass_import.php">mass import tool</a> (adding tens of lines of positions in one click). Work in progress... (not in production yet).</li>
+          <li><a href="shared/index_mass_import.php">mass import tool</a> (adding tens of lines of positions in one click).</li>
         </ul>
         - on static models (objects designed for a specific location):
         <ul>
