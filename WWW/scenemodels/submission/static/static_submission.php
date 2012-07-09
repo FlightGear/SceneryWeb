@@ -512,7 +512,7 @@ else {
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
             <center>
-            <a href="<?php echo '/tmp/submission/'.$png_file; ?>" rel="lightbox[submission]" title="1st texture">#1<img src="<?php echo '/tmp/submission'.$png_file; ?>"></a>
+            <a href="<?php echo '/tmp/submission/'.$png_file; ?>" rel="lightbox[submission]" title="1st texture">#1<img src="<?php echo '/tmp/submission/'.$png_file; ?>"></a>
             <a href="ATR42BR0.bmp" rel="lightbox[submission]" title="2nd texture">#2<img src="ATR42BR0.bmp"></a>
             <a href="ATR42BR2.bmp" rel="lightbox[submission]" title="3rd texture">#3<img src="ATR42BR2.bmp"></a>
             </center>
