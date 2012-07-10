@@ -371,6 +371,7 @@ else {
                             $headers .= "From: \"FG Scenery Pending Requests forms\" <martin.spott@mgras.net>" . "\r\n";
                             $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
+
                             // Let's send it ! No management of mail() errors to avoid being too talkative...
                             @mail($to, $subject, $message, $headers);
                             include '../../inc/footer.php';
