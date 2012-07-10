@@ -7,9 +7,10 @@ pretty elaborate, detailed way which might look a bit complicated at first
 glance.
 
 Please don't get this wrong - contributing to the repository is pretty
-simple. We experienced that almost every individual in such a large crew of
-contributors has, needless to say, a different background. So we just try to
-give detailed recommendations in order to avoid misunderstandings.
+simple, especially through the use of our web forms. We experienced that almost
+every individual in such a large crew of contributors has, needless to say,
+a different background. So we just try to give detailed recommendations in order
+to avoid misunderstandings.
 </p>
 
 
@@ -33,15 +34,15 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 
 <tr><th><a name="positions">Contributing Positions</a></th></tr>
 <tr><td>
-If you wish to contribute positions for the many shared models that are 
+If you wish to contribute positions for the many shared models that are
 already available then these are best submitted:
 <ul>
-<li>directly through <a href="http://scenemodels.flightgear.org/submission">our friendly web forms</a> if you don't have too many of them (mass import will come soon). Those scripts give you the possibility to add, edit and delete positions of shared objects. <strong>Please use them in priority as they make the work of maintainers much easier.</strong></li>
-<li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery</a>, or the XML files produced by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO scenery editor</a> and emailed to fgfsdb at stockill dot net.
-If you have data available in other formats please contact me at the same address as I may be able to help with converting and importing it for you.</li>
+<li>directly through <a href="http://scenemodels.flightgear.org/submission">our friendly web forms</a> for unitary addition, edition, deletion. <strong>Please use them in priority as they make the work of maintainers much easier.</strong></li>
+<li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery and by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO scenery editor</a> and directly copy/pasted (new objects positions only) in <a href="http://scenemodels.flightgear.org/submission">our mass import webform</a>.
+If you have data available in other formats please try to convert them into the STG format first. You can find help on the <a href="http://www.flightgear.org/forums">forums</a> to do so.</li>
 </ul>
 
-<h4>Extra options for .stg submissions</h4>
+<h4>Extra options for .stg submissions (currently unsupported by our webform)</h4>
 <p>You can help speed the import process by including all the details about your scenery in an stg file. This can be processed automatically and is by far the quickest way to get your model locations into the database.</p>
 <p>There's an example file here: <a href="example.stg">example.stg</a></p>
 <p>Currently supported comments are:</p>
@@ -83,7 +84,7 @@ If you have data available in other formats please contact me at the same addres
         <ul>
           <li>The nature of the FlightGear project does not allow us to accept submissions that don't comply with the GPL;</li>
         </ul>
-    </li>    
+    </li>
     <li>Always tell us how to name the model (like 'Tour Eiffel - Paris - France').</li>
 </ul>
 
@@ -123,13 +124,13 @@ If you have data available in other formats please contact me at the same addres
 <!-- Facilities to handle the uploading of your own model data are not yet complete, but the data can currently be submitted in 2 ways: -->
 <ul>
     <li> By Email
-        <br/>Send a message containing the info above, to (sorry for the anti 
+        <br/>Send a message containing the info above, to (sorry for the anti
         spam measures, I'm sure you understand):
         <br/>fgfsdb at stockill dot net
 <!--                <br/>or
                 <br/>Martin at flightgear dot org
         <li> By anonymous FTP
-    <br/>Put all the info described above into an archive (.zip or .tar.gz 
+    <br/>Put all the info described above into an archive (.zip or .tar.gz
     format) and upload it to:
     <br/>ftp://ftp.ihg.uni-duisburg.de/FlightGear/incoming/  -->
     </li>
