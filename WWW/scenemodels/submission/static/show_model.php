@@ -97,7 +97,7 @@
 <script type="text/javascript">
 var Models = [
   { name: "Boeing 777-200ER", author: "Justin Smithies / Syd Adams",
-    file: "SailBoatUnderPower11m.ac", thumbnail: "SailBoatUnderPower11m.png",
+    file: "/home/fgscenery/WWW/scenemodels/submission/static/SailBoatUnderPower11m.ac", thumbnail: "/home/fgscenery/WWW/scenemodels/submission/static/SailBoatUnderPower11m.png",
     setup: {eye: [-28.07, -48.23, 23.66], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45} }
 ];
 
