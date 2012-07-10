@@ -73,22 +73,22 @@ else {
                                         $k = 0;
                                         foreach ($fix as $value) {
                                             $k++;
-                                            if ($k == 1) { $long = $value; echo "<td>".$value."</td>\n"; }
-                                            if ($k == 2) { $lat = $value; echo "<td>".$value."</td>\n"; }
-                                            if ($k == 3) { echo "<td>".$value."</td>\n"; }
+                                            if ($k == 1) { $long = $value; echo "<td><center>".$value."</center></td>\n"; }
+                                            if ($k == 2) { $lat = $value; echo "<td><center>".$value."</center></td>\n"; }
+                                            if ($k == 3) { echo "<td><center>".$value."</center></td>\n"; }
                                         }
                                     }
                                     else if ($j == 3) {
-                                        echo "<td>".$data_from_query."</td>\n";
+                                        echo "<td><center>".$data_from_query."</center></td>\n";
                                     }
                                     else if($j == 4) {
                                         $model = object_name($data_from_query);
                                         echo "<td><a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$data_from_query."\" >".$model."</a></td>\n";
                                     }
                                     else if($j == 5) { echo ""; } // I have to admit I don't know why I wrote this
-                                    else if($j != 1) { echo "<td>".$data_from_query."</td>\n"; } // Nor this. Snip. But must be a reason why.
+                                    else if($j != 1) { echo "<td><center>".$data_from_query."</center></td>\n"; } // Nor this. Snip. But must be a reason why.
                                 }
-                                echo "<td><a href=\"http://mapserver.flightgear.org/submap/?lon=".$long."&lat=".$lat."&zoom=14\">Map</a></td>\n";
+                                echo "<td><center><a href=\"http://mapserver.flightgear.org/submap/?lon=".$long."&lat=".$lat."&zoom=14\">Map</a></center></td>\n";
                                 echo "</tr>\n";
                             }
                             $i++;
