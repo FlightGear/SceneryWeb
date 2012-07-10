@@ -116,28 +116,28 @@ if ((isset($_POST["action"]))) {
         if ($resource_rw != '0') {
 
         // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';");
+            $result = @pg_query ($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 echo "<center>";
                 echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
                 echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
                 echo "</center>";
-                @pg_close($resource_rw);
+                @pg_close ($resource_rw);
                 include '../../inc/footer.php';
                 exit;
             }
             else {
-                    while ($row = pg_fetch_row($result)) {
+                    while ($row = pg_fetch_row ($result)) {
                         $sqlzbase64 = $row[1];
 
                         // Base64 decode the query
-                        $sqlz = base64_decode($sqlzbase64);
+                        $sqlz = base64_decode ($sqlzbase64);
 
                         // Gzuncompress the query
-                        $query_rw = gzuncompress($sqlz);
+                        $query_rw = gzuncompress ($sqlz);
 
                         // Sending the request...
-                        $resultrw = @pg_query($resource_rw, $query_rw);
+                        $resultrw = @pg_query ($resource_rw, $query_rw);
 
                         if(!$resultrw) {
                             echo "<center>";
@@ -147,17 +147,17 @@ if ((isset($_POST["action"]))) {
 
                             // Closing the rw connection.
                             include '../../inc/footer.php';
-                            pg_close($resource_rw);
+                            pg_close ($resource_rw);
                             exit;
                         }
                         else {
                             echo "<center>";
-                            echo "Signature found.<br /> Now processing INSERT model query with number ". $_POST[sig].".<br /><br />";
+                            echo "Signature found.<br /> Now processing INSERT model query with number ". $_POST["sig"].".<br /><br />";
                             echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
 
                             // Delete the entry from the pending query table.
                             $delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';";
-                            $resultdel = @pg_query($resource_rw, $delete_request);
+                            $resultdel = @pg_query ($resource_rw, $delete_request);
 
                             if(!resultdel) {
                                 echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br /></center>";
@@ -181,7 +181,7 @@ if ((isset($_POST["action"]))) {
                                 // OK, let's start with the mail redaction.
                                 // Who will receive it ?
                                 $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-                                if(isset($_POST['email'])) {
+                                if(isset($_POST["email"])) {
                                 //$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
                                 $to .= $_POST["email"];
                                 }
@@ -491,7 +491,7 @@ else {
 ?>
     <tr>
         <td>Corresponding AC3D File</td>
-        <td><?php echo $ac3d_file; ?>...</td>
+        <td><iframe src="show_model.php" width="720px" height="620px" scrolling="no" frameborder="0"></td>
     </tr>
     <tr>
         <td>Corresponding XML File</td>
