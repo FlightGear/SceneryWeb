@@ -52,7 +52,7 @@ else {
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
                         $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         echo "<form name=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
-                        echo "<table>\n<tr>\n<td><center>Line #</center></td>\n<td><center>Longitude</center></td>\n<td><center>Latitude</center></td>\n<td><center>Elevation</center></td>\n<td><center>Orientation</center></td>\n<td><center>Model</center></td>\n<td><center>Map</center></td>\n</tr>\n";
+                        echo "<table>\n<tr>\n<td><center>Line #</center></td>\n<td><center>Longitude</center></td>\n<td><center>Latitude</center></td>\n<td><center>Elevation</center></td>\n<td><center>True orientation</center></td>\n<td><center>Model</center></td>\n<td><center>Map</center></td>\n</tr>\n";
                         $i = 0;
                         foreach ($tab_tags as $value_tag) {
                             if($i > 0) {
@@ -274,7 +274,7 @@ else {
                                     $ob_text = object_name($data_from_query);
                                 }
                             }
-                        $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", NULL, ".heading_stg_to_true($heading).", ".$model.", 1)";
+                        $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", NULL, ".$orientation).", ".$model.", 1)";
                         }
                         $i++;
                     }
@@ -315,7 +315,7 @@ else {
 
                         // Delete the entry from the pending query table.
                         $delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["hsig"] ."';";
-                        $resultdel = @pg_query($resource_rw,$delete_request);
+                        $resultdel = @pg_query($resource_rw, $delete_request);
 
                         if(!resultdel) {
                             echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
