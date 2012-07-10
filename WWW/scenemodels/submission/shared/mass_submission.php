@@ -274,7 +274,7 @@ else {
                                     $ob_text = object_name($data_from_query);
                                 }
                             }
-                        $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", NULL, ".$orientation).", ".$model.", 1)";
+                        $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", NULL, ".$orientation.", ".$model.", 1)";
                         }
                         $i++;
                     }
