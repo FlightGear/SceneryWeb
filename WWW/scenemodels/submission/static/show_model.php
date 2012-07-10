@@ -92,7 +92,7 @@
 </style>
 <script type="text/javascript" src="../../inc/hangar/libs/gl-matrix-min.js"></script>
 <script type="text/javascript" src="../../inc/hangar/libs/polyfill.js"></script>
-<script type="text/javascript" src="../../inc/hangar/libs/viewer.js"></script>
+<script type="text/javascript" src="../../inc/hangar/viewer.js"></script>
 
 <script type="text/javascript">
 var Models = [

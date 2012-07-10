@@ -511,8 +511,8 @@ else {
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
-                <img src="get_texture_from_dir.php">
             <center>
+                <img src="get_texture_from_dir.php">
             </center>
         </td>
     </tr>
