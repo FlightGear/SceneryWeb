@@ -491,7 +491,7 @@ else {
 ?>
     <tr>
         <td>Corresponding AC3D File</td>
-        <td><iframe src="show_model.php" width="720px" height="620px" scrolling="no" frameborder="0"></iframe></td>
+        <td><iframe src="hangar/show_model.php" width="720px" height="620px" scrolling="no" frameborder="0"></iframe></td>
     </tr>
     <tr>
         <td>Corresponding XML File</td>
