@@ -4,7 +4,6 @@
 # 1. Dos2Unix of the files, to prevent ^M, eg in .XML files
 # 2. Do more checkings on the form site (JS) + PHP PREGs when we have more time.
 # 3. Manage concurrent access: if two people send a model at the same time, the whole stuff is stored under /tmp/static. We should try to have a random directory (or file name) per submission, during the tests.
-#    This is valid for the submission as well as the validation process.
 # 4. Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin.
 # 5. Use the fgs_position_requests table to store the requests BEFORE they are submitted into the production table. The tricky part is that, when inserting the model into DB, a model id
 #    is returned which is - then - used to insert the model position into fgs_objects. It could be that the second request (position) is left "blank" in the first part of the process (when
@@ -65,13 +64,13 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
         usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     }
 
-    if (!mkdir('/tmp/static/')) {
+    $targetPath   = "/tmp/static_".random_suffix()."/";
+    if (!mkdir($targetPath)) {
         $fatalerror = 1;
         $error += 1;
-        $errormsg .= "Impossible to create '/tmp/static/' directory!";
+        $errormsg .= "Impossible to create temporary directory!";
     }
 
-    $targetPath   = "/tmp/static/";
     if ($ac3dName == $xmlName) {
         $xmlName    = $_FILES["xml_file"]['name'];
         $xmlPath    = $targetPath.$_FILES["xml_file"]['name'];
@@ -106,6 +105,7 @@ else {
 
 # STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY
 ###################################################
+# In fact this step is not necessary : thumb goes directly into DB, it not targzed.
 
 if (($_FILES['mo_thumbfile']['size'] < 2000000) && (!$fatalerror)) { // check file size
     if(($_FILES['mo_thumbfile']['type'] == "image/jpeg") && ((ShowFileExtension(basename($thumbName))) == "jpeg") || ((ShowFileExtension(basename($thumbName))) == "JPEG") || ((ShowFileExtension(basename($thumbName))) == "JPG") || ((ShowFileExtension(basename($thumbName))) == "jpg")) { // check type & extension file
@@ -301,7 +301,7 @@ if ($fatalerror || $error > 0) {
     echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
-    clearDir('/tmp/static');
+    clearDir($targetPath);
     exit();
 }
 
@@ -501,7 +501,7 @@ if ($fatalerror || $error > 0) {
     echo "Error message(s)  : ".$errormsg."<br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
-    clearDir('/tmp/static');
+    clearDir($targetPath);
     exit();
 }
 
@@ -520,7 +520,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $thumbFile = base64_encode($contents);             // Dump & encode the file
 
     $phar = new PharData('/tmp/static.tar');           // Create archive file
-    $phar->buildFromDirectory('/tmp/static');          // Fills archive file
+    $phar->buildFromDirectory($targetPath);          // Fills archive file
     $phar->compress(Phar::GZ);                         // Convert archive file to compress file
     unlink('/tmp/static.tar');                         // Delete archive file
     rename('/tmp/static.tar.gz', '/tmp/static.tgz');   // Rename compress file
@@ -531,7 +531,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $modelFile = base64_encode($contents);             // Dump & encode the file
 
     unlink('/tmp/static.tgz');                         // Delete compress file
-    clearDir('/tmp/static');                           // Delete temporary static directory
+    clearDir($targetPath);                           // Delete temporary static directory
 }
 
 ###############################################
@@ -643,7 +643,7 @@ if ($fatalerror || $error > 0) {
     echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
-    clearDir('/tmp/static');
+    clearDir($targetPath);
     exit();
 }
 else {
