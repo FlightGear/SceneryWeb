@@ -514,12 +514,9 @@ else {
         <td>
             <center>
             <?php
-            // Sending the directory as parameter. This is no user input, so low risk.
+            // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
-            echo $based64_target_path."<br />";
             $encoded_target_path = rawurlencode($based64_target_path);
-            echo "encoded :".$encoded_target_path;
-            echo "decoded :".base64_decode(rawurldecode($encoded_target_path));
             ?>
             <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>"></center></td>
             </center>
