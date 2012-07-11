@@ -7,7 +7,7 @@ require_once ('../../inc/functions.inc.php');
 // There is no other (known ;-) possibility to include this in the rest of the static submission script.
 
 // Retrieving directory from parameter sent in URL.
-echo "p: ".$_GET['p'];
+echo "p: ".$_GET["p"];
 $target_path = base64_decode($_GET["p"]);
 echo "target  path: ".$target_path;
 //header("Content-type: image/png");
