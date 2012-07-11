@@ -25,7 +25,7 @@
     <table>
         <tr>
             <td>
-            <span title="This is the family name of the object you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><a style="cursor: help;">Object's family</a></span>
+            <span title="This is the family name of the object you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><a style="cursor: help;">Model's family</a></span>
             </td>
             <td colspan="2">
             <select name="mo_shared">
