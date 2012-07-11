@@ -361,10 +361,11 @@ else {
                                                     $mo_modelfile = str_replace("'", "", $value_tag);
                                                 }
                                                     else if ($j == 7) {
+                                                        echo $value_tag;
                                                         $mo_shared1 = str_replace("'", "", $value_tag);
-                                                        echo "<br/> 1: ".$mo_shared;
+                                                        echo "<br/> 1: ".$mo_shared1;
                                                         $mo_shared2 = str_replace(") RETURNING mo_id", "", $mo_shared1);
-                                                        echo "<br/> 2: ".$mo_shared;
+                                                        echo "<br/> 2: ".$mo_shared2;
                                                         $mo_shared3 = family_name($mo_shared2);
                                                     }
                         }
