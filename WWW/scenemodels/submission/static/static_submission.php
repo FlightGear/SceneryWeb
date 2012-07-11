@@ -491,8 +491,8 @@ else {
 ?>
     <tr>
         <td>Corresponding AC3D File</td>
-        <td>
-            <iframe src="hangar/samples/index.html" width="720px" height="620px" scrolling="no" frameborder="0"></iframe>
+        <td><center>
+            <iframe src="hangar/samples/index.html" width="720px" height="620px" scrolling="no" frameborder="0"></iframe></center>
         </td>
     </tr>
     <tr>

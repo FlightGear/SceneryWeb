@@ -617,8 +617,8 @@ function remove_file_extension($file)
         return substr($file, 0, strrpos($file, "."));
 }
 
-// This functions returns 'shared' if an object is shared, or 'static' if an object is static, based on its id.
-// ============================================================================================================
+// This function returns 'shared' if an object is shared, or 'static' if an object is static, based on its id.
+// ===========================================================================================================
 
 function is_shared_or_static($ob_id)
 {
@@ -636,6 +636,20 @@ function is_shared_or_static($ob_id)
 
     // Closing the connection.
     @pg_close ($resource_r);
+}
+
+// This function returns a random string which is used to be suffixed to a directory name to (try) to make it unique.
+// ==================================================================================================================
+
+function random_suffix()
+{
+    // Feeding the beast
+    $ipaddr = $_SERVER['REMOTE_ADDR'];
+    $suffix_data = microtime().$ipaddr;
+
+    // Generating 16 random values from a hash. Should be enough as we also have a concurrent access management on dirs.
+    $dir_random_suffix = substr((hash('sha256', $suffix_data)),0,16);
+    return $dir_random_suffix;
 }
 
 ?>
