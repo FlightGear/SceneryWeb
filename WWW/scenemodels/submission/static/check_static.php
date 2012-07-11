@@ -667,6 +667,7 @@ else {
     //$ob_model = pg_query($resource_rw, $mo_query);
     //$ob_model = pg_fetch_row($ob_model);
     //$ob_model = $ob_model[0];
+    //random_suffix()
 
     $ob_query  = "INSERT INTO fgsoj_objects ";
 //  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";

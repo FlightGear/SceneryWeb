@@ -452,12 +452,7 @@ else {
         <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></center></td>
     </tr>
 <?php
-// Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
-
-    // This should be done at the end of the script
-    unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
-    clearDir('/tmp/submission');                       // Deletes temporary submission directory
-
+    // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
     //while (file_exists('/tmp/submission')) {
     //    usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     //}
@@ -536,6 +531,10 @@ else {
 </table>
 <center>This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</center>
 <?php
+    // Ok, now we can delete the stuff we used - at least I think so ;-)
+    // This should be done at the end of the script
+    unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
+    clearDir('/tmp/submission');                       // Deletes temporary submission directory
 }
 include '../../inc/footer.php';
 ?>
