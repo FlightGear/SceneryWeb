@@ -501,6 +501,7 @@ if ($fatalerror || $error > 0) {
     echo "Error message(s)  : ".$errormsg."<br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
+    include '../../inc/footer.php';
     clearDir($targetPath);
     exit();
 }
@@ -643,6 +644,7 @@ if ($fatalerror || $error > 0) {
     echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
+    include '../../inc/footer.php';
     clearDir($targetPath);
     exit();
 }
