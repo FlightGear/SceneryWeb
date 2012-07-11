@@ -334,7 +334,6 @@ else {
 
                         // Gzuncompress the query
                         $query_rw = gzuncompress($sqlz);
-                        echo $query_rw;
                         // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
                         // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
@@ -404,7 +403,7 @@ else {
     </tr>
     <tr>
         <td>Family</td>
-        <td><?php echo $mo_shared1; echo $mo_shared2; echo $mo_shared3; ?></td>
+        <td><?php // echo $mo_shared1; echo $mo_shared2; echo $mo_shared3; ?></td>
     </tr>
     <tr>
         <td>Proposed Path Name</td>
