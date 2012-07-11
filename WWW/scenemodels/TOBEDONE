@@ -93,3 +93,7 @@ For later:
 Mapserver
 =========
 - Renew (see Gijs comment) the object click function on the maps to retrieve the information on the selected object. Seems to be broken since a mapserver update.
+
+Terragear
+=========
+- Create a webtool "a la Terragear GUI" to generate scenery based on user inputs.
