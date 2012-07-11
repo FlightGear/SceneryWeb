@@ -8,8 +8,8 @@ require_once ('../../inc/functions.inc.php');
 
 // Retrieving directory from parameter sent in URL.
 $target_path = base64_decode($_GET["p"]);
-
-header("Content-type: image/png");
+echo $target_path;
+//header("Content-type: image/png");
 $dir = opendir($target_path);
 
     while ($file = readdir($dir)) {
