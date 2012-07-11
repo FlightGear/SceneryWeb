@@ -453,24 +453,28 @@ else {
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
-    //while (file_exists('/tmp/submission')) {
-    //    usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
-    //}
 
-    if (!mkdir('/tmp/submission/')) {
-        echo "Impossible to create '/tmp/submission/' directory!";
-    }
-    $targetPath = '/tmp/submission';
+    // Managing possible concurrent accesses on the maintainer side.
+    $target_path = '/tmp/submission_'.random_suffix();
 
-    if (file_exists($targetPath) && is_dir($targetPath)) {
-        $archive = base64_decode($mo_modelfile);            // DeBase64 file
-        $file = '/tmp/submission/submitted_files.tar.gz';   // Defines the destination file
-        file_put_contents ($file, $archive);            // Writes the content of $mo_modelfile into submitted_files.tar.gz
+    while (file_exists($target_path)) {
+        usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     }
 
-    system('tar xvzf /tmp/submission/submitted_files.tar.gz -C /tmp/submission');
+    if (!mkdir($target_path)) {
+        echo "Impossible to create ".$target_path." directory!";
+    }
 
-    $dir = opendir("/tmp/submission");
+    if (file_exists($target_path) && is_dir($target_path)) {
+        $archive = base64_decode ($mo_modelfile);           // DeBase64 file
+        $file = $target_path.'/submitted_files.tar.gz';   // Defines the destination file
+        file_put_contents ($file, $archive);                // Writes the content of $mo_modelfile into submitted_files.tar.gz
+    }
+
+    $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path;
+    system($detar_command);
+
+    $dir = opendir($target_path");
     while ($file = readdir($dir)) {
         if (ShowFileExtension($file) == "ac") {
             $ac3d_file = $file; echo "AC3D file: $ac3d_file <br />\n";
@@ -495,7 +499,7 @@ else {
         <td>
             <?php
             // Geshi stuff
-            $file = '/tmp/submission/'.$xml_file;
+            $file = $target_path.'/'.$xml_file;
             $source = file_get_contents($file);
             $language = 'xml';
             $geshi = new GeSHi($source, $language);
@@ -533,8 +537,8 @@ else {
 <?php
     // Ok, now we can delete the stuff we used - at least I think so ;-)
     // This should be done at the end of the script
-    unlink('/tmp/submission/submitted_files.tar.gz');  // Deletes compressed file
-    clearDir('/tmp/submission');                       // Deletes temporary submission directory
+    unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
+    clearDir($target_path);                       // Deletes temporary submission directory
 }
 include '../../inc/footer.php';
 ?>
