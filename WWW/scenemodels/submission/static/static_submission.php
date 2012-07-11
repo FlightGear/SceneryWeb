@@ -521,7 +521,7 @@ else {
             ?>
             <img src="get_texture_from_dir.php?mo_sig=<?php echo rawurlencode($based64_target_path); ?>"></img></center></td>
 <?php            echo "<img src=\"get_texture_from_dir.php?mo_sig=".rawurlencode($based64_target_path)."\"";
-            echo "</img>"
+            echo "</img>";
             include 'get_texture_from_dir.php'; ?>
             </center>
         </td>
