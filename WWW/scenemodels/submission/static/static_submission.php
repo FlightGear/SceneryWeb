@@ -362,7 +362,9 @@ else {
                                                 }
                                                     else if ($j == 7) {
                                                         $mo_shared = str_replace("'", "", $value_tag);
+                                                        echo "<br/> 1: "$mo_shared;
                                                         $mo_shared = str_replace(") RETURNING mo_id", "", $mo_shared);
+                                                        echo "<br/> 2: "$mo_shared;
                                                         $mo_shared = family_name($mo_shared);
                                                     }
                         }
