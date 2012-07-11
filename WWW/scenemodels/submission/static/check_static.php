@@ -604,6 +604,7 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     if ($mo_shared != 0) {
         if (model_exists($path) != 2) {
             $error += 1;
+            echo $path;
             $errormsg .= "It seems that your model already exists in our database!<br/>";
         }
     }
