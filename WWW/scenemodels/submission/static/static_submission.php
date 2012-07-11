@@ -402,7 +402,7 @@ else {
     </tr>
     <tr>
         <td>Family</td>
-        <td><?php echo $mo_shared1; echo $mo_shared2; echo $mo_shared3?></td>
+        <td><?php echo $mo_shared1; echo $mo_shared2; echo $mo_shared3; ?></td>
     </tr>
     <tr>
         <td>Proposed Path Name</td>
