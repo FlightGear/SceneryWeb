@@ -14,23 +14,23 @@ $resultr = @pg_query($resource_r, $pending_queries);
 
 if($resultr) {
     // Declare variables
-    $i = 0; 
+    $i = 0;
     $pending_requests = "";
 
     // Retrieving information
     while($row = @pg_fetch_object($resultr)) {
         $i++;
-        
+
         // Decoding in Base64.
         $base64_decoded_query = base64_decode ($row->spr_base64_sqlz);
 
         // Dezipping the Base64'd request.
-        $unzipped_base64_query = substr((gzuncompress ($base64_decoded_query)),0,1024);
+        $unzipped_base64_query = gzuncompress ($base64_decoded_query);
         $pending_requests .= "\nRequest #".$i." identified by ".$row->spr_hash."\n";
         $pending_requests .= "=========================================================================================\n";
-        $pending_requests .= $unzipped_base64_query."\n";
+        $pending_requests .= substr($unzipped_base64_query,0,1024)."\n";
     }
-    
+
     // Sets the time to UTC.
     date_default_timezone_set('UTC');
     $dtg = date('l jS \of F Y h:i:s A');
@@ -64,7 +64,7 @@ if($resultr) {
     $message = $message077.$message1.$message2;
     @mail($to, $subject, $message, $headers);
 }
-        
+
 // Closing the connection.
 @pg_close($resource_rw);
 ?>
