@@ -19,4 +19,9 @@ $dir = opendir($target_path);
             imagedestroy($texture);
         }
     }
+
+// Ok, now we can delete the stuff we used - at least I think so ;-)
+// This should be done at the end of the script
+unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
+clearDir($target_path);                          // Deletes temporary submission directory
 ?>
