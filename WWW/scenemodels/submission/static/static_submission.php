@@ -513,7 +513,11 @@ else {
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
             <center>
-                <img src="get_texture_from_dir.php">
+                <?php
+                // Sending the directory as parameter. This is no user input, so low risk.
+                $based64_target_path = base64_encode($target_path);
+                ?>
+                <img src="get_texture_from_dir.php?<?php echo $based64_target_path; ?>">
             </center>
         </td>
     </tr>
