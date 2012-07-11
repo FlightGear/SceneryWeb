@@ -516,7 +516,9 @@ else {
             <?php
             // Sending the directory as parameter. This is no user input, so low risk.
             $based64_target_path = base64_encode($target_path);
+
             echo $based64_target_path."<br />";
+            echo "<img src=\"get_texture_from_dir.php?p=".$based64_target_path."\"";
             include 'get_texture_from_dir.php'; ?>
             </center>
         </td>
