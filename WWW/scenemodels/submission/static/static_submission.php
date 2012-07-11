@@ -334,7 +334,7 @@ else {
 
                         // Gzuncompress the query
                         $query_rw = gzuncompress($sqlz);
-
+                        echo $query_rw;
                         // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
                         // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
@@ -358,7 +358,7 @@ else {
                                                 $mo_thumbfile = str_replace("'", "", $value_tag);
                                             }
                                                 else if ($j == 6) {
-                                                $mo_modelfile = str_replace("'", "", $value_tag);
+                                                    $mo_modelfile = str_replace("'", "", $value_tag);
                                                 }
                                                     else if ($j == 7) {
                                                         $mo_shared = str_replace("'", "", $value_tag);

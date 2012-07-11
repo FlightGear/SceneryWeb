@@ -602,10 +602,8 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
         $ipaddr      = $_POST["IPAddr"];
 
     if ($mo_shared != 0) { // This is only used for shared objects.
-        if (model_exists('Models/'.family_name($mo_shared).'/'.$path) != 2) {
+        if (model_exists('Models/'.family_name($mo_shared).'/'.$path) != 2) { // Reconstructing the parameters the model_exists function is waiting for, based on the path.
             $error += 1;
-            echo $path;
-            echo 'Models/'.family_name($mo_shared).'/'.$path;
             $errormsg .= "It seems that your model already exists in our database!<br/>";
         }
     }
