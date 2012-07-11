@@ -9,8 +9,7 @@
 #    is returned which is - then - used to insert the model position into fgs_objects. It could be that the second request (position) is left "blank" in the first part of the process (when
 #    the request is stored into the fgs_position_requests table, and then added only once the model is validated (i.e. : we first send the request into fgs_models, retrieve the number, and then
 #    reprocess the second request with the id returned by the DB.)
-# 6. Detect if submitting an already existing model. User should be redirected to the model_edit script to come. If it's a shared models, as it'll be shipped in FG's Models/ directory, the names
-#    of all files have to differ from what is already existing.
+# 6. User should be redirected to the model_edit script to come when trying to update a model.
 
 require_once('../../inc/functions.inc.php');
 require_once('../../inc/captcha/recaptchalib.php');
@@ -302,6 +301,7 @@ if ($fatalerror || $error > 0) {
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
     clearDir($targetPath);
+    include '../../inc/footer.php';
     exit();
 }
 
@@ -358,7 +358,7 @@ if (file_exists($xmlPath)) {
         $xmlcontent = simplexml_load_file($xmlPath);
         if($ac3dName != $xmlcontent->path) {
             $error += 1;
-            $errormsg .= "The value of your &lt;path&gt; tag doesn't match the name of your AC file!<br/>";
+            $errormsg .= "The value of the &lt;path&gt; tag in your XML file doesn't match the AC file you provided!<br/>";
         }
 
         // Check if the file begin with <?xml> tag
@@ -404,7 +404,7 @@ if (file_exists($ac3dPath)) {
                 $data = substr($data, 0, -1);
                 if (!in_array($data, $pngAllName)) {
                     $error += 1;
-                    $errormsg .= "The texture reference (".$data.") at line ".($i+1)." seems to have a different name of your texture(s) file(s) name(s)!<br/>";
+                    $errormsg .= "The texture reference (".$data.") in your AC file at line ".($i+1)." seems to have a different name of the PNG texture(s) file(s) name(s) your provided!<br/>";
                 }
             }
             $i++;
