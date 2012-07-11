@@ -283,13 +283,13 @@ else {
                         foreach ($tab_tags as $value_tag) {
                                 $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
-                                $trigged_2 = str_replace(", '1')","",$trigged_1);                        // Removing 1); from data;
+                                $trigged_2 = str_replace(", '1')","",$trigged_1);                     // Removing 1); from data;
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
                                 $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
-                                $trigged_5 = str_replace("VALUES (","",$trigged_4);                      // Removing VALUES(;
-                                $trigged_6 = str_replace("'","",$trigged_5);                        // Finally, removing ' from data;
-                                $trigged_7 = str_replace(",","",$trigged_6);                        // Finally, removing ' from data;
-                                $data = explode(" ",$trigged_7);                                     // Now showing the results
+                                $trigged_5 = str_replace("VALUES (","",$trigged_4);                   // Removing VALUES(;
+                                $trigged_6 = str_replace("'","",$trigged_5);                          // Finally, removing ' from data;
+                                $trigged_7 = str_replace(",","",$trigged_6);                          // Finally, removing ' from data;
+                                $data = explode(" ",$trigged_7);                                      // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
                                     if ($j == 1) $ob_long = $data_from_query;
@@ -361,11 +361,11 @@ else {
                                                     $mo_modelfile = str_replace("'", "", $value_tag);
                                                 }
                                                     else if ($j == 7) {
-                                                        $mo_shared = str_replace("'", "", $value_tag);
+                                                        $mo_shared1 = str_replace("'", "", $value_tag);
                                                         echo "<br/> 1: "$mo_shared;
-                                                        $mo_shared = str_replace(") RETURNING mo_id", "", $mo_shared);
+                                                        $mo_shared2 = str_replace(") RETURNING mo_id", "", $mo_shared1);
                                                         echo "<br/> 2: "$mo_shared;
-                                                        $mo_shared = family_name($mo_shared);
+                                                        $mo_shared3 = family_name($mo_shared2);
                                                     }
                         }
 
@@ -402,7 +402,7 @@ else {
     </tr>
     <tr>
         <td>Family</td>
-        <td><?php echo $mo_shared; ?></td>
+        <td><?php echo $mo_shared1; echo $mo_shared2; echo $mo_shared3?></td>
     </tr>
     <tr>
         <td>Proposed Path Name</td>

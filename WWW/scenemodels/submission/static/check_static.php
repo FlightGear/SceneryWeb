@@ -3,7 +3,6 @@
 # List of things to check/update:
 # 1. Dos2Unix of the files, to prevent ^M, eg in .XML files
 # 2. Do more checkings on the form site (JS) + PHP PREGs when we have more time.
-# 3. Manage concurrent access: if two people send a model at the same time, the whole stuff is stored under /tmp/static. We should try to have a random directory (or file name) per submission, during the tests.
 # 4. Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin.
 # 5. Use the fgs_position_requests table to store the requests BEFORE they are submitted into the production table. The tricky part is that, when inserting the model into DB, a model id
 #    is returned which is - then - used to insert the model position into fgs_objects. It could be that the second request (position) is left "blank" in the first part of the process (when
