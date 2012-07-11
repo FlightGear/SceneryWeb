@@ -474,7 +474,7 @@ else {
     $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path;
     system($detar_command);
 
-    $dir = opendir($target_path");
+    $dir = opendir($target_path);
     while ($file = readdir($dir)) {
         if (ShowFileExtension($file) == "ac") {
             $ac3d_file = $file; echo "AC3D file: $ac3d_file <br />\n";
