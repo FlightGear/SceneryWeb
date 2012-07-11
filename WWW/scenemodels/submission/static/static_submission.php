@@ -341,7 +341,6 @@ else {
                         $j = 0;
                         foreach ($tab_tags as $value_tag) {
                             $j++;
-                            echo $value_tag;
                             if ($j == 1) {
                                 $mo_path = str_replace(".xml", "", (str_replace("'", "", $value_tag)));
                             }
