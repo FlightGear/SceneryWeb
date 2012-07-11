@@ -540,10 +540,7 @@ else {
 </table>
 <center>This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</center>
 <?php
-    // Ok, now we can delete the stuff we used - at least I think so ;-)
-    // This should be done at the end of the script
-    unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
-    clearDir($target_path);                          // Deletes temporary submission directory
+// The deletion of the tmp directory is made in the get_texture file, else it does not shows the texture.
 }
 include '../../inc/footer.php';
 ?>
