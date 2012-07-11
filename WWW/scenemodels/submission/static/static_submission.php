@@ -522,7 +522,7 @@ else {
             echo "decoded :".base64_decode(rawurldecode($encoded_target_path));
             ?>
             <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>"></img></center></td>
-<?php            echo "<img src=\"get_texture_from_dir.php?mo_sig=".$encoded_target_path."\"";
+<?php            echo "<img src=\"get_texture_from_dir.php?mo_sig=".$encoded_target_path."\">";
             echo "</img>";
             // include 'get_texture_from_dir.php'; ?>
             </center>
