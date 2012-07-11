@@ -342,6 +342,7 @@ else {
                         $j = 0;
                         foreach ($tab_tags as $value_tag) {
                             $j++;
+                            echo $value_tag;
                             if ($j == 1) {
                                 $mo_path = str_replace(".xml", "", (str_replace("'", "", $value_tag)));
                             }
@@ -363,9 +364,9 @@ else {
                                                     else if ($j == 7) {
                                                         echo $value_tag;
                                                         $mo_shared1 = str_replace("'", "", $value_tag);
-                                                        echo "<br/> 1: ".$mo_shared1;
+                                                        //echo "<br/> 1: ".$mo_shared1;
                                                         $mo_shared2 = str_replace(") RETURNING mo_id", "", $mo_shared1);
-                                                        echo "<br/> 2: ".$mo_shared2;
+                                                        //echo "<br/> 2: ".$mo_shared2;
                                                         $mo_shared3 = family_name($mo_shared2);
                                                     }
                         }
