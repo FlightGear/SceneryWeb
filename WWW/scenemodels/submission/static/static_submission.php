@@ -149,7 +149,7 @@ if ((isset($_POST["action"]))) {
                     $mo_id = pg_fetch_row ($result_rw_mo);
                     echo "Mo id:".$mo_id[0];
                     str_replace("Thisisthevalueformo_id",$mo_id[0],$query_rw_ob);
-                    echo "<br />New:"$query_rw_ob
+                    echo "<br />New:"$query_rw_ob;
 
                         if(!$result_rw_mo) {
                             echo "<center>";
