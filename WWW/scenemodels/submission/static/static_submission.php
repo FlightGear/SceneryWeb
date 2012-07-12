@@ -465,7 +465,7 @@ else {
 
     if (file_exists($target_path) && is_dir($target_path)) {
         $archive = base64_decode ($mo_modelfile);           // DeBase64 file
-        $file = $target_path.'/submitted_files.tar.gz';   // Defines the destination file
+        $file = $target_path.'/submitted_files.tar.gz';     // Defines the destination file
         file_put_contents ($file, $archive);                // Writes the content of $mo_modelfile into submitted_files.tar.gz
     }
 

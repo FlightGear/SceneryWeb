@@ -29,66 +29,27 @@ Features updates (by priority):
 
 Static objects
 ==============
-- numerical ID of the 3D model (mo_id, this procedure asks for a proper fix)
-- keep the capability of submitting shared 3D models. ==> DONE
-- format the texture file names so nobody can send obscure texture file names. "R.png", "techo.png",
-  "anexo.png" and the like. ==> DONE
-- provide feedback to people when they're submitting via a form (mandatory field for entering an EMail address
-  so the reviewer can get in contact with the submitter and have a predefined feedback button for the reviewer
-  which just responds "please use descriptive texture file names" ==> NEED A NEW FIELD (email) IN THE TABLE
-- Note, the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects), containing the position whereas   the bare model, no matter if it's shared or static, goes into the models table (fgs_objects). ==> DONE
+- Dos2Unix of the files, to prevent ^M, eg in .XML files
+- Do more checkings on the form site (JS) + PHP PREGs when we have more time.
+- Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin.
+- User should be redirected to the model_edit script to come when trying to update a model.
+- Add a .tar.gz download capability.
+- Don't put JPEG thumbnail into the .tar.gz"
+- Note, the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects), containing
+  the position whereas the bare model, no matter if it's shared or static, goes into the models table (fgs_objects). ==> DONE
 - There are not always textures (AC3D file with simple colors) and there can be multiple textures. ==> DONE
-- concurrent file uploads. ==> DONE
-- 'dos2unix' on every file before submission
-- some committers don't supply an XML header with their models because
-  things also appear to work in FlightGear without this header, but if
-  it's missing, I _always_ add one for the sake of consistency ....  who
-  knows which XML reader we'll have to satisfy in the future. ==> DONE
-- If the file is an XML and available, I'm searching for the first
-  occurrence of a "<path>[...]</path>" clause in order to determine which
-  AC3D model belongs into this model.  Now that I know the AC3D pathname,
-  I'm checking if the file is available, then I start searching the AC3D
-  file for reasonable "texture" clauses - usually starts a line with
-  "texture" and later on contains something like .rgb, .png, .jpg or
-  .jpeg ==> DONE
-- the model-ID is asking for a proper fix. The point is:
-  I'm issuing two (or three) SQL statements when importing a model.
-  INSERT INTO fgs_models ....  to insert the bare model.  The
-  "fgs_models" table has a sequence assigned on the "mo_id" column which
-  automatically increments the number on each insert.
-  Today I'm manually looking for the next free model-ID and I'm setting
-  "mo_id" upon insert.  BUT the proper way would be _not_ to set "mo_id"
-  but to just drop the model into the table and let the DB assign the ID.
-  There's just one problem: We need to know the model-ID when inserting
-  the positional data into the "fgs_objects" table because the latter
-  contains a reference to the numeric ID of the model.
-  Thus, it would be better to insert the model into "fgs_models",
-  retrieve the ID it has been assigned by the DB and to re-use this ID
-  for inserting into "fgs_objects".  I think this is possible with
-  PostgreSQL, I just never did it. ==> DONE
-- Submitter uploads model in a sane state, EMail ist being set to a
-  group of maintainers: "Hey, there's a new model and it passed all
-  checks. The submission was assigned ID 12345, get it from the following
-  URL: ....". ==> DONE
-- Maintainer opens URL, looks at the list of files and the file sizes
-  as included in the submission, maintainer downloads model for viewing
-  in 'osgviewer' - at least that's what I am doing nowadays as a visual
-  check. ==> DONE WITH THE NEW INTERFACE
+- Use the fgs_position_requests table to store the requests BEFORE they are submitted into the production table. The tricky part is that, when inserting the model into DB, a model id
+  is returned which is - then - used to insert the model position into fgs_objects. It could be that the second request (position) is left "blank" in the first part of the process (when
+  the request is stored into the fgs_position_requests table, and then added only once the model is validated (i.e. : we first send the request into fgs_models, retrieve the number, and then
+  reprocess the second request with the id returned by the DB.)
 - Captcha ==> DONE
 - pg_escape_string
 - Logging options ==> DONE WITH THE NEW INTERFACE
-- Fake-db testing ==> DONE
-- Live db testing ==> WAIT MARTIN VALIDATION
-- Make sure Javascript is on? ==> DONE
-- Make a nice resume of everything submitted (picture, map...)
 
 For later:
 ==========
-- Keep the possibility of updating the static object, its thumbnail, or
-  deleting it ?
-- The usual (suspects ;-)) 3D model feeders are entered in the DB. How
-  to use their email and validation scheme? => JS : if the author is
-  known, the maintainer and email field should disappear.
+- Keep the possibility of updating the static object, its thumbnail, or deleting it ?
+- The usual (suspects ;-)) 3D model feeders are entered in the DB. How to use their email and validation scheme? => JS : if the author is known, the maintainer and email field should disappear.
 
 Mapserver
 =========
@@ -96,4 +57,4 @@ Mapserver
 
 Terragear
 =========
-- Create a webtool "a la Terragear GUI" to generate scenery based on user inputs.
+- Create a webtool "à la Terragear GUI" to generate scenery based on user inputs.

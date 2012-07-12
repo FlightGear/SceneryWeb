@@ -357,7 +357,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             </tr>
             <tr>
             <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
-            <a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+            <a style="cursor:help">Email address</a></span></td>
             <td colspan="2">
             <center></center><input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);"/></center>
             </td>
