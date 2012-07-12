@@ -104,6 +104,30 @@ function object_name($id_object)
     return ($name_object);
 }
 
+// Returns the name of the object sent as parameter
+// ================================================
+
+function object_name_oj($id_object)
+{
+    $mg_id = pg_escape_string($id_object);
+
+    // Connecting to the databse.
+    $headerlink_object = connect_sphere_r();
+
+    // Querying...
+    $query = "select mo_id, mo_name from fgsoj_models where mo_id='".$mg_id."';";
+    $result = @pg_query($headerlink_object, $query);
+
+    // Showing the results.
+    while ($row = @pg_fetch_assoc($result)) {
+        $name_object=$row["mo_name"];
+    }
+
+    // Closing the connection.
+    @pg_close ($headerlink_object);
+    return ($name_object);
+}
+
 // Returns the name of the family of an ob_id sent as parameter
 // ============================================================
 
