@@ -147,7 +147,7 @@ if ((isset($_POST["action"]))) {
                     // Sending the request...
                     $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
                     $mo_id = pg_fetch_row ($result_rw_mo);
-                    echo $mo_id;
+                    echo "Mo id:".$mo_id[0];
 
                         if(!$result_rw_mo) {
                             echo "<center>";
