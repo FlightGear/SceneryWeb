@@ -40,7 +40,7 @@ if ((isset($_POST["action"]))) {
 
                     if ((!$ob_resultdel) || (!$mo_resultdel)) {
                         echo "<center>\n";
-                        echo "Signature found.<br /> Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
+                        echo "Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
                         echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />\n";
                         echo "</center>\n";
 
@@ -51,7 +51,7 @@ if ((isset($_POST["action"]))) {
                     }
                     else {
                         echo "<center>";
-                        echo "Signature found.<br />Now deleting request with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".<br />";
+                        echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".<br />";
                         echo "<font color=\"green\">Entries have correctly been deleted from the pending requests table.</font>";
                         echo "</center>";
 
@@ -141,20 +141,16 @@ if ((isset($_POST["action"]))) {
                     $query_rw_mo = gzuncompress ($sqlz_mo);
                     $query_rw_ob = gzuncompress ($sqlz_ob);
 
-                    //echo "Mo :".$query_rw_mo."<br /><hr>";
-                    echo "Ob :".$query_rw_ob;
-
-                    // Sending the request...
+                    // Sending the requests...
                     $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
                     $mo_id = pg_fetch_row ($result_rw_mo);
-                    echo "Mo id:".$mo_id[0];
-                    $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob);
-                    echo "<br />New:".$query_rw_ob_with_mo_id;
+                    $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
+                    $result_rw_ob = @pg_query ($resource_rw, $query_rw_mo);
 
-                        if(!$result_rw_mo) {
+                        if((!$result_rw_mo) || (!$result_rw_ob)) {
                             echo "<center>";
-                            echo "Signature found.<br /> Now processing query with request number ". $_POST[sig].".<br /><br />";
-                            echo "<font color=\"red\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
+                            echo "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
+                            echo "<font color=\"red\">Sorry, but the INSERT query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
                             echo "</center>";
 
                             // Closing the rw connection.
@@ -164,15 +160,17 @@ if ((isset($_POST["action"]))) {
                         }
                         else {
                             echo "<center>";
-                            echo "Signature found.<br /> Now processing INSERT model query with number ". $_POST["sig"].".<br /><br />";
+                            echo "Signatures found.<br /> Now processing INSERT query of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
                             echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
 
-                            // Delete the entry from the pending query table.
-                            //$delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';";
-                            //$resultdel = @pg_query ($resource_rw, $delete_request);
+                            // Delete the entries from the pending query table.
+                            $delete_request_mo = "delete from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';";
+                            $delete_request_ob = "delete from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';";
+                            $resultdel_mo = @pg_query ($resource_rw, $delete_request_mo);
+                            $resultdel_ob = @pg_query ($resource_rw, $delete_request_ob);
 
-                            if(!resultdel) {
-                                echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br /></center>";
+                            if((!$resultdel_mo) || (!$resultdel_ob)) {
+                                echo "<font color=\"red\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br /></center>";
 
                                 // Closing the rw connection.
                                 include '../../inc/footer.php';
@@ -180,7 +178,7 @@ if ((isset($_POST["action"]))) {
                                 exit;
                             }
                             else {
-                                echo "<font color=\"green\">Entry correctly deleted from the pending request table.</font></center>";
+                                echo "<font color=\"green\">Pending entries correctly deleted from the pending request table.</font></center>";
 
                                 // Closing the rw connection.
                                 pg_close($resource_rw);
@@ -208,16 +206,18 @@ if ((isset($_POST["action"]))) {
                                 $message0 = "Hi,"  . "\r\n" .
                                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                                         "http://scenemodels.flightgear.org/submission/static/static_submission.php"  . "\r\n" .
-                                        "I just wanted to let you know that the 3D model import named Blah." . "\r\n" .
-                                        "has been successfully treated in the pending requests table." . "\r\n" .
+                                        "I just wanted to let you know that the 3D model import with numbers :" . "\r\n" .
+                                        "- ".substr($_POST["mo_sig"],0,10). "... (model) and " . "\r\n" .
+                                        "- ".substr($_POST["ob_sig"],0,10). "... (object)" . "\r\n" .
+                                        "has been successfully treated in the scenemodel database tables." . "\r\n" .
                                         "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
-                                        "The corresponding pending entry has consequently been deleted" . "\r\n" .
+                                        "The corresponding pending entries has consequently been deleted" . "\r\n" .
                                         "from the pending requests table." . "\r\n" .
-                                        "The corresponding entry will be added in Terrasync" . "\r\n" .
+                                        "The corresponding entries will be added in Terrasync" . "\r\n" .
                                         "at 1230Z today or tomorrow if this time has already passed." . "\r\n" .
                                         "You can follow Terrasync's data update at the following url: " . "\r\n" .
                                         "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
-                                        "You can also check the model direcly at http://scenemodels.flightgear.org/" ."\r\n" .
+                                        "You can also check the model direcly at http://scenemodels.flightgear.org/modeledit.php?id=".$mo_id[0].""."\r\n" .
                                         "Thanks for your help in making FG better!";
 
                                 $message = wordwrap($message0, 77, "\r\n");
