@@ -293,16 +293,25 @@ else {
                         $query_rw = gzuncompress($sqlz);
 
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
+                        echo $trigged_query_rw;
                         $tab_tags = explode(", (", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         foreach ($tab_tags as $value_tag) {
                                 $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
+                                echo "0: ".$trigged_0."<br/>";
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
+                                echo "1: ".$trigged_1."<br/>";
                                 $trigged_2 = str_replace(", '1')","",$trigged_1);                     // Removing 1); from data;
+                                echo "2: ".$trigged_2."<br/>";
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
+                                echo "3: ".$trigged_3."<br/>";
                                 $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
+                                echo "4: ".$trigged_4."<br/>";
                                 $trigged_5 = str_replace("VALUES (","",$trigged_4);                   // Removing VALUES(;
+                                echo "5: ".$trigged_5."<br/>";
                                 $trigged_6 = str_replace("'","",$trigged_5);                          // Finally, removing ' from data;
+                                echo "6: ".$trigged_6."<br/>";
                                 $trigged_7 = str_replace(",","",$trigged_6);                          // Finally, removing ' from data;
+                                echo "7: ".$trigged_7."<br/>";
                                 $data = explode(" ",$trigged_7);                                      // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
