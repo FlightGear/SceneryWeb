@@ -470,7 +470,7 @@ else {
     }
 
     $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path;
-    @system ($detar_command);
+    passthru ($detar_command);
 ?>
     <tr>
     <td>Download</td>
@@ -506,7 +506,7 @@ else {
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             ?>
-            <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>"></center></td>
+            <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>">
             </center>
         </td>
     </tr>
