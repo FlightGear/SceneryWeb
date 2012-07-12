@@ -317,12 +317,12 @@ else {
                                 $data = explode(" ",$trigged_8);                                      // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
-                                    if ($j == 0) $ob_long = $data_from_query;
-                                    if ($j == 1) $ob_lat = $data_from_query;
-                                    if ($j == 2) $ob_gndelev = $data_from_query;
-                                    if ($j == 3) $ob_elevoffset = $data_from_query;
-                                    if ($j == 4) $ob_heading = $data_from_query;
-                                    if ($j == 5) ; // Not using model for now, it's not yet inserted
+                                    if ($j == 2) $ob_long = $data_from_query;
+                                    if ($j == 3) $ob_lat = $data_from_query;
+                                    if ($j == 4) $ob_gndelev = $data_from_query;
+                                    if ($j == 5) $ob_elevoffset = $data_from_query;
+                                    if ($j == 6) $ob_heading = $data_from_query;
+                                    if ($j == 7) ; // Not using model for now, it's not yet inserted
                                     $j++;
                                 }
                         }
