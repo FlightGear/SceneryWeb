@@ -71,7 +71,7 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)){
             echo "<tr>\n";
-              echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n";
+              echo "<td><a href=\"objectedit_oj.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n";
               echo "<td>".$row["ob_modified"]."</td>\n";
             echo "</tr>\n";
           }
@@ -89,7 +89,7 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)){
             echo "<tr>\n";
-              echo "<td><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a></td>\n";
+              echo "<td><a href=\"modeledit_oj.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a></td>\n";
               echo "<td>".$row["mo_modified"]."</td>\n";
             echo "</tr>\n";
           }
