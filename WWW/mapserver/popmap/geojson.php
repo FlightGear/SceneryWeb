@@ -24,7 +24,7 @@ $query.= "LIMIT 400";
     "features":[
         <?php
             // Grabbing data from query
-            $is_first = true,
+            $is_first = true;
             $result = pg_query($query);
             while ($row = pg_fetch_assoc($result)){
                 if($is_first)
