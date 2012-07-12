@@ -29,25 +29,24 @@ Features updates (by priority):
 
 Static objects
 ==============
-- Dos2Unix of the files, to prevent ^M, eg in .XML files
-- Do more checkings on the form site (JS) + PHP PREGs when we have more time.
 - Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin.
-- User should be redirected to the model_edit script to come when trying to update a model.
-- Don't put JPEG thumbnail into the .tar.gz
-- Note, the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects), containing
-  the position whereas the bare model, no matter if it's shared or static, goes into the models table (fgs_objects). ==> DONE
 - There are not always textures (AC3D file with simple colors) and there can be multiple textures. ==> DONE
 - Use the fgs_position_requests table to store the requests BEFORE they are submitted into the production table. The tricky part is that, when inserting the model into DB, a model id
   is returned which is - then - used to insert the model position into fgs_objects. It could be that the second request (position) is left "blank" in the first part of the process (when
   the request is stored into the fgs_position_requests table, and then added only once the model is validated (i.e. : we first send the request into fgs_models, retrieve the number, and then
   reprocess the second request with the id returned by the DB.)
+- Ob_text
 - Captcha ==> DONE
-- Logging options ==> DONE WITH THE NEW INTERFACE
 
 For later:
 ==========
+- Do more checkings on the form site (JS) + PHP PREGs when we have more time.
+- Only if static : the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects). For shared models it won't go anywhere. Really think we should
+  have a geographical request for that, to update all objects in DB at once... and keep stats coherent.
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
 - The usual (suspects ;-)) 3D model feeders are entered in the DB. How to use their email and validation scheme? => JS : if the author is known, the maintainer and email field should disappear.
+- Logging options
+
 
 Mapserver
 =========

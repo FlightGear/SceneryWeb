@@ -598,7 +598,7 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     if ($mo_shared != 0) { // This is only used for shared objects.
         if (model_exists('Models/'.family_name($mo_shared).'/'.$path) != 2) { // Reconstructing the parameters the model_exists function is waiting for, based on the path.
             $error += 1;
-            $errormsg .= "It seems that your model already exists in our database!<br/>";
+            $errormsg .= "It seems that your model already exists in our database! If you want to update it, please use our lovely update script for 3D models (to come).<br/>";
         }
     }
 
@@ -663,21 +663,20 @@ else {
     //$ob_model = pg_query($resource_rw, $mo_query);
     //$ob_model = pg_fetch_row($ob_model);
     //$ob_model = $ob_model[0];
-    //random_suffix()
 
     $ob_query  = "INSERT INTO fgsoj_objects ";
 //  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
     $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) ";
     $ob_query .= "VALUES (";
-    $ob_query .= "''";                                                         // ob_text - to be inserted later to ease deserialization
-    $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";       // wkb_geometry
-    $ob_query .= "'".$gndelev."', ";                                                      // ob_gndelev
-    $ob_query .= "'".$offset."', ";                                                       // ob_elevoffset
-    $ob_query .= "'".heading_stg_to_true($heading)."', ";                                     // ob_heading
-//    $ob_query .= "'".$country."', ";                                                      // ob_country
-    $ob_query .= "'".$ob_model."', ";                                                     // ob_model
-    $ob_query .= "'1'";                                                                   // ob_group
-//    $ob_query .= "'".$contributor."'";                                                    // ob_submitter
+    $ob_query .= "''";                                                                     // ob_text - to be inserted later to ease deserialization
+    $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
+    $ob_query .= "'".$gndelev."', ";                                                       // ob_gndelev
+    $ob_query .= "'".$offset."', ";                                                        // ob_elevoffset
+    $ob_query .= "'".heading_stg_to_true($heading)."', ";                                  // ob_heading
+//    $ob_query .= "'".$country."', ";                                                     // ob_country (Only if static)
+    $ob_query .= "'".$ob_model."', ";                                                      // ob_model
+    $ob_query .= "'1'";                                                                    // ob_group
+//    $ob_query .= "'".$contributor."'";                                                   // ob_submitter
     $ob_query .= ")";
 
     // Object Stuff into pending requests table.

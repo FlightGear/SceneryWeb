@@ -99,10 +99,10 @@ html, body {
   z-index: 100;
 }
 </style>
-<script type="text/javascript" src="libs/gl-matrix-min.js"></script> 
-<script type="text/javascript" src="libs/polyfill.js"></script> 
+<script type="text/javascript" src="libs/gl-matrix-min.js"></script>
+<script type="text/javascript" src="libs/polyfill.js"></script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 var SGI=SGI||{};SGI.Storages={VERBATIM:0,RLE:1};SGI.File=function(a){a=new SGI.Stream(a);this.header=new SGI.Header(a);this.img=new SGI.Image(this.header);this.parse(a)};SGI.File.prototype.parse=function(a){switch(this.header.storage){case SGI.Storages.VERBATIM:this.verbatim(a);break;case SGI.Storages.RLE:this.rle(a)}this.adjustChannels()};
 SGI.File.prototype.verbatim=function(a){for(var b=this.img.data,c=this.header.zsize,d=this.header.ysize,e=this.header.xsize,g=8*e,f=0,h=512,i,j,l;f<c;++f){l=this.startChannel(f);for(i=0;i<d;++i,l-=g)for(j=0;j<e;++j,l+=4)b[l]=a.peekByte(h++)}};SGI.File.prototype.rle=function(a){for(var b=this.img.data,c=this.header.zsize,d=this.header.ysize,e=4*this.header.xsize,g=0,f=512,h,i,j;g<c;++g){j=this.startChannel(g);for(h=0;h<d;++h,j-=e,f+=4)i=a.peekLong(f),this.rleRow(a,i,b,j)}};
 SGI.File.prototype.rleRow=function(a,b,c,d){for(var e=a.peekByte(b++),g=e&127,f;0!==g;){if(e&128)for(f=0;f<g;++f,d+=4)c[d]=a.peekByte(b++);else{e=a.peekByte(b++);for(f=0;f<g;++f,d+=4)c[d]=e}e=a.peekByte(b++);g=e&127}};SGI.File.prototype.adjustChannels=function(){var a=this.img.data,b=a.length,c=this.header.zsize,d=0;if(4!==c)for(;d<b;d+=4)switch(c){case 1:a[d+1]=a[d+2]=a[d];a[d+3]=255;break;case 2:a[d+1]=a[d+2]=a[d];break;case 3:a[d+3]=255}};
@@ -168,9 +168,9 @@ HG.Viewer.prototype.onResize=function(a,b){this.renderer.resize(a,b)};HG.Viewer.
 HG.Viewer.prototype.getPath=function(a){var b="",c;c=a.lastIndexOf("/");-1!==c&&(b=a.substring(0,c+1));return b};
 </script>
 
-<script type="text/javascript" src="models/models.js"></script> 
+<script type="text/javascript" src="models/models.js"></script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 var canvas, details, loading, viewer, current;
 
 function onLoad(){
@@ -188,7 +188,7 @@ function onLoad(){
 function resize(){
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  
+
   window.addEventListener("resize",
     function(event){
       viewer.onResize(window.innerWidth, window.innerHeight);
@@ -198,7 +198,7 @@ function resize(){
 function createGallery(models){
   for (var i = 0; i < models.length; ++ i){
     var img = document.createElement("img");
-    
+
     img.id = "img" + i;
     img.className = "thumbnail" + (i === current? " selected": "");
     img.src = models[i].thumbnail;
@@ -206,7 +206,7 @@ function createGallery(models){
     img.title = models[i].name;
     img.style.left = (5 + 100 * i) + "px";
     img.onclick = onClick;
-    
+
     document.body.appendChild(img);
   }
 };
@@ -214,24 +214,19 @@ function createGallery(models){
 function onClick(){
   var selected = parseInt( this.id.substring( this.id.length - 1 ) );
   if (current !== selected){
-  
+
     var img = document.getElementById("img" + current);
-    img.setAttribute("class", "thumbnail");
-    
+    img.setAttribute("class");
+
     current = selected;
-    this.setAttribute("class", "thumbnail selected");
-    
+    this.setAttribute("class");
+
     showModel(Models[current]);
   }
 };
 
 function showModel(model){
   loading.style.display = "block";
-
-  details.innerHTML =
-    "<p id='name'>" + model.name + "</p>" +
-    "<p id='author'>" + model.author + "</p>";
-  
   viewer.show(model.file, model.setup, onLoaded);
 };
 
