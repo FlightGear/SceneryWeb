@@ -64,9 +64,9 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
         $xmlName    = $_FILES["xml_file"]['name'];
         $xmlPath    = $targetPath.$_FILES["xml_file"]['name'];
     }
-    //$thumbPath    = $targetPath.$_FILES["mo_thumbfile"]['name'];
+    $thumbPath    = $targetPath.$_FILES["mo_thumbfile"]['name'];
     $ac3dPath     = $targetPath.$_FILES["ac3d_file"]['name'];
-    //$thumbName    = $_FILES["mo_thumbfile"]['name'];
+    $thumbName    = $_FILES["mo_thumbfile"]['name'];
     $ac3dName     = $_FILES["ac3d_file"]['name'];
 
     for ($i=0; $i<12; $i++) {
