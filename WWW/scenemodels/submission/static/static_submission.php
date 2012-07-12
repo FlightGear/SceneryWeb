@@ -145,7 +145,7 @@ if ((isset($_POST["action"]))) {
                     $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
                     $mo_id = pg_fetch_row ($result_rw_mo);
                     $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
-                    echo $query_rw_ob_with_mo_id;
+                    $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id.";";
                     $result_rw_ob = @pg_query ($resource_rw, $query_rw_mo);
 
                         if((!$result_rw_mo) || (!$result_rw_ob)) {
