@@ -312,7 +312,8 @@ else {
                                 echo "6: ".$trigged_6."<br/>";
                                 $trigged_7 = str_replace(",","",$trigged_6);                          // Finally, removing ' from data;
                                 echo "7: ".$trigged_7."<br/>";
-                                $trigged_8 = str_replace(" Thisisthevalueformo_id","",$trigged_7);                          // Removing future mo_id...
+                                $trigged_8 = str_replace(" Thisisthevalueformo_id","",$trigged_7);    // Removing future mo_id...
+                                echo $trigged_8;
                                 $data = explode(" ",$trigged_8);                                      // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
