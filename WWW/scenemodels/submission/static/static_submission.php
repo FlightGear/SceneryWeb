@@ -133,9 +133,6 @@ if ((isset($_POST["action"]))) {
                     $sqlzbase64_mo = $row_mo[1];
                     $sqlzbase64_ob = $row_ob[1];
 
-                    echo "Mo :".$sqlzbase64_mo."<br /><hr>";
-                    echo "Ob :".$sqlzbase64_ob;
-
                     // Base64 decode the query
                     $sqlz_mo = base64_decode ($sqlzbase64_mo);
                     $sqlz_ob = base64_decode ($sqlzbase64_ob);
@@ -143,6 +140,9 @@ if ((isset($_POST["action"]))) {
                     // Gzuncompress the query
                     $query_rw_mo = gzuncompress ($sqlz_mo);
                     $query_rw_ob = gzuncompress ($sqlz_ob);
+
+                    echo "Mo :".$sqlzbase64_mo."<br /><hr>";
+                    echo "Ob :".$sqlzbase64_ob;
 
                     // Sending the request...
                     //$resultrw = @pg_query ($resource_rw, $query_rw);
