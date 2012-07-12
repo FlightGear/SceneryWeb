@@ -3,9 +3,9 @@
 // Inserting libs
 require_once ('../../inc/functions.inc.php');
 
-// The goal of this small file is to display the texture of a pending model request in the fgs_position_requests table.
+// The goal of this small file is to give the possibility to download a model insertion request
+// as a tar.gz file, containing model, textures, XML files.
 // There is no other (known ;-) possibility to include this in the rest of the static submission script.
-// Retrieving directory from parameter sent in URL. mo_sig is just a variable named not to say directory...
 $target_path = base64_decode(rawurldecode($_GET["mo_sig"]));
 
 header("Content-type: image/png");
