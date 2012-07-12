@@ -150,7 +150,7 @@ if ((isset($_POST["action"]))) {
                         if((!$result_rw_mo) || (!$result_rw_ob)) {
                             echo "<center>";
                             echo "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
-                            echo "<font color=\"red\">Sorry, but the INSERT query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
+                            echo "<font color=\"red\">Sorry, but the INSERT queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
                             echo "</center>";
 
                             // Closing the rw connection.
@@ -160,7 +160,7 @@ if ((isset($_POST["action"]))) {
                         }
                         else {
                             echo "<center>";
-                            echo "Signatures found.<br /> Now processing INSERT query of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
+                            echo "Signatures found.<br /> Now processing INSERT queries of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
                             echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
 
                             // Delete the entries from the pending query table.

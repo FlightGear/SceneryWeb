@@ -66,7 +66,7 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
         <?php
           $query = "SELECT ob_id,ob_text,ob_modified ";
           $query.= "FROM fgsoj_objects ";
-          $query.= "ORDER BY ob_modified DESC ";
+          $query.= "ORDER BY ob_id DESC ";
           $query.= "LIMIT 10";
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)){
@@ -84,7 +84,7 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
         <?php
           $query = "SELECT mo_id,mo_name,mo_modified ";
           $query.= "FROM fgsoj_models ";
-          $query.= "ORDER BY mo_modified DESC ";
+          $query.= "ORDER BY mo_id DESC ";
           $query.= "LIMIT 10";
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)){
