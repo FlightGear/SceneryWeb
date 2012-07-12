@@ -488,7 +488,7 @@ else {
 ?>
     <tr>
     <td>Download</td>
-    <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>">Download the submission as .tar.gz for external viewing.</a></td>
+    <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>

@@ -49,11 +49,11 @@ else {
 ###########################################################
 
 if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
-    while (file_exists('/tmp/static')) {
+    $targetPath   = "/tmp/static_".random_suffix()."/";
+    while (file_exists($targetPath)) {
         usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     }
 
-    $targetPath   = "/tmp/static_".random_suffix()."/";
     if (!mkdir($targetPath)) {
         $fatalerror = 1;
         $error += 1;
@@ -64,9 +64,9 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
         $xmlName    = $_FILES["xml_file"]['name'];
         $xmlPath    = $targetPath.$_FILES["xml_file"]['name'];
     }
-    $thumbPath    = $targetPath.$_FILES["mo_thumbfile"]['name'];
+    //$thumbPath    = $targetPath.$_FILES["mo_thumbfile"]['name'];
     $ac3dPath     = $targetPath.$_FILES["ac3d_file"]['name'];
-    $thumbName    = $_FILES["mo_thumbfile"]['name'];
+    //$thumbName    = $_FILES["mo_thumbfile"]['name'];
     $ac3dName     = $_FILES["ac3d_file"]['name'];
 
     for ($i=0; $i<12; $i++) {
@@ -91,9 +91,8 @@ else {
 ###############################################
 ###############################################
 
-# STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY
-###################################################
-# In fact this step is not necessary : thumb goes directly into DB, it not targzed.
+# STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY (Will be removed later on)
+##############################################################################
 
 if (($_FILES['mo_thumbfile']['size'] < 2000000) && (!$fatalerror)) { // check file size
     if(($_FILES['mo_thumbfile']['type'] == "image/jpeg") && ((ShowFileExtension(basename($thumbName))) == "jpeg") || ((ShowFileExtension(basename($thumbName))) == "JPEG") || ((ShowFileExtension(basename($thumbName))) == "JPG") || ((ShowFileExtension(basename($thumbName))) == "jpg")) { // check type & extension file
@@ -185,7 +184,7 @@ else {
 if ($_FILES['xml_file']['name'] != "") { // if file exists
     if($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
         if($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName)) == "xml" || ShowFileExtension(basename($xmlName)) == "XML")) { // check type & extension file
-            if(($_FILES['xml_file']['error'])!=0) { // If error is detected
+            if(($_FILES['xml_file']['error']) != 0) { // If error is detected
                 $error += 1;
                 $errormsg .= "There has been an error while uploading the file \"".$xmlName."\"!<br/>";
                 switch ($_FILES['xml_file']['error']) {
@@ -410,7 +409,7 @@ else {
 ###############################################
 ###############################################
 #                                             #
-# STEP 6 : CHECK IMAGE FILE                   #
+# STEP 6 : CHECK TEXTURE FILE(S)              #
 #                                             #
 ###############################################
 ###############################################
@@ -508,9 +507,15 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $contents  = fread($handle, filesize($thumbPath));
     fclose($handle);
     $thumbFile = base64_encode($contents);             // Dump & encode the file
+    unlink ($thumbPath);                                // Has to be deleted, because it's not put into the .tar.gz
+
+    $d2u_xml_command  = 'dos2unix '.$xmlPath;          // Dos2unix on XML
+    $d2u_ac3d_command = 'dos2unix '.$ac3dPath;         // Dos2Unix on AC3D
+    system ($d2u_xml_command);
+    system ($d2u_xml_command);
 
     $phar = new PharData('/tmp/static.tar');           // Create archive file
-    $phar->buildFromDirectory($targetPath);          // Fills archive file
+    $phar->buildFromDirectory($targetPath);            // Fills archive file
     $phar->compress(Phar::GZ);                         // Convert archive file to compress file
     unlink('/tmp/static.tar');                         // Delete archive file
     rename('/tmp/static.tar.gz', '/tmp/static.tgz');   // Rename compress file
@@ -521,7 +526,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $modelFile = base64_encode($contents);             // Dump & encode the file
 
     unlink('/tmp/static.tgz');                         // Delete compress file
-    clearDir($targetPath);                           // Delete temporary static directory
+    clearDir($targetPath);                             // Delete temporary static directory
 }
 
 ###############################################
