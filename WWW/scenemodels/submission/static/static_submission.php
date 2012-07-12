@@ -145,9 +145,10 @@ if ((isset($_POST["action"]))) {
                     $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
                     $mo_id = pg_fetch_row ($result_rw_mo);
                     $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
-                    $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id.";";
-                    echo $query_rw_ob_with_mo_id;
+                    $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
                     $result_rw_ob = @pg_query ($resource_rw, $query_rw_mo);
+                    $ob_id = pg_fetch_row ($result_rw_ob);
+                    $result_obtext_update = @pg_query ($resource_rw, "update fgsoj_objects set ob_text = '". object_name($mo_id[0]) ."' where ob_id = '".$ob_id[0]."';");
 
                         if((!$result_rw_mo) || (!$result_rw_ob)) {
                             echo "<center>";
@@ -293,27 +294,17 @@ else {
                         $query_rw = gzuncompress($sqlz);
 
                         $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
-                        echo $trigged_query_rw;
                         $tab_tags = explode(", (", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                         foreach ($tab_tags as $value_tag) {
                                 $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
-                                echo "0: ".$trigged_0."<br/>";
                                 $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
-                                echo "1: ".$trigged_1."<br/>";
                                 $trigged_2 = str_replace(", '1')","",$trigged_1);                     // Removing 1); from data;
-                                echo "2: ".$trigged_2."<br/>";
                                 $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
-                                echo "3: ".$trigged_3."<br/>";
                                 $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
-                                echo "4: ".$trigged_4."<br/>";
                                 $trigged_5 = str_replace("VALUES (","",$trigged_4);                   // Removing VALUES(;
-                                echo "5: ".$trigged_5."<br/>";
                                 $trigged_6 = str_replace("'","",$trigged_5);                          // Finally, removing ' from data;
-                                echo "6: ".$trigged_6."<br/>";
                                 $trigged_7 = str_replace(",","",$trigged_6);                          // Finally, removing ' from data;
-                                echo "7: ".$trigged_7."<br/>";
                                 $trigged_8 = str_replace(" Thisisthevalueformo_id","",$trigged_7);    // Removing future mo_id...
-                                echo $trigged_8;
                                 $data = explode(" ",$trigged_8);                                      // Now showing the results
                                 $j = 0;
                                 foreach ($data as $data_from_query) {
