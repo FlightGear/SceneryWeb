@@ -250,7 +250,7 @@ function get_object_longitude_from_id($ob_id)
 // Returns the object longitude from an ob_id sent as parameter
 // ============================================================
 
-function get_object_longitude_from_id_oj(ob_id)
+function get_object_longitude_from_id_oj($ob_id)
 {
     $mg_id = pg_escape_string($ob_id);
 
