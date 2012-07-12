@@ -14,11 +14,6 @@ header("Content-type: image/jpg");
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["mo_sig"] ."';");
             if (pg_num_rows($result) != 1) {
-                echo "<center>";
-                echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
-                echo "Else, please report to fg-devel ML or FG Scenery forum.<br />";
-                echo "</center>";
-                include '../../inc/footer.php';
                 @pg_close($resource_rw);
                 exit;
             }
