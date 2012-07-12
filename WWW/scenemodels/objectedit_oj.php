@@ -67,7 +67,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
 <iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&lat=<?php echo $latitude; ?>&zoom=14" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe>
 &nbsp;
-<img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>"/>
+<img src="modelthumb_oj.php?id=<?php echo $object["ob_model"]; ?>"/>
 </center>
     </td>
 </tr>
