@@ -20,11 +20,11 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
 </tr>
 <tr>
     <td>Latitude</td>
-    <td><?php $latitude = get_object_latitude_from_id($id); echo $latitude; ?></td>
+    <td><?php $latitude = get_object_latitude_from_id_oj($id); echo $latitude; ?></td>
 <tr>
 <tr>
     <td>Longitude</td>
-    <td><?php $longitude = get_object_longitude_from_id($id); echo $longitude; ?></td>
+    <td><?php $longitude = get_object_longitude_from_id_oj($id); echo $longitude; ?></td>
 </tr>
 <tr>
     <td>Country</td>
@@ -32,15 +32,15 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
 </tr>
 <tr>
     <td>Ground Elevation</td>
-    <td><?php $elevation = get_object_elevation_from_id($id); echo $elevation; ?></td>
+    <td><?php $elevation = get_object_elevation_from_id_oj($id); echo $elevation; ?></td>
 </tr>
 <tr>
     <td>Elevation Offset</td>
-    <td><?php $offset = get_object_offset_from_id($id); echo $offset; ?></td>
+    <td><?php $offset = get_object_offset_from_id_oj($id); echo $offset; ?></td>
 </tr>
 <tr>
     <td>Heading</td>
-    <td><?php $heading = get_object_true_orientation_from_id($id); echo $heading; ?></td>
+    <td><?php $heading = get_object_true_orientation_from_id_oj($id); echo $heading; ?></td>
 </tr>
 <tr>
     <td>Group</td>
