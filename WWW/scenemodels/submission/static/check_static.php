@@ -768,7 +768,7 @@ else {
         $message2 = "\r\n".
         "Now please click:" . "\r\n" .
         "http://scenemodels.flightgear.org/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_email."\r\n" .
-        "to view and confirm/refuse the submission." . "\r\n" .
+        "to view and confirm/reject the submission." . "\r\n" .
         "Thanks!" ;
 
         // Preparing the headers.

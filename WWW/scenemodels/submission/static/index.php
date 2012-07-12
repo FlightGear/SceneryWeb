@@ -9,7 +9,7 @@
 
   <h1>Models Automated Submission Form</h1>
   <p class="center">
-  <b>Foreword:</b> This automated form goal is to ease the submission of static models into FG Scenery database.
+  <b>Foreword:</b> This automated form goal is to ease the submission of static and shared 3D models into FG Scenery database.
   There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>.
   Please help us to make it more!
 
@@ -78,7 +78,7 @@
         </tr>
         <tr>
             <td>
-            <span title="This is the two-letter country code where the model is located. If the author does not exist, please ask the scenery mantainers to add it.">
+            <span title="This is the country code where the model is located (for static models only).">
             <a style="cursor: help; ">Country</a>
             </span>
             </td>
