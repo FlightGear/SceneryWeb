@@ -24,8 +24,13 @@ $query.= "LIMIT 400";
     "features":[
         <?php
             // Grabbing data from query
+            $is_first = true,
             $result = pg_query($query);
             while ($row = pg_fetch_assoc($result)){
+                if($is_first)
+                    $is_first = false;
+                else
+                    echo ",";
         ?>
         {"type": "Feature",
             "id": "OpenLayers.Feature.Vector_<?php echo $row["ob_id"];?>",
@@ -36,8 +41,8 @@ $query.= "LIMIT 400";
             },
             "geometry":{
                 "type": "Point","coordinates": [<?php echo $row["ob_lon"];?>, <?php echo $row["ob_lat"];?>]
-            },
-        },
+            }
+        }
         <?php
             }
         ?>
