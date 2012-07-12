@@ -255,11 +255,14 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
 
             // Start the select form
             echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
-            echo "<option selected value=\"0\">Please select a family</option>\n";
+            echo "<option value=\"0\">Please select a family</option>\n";
             while ($row = @pg_fetch_assoc($result))
             {
                 $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-                echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                if($actual_family==$row["mg_name"])
+                    echo "<option selected value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                else
+                    echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
             };
             echo "</select>";
 
