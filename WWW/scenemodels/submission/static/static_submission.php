@@ -156,8 +156,8 @@ if ((isset($_POST["action"]))) {
                             echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
 
                             // Delete the entry from the pending query table.
-                            $delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';";
-                            $resultdel = @pg_query ($resource_rw, $delete_request);
+                            //$delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';";
+                            //$resultdel = @pg_query ($resource_rw, $delete_request);
 
                             if(!resultdel) {
                                 echo "<font color=\"red\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br /></center>";

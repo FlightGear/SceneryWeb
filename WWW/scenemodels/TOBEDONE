@@ -29,7 +29,7 @@ Features updates (by priority):
 
 Static objects
 ==============
-- Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin.
+- Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin. (Have to create a file sending the AC3D file)
 - There are not always textures (AC3D file with simple colors) and there can be multiple textures. ==> DONE
 - Use the fgs_position_requests table to store the requests BEFORE they are submitted into the production table. The tricky part is that, when inserting the model into DB, a model id
   is returned which is - then - used to insert the model position into fgs_objects. It could be that the second request (position) is left "blank" in the first part of the process (when
