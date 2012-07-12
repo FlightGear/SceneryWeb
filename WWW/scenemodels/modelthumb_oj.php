@@ -4,7 +4,7 @@ $link=pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password=
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id'])))
 {   
     $id=$_REQUEST['id'];
-	$result=pg_query("select mo_thumbfile from fgs_models where mo_id=$id;");
+	$result=pg_query("select mo_thumbfile from fgsoj_models where mo_id=$id;");
 	$model=pg_fetch_assoc($result);
 	if (strlen($model["mo_thumbfile"])>1024)
 		echo base64_decode($model["mo_thumbfile"]);
