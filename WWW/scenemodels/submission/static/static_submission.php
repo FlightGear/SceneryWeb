@@ -532,7 +532,7 @@ else {
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             ?>
-            <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>"></center></td>
+            <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>">
             </center>
         </td>
     </tr>
