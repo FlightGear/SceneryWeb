@@ -668,7 +668,7 @@ else {
 //  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
     $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) ";
     $ob_query .= "VALUES (";
-    $ob_query .= "''";                                                                     // ob_text - to be inserted later to ease deserialization
+    $ob_query .= "'', ";                                                                   // ob_text - to be inserted later to ease deserialization
     $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
     $ob_query .= "'".$gndelev."', ";                                                       // ob_gndelev
     $ob_query .= "'".$offset."', ";                                                        // ob_elevoffset

@@ -141,13 +141,15 @@ if ((isset($_POST["action"]))) {
                     $query_rw_mo = gzuncompress ($sqlz_mo);
                     $query_rw_ob = gzuncompress ($sqlz_ob);
 
-                    echo "Mo :".$query_rw_mo."<br /><hr>";
+                    //echo "Mo :".$query_rw_mo."<br /><hr>";
                     echo "Ob :".$query_rw_ob;
 
                     // Sending the request...
-                    //$resultrw = @pg_query ($resource_rw, $query_rw);
+                    $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
+                    $mo_id = pg_fetch_row ($result_rw_mo);
+                    echo $mo_id;
 
-                        if(!$resultrw) {
+                        if(!$result_rw_mo) {
                             echo "<center>";
                             echo "Signature found.<br /> Now processing query with request number ". $_POST[sig].".<br /><br />";
                             echo "<font color=\"red\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
