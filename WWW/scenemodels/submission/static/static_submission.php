@@ -488,6 +488,7 @@ else {
             <?php
             // Geshi stuff
             $file = $target_path.'/'.$xml_file;
+            echo $file;
             $source = file_get_contents($file);
             $language = 'xml';
             $geshi = new GeSHi($source, $language);

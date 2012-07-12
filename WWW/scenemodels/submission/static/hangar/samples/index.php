@@ -1,8 +1,5 @@
 <html>
-
 <head>
-
-
 <style>
 
 #canvas {
@@ -95,15 +92,13 @@
   z-index: 100;
 }
 </style>
-<script type="text/javascript" src="libs/gl-matrix-min.js"></script> 
-<script type="text/javascript" src="libs/polyfill.js"></script> 
+<script type="text/javascript" src="libs/gl-matrix-min.js"></script>
+<script type="text/javascript" src="libs/polyfill.js"></script>
 <script type="text/javascript" src="libs/viewer.js"></script>
 
-<script type="text/javascript"> 
-var Models = [  
-  { name: "SailBoatUnderPower", author: "Justin Smithies / Syd Adams",
-    file: "models/SailBoatUnderPower/SailBoatUnderPower.ac", thumbnail: "777-200ER_thumbnail.png",
-    setup: {eye: [-28.07, -48.23, 23.66], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45} }
+<script type="text/javascript">
+var Models = [
+  { file: "models/SailBoatUnderPower/SailBoatUnderPower.ac", setup: {eye: [-28.07, -48.23, 23.66], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45} }
 ];
 
 var canvas, details, loading, viewer, current;
@@ -122,7 +117,7 @@ function onLoad(){
 function resize(){
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  
+
   window.addEventListener("resize",
     function(event){
       viewer.onResize(window.innerWidth, window.innerHeight);
@@ -131,11 +126,6 @@ function resize(){
 
 function showModel(model){
   loading.style.display = "block";
-
-  details.innerHTML =
-    "<p id='name'>" + model.name + "</p>" +
-    "<p id='author'>" + model.author + "</p>";
-  
   viewer.show(model.file, model.setup, onLoaded);
 };
 
