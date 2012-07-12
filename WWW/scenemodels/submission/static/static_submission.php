@@ -115,29 +115,37 @@ if ((isset($_POST["action"]))) {
         // If connection is OK
         if ($resource_rw != '0') {
 
-        // Checking the presence of sig into the database
-            $result = @pg_query ($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["sig"] ."';");
-            if (pg_num_rows($result) != 1) {
+            // Checking the presence of sigs into the database
+            $mo_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';");
+            $ob_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';");
+
+            if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                 echo "<center>";
-                echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
+                echo "<font color=\"red\">Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?</font><br />\n";
                 echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
                 echo "</center>";
-                @pg_close ($resource_rw);
                 include '../../inc/footer.php';
+                @pg_close($resource_rw);
                 exit;
             }
             else {
-                    while ($row = pg_fetch_row ($result)) {
-                        $sqlzbase64 = $row[1];
+                while (($row_mo = pg_fetch_row ($mo_result)) && ($row_ob = pg_fetch_row ($ob_result))) {
+                    $sqlzbase64_mo = $row_mo[1];
+                    $sqlzbase64_ob = $row_ob[1];
 
-                        // Base64 decode the query
-                        $sqlz = base64_decode ($sqlzbase64);
+                    echo "Mo :".$sqlzbase64_mo."<br /><hr>";
+                    echo "Ob :".$sqlzbase64_ob;
 
-                        // Gzuncompress the query
-                        $query_rw = gzuncompress ($sqlz);
+                    // Base64 decode the query
+                    $sqlz_mo = base64_decode ($sqlzbase64_mo);
+                    $sqlz_ob = base64_decode ($sqlzbase64_ob);
 
-                        // Sending the request...
-                        $resultrw = @pg_query ($resource_rw, $query_rw);
+                    // Gzuncompress the query
+                    $query_rw_mo = gzuncompress ($sqlz_mo);
+                    $query_rw_ob = gzuncompress ($sqlz_ob);
+
+                    // Sending the request...
+                    //$resultrw = @pg_query ($resource_rw, $query_rw);
 
                         if(!$resultrw) {
                             echo "<center>";
