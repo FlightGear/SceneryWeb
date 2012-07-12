@@ -470,7 +470,21 @@ else {
     }
 
     $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path;
-    passthru ($detar_command);
+    system($detar_command);
+
+    $dir = opendir($target_path);
+    while ($file = readdir($dir)) {
+        if (ShowFileExtension($file) == "ac") {
+            $ac3d_file = $file;
+        }
+        if (ShowFileExtension($file) == "png") {
+            $png_file = $file;
+        }
+        if (ShowFileExtension($file) == "xml") {
+            $xml_file = $file;
+        }
+    }
+    closedir($dir);
 ?>
     <tr>
     <td>Download</td>
@@ -488,7 +502,6 @@ else {
             <?php
             // Geshi stuff
             $file = $target_path.'/'.$xml_file;
-            echo $file;
             $source = file_get_contents($file);
             $language = 'xml';
             $geshi = new GeSHi($source, $language);
@@ -507,7 +520,7 @@ else {
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             ?>
-            <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>">
+            <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>"></center></td>
             </center>
         </td>
     </tr>
