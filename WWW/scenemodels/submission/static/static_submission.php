@@ -470,21 +470,7 @@ else {
     }
 
     $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path;
-    system($detar_command);
-
-    $dir = opendir($target_path);
-    while ($file = readdir($dir)) {
-        if (ShowFileExtension($file) == "ac") {
-            $ac3d_file = $file; echo "AC3D file: $ac3d_file <br />\n";
-        }
-        if (ShowFileExtension($file) == "png") {
-            $png_file = $file; echo "PNG file: $png_file <br />\n";
-        }
-        if (ShowFileExtension($file) == "xml") {
-            $xml_file = $file; echo "XML file: $xml_file <br />\n";
-        }
-    }
-    closedir($dir);
+    @system ($detar_command);
 ?>
     <tr>
     <td>Download</td>
@@ -493,7 +479,7 @@ else {
     <tr>
         <td>Corresponding AC3D File</td>
         <td><center>
-            <iframe src="hangar/samples/index.html" width="720px" height="620px" scrolling="no" frameborder="0"></iframe></center>
+            <iframe src="hangar/samples/index.php" width="720px" height="620px" scrolling="no" frameborder="0"></iframe></center>
         </td>
     </tr>
     <tr>
