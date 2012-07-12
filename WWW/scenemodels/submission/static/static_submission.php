@@ -141,8 +141,8 @@ if ((isset($_POST["action"]))) {
                     $query_rw_mo = gzuncompress ($sqlz_mo);
                     $query_rw_ob = gzuncompress ($sqlz_ob);
 
-                    echo "Mo :".$sqlzbase64_mo."<br /><hr>";
-                    echo "Ob :".$sqlzbase64_ob;
+                    echo "Mo :".$query_rw_mo."<br /><hr>";
+                    echo "Ob :".$query_rw_ob;
 
                     // Sending the request...
                     //$resultrw = @pg_query ($resource_rw, $query_rw);
