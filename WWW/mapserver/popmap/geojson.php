@@ -38,7 +38,7 @@ $query.= "LIMIT 400";
             "id": "OpenLayers.Feature.Vector_<?php echo $row["ob_id"];?>",
             "properties":{
                 "id":<?php echo $row["ob_id"];?>,
-                "type":"<?php echo is_shared_or_static($row["ob_model"]);?>",
+                "type":"<?php echo is_shared_or_static($row["ob_id"]);?>",
                 "heading": <?php echo $row["ob_heading"];?>,
                 "title": "Object #<?php echo $row["ob_id"];?> - <?php echo $row["ob_text"];?>",
                 "description": "<img src='http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row["ob_model"];?>' alt=''/>"
