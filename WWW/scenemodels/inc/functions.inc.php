@@ -17,10 +17,10 @@ function connect_sphere_r()
 
     // If could not connect to the database
     if ($resource_r == '0') {
-        include $_SERVER['SERVER_NAME']."/inc/header.php";
+        include "/inc/header.php";
         echo "<br />";
         echo "\n<p class=\"center\"><font color=\"red\">We're sorry, but an error has occurred while connecting to the database.</font></p>\n";
-        include $_SERVER['SERVER_NAME']."/inc/footer.php";
+        include "/inc/footer.php";
         exit;
     }
     else {
