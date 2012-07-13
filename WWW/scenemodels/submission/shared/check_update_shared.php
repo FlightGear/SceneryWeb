@@ -248,6 +248,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
         $resource_r = connect_sphere_r();
 
         // If connection is OK
+        $id_family=0;
         if($resource_r != '0')
         {
             // Show all the families other than the static family
@@ -259,10 +260,13 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             while ($row = @pg_fetch_assoc($result))
             {
                 $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-                if($actual_family==$row["mg_name"])
+                if($actual_family==$row["mg_name"]) {
+                    $id_family = $row["mg_id"];
                     echo "<option selected value=\"".$row["mg_id"]."\">".$name."</option>\n";
-                else
+                }
+                else {
                     echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                }
             };
             echo "</select>";
 
@@ -287,7 +291,37 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
           </td>
           <td>
 
-            <div id="form_objects"></div>
+            <div id="form_objects">
+              <select name='model_name' id='model_name' onchange='change_thumb()'>
+<?php
+// Querying when the family is updated.
+$resource_r = connect_sphere_r();
+
+if($resource_r != '0')
+{
+    $query = "select mo_id,mo_path,mo_name,mo_shared from fgs_models where mo_shared=".$id_family." order by mo_path;";
+    $result = @pg_query($query);
+
+    // Showing the results.
+    echo "ECHO";
+    while($row = @pg_fetch_assoc($result))
+    {echo "i\n";
+        $id=$row["mo_id"];
+        $name=preg_replace('/ /',"&nbsp;",$row["mo_path"]);
+        
+        if($actual_model_name==$row["mo_name"])
+            echo "<option selected value='".$id."'>".$name."</option>\n";
+        else
+            echo "<option value='".$id."'>".$name."</option>\n";
+    }
+
+    // Close the database resource
+    @pg_close($resource_r);
+}
+            
+?>
+              </select>
+            </div>
 
           </td>
         </tr>
@@ -416,7 +450,7 @@ if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])) <= 13) && ($_POS
     $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
 }
 else {
-    echo "<font color=\"red\">Latitude mismatch!</font><br />";
+    echo "<p class=\"warning\">Latitude mismatch!</p><br />";
     $false='1';
 }
 
@@ -426,7 +460,7 @@ if((isset($_POST['longitude'])) && ((strlen($_POST['longitude'])) <= 13) && ($_P
     $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
 }
 else {
-    echo "<font color=\"red\">Longitude mismatch!</font><br />";
+    echo "<p class=\"warning\">Longitude mismatch!</p><br />";
     $false = '1';
 }
 
@@ -442,7 +476,7 @@ if ($false == 0) {
     $returned_rows = pg_num_rows($result);
 
     if ($returned_rows == '0') {
-        echo "<br /><font color=\"red\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).</font><br/>";
+        echo "<br /><p class=\"warning\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).</p><br/>";
         exit;
     }
     else {
