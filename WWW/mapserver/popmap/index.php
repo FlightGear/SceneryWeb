@@ -79,6 +79,7 @@
                 feature.attributes.description+"<br /><a href='http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>",
                 null, true, onPopupClose
             );
+            popup.minSize= new OpenLayers.Size(300,300);
             feature.popup = popup;
             popup.feature = feature;
             map.addPopup(popup);
