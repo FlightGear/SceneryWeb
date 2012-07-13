@@ -115,7 +115,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
                         "This is the automated FG scenery update PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
                         "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
         $message077 = wordwrap($message0, 77, "\r\n");
 
@@ -230,9 +230,9 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
         <form name="update" method="post" action="check_update_shared.php">
         <table>
         <tr>
-        <td></td>
-        <td><center>Actual value</center></td>
-        <td><center>New value</center></td>
+        <th></th>
+        <th><center>Actual value</center></th>
+        <th><center>New value</center></th>
         <input type="hidden" name="id_to_update" value="<?php echo $_POST['update_choice']?>" />
         </tr>
         <tr>
@@ -286,10 +286,9 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             <?php $actual_model_name = object_name(get_object_model_from_id($id_to_update));  echo $actual_model_name; ?>
             </td>
             <td>
-            <?php
-            // Now everything is done via the Ajax stuff, and the results inserted here.
-            echo "<div id=\"form_objects\"></div>";
-            ?>
+
+            <div id="form_objects"></div>
+
             </td>
             </tr>
             <tr>

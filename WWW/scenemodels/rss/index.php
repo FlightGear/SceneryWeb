@@ -1,10 +1,5 @@
-<html>
-<head>
-  <link rel="stylesheet" href="../css/style.css" type="text/css">
-</head>
-<body>
-  <?php include '../inc/header.php'; ?>
-  <h1 align=center>RSS Feeds</h1>
+<?php include '../inc/header.php'; ?>
+  <h1>RSS Feeds</h1>
   <table>
     <tr><th>Keeping Up To Date</th></tr>
     <tr>
