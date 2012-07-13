@@ -21,8 +21,8 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         $page_title = "Automated Shared Models Positions Update Form";
         include '../../inc/header.php';
         echo "<br />";
-        die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")</center>\n");
+        die ("<p class=\"center\">Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>." .
+             "<br />(reCAPTCHA complained: " . $resp->error . ")</p>\n");
     }
     else {
         // Talking back to submitter.
@@ -70,15 +70,15 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
     <br /><br />
 <?php
     if(!$resultrw) {
-        echo "<center>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></center>";
+        echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></p>";
         include '../../inc/footer.php';
         exit;
     }
     else {
-        echo "<center>Your update request has been successfully queued into the FG scenery database update requests!<br />";
+        echo "<p class=\"center\">Your update request has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, the object should be updated in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to update, delete or submit another position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></center>";
+        echo "Want to update, delete or submit another position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></p>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
@@ -203,8 +203,8 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
             $message = $message077.$message4;
             @mail($to, $subject, $message, $headers);
         }
-    include '../../inc/footer.php';
-    exit;
+        include '../../inc/footer.php';
+        exit;
     }
 }
 }
@@ -225,24 +225,24 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
 <br /><br />
 <?php
     $id_to_update = pg_escape_string(stripslashes($update_choice));
-    echo "<center>You have asked to update object #".$id_to_update.".</center><br /><br />\n";
+    echo "<p class=\"center\">You have asked to update object #".$id_to_update.".</p><br /><br />\n";
 ?>
-        <form name="update" method="post" action="check_update_shared.php">
-        <table>
+    <form name="update" method="post" action="check_update_shared.php">
+      <table>
         <tr>
-        <th></th>
-        <th><center>Actual value</center></th>
-        <th><center>New value</center></th>
-        <input type="hidden" name="id_to_update" value="<?php echo $_POST['update_choice']?>" />
+          <th></th>
+          <th><center>Actual value</center></th>
+          <th><center>New value</center></th>
+          <input type="hidden" name="id_to_update" value="<?php echo $_POST['update_choice']?>" />
         </tr>
         <tr>
-        <td>
-        <span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span>
-        </td>
-        <td>
-        <?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
-        </td>
-        <td>
+          <td>
+            <span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span>
+          </td>
+          <td>
+            <?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
+          </td>
+          <td>
         <?php
 
         $resource_r = connect_sphere_r();
@@ -275,97 +275,99 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             echo "<br /><center><font color='red'>Sorry but the database is currently unavailable, please come again soon.</font></center>";
         }
         ?>
-            </td>
-            </tr>
-            <tr>
-            <td>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
             <a style="cursor: help; ">Model name</a></span>
-            </td>
-            <td>
+          </td>
+          <td>
             <?php $actual_model_name = object_name(get_object_model_from_id($id_to_update));  echo $actual_model_name; ?>
-            </td>
-            <td>
+          </td>
+          <td>
 
             <div id="form_objects"></div>
 
-            </td>
-            </tr>
-            <tr>
-            <td>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000.">
             <a style="cursor: help; ">Longitude</a></span>
-            </td>
-            <td>
+          </td>
+          <td>
             <?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
-            </td>
-            <td>
+          </td>
+          <td>
             <input type="text" name="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onblur="checkNumeric(this,-180,180);" />
-            </td>
-            </tr>
-            <tr>
-            <td>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000.">
             <a style="cursor: help; ">Latitude</a></span>
-            </td>
-            <td>
+          </td>
+          <td>
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
-            </td>
-            <td>
+          </td>
+          <td>
             <input type="text" name="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onblur="checkNumeric(this,-90,90);" />
-            </td>
-            </tr>
-            <tr>
-            <td>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
             <a style="cursor: help; ">Elevation</a></span>
-            </td>
-            <td>
+          </td>
+          <td>
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
-            </td>
-            <td>
+          </td>
+          <td>
             <input type="text" name="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onblur="checkNumeric(this,-10000,10000);" />
-            </td>
-            </tr>
-            <tr>
-            <td>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground).">
             <a style="cursor: help; ">Elevation Offset</a></span>
-            </td>
-            <td>
+          </td>
+          <td>
             <?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
-            </td>
-            <td>
+          </td>
+          <td>
             <input type="text" name="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onblur="checkNumeric(this,-10000,10000);" />
-            </td>
-            </tr>
-            <tr>
-            <td>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span>
-            </td>
-            <td>
+          </td>
+          <td>
             <?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
-            </td>
-            <td>
+          </td>
+          <td>
             <input type="text" name="new_orientation" maxlength="7" value="<?php echo $actual_orientation; ?>" onblur="checkNumeric(this,0,359.999);" />
-            </td>
-            </tr>
-            <tr>
-            <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
-            <a style="cursor: help">Comment</a></span></td>
-            <td colspan="2">
+          </td>
+        </tr>
+        <tr>
+          <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
+            <a style="cursor: help">Comment</a></span>
+          </td>
+          <td colspan="2">
             <center><input type="text" name="comment" maxlength="100" size="40" value="" /></center>
-            </td>
-            </tr>
-            <tr>
-            <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
-            <a style="cursor:help">Email address</a></span></td>
-            <td colspan="2">
-            <center></center><input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);"/></center>
-            </td>
-            </tr>
-            <tr>
-            <td colspan="4">
+          </td>
+        </tr>
+        <tr>
+          <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
+            <a style="cursor:help">Email address</a></span>
+          </td>
+          <td colspan="2">
+            <center><input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);"/></center>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
             <center>
             <?php
                 // Google Captcha stuff
@@ -377,10 +379,10 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
             <input type="submit" name="submit" value="Update this object!" />
             <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
             </center>
-            </td>
-            </tr>
-        </table>
-        </form>
+          </td>
+        </tr>
+      </table>
+    </form>
         <?php include '../../inc/footer.php';
 }
 else
