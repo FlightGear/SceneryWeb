@@ -800,7 +800,7 @@ else {
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
-                        "This 3D model import request has been sent for validation." . "\r\n" .
+                        "Just to let you know that this 3D model import request has been sent for validation." . "\r\n" .
                         "The first part of the unique of this request is ".substr($ob_sha_hash,0,10). "... (object)" . "\r\n" .
                         "and ".substr($mo_sha_hash,0,10). "... (model)" . "\r\n" .
                         "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
@@ -820,7 +820,8 @@ else {
                         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Please click:" . "\r\n" .
                         "http://mapserver.flightgear.org/submap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
-                        "to locate the object on the map." ;
+                        "to locate the object on the map." . "\r\n" .
+                        "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
             // Preparing the headers.
             $headers = "MIME-Version: 1.0" . "\r\n";

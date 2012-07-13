@@ -353,7 +353,7 @@ if ($false == 0) {
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n" .
-                        "This new mass shared object position insertion request has been sent for validation." . "\r\n" .
+                        "Just to let you know that this new mass shared object position insertion request has been sent for validation." . "\r\n" .
                         "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
                         "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
 

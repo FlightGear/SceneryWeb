@@ -180,7 +180,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_delete_shared.php" . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
-                        "This shared object position deletion request has been sent for validation." . "\r\n" .
+                        "Just to let you know that this shared object position deletion request has been sent for validation." . "\r\n" .
                         "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
                         "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
             $message077 = wordwrap($message3, 77, "\r\n");
