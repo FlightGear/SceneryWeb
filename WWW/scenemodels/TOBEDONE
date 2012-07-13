@@ -31,7 +31,6 @@ Static objects
 ==============
 - Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin. (Have to create a file sending the AC3D file)
 - There are not always textures (AC3D file with simple colors) and there can be multiple textures. ==> DONE
-- Ob_text
 - Captcha ==> DONE
 
 For later:

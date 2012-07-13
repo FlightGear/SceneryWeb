@@ -69,7 +69,8 @@ if ((isset($_POST["action"]))) {
                         // Who will receive it ?
                         $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
                         if(isset($_POST['email'])) {
-                            // $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                            $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                            $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
                             $to .= $_POST["email"];
                         }
                         else {
@@ -196,7 +197,8 @@ if ((isset($_POST["action"]))) {
                                 // Who will receive it ?
                                 $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
                                 if(isset($_POST["email"])) {
-                                //$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                                $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                                $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
                                 $to .= $_POST["email"];
                                 }
                                 else {
