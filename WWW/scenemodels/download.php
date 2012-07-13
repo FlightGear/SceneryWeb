@@ -2,16 +2,20 @@
 <h1>Scenery Object Downloads</h1>
 <p>
   Click on any of the 10x10 degree chunks in the image below to download the objects for that area.<br/>
-  An area with no corresponding link means that no objects are available in that area, or if a rebuild is in progress, that chunk may not yet be  generated.<br/><br/>
-  Currently a global file is also available <a href="/download/GlobalObjects.tgz">here</a>.<br/><br/>
+  An area with no corresponding link means that no objects are available in that area, or if a rebuild is in progress, that chunk may not yet be  generated.
+</p>
+<p>
+  Currently a global file is also available <a href="/download/GlobalObjects.tgz">here</a>.
+</p>
+<p>
   A collection of shared models can be downloaded <a href="/download/SharedModels.tgz">here</a>.<br/>
-  (This file is <b>*REQUIRED*</b> if you want to see all the objects, and should be unpacked in your FGROOT directory)
+  (This file is <strong>*REQUIRED*</strong> if you want to see all the objects, and should be unpacked in your FGROOT directory)
 </p>
 
-<br/><br/>
+
 <center>
 <img src="img/download.png" width="720" height="450" usemap="#map" alt="Map"/>
-<map name="map">
+<map name="map" id="map">
 <area shape="rect" coords="360,200,380,225" href="/download/GlobalObjects.tgz" alt="GlobalObjects.tgz  3.97 Mb  10/15/2005"/>
 <area shape="rect" coords="360,200,380,225" href="/download/SharedModels.tgz" alt="SharedModels.tgz  0.71 Mb  10/15/2005"/>
 <area shape="rect" coords="360,200,380,225" href="/download/e000n00.tgz" alt="e000n00.tgz  0.00 Mb  10/15/2005"/>
@@ -19,7 +23,7 @@
 <area shape="rect" coords="360,150,380,175" href="/download/e000n20.tgz" alt="e000n20.tgz  0.00 Mb  10/15/2005"/>
 <area shape="rect" coords="360,125,380,150" href="/download/e000n30.tgz" alt="e000n30.tgz  0.00 Mb  10/15/2005"/>
 <area shape="rect" coords="360,100,380,125" href="/download/e000n40.tgz" alt="e000n40.tgz  0.52 Mb  10/15/2005"/>
-<area shape="rect" coords="360,75,380,100" href="/download/e000n50.tgz" alt="e000n50.tgz  0.05 Mb  10/15/2005"v>
+<area shape="rect" coords="360,75,380,100" href="/download/e000n50.tgz" alt="e000n50.tgz  0.05 Mb  10/15/2005"/>
 <area shape="rect" coords="360,50,380,75" href="/download/e000n60.tgz" alt="e000n60.tgz  0.00 Mb  10/15/2005"/>
 <area shape="rect" coords="360,225,380,250" href="/download/e000s10.tgz" alt="e000s10.tgz  0.00 Mb  10/15/2005"/>
 <area shape="rect" coords="380,200,400,225" href="/download/e010n00.tgz" alt="e010n00.tgz  0.00 Mb  10/15/2005"/>

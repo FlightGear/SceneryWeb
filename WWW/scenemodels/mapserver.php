@@ -4,18 +4,19 @@ $body_onload = "init()";
 include 'inc/header.php';
 ?>
 <h1>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h1>
-<center>
+  <p class="center">
     Please read the corresponding
     <a href="http://wiki.osgeo.org/wiki/Geodata_Repository#PostGIS_serving_vector_data">NOTES</a>
     on the fine <a href="http://www.osgeo.org/">OSGeo</a> Wiki -<br />
     and visit our sister projects at
     <a href="http://www.custom-scenery.org/">Custom Scenery Project</a> as well as
     <a href="http://scenemodels.flightgear.org/models.php">Scenery Model Repository</a>.
-    <p>
+  </p>
+  <p class="center">
     The latest reference to Custom Scenery land cover classes is available on
     <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">this page</a>.
-    </p>
-</center>
+  </p>
+
     <hr />
 <!-- include 'include/locateIp.php'; -->
     <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows" width="600px">
@@ -30,10 +31,10 @@ include 'inc/header.php';
         </iframe>
         </center>
       </td>
-      <td bgcolor="#DDDDDD"><center>
-        <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-        <a href="/shpdl/">Download Shapefiles</a>
-        </p></center>
+      <td bgcolor="#DDDDDD">
+        <p class="center" style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
+          <a href="/shpdl/">Download Shapefiles</a>
+        </p>
       </td>
       </tr>
     </table>
@@ -43,7 +44,7 @@ include 'inc/header.php';
     <br />
     <a href="http://worldaerodata.com/countries/">ICAO airport codes From WorldAeroData.com</a>
     <br />
-    <hr width="42">
+    <hr width="42"/>
     WMS: <a href="http://mapserver.flightgear.org/ms?Service=WMS&amp;Version=1.1.1&amp;request=GetCapabilities">http://mapserver.flightgear.org/ms?Service=WMS&amp;Version=1.1.1&amp;request=GetCapabilities</a>
     <br />
     WFS: <a href="http://mapserver.flightgear.org/ms?Service=WFS&amp;Version=1.0.0&amp;request=GetCapabilities">http://mapserver.flightgear.org/ms?Service=WFS&amp;Version=1.0.0&amp;request=GetCapabilities</a>
