@@ -30,7 +30,7 @@ Features updates (by priority):
 
 Static objects
 ==============
-- Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin. (Have to create a file sending the AC3D file)
+- Have to create a file sending the AC3D file + textures to feed the WebGL beast.
 - Captcha ==> DONE
 
 For later:
