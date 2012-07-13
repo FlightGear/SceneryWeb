@@ -74,7 +74,8 @@ if ((isset($_POST["action"]))) {
                             $to .= $_POST["email"];
                         }
                         else {
-                            // $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                            $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                            $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>";
                         }
 
                         // What is the subject ?
