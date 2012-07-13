@@ -538,7 +538,8 @@ else {
         <td>
             <center>
             <?php
-            echo $png_file_number." textures file(s) ha(s)ve been submitted:";
+            if ()$png_file_number == 0 echo $png_file_number." texture file has been submitted:"; // Some eye caviar for the poor scenery maintainers.
+                else echo $png_file_number." texture files have been submitted:";
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
