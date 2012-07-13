@@ -75,7 +75,8 @@
                 feature.geometry.getBounds().getCenterLonLat(),
                 new OpenLayers.Size(100,100),
                 "<h2>"+feature.attributes.title + "</h2>" +
-                feature.attributes.description+"<br /><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>",
+                feature.attributes.description+"<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>"+
+                "&nbsp;<a href='http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>",
                 null, true, onPopupClose
             );
             popup.minSize= new OpenLayers.Size(300,300);
