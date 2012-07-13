@@ -71,15 +71,21 @@
 
         function onFeatureSelect(evt) {
             feature = evt.feature;
+            
+            var content = "<h2>"+feature.attributes.title + "</h2>" +
+                feature.attributes.description;
+            if(feature.attributes.type=="shared") {
+                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>"+
+                "&nbsp;<a href='http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>";
+            }
+            
             popup = new OpenLayers.Popup.FramedCloud("featurePopup",
                 feature.geometry.getBounds().getCenterLonLat(),
                 new OpenLayers.Size(100,100),
-                "<h2>"+feature.attributes.title + "</h2>" +
-                feature.attributes.description+"<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>"+
-                "&nbsp;<a href='http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>",
+                content,
                 null, true, onPopupClose
             );
-            popup.minSize= new OpenLayers.Size(300,300);
+            popup.minSize= new OpenLayers.Size(350,350);
             feature.popup = popup;
             popup.feature = feature;
             map.addPopup(popup);
