@@ -19,13 +19,13 @@ Please, read the following:
     <li>Choose the author for the model. Please contact us if you're not listed here. If you are building a new model based on another one, put the original creator's name here, and yours in the contributor field.</li>
     <li>An email address is important: the server will keep you up to date about your submission: submitted, rejected, added, you'll know all of it in real time.</li>
     <li>The country is the one where the model you're adding is located, not yours!</li>
-    <li>The description is very important. Has to be short and complete, it will appear in the "name" field for instance here: http://scenemodels.flightgear.org/modeledit.php?id=2551 as well as on the maps.</li>
+    <li>The description is very important. Has to be short and complete, it will appear in the "name" field for instance <a href="http://scenemodels.flightgear.org/modeledit.php?id=2551">here</a> as well as on the maps.</li>
     <li>Use the terrain shipped with FlightGear/Terrasync, and not any custom elevation model you may have installed/compiled, or model will be sunk/floating.</li>
-    <li>The comment is important too, you can be a bit more talkative on your model (not pages!). It appears as "Comment" here: http://scenemodels.flightgear.org/modeledit.php?id=2319 so don't just say: please commit!</li>
+    <li>The comment is important too, you can be a bit more talkative on your model (not pages!). It appears as "Comment" <a href="http://scenemodels.flightgear.org/modeledit.php?id=2319">here</a>, so don't just say: please commit!</li>
     <li>You HAVE TO add at least 3 files: an AC3D file of your model, a XML file, and a JPEG thumbnail (PNG texture(s) if any. Files have to share a common name, for instance Rochester_Castle_Keep.ac, Rochester_Castle_Keep.xml, Rochester_Castle_Keep_thumbnail (thumbnail written as is)). If you have multiple textures, name them Rochester_Castle_Keep1.png, with the number incrementing.</li>
     <li>JPEG has to be 320*240 exciting thumbnail.</li>
     <li>PNG size must show a ^2 in width and height.</li>
-    <li>XML file must start with a classic XML header, such as: <?xml version="1.0" encoding="UTF-8" ?></li>
+    <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;</li>
     <li>Please also read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for.</li>
     <li>Please note that all fields are now mandatory. An XML file is mandatory, as the name of your submission is automagically derived from it and as it should
     be useful for future work. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example.</li>
@@ -36,9 +36,7 @@ Please, read the following:
   <p class="center">
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.
   </p>
-  <p style="color:red;" class="center">Files <u>must have the same name</u> except for thumbnail file. eg: XXXX_thumbnail.jpeg (thumbnail file), XXXX.ac (AC3D file), XXXX.xml (XML file), XXXX.png (texture file)</p>
-
-    <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
+     <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
     <table>
         <tr>
             <td>

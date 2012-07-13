@@ -493,14 +493,14 @@ else {
     system($detar_command);
 
     $dir = opendir($target_path);
-    $png = 0;   // Counter for PNG files.
+    $png_file_number = 0;   // Counter for PNG files.
     while ($file = readdir($dir)) {
         if (ShowFileExtension($file) == "ac") {
             $ac3d_file = $file;
         }
         if (ShowFileExtension($file) == "png") {
             $png_file = $file;
-            $png++;
+            $png_file_number++;
         }
         if (ShowFileExtension($file) == "xml") {
             $xml_file = $file;
@@ -536,14 +536,20 @@ else {
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
-            <?php echo $png." textures file(s) have been submitted."; ?>
             <center>
             <?php
+            if ($png_file_number == 0) echo $png_file_number." texture file has been submitted:"; // Some eye caviar for the poor scenery maintainers.
+                else echo $png_file_number." texture files have been submitted:";
+
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
+            for ($j=0; $j<$png_file_number; $j++) {
             ?>
-            <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>">
+                <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&png_file_number=<?php echo $j; ?>">
+            <?php
+            }
+            ?>
             </center>
         </td>
     </tr>
