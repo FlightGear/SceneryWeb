@@ -78,6 +78,7 @@
                 feature.attributes.description+"<br/ ><a href='http://scenemodels.flightgear.org/objectedit.php?id="+feature.attributes.id+"' target='_blank'>Edit</a>",
                 null, true, onPopupClose
             );
+            popup.minSize= new OpenLayers.Size(300,300);
             feature.popup = popup;
             popup.feature = feature;
             map.addPopup(popup);
