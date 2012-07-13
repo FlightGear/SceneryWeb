@@ -6,7 +6,7 @@
 function connect_sphere_r()
 {
     // Inserting dependencies and defining settings
-    include ("/srv/http/fgconfig.php");
+    include ("/home/ojacq/.scenemodels");
     $dbrname = $database;
     $dbrhost = $host;
     $dbruser = $ro_user;
@@ -34,7 +34,7 @@ function connect_sphere_r()
 function connect_sphere_rw()
 {
     // Inserting dependencies and defining settings
-    include ("/srv/http/fgconfig.php");
+    include ("/home/ojacq/.scenemodels");
     $dbrwname = $database;
     $dbrwhost = $host;
     $dbrwuser = $rw_user;
