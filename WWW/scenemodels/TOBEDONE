@@ -30,12 +30,6 @@ Features updates (by priority):
 
 Static objects
 ==============
-- Be clearer on what is needed to validate the model.
-- Be clearer with errors : for instance Thumbnail has a T and does not work.
-- Elevation can be negative.
-- "Path", in the mail, show not show extension.
-
-
 - Have a page showing the whole submission, so the maintainer has a clear view of what has been submitted, with an AC3D plugin. (Have to create a file sending the AC3D file)
 - There are not always textures (AC3D file with simple colors) and there can be multiple textures. ==> Have to show all of them.
 - Captcha ==> DONE
@@ -43,17 +37,13 @@ Static objects
 For later:
 ==========
 - Do more checkings on the form site (JS) + PHP PREGs when we have more time.
+- The usual (suspects ;-)) 3D model feeders are entered in the DB. How to use their email and validation scheme? => JS : if the author is known, the maintainer and email field should disappear.
 - Only if static : the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects). For shared models it won't go anywhere. Really think we should
   have a geographical request for that, to update all objects in DB at once... and keep stats coherent.
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
-- The usual (suspects ;-)) 3D model feeders are entered in the DB. How to use their email and validation scheme? => JS : if the author is known, the maintainer and email field should disappear.
 - Logging options
-
-
-Mapserver
-=========
-- Renew (see Gijs comment) the object click function on the maps to retrieve the information on the selected object. Seems to be broken since a mapserver update.
 
 Terragear
 =========
 - Create a webtool "à la Terragear GUI" to generate scenery based on user inputs.
+- Generate WW scenery, whether 810, 850, Corine...

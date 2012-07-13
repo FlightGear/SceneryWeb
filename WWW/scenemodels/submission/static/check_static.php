@@ -79,7 +79,7 @@ else {
     if (!$fatalerror) {
         $fatalerror = 1;
         $error += 1;
-        $errormsg .= "XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml, tower.ac, tower_thumbnail.jpeg)!<br/>";
+        $errormsg .= "XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (currently ".$xmlName."), tower.ac (currently ".$ac3dName."), tower_thumbnail.jpeg (currently ".$thumbName.")!<br/>";
     }
 }
 
@@ -752,7 +752,7 @@ else {
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "Family: ".family_name($mo_shared)."\r\n" .
         "[ ".$html_family_url." ]" . "\r\n" .
-        "Path: ". $path . "\r\n" .
+        "Path: ". $xmlName . "\r\n" .
         "Author: ". get_authors_name_from_authors_id($author) ."\r\n" .
         "Description: ". $name ."\r\n" .
         "Comment: ". strip_tags($comment) ."\r\n" .
@@ -809,7 +809,7 @@ else {
             // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
             $message4 = "Family: ".family_name($mo_shared)."\r\n" .
                         "[ ".$html_family_url." ]" . "\r\n" .
-                        "Path: ". $path . "\r\n" .
+                        "Path: ". $xmlName . "\r\n" .
                         "Author: ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description: ". $name ."\r\n" .
                         "Comment: ". strip_tags($comment) ."\r\n" .
