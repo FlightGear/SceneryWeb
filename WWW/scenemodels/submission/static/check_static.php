@@ -721,8 +721,8 @@ else {
 
         // Who will receive it ?
         $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-        $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr> ";
-        //$to .= "\"Martin SPOTT\" <martin.spott@mgras.net> ";
+        $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
+        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net> ";
 
         // What is the subject ?
         $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";

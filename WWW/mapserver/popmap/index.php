@@ -75,7 +75,7 @@
                 feature.geometry.getBounds().getCenterLonLat(),
                 new OpenLayers.Size(100,100),
                 "<h2>"+feature.attributes.title + "</h2>" +
-                feature.attributes.description+"<br/ ><a href='http://scenemodels.flightgear.org/objectedit.php?id="+feature.attributes.id+"' target='_blank'>Edit</a>",
+                feature.attributes.description+"<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>",
                 null, true, onPopupClose
             );
             feature.popup = popup;
