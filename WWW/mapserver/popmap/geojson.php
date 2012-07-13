@@ -1,4 +1,6 @@
 <?php
+require_once('../include/functions.inc.php');
+        
 // Connecting to the database
 $link = pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
 
@@ -36,9 +38,10 @@ $query.= "LIMIT 400";
             "id": "OpenLayers.Feature.Vector_<?php echo $row["ob_id"];?>",
             "properties":{
                 "id":<?php echo $row["ob_id"];?>,
+                "type":"<?php echo is_shared_or_static($row["ob_model"]);?>",
                 "heading": <?php echo $row["ob_heading"];?>,
                 "title": "Object #<?php echo $row["ob_id"];?> - <?php echo $row["ob_text"];?>",
-                "description": "<img src=http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row["ob_model"];?>>"
+                "description": "<img src='http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row["ob_model"];?>' alt=''/>"
             },
             "geometry":{
                 "type": "Point","coordinates": [<?php echo $row["ob_lon"];?>, <?php echo $row["ob_lat"];?>]
