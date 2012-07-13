@@ -10,13 +10,16 @@ $target_path = base64_decode(rawurldecode($_GET["mo_sig"]));
 
 header("Content-type: image/png");
 $dir = opendir($target_path);
-
+    $now_reading = 0; // Use if model has multiple PNG textures
     while ($file = readdir($dir)) {
         if (ShowFileExtension($file) == "png") {
-            $fichier = $target_path."/".$file;
-            $texture = imagecreatefrompng($fichier);
-            imagepng($texture);
-            imagedestroy($texture);
+            if ($now_reading == $_GET["png_file_number"]) { // Returning the texture numbered as required in URL
+                $fichier = $target_path."/".$file;
+                $texture = imagecreatefrompng($fichier);
+                imagepng($texture);
+                imagedestroy($texture);
+            }
+            else $now_reading++;
         }
     }
 
