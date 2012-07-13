@@ -7,14 +7,15 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="../../inc/js/jquery.multifile.js"></script>
 
-  <h1>Models Automated Submission Form</h1>
-  <p class="center">
-  <b>Foreword:</b> This automated form goal is to ease the submission of static and shared 3D models into FG Scenery database.
-  There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>.
-  Please help us to make it more!
+    <h1>Models Automated Submission Form</h1>
+    <p class="center">
+    <b>Foreword:</b> This automated form goal is to ease the submission of static and shared 3D models into FG Scenery database.
+    There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>.
+    Please help us to make it more!
 
-  Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for.
-  Please note that all fields are now mandatory.
+    Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for.
+    Please note that all fields are now mandatory. An XML file is mandatory, as the name of your submission is automagically derived from it and as it should
+    be useful for future work. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example.
   </p>
   <p class="center">
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.

@@ -33,8 +33,6 @@ Static objects
 - Be clearer on what is needed to validate the model.
 - Be clearer with errors : for instance Thumbnail has a T and does not work.
 - Elevation can be negative.
-- Email checks seems not to be working: Vic managed to send with "Your email" as email address. Have to check it PHP/JS.
-- Have to be more precise on the fact that XML is mandatory because it defines the path name. Propose a default XML file.
 - "Path", in the mail, show not show extension.
 
 
