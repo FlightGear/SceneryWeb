@@ -8,4 +8,4 @@
     <script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.0&appid=euzuro-openlayers"></script>
 <!--    <script src='http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1'></script> -->
     <script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
-    <script type="text/javascript" src='http://mapserver.flightgear.org/map/maplayers.js' type='text/javascript'></script>
+    <script type="text/javascript" src='http://mapserver.flightgear.org/map/maplayers.js'></script>
