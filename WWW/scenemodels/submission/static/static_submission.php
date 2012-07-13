@@ -538,7 +538,7 @@ else {
         <td>
             <center>
             <?php
-            if ()$png_file_number == 0 echo $png_file_number." texture file has been submitted:"; // Some eye caviar for the poor scenery maintainers.
+            if ($png_file_number == 0) echo $png_file_number." texture file has been submitted:"; // Some eye caviar for the poor scenery maintainers.
                 else echo $png_file_number." texture files have been submitted:";
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
