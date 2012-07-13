@@ -228,12 +228,21 @@
         {isBaseLayer: false, maxScale: 5000 }
     );
 
-    var wfssigns = new OpenLayers.Layer.WFS( "WFS Taxiway Signs",
+    //TODO This is temporary code    
+    var wfssigns = new OpenLayers.Layer.WMS( "WMS Taxiway Signs",
         [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
           "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
-        { typename: "fgs_signs", maxfeatures: 200},
-        { minScale: 5000 }
+        {layers: 'fgs_signs', transparent: 'true', format: 'image/png'},
+        {isBaseLayer: false, minScale: 5000 }
     );
+
+// This code is buggy
+//    var wfssigns = new OpenLayers.Layer.WFS( "WFS Taxiway Signs",
+//        [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+//          "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
+//        { typename: "fgs_signs", maxfeatures: 200},
+//        { minScale: 5000 }
+//    );
 
     var wmsobjects = new OpenLayers.Layer.WMS( "Scenery Objects",
         [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
@@ -241,9 +250,9 @@
         {layers: 'fgs_staticobjects,fgs_sharedobjects', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false, maxScale: 12500 }
     );
-        
+    
     var jsonobjects = new OpenLayers.Layer.Vector("Scenery Object Details",{
-        strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})],
+        strategies: [new OpenLayers.Strategy.BBOX()],
         protocol: new OpenLayers.Protocol.HTTP({
             url: "geojson.php",
             format: new OpenLayers.Format.GeoJSON()
