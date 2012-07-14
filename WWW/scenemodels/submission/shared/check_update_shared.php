@@ -297,19 +297,16 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
 // Querying when the family is updated.
 $resource_r = connect_sphere_r();
 
-if($resource_r != '0')
-{
+if ($resource_r != '0') {
     $query = "select mo_id,mo_path,mo_name,mo_shared from fgs_models where mo_shared=".$id_family." order by mo_path;";
     $result = @pg_query($query);
 
     // Showing the results.
-    echo "ECHO";
-    while($row = @pg_fetch_assoc($result))
-    {echo "i\n";
-        $id=$row["mo_id"];
-        $name=preg_replace('/ /',"&nbsp;",$row["mo_path"]);
+    while ($row = @pg_fetch_assoc($result)) {
+        $id = $row["mo_id"];
+        $name = preg_replace('/ /',"&nbsp;",$row["mo_path"]);
 
-        if($actual_model_name==$row["mo_name"])
+        if ($actual_model_name == $row["mo_name"])
             echo "<option selected value='".$id."'>".$name."</option>\n";
         else
             echo "<option value='".$id."'>".$name."</option>\n";
@@ -318,7 +315,6 @@ if($resource_r != '0')
     // Close the database resource
     @pg_close($resource_r);
 }
-
 ?>
               </select>
             </div>
