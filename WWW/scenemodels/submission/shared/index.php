@@ -59,7 +59,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 
                 // Else, write message.
                 else  {
-                    echo "<br /><font color='red'>Sorry but the database is currently unavailable, please come again soon.</font>";
+                    echo "<br /><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
                 }
 ?>
         </td>

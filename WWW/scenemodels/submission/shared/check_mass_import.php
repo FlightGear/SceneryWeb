@@ -126,7 +126,7 @@ if (!$error) {
                 }
             }
             else if($j == 2) { // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
-                if(!(preg_match("/^[a-z0-9_/.-]$/i",$value_tag))) {
+                if(!(preg_match("/^[a-z0-9_\/.-]$/i",$value_tag))) {
                     $return_value = model_exists($value_tag);
                     if ($return_value == 0) {
                         echo "<td><center>".$value_tag."</center></td>";

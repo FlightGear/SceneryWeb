@@ -4,26 +4,19 @@
 
 require_once('../../inc/functions.inc.php');
 
-// Checking DB availability before all
+    // Checking DB availability before all
 
-$ok=check_availability();
+    $ok=check_availability();
 
-if(!$ok)
-{
-    $page_title = "Automated Shared Models Positions Update Form";
-    include '../../inc/header.php';
-?>
-<br /><br />
-<center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
-<br /><center>The FlightGear team.</center>
-<?php include '../../inc/footer.php'; ?>
-<?php
-}
+    if(!$ok)
+    {
+        $page_title = "Automated Shared Models Positions Update Form";
+        $body_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        include '../../inc/error_page.php';
+        exit;
+    }
 
-else
-{
-?>
-<?php
+
     $page_title = "Automated Shared Models Positions Update Form";
     include '../../inc/header.php';
 ?>
@@ -59,6 +52,4 @@ else
 </form>
 
 <?php include '../../inc/footer.php'; ?>
-<?php
-}
-?>
+

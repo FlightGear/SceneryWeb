@@ -37,7 +37,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
     //    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
     //}
     //else {
-    //    echo "<font color=\"red\">Comment mismatch!</font><br />";
+    //    echo "<p class=\"warning\">Comment mismatch!</p><br />";
     //    $error=true;
     //}
 
