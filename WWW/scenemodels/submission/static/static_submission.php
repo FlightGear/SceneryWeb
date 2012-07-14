@@ -515,7 +515,11 @@ else {
     <tr>
         <td>Corresponding AC3D File</td>
         <td><center>
-            <iframe src="hangar/samples/index.php" width="720px" height="620px" scrolling="no" frameborder="0"></iframe></center>
+            <?php
+            $based64_target_path = base64_encode($target_path);
+            $encoded_target_path = rawurlencode($based64_target_path);
+            ?>
+            <iframe src="hangar/samples/index.php?mo_sig=<?php echo $encoded_target_path; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe></center>
         </td>
     </tr>
     <tr>

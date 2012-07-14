@@ -41,6 +41,7 @@ For later:
   have a geographical request for that, to update all objects in DB at once... and keep stats coherent.
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
 - Logging options
+- Add WebGL for public access as well (3D model viewer).
 
 Terragear
 =========
