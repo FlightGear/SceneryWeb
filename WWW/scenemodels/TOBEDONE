@@ -4,8 +4,6 @@ Bug/security fixing:
 --------------------
 - Check for every form & page the referring page & the value of the form submitting.
 - Sanitize comments +lat/long content (Javascript + PHP stuff and strip tags). More checkings in the update script.
-- In the update form the (eventually former) model name should be selected
-  by default.
 
 Features updates (by priority):
 -------------------------------
@@ -31,7 +29,7 @@ Features updates (by priority):
 Static objects
 ==============
 - Have to create a file sending the AC3D file + textures to feed the WebGL beast.
-- Captcha ==> DONE
+- Captcha
 
 For later:
 ==========
