@@ -21,14 +21,14 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
         $page_title = "Automated Shared Models Positions Deletion Form";
         include '../../inc/header.php';
         echo "<br />";
-        die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a><" .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
+        die ("<p class=\"center\">Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>" .
+             "<br />(reCAPTCHA complained: " . $resp->error . ")</p>");
     }
     else {
         $page_title = "Automated Shared Models Positions Deletion Form";
         include '../../inc/header.php';
         $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
-        echo "<br /><center><font color=\"green\">You have asked to delete object #".$id_to_delete."</font></center><br />";
+        echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p><br />";
 
         // Should in fact be somewhere like here. Checking that comment exists. Just a small verification as it's not going into DB.
 
@@ -47,10 +47,10 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
         $failed_mail = 0;
         if((isset($_POST['email'])) && ((strlen($_POST['email'])) > 0) && ((strlen($_POST['email']) <= 50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<center><font color=\"green\">Email: ".$safe_email."</font></center><br />";
+            echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
         }
         else {
-            echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
+            echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
             $failed_mail = 1;
          }
 
@@ -79,15 +79,15 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
 
     // Talking back to submitter.
     if(!$resultrw) {
-        echo "<center></center>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</center><br />";
+        echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
         include '../../inc/footer.php';
         exit;
     }
     else {
-        echo "<center>Your position has been successfully queued into the FG scenery database deletion requests!<br />";
+        echo "<p class=\"center\">Your position has been successfully queued into the FG scenery database deletion requests!<br />";
         echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a></center>";
+        echo "Want to delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a></p>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
@@ -223,8 +223,8 @@ if(!$ok) {
     include '../../inc/header.php';
 ?>
     <br /><br />
-    <p class="center"><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></p>
-    <br /><center>The FlightGear team.</center>
+    <p class="center warning">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</p>
+    <p class="center">The FlightGear team.</p>
     <?php include '../../inc/footer.php';
     exit;
     }
@@ -247,7 +247,7 @@ global $false;
             $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
         }
         else {
-            echo "<center><font color=\"red\">Latitude mismatch!</font></center><br />";
+            echo "<p class=\"center warning\">Latitude mismatch!</p><br />";
             $false = 1;
         }
 
@@ -257,7 +257,7 @@ global $false;
                 $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
         }
         else {
-            echo "<center><font color=\"red\">Longitude mismatch!</font><br /></center>";
+            echo "<p class=\"center warning\">Longitude mismatch!</p><br />";
             $false = 1;
         }
     }
@@ -290,7 +290,7 @@ if ($false == 0) {
 
     // We have only one result
     if ($returned_rows == 0) {
-        echo "<br /><center></center><font color=\"red\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).</font></center><br/>";
+        echo "<br /><p class=\"center warning\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).</p><br/>";
         include '../../inc/footer.php';
         exit;
     }
@@ -299,7 +299,7 @@ if ($false == 0) {
     else {
         if ($returned_rows == 1) {
             while ($row = pg_fetch_row($result)) {
-            echo "<center>You have asked to delete object #".$row[0].".</center><br />";
+            echo "<p class=\"center\">You have asked to delete object #".$row[0].".</p><br />";
             ?>
             <form name="delete_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php">
             <table>

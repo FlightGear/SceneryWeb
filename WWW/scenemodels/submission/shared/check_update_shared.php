@@ -34,10 +34,10 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         $failed_mail = 0;
         if((isset($_POST['email'])) && ((strlen($_POST['email'])) > 0) && ((strlen($_POST['email']) <= 50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<center><font color=\"green\">Email: ".$safe_email."</font></center><br />";
+            echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
         }
         else {
-            echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
+            echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
             $failed_mail = 1;
         }
 
@@ -430,8 +430,8 @@ if(!$ok) {
     include '../../inc/header.php';
 ?>
 <br /><br />
-<center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
-<br /><center>The FlightGear team.</center>
+<p class=\"center warning\">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</p>
+<p class=\"center\">The FlightGear team.</p>
 <?php
 include '../../inc/footer.php';
 }

@@ -9,12 +9,8 @@ $ok=check_availability();
 if(!$ok)
 {
     $page_title = "Automated Shared Models Positions Submission Form";
-    include '../../inc/header.php';
-?>
-<br /><br />
-<p class="center"><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></p>
-<br /><center>The FlightGear team.</center>
-<?php include '../../inc/footer.php';
+    $body_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+    include '../../inc/error_page.php';
 }
 else {
     $page_title = "Automated Shared Models Positions Submission Form";

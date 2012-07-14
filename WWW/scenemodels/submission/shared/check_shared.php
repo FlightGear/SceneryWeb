@@ -11,8 +11,8 @@ if(!$ok) {
     include '../../inc/header.php';
 ?>
 <br /><br />
-<p class="center"><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></p>
-<br /><center>The FlightGear team.</center>
+<p class="center warning">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</p>
+<p class=\"center\">The FlightGear team.</p>
 <?php include '../../inc/footer.php';
 }
 else {
@@ -50,10 +50,10 @@ $resp = recaptcha_check_answer ($privatekey,
         if((isset($_POST['family_name'])) && preg_match('/[0-9]/',$_POST['family_name']) && ($_POST['family_name']>'0')) {
             $family_id = pg_escape_string(stripslashes($_POST['family_name']));
             $family_real_name = family_name($family_id);
-            echo "<font color=\"green\">Family Name: ".$family_real_name."</font><br />";
+            echo "<p class=\"ok\">Family Name: ".$family_real_name."</p><br />";
         }
         else {
-            echo "<font color=\"red\">Family Name mismatch!</font><br />";
+            echo "<p class=\"warning\">Family Name mismatch!</p><br />";
             $false='1';
         }
 
@@ -61,10 +61,10 @@ $resp = recaptcha_check_answer ($privatekey,
         if((isset($_POST['model_name'])) && preg_match('/[0-9]/',$_POST['model_name']) && ($_POST['model_name']>'0')) {
             $model_id = pg_escape_string(stripslashes($_POST['model_name']));
             $model_real_name = object_name($model_id);
-            echo "<font color=\"green\">Model Name: ".$model_real_name."</font><br />";
+            echo "<p class=\"ok\">Model Name: ".$model_real_name."</p><br />";
         }
         else {
-            echo "<font color=\"red\">Model Name mismatch!</font><br />";
+            echo "<p class=\"warning\">Model Name mismatch!</p><br />";
             $false='1';
         }
 
@@ -72,10 +72,10 @@ $resp = recaptcha_check_answer ($privatekey,
         // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
         if((isset($_POST['latitude'])) && ((strlen($_POST['latitude']))<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
             $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
-            echo "<font color=\"green\">Latitude: ".$lat."</font><br />";
+            echo "<p class=\"ok\">Latitude: ".$lat."</p><br />";
         }
         else {
-            echo "<font color=\"red\">Latitude mismatch!</font><br />";
+            echo "<p class=\"warning\">Latitude mismatch!</p><br />";
             $false='1';
         }
 
@@ -83,10 +83,10 @@ $resp = recaptcha_check_answer ($privatekey,
         // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
         if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180')) {
             $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
-            echo "<font color=\"green\">Longitude: ".$long."</font><br />";
+            echo "<p class=\"ok\">Longitude: ".$long."</p><br />";
         }
         else {
-            echo "<font color=\"red\">Longitude mismatch!</font><br />";
+            echo "<p class=\"warning\">Longitude mismatch!</p><br />";
             $false = '1';
         }
 
@@ -96,20 +96,20 @@ $resp = recaptcha_check_answer ($privatekey,
             ($_POST['gndelev']<='10000') &&
             ($_POST['gndelev']>='-10000')) {
             $gndelev = number_format(pg_escape_string(stripslashes($_POST['gndelev'])),2,'.','');
-            echo "<font color=\"green\">Ground Elevation: ".$gndelev."</font><br />";
+            echo "<p class=\"ok\">Ground Elevation: ".$gndelev."</p><br />";
         }
         else {
-            echo "<font color=\"red\">Ground Elevation mismatch!</font><br />";
+            echo "<p class=\"warning\">Ground Elevation mismatch!</p><br />";
             $false='1';
         }
 
         // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
         if((isset($_POST['offset'])) && ((strlen($_POST['offset']))<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
             $offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
-            echo "<font color=\"green\">Offset: ".$offset."</font><br />";
+            echo "<p class=\"ok\">Offset: ".$offset."</p><br />";
         }
         else {
-            echo "<font color=\"red\">Offset mismatch!</font><br />";
+            echo "<p class=\"warning\">Offset mismatch!</p><br />";
             $false='1';
         }
 
@@ -117,10 +117,10 @@ $resp = recaptcha_check_answer ($privatekey,
         // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
         if((isset($_POST['heading'])) && ((strlen($_POST['heading']))<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0')) {
             $heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
-            echo "<font color=\"green\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</font><br />";
+            echo "<p class=\"ok\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</p><br />";
         }
         else {
-            echo "<font color=\"red\">Orientation mismatch!</font><br />";
+            echo "<p class=\"warning\">Orientation mismatch!</p><br />";
             $false='1';
         }
 
@@ -128,10 +128,10 @@ $resp = recaptcha_check_answer ($privatekey,
         // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
         if((isset($_POST['comment'])) && ((strlen($_POST['comment']))>0) && ((strlen($_POST['comment']))<=100)) {
             $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
-            echo "<font color=\"green\">Comment: ".$sent_comment."</font><br />";
+            echo "<p class=\"ok\">Comment: ".$sent_comment."</p><br />";
         }
         else {
-            echo "<font color=\"red\">Comment mismatch!</font><br />";
+            echo "<p class=\"warning\">Comment mismatch!</p><br />";
             $false='1';
         }
 
@@ -139,16 +139,16 @@ $resp = recaptcha_check_answer ($privatekey,
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
         if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<font color=\"green\">Email: ".$safe_email."</font><br />";
+            echo "<p class=\"ok\">Email: ".$safe_email."</p><br />";
         }
         else {
-            echo "<font color=\"red\">No email was given (not mandatory) or email mismatch!</font><br />";
+            echo "<p class=\"warning\">No email was given (not mandatory) or email mismatch!</p><br />";
             $failed_mail = 1;
         }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 if ($false == 0) {
-    echo "<br /><font color=\"green\">Data seems to be OK to be inserted in the database</font><br />";
+    echo "<br /><p class=\"ok\">Data seems to be OK to be inserted in the database</p><br />";
 
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
