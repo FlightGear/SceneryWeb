@@ -702,10 +702,10 @@ else {
         $failed_mail = 0;
         if ((isset($_POST['email'])) && ((strlen($_POST['email'])) > 0) && ((strlen($_POST['email']) <= 50))) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<center><font color=\"green\">Email: ".$safe_email."</font></center><br />";
+            echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
         }
         else {
-            echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
+            echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
             $failed_mail = 1;
         }
         echo "<p class=\"center\">Your 3D model insertion request has been successfully queued into the FG scenery database update requests!<br />";

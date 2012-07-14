@@ -54,6 +54,10 @@ TABLE {
     text-align: center;
 }
 
+.ok {
+    color: #00ff00;
+}
+
 .warning {
     color: #ff0000;
 }

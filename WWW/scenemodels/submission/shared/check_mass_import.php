@@ -11,7 +11,7 @@ if(!$ok) {
     include '../../inc/header.php';
 ?>
 <br /><br />
-<p class="center"><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></p>
+<p class="center warning">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</p>
 <br /><center>The FlightGear team.</center>
 <?php include '../../inc/footer.php';
 }
@@ -49,10 +49,10 @@ else {
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
-        echo "<center><font color=\"green\">Email: ".$safe_email."</font></center><br />";
+        echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
     }
     else {
-        echo "<center><font color=\"red\">No email was given (not mandatory) or email mismatch!</font></center><br />";
+        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
         $failed_mail = 1;
     }
 
@@ -61,7 +61,7 @@ else {
         $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
     }
     else {
-        echo "<center><font color=\"red\">Comment mismatch!</font></center><br />";
+        echo "<p class=\"center warning\">Comment mismatch!</p><br />";
         $false = 1;
         include '../../inc/footer.php';
         exit;
@@ -69,13 +69,13 @@ else {
 
     // Checking that stg exists and is containing only letters or figures.
     if((isset($_POST['stg'])) && (preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg']))) {
-        echo "<center><font color=\"red\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</font></center><br />";
+        echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p><br />";
         $false = 1;
         include '../../inc/footer.php';
         exit;
     }
     else {
-        echo "<font color=\"green\"><center>The content of the STG file seems correct, now proceeding with in-depth checks...</center></font><br />";
+        echo "<p class=\"center ok\">The content of the STG file seems correct, now proceeding with in-depth checks...</p><br />";
     }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
@@ -89,16 +89,16 @@ if ($false == 0) {
     $global_ko = 0;                                     // Validates - or no - the right to go further.
     $cpt_err = 0;                                       // Counts the number of errors.
 
-    echo '<center>Counted a number of '.$nb_lines.' lines submitted.</center><br />';
+    echo '<p class=\"center\">Counted a number of '.$nb_lines.' lines submitted.</p><br />';
 
     // Limit the line numbers to
     if ($nb_lines > 100) {
-        echo "<center><font color=\"red\">Too many lines submitted: 100 lines maximum per submission!</center></font>";
+        echo "<p class=\"center warning\">Too many lines submitted: 100 lines maximum per submission!</p>";
         include '../../inc/footer.php';
         exit;
     }
     if ($nb_lines < 1) {
-        echo "<center><font color=\"red\">Not enough lines were submitted: 1 line minimum per submission!</center></font>";
+        echo "<p class=\"center warning\">Not enough lines were submitted: 1 line minimum per submission!</p>";
         include '../../inc/footer.php';
         exit;
     }
@@ -119,7 +119,7 @@ if ($false == 0) {
                     echo "<td><center>".$value_tag."</center></td> ";
                 }
                 else {
-                    echo "<td><font color=\"red\"><center>Object type Error!</center></font></td>";
+                    echo "<td><p class=\"center warning\">Object type Error!</p></td>";
                     $ko = 1;
                     $global_ko = 1;
                     $cpt_err++;
@@ -129,30 +129,30 @@ if ($false == 0) {
                 if(!(preg_match("/^[a-z0-9_/.-]$/i",$value_tag))) {
                     $return_value = model_exists($value_tag);
                     if ($return_value == 0) {
-                        echo "<td><center>".$value_tag."</td></center>";
+                        echo "<td><center>".$value_tag."</center></td>";
                         $model_id = ob_model_from_name($value_tag);
                     }
                     else if($return_value == 1) {
-                        echo "<td><center><font color=\"red\">Bad model label!</font></td></center>";
+                        echo "<td><p class=\"center warning\">Bad model label!</p></td>";
                         $ko = 1;
                         $global_ko = 1;
                         $cpt_err++;
                     }
                     else if($return_value == 2) {
-                        echo "<td><center><font color=\"red\">Object unknown!</font></center></td>";
+                        echo "<td><p class=\"center warning\">Object unknown!</p></td>";
                         $ko = 1;
                         $global_ko = 1;
                         $cpt_err++;
                     }
                     else if($return_value == 3) {
-                        echo "<td><center><font color=\"red\">Family unknown!</font></center></td>";
+                        echo "<td><p class=\"center warning\">Family unknown!</p></td>";
                         $ko = 1;
                         $global_ko = 1;
                         $cpt_err++;
                     }
                 }
                 else {
-                    echo "<td><font color=\"red\"><center>Object Error!</center></font></td>";
+                    echo "<td><p class=\"center warning\">Object Error!</p></td>";
                     $ko = 1;
                     $global_ko = 1;
                     $cpt_err++;
@@ -164,7 +164,7 @@ if ($false == 0) {
                     $long = $value_tag;
                 }
                 else {
-                    echo "<td><font color=\"red\"><center>Longitude Error!</center></font></td>";
+                    echo "<td><p class=\"center warning\">Longitude Error!</p></td>";
                     $ko = 1;
                     $global_ko = 1;
                     $cpt_err++;
@@ -176,7 +176,7 @@ if ($false == 0) {
                     $lat = $value_tag;
                 }
                 else {
-                    echo "<td><font color=\"red\"><center>Latitude Error!</center></font></td>";
+                    echo "<td><p class=\"center warning\">Latitude Error!</p></td>";
                     $ko = 1;
                     $global_ko = 1;
                     $cpt_err++;
@@ -190,7 +190,7 @@ if ($false == 0) {
                     $gndelev = $value_tag;
                 }
                 else {
-                    echo "<td><font color=\"red\"><center>Elevation Error!</center></font></td>";
+                    echo "<td><p class=\"center warning\">Elevation Error!</p></td>";
                     $ko = 1;
                     $global_ko = 1;
                     $cpt_err++;
@@ -203,7 +203,7 @@ if ($false == 0) {
                     $orientation = $value_tag;
                 }
                 else {
-                    echo "<td><font color=\"red\"><center>Orientation Error!</center></font></td>";
+                    echo "<td><p class=\"center warning\">Orientation Error!</p></td>";
                     $ko = 1;
                     $global_ko = 1;
                     $cpt_err++;
@@ -213,11 +213,11 @@ if ($false == 0) {
         }
 
         if ($ko == 0) {
-            echo "<td><font color=\"green\"><center>OK</center></font></td>";
+            echo "<td><p class=\"center ok\">OK</p></td>";
             $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($orientation).", ".$model_id.", 1)";
         }
         else {
-            echo "<td><font color=\"red\"><center>KO</center></font></td>"; // Good or not ?
+            echo "<td><p class=\"center warning\">KO</p></td>"; // Good or not ?
         }
         echo "</tr>\n";      // Finishes the line.
         $i++;                // Increments the line number.
@@ -228,19 +228,19 @@ if ($false == 0) {
 
     if($global_ko == 1) { // If errors have been found...
         if ($cpt_err == 1) {
-            echo "<font color=\"red\"><center>".$cpt_err." error has been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</center></font>";
+            echo "<p class=\"center warning\">".$cpt_err." error has been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</p>";
             include '../../inc/footer.php';
             exit;
         }
         else {
-            echo "<font color=\"red\"><center>".$cpt_err." errors have been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</center></font>";
+            echo "<p class=\"center warning\">".$cpt_err." errors have been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</p>";
             include '../../inc/footer.php';
             exit;
         }
         exit;
     }
     else { // Else, proceed on with the request generation
-        echo "<font color=\"green\"><center>No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.</center></font><br />";
+        echo "<p class=\"center ok\">No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br />";
     }
     $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
     for ($j = 0; $j<=$nb_lines; $j++) { // For each line, add the data content to the request

@@ -30,11 +30,10 @@ else
 
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 
-<p>
-<h1 align="center">Positions Automated Update Form</h1>
-<center><b>Foreword:</b> This automated form goal is to ease the update of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?> objects in the database.</center>
-<br /><br />
-<form name="edition" method="post" action="check_update_shared.php">
+<h1>Positions Automated Update Form</h1>
+<p class="center"><b>Foreword:</b> This automated form goal is to ease the update of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?> objects in the database.</p>
+
+<form id="edition" method="post" action="check_update_shared.php">
 <table>
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
@@ -58,7 +57,7 @@ else
     </tr>
 </table>
 </form>
-</p>
+
 <?php include '../../inc/footer.php'; ?>
 <?php
 }

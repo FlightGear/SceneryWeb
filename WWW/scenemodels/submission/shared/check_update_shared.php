@@ -276,7 +276,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
 
         // Else, write message.
         else {
-            echo "<br /><center><font color='red'>Sorry but the database is currently unavailable, please come again soon.</font></center>";
+            echo "<br /><p class=\"center warning\">Sorry but the database is currently unavailable, please come again soon.</p>";
         }
         ?>
           </td>
