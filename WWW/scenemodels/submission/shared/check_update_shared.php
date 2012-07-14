@@ -233,7 +233,7 @@ if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isse
           <th></th>
           <th><center>Actual value</center></th>
           <th><center>New value</center></th>
-          <input type="hidden" name="id_to_update" value="<?php echo $_POST['update_choice']?>" />
+          <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
         </tr>
         <tr>
           <td>
@@ -308,7 +308,7 @@ if($resource_r != '0')
     {echo "i\n";
         $id=$row["mo_id"];
         $name=preg_replace('/ /',"&nbsp;",$row["mo_path"]);
-        
+
         if($actual_model_name==$row["mo_name"])
             echo "<option selected value='".$id."'>".$name."</option>\n";
         else
@@ -318,7 +318,7 @@ if($resource_r != '0')
     // Close the database resource
     @pg_close($resource_r);
 }
-            
+
 ?>
               </select>
             </div>
