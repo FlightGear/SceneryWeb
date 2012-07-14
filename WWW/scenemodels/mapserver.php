@@ -22,13 +22,12 @@ include 'inc/header.php';
     <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1" rules="rows" width="600px">
       <tr>
       <td><center>
-        <iframe
-          src="http://mapserver.flightgear.org/lightmap/?lon=-117.12099&amp;lat=32.73356&amp;zoom=12"
-          width="450" height="450"
-          scrolling="no"
-          marginwidth="2" marginheight="2"
-          frameborder="0">
-        </iframe>
+        <object
+          data="http://mapserver.flightgear.org/lightmap/?lon=-117.12099&amp;lat=32.73356&amp;zoom=12"
+          type="text/html"
+          height="450"
+          width="450">
+        </object>
         </center>
       </td>
       <td bgcolor="#DDDDDD">
@@ -207,21 +206,21 @@ include 'inc/header.php';
   </table>
   <hr />
   </center>
-  <center>
+  <p class="center">
   In order to retrieve airfield locations, please use this syntax:<br />
   http://mapserver.flightgear.org/loc.php?icao=&#60add your ICAO code here&#62
-  </center>
+  </p>
   <hr />
-  <center>
+  <p class="center">
   World Custom Scenery - <a href="/git/">TerraGear GIT repository</a>
-  </center>
+  </p>
   <hr />
-  <center>
-  <p>Read about the background of the whole effort. The pages are a bit
+  <p class="center">
+  Read about the background of the whole effort. The pages are a bit
   outdated but the bottom line is still valid
   <br />
   <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a>
-  </center>
+  </p>
 <?php
 include('inc/footer.php');
 ?>

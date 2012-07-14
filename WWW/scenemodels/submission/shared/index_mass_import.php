@@ -43,7 +43,7 @@ Please note that:
 <table width="400">
     <tr>
         <td><span title="This is the content of the STG file you want to add."><a style="cursor: help;">Content to add</a></span></td>
-        <td><textarea name="stg" rows="30" cols="100" onblur="checkSTG(this);" /></textarea></td>
+        <td><textarea name="stg" rows="30" cols="100" onblur="checkSTG(this);"></textarea></td>
     </tr>
     <tr>
         <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address</a></span></td>
@@ -61,14 +61,14 @@ Please note that:
     <tr>
         <td colspan="2">
             <center>
-            <?php
-            // Google Captcha stuff
-            require_once('../../inc/captcha/recaptchalib.php');
-            $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-            echo recaptcha_get_html($publickey);
-            ?>
-            <br />
-            <input type="submit" value="Submit mass import" />
+                <?php
+                // Google Captcha stuff
+                require_once('../../inc/captcha/recaptchalib.php');
+                $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+                echo recaptcha_get_html($publickey);
+                ?>
+                <br />
+                <input type="submit" value="Submit mass import" />
             </center>
         </td>
     </tr>

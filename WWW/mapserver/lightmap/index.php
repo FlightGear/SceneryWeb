@@ -1,5 +1,5 @@
-<HTML>
-    <HEAD>
+<html>
+    <head>
 
         <style type="text/css">
             #map {
@@ -50,10 +50,10 @@
         }
         //-->
         </script>
-    </HEAD>
+    </head>
 
-    <BODY style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
+    <body style='margin: 0px;' onload="init()" bgcolor="#FFFFFF">
         <div style=" width:100%; heigth:100%;" id="map"></div>
-    </BODY>
+    </body>
 
-</HTML>
+</html>
