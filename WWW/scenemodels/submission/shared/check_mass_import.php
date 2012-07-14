@@ -3,20 +3,17 @@
 // Inserting libs
 require_once('../../inc/functions.inc.php');
 
-// Checking DB availability before all
-$ok = check_availability();
+    // Checking DB availability before all
+    $ok = check_availability();
 
-if(!$ok) {
-    $page_title = "Automated Shared Models Positions Submission Form";
-    include '../../inc/header.php';
-?>
-<br /><br />
-<p class="center warning">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</p>
-<br /><center>The FlightGear team.</center>
-<?php include '../../inc/footer.php';
-}
+    if(!$ok) {
+        $page_title = "Automated Shared Models Positions Submission Form";
+        $body_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        include '../../inc/error_page.php';
+        exit;
+    }
 
-else {
+
     // Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
 
@@ -31,29 +28,30 @@ else {
 
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Submission Form";
-        include '../../inc/header.php';
-        die ("<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")");
-        include '../../inc/footer.php';
+        $body_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
+             "<br />(reCAPTCHA complained: " . $resp->error . ")";
+        include '../../inc/error_page.php';
+        exit;
     }
-else {
+
     $page_title = "Automated Shared Models Positions Submission Form";
     include '../../inc/header.php';
 ?>
 <br />
 <?php
-    global $false;
-    $false = 0;
+    global $error;
+    $error = false;
 
     // Checking that email is valid (if it exists).
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-    if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
+    $failed_mail = false;
+    if(isset($_POST['email']) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
         echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
     }
     else {
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
-        $failed_mail = 1;
+        $failed_mail = true;
     }
 
     // Checking that comment exists. Just a small verification as it's not going into DB.
@@ -62,7 +60,7 @@ else {
     }
     else {
         echo "<p class=\"center warning\">Comment mismatch!</p><br />";
-        $false = 1;
+        $error = true;
         include '../../inc/footer.php';
         exit;
     }
@@ -70,7 +68,7 @@ else {
     // Checking that stg exists and is containing only letters or figures.
     if((isset($_POST['stg'])) && (preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg']))) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p><br />";
-        $false = 1;
+        $error = true;
         include '../../inc/footer.php';
         exit;
     }
@@ -79,7 +77,7 @@ else {
     }
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
-if ($false == 0) {
+if (!$error) {
     $tab_lines = explode("\n", $_POST['stg']);          // Exploding lines by carriage return (\n) in submission input.
     $tab_lines = array_map('trim', $tab_lines);         // Removing blank lines.
     $tab_lines = array_filter($tab_lines);              // Removing blank lines.
@@ -97,11 +95,13 @@ if ($false == 0) {
         include '../../inc/footer.php';
         exit;
     }
+    
     if ($nb_lines < 1) {
         echo "<p class=\"center warning\">Not enough lines were submitted: 1 line minimum per submission!</p>";
         include '../../inc/footer.php';
         exit;
     }
+    
     $i = 1;
     $ko = 0;
     echo "<center>\n<table>\n";
@@ -304,7 +304,7 @@ if ($false == 0) {
         $subject = "[FG Scenery Submission forms] Automatic mass shared model position request: needs validation.";
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if($failed_mail != 1) {
+        if(!$failed_mail) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
@@ -340,7 +340,7 @@ if ($false == 0) {
         @mail($to, $subject, $message, $headers);
 
         // Mailing the submitter
-        if($failed_mail != 1) {
+        if(!$failed_mail) {
 
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_email;
@@ -372,6 +372,6 @@ if ($false == 0) {
     }
 }
 include '../../inc/footer.php';
-}
-}
+
+
 ?>
