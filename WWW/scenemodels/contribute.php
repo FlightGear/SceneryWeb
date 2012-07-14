@@ -13,18 +13,17 @@ a different background. So we just try to give detailed recommendations in order
 to avoid misunderstandings.
 </p>
 
+<div class="paragraph_bloc">
+    <h3>Contents</h3>
+    <ul>
+    <li class="toclevel-1"><a href="#positions"><span class="toctext">Contributing Positions</span></a></li>
+    <li class="toclevel-1"><a href="#models"><span class="toctext">Contributing Models</span></a></li>
+    <li class="toclevel-1"><a href="#tips"><span class="toctext"><font color="red">Models Best Practice</font></span></a></li>
+    <li class="toclevel-1"><a href="#contact"><span class="toctext"><font color="blue">Upload facilities</font></span></a></li>
+    <li class="toclevel-1"><a href="#thumbnails"><span class="toctext">Contributing Thumbnails</span></a></li>
+    </ul>
+</div>
 
-<table>
-<tr><th><font color="black">Contents</font></th></tr>
-<tr><td>
-<ul>
-<li class="toclevel-1"><a href="#positions"><span class="toctext">Contributing Positions</span></a></li>
-<li class="toclevel-1"><a href="#models"><span class="toctext">Contributing Models</span></a></li>
-<li class="toclevel-1"><a href="#tips"><span class="toctext"><font color="red">Models Best Practice</font></span></a></li>
-<li class="toclevel-1"><a href="#contact"><span class="toctext"><font color="blue">Upload facilities</font></span></a></li>
-<li class="toclevel-1"><a href="#thumbnails"><span class="toctext">Contributing Thumbnails</span></a></li>
-</ul>
-</td></tr>
 
 <!--</table>
 <script type="text/javascript">
@@ -32,8 +31,9 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 </script>
 </td></tr>-->
 
-<tr><th><a name="positions">Contributing Positions</a></th></tr>
-<tr><td>
+<div class="paragraph_bloc">
+<h3><a name="positions">Contributing Positions</a></h3>
+
 If you wish to contribute positions for the many shared models that are
 already available then these are best submitted:
 <ul>
@@ -51,10 +51,11 @@ If you have data available in other formats please try to convert them into the 
   <li>#submitter: - your name</li>
   <li>#desc: - description to be used for the following objects</li>
 </ul>
-</td></tr>
+</div>
 
-<tr><th><a name="models">Contributing Models</a></th></tr>
-<tr><td>
+<div class="paragraph_bloc">
+<h3><a name="models">Contributing Models</a></h3>
+
 <p>If you wish to help populate the world with interesting static objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:</p>
 
 <h4>Mandantory submission items</h4>
@@ -135,15 +136,16 @@ If you have data available in other formats please try to convert them into the 
     <br/>ftp://ftp.ihg.uni-duisburg.de/FlightGear/incoming/  -->
     </li>
 </ul>
-</td></tr>
-<tr><th><a name="thumbnails">Contributing Thumbnails</a></th></tr>
-<tr><td>
+</div>
+
+<div class="paragraph_bloc">
+<h3><a name="thumbnails">Contributing Thumbnails</a></h3>
+
 <p>A noticeable amount of model submissions are missing a thumbnail. If you
 like to take some snapshots for us, go ahead, look at the Model Browser
 pages, pick those models which lack a thumbnail and create a nice view on
 the respective model. JPEG's of 320x240 make our overview.<br/>
 Models are easily identified by their numeric id when you click on the
 thumbnail in the Browser view.</p>
-</td></tr>
-</table>
+</div>
 <?php include 'inc/footer.php';?>

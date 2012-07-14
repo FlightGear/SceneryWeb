@@ -6,7 +6,7 @@ BODY {
     background: #f0f0f0;
     color: #000000;
     font-size: 14px;
-    FONT-FAMILY: Verdana, Arial, Helvetica, Lucida, Sans-Serif;
+    font-family: Verdana, Arial, Helvetica, Lucida, Sans-Serif;
     text-align: left;
 }
 
@@ -36,7 +36,18 @@ TABLE {
     background: #e0e0ff;
     padding: 1px;
     width: 100%;
-    align: center;
+}
+
+.paragraph_bloc {
+    background: #e0ffe0;
+    padding: 1px;
+    margin-bottom: 20px;
+}
+
+.paragraph_bloc H3 {
+    background: #e0e0ff;
+    margin-top: 0px;
+    text-align: center;
 }
 
 .center {
@@ -99,7 +110,6 @@ TABLE.plain {
     background: #f0f0f0;
     padding: 1px;
     width: 100%;
-    align: center;
 }
 
 TR.plain {
@@ -130,13 +140,11 @@ TH {
 
 TR {
     background: #e0ffe0;
-    align: center;
     padding: 1px;
 }
 
 TR.bottom {
     background: #e0e0ff;
-    align: center;
     padding: 1px;
 }
 
