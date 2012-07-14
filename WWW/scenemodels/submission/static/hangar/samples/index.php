@@ -137,6 +137,7 @@ function onLoaded(){
 </head>
 
 <body onload="onLoad();">
+    <?php echo $_GET["mo_sig"]; ?>
   <canvas id="canvas"></canvas>
   <div id="details"></div>
   <div id="loading"></div>
