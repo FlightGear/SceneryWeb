@@ -24,9 +24,9 @@ if ((isset($_POST["action"]))) {
                 $ob_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';");
                 $mo_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';");
                 if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
-                    echo "<p class=\"center\">";
-                    echo "<font color=\"red\">Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?</font><br />\n";
-                    echo "Else, please report to fg-devel ML or FG Scenery forum<br />.";
+                    echo "<p class=\"center warning\">";
+                    echo "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?</p>\n";
+                    echo "<p class=\"center\">Else, please report to fg-devel ML or FG Scenery forum.";
                     echo "</p>";
                     include '../../inc/footer.php';
                     @pg_close($resource_rw);
@@ -41,8 +41,8 @@ if ((isset($_POST["action"]))) {
 
                 if ((!$ob_resultdel) || (!$mo_resultdel)) {
                     echo "<p class=\"center\">\n";
-                    echo "Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
-                    echo "<font color=\"red\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />\n";
+                    echo "Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".</p>";
+                    echo "<p class=\"center warning\"Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.\n";
                     echo "</p>\n";
 
                     // Closing the rw connection.
@@ -52,8 +52,8 @@ if ((isset($_POST["action"]))) {
                 }
 
                 echo "<p class=\"center\">";
-                echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".<br />";
-                echo "<font color=\"green\">Entries have correctly been deleted from the pending requests table.</font>";
+                echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
+                echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
                 echo "</p>";
 
                 // Closing the rw connection.
@@ -158,7 +158,7 @@ if ((isset($_POST["action"]))) {
                 if((!$result_rw_mo) || (!$result_rw_ob)) {
                     echo "<p class=\"center\">";
                     echo "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
-                    echo "<font color=\"red\">Sorry, but the INSERT queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br />";
+                    echo "<p class=\"center warning\">Sorry, but the INSERT queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     echo "</p>";
 
                     // Closing the rw connection.
@@ -168,8 +168,8 @@ if ((isset($_POST["action"]))) {
                 }
 
                 echo "<p class=\"center\">";
-                echo "Signatures found.<br /> Now processing INSERT queries of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
-                echo "<font color=\"green\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</font><br />";
+                echo "Signatures found.<br /> Now processing INSERT queries of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".</p>";
+                echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
                 // Delete the entries from the pending query table.
                 $delete_request_mo = "delete from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';";
@@ -178,7 +178,7 @@ if ((isset($_POST["action"]))) {
                 $resultdel_ob = @pg_query ($resource_rw, $delete_request_ob);
 
                 if((!$resultdel_mo) || (!$resultdel_ob)) {
-                    echo "<font color=\"red\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</font><br /></p>";
+                    echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
 
                     // Closing the rw connection.
                     include '../../inc/footer.php';
@@ -186,7 +186,7 @@ if ((isset($_POST["action"]))) {
                     exit;
                 }
 
-                echo "<font color=\"green\">Pending entries correctly deleted from the pending request table.</font></p>";
+                echo "<p class=\"center ok\">Pending entries correctly deleted from the pending request table.</p>";
 
                 // Closing the rw connection.
                 pg_close($resource_rw);
@@ -278,10 +278,8 @@ if (!(isset($_POST["action"]))) {
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["ob_sig"] ."';");
             if (pg_num_rows($result) != 1) {
-                echo "<p class=\"center\">";
-                echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
-                echo "Else, please report to fg-devel ML or FG Scenery forum.<br />";
-                echo "</p>";
+                echo "<p class=\"center warning\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</p>\n";
+                echo "<p class=\"center\">Else, please report to fg-devel ML or FG Scenery forum.</p>";
                 include '../../inc/footer.php';
                 @pg_close($resource_rw);
                 exit;
@@ -336,10 +334,8 @@ if (!(isset($_POST["action"]))) {
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["mo_sig"] ."';");
             if (pg_num_rows($result) != 1) {
-                echo "<center>";
-                echo "<font color=\"red\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</font><br />\n";
-                echo "Else, please report to fg-devel ML or FG Scenery forum.<br />";
-                echo "</center>";
+                echo "<p class=\"center warning\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</p>\n";
+                echo "Else, please report to fg-devel ML or FG Scenery forum.</p>";
                 include '../../inc/footer.php';
                 @pg_close($resource_rw);
                 exit;
@@ -549,7 +545,7 @@ if (!(isset($_POST["action"]))) {
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
             ?>
-                <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&png_file_number=<?php echo $j; ?>">
+                <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&png_file_number=<?php echo $j; ?>" alt="Texture"/>
             <?php
             }
             ?>
