@@ -1,21 +1,18 @@
 <?php
 
-// Inserting libs
-require_once('../../inc/functions.inc.php');
+    // Inserting libs
+    require_once('../../inc/functions.inc.php');
 
-// Checking DB availability before all
-$ok=check_availability();
+    // Checking DB availability before all
+    $ok=check_availability();
 
-if(!$ok) {
-    $page_title = "Automated Shared Models Positions Mass Import Submission Form";
-    include '../../inc/header.php';
-    ?>
-    <br />
-    <center><font color="red">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</font></center>
-    <br /><center>The FlightGear team.</center>
-    <?php include '../../inc/footer.php';
-}
-else {
+    if(!$ok) {
+        $page_title = "Automated Shared Models Positions Mass Import Submission Form";
+        $body_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        include '../../inc/error_page.php';
+        exit;
+    }
+
     $page_title = "Automated Shared Models Positions Mass Import Submission Form";
     include '../../inc/header.php';
     ?>
@@ -76,5 +73,4 @@ Please note that:
 </form>
 </p>
 <?php include '../../inc/footer.php';
-}
 ?>

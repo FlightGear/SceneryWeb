@@ -43,10 +43,8 @@ function connect_sphere_rw()
 
     // If could not connect to the database
     if ($resource_rw == '0') {
-        include $_SERVER['SERVER_NAME']."/inc/header.php";
-        echo "<br />";
-        echo "\n<p class=\"center\"><font color=\"red\">An error has occurred while connecting to the database.</font></p>\n";
-        include $_SERVER['SERVER_NAME']."/inc/footer.php";
+        $body_text = "We're sorry, but an error has occurred while connecting to the database.";
+        include "error_page.php";
         exit;
     }
     else {
