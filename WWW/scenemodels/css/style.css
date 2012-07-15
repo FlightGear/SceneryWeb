@@ -5,7 +5,7 @@ TD.titleback {
 BODY {
     background: #f0f0f0;
     color: #000000;
-    font-size: 14px;
+    font-size: 0.9em;
     font-family: Verdana, Arial, Helvetica, Lucida, Sans-Serif;
     text-align: left;
 }
@@ -36,6 +36,21 @@ TABLE {
     background: #e0e0ff;
     padding: 1px;
     width: 100%;
+}
+
+LI {
+    margin-bottom: 1px;
+}
+
+UL {
+    margin-bottom: 10px;
+}
+
+UL.detail {
+    list-style-type:square;
+    font-size: 0.8em;
+    font-style:italic;
+    color: #444444;
 }
 
 .paragraph_bloc {

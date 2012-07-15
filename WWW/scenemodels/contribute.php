@@ -60,29 +60,29 @@ If you have data available in other formats please try to convert them into the 
 
 <h4>Mandantory submission items</h4>
 <ul>
-    <li>A package (preferably a TAR- or a ZIP-file) containing <strong>all</strong> files which belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;<br/>
-        <ul>
-          <li>Multiple models may well be packaged together into a single file - as long as it is obvious to us which files belong to which model (for example by separating models into different directories);</li>
-          <li>Always choose reasonable (meaningful, descriptive) filenames
-              for your models. At urban areas having a geometry 'tower.ac'
+    <li>A package (preferably a TAR- or a ZIP-file) containing <strong>all files</strong> which belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;<br/>
+        <ul class="detail">
+          <li><strong>Multiple models may well be packaged together into a single file</strong> - as long as it is obvious to us which files belong to which model (for example by separating models into different directories);</li>
+          <li><strong>Always choose reasonable (meaningful, descriptive) filenames
+              for your models</strong>. At urban areas having a geometry 'tower.ac'
               or a texture just named 'red.rgb' or 'concrete.png' might
               prove not to be unique ;-)</li>
-          <li>As a rule of thumb, try to let even a detailed, single model not exceed 1/2 MByte in total size, otherwise the simulation will face hard times when approaching densely packed areas. A typical, single office building usually can be done at (far!) less than 100 kByte;</li>
-          <li>Avoid spaces in file- and/or directory names.</li>
+          <li>As a rule of thumb, try to let even a detailed, <strong>single model not exceed 1/2 MByte in total size</strong>, otherwise the simulation will face hard times when approaching densely packed areas. A typical, single office building usually can be done at (far!) less than 100 kByte;</li>
+          <li><strong>Avoid spaces in file- and/or directory names.</strong></li>
         </ul>
     </li>
     <li>Model placement:
-        <ul>
-          <li>Position (if appropriate; either lon/lat, or Ordnance Survey grid - other grids can be added on request);</li>
-          <li>Heading (if appropriate);</li>
-          <li>Ground elevation (if known to the author) - in any !! case, report if the model has to be sunken into the ground in order to display properly !!;</li>
+        <ul class="detail">
+          <li><strong>Position</strong> (if appropriate; either lon/lat, or Ordnance Survey grid - other grids can be added on request);</li>
+          <li><strong>Heading</strong> (if appropriate);</li>
+          <li><strong>Ground elevation</strong> (if known to the author) - in any !! case, report if the model has to be sunken into the ground in order to display properly !!;</li>
           <li><b> -> </b>....  or just simply submit the respective .stg-line with your model.</li>
         </ul>
     </li>
     <li>Full name of author (if not already known);</li>
     <li> EMail of author (if not already known, will not be published, just as a reference);</li>
     <li>A notice which tells us that your submission is covered by the GPL (if not already known);
-        <ul>
+        <ul class="detail">
           <li>The nature of the FlightGear project does not allow us to accept submissions that don't comply with the GPL;</li>
         </ul>
     </li>
