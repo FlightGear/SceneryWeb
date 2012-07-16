@@ -210,7 +210,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
 }
 
 // Getting back the update_choice
-if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0'))) {
+if ((((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0'))) && (((is_shared_or_static($GET_['update_choice'])) == 'shared') || (((is_shared_or_static($POST_['update_choice'])) == 'shared')))) {
     $page_title = "Automated Shared Models Positions Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
