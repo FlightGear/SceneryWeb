@@ -29,11 +29,10 @@
   </head>
   <body <?php echo (isset($body_onload))?"onload='$body_onload'":"";?>>
 
-  <table>
-    <tr>
-      <td class="titleback">
-        <img src="/img/banner.jpg" alt="Flightgear logo"/>
-      </td>
-    </tr>
-  </table>
+  <div id="content">  
+  <div class="titleback">
+    <img src="/img/banner.jpg" alt="Flightgear logo"/>
+  </div>
+
 <?php include 'menu.php';?>
+  <div id="content2">

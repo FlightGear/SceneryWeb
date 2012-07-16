@@ -36,7 +36,7 @@
                 numZoomLevels:18, maxResolution:156543.0339, units:'m', projection: "EPSG:900913"}
             );
 
-            map.addLayers([yahoosat, mapnik, osmarender, tarmac, osmlines, wmsobjects, jsonobjects, wmssigns, wfssigns]);
+            map.addLayers([yahoosat, mapnik, tarmac, osmlines, wmsobjects, jsonobjects, wmssigns, wfssigns]);
 
             jsonobjects.events.on({
                 'featureselected': onFeatureSelect,

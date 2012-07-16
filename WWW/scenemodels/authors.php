@@ -1,7 +1,7 @@
 <?php include 'inc/header.php';?>
 
   <h1>FlightGear Scenery Authors Directory</h1>
-  <table border="1">
+  <table>
     <?php
       if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
         $offset = $_REQUEST['offset'];

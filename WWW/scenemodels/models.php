@@ -9,7 +9,7 @@
 
 <h1>FlightGear Scenery Model Directory</h1>
 
-  <table border="1" width="100%">
+  <table>
     <?php
       if(isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
         $offset=$_REQUEST['offset'];

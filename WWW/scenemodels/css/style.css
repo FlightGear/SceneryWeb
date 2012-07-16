@@ -1,13 +1,28 @@
-TD.titleback {
+DIV.titleback {
     background-image:url("/img/titleback.jpg");
 }
 
 BODY {
-    background: #f0f0f0;
+    background: #e0e0e0;
     color: #000000;
     font-size: 0.9em;
     font-family: Verdana, Arial, Helvetica, Lucida, Sans-Serif;
+    
+    
+}
+
+#content {
+    background: #e9e9e9;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:30px;
+    border:1px solid #999;
     text-align: left;
+    width:90%;
+}
+
+#content2 {
+    margin:20px;
 }
 
 H1 {
@@ -32,14 +47,6 @@ TD {
     vertical-align: center;
 }
 
-TABLE {
-    background: #e0e0ff;
-    padding: 1px;
-    width: 100%;
-    border:1px solid #000;
-    border-collapse:collapse;
-}
-
 LI {
     margin-bottom: 1px;
 }
@@ -55,12 +62,45 @@ UL.detail {
     color: #444444;
 }
 
+
 .paragraph_bloc {
     background: #e0ffe0;
     padding: 1px;
     margin-bottom: 20px;
     border:1px solid #000;
 }
+
+.header {
+    background: #e0e0ff;
+    padding: 1px;
+    padding: 0px 20px 0px 20px;
+    padding-left:auto;
+    padding-right:auto;
+    border-bottom:1px solid #999;
+}
+
+.header .author {
+    font-weight: bold;
+    float: left;
+    margin-left: 10px;
+}
+
+.header .date {
+    font-style: italic;
+    font-weight: bold;
+    float: left;
+    margin-left: 10px;
+}
+
+.header .normal {
+    float: left;
+    margin-left: 10px;
+}
+
+.clear {
+    clear: both;
+}
+
 
 .paragraph_bloc .body {
     padding: 1px;
@@ -71,6 +111,7 @@ UL.detail {
     background: #e0e0ff;
     margin-top: 0px;
     text-align: center;
+    border-bottom:1px solid #999;
 }
 
 .paragraph_bloc H3 {
@@ -102,58 +143,8 @@ UL.detail {
     font-style:italic;
 }
 
-.blackonyellow1 {
-    background: yellow;
-    color: black;
-}
-.blackonyellow2 {
-    background: yellow;
-    color: black;
-}
-.blackonyellow3 {
-    background: yellow;
-    color: black;
-}
-.yellowonblack1 {
-    background: black;
-    color: yellow;
-}
-.yellowonblack2 {
-    background: black;
-    color: yellow;
-}
-.yellowonblack3 {
-    background: black;
-    color: yellow;
-}
-.whiteonred1 {
-    background: red;
-    color: white;
-}
-.whiteonred2 {
-    background: red;
-    color: white;
-}
-.whiteonred3 {
-    background: red;
-    color: white;
-}
-
-TABLE.main {
-    background: #f0f0f0;
-    padding: 1px;
-    width: 100%;
-}
-
-TABLE.plain {
-    background: #f0f0f0;
-    padding: 1px;
-    width: 100%;
-}
-
-TR.plain {
-    background: #f0f0f0;
-    padding: 1px;
+TD {
+    border:1px solid #999;
 }
 
 TD.warning {
@@ -162,19 +153,12 @@ TD.warning {
     padding: 1px;
 }
 
-TABLE.index {
-    background: #e0e0ff;
-    padding: 1px;
-    width: 160px;
-    border-collapse: collapse;
-    float: left;
-}
-
 TH {
     color: #0000ff;
     background: #e0e0ff;
     font-weight: bold;
     text-align: center;
+    border:1px solid #999;
 }
 
 TR {
@@ -185,7 +169,48 @@ TR {
 TR.bottom {
     background: #e0e0ff;
     padding: 1px;
+    border:1px solid #999;
 }
+
+TR.plain {
+    background: #f0f0f0;
+    padding: 1px;
+}
+
+
+TABLE {
+    background: #e0e0ff;
+    padding: 1px;
+    width:100%;
+    border:1px solid #999;
+    border-collapse:collapse;
+}
+
+
+TABLE.index {
+    background: #e0e0ff;
+    padding: 1px;
+    width: 160px;
+    border-collapse: collapse;
+    float: left;
+}
+
+TABLE.main {
+    background: #f0f0f0;
+    padding: 1px;
+}
+
+TABLE.plain {
+    background: #f0f0f0;
+    padding: 1px;
+}
+
+TABLE.float {
+    float:left;
+    margin-left:10px;
+    width:48%;
+}
+
 
 .aptname {
     font-size: 8px;
