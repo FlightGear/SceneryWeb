@@ -40,7 +40,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
 </tr>
 <tr>
     <td>Heading</td>
-    <td><?php $heading = get_object_true_orientation_from_id($id); echo $heading; ?></td>
+    <td><?php $heading = heading_true_to_stg(get_object_true_orientation_from_id($id)); echo $heading; ?></td>
 </tr>
 <tr>
     <td>Group</td>
