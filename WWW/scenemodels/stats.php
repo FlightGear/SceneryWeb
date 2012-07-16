@@ -16,10 +16,7 @@
 echo "<p align=\"center\">The database currently contains <a href=\"models.php\">$models models</a> placed in the scenery as <a href=\"objects.php\">$objects seperate objects</a>, plus $signs taxiway signs.</p>\n";
 
 ?>
-<table class="main">
-  <tr class="main">
-    <td>
-      <table>
+      <table class="float">
         <tr><th colspan="2">Objects By Country</th></tr>
         <?php
           $query = "SELECT count(ob_id) AS count,co_name,co_code ";
@@ -37,9 +34,8 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
           }
         ?>
       </table>
-    </td>
-    <td>
-      <table>
+
+      <table class="float">
         <tr><th colspan="2">Models By Author</th></tr>
         <?php
           $query = "SELECT count(mo_id) as count,au_name,au_id ";
@@ -57,11 +53,8 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
           }
         ?>
       </table>
-    </td>
-  </tr>
-  <tr class="main">
-    <td align="center">
-      <table>
+    <div class="clear"></div><br/>
+      <table class="float">
         <tr><th colspan="2">Recently Updated Objects</th></tr>
         <?php
           $query = "SELECT ob_id,ob_text,ob_modified ";
@@ -77,9 +70,8 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
           }
         ?>
       </table>
-    </td>
-    <td align="center">
-      <table>
+
+      <table class="float">
         <tr><th colspan="2">Recently Updated Models</th></tr>
         <?php
           $query = "SELECT mo_id,mo_name,mo_modified ";
@@ -95,7 +87,6 @@ echo "<p align=\"center\">The database currently contains <a href=\"models.php\"
           }
         ?>
       </table>
-    </td>
-  </tr>
-</table>
+    <div class="clear"></div>  
+
 <?php include 'inc/footer.php';?>
