@@ -14,12 +14,16 @@ to avoid misunderstandings.
 </p>
 
 <div class="paragraph_bloc">
-    <h3>Contents</h3>
-    <ul>
+    <h2>Contents</h2>
+    <ul class="body">
     <li class="toclevel-1"><a href="#positions"><span class="toctext">Contributing Positions</span></a></li>
-    <li class="toclevel-1"><a href="#models"><span class="toctext">Contributing Models</span></a></li>
-    <li class="toclevel-1"><a href="#tips"><span class="toctext"><font color="red">Models Best Practice</font></span></a></li>
-    <li class="toclevel-1"><a href="#contact"><span class="toctext"><font color="blue">Upload facilities</font></span></a></li>
+    <li class="toclevel-1"><a href="#models"><span class="toctext">Contributing Models</span></a>
+        <ul class="detail">
+            <li class="toclevel-1"><a href="#items"><span class="toctext">Submission items</span></a></li>
+            <li class="toclevel-1"><a href="#tips"><span class="toctext"><font color="red">Models Best Practice</font></span></a></li>
+            <li class="toclevel-1"><a href="#contact"><span class="toctext"><font color="blue">Upload facilities</font></span></a></li>
+        </ul>
+    </li>
     <li class="toclevel-1"><a href="#thumbnails"><span class="toctext">Contributing Thumbnails</span></a></li>
     </ul>
 </div>
@@ -32,17 +36,18 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 </td></tr>-->
 
 <div class="paragraph_bloc">
-<h3><a name="positions">Contributing Positions</a></h3>
+<h2><a name="positions">Contributing Positions</a></h2>
 
+<div class="body">
 If you wish to contribute positions for the many shared models that are
 already available then these are best submitted:
 <ul>
 <li>directly through <a href="http://scenemodels.flightgear.org/submission">our friendly web forms</a> for unitary addition, edition, deletion. <strong>Please use them in priority as they make the work of maintainers much easier.</strong></li>
-<li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery and by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO scenery editor</a> and directly copy/pasted (new objects positions only) in <a href="http://scenemodels.flightgear.org/submission">our mass import webform</a>.
+<li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery</a> and by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO scenery editor</a> and directly copy/pasted (new objects positions only) in <a href="http://scenemodels.flightgear.org/submission">our mass import webform</a>.
 If you have data available in other formats please try to convert them into the STG format first. You can find help on the <a href="http://www.flightgear.org/forums">forums</a> to do so.</li>
 </ul>
 
-<h4>Extra options for .stg submissions (currently unsupported by our webform)</h4>
+<h3>Extra options for .stg submissions (currently unsupported by our webform)</h3>
 <p>You can help speed the import process by including all the details about your scenery in an stg file. This can be processed automatically and is by far the quickest way to get your model locations into the database.</p>
 <p>There's an example file here: <a href="example.stg">example.stg</a></p>
 <p>Currently supported comments are:</p>
@@ -52,15 +57,17 @@ If you have data available in other formats please try to convert them into the 
   <li>#desc: - description to be used for the following objects</li>
 </ul>
 </div>
+</div>
 
 <div class="paragraph_bloc">
-<h3><a name="models">Contributing Models</a></h3>
-
+<h2><a name="models">Contributing Models</a></h2>
+<div class="body">
 <p>If you wish to help populate the world with interesting static objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:</p>
 
+<h3><a name="items">Submission items</a></h3>
 <h4>Mandantory submission items</h4>
 <ul>
-    <li>A package (preferably a TAR- or a ZIP-file) containing <strong>all files</strong> which belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;<br/>
+    <li>A <strong>package</strong> (preferably a TAR- or a ZIP-file) containing <strong>all files</strong> which belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;
         <ul class="detail">
           <li><strong>Multiple models may well be packaged together into a single file</strong> - as long as it is obvious to us which files belong to which model (for example by separating models into different directories);</li>
           <li><strong>Always choose reasonable (meaningful, descriptive) filenames
@@ -71,7 +78,7 @@ If you have data available in other formats please try to convert them into the 
           <li><strong>Avoid spaces in file- and/or directory names.</strong></li>
         </ul>
     </li>
-    <li>Model placement:
+    <li><strong>Model placement</strong>:
         <ul class="detail">
           <li><strong>Position</strong> (if appropriate; either lon/lat, or Ordnance Survey grid - other grids can be added on request);</li>
           <li><strong>Heading</strong> (if appropriate);</li>
@@ -79,38 +86,38 @@ If you have data available in other formats please try to convert them into the 
           <li><b> -> </b>....  or just simply submit the respective .stg-line with your model.</li>
         </ul>
     </li>
-    <li>Full name of author (if not already known);</li>
-    <li> EMail of author (if not already known, will not be published, just as a reference);</li>
-    <li>A notice which tells us that your submission is covered by the GPL (if not already known);
+    <li><strong>Full name of author</strong> (if not already known);</li>
+    <li><strong>EMail of author</strong> (if not already known, will not be published, just as a reference);</li>
+    <li>A notice which tells us that your submission is covered by the <strong>GPL</strong> (if not already known);
         <ul class="detail">
           <li>The nature of the FlightGear project does not allow us to accept submissions that don't comply with the GPL;</li>
         </ul>
     </li>
-    <li>Always tell us how to name the model (like 'Tour Eiffel - Paris - France').</li>
+    <li>Always tell us how to <strong>name the model</strong> (like 'Tour Eiffel - Paris - France').</li>
 </ul>
 
 <h4>Recommended submission items</h4>
 <ul>
-    <li>A 320x240 thumbnail containing an advantageous view on the model/object as (JPEG) image - this is preferred for a nice representation of your artwork;</li>
+    <li><strong>A 320x240 thumbnail</strong> containing an advantageous view on the model/object as (JPEG) image - this is preferred for a nice representation of your artwork;</li>
 </ul>
 
 <h4>Nice-to-have submission items</h4>
 <ul>
-    <li>Country in which the model is located (if known to the author);</li>
-    <li>Additional short comment on the author;</li>
+    <li><strong>Country</strong> in which the model is located (if known to the author);</li>
+    <li>Additional <strong>short comment on the author</strong>;</li>
 </ul>
 <b> -> </b>After positive experience a simplified procedure is available/recommended upon negotiation.
 
-<h4><a name="tips"><font color="red">NOTICE:</font> To save you and us from avoidable and unnecessary extra work:</a></h4>
+<h3><a name="tips"><font color="red">Models Best Practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
 <ul>
     <li>Never group different, detached buildings into a single geometry file.</li>
     <li>Never put surface materials (tarmac, grass, roads, parkings, ...) into Scenery Model geometries.</li>
 </ul>
 
-<b> -> </b> The reason is simple: Depending on the angle of view, the
+<div class="conclusion"><b> -> </b> The reason is simple: Depending on the angle of view, the
             operating system, the graphics card and driver, the underlying
             terrain slope, various people might be seeing rendering
-            artifacts.  Therefore: Please don't !<br/>
+            artifacts.  Therefore: Please don't !</div>
 <ul>
     <li>For groupings of individual models choose a distinct, corresponding position for each of them, never mount multiple models into a single position.</li>
     <li>Textures should be in PNG format - older models which used rgb textures have been updated. <strong>The textures dimensions have to be a power of two: eg 128x256.</strong></li>
@@ -121,7 +128,7 @@ If you have data available in other formats please try to convert them into the 
 <b> -> </b> The better your submission complies with these recommendations, the quicker we'll have it imported into the repository.
 
 
-<h4><a name="contact"><font color="blue">Upload facilities</font></a></h4>
+<h3><a name="contact"><font color="blue">Upload facilities</font></a></h3>
 <!-- Facilities to handle the uploading of your own model data are not yet complete, but the data can currently be submitted in 2 ways: -->
 <ul>
     <li> By Email
@@ -137,11 +144,12 @@ If you have data available in other formats please try to convert them into the 
     </li>
 </ul>
 </div>
+</div>
 
 <div class="paragraph_bloc">
-<h3><a name="thumbnails">Contributing Thumbnails</a></h3>
+<h2><a name="thumbnails">Contributing Thumbnails</a></h2>
 
-<p>A noticeable amount of model submissions are missing a thumbnail. If you
+<p class="body">A noticeable amount of model submissions are missing a thumbnail. If you
 like to take some snapshots for us, go ahead, look at the Model Browser
 pages, pick those models which lack a thumbnail and create a nice view on
 the respective model. JPEG's of 320x240 make our overview.<br/>

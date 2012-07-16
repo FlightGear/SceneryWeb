@@ -36,6 +36,8 @@ TABLE {
     background: #e0e0ff;
     padding: 1px;
     width: 100%;
+    border:1px solid #000;
+    border-collapse:collapse;
 }
 
 LI {
@@ -48,7 +50,7 @@ UL {
 
 UL.detail {
     list-style-type:square;
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-style:italic;
     color: #444444;
 }
@@ -57,12 +59,27 @@ UL.detail {
     background: #e0ffe0;
     padding: 1px;
     margin-bottom: 20px;
+    border:1px solid #000;
 }
 
-.paragraph_bloc H3 {
+.paragraph_bloc .body {
+    padding: 1px;
+    padding: 0px 20px 0px 20px;
+}
+
+.paragraph_bloc H2 {
     background: #e0e0ff;
     margin-top: 0px;
     text-align: center;
+}
+
+.paragraph_bloc H3 {
+    margin-top: 30px;
+}
+
+.paragraph_bloc H4 {
+    font-size: 1.0em;
+    text-decoration:underline;
 }
 
 .center {
@@ -79,6 +96,10 @@ UL.detail {
 
 .sign {
     white-space: nowrap;
+}
+
+.conclusion {
+    font-style:italic;
 }
 
 .blackonyellow1 {
@@ -122,7 +143,6 @@ TABLE.main {
     background: #f0f0f0;
     padding: 1px;
     width: 100%;
-    align: center;
 }
 
 TABLE.plain {
