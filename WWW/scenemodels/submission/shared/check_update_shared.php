@@ -210,15 +210,23 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
 }
 
 // Getting back the update_choice
-if(((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0'))) {
+if (((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0'))) {
     $page_title = "Automated Shared Models Positions Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
 
-    if(isset($_POST['update_choice'])) {
+    if (isset($_POST['update_choice'])) {
         $update_choice = $_POST['update_choice'];
     }
     else $update_choice = $_GET['update_choice'];
+
+    if (((is_shared_or_static($GET_['update_choice'])) == 'static') || (((is_shared_or_static($POST_['update_choice'])) == 'static'))) {
+        $page_title = "Automated Shared Models Positions Update Form";
+        $body_text = "Sorry, but only shared objects can be updated for now.";
+        include '../../inc/error_page.php';
+        exit;
+    }
+
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -581,7 +589,7 @@ if ($false == 0) {
                     </tr>
                     <tr>
                         <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
-                        <td colspan="4">?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $actual_orientation; ?></td>
+                        <td colspan="4"><?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $actual_orientation; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
