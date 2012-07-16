@@ -39,7 +39,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
     <td><?php $offset = get_object_offset_from_id($id); echo $offset; ?></td>
 </tr>
 <tr>
-    <td>Heading</td>
+    <td>STG Heading (not true heading)</td>
     <td><?php $heading = heading_true_to_stg(get_object_true_orientation_from_id($id)); echo $heading; ?></td>
 </tr>
 <tr>
