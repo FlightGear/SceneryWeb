@@ -56,10 +56,18 @@ UL {
 }
 
 UL.detail {
-    list-style-type:square;
+    list-style-type: square;
     font-size: 0.9em;
-    font-style:italic;
+    font-style: italic;
     color: #444444;
+}
+
+UL.table {
+    list-style-type: none;
+}
+
+UL.table LI {
+    margin-bottom: 7px;
 }
 
 

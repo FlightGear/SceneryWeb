@@ -36,15 +36,16 @@
             echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\"><img src=\"modelthumb.php?id=".$row["mo_id"]."\" alt=\"Model ".$row["mo_id"]."\"/></a>\n";
           echo "</td>\n";
           echo "<td>\n";
-            echo "<p><b>Name:</b> ".$row["mo_name"]."</p>\n";
-            echo "<p><b>Path:</b> ".$row["mo_path"]."</p>\n";
-            echo "<p><b>Notes:</b> ".$row["mo_notes"]."</p>\n";
-            echo "<p><b>Author: </b><a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a></p>\n";
-            echo "<p><b>Last Updated: </b>".$row["mo_modified"]."</p>\n";
-            echo "<p><b>Type: </b><a href=\"modelbrowser.php?shared=".$row["mg_id"]."\">".$row["mg_name"]."</a></p>\n";
+            echo "<ul class=\"table\">";
+            echo "<li><b>Name:</b> ".$row["mo_name"]."</li>\n";
+            echo "<li><b>Path:</b> ".$row["mo_path"]."</li>\n";
+            echo "<li><b>Notes:</b> ".$row["mo_notes"]."</li>\n";
+            echo "<li><b>Author: </b><a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a></li>\n";
+            echo "<li><b>Last Updated: </b>".$row["mo_modified"]."</li>\n";
+            echo "<li><b>Type: </b><a href=\"modelbrowser.php?shared=".$row["mg_id"]."\">".$row["mg_name"]."</a></li>\n";
 
             if ($row["mo_modelsize"]>0){
-              echo "<p><b>Model: </b>Available in database</p>\n";
+              echo "<li><b>Model: </b>Available in database</li>\n";
 
               if ($row["mo_shared"]==0){	
                 $modelid = $row["mo_id"];
@@ -74,8 +75,10 @@
                 }
               }
             }else{
-              print "<p><b>Model: </b>Not present in database</p>\n";
+              echo "<li><b>Model: </b>Not present in database</li>\n";
             }
+            
+            echo "</ul>";
 
             echo "<p align=\"right\"><a href=\"modeledit.php?id=".$row["mo_id"]."\">Edit</a></p>\n";
           echo "</td>\n";
