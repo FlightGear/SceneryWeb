@@ -102,43 +102,6 @@ UL.detail {
     font-style:italic;
 }
 
-.blackonyellow1 {
-    background: yellow;
-    color: black;
-}
-.blackonyellow2 {
-    background: yellow;
-    color: black;
-}
-.blackonyellow3 {
-    background: yellow;
-    color: black;
-}
-.yellowonblack1 {
-    background: black;
-    color: yellow;
-}
-.yellowonblack2 {
-    background: black;
-    color: yellow;
-}
-.yellowonblack3 {
-    background: black;
-    color: yellow;
-}
-.whiteonred1 {
-    background: red;
-    color: white;
-}
-.whiteonred2 {
-    background: red;
-    color: white;
-}
-.whiteonred3 {
-    background: red;
-    color: white;
-}
-
 TABLE.main {
     background: #f0f0f0;
     padding: 1px;
