@@ -19,7 +19,7 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Deletion Form";
-        $body_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>" .
+        $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")";
         include '../../inc/error_page.php';
         exit;
@@ -220,7 +220,7 @@ else {
 
     if(!$ok) {
         $page_title = "Automated Shared Models Positions Deletion Form";
-        $body_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
     }

@@ -8,7 +8,7 @@
 
     if(!$ok) {
         $page_title = "Automated Shared Models Positions Pending Requests Form";
-        $body_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
     }
@@ -24,7 +24,7 @@
             $result = @pg_query($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Shared Models Positions Pending Requests Form";
-                $body_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+                $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
                 @pg_close($resource_rw);
@@ -146,7 +146,7 @@
 
                 if (pg_num_rows($result) != 1) {
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
-                    $body_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
+                    $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
                     $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
                     include '../../inc/error_page.php';
 

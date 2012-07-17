@@ -11,7 +11,7 @@
     if(!$ok)
     {
         $page_title = "Automated Shared Models Positions Deletion Form";
-        $body_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
     }

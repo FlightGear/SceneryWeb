@@ -222,7 +222,7 @@ if (((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((iss
 
     if (((is_shared_or_static($GET_['update_choice'])) == 'static') || (((is_shared_or_static($POST_['update_choice'])) == 'static'))) {
         $page_title = "Automated Shared Models Positions Update Form";
-        $body_text = "Sorry, but only shared objects can be updated for now.";
+        $error_text = "Sorry, but only shared objects can be updated for now.";
         include '../../inc/error_page.php';
         exit;
     }

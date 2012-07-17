@@ -1,6 +1,6 @@
 <?php include "header.php"; ?>
 <p class="center warning">
-<?php echo $body_text;?>
+<?php echo $error_text;?>
 </p>
 <p class="center">
 <?php 

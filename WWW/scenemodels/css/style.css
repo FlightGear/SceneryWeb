@@ -155,12 +155,6 @@ TD {
     border:1px solid #999;
 }
 
-TD.warning {
-    background: #f0f0f0;
-    color: #ff0000;
-    padding: 1px;
-}
-
 TH {
     color: #0000ff;
     background: #e0e0ff;

@@ -1,31 +1,27 @@
 <?php
 
-// Inserting libs
-require_once('../../inc/functions.inc.php');
+    // Inserting libs
+    require_once('../../inc/functions.inc.php');
 
-// Checking DB availability before all
-$ok=check_availability();
+    // Checking DB availability before all
+    $ok=check_availability();
 
-if(!$ok) {
-    $page_title = "Automated Shared Models Positions Submission Form";
-    include '../../inc/header.php';
-?>
-<br /><br />
-<p class="center warning">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</p>
-<p class=\"center\">The FlightGear team.</p>
-<?php include '../../inc/footer.php';
-}
-else {
+    if(!$ok) {
+        $page_title = "Automated Shared Models Positions Submission Form";
+        $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        include '../../inc/error.php';
+        exit;
+    }
 
-// Captcha stuff
-require_once('../../inc/captcha/recaptchalib.php');
+    // Captcha stuff
+    require_once('../../inc/captcha/recaptchalib.php');
 
-// Private key is needed for the server-to-Google auth.
-$privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-$resp = recaptcha_check_answer ($privatekey,
-                                $_SERVER["REMOTE_ADDR"],
-                                $_POST["recaptcha_challenge_field"],
-                                $_POST["recaptcha_response_field"]);
+    // Private key is needed for the server-to-Google auth.
+    $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
+    $resp = recaptcha_check_answer ($privatekey,
+                                    $_SERVER["REMOTE_ADDR"],
+                                    $_POST["recaptcha_challenge_field"],
+                                    $_POST["recaptcha_response_field"]);
 
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
@@ -36,118 +32,120 @@ $resp = recaptcha_check_answer ($privatekey,
         die ("<center>Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
              "<br />(reCAPTCHA complained: " . $resp->error . ")</center>");
         include '../../inc/footer.php';
+        exit;
+    }
+
+    $page_title = "Automated Shared Models Positions Submission Form";
+    include '../../inc/header.php';
+    echo "<br />";
+    $error = false;
+    global $error;
+
+    echo "<center>";
+
+    // Checking that family_id exists and is containing only figures.
+    if(isset($_POST['family_name']) && preg_match('/[0-9]/',$_POST['family_name']) && ($_POST['family_name']>'0')) {
+        $family_id = pg_escape_string(stripslashes($_POST['family_name']));
+        $family_real_name = family_name($family_id);
+        echo "<p class=\"ok\">Family Name: ".$family_real_name."</p><br />";
     }
     else {
-        $page_title = "Automated Shared Models Positions Submission Form";
-        include '../../inc/header.php';
-        echo "<br />";
-        $false='0';
-        global $false;
+        echo "<p class=\"warning\">Family Name mismatch!</p><br />";
+        $error = true;
+    }
 
-        echo "<center>";
+    // Checking that model_id exists and is containing only figures and with correct decimal format.
+    if(isset($_POST['model_name']) && preg_match('/[0-9]/',$_POST['model_name']) && ($_POST['model_name']>'0')) {
+        $model_id = pg_escape_string(stripslashes($_POST['model_name']));
+        $model_real_name = object_name($model_id);
+        echo "<p class=\"ok\">Model Name: ".$model_real_name."</p><br />";
+    }
+    else {
+        echo "<p class=\"warning\">Model Name mismatch!</p><br />";
+        $error = true;
+    }
 
-        // Checking that family_id exists and is containing only figures.
-        if((isset($_POST['family_name'])) && preg_match('/[0-9]/',$_POST['family_name']) && ($_POST['family_name']>'0')) {
-            $family_id = pg_escape_string(stripslashes($_POST['family_name']));
-            $family_real_name = family_name($family_id);
-            echo "<p class=\"ok\">Family Name: ".$family_real_name."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">Family Name mismatch!</p><br />";
-            $false='1';
-        }
+    // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
+    // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
+    if(isset($_POST['latitude']) && (strlen($_POST['latitude'])<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
+        $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
+        echo "<p class=\"ok\">Latitude: ".$lat."</p><br />";
+    }
+    else {
+        echo "<p class=\"warning\">Latitude mismatch!</p><br />";
+        $error = true;
+    }
 
-        // Checking that model_id exists and is containing only figures and with correct decimal format.
-        if((isset($_POST['model_name'])) && preg_match('/[0-9]/',$_POST['model_name']) && ($_POST['model_name']>'0')) {
-            $model_id = pg_escape_string(stripslashes($_POST['model_name']));
-            $model_real_name = object_name($model_id);
-            echo "<p class=\"ok\">Model Name: ".$model_real_name."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">Model Name mismatch!</p><br />";
-            $false='1';
-        }
+    // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
+    // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
+    if(isset($_POST['longitude']) && (strlen($_POST['longitude'])<=13) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180')) {
+        $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
+        echo "<p class=\"ok\">Longitude: ".$long."</p><br />";
+    }
+    else {
+        echo "<p class=\"warning\">Longitude mismatch!</p><br />";
+        $error = true;
+    }
 
-        // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-        // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
-        if((isset($_POST['latitude'])) && ((strlen($_POST['latitude']))<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
-            $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
-            echo "<p class=\"ok\">Latitude: ".$lat."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">Latitude mismatch!</p><br />";
-            $false='1';
-        }
+    // Checking that ground elevation exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
+    if(isset($_POST['gndelev']) &&
+        ((strlen($_POST['gndelev']))<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['gndelev'])) &&
+        ($_POST['gndelev']<='10000') &&
+        ($_POST['gndelev']>='-10000')) {
+        $gndelev = number_format(pg_escape_string(stripslashes($_POST['gndelev'])),2,'.','');
+        echo "<p class=\"ok\">Ground Elevation: ".$gndelev."</p><br />";
+    }
+    else {
+        echo "<p class=\"warning\">Ground Elevation mismatch!</p><br />";
+        $error = true;
+    }
 
-        // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-        // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
-        if((isset($_POST['longitude'])) && ((strlen($_POST['longitude']))<=13) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180')) {
-            $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
-            echo "<p class=\"ok\">Longitude: ".$long."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">Longitude mismatch!</p><br />";
-            $false = '1';
-        }
+    // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
+    if(isset($_POST['offset']) && (strlen($_POST['offset'])<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
+        $offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
+        echo "<p class=\"ok\">Offset: ".$offset."</p><br />";
+    }
+    else {
+        echo "<p class=\"warning\">Offset mismatch!</p><br />";
+        $error = true;
+    }
 
-        // Checking that ground elevation exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
-        if((isset($_POST['gndelev'])) &&
-            ((strlen($_POST['gndelev']))<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['gndelev'])) &&
-            ($_POST['gndelev']<='10000') &&
-            ($_POST['gndelev']>='-10000')) {
-            $gndelev = number_format(pg_escape_string(stripslashes($_POST['gndelev'])),2,'.','');
-            echo "<p class=\"ok\">Ground Elevation: ".$gndelev."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">Ground Elevation mismatch!</p><br />";
-            $false='1';
-        }
+    // Checking that orientation exists and is containing only digits, and is >=0 and <=359
+    // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
+    if(isset($_POST['heading']) && (strlen($_POST['heading'])<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0')) {
+        $heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
+        echo "<p class=\"ok\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</p><br />";
+    }
+    else {
+        echo "<p class=\"warning\">Orientation mismatch!</p><br />";
+        $error = true;
+    }
 
-        // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
-        if((isset($_POST['offset'])) && ((strlen($_POST['offset']))<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
-            $offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
-            echo "<p class=\"ok\">Offset: ".$offset."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">Offset mismatch!</p><br />";
-            $false='1';
-        }
+    // Checking that comment exists. Just a small verification as it's not going into DB.
+    // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
+    if(isset($_POST['comment']) && (strlen($_POST['comment'])>0) && (strlen($_POST['comment'])<=100)) {
+        $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
+        echo "<p class=\"ok\">Comment: ".$sent_comment."</p><br />";
+    }
+    else {
+        echo "<p class=\"warning\">Comment mismatch!</p><br />";
+        $error = true;
+    }
 
-        // Checking that orientation exists and is containing only digits, and is >=0 and <=359
-        // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
-        if((isset($_POST['heading'])) && ((strlen($_POST['heading']))<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0')) {
-            $heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
-            echo "<p class=\"ok\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">Orientation mismatch!</p><br />";
-            $false='1';
-        }
+    // Checking that email is valid (if it exists).
+    //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+    $failed_mail = false;
+    if(isset($_POST['email']) && (strlen($_POST['email'])>0) && (strlen($_POST['email'])<=50)) {
+        $safe_email = pg_escape_string(stripslashes($_POST['email']));
+        echo "<p class=\"ok\">Email: ".$safe_email."</p><br />";
+    }
+    else {
+        echo "<p class=\"warning\">No email was given (not mandatory) or email mismatch!</p><br />";
+        $failed_mail = true;
+    }
 
-        // Checking that comment exists. Just a small verification as it's not going into DB.
-        // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
-        if((isset($_POST['comment'])) && ((strlen($_POST['comment']))>0) && ((strlen($_POST['comment']))<=100)) {
-            $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
-            echo "<p class=\"ok\">Comment: ".$sent_comment."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">Comment mismatch!</p><br />";
-            $false='1';
-        }
-
-        // Checking that email is valid (if it exists).
-        //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-        if((isset($_POST['email'])) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
-            $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<p class=\"ok\">Email: ".$safe_email."</p><br />";
-        }
-        else {
-            echo "<p class=\"warning\">No email was given (not mandatory) or email mismatch!</p><br />";
-            $failed_mail = 1;
-        }
-
-// If there is no false, generating SQL to be inserted into the database pending requests table.
-if ($false == 0) {
+// If there is no error, generating SQL to be inserted into the database pending requests table.
+if (!$error) {
     echo "<br /><p class=\"ok\">Data seems to be OK to be inserted in the database</p><br />";
 
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
@@ -214,7 +212,7 @@ if ($false == 0) {
         $html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if($failed_mail != 1) {
+        if(!$failed_mail) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
@@ -264,7 +262,7 @@ if ($false == 0) {
         @mail($to, $subject, $message, $headers);
 
         // Mailing the submitter
-        if($failed_mail != 1) {
+        if(!$failed_mail) {
 
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_email;
@@ -318,6 +316,5 @@ if ($false == 0) {
 }
 
 include '../../inc/footer.php';
-}
-}
+
 ?>

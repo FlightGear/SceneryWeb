@@ -8,14 +8,14 @@
 
     if(!$ok) {
         $page_title = "Automated Shared Models Positions Mass Import Submission Form";
-        $body_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
     }
 
     $page_title = "Automated Shared Models Positions Mass Import Submission Form";
     include '../../inc/header.php';
-    ?>
+?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 
 <h1>Positions Automated Mass Import Submission Form</h1>
@@ -58,12 +58,12 @@ Please note that:
     <tr>
         <td colspan="2">
             <center>
-                <?php
+<?php
                 // Google Captcha stuff
                 require_once('../../inc/captcha/recaptchalib.php');
                 $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                 echo recaptcha_get_html($publickey);
-                ?>
+?>
                 <br />
                 <input type="submit" value="Submit mass import" />
             </center>
