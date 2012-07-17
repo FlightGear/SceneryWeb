@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
-    popup = window.open("http://mapserver.flightgear.org/popmap?zoom="+zoom+"&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
+    popup = window.open("http://mapserver.flightgear.org/popmap?zoom="+zoom+"&amp;lat="+lat+"&amp;lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
     popup.focus();
 }
 </script>
@@ -16,7 +16,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     $model = pg_fetch_assoc($result);
 };
 ?>
-<table border="1">
+<table>
 <tr>
     <td rowspan="8" width="320"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
     <td>Name</td>
@@ -80,7 +80,7 @@ while ($row = pg_fetch_assoc($result)) {
 <?php
 $result = pg_query("SELECT mo_author,au_name FROM fgs_models, fgs_authors WHERE mo_author=au_id AND mo_id = $id;");
 while ($row = pg_fetch_assoc($result)) {
-    print   "<br>List all of <a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a>";
+    print   "<br/>List all of <a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a>";
 }
 ?>
     </td>

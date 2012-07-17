@@ -9,14 +9,14 @@
 
   if (isset($_REQUEST['model']) && (preg_match('/^[0-9]+$/u',$_GET['model'])) && $_REQUEST['model']>0){
     $model = $_REQUEST['model'];
-    $filter.= " and ob_model=".$_REQUEST['model'];
+    $filter.= " AND ob_model=".$_REQUEST['model'];
   }else{
     $model = "";
   }
 
   if (isset($_REQUEST['group']) && (preg_match('/^[0-9]+$/u',$_GET['group'])) && $_REQUEST['group']>0){
     $group = $_REQUEST['group'];
-    $filter.= " and ob_group=".$_REQUEST['group'];
+    $filter.= " AND ob_group=".$_REQUEST['group'];
   }else{
     $group = "";
   }
@@ -25,7 +25,7 @@
     $min = $_REQUEST['elevation']-25;
     $max = $_REQUEST['elevation']+25;
     $elevation = $_REQUEST['elevation'];
-    $filter.= " and ob_gndelev>".$min." and ob_gndelev<".$max;
+    $filter.= " AND ob_gndelev>".$min." and ob_gndelev<".$max;
   }else{
     $elevation = "";
   }
@@ -34,7 +34,7 @@
     $min = $_REQUEST['elevoffset']-25;
     $max = $_REQUEST['elevoffset']+25;
     $elevoffset = $_REQUEST['elevoffset'];
-    $filter.= " and ob_gndelev>".$min." and ob_gndelev<".$max;
+    $filter.= " AND ob_gndelev>".$min." and ob_gndelev<".$max;
   }else{
     $elevoffset = "";
   }
@@ -64,14 +64,14 @@
 
   if (isset($_REQUEST['country']) && (preg_match('/^[a-z][a-z]$/u',$_GET['country']))){
     $country = $_REQUEST['country'];
-    $filter.= " and ob_country='".$_REQUEST['country']."'";
+    $filter.= " AND ob_country='".$_REQUEST['country']."'";
   }else{
     $country = "";
   }
 
   if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_GET['description']))){
     $description = $_REQUEST['description'];
-    $filter.= " and (ob_text like '%".$_REQUEST['description']."\" or ob_text like \"".$_REQUEST['description']."%' or ob_text like '%".$_REQUEST['description']."%')";
+    $filter.= " AND (ob_text like '%".$_REQUEST['description']."\" or ob_text like \"".$_REQUEST['description']."%' or ob_text like '%".$_REQUEST['description']."%')";
   }else{
     $description = "";
   }
@@ -87,7 +87,7 @@
 </script>
 
 <form action="objects.php" method="get">
-    <table border="1">
+    <table>
     <tr valign="bottom">
       <th>Lat</th>
       <th>Lon</th>
@@ -152,7 +152,8 @@
         <input type="submit" name="filter" value="Filter"/>
       </th>
     </tr>
-    <tr class="bottom"><td colspan="11" align="center">
+    <tr class="bottom">
+      <td colspan="11" align="center">
       <?php
         $prev = $offset-20;
         $next = $offset+20;
@@ -170,7 +171,7 @@
 
         echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Previous</a>&nbsp;";
         echo "<a href=\"objects.php?filter=Filter&offset=".$next . $filter_text."\">Next</a>";
-        ?>
+      ?>
       </td>
     </tr>
     <?php
