@@ -3,8 +3,7 @@ if ((isset($_POST["action"]))) {
     // Inserting libs
     require_once ('../../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
-    include '../../inc/header.php';
-
+    
     // Prepare a generic mail
 
     // If $action=reject
@@ -12,7 +11,6 @@ if ((isset($_POST["action"]))) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Reject model") {
-        echo "<center>Deleting corresponding pending query.</center>";
 
         if (isset($_POST["ob_sig"]) && isset($_POST["mo_sig"])) {
             $resource_rw = connect_sphere_rw();
@@ -24,11 +22,10 @@ if ((isset($_POST["action"]))) {
                 $ob_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';");
                 $mo_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';");
                 if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
-                    echo "<p class=\"center warning\">";
-                    echo "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?</p>\n";
-                    echo "<p class=\"center\">Else, please report to fg-devel ML or FG Scenery forum.";
-                    echo "</p>";
-                    include '../../inc/footer.php';
+                    $process_text = "Deleting corresponding pending query.";
+                    $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+                    $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+                    include '../../inc/error_page.php';
                     @pg_close($resource_rw);
                     exit;
                 }
@@ -40,17 +37,17 @@ if ((isset($_POST["action"]))) {
                 $mo_resultdel = @pg_query($resource_rw, $mo_delete_request);
 
                 if ((!$ob_resultdel) || (!$mo_resultdel)) {
-                    echo "<p class=\"center\">\n";
-                    echo "Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".</p>";
-                    echo "<p class=\"center warning\"Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.\n";
-                    echo "</p>\n";
+                    $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
+                    $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+                    include '../../inc/error_page.php';
 
                     // Closing the rw connection.
-                    include '../../inc/footer.php';
                     pg_close($resource_rw);
                     exit;
                 }
 
+                include '../../inc/header.php';
+                echo "<p class=\"center\">Deleting corresponding pending query.</p>"
                 echo "<p class=\"center\">";
                 echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
                 echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
@@ -124,11 +121,9 @@ if ((isset($_POST["action"]))) {
             $ob_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';");
 
             if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
-                echo "<p class=\"center warning\">";
-                echo "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?</p>\n";
-                echo "<p class=\"center\">Else, please report to fg-devel ML or FG Scenery forum.";
-                echo "</p>";
-                include '../../inc/footer.php';
+                $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+                $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+                include '../../inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
             }
@@ -156,17 +151,17 @@ if ((isset($_POST["action"]))) {
                 $result_obtext_update = @pg_query ($resource_rw, $query_ob_text);
 
                 if((!$result_rw_mo) || (!$result_rw_ob)) {
-                    echo "<p class=\"center\">";
-                    echo "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".<br />";
-                    echo "<p class=\"center warning\">Sorry, but the INSERT queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                    echo "</p>";
-
+                    $process_text = "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
+                    $error_text = "Sorry, but the INSERT queries could not be processed.";
+                    $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+                    include '../../inc/error_page.php';
+  
                     // Closing the rw connection.
-                    include '../../inc/footer.php';
                     pg_close ($resource_rw);
                     exit;
                 }
 
+                include '../../inc/header.php';
                 echo "<p class=\"center\">";
                 echo "Signatures found.<br /> Now processing INSERT queries of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".</p>";
                 echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
@@ -261,11 +256,11 @@ if (!(isset($_POST["action"]))) {
         $page_title = "Automated Models Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
-        exit();
+        exit;
     }
 
     $page_title = "Automated Models Submission Form";
-    include '../../inc/header.php';
+    
 
     // Working on the object, first
     // Check the presence of "ob_sig", its length (64) and its content.
@@ -278,9 +273,9 @@ if (!(isset($_POST["action"]))) {
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["ob_sig"] ."';");
             if (pg_num_rows($result) != 1) {
-                echo "<p class=\"center warning\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</p>\n";
-                echo "<p class=\"center\">Else, please report to fg-devel ML or FG Scenery forum.</p>";
-                include '../../inc/footer.php';
+                $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+                $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+                include '../../inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
             }
@@ -334,9 +329,9 @@ if (!(isset($_POST["action"]))) {
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["mo_sig"] ."';");
             if (pg_num_rows($result) != 1) {
-                echo "<p class=\"center warning\">Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?</p>\n";
-                echo "Else, please report to fg-devel ML or FG Scenery forum.</p>";
-                include '../../inc/footer.php';
+                $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+                $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+                include '../../inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
             }
@@ -386,6 +381,8 @@ if (!(isset($_POST["action"]))) {
             }
         }
     }
+
+include '../../inc/header.php';
 
 ?>
 
