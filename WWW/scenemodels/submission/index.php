@@ -3,7 +3,7 @@
   include '../inc/header.php';
 ?>
   <br/><br/>
-  <h1 align="center">FG scenery objects submission forms.</h1>
+  <h1>FG scenery objects submission forms.</h1>
   <b>Foreword: </b>The goal of those automated forms is to make the submission of positions and models into FG Scenery database faster, easier and better, in:
   <ul>
     <li>helping the developer submitting his positions and objects (time and process gain) nearly directly into Terrasync;</li>

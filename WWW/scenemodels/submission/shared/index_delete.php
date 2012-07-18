@@ -22,10 +22,10 @@
 <script src="/inc/check_form.js" type="text/javascript"></script>
 
 <p>
-<h1 align="center">Positions Automated Deletion Form</h1>
+<h1>Positions Automated Deletion Form</h1>
 <center><b>Foreword:</b> This automated form goal is to ease the deletion of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>  objects in the database.</center>
 <br /><br />
-<form name="deletion" method="post" action="check_delete_shared.php">
+<form id="deletion" method="post" action="check_delete_shared.php">
 <table>
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to delete. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>

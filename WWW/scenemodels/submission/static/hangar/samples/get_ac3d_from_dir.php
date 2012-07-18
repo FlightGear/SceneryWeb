@@ -13,8 +13,8 @@ header("Content-type: application/octet-stream");
 $dir = opendir($target_path);
     while ($file = readdir($dir)) {
         if (ShowFileExtension($file) == "ac") {
-                $fichier = $target_path."/".$file;
-                readfile $fichier;
+            $fichier = $target_path."/".$file;
+            readfile($fichier);
         }
     }
 ?>
