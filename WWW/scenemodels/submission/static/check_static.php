@@ -48,8 +48,10 @@ else {
 ###########################################################
 ###########################################################
 
+$tmp_dir = sys_get_temp_dir;
+
 if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
-    $targetPath   = "/tmp/static_".random_suffix()."/";
+    $targetPath   = $tmp_dir . "/static_".random_suffix()."/";
     while (file_exists($targetPath)) {
         usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     }
@@ -514,18 +516,18 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     system ($d2u_xml_command);
     system ($d2u_xml_command);
 
-    $phar = new PharData('/tmp/static.tar');           // Create archive file
+    $phar = new PharData($tmp_dir . '/static.tar');           // Create archive file
     $phar->buildFromDirectory($targetPath);            // Fills archive file
     $phar->compress(Phar::GZ);                         // Convert archive file to compress file
-    unlink('/tmp/static.tar');                         // Delete archive file
-    rename('/tmp/static.tar.gz', '/tmp/static.tgz');   // Rename compress file
+    unlink($tmp_dir . '/static.tar');                         // Delete archive file
+    rename($tmp_dir . '/static.tar.gz', $tmp_dir.'/static.tgz');   // Rename compress file
 
-    $handle    = fopen("/tmp/static.tgz", "r");
-    $contents  = fread($handle, filesize("/tmp/static.tgz"));
+    $handle    = fopen($tmp_dir."/static.tgz", "r");
+    $contents  = fread($handle, filesize($tmp_dir."/static.tgz"));
     fclose($handle);
     $modelFile = base64_encode($contents);             // Dump & encode the file
 
-    unlink('/tmp/static.tgz');                         // Delete compress file
+    unlink($tmp_dir . '/static.tgz');                         // Delete compress file
     clearDir($targetPath);                             // Delete temporary static directory
 }
 

@@ -19,8 +19,8 @@ if ((isset($_POST["action"]))) {
             if ($resource_rw != '0') {
 
                 // Checking the presence of sig into the database
-                $ob_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';");
-                $mo_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';");
+                $ob_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
+                $mo_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
                 if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                     $process_text = "Deleting corresponding pending query.";
                     $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -31,8 +31,8 @@ if ((isset($_POST["action"]))) {
                 }
 
                 // Delete the entry from the pending query table.
-                $ob_delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';";
-                $mo_delete_request = "delete from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';";
+                $ob_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
+                $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
                 $ob_resultdel = @pg_query($resource_rw, $ob_delete_request);
                 $mo_resultdel = @pg_query($resource_rw, $mo_delete_request);
 
@@ -117,8 +117,8 @@ if ((isset($_POST["action"]))) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sigs into the database
-            $mo_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';");
-            $ob_result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';");
+            $mo_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+            $ob_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
 
             if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -271,7 +271,7 @@ if (!(isset($_POST["action"]))) {
         if($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["ob_sig"] ."';");
+            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["ob_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
@@ -327,7 +327,7 @@ if (!(isset($_POST["action"]))) {
         if($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["mo_sig"] ."';");
+            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
@@ -389,7 +389,7 @@ include '../../inc/header.php';
 <p class="center">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
-<form name="validation" method="post" action="static_submission.php">
+<form id="validation" method="post" action="static_submission.php">
 <table>
     <tr>
         <th>Data</th>
@@ -465,7 +465,7 @@ include '../../inc/header.php';
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
 
     // Managing possible concurrent accesses on the maintainer side.
-    $target_path = '/tmp/submission_'.random_suffix();
+    $target_path = sys_get_temp_dir() .'/submission_'.random_suffix();
 
     while (file_exists($target_path)) {
         usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
@@ -501,17 +501,19 @@ include '../../inc/header.php';
     closedir($dir);
 ?>
     <tr>
-    <td>Download</td>
-    <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></center></td>
+        <td>Download</td>
+        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
-        <td><center>
+        <td>
+            <center>
             <?php
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             ?>
-            <iframe src="hangar/samples/index.php?mo_sig=<?php echo $encoded_target_path; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe></center>
+            <iframe src="hangar/samples/index.php?mo_sig=<?php echo $encoded_target_path; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe>
+            </center>
         </td>
     </tr>
     <tr>
@@ -551,22 +553,23 @@ include '../../inc/header.php';
         </td>
     </tr>
     <tr>
-        <td>Leave a comment to the submitter
-        </td>
+        <td>Leave a comment to the submitter</td>
         <td><input type="text" name="maintainer_comment" size="100" value="Drop a comment to the submitter" /></td>
     </tr>
     <tr>
         <td>Action</td>
-        <td><center>
-        <input type="hidden" name="ob_sig" value="<?php echo $_GET["ob_sig"]; ?>" />
-        <input type="hidden" name="mo_sig" value="<?php echo $_GET["mo_sig"]; ?>" />
-        <input type="submit" name="action" value="Submit model" />
-        <input type="submit" name="action" value="Reject model" />
-        </center></td>
+        <td>
+        <center>
+            <input type="hidden" name="ob_sig" value="<?php echo $_GET["ob_sig"]; ?>" />
+            <input type="hidden" name="mo_sig" value="<?php echo $_GET["mo_sig"]; ?>" />
+            <input type="submit" name="action" value="Submit model" />
+            <input type="submit" name="action" value="Reject model" />
+        </center>
+        </td>
     </tr>
 </table>
 </form>
-<center>This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</center>
+<p class="center">This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</p>
 <?php
 // The deletion of the tmp directory is made in the get_texture file, else it does not shows the texture.
 }
