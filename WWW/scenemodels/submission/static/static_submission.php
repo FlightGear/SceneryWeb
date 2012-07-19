@@ -47,7 +47,7 @@ if ((isset($_POST["action"]))) {
                 }
 
                 include '../../inc/header.php';
-                echo "<p class=\"center\">Deleting corresponding pending query.</p>"
+                echo "<p class=\"center\">Deleting corresponding pending query.</p>";
                 echo "<p class=\"center\">";
                 echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
                 echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
