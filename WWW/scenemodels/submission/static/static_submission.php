@@ -406,7 +406,7 @@ include '../../inc/header.php';
     <tr>
         <td>Email</td>
         <td><?php echo $_GET["email"]; ?></td>
-        <input type="hidden" name="email" value="<?php echo $_GET["email"]; ?>">
+        <input type="hidden" name="email" value="<?php echo $_GET["email"]; ?>" />
     </tr>
     <tr>
         <td>Family</td>
@@ -436,7 +436,7 @@ include '../../inc/header.php';
         <td>Map</td>
         <td>
         <center>
-        <iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $ob_long; ?>&lat=<?php echo $ob_lat; ?>&zoom=14" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+        <iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $ob_long; ?>&amp;lat=<?php echo $ob_lat; ?>&amp;zoom=14" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
         </iframe>
         </center>
         </td>
@@ -459,7 +459,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>"></center></td>
+        <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></center></td>
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
@@ -502,7 +502,7 @@ include '../../inc/header.php';
 ?>
     <tr>
     <td>Download</td>
-    <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></td>
+    <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
@@ -542,7 +542,7 @@ include '../../inc/header.php';
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
             ?>
-                <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&png_file_number=<?php echo $j; ?>" alt="Texture"/>
+                <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&amp;png_file_number=<?php echo $j; ?>" alt="Texture"/>
             <?php
             }
             ?>
@@ -563,8 +563,8 @@ include '../../inc/header.php';
         <input type="submit" name="action" value="Reject model" />
         </center></td>
     </tr>
-</form>
 </table>
+</form>
 <center>This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</center>
 <?php
 // The deletion of the tmp directory is made in the get_texture file, else it does not shows the texture.
