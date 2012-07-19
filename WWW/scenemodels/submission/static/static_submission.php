@@ -3,7 +3,7 @@ if ((isset($_POST["action"]))) {
     // Inserting libs
     require_once ('../../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
-    
+
     // Prepare a generic mail
 
     // If $action=reject
@@ -47,7 +47,7 @@ if ((isset($_POST["action"]))) {
                 }
 
                 include '../../inc/header.php';
-                echo "<p class=\"center\">Deleting corresponding pending query.</p>"
+                echo "<p class=\"center\">Deleting corresponding pending query.</p>";
                 echo "<p class=\"center\">";
                 echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
                 echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
@@ -155,7 +155,7 @@ if ((isset($_POST["action"]))) {
                     $error_text = "Sorry, but the INSERT queries could not be processed.";
                     $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     include '../../inc/error_page.php';
-  
+
                     // Closing the rw connection.
                     pg_close ($resource_rw);
                     exit;
@@ -260,7 +260,7 @@ if (!(isset($_POST["action"]))) {
     }
 
     $page_title = "Automated Models Submission Form";
-    
+
 
     // Working on the object, first
     // Check the presence of "ob_sig", its length (64) and its content.
