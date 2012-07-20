@@ -36,7 +36,7 @@ Please, read the following:
   <p class="center">
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.
   </p>
-     <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
+    <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
     <table>
         <tr>
             <td>

@@ -1,6 +1,6 @@
 <html>
 <head>
-<style>
+<style type="text/css">
 
 #canvas {
   width: 720px;
@@ -140,6 +140,6 @@ function onLoaded(){
   <canvas id="canvas"></canvas>
   <div id="details"></div>
   <div id="loading"></div>
-<body>
+</body>
 
 </html>
