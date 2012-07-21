@@ -508,10 +508,10 @@ include '../../inc/header.php';
         <td>Corresponding AC3D File</td>
         <td>
             <center>
-            <?php
+<?php
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
-            ?>
+?>
             <iframe src="hangar/samples/index.php?mo_sig=<?php echo $encoded_target_path; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe>
             </center>
         </td>
@@ -519,7 +519,7 @@ include '../../inc/header.php';
     <tr>
         <td>Corresponding XML File</td>
         <td>
-            <?php
+<?php
             // Geshi stuff
             $file = $target_path.'/'.$xml_file;
             $source = file_get_contents($file);
@@ -528,14 +528,14 @@ include '../../inc/header.php';
             $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
             $geshi->set_line_style('background: #fcfcfc;');
             echo $geshi->parse_code();
-            ?>
+?>
         </td>
     </tr>
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
             <center>
-            <?php
+<?php
             if ($png_file_number == 0)
                 echo $png_file_number." texture file has been submitted:"; // Some eye caviar for the poor scenery maintainers.
             else echo $png_file_number." texture files have been submitted:";
@@ -544,11 +544,11 @@ include '../../inc/header.php';
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
-            ?>
+?>
                 <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&amp;png_file_number=<?php echo $j; ?>" alt="Texture"/>
-            <?php
+<?php
             }
-            ?>
+?>
             </center>
         </td>
     </tr>

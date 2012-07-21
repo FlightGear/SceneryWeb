@@ -26,16 +26,10 @@ header("Content-type: image/jpg");
 
                     // Gzuncompress the query
                     $query_rw = gzuncompress($sqlz);
-                    $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
-                    $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
-                    $j = 0;
-                    foreach ($tab_tags as $value_tag) {
-                        $j++;
-                        if ($j == 5) {
-                            $mo_thumbfile = str_replace("'", "", $value_tag);
-                            echo base64_decode($mo_thumbfile);
-                        }
-                    }
+                    echo "Query:".$query_rw."\n";
+                    sscanf($query_rw, "INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s);", $mo_path, $mo_author, $mo_name, $mo_notes, $mo_thumbfile, $mo_modelfile, $mo_shared);
+                    echo "mo_thumbfile:".$mo_thumbfile_rw."\n";
+                    echo base64_decode($mo_thumbfile);
                 }
             }
         }

@@ -7,6 +7,7 @@
 
 <?php include 'inc/header.php';?>
 <h1>Scenery Author Details</h1>
+
 <table>
 <?php
 
