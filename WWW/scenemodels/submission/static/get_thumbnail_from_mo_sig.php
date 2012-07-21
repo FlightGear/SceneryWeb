@@ -28,8 +28,7 @@ header("Content-type: image/jpg");
                     $query_rw = gzuncompress($sqlz);
                     $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', '(?P<author>[0-9]+)', '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', '(?P<shared>[0-9]+)'\) RETURNING mo_id/";
                     preg_match($pattern, $query_rw, $matches);
-                    
-                    echo "$query_rw\n\nTHUMB:".$matches['thumbfile']."\n\n";
+
                     echo base64_decode($matches['thumbfile']);
                 }
             }
