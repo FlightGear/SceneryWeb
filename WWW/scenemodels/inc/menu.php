@@ -29,6 +29,7 @@
           $result=pg_query($query);
           while ($row = pg_fetch_assoc($result)){
             $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
+            $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
             echo "<li><a href=\"/modelbrowser.php?shared=".$row["mg_id"]."\">".$name."</a></li>\n";
           }
         ?>

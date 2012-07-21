@@ -13,7 +13,7 @@
     $row = pg_fetch_assoc($result);
     $signs=$row["count"];
 
-echo "<p align=\"center\">The database currently contains <a href=\"models.php\">$models models</a> placed in the scenery as <a href=\"objects.php\">$objects seperate objects</a>, plus $signs taxiway signs.</p>\n";
+echo "<p class=\"center\">The database currently contains <a href=\"models.php\">$models models</a> placed in the scenery as <a href=\"objects.php\">$objects seperate objects</a>, plus $signs taxiway signs.</p>\n";
 
 ?>
       <table class="float">

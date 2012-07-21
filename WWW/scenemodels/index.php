@@ -20,7 +20,7 @@
         echo "<div class=\"header\"><div class=\"date\">\n";
         echo "Posted : ".$row["formdate"]."</div>";
         echo "<div class=\"normal\">by</div><div class=\"author\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div></div>\n";
-        echo "<p class=\"body\">".$row["ne_text"]."</p>\n";
+        echo "<div class=\"body\">".$row["ne_text"]."</div>\n";
         echo "</div>\n";
     }
     ?>
