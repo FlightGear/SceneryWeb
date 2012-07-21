@@ -26,7 +26,8 @@ header("Content-type: image/jpg");
 
                     // Gzuncompress the query
                     $query_rw = gzuncompress($sqlz);
-                    sscanf($query_rw, "INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s);", $mo_path, $mo_author, $mo_name, $mo_notes, $mo_thumbfile, $mo_modelfile, $mo_shared);
+                    $n=sscanf($query_rw, "INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s)", $mo_path, $mo_author, $mo_name, $mo_notes, $mo_thumbfile, $mo_modelfile, $mo_shared);
+                    echo "N:$n\n\nTHUMB:$mo_thumbfile\n\n"
                     echo base64_decode($mo_thumbfile);
                 }
             }
