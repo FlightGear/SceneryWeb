@@ -18,7 +18,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
 ?>
       <table class="float">
         <tr><th colspan="2">Objects By Country</th></tr>
-        <?php
+<?php
           $query = "SELECT count(ob_id) AS count,co_name,co_code ";
           $query.= "FROM fgs_objects,fgs_countries ";
           $query.= "WHERE ob_country=co_code ";
@@ -32,12 +32,12 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
               echo "<td>".$row["count"]."</td>\n";
             echo "</tr>\n";
           }
-        ?>
+?>
       </table>
 
       <table class="float">
         <tr><th colspan="2">Models By Author</th></tr>
-        <?php
+<?php
           $query = "SELECT count(mo_id) as count,au_name,au_id ";
           $query.= "FROM fgs_models,fgs_authors ";
           $query.= "WHERE mo_author=au_id ";
@@ -51,12 +51,12 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
               echo "<td>".$row["count"]."</td>\n";
             echo "</tr>\n";
           }
-        ?>
+?>
       </table>
     <div class="clear"></div><br/>
       <table class="float">
         <tr><th colspan="2">Recently Updated Objects</th></tr>
-        <?php
+<?php
           $query = "SELECT ob_id,ob_text,ob_modified ";
           $query.= "FROM fgs_objects ";
           $query.= "ORDER BY ob_modified DESC ";
@@ -68,12 +68,12 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
               echo "<td>".$row["ob_modified"]."</td>\n";
             echo "</tr>\n";
           }
-        ?>
+?>
       </table>
 
       <table class="float">
         <tr><th colspan="2">Recently Updated Models</th></tr>
-        <?php
+<?php
           $query = "SELECT mo_id,mo_name,mo_modified ";
           $query.= "FROM fgs_models ";
           $query.= "ORDER BY mo_modified DESC ";
@@ -85,7 +85,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
               echo "<td>".$row["mo_modified"]."</td>\n";
             echo "</tr>\n";
           }
-        ?>
+?>
       </table>
     <div class="clear"></div>  
 

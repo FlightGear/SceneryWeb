@@ -1,14 +1,16 @@
 <?php include 'inc/header.php';?>
-
-  <h1>FlightGear Scenery Database Latest News</h1>
-  
-    <?php
-    if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u', $_GET['offset'])) {
+<?php
+    if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u', $_REQUEST['offset'])) {
         $offset = $_REQUEST['offset'];
     }
     else {
         $offset = 0;
     }
+?>
+
+  <h1>FlightGear Scenery Database Latest News</h1>
+  
+<?php
     $query = "SELECT *, date_trunc('seconds',ne_timestamp) AS formdate ";
     $query.= "FROM fgs_news, fgs_authors ";
     $query.= "WHERE au_id = ne_author ";
@@ -23,7 +25,7 @@
         echo "<div class=\"body\">".$row["ne_text"]."</div>\n";
         echo "</div>\n";
     }
-    ?>
+?>
   <table>  
     <tr class="bottom">
         <td colspan="9" align="center">
