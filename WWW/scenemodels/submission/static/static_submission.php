@@ -1,5 +1,5 @@
 <?php
-if ((isset($_POST["action"]))) {
+if (isset($_POST["action"])) {
     // Inserting libs
     require_once ('../../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
@@ -194,7 +194,7 @@ if ((isset($_POST["action"]))) {
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
                 $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-                if(isset($_POST["email"])) {
+                if (isset($_POST["email"])) {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
                     $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
                     $to .= $_POST["email"];
@@ -242,7 +242,7 @@ if ((isset($_POST["action"]))) {
     include '../../inc/footer.php';
 }
 
-if (!(isset($_POST["action"]))) {
+if (!isset($_POST["action"])) {
 
     // Inserting libs
     require_once ('../../inc/functions.inc.php');
