@@ -81,7 +81,7 @@
 ?>
 <script type="text/javascript">
   function popmap(lat,lon) {
-    popup = window.open("http://mapserver.flightgear.org/popmap?zoom=12&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
+    popup = window.open("http://mapserver.flightgear.org/popmap?zoom=12&amp;lat="+lat+"&amp;lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
     popup.focus();
   }
 </script>
@@ -171,8 +171,8 @@
         if($group!="") $filter_text .= "&group=".$group;
         if($country!="") $filter_text .= "&country=".$country;
 
-        echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Previous</a>&nbsp;";
-        echo "<a href=\"objects.php?filter=Filter&offset=".$next . $filter_text."\">Next</a>";
+        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Previous</a>&nbsp;";
+        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next</a>";
 ?>
       </td>
     </tr>
@@ -216,8 +216,8 @@
     <tr class="bottom">
       <td colspan="11" align="center">
 <?php
-          echo "<a href=\"objects.php?filter=Filter&offset=".$prev . $filter_text."\">Previous</a>&nbsp;";
-          echo "<a href=\"objects.php?filter=Filter&offset=".$next . $filter_text."\">Next</a>";
+          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Previous</a>&nbsp;";
+          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next</a>";
 ?>
       </td>
     </tr>

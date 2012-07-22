@@ -1,8 +1,7 @@
 <?php
 
-// Inserting libs
-
-require_once('../../inc/functions.inc.php');
+    // Inserting libs
+    require_once('../../inc/functions.inc.php');
 
     // Checking DB availability before all
 
@@ -24,6 +23,7 @@ require_once('../../inc/functions.inc.php');
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 
 <h1>Positions Automated Update Form</h1>
+
 <p class="center"><b>Foreword:</b> This automated form goal is to ease the update of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?> objects in the database.</p>
 
 <form id="edition" method="post" action="check_update_shared.php">
