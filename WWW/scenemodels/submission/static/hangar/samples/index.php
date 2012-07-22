@@ -98,7 +98,7 @@
 
 <script type="text/javascript">
 var Models = [
-  { file: "get_ac3d_from_dir2.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>", setup: {eye: [-28.07, -48.23, 23.66], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45} }
+  { file: "get_ac3d_from_dir.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>", setup: {eye: [-28.07, -48.23, 23.66], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45, texture_path: "get_texture_by_filename.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>&name="} }
 ];
 
 var canvas, details, loading, viewer, current;

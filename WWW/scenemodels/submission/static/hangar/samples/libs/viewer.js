@@ -1,63 +1,1988 @@
-var SGI=SGI||{};SGI.Storages={VERBATIM:0,RLE:1};SGI.File=function(a){a=new SGI.Stream(a);this.header=new SGI.Header(a);this.img=new SGI.Image(this.header);this.parse(a)};SGI.File.prototype.parse=function(a){switch(this.header.storage){case SGI.Storages.VERBATIM:this.verbatim(a);break;case SGI.Storages.RLE:this.rle(a)}this.adjustChannels()};
-SGI.File.prototype.verbatim=function(a){for(var b=this.img.data,c=this.header.zsize,d=this.header.ysize,e=this.header.xsize,g=8*e,f=0,h=512,i,j,l;f<c;++f){l=this.startChannel(f);for(i=0;i<d;++i,l-=g)for(j=0;j<e;++j,l+=4)b[l]=a.peekByte(h++)}};SGI.File.prototype.rle=function(a){for(var b=this.img.data,c=this.header.zsize,d=this.header.ysize,e=4*this.header.xsize,g=0,f=512,h,i,j;g<c;++g){j=this.startChannel(g);for(h=0;h<d;++h,j-=e,f+=4)i=a.peekLong(f),this.rleRow(a,i,b,j)}};
-SGI.File.prototype.rleRow=function(a,b,c,d){for(var e=a.peekByte(b++),g=e&127,f;0!==g;){if(e&128)for(f=0;f<g;++f,d+=4)c[d]=a.peekByte(b++);else{e=a.peekByte(b++);for(f=0;f<g;++f,d+=4)c[d]=e}e=a.peekByte(b++);g=e&127}};SGI.File.prototype.adjustChannels=function(){var a=this.img.data,b=a.length,c=this.header.zsize,d=0;if(4!==c)for(;d<b;d+=4)switch(c){case 1:a[d+1]=a[d+2]=a[d];a[d+3]=255;break;case 2:a[d+1]=a[d+2]=a[d];break;case 3:a[d+3]=255}};
-SGI.File.prototype.startChannel=function(a){var b=4*(this.header.ysize-1)*this.header.xsize;2===this.header.zsize&&1===a&&(b+=2);return b+a};SGI.Header=function(a){this.storage=a.peekByte(2);this.xsize=a.peekShort(6);this.ysize=a.peekShort(8);this.zsize=a.peekShort(10)};SGI.Image=function(a){this.width=a.xsize;this.height=a.ysize;this.data=new Uint8Array(4*a.xsize*a.ysize)};SGI.Stream=function(a){this.buffer=new Uint8Array(a)};SGI.Stream.prototype.peekByte=function(a){return this.buffer[a]};
-SGI.Stream.prototype.peekShort=function(a){return this.peekByte(a)<<8|this.peekByte(a+1)};SGI.Stream.prototype.peekLong=function(a){return this.peekByte(a)<<24|this.peekByte(a+1)<<16|this.peekByte(a+2)<<8|this.peekByte(a+3)};var AC=AC||{};AC.SurfaceType={POLYGON:0,LINE_LOOP:1,LINE_STRIP:2};AC.SurfaceFlag={SHADED:16,TWO_SIDED:32};AC.File=function(a){a=new AC.Stream(a);this.materials=[];this.objects=[];this.parse(a)};
-AC.File.prototype.parse=function(a){var b=mat4.identity();for(a.readToken();a.pending();)switch(a.readToken()){case "MATERIAL":this.materials.push(new AC.Material(a));break;case "OBJECT":this.objects.push(new AC.Object(a,b))}};
-AC.Material=function(a){this.name=a.readString();a.readToken();this.diffuse=a.readVector(3);a.readToken();this.ambient=a.readVector(3);a.readToken();this.emissive=a.readVector(3);a.readToken();this.specular=a.readVector(3);a.readToken();this.shininess=a.readFloat();a.readToken();this.transparency=a.readFloat()};
-AC.Object=function(a,b){var c;this.defaultValues();for(this.type=a.readString();void 0===c;)switch(a.readToken()){case "name":this.name=a.readString();break;case "data":this.data=a.readBlob(a.readInteger());break;case "texture":this.texture="get_texture_by_filename.php?name="+a.readString();break;case "texrep":this.textureRepeat=a.readVector(2);break;case "texoff":this.textureOffset=a.readVector(2);break;case "rot":this.rotation=a.readVector(9);break;case "loc":this.translation=a.readVector(3);break;case "crease":this.crease=a.readFloat();
-break;case "url":this.url=a.readString();break;case "numvert":this.vertices=this.parseVertices(a,b);break;case "numsurf":this.surfaces=this.parseSurfaces(a);break;case "kids":c=a.readInteger(),0!==c&&(this.children=this.parseKids(a,c,b))}this.surfaces&&this.smoothNormals(this.sharedVertices())};AC.Object.prototype.defaultValues=function(){this.textureOffset=[0,0];this.textureRepeat=[1,1];this.rotation=[1,0,0,0,1,0,0,0,1];this.translation=[0,0,0];this.crease=61};
-AC.Object.prototype.parseVertices=function(a,b){var c=[],d=vec3.create(),e=mat4.identity(),g=a.readInteger(),f=0;this.compose(e,this.rotation,this.translation);for(mat4.multiply(e,b);f<g;++f)d[0]=a.readFloat(),d[1]=a.readFloat(),d[2]=a.readFloat(),mat4.multiplyVec3(e,d),c.push(d[0],d[1],d[2]);return c};AC.Object.prototype.parseSurfaces=function(a){for(var b=[],c=a.readInteger(),d=0,e;d<c;++d)e=new AC.Surface(a,this),e.degenerated||b.push(e);return b};
-AC.Object.prototype.parseKids=function(a,b,c){var d=[],e=mat4.identity(),g=0;this.compose(e,this.rotation,this.translation);for(mat4.multiply(e,c);g<b;++g)a.readToken(),d.push(new AC.Object(a,e));return d};AC.Object.prototype.sharedVertices=function(){for(var a=this.surfaces,b=a.length,c=[],d=0,e,g,f,h,i,j;d<b;++d){i=a[d];g=i.indices;f=g.length;for(e=0;e<f;++e)h=g[e],(j=c[h])?-1===j.indexOf(i)&&j.push(i):c[h]=[i]}return c};
-AC.Object.prototype.smoothNormals=function(a){for(var b=this.surfaces,c=b.length,d=Math.cos(this.crease*Math.PI/180),e=0,g,f,h,i,j,l,k,m,o,n,p,q,r;e<c;++e){l=b[e];l.normals=o=[];n=l.normal;i=l.indices;j=i.length;for(g=0;g<j;++g){f=i[g];p=n[0];q=n[1];r=n[2];k=a[f];h=k.length;for(f=0;f<h;++f)m=k[f],l!==m&&(m=m.normal,n[0]*m[0]+n[1]*m[1]+n[2]*m[2]>d*n[3]*m[3]&&(p+=m[0],q+=m[1],r+=m[2]));o.push(p,q,r)}}};
-AC.Object.prototype.compose=function(a,b,c){a[0]=b[0];a[1]=b[1];a[2]=b[2];a[4]=b[3];a[5]=b[4];a[6]=b[5];a[8]=b[6];a[9]=b[7];a[10]=b[8];a[12]=c[0];a[13]=c[1];a[14]=c[2]};AC.Surface=function(a,b){for(var c;void 0===c;)switch(a.readToken()){case "SURF":this.parseFlags(a);break;case "mat":this.materialId=a.readInteger();break;case "refs":c=a.readInteger(),this.parseRefs(a,b,c)}this.normal=[0,0,0,1];this.type===AC.SurfaceType.POLYGON&&!this.teselate(b,c)&&(this.degenerated=!0)};
-AC.Surface.prototype.parseFlags=function(a){a=a.readInteger();this.type=a&15;this.isShaded=0!==(a&AC.SurfaceFlag.SHADED);this.isTwoSided=0!==(a&AC.SurfaceFlag.TWO_SIDED)};AC.Surface.prototype.parseRefs=function(a,b,c){for(var d=b.textureOffset[0],e=b.textureOffset[1],g=b.textureRepeat[0],b=b.textureRepeat[1],f=[],h=[],i=0;i<c;++i)f.push(a.readInteger()),h.push(d+a.readFloat()*g),h.push(e+a.readFloat()*b);this.indices=f;this.uvs=h};
-AC.Surface.prototype.teselate=function(a,b){var c=!1;3<=b&&(c=this.calculateNormal(a))&&3<b&&(c=this.triangulate(a));return c};AC.Surface.prototype.calculateNormal=function(a){var b=a.vertices,a=this.indices,c=3*a[0],d=3*a[1],e=3*a[2],a=b[d]-b[c],g=b[d+1]-b[c+1],f=b[d+2]-b[c+2],d=b[e]-b[c],h=b[e+1]-b[c+1],c=b[e+2]-b[c+2],b=g*c-h*f,c=f*d-c*a,a=a*h-d*g,g=Math.sqrt(b*b+c*c+a*a);this.normal=[b,c,a,g];return 1.0E-10<g};
-AC.Surface.prototype.triangulate=function(a){var a=a.vertices,b=this.indices,c=this.normal,d=0,e=1,g=[],f=b.length,h=0,i;i=Math.max(Math.abs(c[0]),Math.abs(c[1]),Math.abs(c[2]));i===Math.abs(c[0])?(d=1,e=2):i===Math.abs(c[1])&&(d=0,e=2);for(;h<f;++h)c=3*b[h],g.push({x:a[c+d],y:a[c+e]});(a=AC.Triangulator.triangulate(g))&&this.sortRefs(a);return null!==a};
-AC.Surface.prototype.sortRefs=function(a){for(var b=this.indices,c=this.uvs,d=[],e=[],g=a.length,f=0,h;f<g;++f)h=a[f],d.push(b[h]),e.push(c[2*h],c[2*h+1]);this.indices=d;this.uvs=e};AC.Stream=function(a){this.buffer=a;this.position=0};AC.Stream.prototype.pending=function(){return this.position!==this.buffer.length};AC.Stream.prototype.space=function(){var a=this.buffer[this.position];return" "===a||"\r"===a||"\n"===a};AC.Stream.prototype.quote=function(){return'"'===this.buffer[this.position]};
-AC.Stream.prototype.readToken=function(){for(var a=this.position;this.pending()&&!this.space();++this.position);for(a=this.buffer.substring(a,this.position);this.pending()&&this.space();++this.position);return a};AC.Stream.prototype.readString=function(){var a=this.quote(),b=a?this.quote:this.space,c=this.position;for(this.position+=a;this.pending()&&!b.call(this);++this.position);b=this.buffer.substring(c+a,this.position);for(this.position+=a;this.pending()&&this.space();++this.position);return b};
-AC.Stream.prototype.readBlob=function(a){var b=this.buffer.substr(this.position,a);for(this.position+=a;this.pending()&&this.space();++this.position);return b};AC.Stream.prototype.readInteger=function(){return parseInt(this.readToken())};AC.Stream.prototype.readFloat=function(){return parseFloat(this.readToken())};AC.Stream.prototype.readVector=function(a){for(var b=[],c=0;c<a;++c)b.push(this.readFloat());return b};AC.Triangulator=function(){};
-AC.Triangulator.triangulate=function(a){var b=[],c=[],d=a.length,e=d-1,g=2*d,f=0,h,i;for(i=0<AC.Triangulator.ccw(a);f<d;++f)c.push(i?f:d-f-1);for(;2<d;){if(0>=g--)return null;f=e;e=f+1;e>=d&&(e=0);h=e+1;h>=d&&(h=0);if(AC.Triangulator.snip(a,f,e,h,d,c)){b.push(c[f],c[e],c[h]);for(g=e+1;g<d;++g)c[g-1]=c[g];d--;g=2*d}}return i?b:b.reverse()};AC.Triangulator.ccw=function(a){for(var b=0,c=a.length,d=c-1,e=0;e<c;d=e++)b+=a[d].x*a[e].y-a[e].x*a[d].y;return b};
-AC.Triangulator.snip=function(a,b,c,d,e,g){var f=a[g[b]].x,h=a[g[b]].y,i=a[g[c]].x,j=a[g[c]].y,l=a[g[d]].x,k=a[g[d]].y,m=0,o,n,p,q;if(1.0E-10>(i-f)*(k-h)-(j-h)*(l-f))return!1;for(;m<e;++m)if(m!==b&&m!==c&&m!==d&&(o=a[g[m]].x,n=a[g[m]].y,p=(l-i)*(n-j)-(k-j)*(o-i),q=(i-f)*(n-h)-(j-h)*(o-f),o=(f-l)*(n-k)-(h-k)*(o-l),0<=p&&0<=q&&0<=o))return!1;return!0};var HG=HG||{};HG.Loader={};
-HG.Loader.loadText=function(a,b,c,d){var e=new XMLHttpRequest;e.open("GET",a,!0);e.overrideMimeType("text/plain; charset=x-user-defined");e.onload=function(){b[c](this.responseText,d)};e.send()};HG.Loader.loadBinary=function(a,b,c,d){var e=new XMLHttpRequest;e.open("GET",a,!0);e.responseType="arraybuffer";e.onload=function(){b[c](this.response,d)};e.send()};HG.Scene=function(a){this.materials=a.materials;this.textures=[];this.groups=[];this.boundingBox=new HG.BoundingBox;this.build(a.objects)};
-HG.Scene.prototype.build=function(a){this.buildGroups(a);this.groups.sort(HG.RenderGroup.sort)};HG.Scene.prototype.buildGroups=function(a){for(var b=a.length,c=0,d;c<b;++c)d=a[c],"light"!==d.type&&d.surfaces&&this.buildGroup(d),d.children&&this.buildGroups(d.children)};
-HG.Scene.prototype.buildGroup=function(a){var b=a.texture,c=a.vertices,a=a.surfaces,d=a.length,e=this.boundingBox,g=0,f,h,i,j,l,k,m,o,n,p,q,r,s;for(b&&(s=this.getTextureId(b));g<d;++g){f=a[g];b=f.indices;m=f.uvs;o=f.normals;n=f.normal;p=f.isShaded;f=this.getGroup(f,s);r=f.buffer;q=b.length;for(f=h=i=0;f<q;++f,h+=2,i+=3)k=3*b[f],j=c[k],l=c[k+1],k=c[k+2],r.push(j,l,k),r.push(m[h],m[h+1]),p?r.push(o[i],o[i+1],o[i+2]):r.push(n[0],n[1],n[2]),e.xmin=Math.min(e.xmin,j),e.xmax=Math.max(e.xmax,j),e.ymin=Math.min(e.ymin,
-l),e.ymax=Math.max(e.ymax,l),e.zmin=Math.min(e.zmin,k),e.zmax=Math.max(e.zmax,k)}};HG.Scene.prototype.getGroup=function(a,b){var c=this.findGroup(a,b);c||(c=new HG.RenderGroup(a,b),this.groups.push(c));return c};HG.Scene.prototype.findGroup=function(a,b){for(var c=this.groups.length-1,d;0<=c;--c)if(d=this.groups[c],d.materialId===a.materialId&&d.textureId===b&&d.isTwoSided===a.isTwoSided&&d.type===AC.SurfaceType.POLYGON&&a.type===AC.SurfaceType.POLYGON)return d};
-HG.Scene.prototype.getTextureId=function(a){for(var b=this.textures,c=b.length,d=0;d<c&&!(b[d]===a);++d);d===c&&b.push(a);return d};HG.RenderGroup=function(a,b){this.materialId=a.materialId;this.textureId=b;this.isTwoSided=a.isTwoSided;this.type=a.type;this.buffer=[]};HG.RenderGroup.sort=function(a,b){var c=void 0===a.textureId?-1:a.textureId,d=void 0===b.textureId?-1:b.textureId,e=a.type-b.type;0===e&&(e=c-d,0===e&&(e=a.materialId-b.materialId,0===e&&(e=a.isTwoSided-b.isTwoSided)));return e};
-HG.BoundingBox=function(){this.xmin=Infinity;this.xmax=-Infinity;this.ymin=Infinity;this.ymax=-Infinity;this.zmin=Infinity;this.zmax=-Infinity};HG.Camera=function(a){this.eye=vec3.create(a.eye);this.poi=vec3.create(a.poi);this.up=vec3.create(a.up);this.fov=a.fov;this.computeMatrix()};HG.Camera.prototype.computeMatrix=function(){this.transformer=mat4.lookAt(this.eye,this.poi,this.up)};
-HG.Camera.prototype.zoom=function(a){vec3.subtract(this.eye,this.poi);vec3.scale(this.eye,a);vec3.add(this.eye,this.poi);this.computeMatrix()};HG.Camera.prototype.rotate=function(a,b){var c=this.quaternion(a,b);vec3.subtract(this.eye,this.poi);quat4.multiplyVec3(c,this.eye);quat4.multiplyVec3(c,this.up);vec3.add(this.eye,this.poi);this.computeMatrix()};
-HG.Camera.prototype.localAxis=function(){var a=[],b=vec3.create();vec3.subtract(this.eye,this.poi,b);a[2]=vec3.normalize(vec3.create(b));a[1]=vec3.normalize(vec3.create(this.up));a[0]=vec3.normalize(vec3.cross(this.up,b,b));return a};HG.Camera.prototype.quaternion=function(a,b){var c=quat4.create(),d=a/2,e=Math.sin(d);c[0]=b[0]*e;c[1]=b[1]*e;c[2]=b[2]*e;c[3]=Math.cos(d);return c};
-HG.Shader=function(a,b){this.program=this.createProgram(a,b);this.attributes=b.attributes(a,this.program);this.uniforms=b.uniforms(a,this.program)};HG.Shader.prototype.createProgram=function(a,b){var c=a.createProgram(),d;d=b.defines+b.vs;d=this.createShader(a,a.VERTEX_SHADER,d);a.attachShader(c,d);d=b.defines+b.fs;d=this.createShader(a,a.FRAGMENT_SHADER,d);a.attachShader(c,d);a.linkProgram(c);return c};
-HG.Shader.prototype.createShader=function(a,b,c){b=a.createShader(b);a.shaderSource(b,c);a.compileShader(b);return b};HG.Shader.prototype.use=function(a){a.useProgram(this.program);for(var b in this.attributes)a.enableVertexAttribArray(this.attributes[b])};HG.Shader.Color={};HG.Shader.Color.vs="attribute vec3 aPosition;\n\n#ifdef TEXTURE\nattribute vec2 aTexcoord;\n#endif\n\nuniform mat4 uProjector;\nuniform mat4 uTransformer;\n\n#ifdef TEXTURE\nvarying vec2 vTexcoord;\n#endif\n\nvoid main(){\n#ifdef TEXTURE\nvTexcoord = aTexcoord;\n#endif\n\ngl_Position = uProjector * uTransformer * vec4(aPosition, 1.0);\n}";
-HG.Shader.Color.fs="#ifdef GL_ES\nprecision highp float;\n#endif\n\n#ifdef TEXTURE\nvarying vec2 vTexcoord;\n#endif\n\nuniform vec4 uColor;\n\n#ifdef TEXTURE\nuniform sampler2D uSampler;\n#endif\n\nvoid main(){\n#ifdef TEXTURE\ngl_FragColor = texture2D(uSampler, vTexcoord) * uColor;\n#else\ngl_FragColor = uColor;\n#endif\n}";HG.Shader.Color.defines="";HG.Shader.Color.attributes=function(a,b){return{aPosition:a.getAttribLocation(b,"aPosition")}};
-HG.Shader.Color.uniforms=function(a,b){return{uProjector:a.getUniformLocation(b,"uProjector"),uTransformer:a.getUniformLocation(b,"uTransformer"),uColor:a.getUniformLocation(b,"uColor")}};HG.Shader.Texture={};HG.Shader.Texture.fs=HG.Shader.Color.fs;HG.Shader.Texture.vs=HG.Shader.Color.vs;HG.Shader.Texture.defines="#define TEXTURE\n";HG.Shader.Texture.attributes=function(a,b){return{aPosition:a.getAttribLocation(b,"aPosition"),aTexcoord:a.getAttribLocation(b,"aTexcoord")}};
-HG.Shader.Texture.uniforms=function(a,b){return{uProjector:a.getUniformLocation(b,"uProjector"),uTransformer:a.getUniformLocation(b,"uTransformer"),uColor:a.getUniformLocation(b,"uColor"),uSampler:a.getUniformLocation(b,"uSampler")}};HG.Shader.Phong={};HG.Shader.Phong.vs="attribute vec3 aPosition;\nattribute vec3 aNormal;\n\n#ifdef TEXTURE\nattribute vec2 aTexcoord;\n#endif\n\nuniform mat4 uProjector;\nuniform mat4 uTransformer;\nuniform mat3 uNormalizer;\n\nvarying vec3 vPosition;\nvarying vec3 vNormal;\n\n#ifdef TEXTURE\nvarying vec2 vTexcoord;\n#endif\n\nvoid main(){\nvPosition = (uTransformer * vec4(aPosition, 1.0) ).xyz;\nvNormal = normalize(uNormalizer * aNormal);\n\n#ifdef TEXTURE\nvTexcoord = aTexcoord;\n#endif\n\ngl_Position = uProjector * uTransformer * vec4(aPosition, 1.0);\n}";
-HG.Shader.Phong.fs="#ifdef GL_ES\nprecision highp float;\n#endif\n\nvarying vec3 vPosition;\nvarying vec3 vNormal;\n\n#ifdef TEXTURE\nvarying vec2 vTexcoord;\n#endif\n\nuniform vec3 uEmissive;\nuniform vec3 uAmbient;\nuniform vec3 uDiffuse;\nuniform vec3 uSpecular;\nuniform float uShininess;\nuniform float uTransparency;\n\nuniform vec3 uLightPosition;\nuniform vec3 uLightAmbient;\n\n#ifdef TEXTURE\nuniform sampler2D uSampler;\n#endif\n\nvoid main(){\nvec3 L = normalize(uLightPosition - vPosition);\nvec3 E = normalize(-vPosition);\nvec3 R = normalize( -reflect(L, vNormal) );\n\n#ifdef TEXTURE\nvec4 sample = texture2D(uSampler, vTexcoord);\n\nvec3 color = sample.rgb * \n(uEmissive + \nuAmbient * uLightAmbient + \nuDiffuse * max( dot(vNormal, L), 0.0) ) + \nuSpecular * 0.3 * pow( max( dot(R, E), 0.0), uShininess);\n\ngl_FragColor = vec4(color, sample.a * (1.0 - uTransparency) );\n#else\nvec3 color = uEmissive + \nuAmbient * uLightAmbient + \nuDiffuse * max( dot(vNormal, L), 0.0) + \nuSpecular * 0.3 * pow( max( dot(R, E), 0.0), uShininess);\n\ngl_FragColor = vec4(color, 1.0 - uTransparency);\n#endif\n}";
-HG.Shader.Phong.defines="";HG.Shader.Phong.attributes=function(a,b){return{aPosition:a.getAttribLocation(b,"aPosition"),aNormal:a.getAttribLocation(b,"aNormal")}};
-HG.Shader.Phong.uniforms=function(a,b){return{uProjector:a.getUniformLocation(b,"uProjector"),uTransformer:a.getUniformLocation(b,"uTransformer"),uNormalizer:a.getUniformLocation(b,"uNormalizer"),uEmissive:a.getUniformLocation(b,"uEmissive"),uAmbient:a.getUniformLocation(b,"uAmbient"),uDiffuse:a.getUniformLocation(b,"uDiffuse"),uSpecular:a.getUniformLocation(b,"uSpecular"),uShininess:a.getUniformLocation(b,"uShininess"),uTransparency:a.getUniformLocation(b,"uTransparency"),uLightPosition:a.getUniformLocation(b,
-"uLightPosition"),uLightAmbient:a.getUniformLocation(b,"uLightAmbient")}};HG.Shader.PhongTexture={};HG.Shader.PhongTexture.fs=HG.Shader.Phong.fs;HG.Shader.PhongTexture.vs=HG.Shader.Phong.vs;HG.Shader.PhongTexture.defines="#define TEXTURE\n";HG.Shader.PhongTexture.attributes=function(a,b){return{aPosition:a.getAttribLocation(b,"aPosition"),aNormal:a.getAttribLocation(b,"aNormal"),aTexcoord:a.getAttribLocation(b,"aTexcoord")}};
-HG.Shader.PhongTexture.uniforms=function(a,b){return{uProjector:a.getUniformLocation(b,"uProjector"),uTransformer:a.getUniformLocation(b,"uTransformer"),uNormalizer:a.getUniformLocation(b,"uNormalizer"),uEmissive:a.getUniformLocation(b,"uEmissive"),uAmbient:a.getUniformLocation(b,"uAmbient"),uDiffuse:a.getUniformLocation(b,"uDiffuse"),uSpecular:a.getUniformLocation(b,"uSpecular"),uShininess:a.getUniformLocation(b,"uShininess"),uTransparency:a.getUniformLocation(b,"uTransparency"),uLightPosition:a.getUniformLocation(b,
-"uLightPosition"),uLightAmbient:a.getUniformLocation(b,"uLightAmbient"),uSampler:a.getUniformLocation(b,"uSampler")}};HG.Renderer=function(a){this.gl=a.getContext("experimental-webgl",{alpha:!1})};HG.Renderer.BackgroundColor=[0.5,0.5,0.65,1];HG.Renderer.LightPosition=[-50,50,50];HG.Renderer.LightAmbient=[0.2,0.2,0.2];
-HG.Renderer.prototype.setScene=function(a,b,c){this.scene=b;this.camera=c;this.reset();this.programs=this.programs||this.createPrograms();this.textures=this.createTextures(a,b.textures);this.buffers=this.createBuffers(b.groups)};
-HG.Renderer.prototype.reset=function(){var a=this.gl,b=HG.Renderer.BackgroundColor;a.viewport(0,0,a.canvas.width,a.canvas.height);a.clearColor(b[0],b[1],b[2],b[3]);a.enable(a.DEPTH_TEST);a.depthFunc(a.LEQUAL);a.depthMask(!0);a.enable(a.CULL_FACE);a.frontFace(a.CCW);a.cullFace(a.BACK);a.disable(a.BLEND);a.blendEquation(a.FUNC_ADD);a.blendFunc(a.SRC_ALPHA,a.ONE_MINUS_SRC_ALPHA);this.culling=this.depthMask=!0;this.blending=!1;this.program=void 0};
-HG.Renderer.prototype.resize=function(a,b){var c=this.gl;c.canvas.width=a;c.canvas.height=b;c.viewport(0,0,a,b)};HG.Renderer.prototype.setDepthMask=function(a){var b=this.gl;this.depthMask!==a&&b.depthMask(a);this.depthMask=a};HG.Renderer.prototype.setCulling=function(a){var b=this.gl;this.culling!==a&&(a?b.enable(b.CULL_FACE):b.disable(b.CULL_FACE));this.culling=a};
-HG.Renderer.prototype.setBlending=function(a){var b=this.gl;this.blending!==a&&(a?b.enable(b.BLEND):b.disable(b.BLEND));this.blending=a};HG.Renderer.prototype.setProgram=function(a){var b=this.gl;this.program!==a&&a.use(b);this.program=a};HG.Renderer.prototype.render=function(){var a=this.gl;a.clear(a.COLOR_BUFFER_BIT|a.DEPTH_BUFFER_BIT);this.draw(a,this.scene,!1);this.draw(a,this.scene,!0)};
-HG.Renderer.prototype.draw=function(a,b,c){var d=b.groups,e=this.buffers,g=d.length,f=0,h,i,j,l,k;h=mat4.perspective(this.camera.fov,a.drawingBufferWidth/a.drawingBufferHeight,0.1,1E3);i=mat4.toInverseMat3(this.camera.transformer);mat3.transpose(i);this.setBlending(c);this.setDepthMask(!c);for(f=0;f<g;++f)j=d[f],l=b.materials[j.materialId],c!==(0===l.transparency)&&(this.setCulling(!j.isTwoSided),k=this.getProgram(j),this.setProgram(k),a.bindBuffer(a.ARRAY_BUFFER,e[f]),a.uniformMatrix4fv(k.uniforms.uProjector,
-!1,h),a.uniformMatrix4fv(k.uniforms.uTransformer,!1,this.camera.transformer),a.vertexAttribPointer(k.attributes.aPosition,3,a.FLOAT,!1,32,0),j.type!==AC.SurfaceType.POLYGON&&a.uniform4fv(k.uniforms.uColor,b.materials[j.materialId].diffuse.concat(1)),j.type===AC.SurfaceType.POLYGON&&(a.uniformMatrix3fv(k.uniforms.uNormalizer,!1,i),a.uniform3fv(k.uniforms.uEmissive,l.emissive),a.uniform3fv(k.uniforms.uAmbient,l.ambient),a.uniform3fv(k.uniforms.uDiffuse,l.diffuse),a.uniform3fv(k.uniforms.uSpecular,l.specular),
-a.uniform1f(k.uniforms.uShininess,l.shininess),a.uniform1f(k.uniforms.uTransparency,l.transparency),a.uniform3fv(k.uniforms.uLightPosition,HG.Renderer.LightPosition),a.uniform3fv(k.uniforms.uLightAmbient,HG.Renderer.LightAmbient),a.vertexAttribPointer(k.attributes.aNormal,3,a.FLOAT,!1,32,20)),void 0!==j.textureId&&(a.activeTexture(a.TEXTURE0),a.bindTexture(a.TEXTURE_2D,this.textures[j.textureId]),a.uniform1i(k.uniforms.uSampler,0),a.vertexAttribPointer(k.attributes.aTexcoord,2,a.FLOAT,!1,32,12)),
-a.drawArrays(this.getDrawMode(j.type),0,j.buffer.length/8),a.bindTexture(a.TEXTURE_2D,null),a.bindBuffer(a.ARRAY_BUFFER,null))};HG.Renderer.prototype.getProgram=function(a){return a.type===AC.SurfaceType.POLYGON?void 0===a.textureId?this.programs.phong:this.programs.phongTexture:void 0===a.textureId?this.programs.color:this.programs.texture};
-HG.Renderer.prototype.getDrawMode=function(a){var b=this.gl,c;switch(a){case AC.SurfaceType.POLYGON:c=b.TRIANGLES;break;case AC.SurfaceType.LINE_STRIP:c=b.LINE_STRIP;break;case AC.SurfaceType.LINE_LOOP:c=b.LINE_LOOP}return c};HG.Renderer.prototype.createPrograms=function(){var a=this.gl;return{color:new HG.Shader(a,HG.Shader.Color),texture:new HG.Shader(a,HG.Shader.Texture),phong:new HG.Shader(a,HG.Shader.Phong),phongTexture:new HG.Shader(a,HG.Shader.PhongTexture)}};
-HG.Renderer.prototype.createBuffers=function(a){for(var b=this.gl,c=[],d=a.length,e=0,g;e<d;++e)g=b.createBuffer(),c.push(g),b.bindBuffer(b.ARRAY_BUFFER,g),b.bufferData(b.ARRAY_BUFFER,new Float32Array(a[e].buffer),b.STATIC_DRAW),b.bindBuffer(b.ARRAY_BUFFER,null);return c};
-HG.Renderer.prototype.createTextures=function(a,b){for(var c=this.gl,d=[],e=b.length,g=0,f,h;g<e;++g)switch(f=a+b[g],h=c.createTexture(),d.push(h),this.getExtension(f)){case "sgi":case "rgba":case "rgb":case "ra":case "bw":HG.Loader.loadBinary(f,this,"onSgiTextureLoaded",{texture:h});break;default:this.loadTexture(f,h)}return d};HG.Renderer.prototype.getExtension=function(a){var b="",c;c=a.lastIndexOf(".");-1!==c&&(b=a.substring(c+1));return b.toLowerCase()};
-HG.Renderer.prototype.onSgiTextureLoaded=function(a,b){var c=this.gl,d=new SGI.File(a),e=this.isImagePowerOfTwo(d.img),g=e?c.REPEAT:c.CLAMP_TO_EDGE,e=e?c.LINEAR_MIPMAP_LINEAR:c.LINEAR;c.bindTexture(c.TEXTURE_2D,b.texture);c.pixelStorei(c.UNPACK_FLIP_Y_WEBGL,!0);c.pixelStorei(c.UNPACK_PREMULTIPLY_ALPHA_WEBGL,!1);c.texParameteri(c.TEXTURE_2D,c.TEXTURE_MIN_FILTER,e);c.texParameteri(c.TEXTURE_2D,c.TEXTURE_MAG_FILTER,e);c.texParameteri(c.TEXTURE_2D,c.TEXTURE_WRAP_S,g);c.texParameteri(c.TEXTURE_2D,c.TEXTURE_WRAP_T,
-g);c.texImage2D(c.TEXTURE_2D,0,c.RGBA,d.img.width,d.img.height,0,c.RGBA,c.UNSIGNED_BYTE,d.img.data);e===c.LINEAR_MIPMAP_LINEAR&&c.generateMipmap(c.TEXTURE_2D);c.bindTexture(c.TEXTURE_2D,null)};
-HG.Renderer.prototype.loadTexture=function(a,b){var c=this.gl,d=this,e=new Image,g,f,h;e.onload=function(){f=(g=d.isImagePowerOfTwo(e))?c.REPEAT:c.CLAMP_TO_EDGE;h=g?c.LINEAR_MIPMAP_LINEAR:c.LINEAR;c.bindTexture(c.TEXTURE_2D,b);c.pixelStorei(c.UNPACK_FLIP_Y_WEBGL,!0);c.pixelStorei(c.UNPACK_PREMULTIPLY_ALPHA_WEBGL,!1);c.texParameteri(c.TEXTURE_2D,c.TEXTURE_MIN_FILTER,h);c.texParameteri(c.TEXTURE_2D,c.TEXTURE_MAG_FILTER,h);c.texParameteri(c.TEXTURE_2D,c.TEXTURE_WRAP_S,f);c.texParameteri(c.TEXTURE_2D,
-c.TEXTURE_WRAP_T,f);c.texImage2D(c.TEXTURE_2D,0,c.RGBA,c.RGBA,c.UNSIGNED_BYTE,e);h===c.LINEAR_MIPMAP_LINEAR&&c.generateMipmap(c.TEXTURE_2D);c.bindTexture(c.TEXTURE_2D,null)};e.src=a};HG.Renderer.prototype.isImagePowerOfTwo=function(a){return this.isPowerOfTwo(a.width)&&this.isPowerOfTwo(a.height)};HG.Renderer.prototype.isPowerOfTwo=function(a){return 0===(a&a-1)};HG.Trackball=function(a,b){this.canvas=a;this.camera=b;this.y=this.x=0;this.down=!1;this.addListeners(a)};
-HG.Trackball.prototype.addListeners=function(a){var b=this;a.addEventListener("mousedown",function(a){b.onMouseDown(a)},!1);a.addEventListener("mousewheel",function(a){b.onMouseWheel(a)},!1);a.addEventListener("DOMMouseScroll",function(a){b.onMouseWheel(a)},!1)};
-HG.Trackball.prototype.onMouseDown=function(a){var b=this;this.down=!0;this.x=a.clientX-this.canvas.offsetLeft;this.y=a.clientY-this.canvas.offsetTop;this.mu=function(a){b.onMouseUp(a)};this.mm=function(a){b.onMouseMove(a)};document.addEventListener("mouseup",this.mu,!1);document.addEventListener("mousemove",this.mm,!1);a.preventDefault()};
-HG.Trackball.prototype.onMouseUp=function(a){this.down=!1;document.removeEventListener("mouseup",this.mu,!1);document.removeEventListener("mousemove",this.mm,!1);a.preventDefault()};HG.Trackball.prototype.onMouseMove=function(a){var b;if(this.down&&(b=a.clientX-this.canvas.offsetLeft,a=a.clientY-this.canvas.offsetTop,b!==this.x||a!==this.y))this.track(this.x,this.y,b,a),this.x=b,this.y=a};
-HG.Trackball.prototype.onMouseWheel=function(a){this.camera.zoom(Math.max(0.05,1-0.05*(a.wheelDelta?a.wheelDelta/120:-a.detail)));a.preventDefault();return!1};HG.Trackball.prototype.track=function(a,b,c,d){a=this.project(a,b);c=this.project(c,d);d=Math.acos(vec3.dot(a,c));b=vec3.create();d&&(vec3.cross(a,c,b),vec3.normalize(b),this.camera.rotate(-d,b))};
-HG.Trackball.prototype.project=function(a,b){var c=this.camera.localAxis(),d=this.projectBall(a,b),e=vec3.create();vec3.scale(c[0],d[0]);vec3.scale(c[1],d[1]);vec3.scale(c[2],d[2]);vec3.add(c[0],vec3.add(c[1],c[2]),e);vec3.normalize(e);return e};HG.Trackball.prototype.projectBall=function(a,b){var c=vec3.create();c[0]=a/(0.5*this.canvas.width)-1;c[1]=1-b/(0.5*this.canvas.height);c[2]=1-c[0]*c[0]-c[1]*c[1];c[2]=0<c[2]?Math.sqrt(c[2]):0;return c};HG.Viewer=function(a){this.canvas=a;this.renderer=new HG.Renderer(a)};
-HG.Viewer.prototype.show=function(a,b,c){HG.Loader.loadText(a,this,"onModelLoaded",{filename:a,setup:b,callback:c})};HG.Viewer.prototype.onModelLoaded=function(a,b){var c=new AC.File(a),c=new HG.Scene(c),d=new HG.Camera(b.setup||this.fitToBoundingBox(c));this.renderer.setScene(this.getPath(b.filename),c,d);this.trackball=new HG.Trackball(this.canvas,d);this.tick();b.callback()};HG.Viewer.prototype.tick=function(){var a=this;requestAnimationFrame(function(){a.tick()});this.renderer.render()};
-HG.Viewer.prototype.onResize=function(a,b){this.renderer.resize(a,b)};HG.Viewer.prototype.fitToBoundingBox=function(a){var b={},c=a.boundingBox,a=vec3.create();b.eye=vec3.create();b.poi=vec3.create();b.up=[0,1,0];b.fov=45;b.eye[0]=c.xmin;b.eye[1]=c.ymax;b.eye[2]=c.zmax;b.poi[0]=0.5*(c.xmax+c.xmin);b.poi[1]=0.5*(c.ymax+c.ymin);b.poi[2]=0.5*(c.zmax+c.zmin);vec3.subtract(b.eye,b.poi,a);c=vec3.length(a)/Math.tan(0.5*b.fov*(Math.PI/180));vec3.normalize(a);vec3.scale(a,c);b.eye=a;return b};
-HG.Viewer.prototype.getPath=function(a){var b="",c;c=a.lastIndexOf("/");-1!==c&&(b=a.substring(0,c+1));return b};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*
+References:
+- "The AC3D file format" by Andy Colebourne
+  http://www.inivis.com/ac3d/man/ac3dfileformat.html
+*/
+
+var AC = AC || {};
+var HG = HG || {};
+
+AC.SurfaceType = {
+  POLYGON: 0,
+  LINE_LOOP: 1,
+  LINE_STRIP: 2
+};
+
+AC.SurfaceFlag = {
+  SHADED: 0x10,
+  TWO_SIDED: 0x20
+};
+
+AC.File = function(data, texture_path){
+  var stream = new AC.Stream(data);
+  
+  this.materials = [];
+  this.objects = [];
+  this.text_path = texture_path;
+
+  this.parse(stream);
+};
+
+AC.File.prototype.parse = function(stream){
+  var transform = mat4.identity();
+
+  stream.readToken(); //AC3Db
+  
+  while( stream.pending() ){
+    switch( stream.readToken() ){
+      case "MATERIAL":
+        this.materials.push( new AC.Material(stream) );
+        break;
+      case "OBJECT":
+        this.objects.push( new AC.Object(stream, transform, this.text_path) );
+        break;
+    }
+  }
+};
+
+AC.Material = function(stream){
+  this.name = stream.readString();
+  stream.readToken(); //rgb
+  this.diffuse = stream.readVector(3);
+  stream.readToken(); //amb
+  this.ambient = stream.readVector(3);
+  stream.readToken(); //emis
+  this.emissive = stream.readVector(3);
+  stream.readToken(); //spec
+  this.specular = stream.readVector(3);
+  stream.readToken(); //shi
+  this.shininess = stream.readFloat();
+  stream.readToken(); //trans
+  this.transparency = stream.readFloat();
+};
+
+AC.Object = function(stream, parentTransform, texture_path){
+  var kids;
+  
+  this.defaultValues();
+
+  this.type = stream.readString();
+  
+  while(undefined === kids){
+    switch( stream.readToken() ){
+      case "name":
+        this.name = stream.readString();
+        break;
+      case "data":
+        this.data = stream.readBlob( stream.readInteger() );
+        break;
+      case "texture":
+        this.texture = texture_path+stream.readString();
+        break;
+      case "texrep":
+        this.textureRepeat = stream.readVector(2);
+        break;
+      case "texoff":
+        this.textureOffset = stream.readVector(2);
+        break;
+      case "rot":
+        this.rotation = stream.readVector(9);
+        break;
+      case "loc":
+        this.translation = stream.readVector(3);
+        break;
+      case "crease":
+        this.crease = stream.readFloat();
+        break;
+      case "url":
+        this.url = stream.readString();
+        break;
+      case "numvert":
+        this.vertices = this.parseVertices(stream, parentTransform);
+        break;
+      case "numsurf":
+        this.surfaces = this.parseSurfaces(stream);
+        break;
+      case "kids":
+        kids = stream.readInteger();
+        if (0 !== kids){
+          this.children = this.parseKids(stream, kids, parentTransform, texture_path);
+        }
+        break;
+    }
+  }
+  
+  if (this.surfaces){
+    this.smoothNormals( this.sharedVertices() );
+  }
+};
+
+AC.Object.prototype.defaultValues = function(){
+  this.textureOffset = [0, 0];
+  this.textureRepeat = [1, 1];
+  this.rotation = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  this.translation = [0, 0, 0];
+  this.crease = 61.0;
+};
+
+AC.Object.prototype.parseVertices = function(stream, parentTransform){
+  var vertices = [], vertice = vec3.create(), transform = mat4.identity(),
+      numvert = stream.readInteger(),
+      i = 0;
+  
+  this.compose(transform, this.rotation, this.translation);
+  mat4.multiply(transform, parentTransform);
+
+  for (; i < numvert; ++ i){
+    vertice[0] = stream.readFloat();
+    vertice[1] = stream.readFloat();
+    vertice[2] = stream.readFloat();
+    
+    mat4.multiplyVec3(transform, vertice);
+    
+    vertices.push(vertice[0], vertice[1], vertice[2]);
+  }
+  
+  return vertices;
+};
+
+AC.Object.prototype.parseSurfaces = function(stream){
+  var surfaces = [], numsurf = stream.readInteger(), i = 0, surface;
+  
+  for (; i < numsurf; ++ i){
+    surface = new AC.Surface(stream, this);
+    if (!surface.degenerated){
+      surfaces.push(surface);
+    }
+  }
+  
+  return surfaces;
+};
+
+AC.Object.prototype.parseKids = function(stream, kids, parentTransform, texture_path){
+  var children = [], transform = mat4.identity(), i = 0;
+  
+  this.compose(transform, this.rotation, this.translation);
+  mat4.multiply(transform, parentTransform);
+  
+  for (; i < kids; ++ i){
+    stream.readToken(); //OBJECT
+    children.push( new AC.Object(stream, transform, texture_path) );
+  }
+  
+  return children;
+};
+
+AC.Object.prototype.sharedVertices = function(){
+  var surfaces = this.surfaces, numsurf = surfaces.length,
+      shared = [], i = 0, j,
+      indices, refs, index, surface, adjacents;
+
+  for (; i < numsurf; ++ i){
+    surface = surfaces[i];
+    
+    indices = surface.indices;
+    refs = indices.length;
+    
+    for (j = 0; j < refs; ++ j){
+      index = indices[j];
+      
+      adjacents = shared[index];
+      if (!adjacents){
+        shared[index] = [surface];
+      }else{
+        if (adjacents.indexOf(surface) === -1){
+          adjacents.push(surface);
+        }
+      }
+    }
+  }
+  
+  return shared;
+};  
+
+AC.Object.prototype.smoothNormals = function(shared){
+  var surfaces = this.surfaces, numsurf = surfaces.length,
+      angle = Math.cos(this.crease * Math.PI / 180),
+      i = 0, j, k, len, indices, refs, index, surface,
+      adjacents, adjacent, normals, ns, na, nx, ny, nz, mod;
+
+  for (; i < numsurf; ++ i){
+    surface = surfaces[i];
+
+    surface.normals = normals = [];
+    ns = surface.normal;
+    
+    indices = surface.indices;
+    refs = indices.length;
+    
+    for (j = 0; j < refs; ++ j){
+      index = indices[j];
+      
+      nx = ns[0];
+      ny = ns[1];
+      nz = ns[2];
+      
+      adjacents = shared[index];
+      len = adjacents.length;
+      
+      for (k = 0; k < len; ++ k){
+        adjacent = adjacents[k];
+       
+        if (surface !== adjacent){
+          na = adjacent.normal;
+          
+          if (ns[0] * na[0] + ns[1] * na[1] + ns[2] * na[2] > angle * ns[3] * na[3]){
+            nx += na[0];
+            ny += na[1];
+            nz += na[2];
+          }
+        }
+      }
+      
+      normals.push(nx, ny, nz);
+    }
+  }
+};
+
+AC.Object.prototype.compose = function(transform, r, t){
+  transform[0]  = r[0]; transform[1]  = r[1]; transform[2]  = r[2];
+  transform[4]  = r[3]; transform[5]  = r[4]; transform[6]  = r[5];
+  transform[8]  = r[6]; transform[9]  = r[7]; transform[10] = r[8];
+  transform[12] = t[0]; transform[13] = t[1]; transform[14] = t[2];
+};
+
+AC.Surface = function(stream, object){
+  var refs;
+
+  while(undefined === refs){
+    switch( stream.readToken() ){
+      case "SURF":
+        this.parseFlags(stream);
+        break;
+      case "mat":
+        this.materialId = stream.readInteger();
+        break;
+      case "refs":
+        refs = stream.readInteger();
+        this.parseRefs(stream, object, refs);
+        break;
+    }
+  }
+  
+  this.normal = [0.0, 0.0, 0.0, 1.0];
+  
+  if (this.type === AC.SurfaceType.POLYGON){
+    if ( !this.teselate(object, refs) ){
+      this.degenerated = true;
+    }
+  }
+};
+
+AC.Surface.prototype.parseFlags = function(stream){
+  var flags = stream.readInteger();
+  
+  this.type = flags & 0x0f;
+  this.isShaded = (flags & AC.SurfaceFlag.SHADED) !== 0;
+  this.isTwoSided = (flags & AC.SurfaceFlag.TWO_SIDED) !== 0;
+};
+
+AC.Surface.prototype.parseRefs = function(stream, object, refs){
+  var offsetU = object.textureOffset[0],
+      offsetV = object.textureOffset[1],
+      repeatU = object.textureRepeat[0],
+      repeatV = object.textureRepeat[1],
+      indices = [], uvs = [], i = 0;
+
+  for (; i < refs; ++ i){
+    indices.push( stream.readInteger() );
+    
+    uvs.push(offsetU + stream.readFloat() * repeatU);
+    uvs.push(offsetV + stream.readFloat() * repeatV);
+  }
+
+  this.indices = indices;
+  this.uvs = uvs;
+};
+
+AC.Surface.prototype.teselate = function(object, refs){
+  var coherence = false;
+
+  if (refs >= 3){
+  
+    coherence = this.calculateNormal(object);
+    if (coherence){
+    
+      if (refs > 3){
+        coherence = this.triangulate(object);
+      }
+    }
+  }
+  
+  return coherence;
+};
+
+AC.Surface.prototype.calculateNormal = function(object){
+  var v = object.vertices,
+      i = this.indices,
+      i1 = i[0] * 3,
+      i2 = i[1] * 3,
+      i3 = i[2] * 3,
+      v1x = v[i2]     - v[i1],
+      v1y = v[i2 + 1] - v[i1 + 1],
+      v1z = v[i2 + 2] - v[i1 + 2],
+      v2x = v[i3]     - v[i1],
+      v2y = v[i3 + 1] - v[i1 + 1],
+      v2z = v[i3 + 2] - v[i1 + 2],
+      nx = v1y * v2z - v2y * v1z,
+      ny = v1z * v2x - v2z * v1x,
+      nz = v1x * v2y - v2x * v1y,
+      mod = Math.sqrt(nx * nx + ny * ny + nz * nz);
+
+  this.normal = [nx, ny, nz, mod];
+  
+  return mod > 1e-10;
+};
+
+AC.Surface.prototype.triangulate = function(object){
+  var vertices = object.vertices, indices = this.indices,
+      n = this.normal, x = 0, y = 1,
+      vs = [], len = indices.length, i = 0,
+      index, orden, max;
+  
+  max = Math.max( Math.abs(n[0]), Math.abs(n[1]), Math.abs(n[2]) );
+  
+  if (max === Math.abs(n[0]) ){
+    x = 1;
+    y = 2;
+  }else if (max === Math.abs(n[1]) ){
+    x = 0;
+    y = 2;
+  }
+
+  for (; i < len; ++ i){
+    index = indices[i] * 3;
+    vs.push( {x: vertices[index + x], y: vertices[index + y]} );
+  }
+
+  orden = AC.Triangulator.triangulate(vs);
+  if (orden){
+    this.sortRefs(orden);
+  }
+  
+  return null !== orden;
+};
+
+AC.Surface.prototype.sortRefs = function(orden){
+  var indices = this.indices, uvs = this.uvs, si = [], su = [],
+      len = orden.length, i = 0, index;
+
+  for (; i < len; ++ i){
+    index = orden[i];
+
+    si.push( indices[index] );
+    su.push( uvs[index * 2], uvs[index * 2 + 1] );
+  }
+
+  this.indices = si;
+  this.uvs = su;
+};
+
+AC.Stream = function(data){
+  this.buffer = data;
+  this.position = 0;
+};
+
+AC.Stream.prototype.pending = function(){
+  return this.position !== this.buffer.length;
+};
+
+AC.Stream.prototype.space = function(){
+  var c = this.buffer[this.position];
+  
+  return (' ' === c) || ('\r' === c) || ('\n' === c);
+};
+
+AC.Stream.prototype.quote = function(){
+  return '\"' === this.buffer[this.position];
+};
+
+AC.Stream.prototype.readToken = function(){
+  var start = this.position, token;
+
+  for (; this.pending() && !this.space(); ++ this.position);
+  token = this.buffer.substring(start, this.position); 
+  for (; this.pending() && this.space(); ++ this.position);
+  
+  return token;
+};
+
+AC.Stream.prototype.readString = function(){
+  var quoted = this.quote(),
+      fn = quoted? this.quote: this.space,
+      start = this.position, token;
+
+  this.position += quoted;
+  for (; this.pending() && !fn.call(this); ++ this.position);
+  
+  token = this.buffer.substring(start + quoted, this.position); 
+  
+  this.position += quoted;
+  for (; this.pending() && this.space(); ++ this.position);
+
+  return token;
+};
+
+AC.Stream.prototype.readBlob = function(len){
+  var blob = this.buffer.substr(this.position, len);
+  
+  this.position += len;
+  for (; this.pending() && this.space(); ++ this.position);
+  
+  return blob;
+};
+
+AC.Stream.prototype.readInteger = function(){
+  return parseInt( this.readToken() );
+};
+
+AC.Stream.prototype.readFloat = function(){
+  return parseFloat( this.readToken() );
+};
+
+AC.Stream.prototype.readVector = function(len){
+  var vector = [], i = 0;
+  
+  for (; i < len; ++ i){
+    vector.push( this.readFloat() );
+  }
+  
+  return vector;
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+HG.Camera = function(setup){
+  this.eye = vec3.create(setup.eye);
+  this.poi = vec3.create(setup.poi);
+  this.up = vec3.create(setup.up);
+  this.fov = setup.fov;
+  
+  this.computeMatrix();
+};
+
+HG.Camera.prototype.computeMatrix = function(){
+  this.transformer = mat4.lookAt(this.eye, this.poi, this.up);
+};
+
+HG.Camera.prototype.zoom = function(factor){
+  vec3.subtract(this.eye, this.poi);
+  
+  vec3.scale(this.eye, factor);
+
+  vec3.add(this.eye, this.poi);
+
+  this.computeMatrix();
+};
+
+HG.Camera.prototype.rotate = function(angle, axis){
+  var q = this.quaternion(angle, axis);
+  
+  vec3.subtract(this.eye, this.poi);
+  
+  quat4.multiplyVec3(q, this.eye);
+  quat4.multiplyVec3(q, this.up);
+
+  vec3.add(this.eye, this.poi);
+
+  this.computeMatrix();
+};
+
+HG.Camera.prototype.localAxis = function(){
+  var axis = [], dir = vec3.create();
+  
+  vec3.subtract(this.eye, this.poi, dir);
+    
+  axis[2] = vec3.normalize( vec3.create(dir) );
+  axis[1] = vec3.normalize( vec3.create(this.up) );
+  axis[0] = vec3.normalize( vec3.cross(this.up, dir, dir) );
+  
+  return axis;
+};
+
+HG.Camera.prototype.quaternion = function(angle, axis){
+  var q = quat4.create(),
+      h = angle / 2.0,
+      s = Math.sin(h);
+
+  q[0] = axis[0] * s;
+  q[1] = axis[1] * s;
+  q[2] = axis[2] * s;
+  q[3] = Math.cos(h);
+
+  return q;
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+HG.Loader = {};
+
+HG.Loader.loadText = function(url, object, callback, params){
+  var request = new XMLHttpRequest();
+  request.open("GET", url, true);
+  request.overrideMimeType("text/plain; charset=x-user-defined");
+  request.onload = function(){
+    object[callback](this.responseText, params);
+  };
+  request.send();
+};
+
+HG.Loader.loadBinary = function(url, object, callback, params){
+  var request = new XMLHttpRequest();
+  request.open("GET", url, true);
+  request.responseType = "arraybuffer";
+  request.onload = function(){
+    object[callback](this.response, params);
+  };
+  request.send();
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+HG.Renderer = function(canvas){
+  this.gl = canvas.getContext("experimental-webgl", {alpha:false} );
+};
+
+HG.Renderer.BackgroundColor = [0.5, 0.5, 0.65, 1.0];
+HG.Renderer.LightPosition = [-50, 50, 50];
+HG.Renderer.LightAmbient = [0.2, 0.2, 0.2];
+
+HG.Renderer.prototype.setScene = function(path, scene, camera){
+  this.scene = scene;
+  this.camera = camera;
+  
+  this.reset();
+  
+  this.programs = this.programs || this.createPrograms();
+  this.textures = this.createTextures(path, scene.textures);
+  this.buffers = this.createBuffers(scene.groups);
+};
+
+HG.Renderer.prototype.reset = function(){
+  var gl = this.gl, color = HG.Renderer.BackgroundColor;
+
+  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  gl.clearColor(color[0], color[1], color[2], color[3]);
+
+  gl.enable(gl.DEPTH_TEST);
+  gl.depthFunc(gl.LEQUAL);
+  gl.depthMask(true);
+  
+  gl.enable(gl.CULL_FACE);
+  gl.frontFace(gl.CCW);
+  gl.cullFace(gl.BACK);
+  
+  gl.disable(gl.BLEND);
+  gl.blendEquation(gl.FUNC_ADD);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+  this.depthMask = true;
+  this.culling = true;
+  this.blending = false;
+  this.program = undefined;
+};
+
+HG.Renderer.prototype.resize = function(width, height){
+  var gl = this.gl;
+
+  gl.canvas.width = width;
+  gl.canvas.height = height;
+
+  gl.viewport(0, 0, width, height);
+};
+
+HG.Renderer.prototype.setDepthMask = function(depthMask){
+  var gl = this.gl;
+  
+  if (this.depthMask !== depthMask){
+    gl.depthMask(depthMask);
+  }
+  this.depthMask = depthMask;
+};
+
+HG.Renderer.prototype.setCulling = function(culling){
+  var gl = this.gl;
+
+  if (this.culling !== culling){
+    if (culling){
+      gl.enable(gl.CULL_FACE);
+    }else{
+      gl.disable(gl.CULL_FACE);
+      }
+  }
+  this.culling = culling;
+};
+
+HG.Renderer.prototype.setBlending = function(blending){
+  var gl = this.gl;
+
+  if (this.blending !== blending){
+    if (blending){
+      gl.enable(gl.BLEND);
+    }else{
+      gl.disable(gl.BLEND);
+    }
+  }
+  this.blending = blending;
+};
+
+HG.Renderer.prototype.setProgram = function(program){
+  var gl = this.gl;
+
+  if (this.program !== program){
+    program.use(gl);
+  }
+  this.program = program;
+};
+
+HG.Renderer.prototype.render = function(){
+  var gl = this.gl;
+  
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  this.draw(gl, this.scene, false);
+  this.draw(gl, this.scene, true);
+};
+
+HG.Renderer.prototype.draw = function(gl, scene, transparent){
+  var groups = scene.groups, buffers = this.buffers,
+      numgroups = groups.length, i = 0,
+      projector, normalizer, group, material, program;
+
+  projector = mat4.perspective(this.camera.fov,
+    gl.drawingBufferWidth / gl.drawingBufferHeight, 0.1, 1000.0);
+  
+  normalizer = mat4.toInverseMat3(this.camera.transformer);
+  mat3.transpose(normalizer);
+
+  this.setBlending(transparent);
+  this.setDepthMask(!transparent);
+
+  for (i = 0; i < numgroups; ++ i){
+    group = groups[i];
+
+    material = scene.materials[group.materialId];
+    if (transparent !== (0.0 === material.transparency) ){
+    
+      this.setCulling(!group.isTwoSided);
+      
+      program = this.getProgram(group);
+      this.setProgram(program);
+      
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffers[i]);
+      
+      gl.uniformMatrix4fv(program.uniforms.uProjector, false, projector);
+      gl.uniformMatrix4fv(program.uniforms.uTransformer, false, this.camera.transformer);
+
+      gl.vertexAttribPointer(program.attributes.aPosition, 3, gl.FLOAT, false, 32, 0);
+
+      if (group.type !== AC.SurfaceType.POLYGON){
+        gl.uniform4fv(program.uniforms.uColor, scene.materials[group.materialId].diffuse.concat(1.0) );
+      }
+
+      if (group.type === AC.SurfaceType.POLYGON){
+        gl.uniformMatrix3fv(program.uniforms.uNormalizer, false, normalizer);
+        gl.uniform3fv(program.uniforms.uEmissive, material.emissive);
+        gl.uniform3fv(program.uniforms.uAmbient, material.ambient);
+        gl.uniform3fv(program.uniforms.uDiffuse, material.diffuse);
+        gl.uniform3fv(program.uniforms.uSpecular, material.specular);
+        gl.uniform1f(program.uniforms.uShininess, material.shininess);
+        gl.uniform1f(program.uniforms.uTransparency, material.transparency);
+        gl.uniform3fv(program.uniforms.uLightPosition, HG.Renderer.LightPosition);
+        gl.uniform3fv(program.uniforms.uLightAmbient, HG.Renderer.LightAmbient);
+
+        gl.vertexAttribPointer(program.attributes.aNormal, 3, gl.FLOAT, false, 32, 20);
+      }
+
+      if (undefined !== group.textureId){
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.textures[group.textureId]);
+        
+        gl.uniform1i(program.uniforms.uSampler, 0);
+        
+        gl.vertexAttribPointer(program.attributes.aTexcoord, 2, gl.FLOAT, false, 32, 12);
+      }
+
+      gl.drawArrays( this.getDrawMode(group.type), 0, group.buffer.length/8);
+  
+      gl.bindTexture(gl.TEXTURE_2D, null);
+      gl.bindBuffer(gl.ARRAY_BUFFER, null);
+    }
+  }
+};
+
+HG.Renderer.prototype.getProgram = function(group){
+  var program;
+  
+  if (group.type === AC.SurfaceType.POLYGON){
+    if (group.textureId === undefined){
+      program = this.programs.phong;
+    }else{
+      program = this.programs.phongTexture;
+    }
+  }else{
+    if (group.textureId === undefined){
+      program = this.programs.color;
+    }else{
+      program = this.programs.texture;
+    }
+  }
+  
+  return program;
+};
+
+HG.Renderer.prototype.getDrawMode = function(type){
+  var gl = this.gl, mode;
+  
+  switch(type){
+    case AC.SurfaceType.POLYGON:
+      mode = gl.TRIANGLES;
+      break;
+    case AC.SurfaceType.LINE_STRIP:
+      mode = gl.LINE_STRIP;
+      break;
+    case AC.SurfaceType.LINE_LOOP:
+      mode = gl.LINE_LOOP;
+      break;
+  }
+
+  return mode;
+};
+
+HG.Renderer.prototype.createPrograms = function(){
+  var gl = this.gl;
+
+  return {
+    color: new HG.Shader(gl, HG.Shader.Color),
+    texture: new HG.Shader(gl, HG.Shader.Texture),
+    phong: new HG.Shader(gl, HG.Shader.Phong),
+    phongTexture: new HG.Shader(gl, HG.Shader.PhongTexture)
+  };
+};
+
+HG.Renderer.prototype.createBuffers = function(groups){
+  var gl = this.gl, buffers = [], numgroups = groups.length, i = 0,
+      buffer;
+  
+  for (; i < numgroups; ++ i){
+    buffer = gl.createBuffer();
+    buffers.push(buffer);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(groups[i].buffer), gl.STATIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  }
+  
+  return buffers;
+};
+
+HG.Renderer.prototype.createTextures = function(path, filenames){
+  var gl = this.gl, textures = [], len = filenames.length, i = 0,
+      filename, texture;
+  
+  for (; i < len; ++ i){
+    filename = path + filenames[i];
+    
+    texture = gl.createTexture();
+    textures.push(texture);
+    
+    switch( this.getExtension(filename) ){
+      case "sgi":
+      case "rgba":
+      case "rgb":
+      case "ra":
+      case "bw":
+        HG.Loader.loadBinary(filename, this, "onSgiTextureLoaded", {texture:texture});
+        break;
+      default:
+        this.loadTexture(filename, texture);
+        break;
+    }
+  }
+  
+  return textures;
+};
+
+HG.Renderer.prototype.getExtension = function(filename){
+  var extension = "", position;
+
+  position = filename.lastIndexOf(".");
+  if (-1 !== position){
+    extension = filename.substring(position + 1);
+  }
+    
+  return extension.toLowerCase();
+};
+
+HG.Renderer.prototype.onSgiTextureLoaded = function(data, params){
+  var gl = this.gl,
+      file = new SGI.File(data),
+      pot = this.isImagePowerOfTwo(file.img),
+      wrapMode = pot? gl.REPEAT: gl.CLAMP_TO_EDGE,
+      filterMode = pot? gl.LINEAR_MIPMAP_LINEAR: gl.LINEAR;
+
+  gl.bindTexture(gl.TEXTURE_2D, params.texture);
+  
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+  gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filterMode);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filterMode);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, wrapMode);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrapMode);
+  
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA,
+                file.img.width, file.img.height, 0, gl.RGBA,
+                gl.UNSIGNED_BYTE, file.img.data);
+
+  if (filterMode === gl.LINEAR_MIPMAP_LINEAR){
+    gl.generateMipmap(gl.TEXTURE_2D);
+  }
+
+  gl.bindTexture(gl.TEXTURE_2D, null);
+};
+
+HG.Renderer.prototype.loadTexture = function(filename, texture){
+  var gl = this.gl, that = this, image = new Image(),
+      pot, wrapMode, filterMode;
+  
+  image.onload = function(){
+    pot = that.isImagePowerOfTwo(image);
+    wrapMode = pot? gl.REPEAT: gl.CLAMP_TO_EDGE;
+    filterMode = pot? gl.LINEAR_MIPMAP_LINEAR: gl.LINEAR;
+  
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filterMode);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filterMode);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, wrapMode);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrapMode);
+    
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+    
+    if (filterMode === gl.LINEAR_MIPMAP_LINEAR){
+      gl.generateMipmap(gl.TEXTURE_2D);
+    }
+
+    gl.bindTexture(gl.TEXTURE_2D, null);
+  };
+  
+  image.src = filename;
+};
+
+HG.Renderer.prototype.isImagePowerOfTwo = function(img){
+  return this.isPowerOfTwo(img.width) && this.isPowerOfTwo(img.height);
+};
+
+HG.Renderer.prototype.isPowerOfTwo = function(n){
+  return 0 === (n & (n - 1) );
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+HG.Scene = function(file){
+  this.materials = file.materials;
+  this.textures = [];
+  this.groups = [];
+  this.boundingBox = new HG.BoundingBox();
+  
+  this.build(file.objects);
+};
+
+HG.Scene.prototype.build = function(objects){
+  this.buildGroups(objects);
+
+  this.groups.sort(HG.RenderGroup.sort);
+};
+
+HG.Scene.prototype.buildGroups = function(objects){
+  var len = objects.length, i = 0, object;
+
+  for (; i < len; ++ i){
+    object = objects[i];
+    
+    if ("light" !== object.type && object.surfaces){
+      this.buildGroup(object);
+    }
+    
+    if (object.children){
+      this.buildGroups(object.children);
+    }
+  }
+};
+
+HG.Scene.prototype.buildGroup = function(object){
+  var texture = object.texture,
+      vertices = object.vertices,
+      surfaces = object.surfaces,
+      numsurf = surfaces.length,
+      bb = this.boundingBox,
+      i = 0, j, k, l, x, y, z,
+      indices, uvs, normals, normal, isShaded, refs,
+      group, surface, buffer, index, textureId;
+
+  if (texture){
+    textureId = this.getTextureId(texture);
+  }
+  
+  for (; i < numsurf; ++ i){
+    surface = surfaces[i];
+    
+    indices = surface.indices;
+    uvs = surface.uvs;
+    normals = surface.normals;
+    normal = surface.normal;
+    isShaded = surface.isShaded;
+
+    group = this.getGroup(surface, textureId);
+    buffer = group.buffer;
+
+    refs = indices.length;
+    for (j = k = l = 0; j < refs; ++ j, k += 2, l += 3){
+      index = indices[j] * 3;
+    
+      x = vertices[index];
+      y = vertices[index + 1];
+      z = vertices[index + 2];
+    
+      buffer.push(x, y, z);
+    
+      buffer.push(uvs[k], uvs[k + 1]);
+      
+      if (isShaded){
+        buffer.push(normals[l], normals[l + 1], normals[l + 2]);
+      }else{
+        buffer.push(normal[0], normal[1], normal[2]);
+      }
+      
+      bb.xmin = Math.min(bb.xmin, x);
+      bb.xmax = Math.max(bb.xmax, x);
+      bb.ymin = Math.min(bb.ymin, y);
+      bb.ymax = Math.max(bb.ymax, y);
+      bb.zmin = Math.min(bb.zmin, z);
+      bb.zmax = Math.max(bb.zmax, z);
+    }
+  }
+};
+
+HG.Scene.prototype.getGroup = function(surface, textureId){
+  var group = this.findGroup(surface, textureId);
+  
+  if (!group){
+    group = new HG.RenderGroup(surface, textureId);
+    this.groups.push(group);
+  }
+  
+  return group;
+};
+
+HG.Scene.prototype.findGroup = function(surface, textureId){
+  var i = this.groups.length - 1, group;
+
+  for (; i >= 0; -- i){
+    group = this.groups[i];
+    if (group.materialId === surface.materialId &&
+        group.textureId === textureId &&
+        group.isTwoSided === surface.isTwoSided &&
+        group.type === AC.SurfaceType.POLYGON &&
+        surface.type === AC.SurfaceType.POLYGON){
+      return group;
+    }
+  }
+  
+  return undefined;
+};
+
+HG.Scene.prototype.getTextureId = function(filename){
+  var textures = this.textures, len = textures.length, i = 0;
+
+  for (; i < len; ++ i){
+    if (textures[i] === filename){
+      break;
+    }
+  }
+  if (i === len){
+    textures.push(filename);
+  }
+  
+  return i;
+};
+
+HG.RenderGroup = function(surface, textureId){
+  this.materialId = surface.materialId;
+  this.textureId = textureId;
+  this.isTwoSided = surface.isTwoSided;
+  this.type = surface.type;
+  
+  this.buffer = [];
+};
+
+HG.RenderGroup.sort = function(a, b){
+  var texa = a.textureId === undefined? -1: a.textureId,
+      texb = b.textureId === undefined? -1: b.textureId,
+      sorted = a.type - b.type;
+      
+  if (0 === sorted){
+    sorted = texa - texb;
+    if (0 === sorted){
+      sorted = a.materialId - b.materialId;
+      if (0 === sorted){
+        sorted = a.isTwoSided - b.isTwoSided;
+      }
+    }
+  }
+  
+  return sorted;
+};
+
+HG.BoundingBox = function(){
+  this.xmin = Infinity;
+  this.xmax = -Infinity;
+  this.ymin = Infinity;
+  this.ymax = -Infinity;
+  this.zmin = Infinity;
+  this.zmax = -Infinity;
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*
+References:
+- "The SGI Image File Format" by Paul Haeberli
+  ftp://ftp.sgi.com/graphics/SGIIMAGESPEC
+*/
+
+var SGI = SGI || {};
+
+SGI.Storage = {
+  VERBATIM: 0,
+  RLE: 1
+};
+
+SGI.File = function(data){
+  var stream = new SGI.Stream(data);
+
+  this.header = new SGI.Header(stream);
+  this.img = new SGI.Image(this.header);
+
+  this.parse(stream);
+};
+
+SGI.File.prototype.parse = function(stream){
+  switch(this.header.storage){
+    case SGI.Storage.VERBATIM:
+      this.verbatim(stream);
+      break;
+    case SGI.Storage.RLE:
+      this.rle(stream);
+      break;
+  }
+  this.adjustChannels();
+};
+
+SGI.File.prototype.verbatim = function(stream){
+  var img = this.img.data,
+      channels = this.header.zsize,
+      height = this.header.ysize,
+      width = this.header.xsize,
+      span = width * 8,
+      channel = 0, src = 512, 
+      row, col, dst;
+
+  for (; channel < channels; ++ channel){
+    dst = this.startChannel(channel);
+    
+    for (row = 0; row < height; ++ row, dst -= span){
+      for (col = 0; col < width; ++ col, dst += 4){
+        img[dst] = stream.peekByte(src ++);
+      }
+    }
+  }
+};
+
+SGI.File.prototype.rle = function(stream){
+  var img = this.img.data,
+      channels = this.header.zsize,
+      height = this.header.ysize,
+      span = this.header.xsize * 4,
+      channel = 0, starts = 512,
+      row, src, dst;
+
+  for (; channel < channels; ++ channel){
+    dst = this.startChannel(channel);
+  
+    for (row = 0; row < height; ++ row, dst -= span, starts += 4){
+      src = stream.peekLong(starts);
+      
+      this.rleRow(stream, src, img, dst);
+    }
+  }
+};
+
+SGI.File.prototype.rleRow = function(stream, src, img, dst){
+  var value = stream.peekByte(src ++),
+      count = value & 0x7f,
+      i;
+
+  while(0 !== count){
+    
+    if (value & 0x80){
+      for (i = 0; i < count; ++ i, dst += 4){
+        img[dst] = stream.peekByte(src ++);
+      }
+    }else{
+      value = stream.peekByte(src ++);
+      for (i = 0; i < count; ++ i, dst += 4){
+        img[dst] = value;
+      }
+    }
+    
+    value = stream.peekByte(src ++);
+    count = value & 0x7f;
+  }
+};
+
+SGI.File.prototype.adjustChannels = function(){
+  var img = this.img.data,
+      size = img.length,
+      channels = this.header.zsize,
+      dst = 0;
+
+  if (4 !== channels){
+    for (; dst < size; dst += 4){
+      switch(channels){
+        case 1:
+          img[dst + 1] = img[dst + 2] = img[dst];
+          img[dst + 3] = 255;
+          break;
+        case 2:
+          img[dst + 1] = img[dst + 2] = img[dst];
+          break;
+        case 3:
+          img[dst + 3] = 255;
+          break;
+      }
+    }
+  }
+};
+
+SGI.File.prototype.startChannel = function(channel){
+  var address = ( (this.header.ysize - 1) * this.header.xsize * 4);
+
+  if ( (2 === this.header.zsize) && (1 === channel) ){
+    address += 2;
+  }
+  
+  return address + channel;
+};
+
+SGI.Header = function(stream){
+  this.storage = stream.peekByte(2);
+  this.xsize = stream.peekShort(6);
+  this.ysize = stream.peekShort(8);
+  this.zsize = stream.peekShort(10);
+};
+
+SGI.Image = function(header){
+  this.width = header.xsize;
+  this.height = header.ysize;
+  this.data = new Uint8Array(header.xsize * header.ysize * 4);
+};
+
+SGI.Stream = function(data){
+  this.buffer = new Uint8Array(data);
+};
+
+SGI.Stream.prototype.peekByte = function(offset){
+  return this.buffer[offset];
+};
+
+SGI.Stream.prototype.peekShort = function(offset){
+  return (this.peekByte(offset) << 8) | this.peekByte(offset + 1);
+};
+
+SGI.Stream.prototype.peekLong = function(offset){
+  return (this.peekByte(offset) << 24) | (this.peekByte(offset + 1) << 16) |
+         (this.peekByte(offset + 2) << 8) | this.peekByte(offset + 3);
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+HG.Shader = function(gl, definition){
+  this.program = this.createProgram(gl, definition);
+  this.attributes = definition.attributes(gl, this.program);
+  this.uniforms = definition.uniforms(gl, this.program);
+};
+
+HG.Shader.prototype.createProgram = function(gl, definition){
+  var program = gl.createProgram(), shader, code;
+
+  code = definition.defines + definition.vs;
+  shader = this.createShader(gl, gl.VERTEX_SHADER, code);
+  gl.attachShader(program, shader);
+
+  code = definition.defines + definition.fs;
+  shader = this.createShader(gl, gl.FRAGMENT_SHADER, code);
+  gl.attachShader(program, shader);
+
+  gl.linkProgram(program);
+
+  return program;
+};
+
+HG.Shader.prototype.createShader = function(gl, type, code){
+  var shader = gl.createShader(type);
+  
+  gl.shaderSource(shader, code);
+  gl.compileShader(shader);
+
+  return shader;
+};
+
+HG.Shader.prototype.use = function(gl){
+  gl.useProgram(this.program);
+
+  for (var attribute in this.attributes){
+    gl.enableVertexAttribArray(this.attributes[attribute]);
+  }
+};
+
+HG.Shader.Color = {};
+
+HG.Shader.Color.vs = "\
+attribute vec3 aPosition;\n\
+\n\
+#ifdef TEXTURE\n\
+attribute vec2 aTexcoord;\n\
+#endif\n\
+\n\
+uniform mat4 uProjector;\n\
+uniform mat4 uTransformer;\n\
+\n\
+#ifdef TEXTURE\n\
+varying vec2 vTexcoord;\n\
+#endif\n\
+\n\
+void main(){\n\
+#ifdef TEXTURE\n\
+  vTexcoord = aTexcoord;\n\
+#endif\n\
+\n\
+  gl_Position = uProjector * uTransformer * vec4(aPosition, 1.0);\n\
+}";
+
+HG.Shader.Color.fs = "\
+#ifdef GL_ES\n\
+  precision highp float;\n\
+#endif\n\
+\n\
+#ifdef TEXTURE\n\
+varying vec2 vTexcoord;\n\
+#endif\n\
+\n\
+uniform vec4 uColor;\n\
+\n\
+#ifdef TEXTURE\n\
+uniform sampler2D uSampler;\n\
+#endif\n\
+\n\
+void main(){\n\
+#ifdef TEXTURE\n\
+  gl_FragColor = texture2D(uSampler, vTexcoord) * uColor;\n\
+#else\n\
+  gl_FragColor = uColor;\n\
+#endif\n\
+}";
+
+HG.Shader.Color.defines = "";
+
+HG.Shader.Color.attributes = function(gl, program){
+  return{
+    aPosition: gl.getAttribLocation(program, "aPosition")
+  };
+};
+
+HG.Shader.Color.uniforms = function(gl, program){
+  return{
+    uProjector: gl.getUniformLocation(program, "uProjector"),
+    uTransformer: gl.getUniformLocation(program, "uTransformer"),
+    uColor: gl.getUniformLocation(program, "uColor")
+  };
+};
+
+HG.Shader.Texture = {};
+
+HG.Shader.Texture.fs = HG.Shader.Color.fs;
+
+HG.Shader.Texture.vs = HG.Shader.Color.vs;
+
+HG.Shader.Texture.defines = "#define TEXTURE\n";
+
+HG.Shader.Texture.attributes = function(gl, program){
+  return{
+    aPosition: gl.getAttribLocation(program, "aPosition"),
+    aTexcoord: gl.getAttribLocation(program, "aTexcoord")
+  };
+};
+
+HG.Shader.Texture.uniforms = function(gl, program){
+  return{
+    uProjector: gl.getUniformLocation(program, "uProjector"),
+    uTransformer: gl.getUniformLocation(program, "uTransformer"),
+    uColor: gl.getUniformLocation(program, "uColor"),
+    uSampler: gl.getUniformLocation(program, "uSampler")
+  };
+};
+
+HG.Shader.Phong = {};
+
+HG.Shader.Phong.vs = "\
+attribute vec3 aPosition;\n\
+attribute vec3 aNormal;\n\
+\n\
+#ifdef TEXTURE\n\
+attribute vec2 aTexcoord;\n\
+#endif\n\
+\n\
+uniform mat4 uProjector;\n\
+uniform mat4 uTransformer;\n\
+uniform mat3 uNormalizer;\n\
+\n\
+varying vec3 vPosition;\n\
+varying vec3 vNormal;\n\
+\n\
+#ifdef TEXTURE\n\
+varying vec2 vTexcoord;\n\
+#endif\n\
+\n\
+void main(){\n\
+  vPosition = (uTransformer * vec4(aPosition, 1.0) ).xyz;\n\
+  vNormal = normalize(uNormalizer * aNormal);\n\
+\n\
+#ifdef TEXTURE\n\
+  vTexcoord = aTexcoord;\n\
+#endif\n\
+\n\
+  gl_Position = uProjector * uTransformer * vec4(aPosition, 1.0);\n\
+}";
+
+HG.Shader.Phong.fs = "\
+#ifdef GL_ES\n\
+  precision highp float;\n\
+#endif\n\
+\n\
+varying vec3 vPosition;\n\
+varying vec3 vNormal;\n\
+\n\
+#ifdef TEXTURE\n\
+varying vec2 vTexcoord;\n\
+#endif\n\
+\n\
+uniform vec3 uEmissive;\n\
+uniform vec3 uAmbient;\n\
+uniform vec3 uDiffuse;\n\
+uniform vec3 uSpecular;\n\
+uniform float uShininess;\n\
+uniform float uTransparency;\n\
+\n\
+uniform vec3 uLightPosition;\n\
+uniform vec3 uLightAmbient;\n\
+\n\
+#ifdef TEXTURE\n\
+uniform sampler2D uSampler;\n\
+#endif\n\
+\n\
+void main(){\n\
+  vec3 L = normalize(uLightPosition - vPosition);\n\
+  vec3 E = normalize(-vPosition);\n\
+  vec3 R = normalize( -reflect(L, vNormal) );\n\
+\n\
+#ifdef TEXTURE\n\
+  vec4 sample = texture2D(uSampler, vTexcoord);\n\
+\n\
+  vec3 color = sample.rgb * \n\
+    (uEmissive + \n\
+     uAmbient * uLightAmbient + \n\
+     uDiffuse * max( dot(vNormal, L), 0.0) ) + \n\
+    uSpecular * 0.3 * pow( max( dot(R, E), 0.0), uShininess);\n\
+\n\
+  gl_FragColor = vec4(color, sample.a * (1.0 - uTransparency) );\n\
+#else\n\
+  vec3 color = uEmissive + \n\
+    uAmbient * uLightAmbient + \n\
+    uDiffuse * max( dot(vNormal, L), 0.0) + \n\
+    uSpecular * 0.3 * pow( max( dot(R, E), 0.0), uShininess);\n\
+\n\
+  gl_FragColor = vec4(color, 1.0 - uTransparency);\n\
+#endif\n\
+}";
+
+HG.Shader.Phong.defines = "";
+
+HG.Shader.Phong.attributes = function(gl, program){
+  return{
+    aPosition: gl.getAttribLocation(program, "aPosition"),
+    aNormal: gl.getAttribLocation(program, "aNormal")
+  };
+};
+
+HG.Shader.Phong.uniforms = function(gl, program){
+  return{
+    uProjector: gl.getUniformLocation(program, "uProjector"),
+    uTransformer: gl.getUniformLocation(program, "uTransformer"),
+    uNormalizer: gl.getUniformLocation(program, "uNormalizer"),
+    uEmissive: gl.getUniformLocation(program, "uEmissive"),
+    uAmbient: gl.getUniformLocation(program, "uAmbient"),
+    uDiffuse: gl.getUniformLocation(program, "uDiffuse"),
+    uSpecular: gl.getUniformLocation(program, "uSpecular"),
+    uShininess: gl.getUniformLocation(program, "uShininess"),
+    uTransparency: gl.getUniformLocation(program, "uTransparency"),
+    uLightPosition: gl.getUniformLocation(program, "uLightPosition"),
+    uLightAmbient: gl.getUniformLocation(program, "uLightAmbient")
+  };
+};
+
+HG.Shader.PhongTexture = {};
+
+HG.Shader.PhongTexture.fs = HG.Shader.Phong.fs;
+
+HG.Shader.PhongTexture.vs = HG.Shader.Phong.vs;
+
+HG.Shader.PhongTexture.defines = "#define TEXTURE\n";
+
+HG.Shader.PhongTexture.attributes = function(gl, program){
+  return{
+    aPosition: gl.getAttribLocation(program, "aPosition"),
+    aNormal: gl.getAttribLocation(program, "aNormal"),
+    aTexcoord: gl.getAttribLocation(program, "aTexcoord")
+  };
+};
+
+HG.Shader.PhongTexture.uniforms = function(gl, program){
+  return{
+    uProjector: gl.getUniformLocation(program, "uProjector"),
+    uTransformer: gl.getUniformLocation(program, "uTransformer"),
+    uNormalizer: gl.getUniformLocation(program, "uNormalizer"),
+    uEmissive: gl.getUniformLocation(program, "uEmissive"),
+    uAmbient: gl.getUniformLocation(program, "uAmbient"),
+    uDiffuse: gl.getUniformLocation(program, "uDiffuse"),
+    uSpecular: gl.getUniformLocation(program, "uSpecular"),
+    uShininess: gl.getUniformLocation(program, "uShininess"),
+    uTransparency: gl.getUniformLocation(program, "uTransparency"),
+    uLightPosition: gl.getUniformLocation(program, "uLightPosition"),
+    uLightAmbient: gl.getUniformLocation(program, "uLightAmbient"),
+    uSampler: gl.getUniformLocation(program, "uSampler")
+  };
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*
+References:
+- "Rotating the Camera with the Mouse" by Daniel Lehenbauer
+  http://viewport3d.com/trackball.htm
+*/
+
+HG.Trackball = function(canvas, camera){
+  this.canvas = canvas;
+  this.camera = camera;
+
+  this.x = 0;
+  this.y = 0;
+  this.down = false;
+
+  this.addListeners(canvas);
+};
+
+HG.Trackball.prototype.addListeners = function(canvas){
+  var that = this,
+      md = function(event){ that.onMouseDown(event); },
+      mw = function(event){ that.onMouseWheel(event); },
+      ms = function(event){ that.onMouseWheel(event); };
+
+  canvas.addEventListener("mousedown", md, false);
+  canvas.addEventListener("mousewheel", mw, false);
+  canvas.addEventListener("DOMMouseScroll", ms, false);
+};
+
+HG.Trackball.prototype.onMouseDown = function(event){
+  var that = this;
+  
+  this.down = true;
+  this.x = event.clientX - this.canvas.offsetLeft;
+  this.y = event.clientY - this.canvas.offsetTop;
+
+  this.mu = function(event){ that.onMouseUp(event); };
+  this.mm = function(event){ that.onMouseMove(event); };
+
+  document.addEventListener("mouseup", this.mu, false);
+  document.addEventListener("mousemove", this.mm, false);
+
+  event.preventDefault();
+};
+
+HG.Trackball.prototype.onMouseUp = function(event){
+  this.down = false;
+
+  document.removeEventListener("mouseup", this.mu, false);
+  document.removeEventListener("mousemove", this.mm, false);
+
+  event.preventDefault();
+};
+
+HG.Trackball.prototype.onMouseMove = function(event){
+  var x, y;
+
+  if (this.down){
+    x = event.clientX - this.canvas.offsetLeft;
+    y = event.clientY - this.canvas.offsetTop;
+
+    if (x !== this.x || y !== this.y){
+      this.track(this.x, this.y, x, y);
+      
+      this.x = x;
+      this.y = y;
+    }
+  }
+};
+
+HG.Trackball.prototype.onMouseWheel = function(event){
+  var wheel = event.wheelDelta? event.wheelDelta / 120: -event.detail;
+  
+  this.camera.zoom( Math.max(0.05, 1 - wheel * 0.05) );
+  
+  event.preventDefault();
+  
+  return false;
+};
+
+HG.Trackball.prototype.track = function(x1, y1, x2, y2){
+  var p1 = this.project(x1, y1),
+      p2 = this.project(x2, y2),
+      angle = Math.acos( vec3.dot(p1, p2) ),
+      axis = vec3.create();
+
+  if (angle){
+    vec3.cross(p1, p2, axis);
+    vec3.normalize(axis);
+    
+    this.camera.rotate(-angle, axis);
+  }
+};
+
+HG.Trackball.prototype.project = function(x, y){
+  var axis = this.camera.localAxis(),
+      p = this.projectBall(x, y),
+      q = vec3.create();
+  
+  vec3.scale(axis[0], p[0]);
+  vec3.scale(axis[1], p[1]);
+  vec3.scale(axis[2], p[2]);
+
+  vec3.add(axis[0], vec3.add(axis[1], axis[2]), q);
+  
+  vec3.normalize(q);
+
+  return q;
+};
+
+HG.Trackball.prototype.projectBall = function(x, y){
+  var p = vec3.create();
+
+  p[0] = ( x / (this.canvas.width * 0.5) ) - 1.0;
+  p[1] = 1.0 - ( y / (this.canvas.height * 0.5) );
+  p[2] = 1.0 - p[0] * p[0] - p[1] * p[1];
+  p[2] = p[2] > 0.0? Math.sqrt(p[2]): 0.0;
+  
+  return p;
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*
+References:
+- "Efficient Polygon Triangulation" by John W. Ratcliff
+  http://www.flipcode.com/archives/Efficient_Polygon_Triangulation.shtml
+*/
+
+AC.Triangulator = function(){
+};
+
+AC.Triangulator.triangulate = function(vertices){
+  var result = [], indices = [], len = vertices.length,
+      v = len - 1, count = 2 * len, i = 0, j,
+      u, w, ccw;
+
+  ccw = AC.Triangulator.ccw(vertices) > 0.0;
+  for (; i < len; ++ i){
+    indices.push(ccw? i: len - i - 1);
+  }
+
+  while(len > 2){
+    if (count -- <= 0){
+      return null;
+    }
+
+    u = v;
+    v = u + 1; if (v >= len){ v = 0; }
+    w = v + 1; if (w >= len){ w = 0; }
+
+    if ( AC.Triangulator.snip(vertices, u, v, w, len, indices) ){
+      result.push(indices[u], indices[v], indices[w]);
+
+      for (j = v + 1; j < len; ++ j){
+        indices[j - 1] = indices[j];
+      }
+
+      len --;
+      count = 2 * len;
+    }
+  }
+
+  return ccw? result: result.reverse();
+};
+
+AC.Triangulator.ccw = function(vertices){
+  var a = 0.0, len = vertices.length, i = len - 1, j = 0;
+
+  for (; j < len; i = j ++) {
+    a += vertices[i].x * vertices[j].y - vertices[j].x * vertices[i].y;
+  }
+
+  return a;
+};
+
+AC.Triangulator.snip = function(vertices, u, v, w, len, indices){
+  var ax = vertices[ indices[u] ].x,
+      ay = vertices[ indices[u] ].y,
+      bx = vertices[ indices[v] ].x,
+      by = vertices[ indices[v] ].y,
+      cx = vertices[ indices[w] ].x,
+      cy = vertices[ indices[w] ].y,
+      i = 0, px, py, ca, cb, cc;
+
+  if ( (bx - ax) * (cy - ay) - (by - ay) * (cx - ax) < 1e-10){
+    return false;
+  }
+
+  for (; i < len; ++ i){
+    if ( (i !== u) && (i !== v) && (i !== w) ){
+      px = vertices[ indices[i] ].x;
+      py = vertices[ indices[i] ].y;
+
+      ca = (cx - bx) * (py - by) - (cy - by) * (px - bx);
+      cb = (bx - ax) * (py - ay) - (by - ay) * (px - ax);
+      cc = (ax - cx) * (py - cy) - (ay - cy) * (px - cx);
+
+      if ( (ca >= 0.0) && (cb >= 0.0) && (cc >= 0.0) ){
+        return false;
+      }
+    }
+  }
+
+  return true;
+};
+/*
+Copyright (c) 2012 Juan Mellado
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+HG.Viewer = function(canvas){
+  this.canvas = canvas;
+  this.renderer = new HG.Renderer(canvas);
+};
+
+HG.Viewer.prototype.show = function(filename, setup, callback){
+  var params = {filename: filename, setup: setup, callback:callback};
+
+  HG.Loader.loadText(filename, this, "onModelLoaded", params);
+};
+
+HG.Viewer.prototype.onModelLoaded = function(data, params){
+  var file = new AC.File(data, params.setup.texture_path),
+      scene = new HG.Scene(file),
+      camera = new HG.Camera( params.setup || this.fitToBoundingBox(scene) );
+
+  this.renderer.setScene( this.getPath(params.filename), scene, camera);
+
+  this.trackball = new HG.Trackball(this.canvas, camera);
+  
+  this.tick();
+  
+  params.callback();
+};
+
+HG.Viewer.prototype.tick = function(){
+  var that = this;
+
+  requestAnimationFrame( function(){ that.tick(); } );
+
+  this.renderer.render();
+};
+
+HG.Viewer.prototype.onResize = function(width, height){
+  this.renderer.resize(width, height);
+};
+
+HG.Viewer.prototype.fitToBoundingBox = function(scene){
+  var setup = {}, bb = scene.boundingBox,
+      dir = vec3.create(), distance;
+  
+  setup.eye = vec3.create();
+  setup.poi = vec3.create();
+  setup.up = [0.0, 1.0, 0.0];
+  setup.fov = 45.0;
+  
+  setup.eye[0] = bb.xmin;
+  setup.eye[1] = bb.ymax;
+  setup.eye[2] = bb.zmax;
+  
+  setup.poi[0] = (bb.xmax + bb.xmin) * 0.5;
+  setup.poi[1] = (bb.ymax + bb.ymin) * 0.5;
+  setup.poi[2] = (bb.zmax + bb.zmin) * 0.5;
+
+  vec3.subtract(setup.eye, setup.poi, dir);
+  distance = vec3.length(dir) / ( Math.tan(setup.fov * (Math.PI / 180.0) * 0.5) );
+  vec3.normalize(dir);
+  vec3.scale(dir, distance);
+
+  setup.eye = dir;
+  
+  return setup;
+};
+
+HG.Viewer.prototype.getPath = function(filename){
+  var path = "", position;
+
+  position = filename.lastIndexOf("/");
+  if (-1 !== position){
+    path = filename.substring(0, position + 1);
+  }
+    
+  return path;
+};
