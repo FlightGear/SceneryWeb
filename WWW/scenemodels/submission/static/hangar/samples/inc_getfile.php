@@ -74,10 +74,9 @@
         // Retrieving directory from parameter sent in URL. mo_sig is just a variable named not to say directory...
 
 
-        header("Content-type: application/octet-stream");
         $dir = opendir($target_path);
         
-        while ($file = readdir($dir)) {
+        while (false !== ($file = readdir($dir))) {
             if (isset($extension) && ShowFileExtension($file) == $extension) {
                 $fichier = $target_path."/".$file;
                 readfile($fichier);
