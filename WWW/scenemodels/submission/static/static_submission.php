@@ -310,7 +310,7 @@ if (!(isset($_POST["action"]))) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != '0') {
+        if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
@@ -322,49 +322,29 @@ if (!(isset($_POST["action"]))) {
                 exit;
             }
 
-            while ($row = pg_fetch_row($result)) {
-                $sqlzbase64 = $row[1];
+            // We are sure there is only 1 row
+            $row = pg_fetch_row($result))
+            
+            $sqlzbase64 = $row[1];
 
-                // Base64 decode the query
-                $sqlz = base64_decode($sqlzbase64);
+            // Base64 decode the query
+            $sqlz = base64_decode($sqlzbase64);
 
-                // Gzuncompress the query
-                $query_rw = gzuncompress($sqlz);
-                // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
-                // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
-                $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
-                $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
-                $j = 0;
+            // Gzuncompress the query
+            $query_rw = gzuncompress($sqlz);
+            // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
+            // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
+            
+            $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', '(?P<author>[0-9]+)', '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', '(?P<shared>[0-9]+)'\) RETURNING mo_id/";
+            preg_match($pattern, $query_rw, $matches);
 
-                foreach ($tab_tags as $value_tag) {
-                    $j++;
-
-                    switch ($j) {
-                        case 1:
-                            $mo_path = str_replace(".xml", "", (str_replace("'", "", $value_tag)));
-                            break;
-                        case 2:
-                            $mo_author = get_authors_name_from_authors_id(str_replace("'", "", $value_tag));
-                            break;
-                        case 3:
-                            $mo_name = str_replace("'", "", $value_tag);
-                            break;
-                        case 4:
-                            $mo_notes = str_replace("'", "", $value_tag);
-                            break;
-                        case 5:
-                            $mo_thumbfile = str_replace("'", "", $value_tag);
-                            break;
-                        case 6:
-                            $mo_modelfile = str_replace("'", "", $value_tag);
-                            break;
-                        case 7:
-                            $mo_shared = str_replace("'", "", $value_tag);
-                            $mo_shared = str_replace(") RETURNING mo_id", "", $mo_shared);
-                            break;
-                    }
-                }
-            }
+            $mo_path = $matches['path'];
+            $mo_author = $matches['author'];
+            $mo_name = $matches['name'];
+            $mo_notes = $matches['notes'];
+            $mo_thumbfile = $matches['thumbfile'];
+            $mo_modelfile = $matches['modelfile'];
+            $mo_shared = $matches['shared'];
         }
     }
 
