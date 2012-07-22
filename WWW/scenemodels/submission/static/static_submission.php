@@ -289,8 +289,8 @@ if (!(isset($_POST["action"]))) {
                 // Gzuncompress the query
                 $query_rw = gzuncompress($sqlz);
                 
-                
-                $pattern  = "/INSERT INTO fgsoj_objects \(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group\) VALUES \('', ST_PointFromText\('POINT\((?P<longitude>[0-9-]+) (?P<latitude>[0-9-]+)\)', 4326\), '(?P<gndelev>[0-9-]+)', '(?P<offset>[NUL0-9-]+)', '(?P<heading>[0-9-]+)', '(?P<model>[0-9]+)', (?P<group>[0-9]+)\)/";
+                // Retrieve data from the query
+                $pattern  = "/INSERT INTO fgsoj_objects \(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group\) VALUES \('', ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), '(?P<gndelev>[0-9.-]+)', '(?P<offset>[NUL0-9.-]+)', '(?P<heading>[0-9.-]+)', '(?P<model>[a-z-A-Z_0-9-]+)', '(?P<group>[0-9]+)'\)/";
                 
                 preg_match($pattern, $query_rw, $matches);
                 
@@ -299,35 +299,6 @@ if (!(isset($_POST["action"]))) {
                 $ob_gndelev = $matches['gndelev'];
                 $ob_elevoffset = $matches['offset'];
                 $ob_heading = $matches['heading'];
-                
-                
-                echo "QUERY:$query_rw\n\n$ob_long\n$ob_lat\n$ob_gndelev\n$ob_elevoffset\n$ob_heading";
-                
-
-                $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
-                $tab_tags = explode(", (", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
-                foreach ($tab_tags as $value_tag) {
-                    $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
-                    $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
-                    $trigged_2 = str_replace(", '1')","",$trigged_1);                     // Removing 1); from data;
-                    $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
-                    $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
-                    $trigged_5 = str_replace("VALUES (","",$trigged_4);                   // Removing VALUES(;
-                    $trigged_6 = str_replace("'","",$trigged_5);                          // Finally, removing ' from data;
-                    $trigged_7 = str_replace(",","",$trigged_6);                          // Finally, removing ' from data;
-                    $trigged_8 = str_replace(" Thisisthevalueformo_id","",$trigged_7);    // Removing future mo_id...
-                    $data = explode(" ",$trigged_8);                                      // Now showing the results
-                    $j = 0;
-                    foreach ($data as $data_from_query) {
-                        if ($j == 2) $ob_long = $data_from_query;
-                        if ($j == 3) $ob_lat = $data_from_query;
-                        if ($j == 4) $ob_gndelev = $data_from_query;
-                        if ($j == 5) $ob_elevoffset = $data_from_query;
-                        if ($j == 6) $ob_heading = $data_from_query;
-                        if ($j == 7) ; // Not using model for now, it's not yet inserted
-                        $j++;
-                    }
-                }
             }
 
         }
