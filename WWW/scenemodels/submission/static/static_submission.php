@@ -468,7 +468,7 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></center></td>
+        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
@@ -478,7 +478,7 @@ include '../../inc/header.php';
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
-            <iframe src="hangar/samples/index.php?mo_sig=<?php echo $encoded_target_path; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe>
+            <iframe src="hangar/samples/index.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe>
             </center>
         </td>
     </tr>
