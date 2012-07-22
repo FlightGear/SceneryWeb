@@ -323,7 +323,7 @@ if (!(isset($_POST["action"]))) {
             }
 
             // We are sure there is only 1 row
-            $row = pg_fetch_row($result));
+            $row = pg_fetch_row($result);
             
             $sqlzbase64 = $row[1];
 
