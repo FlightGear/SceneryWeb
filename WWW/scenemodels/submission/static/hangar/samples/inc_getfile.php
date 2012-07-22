@@ -80,7 +80,7 @@
                 readfile($fichier);
             }
 
-            if (isset($filename) && $file == $filename) {
+            if (isset($filename) && preg_match("/[0-9a-zA-Z_.-]/", $filename) && $file == $filename) {
                 $fichier = $target_path."/".$file;
                 readfile($fichier);
             }
