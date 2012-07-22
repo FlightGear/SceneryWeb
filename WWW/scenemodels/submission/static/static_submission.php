@@ -457,7 +457,7 @@ include '../../inc/header.php';
             $ac3d_file = $file;
         }
         if (ShowFileExtension($file) == "png") {
-            $png_file = $file;
+            $png_file_name[$png_file_number] = remove_file_extension($file);
             $png_file_number++;
         }
         if (ShowFileExtension($file) == "xml") {
@@ -513,6 +513,7 @@ include '../../inc/header.php';
 ?>
                 <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&amp;png_file_number=<?php echo $j; ?>" alt="Texture"/>
 <?php
+                echo $png_file_name[$j];
             }
 ?>
             </center>
