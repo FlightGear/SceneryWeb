@@ -457,7 +457,7 @@ include '../../inc/header.php';
             $ac3d_file = $file;
         }
         if (ShowFileExtension($file) == "png") {
-            $png_file_name[$png_file_number] = remove_file_extension($file);
+            $png_file_name[$png_file_number] = $file;
             $png_file_number++;
         }
         if (ShowFileExtension($file) == "xml") {
@@ -502,9 +502,9 @@ include '../../inc/header.php';
         <td>
             <center>
 <?php
-            if ($png_file_number == 0)
-                echo $png_file_number." texture file has been submitted:"; // Some eye caviar for the poor scenery maintainers.
-            else echo $png_file_number." texture files have been submitted:";
+            if ($png_file_number <= 1)
+                echo $png_file_number." texture file has been submitted:<br/>"; // Some eye caviar for the poor scenery maintainers.
+            else echo $png_file_number." texture files have been submitted:<br/>";
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
@@ -513,7 +513,7 @@ include '../../inc/header.php';
 ?>
                 <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&amp;png_file_number=<?php echo $j; ?>" alt="Texture"/>
 <?php
-                echo $png_file_name[$j];
+                echo $png_file_name[$j]."<br/>";
             }
 ?>
             </center>
