@@ -56,8 +56,7 @@
 
 
 
-        // Inserting libs
-        require_once ('../../../../inc/functions.inc.php');
+        
 
         // The goal of this small file is to display the ac3d file of a pending model request in temporary directory.
         // There is no other (known ;-) possibility to include this in the rest of the static submission script so
