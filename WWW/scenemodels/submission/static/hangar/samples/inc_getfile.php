@@ -9,7 +9,7 @@
     // Inserting libs
     require_once ('../../../../inc/functions.inc.php');
         
-    if (isset($mo_sig) && (strlen($mo_sig]) == 64) && preg_match("/[0-9a-z]/", $mo_sig)) {
+    if (isset($mo_sig) && (strlen($mo_sig) == 64) && preg_match("/[0-9a-z]/", $mo_sig)) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
