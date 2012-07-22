@@ -75,12 +75,12 @@
         $dir = opendir($target_path);
         
         while ($file = readdir($dir)) {
-            if (isset($extension) && preg_match("/[0-9a-z]/", $extension) && ShowFileExtension($file) == $extension) {
+            if (isset($extension) && ShowFileExtension($file) == $extension) {
                 $fichier = $target_path."/".$file;
                 readfile($fichier);
             }
 
-            if (isset($filename) && preg_match("/[0-9a-zA-Z._-]/", $filename) && $file == $filename) {
+            if (isset($filename) && $file == $filename) {
                 $fichier = $target_path."/".$file;
                 readfile($fichier);
             }
