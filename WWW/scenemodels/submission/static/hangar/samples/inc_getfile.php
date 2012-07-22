@@ -8,6 +8,9 @@
 
     // Inserting libs
     require_once ('../../../../inc/functions.inc.php');
+    
+    if(isset($filename) && !preg_match("/[0-9a-zA-Z_.-]/", $filename))
+        exit;
         
     if (isset($mo_sig) && (strlen($mo_sig) == 64) && preg_match("/[0-9a-z]/", $mo_sig)) {
         $resource_rw = connect_sphere_rw();
@@ -78,11 +81,13 @@
             if (isset($extension) && ShowFileExtension($file) == $extension) {
                 $fichier = $target_path."/".$file;
                 readfile($fichier);
+                break;
             }
 
-            if (isset($filename) && preg_match("/[0-9a-zA-Z_.-]/", $filename) && $file == $filename) {
+            if (isset($filename) && $file == $filename) {
                 $fichier = $target_path."/".$file;
                 readfile($fichier);
+                break;
             }
         }
         
