@@ -1,5 +1,5 @@
 <?php
-if ((isset($_POST["action"]))) {
+if (isset($_POST["action"])) {
     // Inserting libs
     require_once ('../../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
@@ -194,7 +194,7 @@ if ((isset($_POST["action"]))) {
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
                 $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-                if(isset($_POST["email"])) {
+                if (isset($_POST["email"])) {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
                     $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
                     $to .= $_POST["email"];
@@ -242,7 +242,7 @@ if ((isset($_POST["action"]))) {
     include '../../inc/footer.php';
 }
 
-if (!(isset($_POST["action"]))) {
+if (!isset($_POST["action"])) {
 
     // Inserting libs
     require_once ('../../inc/functions.inc.php');
@@ -288,31 +288,17 @@ if (!(isset($_POST["action"]))) {
 
                 // Gzuncompress the query
                 $query_rw = gzuncompress($sqlz);
-
-                $trigged_query_rw = str_replace("INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
-                $tab_tags = explode(", (", $trigged_query_rw); // Separating the data based on the ST_PointFromText existence
-                foreach ($tab_tags as $value_tag) {
-                    $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
-                    $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
-                    $trigged_2 = str_replace(", '1')","",$trigged_1);                     // Removing 1); from data;
-                    $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
-                    $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
-                    $trigged_5 = str_replace("VALUES (","",$trigged_4);                   // Removing VALUES(;
-                    $trigged_6 = str_replace("'","",$trigged_5);                          // Finally, removing ' from data;
-                    $trigged_7 = str_replace(",","",$trigged_6);                          // Finally, removing ' from data;
-                    $trigged_8 = str_replace(" Thisisthevalueformo_id","",$trigged_7);    // Removing future mo_id...
-                    $data = explode(" ",$trigged_8);                                      // Now showing the results
-                    $j = 0;
-                    foreach ($data as $data_from_query) {
-                        if ($j == 2) $ob_long = $data_from_query;
-                        if ($j == 3) $ob_lat = $data_from_query;
-                        if ($j == 4) $ob_gndelev = $data_from_query;
-                        if ($j == 5) $ob_elevoffset = $data_from_query;
-                        if ($j == 6) $ob_heading = $data_from_query;
-                        if ($j == 7) ; // Not using model for now, it's not yet inserted
-                        $j++;
-                    }
-                }
+                
+                // Retrieve data from the query
+                $pattern  = "/INSERT INTO fgsoj_objects \(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group\) VALUES \('', ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), '(?P<gndelev>[0-9.-]+)', '(?P<offset>[NUL0-9.-]+)', '(?P<heading>[0-9.-]+)', '(?P<model>[a-z-A-Z_0-9-]+)', '(?P<group>[0-9]+)'\)/";
+                
+                preg_match($pattern, $query_rw, $matches);
+                
+                $ob_long = $matches['longitude'];
+                $ob_lat = $matches['latitude'];
+                $ob_gndelev = $matches['gndelev'];
+                $ob_elevoffset = $matches['offset'];
+                $ob_heading = $matches['heading'];
             }
 
         }
@@ -324,7 +310,7 @@ if (!(isset($_POST["action"]))) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != '0') {
+        if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
@@ -336,49 +322,29 @@ if (!(isset($_POST["action"]))) {
                 exit;
             }
 
-            while ($row = pg_fetch_row($result)) {
-                $sqlzbase64 = $row[1];
+            // We are sure there is only 1 row
+            $row = pg_fetch_row($result);
+            
+            $sqlzbase64 = $row[1];
 
-                // Base64 decode the query
-                $sqlz = base64_decode($sqlzbase64);
+            // Base64 decode the query
+            $sqlz = base64_decode($sqlzbase64);
 
-                // Gzuncompress the query
-                $query_rw = gzuncompress($sqlz);
-                // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
-                // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
-                $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
-                $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
-                $j = 0;
+            // Gzuncompress the query
+            $query_rw = gzuncompress($sqlz);
+            // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
+            // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
+            
+            $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', '(?P<author>[0-9]+)', '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', '(?P<shared>[0-9]+)'\) RETURNING mo_id/";
+            preg_match($pattern, $query_rw, $matches);
 
-                foreach ($tab_tags as $value_tag) {
-                    $j++;
-
-                    switch ($j) {
-                        case 1:
-                            $mo_path = str_replace(".xml", "", (str_replace("'", "", $value_tag)));
-                            break;
-                        case 2:
-                            $mo_author = get_authors_name_from_authors_id(str_replace("'", "", $value_tag));
-                            break;
-                        case 3:
-                            $mo_name = str_replace("'", "", $value_tag);
-                            break;
-                        case 4:
-                            $mo_notes = str_replace("'", "", $value_tag);
-                            break;
-                        case 5:
-                            $mo_thumbfile = str_replace("'", "", $value_tag);
-                            break;
-                        case 6:
-                            $mo_modelfile = str_replace("'", "", $value_tag);
-                            break;
-                        case 7:
-                            $mo_shared = str_replace("'", "", $value_tag);
-                            $mo_shared = str_replace(") RETURNING mo_id", "", $mo_shared);
-                            break;
-                    }
-                }
-            }
+            $mo_path = $matches['path'];
+            $mo_author = get_authors_name_from_authors_id($matches['author']);
+            $mo_name = $matches['name'];
+            $mo_notes = $matches['notes'];
+            $mo_thumbfile = $matches['thumbfile'];
+            $mo_modelfile = $matches['modelfile'];
+            $mo_shared = $matches['shared'];
         }
     }
 
@@ -491,7 +457,7 @@ include '../../inc/header.php';
             $ac3d_file = $file;
         }
         if (ShowFileExtension($file) == "png") {
-            $png_file = $file;
+            $png_file_name[$png_file_number] = $file;
             $png_file_number++;
         }
         if (ShowFileExtension($file) == "xml") {
@@ -502,24 +468,24 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></center></td>
+        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
         <td>
             <center>
-            <?php
+<?php
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
-            ?>
-            <iframe src="hangar/samples/index.php?mo_sig=<?php echo $encoded_target_path; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe>
+?>
+            <iframe src="hangar/samples/index.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe>
             </center>
         </td>
     </tr>
     <tr>
         <td>Corresponding XML File</td>
         <td>
-            <?php
+<?php
             // Geshi stuff
             $file = $target_path.'/'.$xml_file;
             $source = file_get_contents($file);
@@ -528,27 +494,28 @@ include '../../inc/header.php';
             $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
             $geshi->set_line_style('background: #fcfcfc;');
             echo $geshi->parse_code();
-            ?>
+?>
         </td>
     </tr>
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
             <center>
-            <?php
-            if ($png_file_number == 0)
-                echo $png_file_number." texture file has been submitted:"; // Some eye caviar for the poor scenery maintainers.
-            else echo $png_file_number." texture files have been submitted:";
+<?php
+            if ($png_file_number <= 1)
+                echo $png_file_number." texture file has been submitted:<br/>"; // Some eye caviar for the poor scenery maintainers.
+            else echo $png_file_number." texture files have been submitted:<br/>";
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
-            ?>
+?>
                 <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&amp;png_file_number=<?php echo $j; ?>" alt="Texture"/>
-            <?php
+<?php
+                echo $png_file_name[$j]."<br/>";
             }
-            ?>
+?>
             </center>
         </td>
     </tr>

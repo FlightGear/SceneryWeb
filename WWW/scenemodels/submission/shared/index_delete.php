@@ -1,7 +1,6 @@
 <?php
 
     // Inserting libs
-
     require_once('../../inc/functions.inc.php');
 
     // Checking DB availability before all
@@ -21,9 +20,9 @@
 ?>
 <script src="/inc/check_form.js" type="text/javascript"></script>
 
-<p>
 <h1>Positions Automated Deletion Form</h1>
-<center><b>Foreword:</b> This automated form goal is to ease the deletion of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>  objects in the database.</center>
+
+<p class="center"><b>Foreword:</b> This automated form goal is to ease the deletion of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>  objects in the database.</p>
 <br /><br />
 <form id="deletion" method="post" action="check_delete_shared.php">
 <table>
@@ -48,6 +47,6 @@
     </tr>
 </table>
 </form>
-</p>
+
 <?php include '../../inc/footer.php';
 ?>

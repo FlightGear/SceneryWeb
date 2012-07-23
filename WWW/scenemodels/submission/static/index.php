@@ -8,6 +8,7 @@
 <script type="text/javascript" src="../../inc/js/jquery.multifile.js"></script>
 
 <h1>Models Automated Submission Form</h1>
+
 <p class="center">
 <b>Foreword:</b> This automated form goal is to ease the submission of static and shared 3D models into FG Scenery database.
 There are currently <?php count_models(); ?> models in <a href="http://scenemodels.flightgear.org/models.php">our database</a>.
@@ -36,7 +37,7 @@ Please, read the following:
   <p class="center">
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.
   </p>
-     <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
+    <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
     <table>
         <tr>
             <td>

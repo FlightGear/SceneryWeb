@@ -96,9 +96,9 @@ else {
 # STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY (Will be removed later on)
 ##############################################################################
 
-if (($_FILES['mo_thumbfile']['size'] < 2000000) && (!$fatalerror)) { // check file size
-    if(($_FILES['mo_thumbfile']['type'] == "image/jpeg") && ((ShowFileExtension(basename($thumbName))) == "jpeg") || ((ShowFileExtension(basename($thumbName))) == "JPEG") || ((ShowFileExtension(basename($thumbName))) == "JPG") || ((ShowFileExtension(basename($thumbName))) == "jpg")) { // check type & extension file
-        if($_FILES['mo_thumbfile']['error'] != 0) { // If an error is detected
+if ($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror) { // check file size
+    if ($_FILES['mo_thumbfile']['type'] == "image/jpeg" && (ShowFileExtension(basename($thumbName)) == "jpeg") || (ShowFileExtension(basename($thumbName)) == "JPEG") || (ShowFileExtension(basename($thumbName)) == "JPG") || (ShowFileExtension(basename($thumbName)) == "jpg")) { // check type & extension file
+        if ($_FILES['mo_thumbfile']['error'] != 0) { // If an error is detected
             $error += 1;
             $errormsg .= "There has been an error while uploading the file \"".$thumbName."\"!<br/>";
             switch ($_FILES['mo_thumbfile']['error']) {
@@ -142,7 +142,7 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 
     if ($_FILES['ac3d_file']['type'] == "application/octet-stream" && (ShowFileExtension(basename($ac3dName)) == "ac" || ShowFileExtension(basename($ac3dName)) == "AC")) { // check type & extension file
 
-        if (($_FILES['ac3d_file']['error']) != 0) { // If error is detected
+        if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
             $error += 1;
             $errormsg .= "There has been an error while uploading the file \"".$ac3dName."\"!<br/>";
             switch ($_FILES['ac3d_file']['error']){
@@ -184,9 +184,9 @@ else {
 #############################################
 
 if ($_FILES['xml_file']['name'] != "") { // if file exists
-    if($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
-        if($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName)) == "xml" || ShowFileExtension(basename($xmlName)) == "XML")) { // check type & extension file
-            if(($_FILES['xml_file']['error']) != 0) { // If error is detected
+    if ($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
+        if ($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName)) == "xml" || ShowFileExtension(basename($xmlName)) == "XML")) { // check type & extension file
+            if ($_FILES['xml_file']['error'] != 0) { // If error is detected
                 $error += 1;
                 $errormsg .= "There has been an error while uploading the file \"".$xmlName."\"!<br/>";
                 switch ($_FILES['xml_file']['error']) {
@@ -240,7 +240,7 @@ for ($i=0; $i<12; $i++) {
 
             if ($pngType == 'image/png' && (ShowFileExtension(basename($pngName)) == "png" || ShowFileExtension(basename($pngName)) == "PNG")) { // check type & extension file
 
-                if (($pngError) != 0) { // If error is detected
+                if ($pngError != 0) { // If error is detected
                     $error += 1;
                     $errormsg .= "There has been an error while uploading the file \"".$pngName."\"!<br/>";
                     switch ($_FILES['png_file']['error']) {
@@ -259,7 +259,7 @@ for ($i=0; $i<12; $i++) {
                     }
                 }
                 else {
-                    if(!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
+                    if (!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
                         $fatalerror = 1;
                         $error += 1;
                         $errormsg .= "There has been an error while moving the file \"".$pngName."\" on the server!<br/>";
@@ -421,7 +421,7 @@ for ($i=0; $i<12; $i++) {
         $pngPath  = $targetPath.$_FILES["png_file"]["name"][$i];
         $pngName  = $_FILES["png_file"]["name"][$i];
 
-        if(file_exists($pngPath)){
+        if (file_exists($pngPath)){
             $tmp    = getimagesize($pngPath);
             $width  = $tmp[0];
             $height = $tmp[1];
@@ -586,7 +586,7 @@ else {
 
 if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
-    && (isset($_POST['comment'])) && (isset($_POST['contributor']))) {
+    && isset($_POST['comment']) && isset($_POST['contributor'])) {
 
         $path        = $xmlName;//addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
@@ -697,7 +697,7 @@ else {
 
     @pg_close($resource_rw);                                                 // Closing the connection.
 
-    if(!$resultrw) {
+    if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
     else {

@@ -29,7 +29,7 @@ else {
 If you need some more help, just put your mouse over the left column (eg "Elevation Offset").
 </p>
 <br /><br />
-<form name="positions" method="post" action="check_shared.php">
+<form id="positions" method="post" action="check_shared.php">
 <table width="400">
     <tr>
         <td><span title="This is the family name of the object you want to add."><a style="cursor: help;">Object's family</a></span></td>
@@ -46,9 +46,10 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 
                     // Start the select form
                     echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
-                    echo "<option selected value=\"0\">Please select a family</option>\n";
+                    echo "<option selected=\"selected\" value=\"0\">Please select a family</option>\n";
                     while ($row = @pg_fetch_assoc($result)) {
                         $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
+                        $name=preg_replace('/&/',"&amp;",$name);
                         echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                     }
                     echo "</select>";
@@ -77,7 +78,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
             Model overview
         </td>
         <td>
-            <img id="form_objects_thumb" alt=""/>
+            <img id="form_objects_thumb" src="" alt=""/>
         </td>
     </tr>
     <tr>
@@ -97,7 +98,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
             Map
         </td>
         <td>
-            <iframe id="map" src="http://mapserver.flightgear.org/submap/?zoom=13&lat=0&lon=0" width="300" height="225"></iframe>
+            <iframe id="map" src="http://mapserver.flightgear.org/submap/?zoom=13&amp;lat=0&amp;lon=0" width="300" height="225"></iframe>
         </td>
     </tr>
     <tr>

@@ -26,16 +26,10 @@ header("Content-type: image/jpg");
 
                     // Gzuncompress the query
                     $query_rw = gzuncompress($sqlz);
-                    $trigged_query_rw = str_replace("INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) VALUES (DEFAULT, ","",$query_rw); // Removing the start of the query from the data;
-                    $tab_tags = explode(", ", $trigged_query_rw); // Separating the data based on ', '
-                    $j = 0;
-                    foreach ($tab_tags as $value_tag) {
-                        $j++;
-                        if ($j == 5) {
-                            $mo_thumbfile = str_replace("'", "", $value_tag);
-                            echo base64_decode($mo_thumbfile);
-                        }
-                    }
+                    $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', '(?P<author>[0-9]+)', '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', '(?P<shared>[0-9]+)'\) RETURNING mo_id/";
+                    preg_match($pattern, $query_rw, $matches);
+
+                    echo base64_decode($matches['thumbfile']);
                 }
             }
         }

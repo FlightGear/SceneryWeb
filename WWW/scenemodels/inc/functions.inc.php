@@ -63,7 +63,7 @@ function family_name($id_family)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select mg_id, mg_name from fgs_modelgroups where mg_id='".$mg_id."';";
+    $query = "SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id='".$mg_id."';";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result))    {
@@ -87,7 +87,7 @@ function object_name($id_object)
     $headerlink_object = connect_sphere_r();
 
     // Querying...
-    $query = "select mo_id, mo_name from fgs_models where mo_id='".$mg_id."';";
+    $query = "SELECT mo_id, mo_name FROM fgs_models WHERE mo_id='".$mg_id."';";
     $result = @pg_query($headerlink_object, $query);
 
     // Showing the results.
@@ -111,7 +111,7 @@ function object_name_oj($id_object)
     $headerlink_object = connect_sphere_r();
 
     // Querying...
-    $query = "select mo_id, mo_name from fgsoj_models where mo_id='".$mg_id."';";
+    $query = "SELECT mo_id, mo_name FROM fgsoj_models WHERE mo_id='".$mg_id."';";
     $result = @pg_query($headerlink_object, $query);
 
     // Showing the results.
@@ -135,12 +135,12 @@ function get_object_family_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query1 = "select ob_model from fgs_objects where ob_id=".$ob_id.";";
+    $query1 = "SELECT ob_model FROM fgs_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query1);
 
     while ($row = @pg_fetch_assoc($result)) {
         $mo_id = $row["ob_model"];
-        $query2 = "select mo_shared from fgs_models where mo_id=".$mo_id.";";
+        $query2 = "SELECT mo_shared FROM fgs_models WHERE mo_id=".$mo_id.";";
         $result2 = @pg_query($headerlink_family, $query2);
 
         while ($row2 = @pg_fetch_assoc($result2)) {
@@ -164,7 +164,7 @@ function get_group_name_from_id($ob_group)
     $headerlink = connect_sphere_r();
 
     // Querying...
-    $query = "select * from fgs_groups where gp_id=".$group_id.";";
+    $query = "SELECT * FROM fgs_groups WHEREs gp_id=".$group_id.";";
     $result = @pg_query($headerlink, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -186,7 +186,7 @@ function get_object_model_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ob_model from fgs_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ob_model FROM fgs_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while($row = @pg_fetch_assoc($result)) {
@@ -209,7 +209,7 @@ function get_object_latitude_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ST_Y(wkb_geometry) AS ob_lat from fgs_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ST_Y(wkb_geometry) AS ob_lat FROM fgs_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -232,7 +232,7 @@ function get_object_latitude_from_id_oj($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ST_Y(wkb_geometry) AS ob_lat from fgsoj_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ST_Y(wkb_geometry) AS ob_lat FROM fgsoj_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -255,7 +255,7 @@ function get_object_longitude_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ST_X(wkb_geometry) AS ob_lon from fgs_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ST_X(wkb_geometry) AS ob_lon FROM fgs_objects where ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {

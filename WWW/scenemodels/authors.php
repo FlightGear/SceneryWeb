@@ -1,20 +1,21 @@
 <?php include 'inc/header.php';?>
+<?php
+      if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset'])){
+          $offset = $_REQUEST['offset'];
+      } else {
+          $offset = 0;
+      }
+?>
 
   <h1>FlightGear Scenery Authors Directory</h1>
+  
   <table>
-    <?php
-      if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
-        $offset = $_REQUEST['offset'];
-      }else{
-        $offset = 0;
-      }
-    ?>
     <tr class="bottom">
       <td colspan="9" align="center">
         <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
        </td>
     </tr>
-    <?php
+<?php
       $query = "SELECT * ";
       $query.= "FROM fgs_authors ";
       $query.= "ORDER BY au_name ";
@@ -29,7 +30,7 @@
           echo "<td>".$row["au_notes"]."</td>\n";
         echo "</tr>\n";
       }
-    ?>
+?>
     <tr class="bottom">
       <td colspan="9" align="center">
         <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>

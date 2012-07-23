@@ -4,7 +4,6 @@
 <script type="text/javascript" src="/inc/js/menu.js"></script>
 
 
-
   <ul id="csstopmenu">
     <li class="mainitems" style="border-left-width: 1px">
       <div class="headerlinks"><a href="/">Home</a></div>
@@ -22,16 +21,17 @@
       <div class="headerlinks"><a href="/models.php">Models</a></div>
       <ul class="submenus">
         <li><a href="/modelbrowser.php">Browse All</a></li>
-        <?php
+<?php
           $query = "SELECT mg_id,mg_name ";
           $query.= "FROM fgs_modelgroups ";
           $query.= "ORDER BY mg_name";
           $result=pg_query($query);
-          while ($row = pg_fetch_assoc($result)){
-            $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-            echo "<li><a href=\"/modelbrowser.php?shared=".$row["mg_id"]."\">".$name."</a></li>\n";
+          while ($row = pg_fetch_assoc($result)) {
+              $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
+              $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
+              echo "<li><a href=\"/modelbrowser.php?shared=".$row["mg_id"]."\">".$name."</a></li>\n";
           }
-        ?>
+?>
       </ul>
     </li>
     <li class="mainitems">
