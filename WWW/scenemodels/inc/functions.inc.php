@@ -438,6 +438,28 @@ function get_authors_name_from_authors_id($au_id)
     @pg_close ($headerlink);
 }
 
+// Returns the author's email from an author's id sent as parameter
+// ================================================================
+
+function get_authors_email_from_authors_id($au_id)
+{
+    $au_id = pg_escape_string($au_id);
+
+    // Connecting to the database.
+    $headerlink = connect_sphere_r();
+
+    // Querying...
+    $query = "select au_email from fgs_authors where au_id=".$au_id.";";
+    $result = @pg_query($headerlink, $query);
+
+    while ($row = @pg_fetch_assoc($result)) {
+            return ($row["au_email"]);
+    }
+
+    // Closing the connection.
+    @pg_close ($headerlink);
+}
+
 // Returns the number of objects in the database.
 // ==============================================
 
