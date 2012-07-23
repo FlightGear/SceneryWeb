@@ -62,7 +62,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the name of the author. If the author does not exist, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then use the line below.">
+            <span title="This is the name of the author. If the author does not exist, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.">
             <a style="cursor: help; ">Author</a>
             </span>
             </td>
