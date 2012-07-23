@@ -25,8 +25,15 @@ function validateForm()
 {
     var form = document.getElementById("positions");
 
-    if (!checkNumeric(form["longitude"],-180,180))
+    if (!checkNumeric(form["longitude"],-180,180) ||
+        !checkNumeric(form["latitude"],-90,90) ||
+        !checkNumeric(form['gndelev'],-10000,10000) ||
+        !checkNumeric(form['offset'],-10000,10000) ||
+        !checkNumeric(form['heading'],0,359.999) ||
+        !checkComment(form['comment']) ||
+        (email!="" && !checkEmail(form['email'])))
         return false;
+
 }
 /*]]>*/
 </script>
@@ -41,7 +48,7 @@ function validateForm()
 If you need some more help, just put your mouse over the left column (eg "Elevation Offset").
 </p>
 <br /><br />
-<form id="positions" method="post" action="check_shared.php" onsubmit="validateForm();">
+<form id="positions" method="post" action="check_shared.php" onsubmit="return validateForm();">
 <table width="400">
     <tr>
         <td><span title="This is the family name of the object you want to add."><a style="cursor: help;">Object's family</a></span></td>
@@ -96,13 +103,13 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
         <td>
-            <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map()" />
+            <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-180,180);" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span></td>
         <td>
-            <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map()" onblur="checkNumeric(this,-90,90);" />
+            <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-90,90);" />
         </td>
     </tr>
     <tr>
@@ -116,32 +123,32 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     <tr>
         <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><a style="cursor: help; ">Elevation</a></span></td>
         <td>
-            <input type="text" name="gndelev" maxlength="10" value="" onblur="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><a style="cursor: help; ">Elevation Offset</a></span></td>
         <td>
-            <input type="text" name="offset" maxlength="10" value="0" onblur="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
         </td>
     </tr>
     <tr>
         <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
         <td>
-            <input type="text" name="heading" maxlength="7" value="" onblur="checkNumeric(this,0,359.999);" />
+            <input type="text" name="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
         </td>
     </tr>
     <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><a style="cursor: help">Comment</a></span></td>
         <td>
-            <input type="text" name="comment" maxlength="100" size="40" value="" onblur="checkComment(this);" />
+            <input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
         </td>
     </tr>
     <tr>
         <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><a style="cursor:help">Email address (not mandatory)</a></span></td>
         <td>
-            <input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);" />
+            <input type="text" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
         </td>
     </tr>
     <tr>
