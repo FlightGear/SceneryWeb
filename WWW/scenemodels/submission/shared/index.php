@@ -19,8 +19,20 @@ else {
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+function validateForm()
+{
+    var form = document.getElementById("positions");
+
+    if (!checkNumeric(form["longitude"],-180,180))
+        return false;
+}
+/*]]>*/
+</script>
 
 <h1>Positions Automated Submission Form</h1>
+
 <p class="center">
 <b>Foreword:</b> This automated form goal is to ease the submission of shared models positions into FG Scenery database. <br />There are currently <?php count_objects(); ?>
  objects in the database. Help us to make it more!
@@ -29,7 +41,7 @@ else {
 If you need some more help, just put your mouse over the left column (eg "Elevation Offset").
 </p>
 <br /><br />
-<form id="positions" method="post" action="check_shared.php">
+<form id="positions" method="post" action="check_shared.php" onsubmit="validateForm();">
 <table width="400">
     <tr>
         <td><span title="This is the family name of the object you want to add."><a style="cursor: help;">Object's family</a></span></td>
@@ -39,10 +51,10 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
                 $resource_r = connect_sphere_r();
 
                 // If connection is OK
-                if($resource_r!='0') {
+                if ($resource_r!='0') {
 
                     // Show all the families other than the static family
-                    $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
+                    $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
 
                     // Start the select form
                     echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
@@ -59,7 +71,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
                 }
 
                 // Else, write message.
-                else  {
+                else {
                     echo "<br /><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
                 }
 ?>
@@ -84,7 +96,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
         <td>
-            <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map()" onblur="checkNumeric(this,-180,180);" />
+            <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map()" />
         </td>
     </tr>
     <tr>
