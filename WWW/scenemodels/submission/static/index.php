@@ -25,10 +25,8 @@ Please, read the following:
     <li>You HAVE TO add at least 2 files: an AC3D file of your model and a JPEG thumbnail (PNG texture(s) and XML file if any). Files have to share a common name, for instance Rochester_Castle_Keep.ac, Rochester_Castle_Keep.xml, Rochester_Castle_Keep_thumbnail.jpg (thumbnail written as is)). If you have multiple textures, name them Rochester_Castle_Keep1.png, with an increasing figure.</li>
     <li>JPEG has to be a 320*240 exciting thumbnail.</li>
     <li>PNG size must be a power of 2 in width and height.</li>
-    <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. Only send XML if necessary to the model, as it has a performance impact.</li>
+    <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. See Only send XML if necessary to the model, as it has a performance impact.</li>
     <li>Please also read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for.</li>
-    <li>Please note that all fields are now mandatory. An XML file is mandatory, as the name of your submission is automagically derived from it and as it should
-    be useful for future work. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example.</li>
     <li>Do not try to import/update an already existing model: there will be an update script [when we have some spare time].</li>
     <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
     <li>I think that's all, folks ;-) Ah yes, be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
