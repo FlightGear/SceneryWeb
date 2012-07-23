@@ -447,7 +447,7 @@ include '../../inc/header.php';
         file_put_contents ($file, $archive);                // Writes the content of $mo_modelfile into submitted_files.tar.gz
     }
 
-    $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path;
+    $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path . '> /dev/null';
     system($detar_command);
 
     $dir = opendir($target_path);
