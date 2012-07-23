@@ -16,7 +16,7 @@ Help us to make it more!
 Please, read the following:
 <ul class="warning">
 
-    <li>Choose the correct family for your model: static if the model exists only once in the world (eg: Eiffel Tower) or a logical shared family if it can be used elsewhere).</li>
+    <li>Choose the correct family for your model: static if the model exists only once in the world (eg: Eiffel Tower) or a logical shared family (if it can be used elsewhere).</li>
     <li>Choose the author for the model. Please contact us if you're not listed here. If you are building a new model based on another one, put the original creator's name here, and yours in the contributor field.</li>
     <li>The country is the one where the model you're adding is located, not yours!</li>
     <li>The description is very important. Has to be short and complete, it will appear in the "name" field for instance <a href="http://scenemodels.flightgear.org/modeledit.php?id=2551">here</a> as well as on the maps.</li>

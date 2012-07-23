@@ -5,7 +5,6 @@ if (isset($_POST["action"])) {
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
-
     // If $action=reject
         // - Drop fgs_position_requests;
         // - Send 2 mails
