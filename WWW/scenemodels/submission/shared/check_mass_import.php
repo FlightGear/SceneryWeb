@@ -25,11 +25,12 @@ require_once('../../inc/functions.inc.php');
                                     $_POST["recaptcha_response_field"]);
 
     // What happens when the CAPTCHA was entered incorrectly
-
     if (!$resp->is_valid) {
-        $page_title = "Automated Shared Models Positions Submission Form";
-        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href=\"javascript:history.back()\">Go back and try it again</a>." .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")";
+        $page_title = "Automated Shared Models Mass Import Form";
+        echo "<br />";
+        $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_mass_import.php'>Go back and try it again</a>" .
+             "<br />(reCAPTCHA complained: " . $resp->error . ")" .
+             "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
         exit;
     }
@@ -95,13 +96,13 @@ if (!$error) {
         include '../../inc/footer.php';
         exit;
     }
-    
+
     if ($nb_lines < 1) {
         echo "<p class=\"center warning\">Not enough lines were submitted: 1 line minimum per submission!</p>";
         include '../../inc/footer.php';
         exit;
     }
-    
+
     $i = 1;
     $ko = 0;
     echo "<center>\n<table>\n";
@@ -238,7 +239,7 @@ if (!$error) {
             exit;
         }
     }
-    
+
     // Else, proceed on with the request generation
     echo "<p class=\"center ok\">No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br />";
 

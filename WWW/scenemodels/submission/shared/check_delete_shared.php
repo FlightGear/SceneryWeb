@@ -20,11 +20,12 @@ if((isset($_POST['step'])) && ($_POST['step'] == 3) && (isset($_POST['delete_cho
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Deletion Form";
         $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>" .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")";
+             "<br />(reCAPTCHA complained: " . $resp->error . ")" .
+             "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
         exit;
     }
-    
+
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
     $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
@@ -274,7 +275,7 @@ if (!$error) {
         else {
             $delete_choice = $_GET['delete_choice'];
         }
-        
+
         // Let's grab the information about this object from the database
         $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE ob_id = ".$delete_choice.";";
         $result = @pg_query($resource_r_deletion, $query_pos);
@@ -345,7 +346,7 @@ if (!$error) {
             <td colspan="4"><input type="text" name="comment" maxlength="100" size="40" value="" /></td>
         </tr>
         <tr>
-            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process."><a style="cursor:help">Email address (not mandatory)</a></span></td>
             <td colspan="4"><input type="text" name="email" maxlength="50" size="40" value="" /></td>
         </tr>
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
@@ -442,7 +443,7 @@ if (!$error) {
             <td colspan="4"><input type="text" name="comment" maxlength="100" size="40" value="" /></td>
         </tr>
         <tr>
-            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address</a></span></td>
+            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process."><a style="cursor:help">Email address</a></span></td>
             <td colspan="4"><input type="text" name="email" maxlength="50" size="40" value="" /></td>
         </tr>
         <tr>
@@ -468,7 +469,7 @@ if (!$error) {
         <?php include '../../inc/footer.php';
         exit();
     }
-    
+
 }
 include '../../inc/footer.php';
 }

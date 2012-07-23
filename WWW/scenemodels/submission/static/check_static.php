@@ -9,12 +9,23 @@ $error      = 0;
 $errormsg   = "";
 
 /*
-$privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-$resp = recaptcha_check_answer ($privatekey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
-if(!$resp->is_valid){
-  echo "Wrong captcha ! <a href=\"javascript:history.back()\">Go back and try it again</a>";
-  exit();
-}
+    // Private key is needed for the server-to-Google auth.
+    $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
+    $resp = recaptcha_check_answer ($privatekey,
+                                    $_SERVER["REMOTE_ADDR"],
+                                    $_POST["recaptcha_challenge_field"],
+                                    $_POST["recaptcha_response_field"]);
+
+    // What happens when the CAPTCHA was entered incorrectly
+    if (!$resp->is_valid) {
+        $page_title = "Automated Shared Models Positions Update Form";
+        echo "<br />";
+        $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/static/index.php'>Go back and try it again</a>" .
+             "<br />(reCAPTCHA complained: " . $resp->error . ")" .
+             "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+        include '../../inc/error_page.php';
+        exit;
+    }
 */
 
 $page_title = "Automated Models Submission Form";

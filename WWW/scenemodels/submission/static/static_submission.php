@@ -3,9 +3,8 @@ if (isset($_POST["action"])) {
     // Inserting libs
     require_once ('../../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
-    
-    // Prepare a generic mail
 
+    // Prepare a generic mail
     // If $action=reject
         // - Drop fgs_position_requests;
         // - Send 2 mails
@@ -155,7 +154,7 @@ if (isset($_POST["action"])) {
                     $error_text = "Sorry, but the INSERT queries could not be processed.";
                     $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     include '../../inc/error_page.php';
-  
+
                     // Closing the rw connection.
                     pg_close ($resource_rw);
                     exit;
@@ -221,7 +220,7 @@ if (isset($_POST["action"])) {
                         "at 1230Z today or tomorrow if this time has already passed." . "\r\n" .
                         "You can follow Terrasync's data update at the following url: " . "\r\n" .
                         "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
-                        "You can also check the model direcly at http://scenemodels.flightgear.org/modeledit.php?id=".$mo_id[0].""."\r\n" .
+                        "You can also check the model directly at http://scenemodels.flightgear.org/modeledit.php?id=".$mo_id[0].""."\r\n" .
                         "Thanks for your help in making FG better!";
 
                 $message = wordwrap($message0, 77, "\r\n");
@@ -260,7 +259,7 @@ if (!isset($_POST["action"])) {
     }
 
     $page_title = "Automated Models Submission Form";
-    
+
 
     // Working on the object, first
     // Check the presence of "ob_sig", its length (64) and its content.
@@ -288,12 +287,12 @@ if (!isset($_POST["action"])) {
 
                 // Gzuncompress the query
                 $query_rw = gzuncompress($sqlz);
-                
+
                 // Retrieve data from the query
                 $pattern  = "/INSERT INTO fgsoj_objects \(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group\) VALUES \('', ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), '(?P<gndelev>[0-9.-]+)', '(?P<offset>[NUL0-9.-]+)', '(?P<heading>[0-9.-]+)', '(?P<model>[a-z-A-Z_0-9-]+)', '(?P<group>[0-9]+)'\)/";
-                
+
                 preg_match($pattern, $query_rw, $matches);
-                
+
                 $ob_long = $matches['longitude'];
                 $ob_lat = $matches['latitude'];
                 $ob_gndelev = $matches['gndelev'];
@@ -324,7 +323,7 @@ if (!isset($_POST["action"])) {
 
             // We are sure there is only 1 row
             $row = pg_fetch_row($result);
-            
+
             $sqlzbase64 = $row[1];
 
             // Base64 decode the query
@@ -334,7 +333,7 @@ if (!isset($_POST["action"])) {
             $query_rw = gzuncompress($sqlz);
             // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
             // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
-            
+
             $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', '(?P<author>[0-9]+)', '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', '(?P<shared>[0-9]+)'\) RETURNING mo_id/";
             preg_match($pattern, $query_rw, $matches);
 

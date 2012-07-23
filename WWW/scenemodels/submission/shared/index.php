@@ -139,7 +139,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
         </td>
     </tr>
     <tr>
-        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address (EXPERIMENTAL and not mandatory)</a></span></td>
+        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><a style="cursor:help">Email address (not mandatory)</a></span></td>
         <td>
             <input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);" />
         </td>

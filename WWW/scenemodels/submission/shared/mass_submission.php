@@ -26,7 +26,7 @@ require_once('../../inc/functions.inc.php');
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Shared Models Positions Pending Requests Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
-				$advise_text = "Else, please report to devel ML or FG Scenery forum.";
+                $advise_text = "Else, please report to devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
@@ -125,7 +125,7 @@ require_once('../../inc/functions.inc.php');
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Shared Models Positions Pending Requests Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?<br/>";
-				$advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
+                $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
                 include '../../inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
@@ -302,7 +302,7 @@ require_once('../../inc/functions.inc.php');
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST[hsig].".</p><br />\n";
-                    echo pg_affected_rows($result_rw)." objects were added to the database!<br /><br />\n";
+                    echo "<p class=\"center ok\">".pg_affected_rows($result_rw)." objects were added to the database!</p>\n";
                     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
                     // Delete the entry from the pending query table.
