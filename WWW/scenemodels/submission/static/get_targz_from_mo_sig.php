@@ -11,7 +11,7 @@
         $resource_rw = connect_sphere_rw();
 
          // If connection is OK
-        if($resource_rw != '0') {
+        if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
