@@ -38,10 +38,6 @@ if (isset($_POST["action"])) {
 
                 if ((!$ob_resultdel) || (!$mo_resultdel)) {
                     $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
-
-
-
-
                     $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     include '../../inc/error_page.php';
 
