@@ -67,7 +67,7 @@ function family_name($id_family)
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result))    {
-        $name_family=$row["mg_name"];
+        $name_family = $row["mg_name"];
     }
 
     // Closing the connection.
@@ -190,7 +190,7 @@ function get_object_model_from_id($ob_id)
     $result = @pg_query($headerlink_family, $query);
 
     while($row = @pg_fetch_assoc($result)) {
-        $mo_id=$row["ob_model"];
+        $mo_id = $row["ob_model"];
     }
 
     // Closing the connection.
@@ -453,7 +453,9 @@ function get_authors_email_from_authors_id($au_id)
     $result = @pg_query($headerlink, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
-            return ($row["au_email"]);
+            if ($row["au_email"] != '') {
+                return ($row["au_email"]);
+            }
     }
 
     // Closing the connection.
@@ -521,7 +523,7 @@ function check_availability()
 
 function heading_stg_to_true($stg_heading)
 {
-    if ($stg_heading > '180') {
+    if ($stg_heading > 180) {
         $true_heading = 540 - $stg_heading;
     }
     else {
@@ -535,7 +537,7 @@ function heading_stg_to_true($stg_heading)
 
 function heading_true_to_stg($true_heading)
 {
-    if ($true_heading > '180') {
+    if ($true_heading > 180) {
         $stg_heading = 540 - $true_heading;
     }
     else {
@@ -642,7 +644,7 @@ function list_authors()
     $result = @pg_query($headerlink_authors, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
-        if ($row["au_id"]==1) echo "<option value=\"".$row["au_id"]."\" selected=\"selected\">".$row["au_name"]."</option>\n";
+        if ($row["au_id"] == 1) echo "<option value=\"".$row["au_id"]."\" selected=\"selected\">".$row["au_name"]."</option>\n";
         else echo "<option value=\"".$row["au_id"]."\">".$row["au_name"]."</option>\n";
     }
 
