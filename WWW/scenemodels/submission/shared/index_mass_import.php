@@ -44,7 +44,7 @@ Please note that:
         <td><textarea name="stg" rows="30" cols="100" onblur="checkSTG(this);"></textarea></td>
     </tr>
     <tr>
-        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL"><a style="cursor:help">Email address</a></span></td>
+        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><a style="cursor:help">Email address</a></span></td>
         <td>
             <input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);" />
         </td>
