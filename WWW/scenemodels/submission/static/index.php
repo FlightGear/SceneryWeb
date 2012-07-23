@@ -30,7 +30,8 @@ Please, read the following:
     <li>Please also read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for.</li>
     <li>Please note that all fields are now mandatory. An XML file is mandatory, as the name of your submission is automagically derived from it and as it should
     be useful for future work. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example.</li>
-    <li>Do not try to import/update an already existing model: there will be an update script [sometimes].</li>
+    <li>Do not try to import/update an already existing model: there will be an update script [when we have some spare time].</li>
+    <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
     <li>I think that's all, folks ;-) Ah yes, be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
 </ul>
   </p>
