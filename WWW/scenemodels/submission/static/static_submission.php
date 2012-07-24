@@ -510,12 +510,15 @@ include '../../inc/header.php';
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
                 $texture_file = "get_texture_from_dir.php?mo_sig=".$encoded_target_path."&amp;png_file_number=".$j;
-                list ($width, $height, $type, $attr) = getimagesize($texture_file);
+                echo $texture_file;
+
+                $tmp = getimagesize($texture_file);
+                $width  = $tmp[0];
+                $height = $tmp[1];
 ?>
                 <img src="<?php echo $texture_file; ?>" alt="Texture"/>
 <?php
-                echo $png_file_name[$j]."<br/>";
-                echo $width."x".$height;
+                echo $png_file_name[$j]." (".$width."x".$height.")<br/>";
             }
 ?>
             </center>
