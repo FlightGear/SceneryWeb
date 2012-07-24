@@ -43,7 +43,7 @@ function chkNumeric(objName, minval, maxval)
         alertsay = "Please enter only the values :\""
         alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
         alert(alertsay);
-        return (false);
+        return false;
     }
 
     // Sets minimum and maximums

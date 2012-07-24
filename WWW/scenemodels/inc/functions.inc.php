@@ -164,7 +164,7 @@ function get_group_name_from_id($ob_group)
     $headerlink = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT * FROM fgs_groups WHEREs gp_id=".$group_id.";";
+    $query = "SELECT * FROM fgs_groups WHERE gp_id=".$group_id.";";
     $result = @pg_query($headerlink, $query);
 
     while ($row = @pg_fetch_assoc($result)) {

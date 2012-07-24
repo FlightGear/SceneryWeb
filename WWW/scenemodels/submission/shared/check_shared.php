@@ -26,8 +26,8 @@
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Submission Form";
-        echo "<br />";
-        $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index.php'>Go back and try it again</a>" .
+
+        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")".
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';

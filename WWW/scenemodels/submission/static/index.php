@@ -6,6 +6,24 @@
 <script type="text/javascript" src="/inc/js/check_form.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript" src="../../inc/js/jquery.multifile.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+function validateForm()
+{
+    var form = document.getElementById("positions");
+
+    if (!checkNumeric(form["longitude"],-180,180) ||
+        !checkNumeric(form["latitude"],-90,90) ||
+        !checkComment(form["mo_name"]) ||
+        !checkNumeric(form["gndelev"],-10000,10000) ||
+        !checkNumeric(form["offset"],-10000,10000) ||
+        !checkNumeric(form["heading"],0,359.999) ||
+        !checkComment(form["comment"]))
+        return false;
+
+}
+/*]]>*/
+</script>
 
 <h1>Models Automated Submission Form</h1>
 
@@ -35,7 +53,7 @@ Please, read the following:
   <p class="center">
   Note this page is under HEAVY DEVELOPMENT and links to nowhere. Please do NOT use it unless we ask you for. It'll be for a bright future.
   </p>
-    <form name="positions" method="post" action="check_static.php" enctype="multipart/form-data">
+    <form id="positions" method="post" action="check_static.php" enctype="multipart/form-data" onsubmit="return validateForm();">
     <table>
         <tr>
             <td>
@@ -101,7 +119,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="mo_name" maxlength="100" size="40" value="Tell us more about your model." onblur="checkComment(this);"/>
+            <input type="text" name="mo_name" maxlength="100" size="40" value="Tell us more about your model." onchange="checkComment(this);"/>
             </td>
         </tr>
         <tr>
@@ -111,7 +129,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="longitude" maxlength="11" value="" onblur="checkNumeric(this,-180,180);" />
+            <input type="text" name="longitude" maxlength="11" value="" onchange="checkNumeric(this,-180,180);" />
             </td>
         </tr>
         <tr>
@@ -121,7 +139,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="latitude" maxlength="10" value="" onblur="checkNumeric(this,-90,90);" />
+            <input type="text" name="latitude" maxlength="10" value="" onchange="checkNumeric(this,-90,90);" />
             </td>
         </tr>
         <tr>
@@ -131,7 +149,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="gndelev" maxlength="10" value="" onblur="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
             </td>
         </tr>
         <tr>
@@ -141,7 +159,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="offset" maxlength="10" value="0" onblur="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
             </td>
         </tr>
         <tr>
@@ -151,7 +169,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="heading" maxlength="7" value="" onblur="checkNumeric(this,0,359.999);" />
+            <input type="text" name="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
             </td>
         </tr>
         <tr>
@@ -161,7 +179,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="comment" maxlength="100" size="40" value="" onblur="checkComment(this);" />
+            <input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
             </td>
         </tr>
         <tr>
