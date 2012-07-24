@@ -4,7 +4,7 @@
 require_once('../../inc/functions.inc.php');
 
 // Final step to edition
-if(isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gndelev']) && isset($_POST['new_offset']) && isset($_POST['new_orientation'])) {
+if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gndelev']) && isset($_POST['new_offset']) && isset($_POST['new_orientation'])) {
 
     // Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
@@ -25,52 +25,52 @@ if(isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gn
         include '../../inc/error_page.php';
         exit;
     }
+
+    // Talking back to submitter.
+    $page_title = "Automated Shared Models Positions Update Form";
+    include '../../inc/header.php';
+
+    // Checking that email is valid (if it exists).
+    //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+    $failed_mail = 0;
+    if (isset($_POST['email']) && (strlen($_POST['email']) > 0) && (strlen($_POST['email']) <= 50)) {
+        $safe_email = pg_escape_string(stripslashes($_POST['email']));
+        echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
+    }
     else {
-        // Talking back to submitter.
-        $page_title = "Automated Shared Models Positions Update Form";
-        include '../../inc/header.php';
+        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
+        $failed_mail = 1;
+    }
 
-        // Checking that email is valid (if it exists).
-        //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-        $failed_mail = 0;
-        if (isset($_POST['email']) && (strlen($_POST['email']) > 0) && (strlen($_POST['email']) <= 50)) {
-            $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
-        }
-        else {
-            echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
-            $failed_mail = 1;
-        }
+    // Preparing the update request
+    $query_update="UPDATE fgs_objects ".
+                  "SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['new_long']." ".$_POST['new_lat'].")', 4326), ob_gndelev=".$_POST['new_gndelev'].", ob_elevoffset=".$_POST['new_offset'].", ob_heading=".heading_stg_to_true($_POST['new_orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 ".
+                  "WHERE ob_id=".$_POST['id_to_update'].";";
 
-        // Preparing the update request
-        $query_update="UPDATE fgs_objects ".
-                      "SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['new_long']." ".$_POST['new_lat'].")', 4326), ob_gndelev=".$_POST['new_gndelev'].", ob_elevoffset=".$_POST['new_offset'].", ob_heading=".heading_stg_to_true($_POST['new_orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 ".
-                      "WHERE ob_id=".$_POST['id_to_update'].";";
+    // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
+    $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_update.">";
+    $sha_hash = hash('sha256', $sha_to_compute);
 
-        // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-        $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_update.">";
-        $sha_hash = hash('sha256', $sha_to_compute);
+    // Zipping the Base64'd request.
+    $zipped_base64_update_query = gzcompress($query_update,8);
 
-        // Zipping the Base64'd request.
-        $zipped_base64_update_query = gzcompress($query_update,8);
+    // Coding in Base64.
+    $base64_update_query = base64_encode($zipped_base64_update_query);
 
-        // Coding in Base64.
-        $base64_update_query = base64_encode($zipped_base64_update_query);
+    // Opening database connection...
+    $resource_rw = connect_sphere_rw();
 
-        // Opening database connection...
-        $resource_rw = connect_sphere_rw();
+    // Sending the request...
+    $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_update_query."');";
+    $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
 
-        // Sending the request...
-        $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_update_query."');";
-        $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
-
-        // Closing the connection.
-        @pg_close($resource_rw);
+    // Closing the connection.
+    @pg_close($resource_rw);
 
 ?>
-    <br /><br />
+<br /><br />
 <?php
-    if(!$resultrw) {
+    if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></p>";
         include '../../inc/footer.php';
         exit;
@@ -154,7 +154,7 @@ if(isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gn
     @mail($to, $subject, $message, $headers);
 
     // Mailing the submitter
-    if($failed_mail != 1) {
+    if ($failed_mail != 1) {
 
         // Tell the submitter that its submission has been sent for validation.
         $to = $safe_email;
@@ -206,8 +206,6 @@ if(isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gn
     }
     include '../../inc/footer.php';
     exit;
-    
-}
 }
 
 // Getting back the update_choice
@@ -255,39 +253,39 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
           <td>
 <?php
 
-        $resource_r = connect_sphere_r();
+    $resource_r = connect_sphere_r();
 
-        // If connection is OK
-        $id_family=0;
-        if($resource_r != '0')
+    // If connection is OK
+    $id_family=0;
+    if($resource_r != '0')
+    {
+        // Show all the families other than the static family
+        $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
+
+        // Start the select form
+        echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
+        echo "<option value=\"0\">Please select a family</option>\n";
+        while ($row = @pg_fetch_assoc($result))
         {
-            // Show all the families other than the static family
-            $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
-
-            // Start the select form
-            echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
-            echo "<option value=\"0\">Please select a family</option>\n";
-            while ($row = @pg_fetch_assoc($result))
-            {
-                $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-                if($actual_family==$row["mg_name"]) {
-                    $id_family = $row["mg_id"];
-                    echo "<option selected=\"selected\" value=\"".$row["mg_id"]."\">".$name."</option>\n";
-                }
-                else {
-                    echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
-                }
+            $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
+            if($actual_family==$row["mg_name"]) {
+                $id_family = $row["mg_id"];
+                echo "<option selected=\"selected\" value=\"".$row["mg_id"]."\">".$name."</option>\n";
             }
-            echo "</select>";
-
-            // Close the database resource
-            @pg_close($resource_r);
+            else {
+                echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+            }
         }
+        echo "</select>";
 
-        // Else, write message.
-        else {
-            echo "<br /><p class=\"center warning\">Sorry but the database is currently unavailable, please come again soon.</p>";
-        }
+        // Close the database resource
+        @pg_close($resource_r);
+    }
+
+    // Else, write message.
+    else {
+        echo "<br /><p class=\"center warning\">Sorry but the database is currently unavailable, please come again soon.</p>";
+    }
 ?>
           </td>
         </tr>
@@ -298,8 +296,8 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
           </td>
           <td>
 <?php 
-            $actual_model_name = object_name(get_object_model_from_id($id_to_update));
-            echo $actual_model_name; 
+    $actual_model_name = object_name(get_object_model_from_id($id_to_update));
+    echo $actual_model_name;
 ?>
           </td>
           <td>
@@ -307,27 +305,27 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
             <div id="form_objects">
               <select name='model_name' id='model_name' onchange='change_thumb()'>
 <?php
-// Querying when the family is updated.
-$resource_r = connect_sphere_r();
+    // Querying when the family is updated.
+    $resource_r = connect_sphere_r();
 
-if ($resource_r != '0') {
-    $query = "select mo_id,mo_path,mo_name,mo_shared from fgs_models where mo_shared=".$id_family." order by mo_path;";
-    $result = @pg_query($query);
+    if ($resource_r != '0') {
+        $query = "select mo_id,mo_path,mo_name,mo_shared from fgs_models where mo_shared=".$id_family." order by mo_path;";
+        $result = @pg_query($query);
 
-    // Showing the results.
-    while ($row = @pg_fetch_assoc($result)) {
-        $id = $row["mo_id"];
-        $name = preg_replace('/ /',"&nbsp;",$row["mo_path"]);
+        // Showing the results.
+        while ($row = @pg_fetch_assoc($result)) {
+            $id = $row["mo_id"];
+            $name = preg_replace('/ /',"&nbsp;",$row["mo_path"]);
 
-        if ($actual_model_name == $row["mo_name"])
-            echo "<option selected value='".$id."'>".$name."</option>\n";
-        else
-            echo "<option value='".$id."'>".$name."</option>\n";
+            if ($actual_model_name == $row["mo_name"])
+                echo "<option selected value='".$id."'>".$name."</option>\n";
+            else
+                echo "<option value='".$id."'>".$name."</option>\n";
+        }
+
+        // Close the database resource
+        @pg_close($resource_r);
     }
-
-    // Close the database resource
-    @pg_close($resource_r);
-}
 ?>
               </select>
             </div>
@@ -413,10 +411,10 @@ if ($resource_r != '0') {
           <td colspan="4">
             <center>
 <?php
-                // Google Captcha stuff
-                require_once('../../inc/captcha/recaptchalib.php');
-                $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-                echo recaptcha_get_html($publickey);
+    // Google Captcha stuff
+    require_once('../../inc/captcha/recaptchalib.php');
+    $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+    echo recaptcha_get_html($publickey);
 ?>
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
             <input type="submit" name="submit" value="Update this object!" />
@@ -426,69 +424,70 @@ if ($resource_r != '0') {
         </tr>
       </table>
     </form>
-        <?php include '../../inc/footer.php';
+<?php 
+    include '../../inc/footer.php';
 }
 else {
 
-// Checking DB availability before all
-$ok=check_availability();
+    // Checking DB availability before all
+    $ok=check_availability();
 
-if(!$ok) {
-    $page_title = "Automated Shared Models Positions Update Form";
-    $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-    include '../../inc/error_page.php';
-    exit;
-}
-else {
-    $page_title = "Automated Shared Models Positions Update Form";
-    include '../../inc/header.php';
-?>
-<br />
-<?php
-global $false;
-$false = '0';
-
-// Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-// (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
-if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])) <= 13) && ($_POST['latitude'] <= 90) && ($_POST['latitude'] >= -90)) {
-    $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
-}
-else {
-    echo "<p class=\"warning\">Latitude mismatch!</p><br />";
-    $false='1';
-}
-
-// Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-// (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
-if((isset($_POST['longitude'])) && ((strlen($_POST['longitude'])) <= 13) && ($_POST['longitude'] >= -180) && ($_POST['longitude'] <= 180)) {
-    $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
-}
-else {
-    echo "<p class=\"warning\">Longitude mismatch!</p><br />";
-    $false = '1';
-}
-
-// If there is no false, generating SQL to check for object.
-if ($false == 0) {
-
-    // Opening database connection...
-    $resource_r_update = connect_sphere_r();
-
-    // Let's see in the database if something exists at this position
-    $query_pos = "SELECT ob_id, ob_modified, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
-    $result = @pg_query($resource_r_update, $query_pos);
-    $returned_rows = pg_num_rows($result);
-
-    if ($returned_rows == '0') {
-        echo "<br /><p class=\"warning\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).</p><br/>";
+    if(!$ok) {
+        $page_title = "Automated Shared Models Positions Update Form";
+        $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+        include '../../inc/error_page.php';
         exit;
     }
     else {
+        $page_title = "Automated Shared Models Positions Update Form";
+        include '../../inc/header.php';
+?>
+<br />
+<?php
+    global $false;
+    $false = '0';
+
+    // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
+    // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
+    if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])) <= 13) && ($_POST['latitude'] <= 90) && ($_POST['latitude'] >= -90)) {
+        $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
+    }
+    else {
+        echo "<p class=\"warning\">Latitude mismatch!</p><br />";
+        $false='1';
+    }
+
+    // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
+    // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
+    if((isset($_POST['longitude'])) && ((strlen($_POST['longitude'])) <= 13) && ($_POST['longitude'] >= -180) && ($_POST['longitude'] <= 180)) {
+        $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
+    }
+    else {
+        echo "<p class=\"warning\">Longitude mismatch!</p><br />";
+        $false = '1';
+    }
+
+    // If there is no false, generating SQL to check for object.
+    if ($false == 0) {
+
+        // Opening database connection...
+        $resource_r_update = connect_sphere_r();
+
+        // Let's see in the database if something exists at this position
+        $query_pos = "SELECT ob_id, ob_modified, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
+        $result = @pg_query($resource_r_update, $query_pos);
+        $returned_rows = pg_num_rows($result);
+
+        if ($returned_rows == '0') {
+            echo "<br /><p class=\"warning\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).</p><br/>";
+            exit;
+        }
+        
         if ($returned_rows == '1') { // If we have just an answer...
             while ($row = pg_fetch_row($result)) {
                 echo "<br /><center>One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</center><br /><br />";
-        ?>
-                <form name="update_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_update_shared.php">
+?>
+                <form id="update_position" method="post" action="check_update_shared.php">
                 <table>
                     <tr>
                         <td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
@@ -538,16 +537,17 @@ if ($false == 0) {
                     </tr>
                 </table>
                 </form>
-                <?php include '../../inc/footer.php';
+<?php 
+                include '../../inc/footer.php';
             }
             exit;
         }
-        
+    
         if ($returned_rows > '1') {// If we have more than one, the user has to choose...
             echo "<br /><center>".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</center><br /><br />";
 
             // Starting multi-solutions form
-            echo "<form name=\"update_position\" method=\"post\" action=\"http://scenemodels.flightgear.org/submission/shared/check_update_shared.php\"\">";
+            echo "<form id=\"update_position\" method=\"post\" action=\"check_update_shared.php\">";
             echo "<table>";
 
             $i = 1; // Just used to put the selected button on the first entry
@@ -560,10 +560,11 @@ if ($false == 0) {
                     <tr>
                         <th rowspan="6">
 <?php
-                        if ($i == 1) {
-                            echo "<input type=\"radio\" name=\"update_choice\" value=\"".$row[0]."\" checked />";
-                        }
-                            else echo "<input type=\"radio\" name=\"update_choice\" value=\"".$row[0]."\" />";
+                if ($i == 1) {
+                    echo "<input type=\"radio\" name=\"update_choice\" value=\"".$row[0]."\" checked />";
+                }
+                else 
+                    echo "<input type=\"radio\" name=\"update_choice\" value=\"".$row[0]."\" />";
 ?>
                         </th>
                         <td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
@@ -620,7 +621,6 @@ if ($false == 0) {
 <?php
             exit();
         }
-    }
     }
 include '../../inc/footer.php';
 }
