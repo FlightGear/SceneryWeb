@@ -5,7 +5,7 @@ var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 function checkNumeric(numberfield, minval, maxval)
 {
-    if (chkNumeric(numberfield, minval, maxval) == false)
+    if (!chkNumeric(numberfield, minval, maxval))
     {
         numberfield.select();
         numberfield.focus();
@@ -63,7 +63,7 @@ function chkNumeric(objName, minval, maxval)
 
 function checkComment(textfield)
 {
-    if (chkComment(textfield.value) == false)
+    if (!chkComment(textfield.value))
     {
         alertsay = "Please enter only letters, numbers, and ;:?-_.";
         alertsay = alertsay + " in the \"" + textfield.name + "\" field.";
@@ -101,7 +101,7 @@ function chkComment(checkStr)
 
 function checkEmail(emailfield)
 {
-    if (chkEmail(emailfield) == false)
+    if (!chkEmail(emailfield))
     {
         emailfield.select();
         emailfield.focus();
@@ -167,7 +167,7 @@ function chkEmail(emailfield)
 
 function checkSTG(textfield)
 {
-    if (chkSTG(textfield.value) == false)
+    if (!chkSTG(textfield.value))
     {
         alertsay = "Please enter only letters, spaces, numbers, underscores, - and /";
         alertsay = alertsay + " in the \"" + textfield.name + "\" field.";
@@ -205,7 +205,7 @@ function chkSTG(checkStr)
 
 function checkFilename(objName)
 {
-    if (chkFilename(objName.value) == false)
+    if (!chkFilename(objName.value))
     {
         objName.select();
         objName.focus();
@@ -237,11 +237,6 @@ function chkFilename(checkStr)
     }
 
     return allValid;
-}
-
-function checkName(namefield)
-{
-    //TODO
 }
 
 function checkStringNotDefault(objName, defaultValue)

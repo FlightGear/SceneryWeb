@@ -350,11 +350,24 @@ if (!isset($_POST["action"])) {
 include '../../inc/header.php';
 
 ?>
+<script type="text/javascript" src="/inc/js/check_form.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+function validateForm()
+{
+    var form = document.getElementById("validation");
+
+    if (!checkComment(form["maintainer_comment"]))
+        return false;
+
+}
+/*]]>*/
+</script>
 
 <p class="center">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
-<form id="validation" method="post" action="static_submission.php">
+<form id="validation" method="post" action="static_submission.php" onsubmit="return validateForm();">
 <table>
     <tr>
         <th>Data</th>
@@ -371,7 +384,7 @@ include '../../inc/header.php';
     <tr>
         <td>Email</td>
         <td><?php echo $_GET["email"]; ?></td>
-        <input type="hidden" name="email" value="<?php echo $_GET["email"]; ?>" />
+        <input type="hidden" name="email" value="<?php echo htmlentities($_GET["email"]); ?>" />
     </tr>
     <tr>
         <td>Family</td>
@@ -526,7 +539,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Leave a comment to the submitter</td>
-        <td><input type="text" name="maintainer_comment" size="100" value="Drop a comment to the submitter" /></td>
+        <td><input type="text" name="maintainer_comment" size="100" value="Drop a comment to the submitter" onchange="checkComment(this)"/></td>
     </tr>
     <tr>
         <td>Action</td>

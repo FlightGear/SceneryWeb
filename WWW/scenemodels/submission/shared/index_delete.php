@@ -19,23 +19,35 @@
     include '../../inc/header.php';
 ?>
 <script src="/inc/check_form.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+function validateForm()
+{
+    var form = document.getElementById("deletion");
+
+    if (!checkNumeric(form["longitude"],-180,180) ||
+        !checkNumeric(form["latitude"],-90,90))
+        return false;
+}
+/*]]>*/
+</script>
 
 <h1>Positions Automated Deletion Form</h1>
 
 <p class="center"><b>Foreword:</b> This automated form goal is to ease the deletion of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>  objects in the database.</p>
 <br /><br />
-<form id="deletion" method="post" action="check_delete_shared.php">
+<form id="deletion" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
 <table>
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to delete. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
         <td>
-            <input type="text" name="longitude" maxlength="13" value="0" onblur="checkNumeric(this,-180,180);" />
+            <input type="text" name="longitude" maxlength="13" value="0" onchange="checkNumeric(this,-180,180);" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the WGS84 latitude of the object you want to delete. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span></td>
         <td>
-            <input type="text" name="latitude" maxlength="13" value="0" onblur="checkNumeric(this,-90,90);" />
+            <input type="text" name="latitude" maxlength="13" value="0" onchange="checkNumeric(this,-90,90);" />
         </td>
     </tr>
     <tr>
