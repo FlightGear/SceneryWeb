@@ -502,17 +502,20 @@ include '../../inc/header.php';
             <center>
 <?php
             if ($png_file_number <= 1)
-                echo $png_file_number." texture file has been submitted:<br/>"; // Some eye caviar for the poor scenery maintainers.
-            else echo $png_file_number." texture files have been submitted:<br/>";
+                echo $png_file_number." texture file has been submitted:<br/>\n"; // Some eye caviar for the poor scenery maintainers.
+            else echo $png_file_number." texture files have been submitted:<br/>\n";
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
+                $texture_file = "get_texture_from_dir.php?mo_sig=".$encoded_target_path."&amp;png_file_number=".$j;
+                list ($width, $height, $type, $attr) = getimagesize($texture_file);
 ?>
-                <img src="get_texture_from_dir.php?mo_sig=<?php echo $encoded_target_path; ?>&amp;png_file_number=<?php echo $j; ?>" alt="Texture"/>
+                <img src="<?php echo $texture_file; ?>" alt="Texture"/>
 <?php
                 echo $png_file_name[$j]."<br/>";
+                echo $width."x".$height;
             }
 ?>
             </center>
