@@ -514,7 +514,8 @@ include '../../inc/header.php';
                 // $width  = $tmp[0];
                 // $height = $tmp[1];
 ?>
-                <a href="<?php echo $texture_file; ?>" rel="lightbox" alt="Texture"/>
+                <a href="<?php echo $texture_file; ?>" rel="lightbox[submission]" />
+                <img src="<?php echo $texture_file; ?>" alt="Texture #<?php echo $j; ?>" />
 <?php
                 echo $png_file_name[$j]." (".$width."x".$height.")</a><br/>";
             }
