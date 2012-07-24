@@ -515,6 +515,7 @@ include '../../inc/header.php';
                 $tmp = getimagesize($texture_file);
                 $width  = $tmp[0];
                 $height = $tmp[1];
+                var_dump($tmp);
 ?>
                 <img src="<?php echo $texture_file; ?>" alt="Texture"/>
 <?php
