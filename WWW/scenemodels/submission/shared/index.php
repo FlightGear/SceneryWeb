@@ -67,8 +67,8 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
                     echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
                     echo "<option selected=\"selected\" value=\"0\">Please select a family</option>\n";
                     while ($row = @pg_fetch_assoc($result)) {
-                        $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-                        $name=preg_replace('/&/',"&amp;",$name);
+                        $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
+                        $name=preg_replace('/ /',"&nbsp;",$name);
                         echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                     }
                     echo "</select>";
