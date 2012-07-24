@@ -4,7 +4,7 @@
 require_once('../../inc/functions.inc.php');
 
 // Final step to edition
-if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['new_gndelev'])) && (isset($_POST['new_offset'])) && (isset($_POST['new_orientation']))) {
+if(isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gndelev']) && isset($_POST['new_offset']) && isset($_POST['new_orientation'])) {
 
     // Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
@@ -33,7 +33,7 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         // Checking that email is valid (if it exists).
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
         $failed_mail = 0;
-        if((isset($_POST['email'])) && ((strlen($_POST['email'])) > 0) && ((strlen($_POST['email']) <= 50))) {
+        if (isset($_POST['email']) && (strlen($_POST['email']) > 0) && (strlen($_POST['email']) <= 50)) {
             $safe_email = pg_escape_string(stripslashes($_POST['email']));
             echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
         }
@@ -75,54 +75,113 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
         include '../../inc/footer.php';
         exit;
     }
+
+    echo "<p class=\"center\">Your update request has been successfully queued into the FG scenery database update requests!<br />";
+    echo "Unless it's rejected, the object should be updated in Terrasync within a few days.<br />";
+    echo "The FG community would like to thank you for your contribution!<br />";
+    echo "Want to update, delete or submit another position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></p>";
+
+    // Sending mail if there is no false and SQL was correctly inserted.
+    // Sets the time to UTC.
+    date_default_timezone_set('UTC');
+    $dtg = date('l jS \of F Y h:i:s A');
+
+    // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+    $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
+    $host = gethostbyaddr($ipaddr);
+
+    // OK, let's start with the mail redaction.
+    // Who will receive it ?
+    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
+    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+
+    // What is the subject ?
+    $subject = "[FG Scenery Submission forms] Automatic shared model update request: needs validation.";
+
+    // Correctly format the data for the mail.
+    $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$_POST['model_name'];
+    $html_object_url = htmlspecialchars($object_url);
+
+    // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
+    if($failed_mail != 1) {
+        $message0 = "Hi," . "\r\n" .
+                    "This is the automated FG scenery update PHP form at:" . "\r\n" .
+                    "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
+                    "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
+                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
+                    "issued the following request:" . "\r\n";
+    }
     else {
-        echo "<p class=\"center\">Your update request has been successfully queued into the FG scenery database update requests!<br />";
-        echo "Unless it's rejected, the object should be updated in Terrasync within a few days.<br />";
-        echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to update, delete or submit another position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></p>";
+        $message0 = "Hi," . "\r\n" .
+                    "This is the automated FG scenery update PHP form at:" . "\r\n" .
+                    "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
+                    "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
+                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
+    }
+    $message077 = wordwrap($message0, 77, "\r\n");
 
-        // Sending mail if there is no false and SQL was correctly inserted.
-        // Sets the time to UTC.
-        date_default_timezone_set('UTC');
-        $dtg = date('l jS \of F Y h:i:s A');
+    // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
+    $message1 = "Object #: ".$_POST['id_to_update']."\r\n" .
+                "Family: ". get_object_family_from_id($_POST['id_to_update']) ." => ".family_name($_POST['family_name'])."\r\n" .
+                "Object: ". object_name(get_object_model_from_id($_POST['id_to_update'])) ." => ".object_name($_POST['model_name'])."\r\n" .
+                "[ ".$html_object_url." ]" . "\r\n" .
+                "Latitude: ". get_object_latitude_from_id($_POST['id_to_update']) . "  => ".$_POST['new_lat']."\r\n" .
+                "Longitude: ". get_object_longitude_from_id($_POST['id_to_update']) . " => ".$_POST['new_long']."\r\n" .
+                "Ground elevation: ". get_object_elevation_from_id($_POST['id_to_update']) . " => ".$_POST['new_gndelev']."\r\n" .
+                "Elevation offset: ". get_object_offset_from_id($_POST['id_to_update']) . " => ".$_POST['new_offset']."\r\n" .
+                "True (DB) orientation: ". get_object_true_orientation_from_id($_POST['id_to_update']) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
+                "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
+                "Please click:" . "\r\n" .
+                "http://mapserver.flightgear.org/submap/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14" . "\r\n" .
+                "to locate the object on the map (eventually new position)." ;
 
-        // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-        $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
-        $host = gethostbyaddr($ipaddr);
+    $message2 = "\r\n".
+                "Now please click:" . "\r\n" .
+                "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                "to confirm the update" . "\r\n" .
+                "or" . "\r\n" .
+                "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                "to reject the update." . "\r\n" . "\r\n" .
+                "Thanks!" ;
 
-        // OK, let's start with the mail redaction.
-        // Who will receive it ?
-        $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+    // Preparing the headers.
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "From: \"FG Scenery Update forms\" <martin.spott@mgras.net>" . "\r\n";
+    $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
+
+    // Let's send it ! No management of mail() errors to avoid being too talkative...
+    $message = $message077.$message1.$message2;
+    @mail($to, $subject, $message, $headers);
+
+    // Mailing the submitter
+    if($failed_mail != 1) {
+
+        // Tell the submitter that its submission has been sent for validation.
+        $to = $safe_email;
 
         // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic shared model update request: needs validation.";
+        $subject = "[FG Scenery Submission forms] Automatic shared model position update request.";
 
-        // Correctly format the data for the mail.
-        $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$_POST['model_name'];
+        // Correctly set the object URL.
+        $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
+        $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+        $html_family_url = htmlspecialchars($family_url);
         $html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if($failed_mail != 1) {
-            $message0 = "Hi," . "\r\n" .
-                        "This is the automated FG scenery update PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
-                        "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
-                        "issued the following request:" . "\r\n";
-        }
-        else {
-            $message0 = "Hi," . "\r\n" .
-                        "This is the automated FG scenery update PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
-                        "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
-        }
-        $message077 = wordwrap($message0, 77, "\r\n");
+        $message3 = "Hi," . "\r\n" .
+                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
+                    "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
+                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
+                    "Just to let you know that this new shared object update request has been sent for validation." . "\r\n" .
+                    "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
+                    "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
+        $message077 = wordwrap($message3, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-        $message1 = "Object #: ".$_POST['id_to_update']."\r\n" .
+        $message4 = "Object #: ".$_POST['id_to_update']."\r\n" .
                     "Family: ". get_object_family_from_id($_POST['id_to_update']) ." => ".family_name($_POST['family_name'])."\r\n" .
+                    "[ ".$html_family_url." ]" . "\r\n" .
                     "Object: ". object_name(get_object_model_from_id($_POST['id_to_update'])) ." => ".object_name($_POST['model_name'])."\r\n" .
                     "[ ".$html_object_url." ]" . "\r\n" .
                     "Latitude: ". get_object_latitude_from_id($_POST['id_to_update']) . "  => ".$_POST['new_lat']."\r\n" .
@@ -133,85 +192,26 @@ if((isset($_POST['new_long'])) && (isset($_POST['new_lat'])) && (isset($_POST['n
                     "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                     "Please click:" . "\r\n" .
                     "http://mapserver.flightgear.org/submap/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14" . "\r\n" .
-                    "to locate the object on the map (eventually new position)." ;
-
-        $message2 = "\r\n".
-                    "Now please click:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
-                    "to confirm the update" . "\r\n" .
-                    "or" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
-                    "to reject the update." . "\r\n" . "\r\n" .
-                    "Thanks!" ;
+                    "to locate the object on the map (eventually new position)." . "\r\n" .
+                    "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
         // Preparing the headers.
         $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "From: \"FG Scenery Update forms\" <martin.spott@mgras.net>" . "\r\n";
+        $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
         $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
         // Let's send it ! No management of mail() errors to avoid being too talkative...
-        $message = $message077.$message1.$message2;
+        $message = $message077.$message4;
         @mail($to, $subject, $message, $headers);
-
-        // Mailing the submitter
-        if($failed_mail != 1) {
-
-            // Tell the submitter that its submission has been sent for validation.
-            $to = $safe_email;
-
-            // What is the subject ?
-            $subject = "[FG Scenery Submission forms] Automatic shared model position update request.";
-
-            // Correctly set the object URL.
-            $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
-            $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
-            $html_family_url = htmlspecialchars($family_url);
-            $html_object_url = htmlspecialchars($object_url);
-
-            // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-            $message3 = "Hi," . "\r\n" .
-                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
-                        "Just to let you know that this new shared object update request has been sent for validation." . "\r\n" .
-                        "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
-                        "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
-            $message077 = wordwrap($message3, 77, "\r\n");
-
-            // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-            $message4 = "Object #: ".$_POST['id_to_update']."\r\n" .
-                        "Family: ". get_object_family_from_id($_POST['id_to_update']) ." => ".family_name($_POST['family_name'])."\r\n" .
-                        "[ ".$html_family_url." ]" . "\r\n" .
-                        "Object: ". object_name(get_object_model_from_id($_POST['id_to_update'])) ." => ".object_name($_POST['model_name'])."\r\n" .
-                        "[ ".$html_object_url." ]" . "\r\n" .
-                        "Latitude: ". get_object_latitude_from_id($_POST['id_to_update']) . "  => ".$_POST['new_lat']."\r\n" .
-                        "Longitude: ". get_object_longitude_from_id($_POST['id_to_update']) . " => ".$_POST['new_long']."\r\n" .
-                        "Ground elevation: ". get_object_elevation_from_id($_POST['id_to_update']) . " => ".$_POST['new_gndelev']."\r\n" .
-                        "Elevation offset: ". get_object_offset_from_id($_POST['id_to_update']) . " => ".$_POST['new_offset']."\r\n" .
-                        "True (DB) orientation: ". get_object_true_orientation_from_id($_POST['id_to_update']) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
-                        "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
-                        "Please click:" . "\r\n" .
-                        "http://mapserver.flightgear.org/submap/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14" . "\r\n" .
-                        "to locate the object on the map (eventually new position)." . "\r\n" .
-                        "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
-
-            // Preparing the headers.
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
-            $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-            // Let's send it ! No management of mail() errors to avoid being too talkative...
-            $message = $message077.$message4;
-            @mail($to, $subject, $message, $headers);
-        }
-        include '../../inc/footer.php';
-        exit;
     }
+    include '../../inc/footer.php';
+    exit;
+    
 }
 }
 
 // Getting back the update_choice
-if (((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((isset($_GET['update_choice'])) && ($_GET['update_choice']>'0'))) {
+if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset($_GET['update_choice']) && ($_GET['update_choice']>'0'))) {
     $page_title = "Automated Shared Models Positions Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
@@ -219,9 +219,10 @@ if (((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((iss
     if (isset($_POST['update_choice'])) {
         $update_choice = $_POST['update_choice'];
     }
-    else $update_choice = $_GET['update_choice'];
+    else
+        $update_choice = $_GET['update_choice'];
 
-    if (((is_shared_or_static($GET_['update_choice'])) == 'static') || (((is_shared_or_static($POST_['update_choice'])) == 'static'))) {
+    if ((is_shared_or_static($GET_['update_choice']) == 'static') || ((is_shared_or_static($POST_['update_choice']) == 'static'))) {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but only shared objects can be updated for now.";
         include '../../inc/error_page.php';
@@ -252,7 +253,7 @@ if (((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((iss
             <?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
           </td>
           <td>
-        <?php
+<?php
 
         $resource_r = connect_sphere_r();
 
@@ -271,12 +272,12 @@ if (((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((iss
                 $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
                 if($actual_family==$row["mg_name"]) {
                     $id_family = $row["mg_id"];
-                    echo "<option selected value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                    echo "<option selected=\"selected\" value=\"".$row["mg_id"]."\">".$name."</option>\n";
                 }
                 else {
                     echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                 }
-            };
+            }
             echo "</select>";
 
             // Close the database resource
@@ -287,7 +288,7 @@ if (((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((iss
         else {
             echo "<br /><p class=\"center warning\">Sorry but the database is currently unavailable, please come again soon.</p>";
         }
-        ?>
+?>
           </td>
         </tr>
         <tr>
@@ -296,7 +297,10 @@ if (((isset($_POST['update_choice'])) && ($_POST['update_choice']>'0')) || ((iss
             <a style="cursor: help; ">Model name</a></span>
           </td>
           <td>
-            <?php $actual_model_name = object_name(get_object_model_from_id($id_to_update));  echo $actual_model_name; ?>
+<?php 
+            $actual_model_name = object_name(get_object_model_from_id($id_to_update));
+            echo $actual_model_name; 
+?>
           </td>
           <td>
 
@@ -408,12 +412,12 @@ if ($resource_r != '0') {
         <tr>
           <td colspan="4">
             <center>
-            <?php
+<?php
                 // Google Captcha stuff
                 require_once('../../inc/captcha/recaptchalib.php');
                 $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                 echo recaptcha_get_html($publickey);
-            ?>
+?>
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
             <input type="submit" name="submit" value="Update this object!" />
             <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
@@ -424,21 +428,16 @@ if ($resource_r != '0') {
     </form>
         <?php include '../../inc/footer.php';
 }
-else
-{
+else {
 
 // Checking DB availability before all
 $ok=check_availability();
 
 if(!$ok) {
     $page_title = "Automated Shared Models Positions Update Form";
-    include '../../inc/header.php';
-?>
-<br /><br />
-<p class=\"center warning\">Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.</p>
-<p class=\"center\">The FlightGear team.</p>
-<?php
-include '../../inc/footer.php';
+    $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+    include '../../inc/error_page.php';
+    exit;
 }
 else {
     $page_title = "Automated Shared Models Positions Update Form";
@@ -485,7 +484,7 @@ if ($false == 0) {
         exit;
     }
     else {
-        if($returned_rows == '1') { // If we have just an answer...
+        if ($returned_rows == '1') { // If we have just an answer...
             while ($row = pg_fetch_row($result)) {
                 echo "<br /><center>One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</center><br /><br />";
         ?>
@@ -543,7 +542,8 @@ if ($false == 0) {
             }
             exit;
         }
-        else if($returned_rows > '1') {// If we have more than one, the user has to choose...
+        
+        if ($returned_rows > '1') {// If we have more than one, the user has to choose...
             echo "<br /><center>".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</center><br /><br />";
 
             // Starting multi-solutions form
@@ -551,7 +551,7 @@ if ($false == 0) {
             echo "<table>";
 
             $i = 1; // Just used to put the selected button on the first entry
-            while($row = pg_fetch_row($result)) {
+            while ($row = pg_fetch_row($result)) {
 ?>
                     <tr>
                         <td colspan="5" background="white"><center><b>Object number #<?php echo $row[0]; ?></b></center>
@@ -559,12 +559,12 @@ if ($false == 0) {
                     </tr>
                     <tr>
                         <th rowspan="6">
-                        <?php
+<?php
                         if ($i == 1) {
                             echo "<input type=\"radio\" name=\"update_choice\" value=\"".$row[0]."\" checked />";
-                            }
+                        }
                             else echo "<input type=\"radio\" name=\"update_choice\" value=\"".$row[0]."\" />";
-                            ?>
+?>
                         </th>
                         <td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
                         <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
@@ -600,10 +600,10 @@ if ($false == 0) {
                             </iframe>
                         </td>
                     </tr>
-                <?php
+<?php
                 $i++;
             }
-                ?>
+?>
                     <tr>
                         <td colspan="5">
                         <center>

@@ -6,7 +6,7 @@ require_once('../../inc/functions.inc.php');
     // Checking DB availability before all
     $ok = check_availability();
 
-    if(!$ok) {
+    if (!$ok) {
         $page_title = "Automated Shared Models Positions Pending Requests Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
@@ -15,11 +15,11 @@ require_once('../../inc/functions.inc.php');
 
 
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
-    if((isset($_GET["action"])) && (isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"]) && ($_GET["action"] == "check")) {
+    if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"]) && ($_GET["action"] == "check")) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != '0') {
+        if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
@@ -32,7 +32,7 @@ require_once('../../inc/functions.inc.php');
                 exit;
             }
 
-            if($_GET["action"] == "check") {  // If action comes from the mass submission script
+            if ($_GET["action"] == "check") {  // If action comes from the mass submission script
                 while ($row = pg_fetch_row($result)) {
                     $sqlzbase64 = $row[1];
 
@@ -110,12 +110,12 @@ require_once('../../inc/functions.inc.php');
 
     // Managing the cancellation of a mass import by DB maintainer.
 
-    if((isset($_POST["cancel"])) && (isset($_POST["hsig"])) && ((strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
+    if (isset($_POST["cancel"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
 
          $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != 0) {
+        if ($resource_rw != 0) {
 
             // Checking the presence of sig into the database
             $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
@@ -198,12 +198,12 @@ require_once('../../inc/functions.inc.php');
     }
 
     // Now managing the insertion
-    if((isset($_POST["submit"])) && (isset($_POST["hsig"])) && ((strlen($_POST["hsig"])) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
+    if (isset($_POST["submit"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
 
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != 0) {
+        if ($resource_rw != 0) {
 
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["hsig"] ."';");
@@ -260,7 +260,7 @@ require_once('../../inc/functions.inc.php');
                             else if ($j == 3) {
                                 $orientation = $data_from_query;
                             }
-                            else if($j == 4) {
+                            else if ($j == 4) {
                                 $model = $data_from_query;
                                 $ob_text = object_name($data_from_query);
                             }
@@ -272,12 +272,12 @@ require_once('../../inc/functions.inc.php');
 
                 $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
                 for ($j = 1; $j<$i; $j++) { // For each line, add the data content to the request
-                if($j == ($i-1)) {
-                    $data_query_rw = $data_query_rw.$data_rw[$j].";";
-                }
-                else {
-                    $data_query_rw = $data_query_rw.$data_rw[$j].", ";
-                }
+                    if ($j == ($i-1)) {
+                        $data_query_rw = $data_query_rw.$data_rw[$j].";";
+                    }
+                    else {
+                        $data_query_rw = $data_query_rw.$data_rw[$j].", ";
+                    }
                 }
                 $mass_rw_query = $query_rw.$data_query_rw;
 
@@ -286,7 +286,7 @@ require_once('../../inc/functions.inc.php');
                 // Sending the request...
                 $result_rw = @pg_query($resource_rw, $mass_rw_query);
 
-                if(!$result_rw) {
+                if (!$result_rw) {
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_POST[hsig].".</p><br />";
@@ -308,7 +308,7 @@ require_once('../../inc/functions.inc.php');
                     $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
                     $resultdel = @pg_query($resource_rw, $delete_request);
 
-                    if(!resultdel) {
+                    if (!resultdel) {
                         echo "<p class=\"warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
                         // Closing the rw connection.
@@ -330,7 +330,7 @@ require_once('../../inc/functions.inc.php');
                     // OK, let's start with the mail redaction.
                     // Who will receive it ?
                     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-                    if(isset($_POST['email'])) {
+                    if (isset($_POST['email'])) {
                         $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
                         $to .= $_POST["email"];
                     }

@@ -17,6 +17,20 @@
     include '../../inc/header.php';
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+function validateForm()
+{
+    var form = document.getElementById("positions");
+
+    if (!checkSTG(form["stg"]) ||
+        !checkEmail(form["email"]) ||
+        !checkComment(form["comment"]))
+        return false;
+
+}
+/*]]>*/
+</script>
 
 <h1>Positions Automated Mass Import Submission Form</h1>
 <p>
@@ -37,7 +51,7 @@ Please note that:
     <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a>.</li>
 </ul>
 
-<form name="positions" method="post" action="check_mass_import.php">
+<form id="positions" method="post" action="check_mass_import.php" onsubmit="return validateForm();">
 <table width="400">
     <tr>
         <td><span title="This is the content of the STG file you want to add."><a style="cursor: help;">Content to add</a></span></td>
@@ -46,13 +60,13 @@ Please note that:
     <tr>
         <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><a style="cursor:help">Email address</a></span></td>
         <td>
-            <input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);" />
+            <input type="text" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
         </td>
     </tr>
     <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit"><a style="cursor: help">Comment</a></span></td>
         <td>
-            <input type="text" name="comment" maxlength="100" size="40" value="" onblur="checkComment(this);" />
+            <input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
         </td>
     </tr>
