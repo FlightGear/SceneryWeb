@@ -151,7 +151,6 @@ require_once('../../inc/functions.inc.php');
                 include '../../inc/header.php';
                 echo "<center>Signature found.<br />Now deleting request with number ". $_POST["hsig"].".</center><br />";
                 echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.</p>";
-                include '../../inc/footer.php';
 
                 // Closing the rw connection.
                 pg_close($resource_rw);
@@ -173,7 +172,7 @@ require_once('../../inc/functions.inc.php');
                 }
 
                 // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic mass import shared model DB deletion confirmation.";
+                $subject = "[FG Scenery Submission forms] Automatic mass import shared model DB reject and deletion confirmation.";
 
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .

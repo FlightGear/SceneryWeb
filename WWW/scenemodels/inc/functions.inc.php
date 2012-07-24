@@ -92,7 +92,7 @@ function object_name($id_object)
 
     // Showing the results.
     while ($row = @pg_fetch_assoc($result)) {
-        $name_object=$row["mo_name"];
+        $name_object = $row["mo_name"];
     }
 
     // Closing the connection.

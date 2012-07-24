@@ -599,7 +599,7 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
     && isset($_POST['comment']) && isset($_POST['contributor'])) {
 
-        $path        = $xmlName;//addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
+        $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
         $comment     = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
         $contributor = addslashes(htmlentities(strip_tags($_POST["contributor"]), ENT_QUOTES));
@@ -713,9 +713,10 @@ else {
     }
     else {
         $failed_mail = 0;
-        if ((isset($_POST['email'])) && ((strlen($_POST['email'])) > 0) && ((strlen($_POST['email']) <= 50))) {
-            $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
+        $au_email = get_authors_email_from_authors_id($author);
+        if (($au_email != '') && ((strlen($au_email)) > 0) {
+            $safe_au_email = pg_escape_string(stripslashes($au_email));
+            echo "<p class=\"center ok\">Email: ".$safe_au_email."</p><br />";
         }
         else {
             echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
@@ -750,7 +751,7 @@ else {
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
                         "I just wanted to let you know that a new 3D model import request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_au_email."\r\n" .
                         "issued the following request:" . "\r\n";
         }
         else {
@@ -780,7 +781,7 @@ else {
 
         $message2 = "\r\n".
         "Now please click:" . "\r\n" .
-        "http://scenemodels.flightgear.org/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_email."\r\n" .
+        "http://scenemodels.flightgear.org/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email."\r\n" .
         "to view and confirm/reject the submission." . "\r\n" .
         "Thanks!" ;
 
@@ -797,7 +798,7 @@ else {
         if($failed_mail != 1) {
 
             // Tell the submitter that its submission has been sent for validation.
-            $to = $safe_email;
+            $to = $safe_au_email;
 
             // What is the subject ?
             $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
