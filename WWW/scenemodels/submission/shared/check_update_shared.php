@@ -160,7 +160,7 @@ if(isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gn
         $to = $safe_email;
 
         // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic shared model position update request.";
+        $subject = "[FG Scenery Submission forms] Automatic shared model update request.";
 
         // Correctly set the object URL.
         $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
@@ -206,7 +206,7 @@ if(isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gn
     }
     include '../../inc/footer.php';
     exit;
-    
+
 }
 }
 
@@ -297,9 +297,9 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
             <a style="cursor: help; ">Model name</a></span>
           </td>
           <td>
-<?php 
+<?php
             $actual_model_name = object_name(get_object_model_from_id($id_to_update));
-            echo $actual_model_name; 
+            echo $actual_model_name;
 ?>
           </td>
           <td>
@@ -542,7 +542,7 @@ if ($false == 0) {
             }
             exit;
         }
-        
+
         if ($returned_rows > '1') {// If we have more than one, the user has to choose...
             echo "<br /><center>".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</center><br /><br />";
 
