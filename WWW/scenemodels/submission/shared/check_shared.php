@@ -46,10 +46,10 @@
     if(isset($_POST['family_name']) && preg_match('/[0-9]/',$_POST['family_name']) && ($_POST['family_name']>'0')) {
         $family_id = pg_escape_string(stripslashes($_POST['family_name']));
         $family_real_name = family_name($family_id);
-        echo "<p class=\"ok\">Family Name: ".$family_real_name."</p><br />";
+        echo "<p class=\"ok\">Family Name: ".$family_real_name."</p>";
     }
     else {
-        echo "<p class=\"warning\">Family Name mismatch!</p><br />";
+        echo "<p class=\"warning\">Family Name mismatch!</p>";
         $error = true;
     }
 
@@ -57,10 +57,10 @@
     if(isset($_POST['model_name']) && preg_match('/[0-9]/',$_POST['model_name']) && ($_POST['model_name']>'0')) {
         $model_id = pg_escape_string(stripslashes($_POST['model_name']));
         $model_real_name = object_name($model_id);
-        echo "<p class=\"ok\">Model Name: ".$model_real_name."</p><br />";
+        echo "<p class=\"ok\">Model Name: ".$model_real_name."</p>";
     }
     else {
-        echo "<p class=\"warning\">Model Name mismatch!</p><br />";
+        echo "<p class=\"warning\">Model Name mismatch!</p>";
         $error = true;
     }
 
@@ -68,10 +68,10 @@
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
     if(isset($_POST['latitude']) && (strlen($_POST['latitude'])<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
-        echo "<p class=\"ok\">Latitude: ".$lat."</p><br />";
+        echo "<p class=\"ok\">Latitude: ".$lat."</p>";
     }
     else {
-        echo "<p class=\"warning\">Latitude mismatch!</p><br />";
+        echo "<p class=\"warning\">Latitude mismatch!</p>";
         $error = true;
     }
 
@@ -79,10 +79,10 @@
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
     if(isset($_POST['longitude']) && (strlen($_POST['longitude'])<=13) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180')) {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
-        echo "<p class=\"ok\">Longitude: ".$long."</p><br />";
+        echo "<p class=\"ok\">Longitude: ".$long."</p>";
     }
     else {
-        echo "<p class=\"warning\">Longitude mismatch!</p><br />";
+        echo "<p class=\"warning\">Longitude mismatch!</p>";
         $error = true;
     }
 
@@ -92,20 +92,20 @@
         ($_POST['gndelev']<='10000') &&
         ($_POST['gndelev']>='-10000')) {
         $gndelev = number_format(pg_escape_string(stripslashes($_POST['gndelev'])),2,'.','');
-        echo "<p class=\"ok\">Ground Elevation: ".$gndelev."</p><br />";
+        echo "<p class=\"ok\">Ground Elevation: ".$gndelev."</p>";
     }
     else {
-        echo "<p class=\"warning\">Ground Elevation mismatch!</p><br />";
+        echo "<p class=\"warning\">Ground Elevation mismatch!</p>";
         $error = true;
     }
 
     // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
     if(isset($_POST['offset']) && (strlen($_POST['offset'])<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
         $offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
-        echo "<p class=\"ok\">Offset: ".$offset."</p><br />";
+        echo "<p class=\"ok\">Offset: ".$offset."</p>";
     }
     else {
-        echo "<p class=\"warning\">Offset mismatch!</p><br />";
+        echo "<p class=\"warning\">Offset mismatch!</p>";
         $error = true;
     }
 
@@ -113,10 +113,10 @@
     // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
     if(isset($_POST['heading']) && (strlen($_POST['heading'])<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0')) {
         $heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
-        echo "<p class=\"ok\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</p><br />";
+        echo "<p class=\"ok\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</p>";
     }
     else {
-        echo "<p class=\"warning\">Orientation mismatch!</p><br />";
+        echo "<p class=\"warning\">Orientation mismatch!</p>";
         $error = true;
     }
 
@@ -124,10 +124,10 @@
     // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
     if(isset($_POST['comment']) && (strlen($_POST['comment'])>0) && (strlen($_POST['comment'])<=100)) {
         $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
-        echo "<p class=\"ok\">Comment: ".$sent_comment."</p><br />";
+        echo "<p class=\"ok\">Comment: ".$sent_comment."</p>";
     }
     else {
-        echo "<p class=\"warning\">Comment mismatch!</p><br />";
+        echo "<p class=\"warning\">Comment mismatch!</p>";
         $error = true;
     }
 
@@ -136,16 +136,16 @@
     $failed_mail = false;
     if(isset($_POST['email']) && (strlen($_POST['email'])>0) && (strlen($_POST['email'])<=50)) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
-        echo "<p class=\"ok\">Email: ".$safe_email."</p><br />";
+        echo "<p class=\"ok\">Email: ".$safe_email."</p>";
     }
     else {
-        echo "<p class=\"warning\">No email was given (not mandatory) or email mismatch!</p><br />";
+        echo "<p class=\"warning\">No email was given (not mandatory) or email mismatch!</p>";
         $failed_mail = true;
     }
 
 // If there is no error, generating SQL to be inserted into the database pending requests table.
 if (!$error) {
-    echo "<br /><p class=\"ok\">Data seems to be OK to be inserted in the database</p><br />";
+    echo "<br /><p class=\"ok\">Data seems to be OK to be inserted in the database</p>";
 
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
