@@ -34,7 +34,6 @@ Static objects
 - What about mo/contributor - mo author. How to distinguish both ? Insertion into objects/models...
 - Only if static : the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects). For shared models it won't go anywhere. Really think we should
   have a geographical request for that, to update all objects in DB at once... and keep stats coherent.
-- enhance the /tmp deletion process.
 
 For later:
 ==========
