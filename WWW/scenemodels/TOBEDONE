@@ -11,6 +11,7 @@ Features updates (by priority):
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Implement if submitting an already existing object (function already written).
 - Postpone the Javascript checks to the effectiv submission of the object/model (Julien).
+- Add pitch/roll data.
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Enable maintainer to drop a comment.
 - Shows the object position when selected (map when adding...).
@@ -33,6 +34,7 @@ Static objects
 - What about mo/contributor - mo author. How to distinguish both ? Insertion into objects/models...
 - Only if static : the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects). For shared models it won't go anywhere. Really think we should
   have a geographical request for that, to update all objects in DB at once... and keep stats coherent.
+- enhance the /tmp deletion process.
 
 For later:
 ==========
@@ -41,6 +43,7 @@ For later:
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
 - Logging options
 - Add WebGL for public access as well (3D model viewer).
+- Take Roll/pitch into account.
 
 Terragear
 =========
