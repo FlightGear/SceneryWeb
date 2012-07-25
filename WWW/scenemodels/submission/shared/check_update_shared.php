@@ -612,7 +612,7 @@ else {
                 </table>
                 </form>
 <?php
-            exit();
+            exit;
         }
     }
     include '../../inc/footer.php';

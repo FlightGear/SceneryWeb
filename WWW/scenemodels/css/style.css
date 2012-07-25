@@ -288,6 +288,16 @@ html>body .submenus li a{ /* non IE browsers */
     display: block;
 }
 
-html>body #clearmenu{ /* non IE browsers */
+html>body #clearmenu { /* non IE browsers */
     height: 3px;
+}
+
+label {
+    color: #008800;
+    text-decoration: none;
+    cursor: help;
+}
+
+label em {
+    color: #ff0000;
 }
