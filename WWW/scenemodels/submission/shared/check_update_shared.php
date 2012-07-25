@@ -214,9 +214,8 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
     $body_onload = "update_objects();";
     include '../../inc/header.php';
 
-    if (isset($_POST['update_choice'])) {
+    if (isset($_POST['update_choice']))
         $update_choice = $_POST['update_choice'];
-    }
     else
         $update_choice = $_GET['update_choice'];
 
@@ -235,7 +234,7 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
     $id_to_update = pg_escape_string(stripslashes($update_choice));
     echo "<p class=\"center\">You have asked to update object #".$id_to_update.".</p><br /><br />\n";
 ?>
-    <form name="update" method="post" action="check_update_shared.php">
+    <form id="update" method="post" action="check_update_shared.php">
       <table>
         <tr>
           <th></th>
@@ -257,7 +256,7 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
 
     // If connection is OK
     $id_family=0;
-    if($resource_r != '0')
+    if ($resource_r != '0')
     {
         // Show all the families other than the static family
         $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
@@ -309,7 +308,7 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
     $resource_r = connect_sphere_r();
 
     if ($resource_r != '0') {
-        $query = "select mo_id,mo_path,mo_name,mo_shared from fgs_models where mo_shared=".$id_family." order by mo_path;";
+        $query = "SELECT mo_id,mo_path,mo_name,mo_shared FROM fgs_models WHERE mo_shared=".$id_family." ORDER BY mo_path;";
         $result = @pg_query($query);
 
         // Showing the results.
@@ -438,37 +437,37 @@ else {
         include '../../inc/error_page.php';
         exit;
     }
-    else {
-        $page_title = "Automated Shared Models Positions Update Form";
-        include '../../inc/header.php';
+
+    $page_title = "Automated Shared Models Positions Update Form";
+    include '../../inc/header.php';
 ?>
 <br />
 <?php
-    global $false;
-    $false = '0';
+    global $error;
+    $error = false;
 
     // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
-    if((isset($_POST['latitude'])) && ((strlen($_POST['latitude'])) <= 13) && ($_POST['latitude'] <= 90) && ($_POST['latitude'] >= -90)) {
+    if (isset($_POST['latitude']) && (strlen($_POST['latitude']) <= 13) && ($_POST['latitude'] <= 90) && ($_POST['latitude'] >= -90)) {
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
         echo "<p class=\"warning\">Latitude mismatch!</p><br />";
-        $false='1';
+        $error = true;
     }
 
     // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
-    if((isset($_POST['longitude'])) && ((strlen($_POST['longitude'])) <= 13) && ($_POST['longitude'] >= -180) && ($_POST['longitude'] <= 180)) {
+    if (isset($_POST['longitude']) && (strlen($_POST['longitude']) <= 13) && ($_POST['longitude'] >= -180) && ($_POST['longitude'] <= 180)) {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {
         echo "<p class=\"warning\">Longitude mismatch!</p><br />";
-        $false = '1';
+        $error = true;
     }
 
     // If there is no false, generating SQL to check for object.
-    if ($false == 0) {
+    if (!$error) {
 
         // Opening database connection...
         $resource_r_update = connect_sphere_r();
@@ -559,13 +558,7 @@ else {
                     </tr>
                     <tr>
                         <th rowspan="6">
-<?php
-                if ($i == 1) {
-                    echo "<input type=\"radio\" name=\"update_choice\" value=\"".$row[0]."\" checked />";
-                }
-                else 
-                    echo "<input type=\"radio\" name=\"update_choice\" value=\"".$row[0]."\" />";
-?>
+                            <input type="radio" name="update_choice" value="<?php echo $row[0];?>" <?php echo ($i==1)?"checked=\"checked\"":""; ?> />
                         </th>
                         <td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
                         <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
@@ -622,7 +615,6 @@ else {
             exit();
         }
     }
-include '../../inc/footer.php';
-}
+    include '../../inc/footer.php';
 }
 ?>
