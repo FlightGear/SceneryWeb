@@ -28,7 +28,7 @@
         $page_title = "Automated Shared Models Positions Submission Form";
 
         $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index.php'>Go back and try it again</a>" .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")".
+             "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
         exit;
