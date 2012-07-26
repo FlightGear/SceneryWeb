@@ -23,9 +23,9 @@ function validateForm()
 {
     var form = document.getElementById("positions");
 
-    if (!checkSTG(form["stg"]) ||
-        !checkEmail(form["email"]) ||
-        !checkComment(form["comment"]))
+    if (!checkStringNotDefault(form["stg"], "") || !checkSTG(form["stg"]) ||
+        (form['email'].value!="" && !checkEmail(form['email'])) ||
+        !checkStringNotDefault(form["comment"], "") || !checkComment(form["comment"]))
         return false;
 
 }
@@ -55,17 +55,17 @@ Please note that:
 <form id="positions" method="post" action="check_mass_import.php" onsubmit="return validateForm();">
 <table width="400">
     <tr>
-        <td><span title="This is the content of the STG file you want to add."><a style="cursor: help;">Content to add</a></span></td>
+        <td><span title="This is the content of the STG file you want to add."><label for="stg">Content to add<em>*</em></label></span></td>
         <td><textarea name="stg" rows="30" cols="100" onblur="checkSTG(this);"></textarea></td>
     </tr>
     <tr>
-        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><a style="cursor:help">Email address</a></span></td>
+        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
         <td>
             <input type="text" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
         </td>
     </tr>
     <tr>
-        <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit"><a style="cursor: help">Comment</a></span></td>
+        <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit"><label for="comment">Comment<em>*</em></label></span></td>
         <td>
             <input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
