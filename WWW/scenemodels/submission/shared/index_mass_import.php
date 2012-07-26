@@ -56,7 +56,7 @@ Please note that:
 <table width="400">
     <tr>
         <td><span title="This is the content of the STG file you want to add."><label for="stg">Content to add<em>*</em></label></span></td>
-        <td><textarea name="stg" rows="30" cols="100" onblur="checkSTG(this);"></textarea></td>
+        <td><textarea name="stg" rows="30" cols="100" onchange="checkSTG(this);"></textarea></td>
     </tr>
     <tr>
         <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
