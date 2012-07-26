@@ -239,13 +239,16 @@ function chkFilename(checkStr)
     return allValid;
 }
 
-function checkStringNotDefault(objName, defaultValue)
+function checkStringNotDefault(field, defaultValue)
 {
-    if(objName.value == defaultValue)
+    if (field.value == defaultValue)
     {
-        alertsay = "Please change the value of the " + objName.name + " field!";
+        alertsay = "Please change the value of the " + field.name + " field!";
         alert(alertsay);
+        
+        field.focus();
+        return false;
     }
 
-    return objName.value == defaultValue;
+    return true;
 }

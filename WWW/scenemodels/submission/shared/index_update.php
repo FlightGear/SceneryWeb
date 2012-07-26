@@ -27,8 +27,8 @@ function validateForm()
 {
     var form = document.getElementById("edition");
 
-    if (!checkNumeric(form["longitude"],-180,180) ||
-        !checkNumeric(form["latitude"],-90,90))
+    if (!checkStringNotDefault(form["longitude"], "") || !checkNumeric(form["longitude"],-180,180) ||
+        !checkStringNotDefault(form["latitude"], "") || !checkNumeric(form["latitude"],-90,90))
         return false;
 
 }
@@ -42,13 +42,13 @@ function validateForm()
 <form id="edition" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
 <table>
     <tr>
-        <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><a style="cursor: help; ">Longitude</a></span></td>
+        <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
         <td>
             <input type="text" name="longitude" maxlength="13" value="0" onchange="checkNumeric(this,-180,180);" />
         </td>
     </tr>
     <tr>
-        <td><span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><a style="cursor: help; ">Latitude</a></span></td>
+        <td><span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
         <td>
             <input type="text" name="latitude" maxlength="13" value="0" onchange="checkNumeric(this,-90,90);" />
         </td>
