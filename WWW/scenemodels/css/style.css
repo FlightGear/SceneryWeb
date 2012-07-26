@@ -44,9 +44,6 @@ IMG {
     border: 0px;
 }
 
-TD {
-    vertical-align: center;
-}
 
 LI {
     margin-bottom: 1px;
@@ -74,9 +71,8 @@ UL.table LI {
 
 .paragraph_bloc {
     background: #e0ffe0;
-    padding: 1px;
     margin-bottom: 20px;
-    border:1px solid #000;
+    border:1px solid #999;
 }
 
 .header {
@@ -154,6 +150,7 @@ UL.table LI {
 
 TD {
     border:1px solid #999;
+    vertical-align: center;
 }
 
 TH {
