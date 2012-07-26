@@ -10,8 +10,7 @@ Features updates (by priority):
 - Review the names of the scripts to keep them coherent.
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Implement if submitting an already existing object (function already written).
-- Postpone the Javascript checks to the effectiv submission of the object/model (Julien).
-- Add pitch/roll data.
+- Add pitch/roll data and offset so they can be, for instance, mass imported.
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Enable maintainer to drop a comment.
 - Shows the object position when selected (map when adding...).
