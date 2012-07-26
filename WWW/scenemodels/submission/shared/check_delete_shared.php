@@ -357,12 +357,12 @@ function validateForm()
             <td><center><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
         </tr>
         <tr>
-            <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><label for="comment">Comment</label></span></td>
-            <td colspan="4"><input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);"/></td>
+            <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><label for="comment">Comment<em>*</em></label></span></td>
+            <td colspan="4"><input type="text" id="comment" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);"/></td>
         </tr>
         <tr>
             <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address (not mandatory)</label></span></td>
-            <td colspan="4"><input type="text" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></td>
+            <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></td>
         </tr>
         <tr>
             <td colspan="4">
@@ -456,12 +456,12 @@ function validateForm()
         }
 ?>
         <tr>
-            <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><label for="comment">Comment</label></span></td>
-            <td colspan="4"><input type="text" name="comment" maxlength="100" size="40" value="" /></td>
+            <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><label for="comment">Comment<em>*</em></label></span></td>
+            <td colspan="4"><input type="text" id="comment" name="comment" maxlength="100" size="40" value="" /></td>
         </tr>
         <tr>
             <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
-            <td colspan="4"><input type="text" name="email" maxlength="50" size="40" value="" /></td>
+            <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" /></td>
         </tr>
         <tr>
             <td colspan="5">
