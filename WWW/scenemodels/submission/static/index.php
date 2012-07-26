@@ -57,7 +57,7 @@ Please, read the following:
     <table>
         <tr>
             <td>
-            <span title="This is the family name of the object you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><a style="cursor: help;">Model's family</a></span>
+            <span title="This is the family name of the object you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family</label></span>
             </td>
             <td colspan="2">
             <select name="mo_shared">
@@ -79,7 +79,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the name of the author. If the author does not exist, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.">
-            <a style="cursor: help; ">Author</a>
+            <label for="mo_author">Author</label>
             </span>
             </td>
             <td>
@@ -91,7 +91,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="If you did not make the 3D model yourself, but were granted to do so, then you're a contributor. Please select your name here.">
-            <a style="cursor: help; ">Contributor</a>
+            <label for="contributor">Contributor</label>
             </span>
             </td>
             <td>
@@ -103,7 +103,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the country code where the model is located (for static models only).">
-            <a style="cursor: help; ">Country</a>
+            <label for="ob_country">Country</label>
             </span>
             </td>
             <td>
@@ -115,7 +115,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France">
-            <a style="cursor: help">Description</a>
+            <label for="mo_name">Description</label>
             </span>
             </td>
             <td>
@@ -125,7 +125,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the WGS84 longitude of the model you want to add. Has to be between -180.000000 and +180.000000.">
-            <a style="cursor: help; ">Longitude</a>
+            <label for="longitude">Longitude</label>
             </span>
             </td>
             <td>
@@ -135,7 +135,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the WGS84 latitude of the model you want to add. Has to be between -90.000000 and +90.000000.">
-            <a style="cursor: help; ">Latitude</a>
+            <label for="latitude">Latitude</latitude>
             </span>
             </td>
             <td>
@@ -145,7 +145,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the ground elevation (in meters) of the position where the model you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below.">
-            <a style="cursor: help; ">Elevation</a>
+            <label for="gndelev">Elevation</label>
             </span>
             </td>
             <td>
@@ -155,7 +155,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset.">
-            <a style="cursor: help; ">Elevation offset</a>
+            <label for="offset">Elevation offset</label>
             </span>
             </td>
             <td>
@@ -165,7 +165,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="The orientation (in degrees) of the object you want to add - as it appears in the .stg file (this is NOT the true heading). Let 0 if there is no specific orientation.">
-            <a style="cursor: help; ">Orientation</a>
+            <label for="heading">Orientation</label>
             </span>
             </td>
             <td>
@@ -175,7 +175,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: Hi, this is a new telecommunications model in Brittany, please commit.">
-            <a style="cursor: help">Comment</a>
+            <label for="comment">Comment</label>
             </span>
             </td>
             <td>
@@ -185,7 +185,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is a nice picture representing your model in FG the best way (eg: tower_thumbnail.jpeg).">
-            <a style="cursor: help; ">Corresponding 320x240 JPEG thumbnail</a>
+            <label for="mo_thumbfile">Corresponding 320x240 JPEG thumbnail</label>
             </span>
             </td>
             <td>
@@ -195,7 +195,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the AC3D file of your model (eg: tower.ac).">
-            <a style="cursor: help; ">Corresponding AC3D File</a>
+            <label for="ac3d_file">Corresponding AC3D File</label>
             </span>
             </td>
             <td>
@@ -205,7 +205,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the XML file of your model (eg: tower.xml).">
-            <a style="cursor: help; ">Corresponding XML File</a>
+            <label for="xml_file">Corresponding XML File</label>
             </span>
             </td>
             <td>
@@ -215,7 +215,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a factor of 2 in height and length.">
-            <a style="cursor: help; ">Corresponding PNG Texture Files</a>
+            <label for="png_file[]">Corresponding PNG Texture Files</label>
             </span>
             </td>
             <td>
