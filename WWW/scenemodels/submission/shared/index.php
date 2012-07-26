@@ -124,32 +124,32 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
     <tr>
         <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
         <td>
-            <input type="text" name="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation Offset<em>*</em></label></span></td>
         <td>
-            <input type="text" name="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
         </td>
     </tr>
     <tr>
         <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="heading">Orientation<em>*</em></label></span></td>
         <td>
-            <input type="text" name="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
+            <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
         </td>
     </tr>
     <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><label for="comment">Comment<em>*</em></label></span></td>
         <td>
-            <input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
+            <input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
         </td>
     </tr>
     <tr>
         <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address (not mandatory)</label></span></td>
         <td>
-            <input type="text" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
+            <input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
         </td>
     </tr>
     <tr>

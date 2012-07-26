@@ -219,7 +219,7 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
     else
         $update_choice = $_GET['update_choice'];
 
-    if ((is_shared_or_static($GET_['update_choice']) == 'static') || ((is_shared_or_static($POST_['update_choice']) == 'static'))) {
+    if ((is_shared_or_static($GET_['update_choice']) == 'static') || (is_shared_or_static($POST_['update_choice']) == 'static')) {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but only shared objects can be updated for now.";
         include '../../inc/error_page.php';
@@ -285,7 +285,7 @@ function validateForm()
         while ($row = @pg_fetch_assoc($result))
         {
             $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-            if($actual_family==$row["mg_name"]) {
+            if ($actual_family==$row["mg_name"]) {
                 $id_family = $row["mg_id"];
                 echo "<option selected=\"selected\" value=\"".$row["mg_id"]."\">".$name."</option>\n";
             }
@@ -358,7 +358,7 @@ function validateForm()
             <?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
           </td>
           <td>
-            <input type="text" name="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onchange="checkNumeric(this,-180,180);" />
+            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onchange="checkNumeric(this,-180,180);" />
           </td>
         </tr>
         <tr>
@@ -370,7 +370,7 @@ function validateForm()
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
           </td>
           <td>
-            <input type="text" name="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onchange="checkNumeric(this,-90,90);" />
+            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onchange="checkNumeric(this,-90,90);" />
           </td>
         </tr>
         <tr>
@@ -382,7 +382,7 @@ function validateForm()
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
           </td>
           <td>
-            <input type="text" name="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="new_gndelev" id="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onchange="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
         <tr>
@@ -394,7 +394,7 @@ function validateForm()
             <?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
           </td>
           <td>
-            <input type="text" name="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="new_offset" id="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onchange="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
         <tr>
@@ -405,7 +405,7 @@ function validateForm()
             <?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
           </td>
           <td>
-            <input type="text" name="new_heading" maxlength="7" value="<?php echo $actual_orientation; ?>" onchange="checkNumeric(this,0,359.999);" />
+            <input type="text" name="new_heading" id="new_heading" maxlength="7" value="<?php echo $actual_orientation; ?>" onchange="checkNumeric(this,0,359.999);" />
           </td>
         </tr>
         <tr>
@@ -413,7 +413,7 @@ function validateForm()
             <label for="comment">Comment</label></span>
           </td>
           <td colspan="2">
-            <center><input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this)"/></center>
+            <center><input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this)"/></center>
           </td>
         </tr>
         <tr>
@@ -421,7 +421,7 @@ function validateForm()
             <label for="email">Email address</label></span>
           </td>
           <td colspan="2">
-            <center><input type="text" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></center>
+            <center><input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></center>
           </td>
         </tr>
         <tr>
@@ -449,7 +449,7 @@ else {
     // Checking DB availability before all
     $ok=check_availability();
 
-    if(!$ok) {
+    if (!$ok) {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
@@ -484,7 +484,7 @@ else {
         $error = true;
     }
 
-    // If there is no false, generating SQL to check for object.
+    // If there is no error, generating SQL to check for object.
     if (!$error) {
 
         // Opening database connection...
@@ -497,6 +497,7 @@ else {
 
         if ($returned_rows == '0') {
             echo "<br /><p class=\"warning\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).</p><br/>";
+            include '../../inc/footer.php';
             exit;
         }
         
@@ -507,36 +508,36 @@ else {
                 <form id="update_position" method="post" action="check_update_shared.php">
                 <table>
                     <tr>
-                        <td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
+                        <td><span title="This is the family name of the object you want to update."><label>Object's family</label></span></td>
                         <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><a style="cursor: help; ">Model name</a></span></td>
+                        <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
                         <td colspan="4"><?php $real_name = object_name($row[5]); echo $real_name; ?></td>
                         <input name="model_id" type="hidden" value="<?php echo $row[5]; ?>" />
                     </tr>
                     <tr>
                         <td><span title="This is the last update or submission date/time of the corresponding object.">
-                        <a style="cursor: help; ">Date/Time of last update</a></span></td>
+                        <label>Date/Time of last update</label></span></td>
                         <td colspan="4"><?php echo $row[1]; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><a style="cursor: help; ">Elevation</a></span></td>
+                        <td><span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below."><label>Elevation</label></span></td>
                         <td colspan="4"><?php $actual_elevation = get_object_elevation_from_id($row[0]); echo $actual_elevation; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
+                        <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><label>Elevation Offset</label></span></td>
                         <td colspan="4"><?php $actual_offset = get_object_offset_from_id($row[0]); echo $actual_offset; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
+                        <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
                         <td colspan="4"><?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $actual_orientation; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
                         <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
                         <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
-                        <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+                        <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
                             </iframe>
                         </td>
                     </tr>
@@ -561,7 +562,7 @@ else {
         }
 
         if ($returned_rows > '1') {// If we have more than one, the user has to choose...
-            echo "<br /><center>".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</center><br /><br />";
+            echo "<p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</p><br />";
 
             // Starting multi-solutions form
             echo "<form id=\"update_position\" method=\"post\" action=\"check_update_shared.php\">";
@@ -578,37 +579,37 @@ else {
                         <th rowspan="6">
                             <input type="radio" name="update_choice" value="<?php echo $row[0];?>" <?php echo ($i==1)?"checked=\"checked\"":""; ?> />
                         </th>
-                        <td><span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span></td>
+                        <td><span title="This is the family name of the object you want to update."><label>Object's family</label></span></td>
                         <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
-                        <a style="cursor: help; ">Model name</a></span></td>
+                        <label>Model name</label></span></td>
                         <td colspan="4"><?php $real_name = object_name($row[5]); echo $real_name; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the last update or submission date/time of the corresponding object.">
-                        <a style="cursor: help; ">Date/Time of last update</a></span></td>
+                        <label>Date/Time of last update</label></span></td>
                         <td colspan="4"><?php echo $row[1]; ?></td>
                     </tr>
                     <tr>
                         <td><span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
-                        <a style="cursor: help; ">Elevation</a></span></td>
+                        <label>Elevation</label></span></td>
                         <td colspan="4"><?php $actual_elevation = get_object_elevation_from_id($row[0]); echo $actual_elevation; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><a style="cursor: help; ">Elevation Offset</a></span></td>
+                        <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><label>Elevation Offset</label></span></td>
                         <td colspan="4"><?php $actual_offset = get_object_offset_from_id($row[0]); echo $actual_offset; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span></td>
+                        <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
                         <td colspan="4"><?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $actual_orientation; ?></td>
                     </tr>
                     <tr>
-                        <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
-                        <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
+                        <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
+                        <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>" alt="Thumbnail"/></a></td>
                         <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
-                        <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<? echo $long; ?>&lat=<? echo $lat; ?>&zoom=14" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
+                        <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
                             </iframe>
                         </td>
                     </tr>
