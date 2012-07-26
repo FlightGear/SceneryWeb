@@ -253,7 +253,7 @@ function validateForm()
     $id_to_update = pg_escape_string(stripslashes($update_choice));
     echo "<p class=\"center\">You have asked to update object #".$id_to_update.".</p><br /><br />\n";
 ?>
-    <form id="update" method="post" action="check_update_shared.php">
+    <form id="update" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
       <table>
         <tr>
           <th></th>
