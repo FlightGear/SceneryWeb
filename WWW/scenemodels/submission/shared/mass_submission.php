@@ -91,13 +91,11 @@ require_once('../../inc/functions.inc.php');
 
 ?>
                     <tr>
-                    <td colspan="7">
-                        <center>
+                    <td colspan="7" class="submit">
                         <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET[email]."\" />"; ?>
                         <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET[sig]."\" />"; ?>
                         <input type="submit" name="submit" value="Submit the mass import!" />
                         <input type="submit" name="cancel" value="Reject - Do not import!" />
-                        </center>
                     </td>
                     </tr>
                     </table>

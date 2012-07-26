@@ -153,8 +153,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
         </td>
     </tr>
     <tr>
-        <td colspan="2">
-            <center>
+        <td colspan="2" class="submit">
 <?php
             // Google Captcha stuff
             require_once('../../inc/captcha/recaptchalib.php');
@@ -163,7 +162,6 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
 ?>
             <br />
             <input type="submit" value="Submit position" />
-            </center>
         </td>
     </tr>
 </table>

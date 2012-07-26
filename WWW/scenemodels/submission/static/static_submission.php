@@ -543,13 +543,11 @@ function validateForm()
     </tr>
     <tr>
         <td>Action</td>
-        <td>
-        <center>
+        <td class="submit">
             <input type="hidden" name="ob_sig" value="<?php echo $_GET["ob_sig"]; ?>" />
             <input type="hidden" name="mo_sig" value="<?php echo $_GET["mo_sig"]; ?>" />
             <input type="submit" name="action" value="Submit model" />
             <input type="submit" name="action" value="Reject model" />
-        </center>
         </td>
     </tr>
 </table>

@@ -72,17 +72,15 @@ Please note that:
         </td>
     </tr>
     <tr>
-        <td colspan="2">
-            <center>
+        <td colspan="2" class="submit">
 <?php
-                // Google Captcha stuff
-                require_once('../../inc/captcha/recaptchalib.php');
-                $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-                echo recaptcha_get_html($publickey);
+            // Google Captcha stuff
+            require_once('../../inc/captcha/recaptchalib.php');
+            $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+            echo recaptcha_get_html($publickey);
 ?>
-                <br />
-                <input type="submit" value="Submit mass import" />
-            </center>
+            <br />
+            <input type="submit" value="Submit mass import" />
         </td>
     </tr>
 </table>

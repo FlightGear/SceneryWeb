@@ -365,8 +365,7 @@ function validateForm()
             <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></td>
         </tr>
         <tr>
-            <td colspan="4">
-            <center>
+            <td colspan="4" class="submit">
 <?php
             // Google Captcha stuff
             require_once('../../inc/captcha/recaptchalib.php');
@@ -380,7 +379,6 @@ function validateForm()
             
             <input type="submit" name="submit" value="Delete this object!" />
             <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
-            </center>
             </td>
         </tr>
         </table>

@@ -60,7 +60,7 @@ Please, read the following:
             <span title="This is the family name of the object you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family</label></span>
             </td>
             <td colspan="2">
-            <select name="mo_shared">
+            <select name="mo_shared" id="mo_shared">
             <?php
             $resource_r = connect_sphere_r();
             $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
@@ -83,7 +83,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <select name="mo_author">
+            <select name="mo_author" id="mo_author">
             <?php list_authors(); ?>
             </select>
         </td>
@@ -95,7 +95,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <select name="contributor">
+            <select name="contributor" id="contributor">
             <?php list_authors(); ?>
             </select>
             </td>
@@ -107,7 +107,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <select name="ob_country">
+            <select name="ob_country" id="ob_country">
             <?php list_countries(); ?>
             </select>
             </td>
@@ -119,7 +119,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="mo_name" maxlength="100" size="40" value="Tell us more about your model." onchange="checkComment(this);"/>
+            <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" value="Tell us more about your model." onchange="checkComment(this);"/>
             </td>
         </tr>
         <tr>
@@ -129,7 +129,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="longitude" maxlength="11" value="" onchange="checkNumeric(this,-180,180);" />
+            <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="checkNumeric(this,-180,180);" />
             </td>
         </tr>
         <tr>
@@ -139,7 +139,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="latitude" maxlength="10" value="" onchange="checkNumeric(this,-90,90);" />
+            <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="checkNumeric(this,-90,90);" />
             </td>
         </tr>
         <tr>
@@ -149,7 +149,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
             </td>
         </tr>
         <tr>
@@ -159,7 +159,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
             </td>
         </tr>
         <tr>
@@ -169,7 +169,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
+            <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
             </td>
         </tr>
         <tr>
@@ -179,7 +179,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
+            <input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
             </td>
         </tr>
         <tr>
@@ -189,7 +189,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="file" name="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" />
+            <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" />
             </td>
         </tr>
         <tr>
@@ -199,7 +199,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="file" name="ac3d_file" class="multi" maxlength="1" accept="ac"/>
+            <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac"/>
             </td>
         </tr>
         <tr>
@@ -209,7 +209,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="file" name="xml_file" class="multi" maxlength="1" accept="text/xml" />
+            <input type="file" name="xml_file" id="xml_file" class="multi" maxlength="1" accept="text/xml" />
             </td>
         </tr>
         <tr>
@@ -219,12 +219,11 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="file" name="png_file[]" class="multi" maxlength="12" accept="image/png" />
+            <input type="file" name="png_file[]" id="png_file[]" class="multi" maxlength="12" accept="image/png" />
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-            <center>
+            <td colspan="2" class="submit">
             <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
             <?php
             // Google Captcha stuff
@@ -236,7 +235,6 @@ Please, read the following:
             <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
             <input type="submit" value="Submit model" />
-            </center>
             </td>
         </tr>
     </table>

@@ -51,10 +51,8 @@ function validateForm()
         </td>
     </tr>
     <tr>
-        <td colspan="2">
-            <center>
+        <td colspan="2" class="submit">
             <input type="submit" value="Check for objects at this position" />
-            </center>
         </td>
     </tr>
 </table>

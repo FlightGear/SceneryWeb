@@ -54,11 +54,9 @@ function validateForm()
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="2" class="submit">
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
-            <center>
             <input type="submit" value="Check for objects at this position" />
-            </center>
         </td>
     </tr>
 </table>

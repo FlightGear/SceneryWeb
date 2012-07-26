@@ -6,7 +6,7 @@
     // Checking DB availability before all
     $ok = check_availability();
 
-    if(!$ok) {
+    if (!$ok) {
         $page_title = "Automated Shared Models Positions Pending Requests Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
@@ -14,11 +14,11 @@
     }
 
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
-    if ((isset($_GET["action"])) && (isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'confirm')) {
+    if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'confirm')) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != '0') {
+        if ($resource_rw != '0') {
 
         // Checking the presence of sig into the database
             $result = @pg_query($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
@@ -31,7 +31,7 @@
                 exit;
             }
 
-            if($_GET["action"] == 'confirm') {   // If action comes from the unitary insertion script
+            if ($_GET["action"] == 'confirm') {   // If action comes from the unitary insertion script
                 while ($row = pg_fetch_row($result)) {
                     $sqlzbase64 = $row[1];
 
@@ -44,7 +44,7 @@
                     // Sending the request...
                     $resultrw = @pg_query($resource_rw, $query_rw);
 
-                    if(!$resultrw) {
+                    if (!$resultrw) {
                         $page_title = "Automated Shared Models Positions Pending Requests Form";
                         include '../../inc/header.php';
                         echo "<p class=\"center\">";
@@ -132,7 +132,7 @@
 
     // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
     else {
-        if ((isset($_GET["action"])) && (isset($_GET["sig"])) && ((strlen($_GET["sig"])) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'reject')) {
+        if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'reject')) {
             $resource_rw = connect_sphere_rw();
 
             // If connection is OK
@@ -151,7 +151,6 @@
                     include '../../inc/error_page.php';
 
                     // Closing the rw connection.
-                    include '../../inc/footer.php';
                     @pg_close($resource_rw);
                     exit;
                 }

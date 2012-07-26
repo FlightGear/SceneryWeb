@@ -425,8 +425,7 @@ function validateForm()
           </td>
         </tr>
         <tr>
-          <td colspan="4">
-            <center>
+          <td colspan="4" class="submit">
 <?php
     // Google Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
@@ -436,7 +435,6 @@ function validateForm()
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
             <input type="submit" name="submit" value="Update this object!" />
             <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
-            </center>
           </td>
         </tr>
       </table>
@@ -545,12 +543,9 @@ else {
                     <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
                     <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
                     <tr>
-                        <td colspan="4">
-                        <center>
-                        <br />
+                        <td colspan="4" class="submit">
                         <input type="submit" name="submit" value="I want to update this object!" />
                         <input type="button" name="cancel" value="Cancel, I made a mistake!" onclick="history.go(-1)"/>
-                        </center>
                         </td>
                     </tr>
                 </table>
@@ -618,14 +613,11 @@ else {
             }
 ?>
                     <tr>
-                        <td colspan="5">
-                        <center>
+                        <td colspan="5" class="submit">
                         <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
                         <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
-                        <br />
                         <input type="submit" name="submit" value="I want to update the selected object!" />
                         <input type="button" name="cancel" value="Cancel - I made a mistake!" onclick="history.go(-1)"/>
-                        </center>
                         </td>
                     </tr>
                 </table>
