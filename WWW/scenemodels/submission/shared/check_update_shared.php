@@ -229,6 +229,25 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+function validateForm()
+{
+    var form = document.getElementById("update");
+
+    if (!checkStringNotDefault(form["new_long"], "") || !checkNumeric(form["new_long"],-180,180) ||
+        !checkStringNotDefault(form["new_lat"], "") || !checkNumeric(form["new_lat"],-90,90) ||
+        !checkStringNotDefault(form["new_gndelev"], "") || !checkNumeric(form['new_gndelev'],-10000,10000) ||
+        !checkNumeric(form['new_offset'],-10000,10000) ||
+        !checkStringNotDefault(form["new_heading"], "") || !checkNumeric(form['new_heading'],0,359.999) ||
+        !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
+        (form['email'].value!="" && !checkEmail(form['email'])))
+        return false;
+
+}
+/*]]>*/
+</script>
+
 <br /><br />
 <?php
     $id_to_update = pg_escape_string(stripslashes($update_choice));
@@ -244,7 +263,7 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
         </tr>
         <tr>
           <td>
-            <span title="This is the family name of the object you want to update."><a style="cursor: help;">Object's family</a></span>
+            <span title="This is the family name of the object you want to update."><label for="family_name">Object's family</label></span>
           </td>
           <td>
             <?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
@@ -259,11 +278,10 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
     if ($resource_r != '0')
     {
         // Show all the families other than the static family
-        $result = @pg_query("select mg_id,mg_name from fgs_modelgroups where mg_id!='0' order by mg_name;");
+        $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
 
         // Start the select form
         echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
-        echo "<option value=\"0\">Please select a family</option>\n";
         while ($row = @pg_fetch_assoc($result))
         {
             $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
@@ -291,7 +309,7 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
         <tr>
           <td>
             <span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
-            <a style="cursor: help; ">Model name</a></span>
+            <label for="model_name">Model name</label></span>
           </td>
           <td>
 <?php
@@ -317,7 +335,7 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
             $name = preg_replace('/ /',"&nbsp;",$row["mo_path"]);
 
             if ($actual_model_name == $row["mo_name"])
-                echo "<option selected value='".$id."'>".$name."</option>\n";
+                echo "<option selected=\"selected\" value='".$id."'>".$name."</option>\n";
             else
                 echo "<option value='".$id."'>".$name."</option>\n";
         }
@@ -334,76 +352,76 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
         <tr>
           <td>
             <span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000.">
-            <a style="cursor: help; ">Longitude</a></span>
+            <label for="new_long">Longitude</label></span>
           </td>
           <td>
             <?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
           </td>
           <td>
-            <input type="text" name="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onblur="checkNumeric(this,-180,180);" />
+            <input type="text" name="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onchange="checkNumeric(this,-180,180);" />
           </td>
         </tr>
         <tr>
           <td>
             <span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000.">
-            <a style="cursor: help; ">Latitude</a></span>
+            <label for="new_lat">Latitude</label></span>
           </td>
           <td>
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
           </td>
           <td>
-            <input type="text" name="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onblur="checkNumeric(this,-90,90);" />
+            <input type="text" name="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onchange="checkNumeric(this,-90,90);" />
           </td>
         </tr>
         <tr>
           <td>
             <span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
-            <a style="cursor: help; ">Elevation</a></span>
+            <label for="new_gndelev">Elevation</label></span>
           </td>
           <td>
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
           </td>
           <td>
-            <input type="text" name="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onblur="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onchange="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
         <tr>
           <td>
             <span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground).">
-            <a style="cursor: help; ">Elevation Offset</a></span>
+            <label for="new_offset">Elevation Offset</label></span>
           </td>
           <td>
             <?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
           </td>
           <td>
-            <input type="text" name="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onblur="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onchange="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
         <tr>
           <td>
-            <span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><a style="cursor: help; ">Orientation</a></span>
+            <span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="new_heading">Orientation</label></span>
           </td>
           <td>
             <?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
           </td>
           <td>
-            <input type="text" name="new_orientation" maxlength="7" value="<?php echo $actual_orientation; ?>" onblur="checkNumeric(this,0,359.999);" />
+            <input type="text" name="new_heading" maxlength="7" value="<?php echo $actual_orientation; ?>" onchange="checkNumeric(this,0,359.999);" />
           </td>
         </tr>
         <tr>
           <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
-            <a style="cursor: help">Comment</a></span>
+            <label for="comment">Comment</label></span>
           </td>
           <td colspan="2">
-            <center><input type="text" name="comment" maxlength="100" size="40" value="" /></center>
+            <center><input type="text" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this)"/></center>
           </td>
         </tr>
         <tr>
           <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
-            <a style="cursor:help">Email address</a></span>
+            <label for="email">Email address</label></span>
           </td>
           <td colspan="2">
-            <center><input type="text" name="email" maxlength="50" size="40" value="" onblur="checkEmail(this);"/></center>
+            <center><input type="text" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></center>
           </td>
         </tr>
         <tr>
