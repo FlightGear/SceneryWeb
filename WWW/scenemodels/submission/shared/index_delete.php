@@ -7,8 +7,7 @@
 
     $ok=check_availability();
 
-    if(!$ok)
-    {
+    if (!$ok) {
         $page_title = "Automated Shared Models Positions Deletion Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
@@ -18,6 +17,7 @@
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
 ?>
+
 <script src="/inc/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -35,7 +35,7 @@ function validateForm()
 <h1>Positions Automated Deletion Form</h1>
 
 <p class="center"><b>Foreword:</b> This automated form goal is to ease the deletion of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>  objects in the database.</p>
-<br /><br />
+
 <form id="deletion" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
 <table>
     <tr>

@@ -226,8 +226,7 @@ if (!$ok) {
     exit;
 }
 
-$page_title = "Automated Shared Models Positions Deletion Form";
-include '../../inc/header.php';
+
 ?>
 <br />
 <?php
@@ -238,68 +237,86 @@ if (isset($_POST['delete_choice']) || isset($_GET['delete_choice'])) { // We can
     $error = false;
 }
 else {
+    $error_text = "";
+
     // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
-    if (isset($_POST['latitude']) &&  strlen($_POST['latitude']) <= 13 &&
-       $_POST['latitude'] <= 90  &&  $_POST['latitude'] >= -90) {
+    if (isset($_POST['latitude'])
+        && strlen($_POST['latitude']) <= 13 
+        && $_POST['latitude'] <= 90
+        && $_POST['latitude'] >= -90) {
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
-        echo "<p class=\"center warning\">Latitude mismatch!</p><br />";
+        $error_text .= "Latitude mismatch!<br/>";
         $error = true;
     }
 
     // Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
-    if (isset($_POST['longitude'])  &&  strlen($_POST['longitude']) <= 13  &&
-       $_POST['longitude'] <= 180  &&  $_POST['longitude'] >= -180) {
+    if (isset($_POST['longitude'])
+        && strlen($_POST['longitude']) <= 13 
+        && $_POST['longitude'] <= 180
+        && $_POST['longitude'] >= -180) {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {
-        echo "<p class=\"center warning\">Longitude mismatch!</p><br />";
+        $error_text .=  "Longitude mismatch!<br/>";
         $error = true;
     }
 }
 
-// If there is no false, generating SQL to be inserted into the database pending requests table.
+// If there is no error, generating SQL to be inserted into the database pending requests table.
+if ($error) {
+    $page_title = "Automated Shared Models Positions Deletion Form";
+    // $error_text is defined above
+    include '../../inc/error_page.php';
+    exit;
+}
 
-if (!$error) {
 
-    // Opening database connection...
-    $resource_r_deletion = connect_sphere_r();
 
-    if (isset($_POST['delete_choice']) || isset($_GET['delete_choice'])) { // Id the delete_choice is sent directly to us from a webform "outside" the submission world
-        if (isset($_POST['delete_choice'])) {
-            $delete_choice = $_POST['delete_choice'];
-        }
-        else {
-            $delete_choice = $_GET['delete_choice'];
-        }
+// Opening database connection...
+$resource_r_deletion = connect_sphere_r();
 
-        // Let's grab the information about this object from the database
-        $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE ob_id = ".$delete_choice.";";
-        $result = @pg_query($resource_r_deletion, $query_pos);
-        $returned_rows = pg_num_rows($result);
+// If the delete_choice is sent directly to us from a webform "outside" the submission world
+if (isset($_POST['delete_choice']) || isset($_GET['delete_choice'])) { 
+    if (isset($_POST['delete_choice'])) {
+        $delete_choice = $_POST['delete_choice'];
     }
     else {
-        // Let's see in the database if something exists at this position
-        $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
-        $result = @pg_query($resource_r_deletion, $query_pos);
-        $returned_rows = pg_num_rows($result);
+        $delete_choice = $_GET['delete_choice'];
     }
 
-    // We have no result
-    if ($returned_rows == 0) {
-        echo "<br /><p class=\"center warning\">Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).</p><br/>";
-        include '../../inc/footer.php';
-        exit;
-    }
+    // Let's grab the information about this object from the database
+    $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE ob_id = ".$delete_choice.";";
+    $result = @pg_query($resource_r_deletion, $query_pos);
+    $returned_rows = pg_num_rows($result);
+}
+else {
+    // Let's see in the database if something exists at this position
+    $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
+    $result = @pg_query($resource_r_deletion, $query_pos);
+    $returned_rows = pg_num_rows($result);
+}
 
-    // We have only one result
 
-    if ($returned_rows == 1) {
-        while ($row = pg_fetch_row($result)) {
-            echo "<p class=\"center\">You have asked to delete object #".$row[0].".</p><br />";
+// We have no result
+if ($returned_rows == 0) {
+    $page_title = "Automated Shared Models Positions Deletion Form";
+    $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).";
+    include '../../inc/error_page.php';
+    exit;
+}
+
+$page_title = "Automated Shared Models Positions Deletion Form";
+include '../../inc/header.php';
+
+// We have only one result
+
+if ($returned_rows == 1) {
+    $row = pg_fetch_row($result);
+    echo "<p class=\"center\">You have asked to delete object #".$row[0].".</p>";
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -316,8 +333,8 @@ function validateForm()
 /*]]>*/
 </script>
 
-        <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
-        <table>
+    <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
+    <table>
         <tr>
             <td><span title="This is the family name of the object you want to delete."><label>Object's family</label></span></td>
             <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
@@ -367,10 +384,10 @@ function validateForm()
         <tr>
             <td colspan="4" class="submit">
 <?php
-            // Google Captcha stuff
-            require_once('../../inc/captcha/recaptchalib.php');
-            $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-            echo recaptcha_get_html($publickey);
+    // Google Captcha stuff
+    require_once('../../inc/captcha/recaptchalib.php');
+    $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+    echo recaptcha_get_html($publickey);
 ?>
             <br />
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
@@ -381,31 +398,31 @@ function validateForm()
             <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
             </td>
         </tr>
-        </table>
-        </form>
+    </table>
+    </form>
 <?php
-            include '../../inc/footer.php';
-        }
-        exit;
-    }
+    include '../../inc/footer.php';
+    
+    exit;
+}
 
-    // If we have more than one solution
-    else if ($returned_rows > 1) {
-        echo "<br /><p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to delete.</p><br />";
+// If we have more than one solution
+else if ($returned_rows > 1) {
+    echo "<br /><p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to delete.</p><br />";
 
-        // Starting multi-solutions form
-        echo "<form id=\"delete_position\" method=\"post\" action=\"check_delete_shared.php\">";
-        echo "<table>";
+    // Starting multi-solutions form
+    echo "<form id=\"delete_position\" method=\"post\" action=\"check_delete_shared.php\">";
+    echo "<table>";
 
-        $i = 1; // Just used to put the selected button on the first entry
-        while ($row = pg_fetch_row($result)) {
+    $is_first = true; // Just used to put the selected button on the first entry
+    while ($row = pg_fetch_row($result)) {
 ?>
         <tr>
             <th colspan="5">Object number #<?php echo $row[0]; ?></th>
         </tr>
         <tr>
             <th rowspan="6">
-                <input type="radio" name="delete_choice" value="<?php echo $row[0];?>" <?php echo ($i == 1)?"checked=\"checked\"":"";?> />
+                <input type="radio" name="delete_choice" value="<?php echo $row[0];?>" <?php echo ($is_first)?"checked=\"checked\"":"";?> />
             </th>
             <td><span title="This is the family name of the object you want to delete."><label>Object's family</label></span></td>
             <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
@@ -445,8 +462,8 @@ function validateForm()
             <td><center><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
         </tr>
 <?php
-            $i++;
-        }
+        $is_first = false;
+    }
 ?>
         <tr>
             <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><label for="comment">Comment<em>*</em></label></span></td>
@@ -462,10 +479,10 @@ function validateForm()
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
             <input name="step" type="hidden" value="3" />
 <?php
-            // Google Captcha stuff
-            require_once('../../inc/captcha/recaptchalib.php');
-            $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-            echo recaptcha_get_html($publickey);
+        // Google Captcha stuff
+        require_once('../../inc/captcha/recaptchalib.php');
+        $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+        echo recaptcha_get_html($publickey);
 ?>
             <br />
             <input type="submit" name="submit" value="Delete this object!" />
@@ -475,10 +492,8 @@ function validateForm()
         </table>
         </form>
 <?php
-        include '../../inc/footer.php';
-        exit;
-    }
-
+    include '../../inc/footer.php';
+    exit;
 }
 
 include '../../inc/footer.php';

@@ -23,7 +23,7 @@
       </td>
     </tr>
     <?php
-      $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, mo_modified, mo_shared, CHAR_LENGTH(mo_modelfile) ";
+      $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, to_char(mo_modified,'YYYY-dd-mm (HH24:MI)') AS mo_datedisplay, mo_shared, CHAR_LENGTH(mo_modelfile) ";
       $query.= "AS mo_modelsize, mg_name, mg_id ";
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
       $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ";
@@ -41,7 +41,7 @@
           echo "<li><b>Path:</b> ".$row["mo_path"]."</li>\n";
           echo "<li><b>Notes:</b> ".$row["mo_notes"]."</li>\n";
           echo "<li><b>Author: </b><a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a></li>\n";
-          echo "<li><b>Last Updated: </b>".$row["mo_modified"]."</li>\n";
+          echo "<li><b>Last Updated: </b>".$row["mo_datedisplay"]."</li>\n";
           echo "<li><b>Type: </b><a href=\"modelbrowser.php?shared=".$row["mg_id"]."\">".$row["mg_name"]."</a></li>\n";
 
           if ($row["mo_modelsize"]>0){
