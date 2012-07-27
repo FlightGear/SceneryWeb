@@ -27,7 +27,7 @@ require_once('../../inc/functions.inc.php');
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Mass Import Form";
-        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_mass_import.php'>Go back and try it again</a>" .
+        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='index_mass_import.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
@@ -104,8 +104,8 @@ if (!$error) {
 
     $i = 1;
     $ko = 0;
-    echo "<center>\n<table>\n";
-    echo "<tr>\n<td><center>Line #</center></td>\n<td><center>Type</center></td>\n<td><center>Model</center></td>\n<td><center>Longitude</center></td>\n<td><center>Latitude</center></td>\n<td><center>Elevation</center></td>\n<td><center>Orientation</center></td>\n<td><center>Result</center></td>\n</tr>\n";
+    echo "<table>\n";
+    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Result</th>\n</tr>\n";
 
     foreach ($tab_lines as $value) { // Now printing the lines...
         echo "<tr>";
@@ -224,7 +224,7 @@ if (!$error) {
         $ko = 0;             // Resets the local KO to "0".
     }
     echo "</table>\n";
-    echo "</center>\n<br />";
+    echo "<br />";
 
     if($global_ko == 1) { // If errors have been found...
         if ($cpt_err == 1) {
@@ -243,8 +243,8 @@ if (!$error) {
     echo "<p class=\"center ok\">No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br />";
 
     $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
-    for ($j = 0; $j<=$nb_lines; $j++) { // For each line, add the data content to the request
-        if($j == ($nb_lines)) {
+    for ($j = 1; $j<=$nb_lines; $j++) { // For each line, add the data content to the request
+        if ($j == $nb_lines) {
             $data_query_rw = $data_query_rw.$data_rw[$j].";";
         }
         else {
@@ -274,7 +274,7 @@ if (!$error) {
     @pg_close($resource_rw);
 
     // Talking back to submitter.
-    if(!$resultrw) {
+    if (!$resultrw) {
         echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
         include '../../inc/footer.php';
         exit;
@@ -283,7 +283,7 @@ if (!$error) {
     echo "<p class=\"center\">Your submission has been successfully queued into the FG scenery database update requests!<br />";
     echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
-    echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></p>";
+    echo "Want to submit another position ?<br /> <a href=\"index.php\">Click here to go back to the submission page.</a></p>";
 
     // Sending mail if there is no false and SQL was correctly inserted.
     // Sets the time to UTC.
@@ -307,7 +307,7 @@ if (!$error) {
     if(!$failed_mail) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME']."/submission/check_mass_import.php" . "\r\n" .
                     "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                     "issued a mass shared object insertion request." . "\r\n";
@@ -315,7 +315,7 @@ if (!$error) {
     else {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME']."/submission/check_mass_import.php" . "\r\n" .
                     "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued a mass shared object insertion request." . "\r\n";
     }
@@ -326,7 +326,7 @@ if (!$error) {
                 "Comment added by user: " .
                 strip_tags($sent_comment) ."\r\n" .
                 "Now please click:" . "\r\n" .
-                "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email ."\r\n" .
+                "http://".$_SERVER['SERVER_NAME']."/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email ."\r\n" .
                 "to check and confirm or reject the submission" . "\r\n" .
                 "Thanks!" ;
 
@@ -351,7 +351,7 @@ if (!$error) {
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message3 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_mass_import.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME']."/submission/check_mass_import.php" . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n" .
                     "Just to let you know that this new mass shared object position insertion request has been sent for validation." . "\r\n" .
                     "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .

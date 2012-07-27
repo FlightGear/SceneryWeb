@@ -36,7 +36,7 @@ function validateForm()
 <p>
 <b>Foreword:</b> This automated mass import form goal is to ease the submission when submitter want to add a lot of shared models positions into FG Scenery database. <br />There are currently <?php count_objects(); ?>
  objects in the database. Help us to make it more! Simply copy/paste the NEW content of your STG files below.</p>
-<p>Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what recommandations this script is looking for.</p>
+<p>Please read <a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/contribute.php">this page</a> in order to understand what recommandations this script is looking for.</p>
 <p>
 Please note that:
 </p>

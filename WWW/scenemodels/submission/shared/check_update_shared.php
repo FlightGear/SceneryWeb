@@ -219,7 +219,7 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
     else
         $update_choice = $_GET['update_choice'];
 
-    if ((is_shared_or_static($GET_['update_choice']) == 'static') || (is_shared_or_static($POST_['update_choice']) == 'static')) {
+    if (is_shared_or_static($update_choice) == 'static') {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but only shared objects can be updated for now.";
         include '../../inc/error_page.php';
@@ -257,8 +257,8 @@ function validateForm()
       <table>
         <tr>
           <th></th>
-          <th><center>Actual value</center></th>
-          <th><center>New value</center></th>
+          <th>Actual value</th>
+          <th>New value</th>
           <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
         </tr>
         <tr>
@@ -410,7 +410,7 @@ function validateForm()
         </tr>
         <tr>
           <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
-            <label for="comment">Comment</label></span>
+            <label for="comment">Comment<em>*</em></label></span>
           </td>
           <td colspan="2">
             <center><input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this)"/></center>

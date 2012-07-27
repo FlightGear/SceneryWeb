@@ -570,7 +570,7 @@ function model_exists($model_name)
     $headerlink_family = connect_sphere_rw();
 
     // Querying...
-    $query = "select mo_path, mo_shared from fgs_models where mo_path = '".$queried_mo_path."';";
+    $query = "SELECT mo_path, mo_shared FROM fgs_models WHERE mo_path = '".$queried_mo_path."';";
     $result = @pg_query($headerlink_family, $query);
 
     // Checking the number of results. Should be 1.
@@ -578,12 +578,13 @@ function model_exists($model_name)
     {
         // Now proceeding with the family
         // The family path is the string between Models and the object name. Can be multiple.
-        for ($j = 1;$j<($max_tab_path-1);$j++) {
+        $queried_family_path = "";
+        for ($j=1; $j<($max_tab_path-1); $j++) {
             $queried_family_path.=$tab_path[$j]."/";
         }
 
         // Querying to check the existence of the family
-        $query_family = "select mg_path from fgs_modelgroups where mg_path='".$queried_family_path."';";
+        $query_family = "SELECT mg_path FROM fgs_modelgroups WHERE mg_path='".$queried_family_path."';";
         $result_family = pg_query($headerlink_family, $query_family);
 
         if (@pg_num_rows($result_family) == 1) {   // If the family & model are known, return 0.
