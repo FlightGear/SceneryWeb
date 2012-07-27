@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
-    popup = window.open("http://mapserver.flightgear.org/popmap?zoom="+zoom+"&amp;lat="+lat+"&amp;lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
+    popup = window.open("http://mapserver.flightgear.org/popmap?zoom="+zoom+"&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
     popup.focus();
 }
 </script>
