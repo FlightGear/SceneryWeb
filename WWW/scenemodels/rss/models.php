@@ -12,7 +12,7 @@
 <rss version="2.0">
   <channel>
     <title>FGFSDB Model Updates</title>
-    <link>http://scenemodels.flightgear.org/models.php</link>
+    <link>http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php</link>
     <language>en-GB</language>
     <copyright>Jon Stockill 2006-2008.</copyright>
     <description>FlightGear scenery object database model additions.</description>
@@ -26,7 +26,7 @@
       while ($row = pg_fetch_assoc($result)){
     ?>
     <item>
-      <link>http://scenemodels.flightgear.org/modeledit.php?id=<?php echo urlencode($row["mo_id"])?></link>
+      <link>http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php echo urlencode($row["mo_id"])?></link>
       <title><![CDATA[<?php echo $row["mo_name"]?> ]]></title> 
       <description><![CDATA[<?php echo $row["mo_name"]?> ]]></description> 
       <pubDate><?php echo $row["timestamp"]?> +0000</pubDate>

@@ -19,7 +19,7 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Update Form";
-        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_update.php'>Go back and try it again</a>" .
+        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='index_update.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
@@ -79,7 +79,7 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
     echo "<p class=\"center\">Your update request has been successfully queued into the FG scenery database update requests!<br />";
     echo "Unless it's rejected, the object should be updated in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
-    echo "Want to update, delete or submit another position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></p>";
+    echo "Want to update, delete or submit another position?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/\">Click here to go back to the submission page.</a></p>";
 
     // Sending mail if there is no false and SQL was correctly inserted.
     // Sets the time to UTC.
@@ -99,14 +99,14 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
     $subject = "[FG Scenery Submission forms] Automatic shared model update request: needs validation.";
 
     // Correctly format the data for the mail.
-    $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$_POST['model_name'];
+    $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$_POST['model_name'];
     $html_object_url = htmlspecialchars($object_url);
 
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
     if($failed_mail != 1) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery update PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                     "issued the following request:" . "\r\n";
@@ -114,7 +114,7 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
     else {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery update PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
     }
@@ -137,10 +137,10 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
 
     $message2 = "\r\n".
                 "Now please click:" . "\r\n" .
-                "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                 "to confirm the update" . "\r\n" .
                 "or" . "\r\n" .
-                "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                 "to reject the update." . "\r\n" . "\r\n" .
                 "Thanks!" ;
 
@@ -163,15 +163,15 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
         $subject = "[FG Scenery Submission forms] Automatic shared model update request.";
 
         // Correctly set the object URL.
-        $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
-        $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+        $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
+        $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$model_id;
         $html_family_url = htmlspecialchars($family_url);
         $html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message3 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
                     "Just to let you know that this new shared object update request has been sent for validation." . "\r\n" .
                     "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
@@ -533,7 +533,7 @@ else {
                     </tr>
                     <tr>
                         <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
-                        <td><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
+                        <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
                         <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
                         <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
                             </iframe>

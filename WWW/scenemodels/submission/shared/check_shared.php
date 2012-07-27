@@ -27,7 +27,7 @@
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Submission Form";
 
-        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index.php'>Go back and try it again</a>" .
+        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/shared/index.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
@@ -184,7 +184,7 @@ if (!$error) {
         echo "<br />Your position has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a>";
+        echo "Want to submit another position ?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/\">Click here to go back to the submission page.</a>";
         echo "</center>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
@@ -205,8 +205,8 @@ if (!$error) {
         $subject = "[FG Scenery Submission forms] Automatic shared model position request: needs validation.";
 
         // Correctly format the data for mail.
-        $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
-        $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+        $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
+        $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$model_id;
         $html_family_url = htmlspecialchars($family_url);
         $html_object_url = htmlspecialchars($object_url);
 
@@ -214,7 +214,7 @@ if (!$error) {
         if(!$failed_mail) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
+                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                         "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                         "issued the following request:" . "\r\n";
@@ -222,7 +222,7 @@ if (!$error) {
         else {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
+                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                         "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
@@ -244,10 +244,10 @@ if (!$error) {
 
         $message2 = "\r\n".
                     "Now please click:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                    "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                     "to confirm the submission" . "\r\n" .
                     "or" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                    "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                     "to reject the submission." . "\r\n" . "\r\n" .
                     "Thanks!" ;
 
@@ -270,15 +270,15 @@ if (!$error) {
             $subject = "[FG Scenery Submission forms] Automatic shared model position submission request.";
 
             // Correctly set the object URL.
-            $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
-            $object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
+            $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
+            $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$model_id;
             $html_family_url = htmlspecialchars($family_url);
             $html_object_url = htmlspecialchars($object_url);
 
             // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
             $message3 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/check_update_shared.php" . "\r\n" .
+                        "http://".$_SERVER['SERVER_NAME']."/submission/check_update_shared.php" . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
                         "Just to let you know that this new shared object position insertion request has been sent for validation." . "\r\n" .
                         "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .

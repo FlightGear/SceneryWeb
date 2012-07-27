@@ -52,7 +52,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
         <?php
             $result = pg_query("select mo_id, mo_path from fgsoj_models;");
             while ($row = pg_fetch_assoc($result)) {
-                if ($object["ob_model"] == $row["mo_id"]) print "<a href=\"http://scenemodels.flightgear.org/modeledit_oj.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
+                if ($object["ob_model"] == $row["mo_id"]) print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modeledit_oj.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
             }
         ?>
     </td>
@@ -64,7 +64,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
 <tr><td>Geographical and model informations</td>
 <td>
 <center>
-<iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&lat=<?php echo $latitude; ?>&zoom=14" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
+<iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
 </iframe>
 &nbsp;
 <img src="modelthumb_oj.php?id=<?php echo $object["ob_model"]; ?>"/>

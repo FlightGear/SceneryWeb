@@ -775,12 +775,12 @@ else {
         "Elevation offset: ". $offset . "\r\n" .
         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
         "Please click:" . "\r\n" .
-        "http://mapserver.flightgear.org/submap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
+        "http://mapserver.flightgear.org/submap/?lon=". $longitude ."&amp;lat=". $latitude ."&amp;zoom=14" . "\r\n" .
         "to locate the object on the map." ;
 
         $message2 = "\r\n".
         "Now please click:" . "\r\n" .
-        "http://scenemodels.flightgear.org/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email."\r\n" .
+        "http://".$_SERVER['SERVER_NAME']."/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&amp;mo_sig=". $mo_sha_hash ."&amp;email=". $safe_au_email."\r\n" .
         "to view and confirm/reject the submission." . "\r\n" .
         "Thanks!" ;
 

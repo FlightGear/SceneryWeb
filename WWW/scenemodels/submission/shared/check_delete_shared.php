@@ -19,7 +19,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Deletion Form";
-        $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/shared/index_delete.php'>Go back and try it again</a>" .
+        $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/shared/index_delete.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
@@ -29,7 +29,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
     $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
-    echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p><br />";
+    echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p>";
 
     // Should in fact be somewhere like here. Checking that comment exists. Just a small verification as it's not going into DB.
 
@@ -48,15 +48,15 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     $failed_mail = false;
     if (isset($_POST['email']) && (strlen($_POST['email']) > 0) && (strlen($_POST['email']) <= 50)) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
-        echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
+        echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
     }
     else {
-        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
+        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
         $failed_mail = true;
     }
 
     // Preparing the deletion request
-    $query_delete = "DELETE from fgs_objects where ob_id=".$id_to_delete.";";
+    $query_delete = "DELETE FROM fgs_objects WHERE ob_id=".$id_to_delete.";";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_delete.">";
@@ -89,7 +89,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     echo "<p class=\"center\">Your position has been successfully queued into the FG scenery database deletion requests!<br />";
     echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
-    echo "Want to delete or submit another position ?<br /> <a href=\"http://scenemodels.flightgear.org/submission/shared/\">Click here to go back to the submission page.</a></p>";
+    echo "Want to delete or submit another position ?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/\">Click here to go back to the submission page.</a></p>";
 
     // Sending mail if there is no false and SQL was correctly inserted.
     // Sets the time to UTC.
@@ -116,7 +116,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     if (!$failed_mail) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME']."/submission/check_shared.php" . "\r\n" .
                     "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                     "issued the following request:" . "\r\n";
@@ -124,7 +124,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     else {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_shared.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME']."/submission/check_shared.php" . "\r\n" .
                     "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
     }
@@ -146,10 +146,10 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
 
     $message2 = "\r\n".
                 "Now please click:" . "\r\n" .
-                "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                 "to confirm the deletion" . "\r\n" .
                 "or" . "\r\n" .
-                "http://scenemodels.flightgear.org/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                 "to reject the deletion." . "\r\n" . "\r\n" .
                 "Thanks!";
 
@@ -180,7 +180,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message3 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://scenemodels.flightgear.org/submission/check_delete_shared.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
                     "Just to let you know that this shared object position deletion request has been sent for validation." . "\r\n" .
                     "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
@@ -316,7 +316,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-        <form id="delete_position" method="post" action="http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php" onsubmit="return validateForm();">
+        <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
         <table>
         <tr>
             <td><span title="This is the family name of the object you want to delete."><label>Object's family</label></span></td>
@@ -352,7 +352,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
-            <td><center><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
             <td><center><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
         </tr>
@@ -391,26 +391,21 @@ function validateForm()
 
     // If we have more than one solution
     else if ($returned_rows > 1) {
-        echo "<br /><p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to delete.</center><br />";
+        echo "<br /><p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to delete.</p><br />";
 
         // Starting multi-solutions form
-        echo "<form id=\"delete_position\" method=\"post\" action=\"http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php\"\">";
+        echo "<form id=\"delete_position\" method=\"post\" action=\"check_delete_shared.php\">";
         echo "<table>";
 
         $i = 1; // Just used to put the selected button on the first entry
         while ($row = pg_fetch_row($result)) {
-        ?>
+?>
         <tr>
-            <td colspan="5" background="white"><center><b>Object number #<?php echo $row[0]; ?></b></center></td>
+            <th colspan="5">Object number #<?php echo $row[0]; ?></th>
         </tr>
         <tr>
             <th rowspan="6">
-<?php
-            if ($i == 1)
-                echo "<input type=\"radio\" name=\"delete_choice\" value=\"".$row[0]."\" checked=\"checked\" />";
-            else
-                echo "<input type=\"radio\" name=\"delete_choice\" value=\"".$row[0]."\" />";
-?>
+                <input type="radio" name="delete_choice" value="<?php echo $row[0];?>" <?php echo ($i == 1)?"checked=\"checked\"":"";?> />
             </th>
             <td><span title="This is the family name of the object you want to delete."><label>Object's family</label></span></td>
             <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
@@ -445,7 +440,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
-            <td><center><a href="http://scenemodels.flightgear.org/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
             <td><center><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0"></iframe></center></td>
         </tr>
@@ -462,8 +457,7 @@ function validateForm()
             <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" /></td>
         </tr>
         <tr>
-            <td colspan="5">
-            <center>
+            <td colspan="5" class="submit">
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
             <input name="step" type="hidden" value="3" />
@@ -476,7 +470,6 @@ function validateForm()
             <br />
             <input type="submit" name="submit" value="Delete this object!" />
             <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
-            </center>
             </td>
         </tr>
         </table>

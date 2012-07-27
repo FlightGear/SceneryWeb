@@ -9,7 +9,7 @@
     <li>helping the developer submitting his positions and objects (time and process gain) nearly directly into Terrasync;</li>
     <li>helping the maintainers through an automated process (no human interactions, automated consistency checks).</li>
   </ul>
-  Please read <a href="http://scenemodels.flightgear.org/contribute.php">this page</a> in order to understand what items those forms are looking for. All submissions are being followed and logged, so <b>DO NOT TAKE THIS</b> as a sandbox.
+  Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what items those forms are looking for. All submissions are being followed and logged, so <b>DO NOT TAKE THIS</b> as a sandbox.
   <br/><br/>
   <table>
     <tr align="left">

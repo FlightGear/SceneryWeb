@@ -102,7 +102,7 @@
                     // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                     $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://scenemodels.flightgear.org/submission/"  . "\r\n" .
+                            "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                             "I just wanted to let you know that the object position request nr :" . "\r\n" .
                             $_GET[sig]. "\r\n" .
                             "has been successfully treated in the fgs_objects table." . "\r\n" .
@@ -206,7 +206,7 @@
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://scenemodels.flightgear.org/submission/submission.php"  . "\r\n" .
+                            "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                             "I just wanted to let you know that the object position request nr:"  . "\r\n" .
                             "" .$_GET[sig]. ""."\r\n" .
                             "has been rejected and successfully deleted from the pending requests table.";
