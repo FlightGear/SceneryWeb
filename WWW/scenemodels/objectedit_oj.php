@@ -12,8 +12,8 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
     $object = pg_fetch_assoc($result);
 }
 ?>
-<input type="hidden" name="id" value=<?php if (isset($id)) print $id; ?> />
-<table border="1" align="center">
+<input type="hidden" name="id" value="<?php if (isset($id)) print $id; ?>" />
+<table>
 <tr>
     <td>Unique ID</td>
     <td><?php echo $id; ?></td>
