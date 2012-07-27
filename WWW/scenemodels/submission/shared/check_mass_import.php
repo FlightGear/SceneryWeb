@@ -126,25 +126,25 @@ if (!$error) {
                 }
             }
             else if($j == 2) { // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
-                if(!(preg_match("/^[a-z0-9_\/.-]$/i",$value_tag))) {
+                if (!(preg_match("/^[a-z0-9_\/.-]$/i",$value_tag))) {
                     $return_value = model_exists($value_tag);
                     if ($return_value == 0) {
                         echo "<td><center>".$value_tag."</center></td>";
                         $model_id = ob_model_from_name($value_tag);
                     }
-                    else if($return_value == 1) {
+                    else if ($return_value == 1) {
                         echo "<td><p class=\"center warning\">Bad model label!</p></td>";
                         $ko = 1;
                         $global_ko = 1;
                         $cpt_err++;
                     }
-                    else if($return_value == 2) {
+                    else if ($return_value == 2) {
                         echo "<td><p class=\"center warning\">Object unknown!</p></td>";
                         $ko = 1;
                         $global_ko = 1;
                         $cpt_err++;
                     }
-                    else if($return_value == 3) {
+                    else if ($return_value == 3) {
                         echo "<td><p class=\"center warning\">Family unknown!</p></td>";
                         $ko = 1;
                         $global_ko = 1;
@@ -159,7 +159,7 @@ if (!$error) {
                 }
             }
             else if ($j == 3) { // Checking Longitude, must contain only figures and ., be >-180 and <180, be 13 characters max.
-                if((strlen($value_tag) <= 13) && ($value_tag <= 180) && ($value_tag >= -180) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
+                if ((strlen($value_tag) <= 13) && ($value_tag <= 180) && ($value_tag >= -180) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $long = $value_tag;
                 }
@@ -171,7 +171,7 @@ if (!$error) {
                 }
             }
             else if($j == "4") { // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 13 characters max.
-                if((strlen($value_tag) <= 13) && ($value_tag <= 90) && ($value_tag >= -90) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
+                if ((strlen($value_tag) <= 13) && ($value_tag <= 90) && ($value_tag >= -90) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
                     echo "<td><center>".$value_tag."<center></td>";
                     $lat = $value_tag;
                 }
@@ -184,8 +184,8 @@ if (!$error) {
             }
 
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
-            if($j == 5) { // Checking Elevation, must contain only figures and, be max 10 characters
-                if((strlen($value_tag) <= 10) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
+            if ($j == 5) { // Checking Elevation, must contain only figures and, be max 10 characters
+                if ((strlen($value_tag) <= 10) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $gndelev = $value_tag;
                 }
@@ -198,7 +198,7 @@ if (!$error) {
             }
             else if($j == 6) // Checking Orientation, must contain only figures, be >0, be 17 characters max.
             {
-                if((strlen($value_tag) <= 18) && ($value_tag >= 0) && preg_match('/^[0-9\.]+$/', $value_tag)) {
+                if ((strlen($value_tag) <= 18) && ($value_tag >= 0) && preg_match('/^[0-9\.]+$/', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td> ";
                     $orientation = $value_tag;
                 }
