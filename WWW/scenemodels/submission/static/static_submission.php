@@ -81,7 +81,7 @@ if (isset($_POST["action"])) {
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://scenemodels.flightgear.org/static/static_submission.php"  . "\r\n" .
+                            "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']  . "\r\n" .
                             "I just wanted to let you know that the 3D model import named Blah."."\r\n" .
                             "has been rejected and successfully deleted from the pending requests table"."\r\n" .
                             "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
@@ -208,7 +208,7 @@ if (isset($_POST["action"])) {
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/static/static_submission.php"  . "\r\n" .
+                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                         "I just wanted to let you know that the 3D model import with numbers :" . "\r\n" .
                         "- ".substr($_POST["mo_sig"],0,10). "... (model) and " . "\r\n" .
                         "- ".substr($_POST["ob_sig"],0,10). "... (object)" . "\r\n" .
@@ -220,7 +220,7 @@ if (isset($_POST["action"])) {
                         "at 1230Z today or tomorrow if this time has already passed." . "\r\n" .
                         "You can follow Terrasync's data update at the following url: " . "\r\n" .
                         "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
-                        "You can also check the model directly at http://scenemodels.flightgear.org/modeledit.php?id=".$mo_id[0].""."\r\n" .
+                        "You can also check the model directly at http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$mo_id[0].""."\r\n" .
                         "Thanks for your help in making FG better!";
 
                 $message = wordwrap($message0, 77, "\r\n");
@@ -364,7 +364,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-<p class="center">Hi, this is the static submission form at http://scenemodels.flightgear.org/submission/static.</p>
+<p class="center">Hi, this is the static submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/static.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
 <form id="validation" method="post" action="static_submission.php" onsubmit="return validateForm();">

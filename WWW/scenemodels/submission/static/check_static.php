@@ -19,7 +19,7 @@ $errormsg   = "";
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Update Form";
-        $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://scenemodels.flightgear.org/submission/static/index.php'>Go back and try it again</a>" .
+        $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/static/index.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
@@ -652,7 +652,7 @@ if ($fatalerror || $error > 0) {
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
     include '../../inc/footer.php';
     clearDir($targetPath);
-    exit();
+    exit;
 }
 else {
     # Connection to DB
@@ -713,7 +713,7 @@ else {
     else {
         $failed_mail = 0;
         $au_email = get_authors_email_from_authors_id($author);
-        if (($au_email != '') && ((strlen($au_email)) > 0)) {
+        if (($au_email != '') && (strlen($au_email) > 0)) {
             $safe_au_email = pg_escape_string(stripslashes($au_email));
             echo "<p class=\"center ok\">Email: ".$safe_au_email."</p><br />";
         }
@@ -724,7 +724,7 @@ else {
         echo "<p class=\"center\">Your 3D model insertion request has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to submit another model or position?<br /> <a href=\"http://scenemodels.flightgear.org/submission/\">Click here to go back to the submission page.</a></p>";
+        echo "Want to submit another model or position?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/\">Click here to go back to the submission page.</a></p>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
         date_default_timezone_set('UTC');                                // Sets the time to UTC.
@@ -741,14 +741,14 @@ else {
         $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
 
         // Correctly set the object URL.
-        $family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$mo_shared;
+        $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$mo_shared;
         $html_family_url = htmlspecialchars($family_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         if($failed_mail != 1) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
+                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                         "I just wanted to let you know that a new 3D model import request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_au_email."\r\n" .
                         "issued the following request:" . "\r\n";
@@ -756,7 +756,7 @@ else {
         else {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
+                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                         "I just wanted to let you know that a new 3D model import request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
@@ -811,7 +811,7 @@ else {
             // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
             $message3 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://scenemodels.flightgear.org/submission/static/check_static.php" . "\r\n" .
+                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
                         "Just to let you know that this 3D model import request has been sent for validation." . "\r\n" .
                         "The first part of the unique of this request is ".substr($ob_sha_hash,0,10). "... (object)" . "\r\n" .

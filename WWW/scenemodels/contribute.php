@@ -42,8 +42,8 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         If you wish to contribute positions for the many shared models that are
         already available then these are best submitted:
         <ul>
-        <li>directly through <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/submission">our friendly web forms</a> for unitary addition, edition, deletion. <strong>Please use them in priority as they make the work of maintainers much easier.</strong></li>
-        <li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery</a> and by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO scenery editor</a> and directly copy/pasted (new objects positions only) in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/submission">our mass import webform</a>.
+        <li>directly through <a href="submission/index.php">our friendly web forms</a> for unitary addition, edition, deletion. <strong>Please use them in priority as they make the work of maintainers much easier.</strong></li>
+        <li>either the <a href="http://wiki.flightgear.org/File_Formats#.2A.stg">STG format used in the scenery</a> and by the <a href="http://wiki.flightgear.org/Howto:_Place_3D_objects_with_the_UFO">UFO scenery editor</a> and directly copy/pasted (new objects positions only) in <a href="submission/index.php">our mass import webform</a>.
         If you have data available in other formats please try to convert them into the STG format first. You can find help on the <a href="http://www.flightgear.org/forums">forums</a> to do so.</li>
         </ul>
 
