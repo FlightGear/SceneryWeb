@@ -6,7 +6,7 @@ require_once('../../inc/functions.inc.php');
     // Checking DB availability before all
     $ok = check_availability();
 
-    if(!$ok) {
+    if (!$ok) {
         $page_title = "Automated Shared Models Positions Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
@@ -15,7 +15,7 @@ require_once('../../inc/functions.inc.php');
 
 
     // Captcha stuff
-    require_once('../../inc/captcha/recaptchalib.php');
+    /*require_once('../../inc/captcha/recaptchalib.php');
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
@@ -32,7 +32,7 @@ require_once('../../inc/functions.inc.php');
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
         exit;
-    }
+    }*/
 
     $page_title = "Automated Shared Models Positions Submission Form";
     include '../../inc/header.php';
@@ -45,7 +45,9 @@ require_once('../../inc/functions.inc.php');
     // Checking that email is valid (if it exists).
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     $failed_mail = false;
-    if(isset($_POST['email']) && ((strlen($_POST['email']))>0) && ((strlen($_POST['email'])<=50))) {
+    if (isset($_POST['email'])
+        && (strlen($_POST['email'])>0)
+        && (strlen($_POST['email'])<=50)) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
         echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
     }
@@ -55,7 +57,10 @@ require_once('../../inc/functions.inc.php');
     }
 
     // Checking that comment exists. Just a small verification as it's not going into DB.
-    if(isset($_POST['comment']) && (strlen($_POST['comment']) > 0) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u', $_POST['comment'])) && (strlen($_POST['comment'] <= 100))) {
+    if (isset($_POST['comment'])
+        && (strlen($_POST['comment']) > 0)
+        && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u', $_POST['comment']))
+        && (strlen($_POST['comment'] <= 100))) {
         $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
     }
     else {
@@ -66,7 +71,7 @@ require_once('../../inc/functions.inc.php');
     }
 
     // Checking that stg exists and is containing only letters or figures.
-    if(isset($_POST['stg']) && (preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg']))) {
+    if (isset($_POST['stg']) && preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg'])) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p><br />";
         $error = true;
         include '../../inc/footer.php';
@@ -114,8 +119,8 @@ if (!$error) {
         $j = 1;
 
         foreach ($tab_tags as $value_tag) { // !=> Have also to check the number of tab_tags returned!
-            if($j == 1) { // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
-                if(!strcmp($value_tag, "OBJECT_SHARED")) {
+            if ($j == 1) { // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
+                if (!strcmp($value_tag, "OBJECT_SHARED")) {
                     echo "<td><center>".$value_tag."</center></td> ";
                 }
                 else {
@@ -125,8 +130,8 @@ if (!$error) {
                     $cpt_err++;
                 }
             }
-            else if($j == 2) { // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
-                if (!(preg_match("/^[a-z0-9_\/.-]$/i",$value_tag))) {
+            else if ($j == 2) { // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
+                if (!preg_match("/^[a-z0-9_\/.-]$/i",$value_tag)) {
                     $return_value = model_exists($value_tag);
                     if ($return_value == 0) {
                         echo "<td><center>".$value_tag."</center></td>";
@@ -226,7 +231,7 @@ if (!$error) {
     echo "</table>\n";
     echo "<br />";
 
-    if($global_ko == 1) { // If errors have been found...
+    if ($global_ko == 1) { // If errors have been found...
         if ($cpt_err == 1) {
             echo "<p class=\"center warning\">".$cpt_err." error has been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</p>";
             include '../../inc/footer.php';
@@ -293,6 +298,7 @@ if (!$error) {
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
     $host = gethostbyaddr($ipaddr);
+    echo $_POST['IPAddr']."---". $ipaddr."---".$host;
 
     // OK, let's start with the mail redaction.
     // Who will receive it ?
@@ -304,10 +310,10 @@ if (!$error) {
     $subject = "[FG Scenery Submission forms] Automatic mass shared model position request: needs validation.";
 
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-    if(!$failed_mail) {
+    if (!$failed_mail) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME']."/submission/check_mass_import.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                     "issued a mass shared object insertion request." . "\r\n";
@@ -315,7 +321,7 @@ if (!$error) {
     else {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME']."/submission/check_mass_import.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued a mass shared object insertion request." . "\r\n";
     }
@@ -340,7 +346,7 @@ if (!$error) {
     @mail($to, $subject, $message, $headers);
 
     // Mailing the submitter
-    if(!$failed_mail) {
+    if (!$failed_mail) {
 
         // Tell the submitter that its submission has been sent for validation.
         $to = $safe_email;
@@ -351,7 +357,7 @@ if (!$error) {
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message3 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME']."/submission/check_mass_import.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n" .
                     "Just to let you know that this new mass shared object position insertion request has been sent for validation." . "\r\n" .
                     "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
