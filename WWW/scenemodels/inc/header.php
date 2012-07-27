@@ -16,15 +16,28 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="stylesheet" href="/css/lightbox.css" type="text/css"/>
     <title><?php echo (isset($page_title))?$page_title:"FlightGear Scenery Database";?></title>
+    
 <?php
     if(!isset($nojs_page)) {
 ?>
-    <noscript>
-        <meta http-equiv="refresh" content="0; URL='/inc/nojs.php'"/>
-    </noscript>
+    <script type="text/javascript">
+    /*<![CDATA[*/
+    document.write("<!-- ");
+    /*]]>*/
+    </script>
+    <meta id="refresh" http-equiv="Refresh" content="0;URL='nojs.php'" />
+    <script type="text/javascript">
+    /*<![CDATA[*/
+        document.write(' --><script type="text/javascript">');
+    /*]]>*/
+    </script>
 <?php
     }
 ?>
+
+    <script type="text/javascript">
+        $('refresh').remove();
+    </script>
 
   </head>
   <body <?php echo (isset($body_onload))?"onload='$body_onload'":"";?>>
