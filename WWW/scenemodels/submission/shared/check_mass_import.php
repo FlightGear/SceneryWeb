@@ -298,7 +298,6 @@ if (!$error) {
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
     $host = gethostbyaddr($ipaddr);
-    echo $_POST['IPAddr']."---". $ipaddr."---".$host;
 
     // OK, let's start with the mail redaction.
     // Who will receive it ?
