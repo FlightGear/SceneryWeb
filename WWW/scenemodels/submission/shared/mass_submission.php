@@ -78,7 +78,7 @@
                                 }
                                 else if($j == 4) {
                                     $model = object_name($data_from_query);
-                                    echo "<td><a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$data_from_query."\" >".$model."</a></td>\n";
+                                    echo "<td><a href=\"http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$data_from_query."\" >".$model."</a></td>\n";
                                 }
                                 else if($j == 5) { echo ""; } // I have to admit I don't know why I wrote this
                                 else if($j != 1) { echo "<td><center>".$data_from_query."</center></td>\n"; } // Nor this. Snip. But must be a reason why.
@@ -174,7 +174,7 @@
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://scenemodels.flightgear.org/submission/mass_submission.php"  . "\r\n" .
+                            "http://".$_SERVER['SERVER_NAME']."/submission/mass_submission.php"  . "\r\n" .
                             "I just wanted to let you know that the mass object insertion request nr:"  . "\r\n" .
                             "" .$_POST[hsig]. ""."\r\n" .
                             "has been rejected and successfully deleted from the pending requests table.";
@@ -340,7 +340,7 @@
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://scenemodels.flightgear.org/submission/mass_submission.php"  . "\r\n" .
+                            "http://".$_SERVER['SERVER_NAME']."/submission/mass_submission.php"  . "\r\n" .
                             "I just wanted to let you know that the object position request nr :" . "\r\n" .
                             $_POST[hsig]. "\r\n" .
                             "has been successfully treated in the fgs_objects table." . "\r\n" .

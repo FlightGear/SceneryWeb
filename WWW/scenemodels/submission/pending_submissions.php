@@ -12,7 +12,7 @@ $resultr = @pg_query($resource_r, $pending_queries);
 
 // Talking back to submitter.
 
-if($resultr) {
+if ($resultr) {
     // Declare variables
     $i = 0;
     $pending_requests = "";
@@ -46,7 +46,7 @@ if($resultr) {
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
     $message0 = "Hi," . "\r\n" .
                 "This is the automated FG scenery PHP form at:" . "\r\n" .
-                "http://scenemodels.flightgear.org/submission/pending_submissions.php" . "\r\n" .
+                "http://".$_SERVER['SERVER_NAME']."/submission/pending_submissions.php" . "\r\n" .
                 "I just wanted to give you a small overview of the requests waiting for validation:" . "\r\n";
     $message077 = wordwrap ($message0, 77, "\r\n");
 

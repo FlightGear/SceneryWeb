@@ -26,7 +26,7 @@
         <ul>
           <li><a href="static/index.php">adding static models positions and objects</a> (add a specific static or shared 3D model to the database). Work In Progress.... (not in production yet).</li>
         </ul>
-        Comments or contributions propositions are always welcome through the usual channels (<a href="http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel">devel list</a>, <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671">forum</a>).
+        Comments or contributions propositions are always welcome through the usual channels (<a href="http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel">devel list</a>, <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&amp;t=14671">forum</a>).
         <br/><br/>
       </td>
     </tr>

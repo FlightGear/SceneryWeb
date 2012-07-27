@@ -56,7 +56,7 @@
 <?php
             $result = pg_query("select mo_id, mo_path from fgs_models;");
             while ($row = pg_fetch_assoc($result)) {
-                if ($object["ob_model"] == $row["mo_id"]) print "<a href=\"http://scenemodels.flightgear.org/modeledit.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
+                if ($object["ob_model"] == $row["mo_id"]) print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
             }
 ?>
         </td>
