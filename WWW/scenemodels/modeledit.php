@@ -12,7 +12,7 @@ function popmap(lat,lon,zoom) {
 
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     $id = $_REQUEST['id'];
-    $result = pg_query("select * from fgs_models where mo_id=$id;");
+    $result = pg_query("SELECT *, to_char(mo_modified,'YYYY-dd-mm (HH24:MI)') AS mo_datedisplay from fgs_models where mo_id=$id;");
     $model = pg_fetch_assoc($result);
 };
 ?>
@@ -30,7 +30,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     <td>Type</td>
     <td>
         <?php
-            $result = pg_query("select mg_id,mg_name from fgs_modelgroups;");
+            $result = pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups;");
             while ($row = pg_fetch_assoc($result)) {
                 if ($row["mg_id"] == $model["mo_shared"]) print $row["mg_name"];
             }
@@ -41,7 +41,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     <td>Author</td>
     <td>
         <?php
-            $result = pg_query("select * from fgs_authors;");
+            $result = pg_query("SELECT * FROM fgs_authors;");
             while ($row = pg_fetch_assoc($result)) {
                 if ($model["mo_author"] == $row["au_id"]) print $row["au_name"];
             }
@@ -50,7 +50,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
 </tr>
 <tr>
     <td>Last Updated</td>
-    <td><?php if (isset($model["mo_modified"])) print $model["mo_modified"]; ?></td>
+    <td><?php if (isset($model["mo_datedisplay"])) print $model["mo_datedisplay"]; ?></td>
 </tr>
 <tr>
     <td>Model-ID</td>

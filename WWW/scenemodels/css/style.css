@@ -7,8 +7,6 @@ BODY {
     color: #000000;
     font-size: 0.9em;
     font-family: Verdana, Arial, Helvetica, Lucida, Sans-Serif;
-    
-    
 }
 
 #content {
@@ -18,7 +16,7 @@ BODY {
     margin-top:30px;
     border:1px solid #999;
     text-align: left;
-    width:90%;
+    width:1100px;
     box-shadow : 0px 0px 0.5em 0em grey;
 }
 
@@ -108,7 +106,6 @@ UL.table LI {
 
 
 .paragraph_bloc .body {
-    padding: 1px;
     padding: 0px 20px 0px 20px;
 }
 

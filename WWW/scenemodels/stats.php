@@ -57,7 +57,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
       <table class="float">
         <tr><th colspan="2">Recently Updated Objects</th></tr>
 <?php
-          $query = "SELECT ob_id,ob_text,ob_modified ";
+          $query = "SELECT ob_id,ob_text, to_char(ob_modified,'YYYY-dd-mm (HH24:MI)') AS ob_datedisplay ";
           $query.= "FROM fgs_objects ";
           $query.= "ORDER BY ob_modified DESC ";
           $query.= "LIMIT 10";
@@ -65,7 +65,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
           while ($row = pg_fetch_assoc($result)){
             echo "<tr>\n";
               echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n";
-              echo "<td>".$row["ob_modified"]."</td>\n";
+              echo "<td>".$row["ob_datedisplay"]."</td>\n";
             echo "</tr>\n";
           }
 ?>
@@ -74,7 +74,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
       <table class="float">
         <tr><th colspan="2">Recently Updated Models</th></tr>
 <?php
-          $query = "SELECT mo_id,mo_name,mo_modified ";
+          $query = "SELECT mo_id,mo_name, to_char(mo_modified,'YYYY-dd-mm (HH24:MI)') AS mo_datedisplay ";
           $query.= "FROM fgs_models ";
           $query.= "ORDER BY mo_modified DESC ";
           $query.= "LIMIT 10";
@@ -82,7 +82,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
           while ($row = pg_fetch_assoc($result)){
             echo "<tr>\n";
               echo "<td><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a></td>\n";
-              echo "<td>".$row["mo_modified"]."</td>\n";
+              echo "<td>".$row["mo_datedisplay"]."</td>\n";
             echo "</tr>\n";
           }
 ?>
