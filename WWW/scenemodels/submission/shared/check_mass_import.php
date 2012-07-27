@@ -15,7 +15,7 @@ require_once('../../inc/functions.inc.php');
 
 
     // Captcha stuff
-    /*require_once('../../inc/captcha/recaptchalib.php');
+    require_once('../../inc/captcha/recaptchalib.php');
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
@@ -32,7 +32,7 @@ require_once('../../inc/functions.inc.php');
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
         exit;
-    }*/
+    }
 
     $page_title = "Automated Shared Models Positions Submission Form";
     include '../../inc/header.php';
@@ -49,10 +49,10 @@ require_once('../../inc/functions.inc.php');
         && (strlen($_POST['email'])>0)
         && (strlen($_POST['email'])<=50)) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
-        echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
+        echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
     }
     else {
-        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
+        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
         $failed_mail = true;
     }
 
@@ -64,7 +64,7 @@ require_once('../../inc/functions.inc.php');
         $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
     }
     else {
-        echo "<p class=\"center warning\">Comment mismatch!</p><br />";
+        echo "<p class=\"center warning\">Comment mismatch!</p>";
         $error = true;
         include '../../inc/footer.php';
         exit;
@@ -245,7 +245,7 @@ if (!$error) {
     }
 
     // Else, proceed on with the request generation
-    echo "<p class=\"center ok\">No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br />";
+    echo "<p class=\"center ok\">No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.</p><br />";
 
     $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
     for ($j = 1; $j<=$nb_lines; $j++) { // For each line, add the data content to the request
@@ -280,7 +280,7 @@ if (!$error) {
 
     // Talking back to submitter.
     if (!$resultrw) {
-        echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
+        echo "<p>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p>";
         include '../../inc/footer.php';
         exit;
     }
