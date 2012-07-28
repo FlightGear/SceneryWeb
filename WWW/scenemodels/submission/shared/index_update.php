@@ -27,8 +27,10 @@ function validateForm()
 {
     var form = document.getElementById("edition");
 
-    if (!checkStringNotDefault(form["longitude"], "") || !checkNumeric(form["longitude"],-180,180) ||
-        !checkStringNotDefault(form["latitude"], "") || !checkNumeric(form["latitude"],-90,90))
+    if (!checkStringNotDefault(form["longitude"], "")
+        || !checkNumeric(form["longitude"],-180,180) ||
+        !checkStringNotDefault(form["latitude"], "")
+        || !checkNumeric(form["latitude"],-90,90))
         return false;
 
 }
@@ -37,7 +39,11 @@ function validateForm()
 
 <h1>Positions Automated Update Form</h1>
 
-<p class="center"><b>Foreword:</b> This automated form goal is to ease the update of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?> objects in the database.</p>
+<p class="center">
+  <b>Foreword:</b> This automated form goal is to ease the update of shared
+  models positions within FG Scenery database.
+  <br />There are currently <?php count_objects(); ?> objects in the database.
+</p>
 
 <form id="edition" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
 <table>

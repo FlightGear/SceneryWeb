@@ -22,15 +22,16 @@
       <ul class="submenus">
         <li><a href="/modelbrowser.php">Browse All</a></li>
 <?php
-          $query = "SELECT mg_id,mg_name ";
-          $query.= "FROM fgs_modelgroups ";
-          $query.= "ORDER BY mg_name";
-          $result_menu=pg_query($query);
-          while ($row = pg_fetch_assoc($result_menu)) {
-              $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-              $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
-              echo "<li><a href=\"/modelbrowser.php?shared=".$row["mg_id"]."\">".$name."</a></li>\n";
-          }
+        $query = "SELECT mg_id,mg_name ";
+        $query.= "FROM fgs_modelgroups ";
+        $query.= "ORDER BY mg_name";
+        $result_menu=pg_query($query);
+        while ($row = pg_fetch_assoc($result_menu)) {
+            $name=preg_replace('/&/',"&amp;", $row["mg_name"]);
+            $name=preg_replace('/ /',"&nbsp;", $name);
+              
+            echo "<li><a href=\"/modelbrowser.php?shared=".$row["mg_id"]."\">".$name."</a></li>\n";
+        }
 ?>
       </ul>
     </li>

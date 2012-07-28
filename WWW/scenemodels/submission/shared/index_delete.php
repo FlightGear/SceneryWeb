@@ -34,7 +34,11 @@ function validateForm()
 
 <h1>Positions Automated Deletion Form</h1>
 
-<p class="center"><b>Foreword:</b> This automated form goal is to ease the deletion of shared models positions within FG Scenery database. <br />There are currently <?php count_objects(); ?>  objects in the database.</p>
+<p class="center">
+  <b>Foreword:</b> This automated form goal is to ease the deletion of shared
+  models positions within FG Scenery database.
+  <br />There are currently <?php count_objects(); ?>  objects in the database.
+</p>
 
 <form id="deletion" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
 <table>
