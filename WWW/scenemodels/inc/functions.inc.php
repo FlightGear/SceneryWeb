@@ -724,7 +724,7 @@ function clear_dir($folder)
     while ($file = readdir($opened_dir)) {
         if ($file == '.' || $file == '..') continue;
         if (is_dir($folder."/".$file)) {
-            $r = clearDir($folder."/".$file);
+            $r = clear_dir($folder."/".$file);
             if (!$r) return false;
         } else {
             $r = @unlink($folder."/".$file);
