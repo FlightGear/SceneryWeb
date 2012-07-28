@@ -116,7 +116,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     if (!$failed_mail) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME']."/submission/check_shared.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                     "issued the following request:" . "\r\n";
@@ -124,7 +124,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     else {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME']."/submission/check_shared.php" . "\r\n" .
+                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
     }
@@ -233,7 +233,8 @@ if (!$ok) {
 $error = false;
 global $error;
 
-if (isset($_POST['delete_choice']) || isset($_GET['delete_choice'])) { // We can directly retrieve the object ID through the other forms, therefore no test is needed.
+// We can directly retrieve the object ID through the other forms, therefore no test is needed.
+if (isset($_POST['delete_choice']) || isset($_GET['delete_choice'])) { 
     $error = false;
 }
 else {
@@ -408,12 +409,32 @@ function validateForm()
 
 // If we have more than one solution
 else if ($returned_rows > 1) {
-    echo "<br /><p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to delete.</p><br />";
 
+?>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+function validateForm()
+{
+    var form = document.getElementById("delete_position");
+
+    if (!checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
+        (form['email'].value!="" && !checkEmail(form['email'])))
+        return false;
+
+}
+/*]]>*/
+</script>
+
+    <p class=\"center\"><?php echo $returned_rows;?> objects with WGS84 coordinates longitude: <?php echo $long;?>, latitude: <?php echo $lat;?> have been found in the database.<br />Please select with the left radio button the one you want to delete.</p>
+
+    
+    <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
+    <table>
+
+<?php
+    
     // Starting multi-solutions form
-    echo "<form id=\"delete_position\" method=\"post\" action=\"check_delete_shared.php\">";
-    echo "<table>";
-
     $is_first = true; // Just used to put the selected button on the first entry
     while ($row = pg_fetch_row($result)) {
 ?>
@@ -467,11 +488,11 @@ else if ($returned_rows > 1) {
 ?>
         <tr>
             <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><label for="comment">Comment<em>*</em></label></span></td>
-            <td colspan="4"><input type="text" id="comment" name="comment" maxlength="100" size="40" value="" /></td>
+            <td colspan="4"><input type="text" id="comment" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);"/></td>
         </tr>
         <tr>
             <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
-            <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" /></td>
+            <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></td>
         </tr>
         <tr>
             <td colspan="5" class="submit">
@@ -489,8 +510,8 @@ else if ($returned_rows > 1) {
             <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
             </td>
         </tr>
-        </table>
-        </form>
+    </table>
+    </form>
 <?php
     include '../../inc/footer.php';
     exit;

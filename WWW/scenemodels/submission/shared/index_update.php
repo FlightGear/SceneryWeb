@@ -7,7 +7,7 @@
 
     $ok=check_availability();
 
-    if(!$ok)
+    if (!$ok)
     {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
