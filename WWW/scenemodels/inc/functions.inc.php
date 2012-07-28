@@ -278,7 +278,7 @@ function get_object_longitude_from_id_oj($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ST_X(wkb_geometry) AS ob_lon from fgsoj_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ST_X(wkb_geometry) AS ob_lon FROM fgsoj_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -299,7 +299,7 @@ function get_object_elevation_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ob_gndelev from fgs_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ob_gndelev FROM fgs_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -319,7 +319,7 @@ function get_object_elevation_from_id_oj($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ob_gndelev from fgsoj_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ob_gndelev FROM fgsoj_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -339,11 +339,11 @@ function get_object_offset_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ob_elevoffset from fgs_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ob_elevoffset FROM fgs_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
-        if (($row["ob_elevoffset"]) == "") {
+        if ($row["ob_elevoffset"] == "") {
             return (0);
         }
         else return ($row["ob_elevoffset"]);
@@ -362,11 +362,11 @@ function get_object_offset_from_id_oj($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ob_elevoffset from fgsoj_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ob_elevoffset FROM fgsoj_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
-        if (($row["ob_elevoffset"]) == "") {
+        if ($row["ob_elevoffset"] == "") {
             return (0);
         }
         else return ($row["ob_elevoffset"]);
@@ -385,7 +385,7 @@ function get_object_true_orientation_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ob_heading from fgs_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ob_heading FROM fgs_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result))    {
@@ -405,7 +405,7 @@ function get_object_true_orientation_from_id_oj($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "select ob_heading from fgsoj_objects where ob_id=".$ob_id.";";
+    $query = "SELECT ob_heading FROM fgsoj_objects WHERE ob_id=".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result))    {
@@ -427,11 +427,11 @@ function get_authors_name_from_authors_id($au_id)
     $headerlink = connect_sphere_r();
 
     // Querying...
-    $query = "select au_name from fgs_authors where au_id=".$au_id.";";
+    $query = "SELECT au_name FROM fgs_authors WHERE au_id=".$au_id.";";
     $result = @pg_query($headerlink, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
-            return ($row["au_name"]);
+        return ($row["au_name"]);
     }
 
     // Closing the connection.
@@ -449,13 +449,13 @@ function get_authors_email_from_authors_id($au_id)
     $headerlink = connect_sphere_r();
 
     // Querying...
-    $query = "select au_email from fgs_authors where au_id=".$au_id.";";
+    $query = "SELECT au_email FROM fgs_authors WHERE au_id=".$au_id.";";
     $result = @pg_query($headerlink, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
-            if ($row["au_email"] != '') {
-                return ($row["au_email"]);
-            }
+        if ($row["au_email"] != '') {
+            return ($row["au_email"]);
+        }
     }
 
     // Closing the connection.
@@ -471,7 +471,7 @@ function count_objects()
     $resource = connect_sphere_r();
 
     // Count the number of objects in the database
-    $counter = @pg_query($resource, "select count(*) as rows from fgs_objects;");
+    $counter = @pg_query($resource, "SELECT count(*) AS rows FROM fgs_objects;");
 
     while ($line = @pg_fetch_assoc($counter)) {
         echo number_format($line['rows'], '0', '', ' ');
@@ -490,7 +490,7 @@ function count_models()
     $resource = connect_sphere_r();
 
     // Count the number of objects in the database
-    $counter = @pg_query($resource,"select count(*) as rows from fgs_models;");
+    $counter = @pg_query($resource,"SELECT count(*) AS rows FROM fgs_models;");
 
     while ($line = @pg_fetch_assoc($counter)) {
         echo number_format($line['rows'], '0', '', ' ');
@@ -618,7 +618,7 @@ function ob_model_from_name($model_name)
     $headerlink = connect_sphere_r();
 
     // Querying...
-    $query = "select mo_id, mo_path from fgs_models where mo_path = '".$queried_mo_path."';";
+    $query = "SELECT mo_id, mo_path FROM fgs_models WHERE mo_path = '".$queried_mo_path."';";
     $result = @pg_query($headerlink, $query);
 
     // Checking the number of results. Should be 1.
@@ -641,7 +641,7 @@ function list_authors()
     $headerlink_authors = connect_sphere_r();
 
     // Querying...
-    $query = "select au_id, au_name from fgs_authors order by 2 asc;";
+    $query = "SELECT au_id, au_name FROM fgs_authors ORDER BY 2 ASC;";
     $result = @pg_query($headerlink_authors, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -662,7 +662,7 @@ function list_countries()
     $headerlink_countries = connect_sphere_r();
 
     // Querying...
-    $query = "select * from fgs_countries order by 2 asc;";
+    $query = "SELECT * FROM fgs_countries ORDER BY 2 ASC;";
     $result = @pg_query($headerlink_countries, $query);
 
     while($row = @pg_fetch_assoc($result)) {
@@ -686,11 +686,11 @@ function get_country_name_from_country_code($country_code)
         return("Unknown!");
     }
     else {
-        $query = "select * from fgs_countries where co_code = '".$country_code."';";
+        $query = "SELECT * FROM fgs_countries WHERE co_code = '".$country_code."';";
         $result = @pg_query($headerlink_countries, $query);
 
         while ($row = @pg_fetch_assoc($result)) {
-        return ($row["co_name"]);
+            return ($row["co_name"]);
         }
     }
 
