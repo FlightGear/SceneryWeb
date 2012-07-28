@@ -107,7 +107,7 @@ else {
 ##############################################################################
 
 if ($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror) { // check file size
-    if ($_FILES['mo_thumbfile']['type'] == "image/jpeg" && (ShowFileExtension(basename($thumbName)) == "jpeg") || (ShowFileExtension(basename($thumbName)) == "JPEG") || (ShowFileExtension(basename($thumbName)) == "JPG") || (ShowFileExtension(basename($thumbName)) == "jpg")) { // check type & extension file
+    if ($_FILES['mo_thumbfile']['type'] == "image/jpeg" && (show_file_extension(basename($thumbName)) == "jpeg") || (show_file_extension(basename($thumbName)) == "JPEG") || (show_file_extension(basename($thumbName)) == "JPG") || (show_file_extension(basename($thumbName)) == "jpg")) { // check type & extension file
         if ($_FILES['mo_thumbfile']['error'] != 0) { // If an error is detected
             $error += 1;
             $errormsg .= "There has been an error while uploading the file \"".$thumbName."\"!<br/>";
@@ -150,7 +150,7 @@ if ($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror) { // check file s
 
 if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 
-    if ($_FILES['ac3d_file']['type'] == "application/octet-stream" && (ShowFileExtension(basename($ac3dName)) == "ac" || ShowFileExtension(basename($ac3dName)) == "AC")) { // check type & extension file
+    if ($_FILES['ac3d_file']['type'] == "application/octet-stream" && (show_file_extension(basename($ac3dName)) == "ac" || show_file_extension(basename($ac3dName)) == "AC")) { // check type & extension file
 
         if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
             $error += 1;
@@ -195,7 +195,7 @@ else {
 
 if ($_FILES['xml_file']['name'] != "") { // if file exists
     if ($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
-        if ($_FILES['xml_file']['type'] == "text/xml" && (ShowFileExtension(basename($xmlName)) == "xml" || ShowFileExtension(basename($xmlName)) == "XML")) { // check type & extension file
+        if ($_FILES['xml_file']['type'] == "text/xml" && (show_file_extension(basename($xmlName)) == "xml" || show_file_extension(basename($xmlName)) == "XML")) { // check type & extension file
             if ($_FILES['xml_file']['error'] != 0) { // If error is detected
                 $error += 1;
                 $errormsg .= "There has been an error while uploading the file \"".$xmlName."\"!<br/>";
@@ -248,7 +248,7 @@ for ($i=0; $i<12; $i++) {
 
         if ($pngsize < 2000000 && !$fatalerror) { // check size file
 
-            if ($pngType == 'image/png' && (ShowFileExtension(basename($pngName)) == "png" || ShowFileExtension(basename($pngName)) == "PNG")) { // check type & extension file
+            if ($pngType == 'image/png' && (show_file_extension(basename($pngName)) == "png" || show_file_extension(basename($pngName)) == "PNG")) { // check type & extension file
 
                 if ($pngError != 0) { // If error is detected
                     $error += 1;
@@ -300,9 +300,9 @@ if ($fatalerror || $error > 0) {
     echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
-    clearDir($targetPath);
+    clear_dir($targetPath);
     include '../../inc/footer.php';
-    exit();
+    exit;
 }
 
 ###############################################
@@ -502,8 +502,8 @@ if ($fatalerror || $error > 0) {
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
     include '../../inc/footer.php';
-    clearDir($targetPath);
-    exit();
+    clear_dir($targetPath);
+    exit;
 }
 
 ###############################################
@@ -538,7 +538,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $modelFile = base64_encode($contents);             // Dump & encode the file
 
     unlink($tmp_dir . '/static.tgz');                         // Delete compress file
-    clearDir($targetPath);                             // Delete temporary static directory
+    clear_dir($targetPath);                             // Delete temporary static directory
 }
 
 ###############################################
@@ -651,7 +651,7 @@ if ($fatalerror || $error > 0) {
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
     include '../../inc/footer.php';
-    clearDir($targetPath);
+    clear_dir($targetPath);
     exit;
 }
 else {

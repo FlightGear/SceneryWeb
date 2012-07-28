@@ -465,14 +465,14 @@ function validateForm()
     $dir = opendir($target_path);
     $png_file_number = 0;   // Counter for PNG files.
     while ($file = readdir($dir)) {
-        if (ShowFileExtension($file) == "ac") {
+        if (show_file_extension($file) == "ac") {
             $ac3d_file = $file;
         }
-        if (ShowFileExtension($file) == "png") {
+        if (show_file_extension($file) == "png") {
             $png_file_name[$png_file_number] = $file;
             $png_file_number++;
         }
-        if (ShowFileExtension($file) == "xml") {
+        if (show_file_extension($file) == "xml") {
             $xml_file = $file;
         }
     }

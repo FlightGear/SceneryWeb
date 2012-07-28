@@ -71,7 +71,7 @@
         
         while (false !== ($file = readdir($dir))) {
             // If we know the extension
-            if (isset($extension) && ShowFileExtension($file) == $extension) {
+            if (isset($extension) && show_file_extension($file) == $extension) {
                 $fichier = $target_path."/".$file;
                 readfile($fichier);
                 break;
@@ -88,6 +88,6 @@
         // Ok, now we can delete the stuff we used - at least I think so ;-)
         // This should be done at the end of the script
         unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
-        clearDir($target_path);                          // Deletes temporary submission directory
+        clear_dir($target_path);                          // Deletes temporary submission directory
     }
 ?>

@@ -701,7 +701,7 @@ function get_country_name_from_country_code($country_code)
 // Returns the extension of a file sent in parameter
 // =================================================
 
-function ShowFileExtension($filepath)
+function show_file_extension($filepath)
 {
     preg_match('/[^?]*/', $filepath, $matches);
     $string = $matches[0];
@@ -717,23 +717,23 @@ function ShowFileExtension($filepath)
 // Deletes a directory sent in parameter
 // =====================================
 
-function clearDir($dossier)
+function clear_dir($folder)
 {
-    $ouverture = @opendir($dossier);
-    if (!$ouverture) return;
-    while ($fichier = readdir($ouverture)) {
-        if ($fichier == '.' || $fichier == '..') continue;
-        if (is_dir($dossier."/".$fichier)) {
-            $r = clearDir($dossier."/".$fichier);
+    $opened_dir = @opendir($folder);
+    if (!$opened_dir) return;
+    while ($file = readdir($opened_dir)) {
+        if ($file == '.' || $file == '..') continue;
+        if (is_dir($folder."/".$file)) {
+            $r = clearDir($folder."/".$file);
             if (!$r) return false;
         } else {
-            $r = @unlink($dossier."/".$fichier);
+            $r = @unlink($folder."/".$file);
             if (!$r) return false;
         }
     }
 
-    closedir($ouverture);
-    $r = @rmdir($dossier);
+    closedir($opened_dir);
+    $r = @rmdir($folder);
     if (!$r) return false;
     return true;
 }
@@ -780,7 +780,7 @@ function is_shared_or_static($ob_id)
     $resource_r = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT mo_id, mo_shared FROM fgs_models WHERE mo_id =(SELECT ob_model from fgs_objects where ob_id=".$ob_id.");";
+    $query = "SELECT mo_id, mo_shared FROM fgs_models WHERE mo_id =(SELECT ob_model FROM fgs_objects WHERE ob_id=".$ob_id.");";
     $result = @pg_query($resource_r, $query);
 
     while ($row = pg_fetch_row($result)) {
@@ -802,7 +802,7 @@ function random_suffix()
     $suffix_data = microtime().$ipaddr;
 
     // Generating 16 random values from a hash. Should be enough as we also have a concurrent access management on dirs.
-    $dir_random_suffix = substr((hash('sha256', $suffix_data)),0,16);
+    $dir_random_suffix = substr(hash('sha256', $suffix_data), 0, 16);
     return $dir_random_suffix;
 }
 

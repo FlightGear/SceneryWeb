@@ -13,7 +13,7 @@ $dir = opendir($target_path);
 
 $now_reading = 0; // Use if model has multiple PNG textures
 while ($file = readdir($dir)) {
-    if (ShowFileExtension($file) == "png") {
+    if (show_file_extension($file) == "png") {
         if ($now_reading == $_GET["png_file_number"]) { // Returning the texture numbered as required in URL
             $fichier = $target_path."/".$file;
             $texture = imagecreatefrompng($fichier);
