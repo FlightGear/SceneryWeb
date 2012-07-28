@@ -4,7 +4,11 @@
 require_once('../../inc/functions.inc.php');
 
 // Final step to edition
-if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_gndelev']) && isset($_POST['new_offset']) && isset($_POST['new_orientation'])) {
+if (isset($_POST['new_long'])
+    && isset($_POST['new_lat'])
+    && isset($_POST['new_gndelev'])
+    && isset($_POST['new_offset'])
+    && isset($_POST['new_orientation'])) {
 
     // Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
@@ -19,9 +23,11 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Shared Models Positions Update Form";
-        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='index_update.php'>Go back and try it again</a>" .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
-             "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+        $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly.".
+                      " <a href='index_update.php'>Go back and try it again</a>" .
+                      "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
+                      "Don't forget to feed the Captcha, it's a mandatory item as well.".
+                      " Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
         exit;
     }
@@ -33,7 +39,9 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
     // Checking that email is valid (if it exists).
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     $failed_mail = 0;
-    if (isset($_POST['email']) && (strlen($_POST['email']) > 0) && (strlen($_POST['email']) <= 50)) {
+    if (isset($_POST['email'])
+        && (strlen($_POST['email']) > 0)
+        && (strlen($_POST['email']) <= 50)) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
         echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
     }
@@ -209,10 +217,11 @@ if (isset($_POST['new_long']) && isset($_POST['new_lat']) && isset($_POST['new_g
 }
 
 // Getting back the update_choice
-if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset($_GET['update_choice']) && ($_GET['update_choice']>'0'))) {
-    $page_title = "Automated Shared Models Positions Update Form";
-    $body_onload = "update_objects();";
-    include '../../inc/header.php';
+if ( ( isset($_POST['update_choice'])
+    && $_POST['update_choice']>'0')
+    || (isset($_GET['update_choice'])
+    && $_GET['update_choice']>'0') ) {
+    
 
     if (isset($_POST['update_choice']))
         $update_choice = $_POST['update_choice'];
@@ -225,6 +234,10 @@ if ((isset($_POST['update_choice']) && ($_POST['update_choice']>'0')) || (isset(
         include '../../inc/error_page.php';
         exit;
     }
+    
+    $page_title = "Automated Shared Models Positions Update Form";
+    $body_onload = "update_objects();";
+    include '../../inc/header.php';
 
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
@@ -251,7 +264,7 @@ function validateForm()
 <br /><br />
 <?php
     $id_to_update = pg_escape_string(stripslashes($update_choice));
-    echo "<p class=\"center\">You have asked to update object #".$id_to_update.".</p><br /><br />\n";
+    echo "<p class=\"center\">You have asked to update object #".$id_to_update.".</p>\n";
 ?>
     <form id="update" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
       <table>
@@ -274,7 +287,7 @@ function validateForm()
     $resource_r = connect_sphere_r();
 
     // If connection is OK
-    $id_family=0;
+    $id_family = 0;
     if ($resource_r != '0')
     {
         // Show all the families other than the static family
@@ -432,7 +445,7 @@ function validateForm()
     $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
     echo recaptcha_get_html($publickey);
 ?>
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
+            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
             <input type="submit" name="submit" value="Update this object!" />
             <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
           </td>
@@ -464,9 +477,10 @@ else {
     $error_text = "";
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
     if (isset($_POST['latitude'])
-        && (strlen($_POST['latitude']) <= 13)
-        && ($_POST['latitude'] <= 90)
-        && ($_POST['latitude'] >= -90)) {
+        && strlen($_POST['latitude']) <= 13
+        && $_POST['latitude'] <= 90
+        && $_POST['latitude'] >= -90) {
+        
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
@@ -477,9 +491,10 @@ else {
     // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
     if (isset($_POST['longitude'])
-        && (strlen($_POST['longitude']) <= 13)
-        && ($_POST['longitude'] >= -180)
-        && ($_POST['longitude'] <= 180)) {
+        && strlen($_POST['longitude']) <= 13
+        && $_POST['longitude'] >= -180
+        && $_POST['longitude'] <= 180) {
+        
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {
@@ -557,7 +572,7 @@ else {
                     </td>
                 </tr>
                 <input name="update_choice" type="hidden" value="<?php echo $row[0]; ?>" />
-                <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
+                <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
                 <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
                 <tr>
                     <td colspan="4" class="submit">
@@ -573,7 +588,8 @@ else {
         exit;
     }
 
-    if ($returned_rows > '1') {// If we have more than one, the user has to choose...
+    // If we have more than one, the user has to choose...
+    if ($returned_rows > '1') {
         echo "<p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</p><br />";
 
         // Starting multi-solutions form
@@ -631,7 +647,7 @@ else {
 ?>
                 <tr>
                     <td colspan="5" class="submit">
-                    <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
+                    <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
                     <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
                     <input type="submit" name="submit" value="I want to update the selected object!" />
                     <input type="button" name="cancel" value="Cancel - I made a mistake!" onclick="history.go(-1)"/>

@@ -143,7 +143,7 @@ If you need some more help, just put your mouse over the left column (eg "Elevat
         <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><label for="comment">Comment<em>*</em></label></span></td>
         <td>
             <input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]?>" />
+            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
         </td>
     </tr>
     <tr>

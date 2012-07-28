@@ -392,7 +392,7 @@ function validateForm()
             <br />
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
             <input name="step" type="hidden" value="3" />
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
+            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
             
             <input type="submit" name="submit" value="Delete this object!" />
             <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
@@ -476,7 +476,7 @@ else if ($returned_rows > 1) {
         <tr>
             <td colspan="5" class="submit">
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER[REMOTE_ADDR]; ?>" />
+            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
             <input name="step" type="hidden" value="3" />
 <?php
         // Google Captcha stuff
