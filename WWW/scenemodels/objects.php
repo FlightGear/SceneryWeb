@@ -47,8 +47,7 @@
         $heading = heading_stg_to_true($orientation);
         $min = $heading-5;
         $max = $heading+5;
-        echo $min." - ".$max;
-        
+
         $filter.= " AND ob_heading>".$min." AND ob_heading<".$max;
     } else {
         $orientation = "";
