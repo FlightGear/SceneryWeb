@@ -4,8 +4,7 @@ include 'inc/header.php';
 ?>
 <br />
 <center>
-<iframe src="http://www.flightgear.org/legacy-Downloads/scenery-2.6.0.html" height="600" width="800"
-frameborder="0" scrolling="no"></iframe>
+<object data="http://www.flightgear.org/legacy-Downloads/scenery-2.6.0.html" type="text/html" width="800" height="600"></object>
 </center>
 <?php
 include('inc/footer.php');

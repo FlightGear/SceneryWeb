@@ -29,7 +29,7 @@
   <table>  
     <tr class="bottom">
         <td colspan="9" align="center">
-        <a href="index.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="index.php?offset=<?php echo $offset+10;?>">Next</a>
+        <a href="index.php?offset=<?php echo $offset-10;?>">&lt;&lt; Previous</a> <a href="index.php?offset=<?php echo $offset+10;?>">Next &gt;&gt;</a>
         </td>
     </tr>
   </table>

@@ -160,8 +160,8 @@
         if($group!=0) $filter_text .= "&amp;group=".$group;
         if($country!=0) $filter_text .= "&amp;country=".$country;
 
-        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\"><< Previous</a>&nbsp;&nbsp;";
-        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next >></a>";
+        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;";
+        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
 ?>
       </td>
     </tr>
@@ -197,8 +197,8 @@
     <tr class="bottom">
       <td colspan="7" align="center">
 <?php
-          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\"><< Previous</a>&nbsp;&nbsp;";
-          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next >></a>";
+          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;";
+          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
 ?>
       </td>
     </tr>

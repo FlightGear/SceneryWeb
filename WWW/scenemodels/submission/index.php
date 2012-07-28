@@ -2,15 +2,22 @@
   $page_title = "Automated Scenery Submission Forms";
   include '../inc/header.php';
 ?>
-  <br/><br/>
   <h1>FG scenery objects submission forms.</h1>
-  <b>Foreword: </b>The goal of those automated forms is to make the submission of positions and models into FG Scenery database faster, easier and better, in:
+  
+  <p>
+    <b>Foreword: </b>The goal of those automated forms is to make the submission
+    of positions and models into FG Scenery database faster, easier and better, in:
+  </p>
   <ul>
     <li>helping the developer submitting his positions and objects (time and process gain) nearly directly into Terrasync;</li>
     <li>helping the maintainers through an automated process (no human interactions, automated consistency checks).</li>
   </ul>
-  Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what items those forms are looking for. All submissions are being followed and logged, so <b>DO NOT TAKE THIS</b> as a sandbox.
-  <br/><br/>
+  <p>
+    Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a>
+    in order to understand what items those forms are looking for. All submissions
+    are being followed and logged, so <b>DO NOT TAKE THIS</b> as a sandbox.
+  </p>
+
   <table>
     <tr align="left">
       <td align="left">

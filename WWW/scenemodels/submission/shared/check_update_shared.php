@@ -567,8 +567,8 @@ else {
                     <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
                     <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
                     <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
-                    <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" width="300" height="225" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
-                        </iframe>
+                    <td>
+                    <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
                 <input name="update_choice" type="hidden" value="<?php echo $row[0]; ?>" />
@@ -637,8 +637,8 @@ else {
                     <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
                     <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>" alt="Thumbnail"/></a></td>
                     <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
-                    <td><iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" width="300" height="225" scrolling="no" marginwidth="2" marginheight="2" frameborder="0">
-                        </iframe>
+                    <td>
+                    <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
 <?php

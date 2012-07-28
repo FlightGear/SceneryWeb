@@ -414,8 +414,7 @@ function validateForm()
         <td>Map</td>
         <td>
         <center>
-        <iframe src="http://mapserver.flightgear.org/submap/?lon=<?php echo $ob_long; ?>&amp;lat=<?php echo $ob_lat; ?>&amp;zoom=14" width="320" height="240" scrolling="auto" marginwidth="2" marginheight="2" frameborder="0">
-        </iframe>
+        <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $ob_long; ?>&amp;lat=<?php echo $ob_lat; ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
         </center>
         </td>
     </tr>
@@ -490,7 +489,7 @@ function validateForm()
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
-            <iframe src="hangar/samples/index.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" width="720px" height="620px" scrolling="no" frameborder="0"></iframe>
+            <object data="hangar/samples/index.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
             </center>
         </td>
     </tr>

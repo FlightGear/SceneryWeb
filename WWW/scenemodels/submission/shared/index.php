@@ -121,7 +121,7 @@ function validateForm()
             Map
         </td>
         <td>
-            <iframe id="map" src="http://mapserver.flightgear.org/submap/?zoom=13&amp;lat=0&amp;lon=0" width="300" height="225"></iframe>
+            <object data="http://mapserver.flightgear.org/submap/?zoom=13&amp;lat=0&amp;lon=0" type="text/html" width="300" height="225"></object>
         </td>
     </tr>
     <tr>
