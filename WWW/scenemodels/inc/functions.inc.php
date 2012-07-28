@@ -752,9 +752,9 @@ function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset,
     $returned_rows = pg_num_rows($result);
 
     if ($returned_rows > 0) {
-        return 1;
+        return true;
     }
-    else return 0;
+    else return false;
 
     // Closing the connection.
     @pg_close ($resource_r);

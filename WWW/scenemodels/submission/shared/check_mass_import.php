@@ -218,8 +218,16 @@ if (!$error) {
         }
 
         if ($ko == 0) {
-            echo "<td><p class=\"center ok\">OK</p></td>";
-            $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($orientation).", ".$model_id.", 1)";
+            if (detect_already_existing_object($lat, $long, $gndelev, 0, $orientation, $model_id)) {
+                $ko = 1;
+                $global_ko = 1;
+                $cpt_err++;
+                
+                echo "<td><p class=\"center warning\">Already exists!</p></td>";
+            } else {
+                echo "<td><p class=\"center ok\">OK</p></td>";
+                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($orientation).", ".$model_id.", 1)";
+            }
         }
         else {
             echo "<td><p class=\"center warning\">KO</p></td>"; // Good or not ?
@@ -247,6 +255,7 @@ if (!$error) {
     // Else, proceed on with the request generation
     echo "<p class=\"center ok\">No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.</p><br />";
 
+    $data_query_rw = "";
     $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
     for ($j = 1; $j<=$nb_lines; $j++) { // For each line, add the data content to the request
         if ($j == $nb_lines) {
