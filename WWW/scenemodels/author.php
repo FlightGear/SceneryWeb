@@ -12,7 +12,7 @@
 <?php
 
     if (isset($id))
-    {       
+    {
 	    $result=pg_query("SELECT * FROM fgs_authors WHERE au_id=$id;");
 	    $author=pg_fetch_assoc($result);
     };

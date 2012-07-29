@@ -3,8 +3,29 @@
 // Inserting libs
 require_once('../../inc/functions.inc.php');
 
+
+// Checks all variables if exist
+if (isset($_POST['step']) && preg_match('/^[0-9]+$/u',$_POST['step'])) {
+    $step = $_POST['step'];
+}
+
+if (isset($_POST['delete_choice']) && preg_match('/^[0-9]+$/u',$_POST['delete_choice'])) {
+    $id_to_delete = pg_escape_string(stripslashes($delete_choice));
+}
+
+if (isset($_POST['email'])
+    && (strlen($_POST['email']) > 0)
+    && (strlen($_POST['email']) <= 50)
+    && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email']) ) {
+    $safe_email = pg_escape_string(stripslashes($_POST['email']));
+}
+
+if (isset($_POST['comment']) && preg_match('/^[0-9a-z-A-Z\';:!?@-_\. ]+$/u',$_POST['comment'])) {
+    $comment = strip_tags($_POST['comment']);
+}
+
 // Final step to deletion
-if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choice'])) {
+if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
     // Captacha stuff
     require_once('../../inc/captcha/recaptchalib.php');
@@ -28,7 +49,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
 
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
-    $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
+    
     echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p>";
 
     // Should in fact be somewhere like here. Checking that comment exists. Just a small verification as it's not going into DB.
@@ -46,8 +67,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 
     $failed_mail = false;
-    if (isset($_POST['email']) && (strlen($_POST['email']) > 0) && (strlen($_POST['email']) <= 50)) {
-        $safe_email = pg_escape_string(stripslashes($_POST['email']));
+    if (isset($safe_email)) {
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
     }
     else {
@@ -139,7 +159,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
                 "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
                 "Elevation offset: " .get_object_offset_from_id($id_to_delete). "\r\n" .
                 "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
-                "Comment: " .strip_tags($_POST['comment']). "\r\n" .
+                "Comment: " .$comment. "\r\n" .
                 "Please click:". "\r\n" .
                 "http://mapserver.flightgear.org/submap/?lon=" .get_object_longitude_from_id($id_to_delete). "&lat=" .get_object_latitude_from_id($id_to_delete). "&zoom=15"."\r\n" .
                 "to locate the object on the map.";
@@ -195,7 +215,7 @@ if (isset($_POST['step']) && ($_POST['step'] == 3) && isset($_POST['delete_choic
                     "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
                     "Elevation offset: " .get_object_offset_from_id($id_to_delete). "\r\n" .
                     "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
-                    "Comment: " .strip_tags($_POST['comment']) ."\r\n".
+                    "Comment: " .$comment ."\r\n".
                     "Please click:" . "\r\n" .
                     "http://mapserver.flightgear.org/submap/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14" . "\r\n" .
                     "to locate the object on the map." . "\r\n" .
