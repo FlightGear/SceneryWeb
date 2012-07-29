@@ -41,16 +41,13 @@
         $elevoffset = "";
     }
 
-    if (isset($_REQUEST['orientation']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['orientation']))){
-        // Can be improved
-        $orientation = $_REQUEST['orientation'];
-        $heading = heading_stg_to_true($orientation);
-        $min = $heading-5;
-        $max = $heading+5;
-
+    if (isset($_REQUEST['heading']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['heading']))){
+        $min = $_REQUEST['heading']-5;
+        $max = $_REQUEST['heading']+5;
+        $heading = $_REQUEST['heading'];
         $filter.= " AND ob_heading>".$min." AND ob_heading<".$max;
     } else {
-        $orientation = "";
+        $heading = "";
     }
 
     if (isset($_REQUEST['lat']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['lat']))){
@@ -97,7 +94,7 @@
           <br/><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/></th>
       <th>Ground&nbspElevation<br/>+ Offset (m)<br/><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
           <br/><input type="text" name="elevoffset" size="6" <?php echo "value=\"".$elevoffset."\""; ?>/></th>
-      <th>Orientation<br/><input type="text" name="orientation" size="3" <?php echo "value=\"".$orientation."\""; ?>/></th>
+      <th>Heading<br/><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
       <th>Description<br/><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
       <th>
         Model<br/>
@@ -159,7 +156,7 @@
         if($elevation!="") $filter_text .= "&amp;elevation=".$elevation;
         if($elevoffset!="") $filter_text .= "&amp;elevoffset=".$elevoffset;
         if($description!="") $filter_text .= "&amp;description=".$description;
-        if($orientation!="") $filter_text .= "&amp;orientation=".$orientation;
+        if($heading!="") $filter_text .= "&amp;heading=".$heading;
         if($model!=0) $filter_text .= "&amp;model=".$model;
         if($group!=0) $filter_text .= "&amp;group=".$group;
         if($country!=0) $filter_text .= "&amp;country=".$country;
@@ -181,7 +178,7 @@
           echo "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
           $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
           echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n";
-          echo "  <td>".heading_true_to_stg($row["ob_heading"])."</td>\n";
+          echo "  <td>".$row["ob_heading"]."</td>\n";
           echo "  <td>".$row["ob_text"]."</td>\n";
           echo "  <td>".$models[$row["ob_model"]]."<br/><b>".$groups[$row["ob_group"]]."</b></td>\n";
           echo "  <td>".$countries[$row["ob_country"]]."</td>\n";
