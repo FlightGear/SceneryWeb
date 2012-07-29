@@ -9,7 +9,7 @@ if (isset($_POST['step']) && preg_match('/^[0-9]+$/u',$_POST['step'])) {
     $step = $_POST['step'];
 }
 
-if (isset($_POST['delete_choice']) && preg_match('/^[0-9]+$/u',$_POST['delete_choice'])) {
+if (isset($_REQUEST['delete_choice']) && preg_match('/^[0-9]+$/u',$_REQUEST['delete_choice'])) {
     $id_to_delete = pg_escape_string(stripslashes($delete_choice));
 }
 
@@ -23,6 +23,7 @@ if (isset($_POST['email'])
 if (isset($_POST['comment']) && preg_match('/^[0-9a-z-A-Z\';:!?@-_\. ]+$/u',$_POST['comment'])) {
     $comment = strip_tags($_POST['comment']);
 }
+
 
 // Final step to deletion
 if (isset($step) && ($step == 3) && isset($id_to_delete)) {
@@ -254,7 +255,7 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-if (isset($_POST['delete_choice']) || isset($_GET['delete_choice'])) { 
+if (isset($_REQUEST['delete_choice'])) { 
     $error = false;
 }
 else {
@@ -301,16 +302,9 @@ if ($error) {
 $resource_r_deletion = connect_sphere_r();
 
 // If the delete_choice is sent directly to us from a webform "outside" the submission world
-if (isset($_POST['delete_choice']) || isset($_GET['delete_choice'])) { 
-    if (isset($_POST['delete_choice'])) {
-        $delete_choice = $_POST['delete_choice'];
-    }
-    else {
-        $delete_choice = $_GET['delete_choice'];
-    }
-
+if (isset($id_to_delete)) {
     // Let's grab the information about this object from the database
-    $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE ob_id = ".$delete_choice.";";
+    $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE ob_id = ".$id_to_delete.";";
     $result = @pg_query($resource_r_deletion, $query_pos);
     $returned_rows = pg_num_rows($result);
 }
