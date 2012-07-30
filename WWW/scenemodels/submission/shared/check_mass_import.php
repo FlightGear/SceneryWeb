@@ -72,13 +72,13 @@ require_once('../../inc/functions.inc.php');
 
     // Checking that stg exists and is containing only letters or figures.
     if (isset($_POST['stg']) && preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg'])) {
-        echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p><br />";
+        echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
         $error = true;
         include '../../inc/footer.php';
         exit;
     }
 
-    echo "<p class=\"center ok\">The content of the STG file seems correct, now proceeding with in-depth checks...</p><br />";
+    echo "<p class=\"center ok\">The content of the STG file seems correct, now proceeding with in-depth checks...</p>";
 
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
@@ -92,7 +92,7 @@ if (!$error) {
     $global_ko = 0;                                     // Validates - or no - the right to go further.
     $cpt_err = 0;                                       // Counts the number of errors.
 
-    echo '<p class=\"center\">Counted a number of '.$nb_lines.' lines submitted.</p><br />';
+    echo '<p class=\"center\">Counted a number of '.$nb_lines.' lines submitted.</p>';
 
     // Limit the line numbers to
     if ($nb_lines > 100) {
@@ -164,7 +164,10 @@ if (!$error) {
                 }
             }
             else if ($j == 3) { // Checking Longitude, must contain only figures and ., be >-180 and <180, be 13 characters max.
-                if ((strlen($value_tag) <= 13) && ($value_tag <= 180) && ($value_tag >= -180) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
+                if ((strlen($value_tag) <= 13)
+                    && ($value_tag <= 180)
+                    && ($value_tag >= -180)
+                    && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $long = $value_tag;
                 }
@@ -176,7 +179,10 @@ if (!$error) {
                 }
             }
             else if($j == "4") { // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 13 characters max.
-                if ((strlen($value_tag) <= 13) && ($value_tag <= 90) && ($value_tag >= -90) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
+                if ((strlen($value_tag) <= 13)
+                    && ($value_tag <= 90)
+                    && ($value_tag >= -90)
+                    && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."<center></td>";
                     $lat = $value_tag;
                 }
@@ -190,7 +196,8 @@ if (!$error) {
 
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             if ($j == 5) { // Checking Elevation, must contain only figures and, be max 10 characters
-                if ((strlen($value_tag) <= 10) && preg_match('/^[0-9\-\.]+$/', $value_tag)) {
+                if ((strlen($value_tag) <= 10)
+                    && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $gndelev = $value_tag;
                 }
@@ -203,7 +210,9 @@ if (!$error) {
             }
             else if($j == 6) // Checking Orientation, must contain only figures, be >0, be 17 characters max.
             {
-                if ((strlen($value_tag) <= 18) && ($value_tag >= 0) && preg_match('/^[0-9\.]+$/', $value_tag)) {
+                if ((strlen($value_tag) <= 18)
+                    && ($value_tag >= 0)
+                    && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td> ";
                     $orientation = $value_tag;
                 }
