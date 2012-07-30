@@ -139,11 +139,18 @@ if (isset($_POST["action"])) {
                 $query_rw_mo = gzuncompress ($sqlz_mo);
                 $query_rw_ob = gzuncompress ($sqlz_ob);
 
+		//Debugging for Martin to check SQL
+		echo "1st query for the model :<br />".$query_rw_mo;
+
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
                 $mo_id = pg_fetch_row ($result_rw_mo);
                 $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
                 $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
+
+		//Debugging for Martin to check SQL
+		echo "<br />2nd query for the object:<br />".$query_rw_ob_with_mo_id;
+
                 $result_rw_ob = @pg_query ($resource_rw, $query_rw_ob_with_mo_id);
                 $ret_ob_id = pg_fetch_row ($result_rw_ob);
                 $query_ob_text = "update fgsoj_objects set ob_text = '". object_name_oj($mo_id[0]) ."' where ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
