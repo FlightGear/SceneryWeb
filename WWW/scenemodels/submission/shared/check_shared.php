@@ -43,7 +43,7 @@
     echo "<center>";
 
     // Checking that family_id exists and is containing only figures.
-    if(isset($_POST['family_name']) && preg_match('/[0-9]/',$_POST['family_name']) && ($_POST['family_name']>'0')) {
+    if(isset($_POST['family_name']) && preg_match('/^[0-9]+$/',$_POST['family_name']) && ($_POST['family_name']>'0')) {
         $family_id = pg_escape_string(stripslashes($_POST['family_name']));
         $family_real_name = family_name($family_id);
         echo "<p class=\"ok\">Family Name: ".$family_real_name."</p>";
@@ -54,7 +54,7 @@
     }
 
     // Checking that model_id exists and is containing only figures and with correct decimal format.
-    if(isset($_POST['model_name']) && preg_match('/[0-9]/',$_POST['model_name']) && ($_POST['model_name']>'0')) {
+    if(isset($_POST['model_name']) && preg_match('/^[0-9]+$/',$_POST['model_name']) && ($_POST['model_name']>'0')) {
         $model_id = pg_escape_string(stripslashes($_POST['model_name']));
         $model_real_name = object_name($model_id);
         echo "<p class=\"ok\">Model Name: ".$model_real_name."</p>";
@@ -66,7 +66,11 @@
 
     // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
-    if(isset($_POST['latitude']) && (strlen($_POST['latitude'])<=13) && ($_POST['latitude']<='90') && ($_POST['latitude']>='-90')) {
+    if(isset($_POST['latitude'])
+       && strlen($_POST['latitude'])<=13
+       && $_POST['latitude']<='90'
+       && $_POST['latitude']>='-90'
+       && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['latitude'])) {
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
         echo "<p class=\"ok\">Latitude: ".$lat."</p>";
     }
@@ -77,7 +81,11 @@
 
     // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
     // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
-    if(isset($_POST['longitude']) && (strlen($_POST['longitude'])<=13) && ($_POST['longitude']<='180') && ($_POST['longitude']>='-180')) {
+    if(isset($_POST['longitude'])
+       && (strlen($_POST['longitude'])<=13)
+       && ($_POST['longitude']<='180')
+       && ($_POST['longitude']>='-180')
+       && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['longitude'])) {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
         echo "<p class=\"ok\">Longitude: ".$long."</p>";
     }
@@ -88,7 +96,7 @@
 
     // Checking that ground elevation exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
     if(isset($_POST['gndelev']) &&
-        ((strlen($_POST['gndelev']))<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['gndelev'])) &&
+        ((strlen($_POST['gndelev']))<=10) && (preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['gndelev'])) &&
         ($_POST['gndelev']<='10000') &&
         ($_POST['gndelev']>='-10000')) {
         $gndelev = number_format(pg_escape_string(stripslashes($_POST['gndelev'])),2,'.','');
@@ -100,7 +108,7 @@
     }
 
     // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
-    if(isset($_POST['offset']) && (strlen($_POST['offset'])<=10) && (preg_match('/^[0-9\-\.]+$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
+    if(isset($_POST['offset']) && (strlen($_POST['offset'])<=10) && (preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
         $offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
         echo "<p class=\"ok\">Offset: ".$offset."</p>";
     }
@@ -111,7 +119,7 @@
 
     // Checking that orientation exists and is containing only digits, and is >=0 and <=359
     // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
-    if(isset($_POST['heading']) && (strlen($_POST['heading'])<=7) && (preg_match('/^[0-9\.]+$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0')) {
+    if(isset($_POST['heading']) && (strlen($_POST['heading'])<=7) && (preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0')) {
         $heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
         echo "<p class=\"ok\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</p>";
     }
@@ -134,7 +142,8 @@
     // Checking that email is valid (if it exists).
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     $failed_mail = false;
-    if(isset($_POST['email']) && (strlen($_POST['email'])>0) && (strlen($_POST['email'])<=50)) {
+    if(isset($_POST['email']) && (strlen($_POST['email'])>0) && (strlen($_POST['email'])<=50)
+       && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email'])) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
         echo "<p class=\"ok\">Email: ".$safe_email."</p>";
     }
@@ -146,6 +155,12 @@
 // If there is no error, generating SQL to be inserted into the database pending requests table.
 if (!$error) {
     echo "<br /><p class=\"ok\">Data seems to be OK to be inserted in the database</p>";
+    
+    // Detect if the object is already in the database
+    if (detect_already_existing_object($lat, $long, $gndelev, 0, $heading, $model_id)) {
+        echo "<p class=\"warning\">The object already exists in the database!</p>";
+        include '../../inc/footer.php';
+    }
 
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
