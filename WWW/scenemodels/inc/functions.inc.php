@@ -165,15 +165,15 @@ function get_object_country_from_id($ob_id)
 
     // Querying...
     $query = "SELECT co_code FROM gadm2, fgs_countries WHERE ST_Within(ST_PointFromText('POINT(".get_object_longitude_from_id($mg_id)." ".get_object_latitude_from_id($mg_id).")', 4326), wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
-    $result = @pg_query($headerlink_family, $query);
+    $result = pg_query($headerlink_family, $query);
 
-    while ($row = @pg_fetch_assoc($result)) {
+    while ($row = pg_fetch_assoc($result)) {
         if ($row["co_code"] == '') return ("Unknown!");
         else return ($row["co_code"]);
         }
 
     // Closing the connection.
-    @pg_close ($headerlink_family);
+    pg_close ($headerlink_family);
 }
 
 // Returns the group name (LANDMARK, NAVAID...) from an ob_group sent as parameter
