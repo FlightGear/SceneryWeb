@@ -22,7 +22,9 @@ Features updates (by priority):
 - Use Jquery lib for form checking & asynchronous queries.
 - Take object "SIGN" into account.
 - Take comments into account to merge them into the generated STG file (but how will you remove them ;-)
-- Automate the altitude calculation (is there a FG server giving this online f(lat, long) ?)
+- Automate the altitude calculation (is there a FG server giving this online f(lat, long) ?).
+- Automate the country calculation.
+- Add a possibility to switch from STG heading to true and inversely.
 - Regionalise the maintainers : if lat/lon between x and y, send the validation mail to Jon, Martin or... else
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
 
@@ -41,9 +43,9 @@ For later:
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
 - Logging options
 - Add WebGL for public access as well (3D model viewer).
-- Take Roll/pitch into account.
+- Take roll/pitch into account.
 
 Terragear
 =========
-- Create a webtool "à la Terragear GUI" to generate scenery based on user inputs.
+- Create a webtool "a la Terragear GUI" to generate scenery based on user inputs.
 - Generate WW scenery, whether 810, 850, Corine...

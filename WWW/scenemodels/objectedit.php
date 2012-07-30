@@ -44,7 +44,7 @@
     </tr>
     <tr>
         <td>STG Heading (not true heading)</td>
-        <td><?php $heading = heading_true_to_stg(get_object_true_orientation_from_id($id)); echo $heading; ?></td>
+        <td><?php $heading = heading_true_to_stg(get_object_true_orientation_from_id($id)); echo $heading." (STG) - ".get_object_true_orientation_from_id($id)." (true)"; ?></td>
     </tr>
     <tr>
         <td>Group</td>
