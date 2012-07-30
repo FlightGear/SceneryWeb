@@ -16,8 +16,8 @@ if (isset($_POST['new_gndelev']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/
 if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset']))
     $new_offset = pg_escape_string($_POST['new_offset']);
     
-if (isset($_POST['new_orientation']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_orientation']))
-    $new_orientation = pg_escape_string($_POST['new_orientation']);
+if (isset($_POST['new_heading']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_heading']))
+    $new_orientation = pg_escape_string($_POST['new_heading']);
     
 if (isset($_POST['id_to_update']) && preg_match('/^[0-9]+$/u',$_POST['id_to_update']))
     $id_to_update = pg_escape_string($_POST['id_to_update']);
