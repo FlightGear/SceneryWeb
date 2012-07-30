@@ -25,6 +25,17 @@ if (isset($_POST['id_to_update']) && preg_match('/^[0-9]+$/u',$_POST['id_to_upda
 if (isset($_POST['model_name']) && preg_match('/^[0-9]+$/u',$_POST['model_name']))
     $model_name = pg_escape_string($_POST['model_name']);
     
+if (isset($_POST['email'])
+    && (strlen($_POST['email']) > 0)
+    && (strlen($_POST['email']) <= 50)
+    && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email']) )
+    $safe_email = pg_escape_string(stripslashes($_POST['email']));
+    
+if (isset($_REQUEST['update_choice'])
+    && $_REQUEST['update_choice']>'0'
+    && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice']))
+    $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
+    
 
 // Final step to edition
 if (isset($model_name)
@@ -62,16 +73,13 @@ if (isset($model_name)
 
     // Checking that email is valid (if it exists).
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-    $failed_mail = 0;
-    if (isset($_POST['email'])
-        && (strlen($_POST['email']) > 0)
-        && (strlen($_POST['email']) <= 50)) {
-        $safe_email = pg_escape_string(stripslashes($_POST['email']));
+    $failed_mail = false;
+    if ($safe_email) {
         echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
     }
     else {
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
-        $failed_mail = 1;
+        $failed_mail = true;
     }
 
     // Preparing the update request
@@ -99,9 +107,6 @@ if (isset($model_name)
     // Closing the connection.
     @pg_close($resource_rw);
 
-?>
-<br /><br />
-<?php
     if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></p>";
         include '../../inc/footer.php';
@@ -135,7 +140,7 @@ if (isset($model_name)
     $html_object_url = htmlspecialchars($object_url);
 
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-    if($failed_mail != 1) {
+    if(!$failed_mail) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery update PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
@@ -161,7 +166,7 @@ if (isset($model_name)
                 "Longitude: ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
                 "Ground elevation: ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
                 "Elevation offset: ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
-                "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
+                "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
                 "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                 "Please click:" . "\r\n" .
                 "http://mapserver.flightgear.org/submap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
@@ -186,7 +191,7 @@ if (isset($model_name)
     @mail($to, $subject, $message, $headers);
 
     // Mailing the submitter
-    if ($failed_mail != 1) {
+    if (!$failed_mail) {
 
         // Tell the submitter that its submission has been sent for validation.
         $to = $safe_email;
@@ -241,18 +246,9 @@ if (isset($model_name)
 }
 
 // Getting back the update_choice
-if ( ( isset($_POST['update_choice'])
-    && $_POST['update_choice']>'0')
-    || (isset($_GET['update_choice'])
-    && $_GET['update_choice']>'0') ) {
-    
+if (isset($id_to_update)) {
 
-    if (isset($_POST['update_choice']))
-        $update_choice = $_POST['update_choice'];
-    else
-        $update_choice = $_GET['update_choice'];
-
-    if (is_shared_or_static($update_choice) == 'static') {
+    if (is_shared_or_static($id_to_update) == 'static') {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but only shared objects can be updated for now.";
         include '../../inc/error_page.php';
@@ -285,10 +281,8 @@ function validateForm()
 /*]]>*/
 </script>
 
-<?php
-    $id_to_update = pg_escape_string(stripslashes($update_choice));
-    echo "<p class=\"center\">You have asked to update object #".$id_to_update.".</p>\n";
-?>
+    <p class="center">You have asked to update object #<?php echo $id_to_update;?>.</p>
+
     <form id="update" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
       <table>
         <tr>
