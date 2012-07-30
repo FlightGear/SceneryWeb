@@ -153,6 +153,28 @@ function get_object_family_from_id($ob_id)
     @pg_close ($headerlink_family);
 }
 
+// Returns the country id of an ob_id sent as parameter
+// ====================================================
+
+function get_object_country_from_id($ob_id)
+{
+    $mg_id = pg_escape_string($ob_id);
+
+    // Connecting to the database.
+    $headerlink_family = connect_sphere_r();
+
+    // Querying...
+    $query = "SELECT co_code FROM gadm2, fgs_countries WHERE ST_Within(ST_PointFromText('POINT(".get_object_latitude_from_id($mg_id)." ".get_object_longitude_from_id($mg_id).")', 4326), wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+    $result = @pg_query($headerlink_family, $query1);
+
+    while ($row = @pg_fetch_assoc($result)) {
+        return ($row["co_code"]);
+        }
+
+    // Closing the connection.
+    @pg_close ($headerlink_family);
+}
+
 // Returns the group name (LANDMARK, NAVAID...) from an ob_group sent as parameter
 // ===============================================================================
 
