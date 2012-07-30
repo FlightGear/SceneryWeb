@@ -439,6 +439,31 @@ function get_object_true_orientation_from_id_oj($ob_id)
     @pg_close ($headerlink_family);
 }
 
+// Get the object text (description) from an ob_id sent as parameter.
+// This may be important when deleting objects: some of them may seem
+// unappropriate, but do have important metadata shipped with them
+// (obstructions, landaid, etc.). So this will show this data on the
+// deletion and update emails so the submitter is careful or copy/pastes
+// the relevant data.
+// ===============================================================
+
+function get_object_text_from_id($ob_id)
+{
+    // Connecting to the database.
+    $headerlink_family = connect_sphere_r();
+
+    // Querying...
+    $query = "SELECT ob_text FROM fgs_objects WHERE ob_id=".$ob_id.";";
+    $result = @pg_query($headerlink_family, $query);
+
+    while ($row = @pg_fetch_assoc($result))    {
+        return ($row["ob_text"]);
+    }
+
+    // Closing the connection.
+    @pg_close ($headerlink_family);
+}
+
 // Returns the author's name from an author's id sent as parameter
 // ===============================================================
 

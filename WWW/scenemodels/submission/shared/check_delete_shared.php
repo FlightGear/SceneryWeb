@@ -50,7 +50,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
     $page_title = "Automated Shared Models Positions Deletion Form";
     include '../../inc/header.php';
-    
+
     echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p>";
 
     // Should in fact be somewhere like here. Checking that comment exists. Just a small verification as it's not going into DB.
@@ -160,6 +160,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
                 "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
                 "Elevation offset: " .get_object_offset_from_id($id_to_delete). "\r\n" .
                 "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
+                "Text currently shipped with object: ".get_object_text_from_id($id_to_delete). "\r\n" .
                 "Comment: " .$comment. "\r\n" .
                 "Please click:". "\r\n" .
                 "http://mapserver.flightgear.org/submap/?lon=" .get_object_longitude_from_id($id_to_delete). "&lat=" .get_object_latitude_from_id($id_to_delete). "&zoom=15"."\r\n" .
@@ -255,7 +256,7 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-if (isset($id_to_delete)) { 
+if (isset($id_to_delete)) {
     $error = false;
 }
 else {
@@ -263,7 +264,7 @@ else {
 
     // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
     if (isset($_POST['latitude'])
-        && strlen($_POST['latitude']) <= 13 
+        && strlen($_POST['latitude']) <= 13
         && $_POST['latitude'] <= 90
         && $_POST['latitude'] >= -90
         && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['latitude'])) {
@@ -276,7 +277,7 @@ else {
 
     // Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
     if (isset($_POST['longitude'])
-        && strlen($_POST['longitude']) <= 13 
+        && strlen($_POST['longitude']) <= 13
         && $_POST['longitude'] <= 180
         && $_POST['longitude'] >= -180
         && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['longitude'])) {
@@ -407,7 +408,7 @@ function validateForm()
             <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
             <input name="step" type="hidden" value="3" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
-            
+
             <input type="submit" name="submit" value="Delete this object!" />
             <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
             </td>
@@ -416,7 +417,7 @@ function validateForm()
     </form>
 <?php
     include '../../inc/footer.php';
-    
+
     exit;
 }
 
@@ -441,12 +442,12 @@ function validateForm()
 
     <p class=\"center\"><?php echo $returned_rows;?> objects with WGS84 coordinates longitude: <?php echo $long;?>, latitude: <?php echo $lat;?> have been found in the database.<br />Please select with the left radio button the one you want to delete.</p>
 
-    
+
     <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
     <table>
 
 <?php
-    
+
     // Starting multi-solutions form
     $is_first = true; // Just used to put the selected button on the first entry
     while ($row = pg_fetch_row($result)) {

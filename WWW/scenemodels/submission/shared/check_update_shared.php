@@ -9,33 +9,33 @@ if (isset($_POST['new_long']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
 
 if (isset($_POST['new_lat']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_lat']))
     $new_lat = pg_escape_string($_POST['new_lat']);
-    
+
 if (isset($_POST['new_gndelev']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_gndelev']))
     $new_gndelev = pg_escape_string($_POST['new_gndelev']);
-    
+
 if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset']))
     $new_offset = pg_escape_string($_POST['new_offset']);
-    
+
 if (isset($_POST['new_heading']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_heading']))
     $new_orientation = pg_escape_string($_POST['new_heading']);
-    
+
 if (isset($_POST['id_to_update']) && preg_match('/^[0-9]+$/u',$_POST['id_to_update']))
     $id_to_update = pg_escape_string($_POST['id_to_update']);
-    
+
 if (isset($_POST['model_name']) && preg_match('/^[0-9]+$/u',$_POST['model_name']))
     $model_name = pg_escape_string($_POST['model_name']);
-    
+
 if (isset($_POST['email'])
     && (strlen($_POST['email']) > 0)
     && (strlen($_POST['email']) <= 50)
     && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email']) )
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
-    
+
 if (isset($_REQUEST['update_choice'])
     && $_REQUEST['update_choice']>'0'
     && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice']))
     $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
-    
+
 
 // Final step to edition
 if (isset($model_name)
@@ -167,6 +167,7 @@ if (isset($model_name)
                 "Ground elevation: ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
                 "Elevation offset: ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
                 "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
+                "Text currently shipped with object: ".get_object_text_from_id($id_to_update). "\r\n" .
                 "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                 "Please click:" . "\r\n" .
                 "http://mapserver.flightgear.org/submap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
@@ -254,7 +255,7 @@ if (isset($id_to_update)) {
         include '../../inc/error_page.php';
         exit;
     }
-    
+
     $page_title = "Automated Shared Models Positions Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
@@ -483,7 +484,7 @@ else {
         include '../../inc/error_page.php';
         exit;
     }
-    
+
 ?>
 <br />
 <?php
@@ -497,7 +498,7 @@ else {
         && strlen($_POST['latitude']) <= 13
         && $_POST['latitude'] <= 90
         && $_POST['latitude'] >= -90) {
-        
+
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
@@ -511,7 +512,7 @@ else {
         && strlen($_POST['longitude']) <= 13
         && $_POST['longitude'] >= -180
         && $_POST['longitude'] <= 180) {
-        
+
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {
@@ -519,7 +520,7 @@ else {
         $error = true;
     }
 
-    
+
     if ($error) {
         $page_title = "Automated Shared Models Positions Update Form";
         // $error_text is defined above
@@ -544,10 +545,10 @@ else {
         include '../../inc/error_page.php';
         exit;
     }
-    
+
     $page_title = "Automated Shared Models Positions Update Form";
     include '../../inc/header.php';
-    
+
     if ($returned_rows == '1') { // If we have just an answer...
         while ($row = pg_fetch_row($result)) {
             echo "<p class=\"center\">One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</p><br />";
@@ -599,7 +600,7 @@ else {
                 </tr>
             </table>
             </form>
-<?php 
+<?php
             include '../../inc/footer.php';
         }
         exit;
