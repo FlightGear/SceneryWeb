@@ -3,12 +3,36 @@
 // Inserting libs
 require_once('../../inc/functions.inc.php');
 
+// Checking all variables
+if (isset($_POST['new_long']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_long']))
+    $new_long = pg_escape_string($_POST['new_long']);
+
+if (isset($_POST['new_lat']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_lat']))
+    $new_lat = pg_escape_string($_POST['new_lat']);
+    
+if (isset($_POST['new_gndelev']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_gndelev']))
+    $new_gndelev = pg_escape_string($_POST['new_gndelev']);
+    
+if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset']))
+    $new_offset = pg_escape_string($_POST['new_offset']);
+    
+if (isset($_POST['new_orientation']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_orientation']))
+    $new_orientation = pg_escape_string($_POST['new_orientation']);
+    
+if (isset($_POST['id_to_update']) && preg_match('/^[0-9]+$/u',$_POST['id_to_update']))
+    $id_to_update = pg_escape_string($_POST['id_to_update']);
+    
+if (isset($_POST['model_name']) && preg_match('/^[0-9]+$/u',$_POST['model_name']))
+    $model_name = pg_escape_string($_POST['model_name']);
+    
+
 // Final step to edition
-if (isset($_POST['new_long'])
-    && isset($_POST['new_lat'])
-    && isset($_POST['new_gndelev'])
-    && isset($_POST['new_offset'])
-    && isset($_POST['new_orientation'])) {
+if (isset($model_name)
+    && isset($new_long)
+    && isset($new_lat)
+    && isset($new_gndelev)
+    && isset($new_offset)
+    && isset($new_orientation)) {
 
     // Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
@@ -52,8 +76,8 @@ if (isset($_POST['new_long'])
 
     // Preparing the update request
     $query_update="UPDATE fgs_objects ".
-                  "SET ob_text='".object_name($_POST['model_name'])."', wkb_geometry=ST_PointFromText('POINT(".$_POST['new_long']." ".$_POST['new_lat'].")', 4326), ob_gndelev=".$_POST['new_gndelev'].", ob_elevoffset=".$_POST['new_offset'].", ob_heading=".heading_stg_to_true($_POST['new_orientation']).", ob_model=".$_POST['model_name'].", ob_group=1 ".
-                  "WHERE ob_id=".$_POST['id_to_update'].";";
+                  "SET ob_text='".object_name($model_name)."', wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=".$new_gndelev.", ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
+                  "WHERE ob_id=".$id_to_update.";";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_update.">";
@@ -107,7 +131,7 @@ if (isset($_POST['new_long'])
     $subject = "[FG Scenery Submission forms] Automatic shared model update request: needs validation.";
 
     // Correctly format the data for the mail.
-    $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$_POST['model_name'];
+    $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$model_name;
     $html_object_url = htmlspecialchars($object_url);
 
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
@@ -129,18 +153,18 @@ if (isset($_POST['new_long'])
     $message077 = wordwrap($message0, 77, "\r\n");
 
     // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-    $message1 = "Object #: ".$_POST['id_to_update']."\r\n" .
-                "Family: ". get_object_family_from_id($_POST['id_to_update']) ." => ".family_name($_POST['family_name'])."\r\n" .
-                "Object: ". object_name(get_object_model_from_id($_POST['id_to_update'])) ." => ".object_name($_POST['model_name'])."\r\n" .
+    $message1 = "Object #: ".$id_to_update."\r\n" .
+                "Family: ". get_object_family_from_id($id_to_update) ." => ".family_name($_POST['family_name'])."\r\n" .
+                "Object: ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
                 "[ ".$html_object_url." ]" . "\r\n" .
-                "Latitude: ". get_object_latitude_from_id($_POST['id_to_update']) . "  => ".$_POST['new_lat']."\r\n" .
-                "Longitude: ". get_object_longitude_from_id($_POST['id_to_update']) . " => ".$_POST['new_long']."\r\n" .
-                "Ground elevation: ". get_object_elevation_from_id($_POST['id_to_update']) . " => ".$_POST['new_gndelev']."\r\n" .
-                "Elevation offset: ". get_object_offset_from_id($_POST['id_to_update']) . " => ".$_POST['new_offset']."\r\n" .
-                "True (DB) orientation: ". get_object_true_orientation_from_id($_POST['id_to_update']) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
+                "Latitude: ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
+                "Longitude: ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
+                "Ground elevation: ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
+                "Elevation offset: ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
+                "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
                 "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                 "Please click:" . "\r\n" .
-                "http://mapserver.flightgear.org/submap/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14" . "\r\n" .
+                "http://mapserver.flightgear.org/submap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
                 "to locate the object on the map (eventually new position)." ;
 
     $message2 = "\r\n".
@@ -187,19 +211,19 @@ if (isset($_POST['new_long'])
         $message077 = wordwrap($message3, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-        $message4 = "Object #: ".$_POST['id_to_update']."\r\n" .
-                    "Family: ". get_object_family_from_id($_POST['id_to_update']) ." => ".family_name($_POST['family_name'])."\r\n" .
+        $message4 = "Object #: ".$id_to_update."\r\n" .
+                    "Family: ". get_object_family_from_id($id_to_update) ." => ".family_name($_POST['family_name'])."\r\n" .
                     "[ ".$html_family_url." ]" . "\r\n" .
-                    "Object: ". object_name(get_object_model_from_id($_POST['id_to_update'])) ." => ".object_name($_POST['model_name'])."\r\n" .
+                    "Object: ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
                     "[ ".$html_object_url." ]" . "\r\n" .
-                    "Latitude: ". get_object_latitude_from_id($_POST['id_to_update']) . "  => ".$_POST['new_lat']."\r\n" .
-                    "Longitude: ". get_object_longitude_from_id($_POST['id_to_update']) . " => ".$_POST['new_long']."\r\n" .
-                    "Ground elevation: ". get_object_elevation_from_id($_POST['id_to_update']) . " => ".$_POST['new_gndelev']."\r\n" .
-                    "Elevation offset: ". get_object_offset_from_id($_POST['id_to_update']) . " => ".$_POST['new_offset']."\r\n" .
-                    "True (DB) orientation: ". get_object_true_orientation_from_id($_POST['id_to_update']) . " => ".heading_stg_to_true($_POST['new_orientation'])."\r\n" .
+                    "Latitude: ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
+                    "Longitude: ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
+                    "Ground elevation: ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
+                    "Elevation offset: ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
+                    "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
                     "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                     "Please click:" . "\r\n" .
-                    "http://mapserver.flightgear.org/submap/?lon=". $_POST['new_long'] ."&lat=". $_POST['new_lat'] ."&zoom=14" . "\r\n" .
+                    "http://mapserver.flightgear.org/submap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
                     "to locate the object on the map (eventually new position)." . "\r\n" .
                     "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
@@ -261,7 +285,6 @@ function validateForm()
 /*]]>*/
 </script>
 
-<br /><br />
 <?php
     $id_to_update = pg_escape_string(stripslashes($update_choice));
     echo "<p class=\"center\">You have asked to update object #".$id_to_update.".</p>\n";
@@ -276,7 +299,7 @@ function validateForm()
         </tr>
         <tr>
           <td>
-            <span title="This is the family name of the object you want to update."><label for="family_name">Object's family</label></span>
+            <span title="This is the family name of the object you want to update."><label for="family_name">Object's family<em>*</em></label></span>
           </td>
           <td>
             <?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
@@ -322,7 +345,7 @@ function validateForm()
         <tr>
           <td>
             <span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
-            <label for="model_name">Model name</label></span>
+            <label for="model_name">Model name<em>*</em></label></span>
           </td>
           <td>
 <?php
@@ -365,7 +388,7 @@ function validateForm()
         <tr>
           <td>
             <span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000.">
-            <label for="new_long">Longitude</label></span>
+            <label for="new_long">Longitude<em>*</em></label></span>
           </td>
           <td>
             <?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
@@ -377,7 +400,7 @@ function validateForm()
         <tr>
           <td>
             <span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000.">
-            <label for="new_lat">Latitude</label></span>
+            <label for="new_lat">Latitude<em>*</em></label></span>
           </td>
           <td>
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
@@ -389,7 +412,7 @@ function validateForm()
         <tr>
           <td>
             <span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
-            <label for="new_gndelev">Elevation</label></span>
+            <label for="new_gndelev">Elevation<em>*</em></label></span>
           </td>
           <td>
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
@@ -401,7 +424,7 @@ function validateForm()
         <tr>
           <td>
             <span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground).">
-            <label for="new_offset">Elevation Offset</label></span>
+            <label for="new_offset">Elevation Offset<em>*</em></label></span>
           </td>
           <td>
             <?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
@@ -412,7 +435,7 @@ function validateForm()
         </tr>
         <tr>
           <td>
-            <span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="new_heading">Orientation</label></span>
+            <span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="new_heading">Orientation<em>*</em></label></span>
           </td>
           <td>
             <?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
