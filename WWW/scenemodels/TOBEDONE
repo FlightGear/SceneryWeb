@@ -3,7 +3,6 @@ Shared objects
 Bug/security fixing:
 --------------------
 - Check for every form & page the referring page & the value of the form submitting.
-- In mass import, the first line seems to be dropped again. Don't know why.
 - In update, beware that for the moment, we are replacing the current metadata, whatever
   it contains (including interesting obstruction information) by the name of the object.
 
@@ -14,7 +13,6 @@ Features updates (by priority):
 - Add pitch/roll and offset data so they can be, for instance, mass imported.
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Enable maintainer to drop a comment.
-- Shows the object position when selected (map when adding...).
 - Add the model thumbnail when editing an object. In fact objectedit and submission edit must share common ideas !
 - Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
 - Use Jquery lib for form checking & asynchronous queries.
