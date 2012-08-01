@@ -139,8 +139,8 @@ if (isset($_POST["action"])) {
                 $query_rw_mo = gzuncompress ($sqlz_mo);
                 $query_rw_ob = gzuncompress ($sqlz_ob);
 
-		//Debugging for Martin to check SQL
-		echo "1st query for the model :<br />".$query_rw_mo;
+        //Debugging for Martin to check SQL
+        echo "1st query for the model :<br />".$query_rw_mo;
 
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
@@ -148,8 +148,8 @@ if (isset($_POST["action"])) {
                 $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
                 $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
 
-		//Debugging for Martin to check SQL
-		echo "<br />2nd query for the object:<br />".$query_rw_ob_with_mo_id;
+        //Debugging for Martin to check SQL
+        echo "<br />2nd query for the object:<br />".$query_rw_ob_with_mo_id;
 
                 $result_rw_ob = @pg_query ($resource_rw, $query_rw_ob_with_mo_id);
                 $ret_ob_id = pg_fetch_row ($result_rw_ob);
@@ -486,7 +486,7 @@ function validateForm()
 ?>
     <tr>
         <td>Download</td>
-        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the submission as .tar.gz for external viewing (Note: you'll have to rename the .php file into .tar.gz for the moment).</a></center></td>
+        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the submission as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
