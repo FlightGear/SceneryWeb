@@ -16,12 +16,14 @@ BODY {
     margin-top:30px;
     border:1px solid #999;
     text-align: left;
-    width:1000px;
+    width:1100px;
+    word-wrap: break-word;
     box-shadow : 0px 0px 0.5em 0em grey;
 }
 
 #content2 {
     margin:20px;
+    
 }
 
 H1 {

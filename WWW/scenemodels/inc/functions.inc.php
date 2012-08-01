@@ -168,7 +168,7 @@ function get_object_country_from_id($ob_id)
     $result = pg_query($headerlink_country, $query);
 
     while ($row = pg_fetch_assoc($result)) {
-        if ($row["co_code"] == '') return ("Unknown!");
+        if ($row["co_code"] == '') return (0);
         else return ($row["co_code"]);
         }
 
