@@ -29,7 +29,7 @@
         while ($row = pg_fetch_assoc($result_menu)) {
             $name=preg_replace('/&/',"&amp;", $row["mg_name"]);
             $name=preg_replace('/ /',"&nbsp;", $name);
-              
+
             echo "<li><a href=\"/modelbrowser.php?shared=".$row["mg_id"]."\">".$name."</a></li>\n";
         }
 ?>
@@ -43,6 +43,9 @@
     </li>
     <li class="mainitems">
         <div class="headerlinks"><a href="/mapserver.php">Mapserver</a></div>
+        <ul class="submenus">
+            <li><a href="http://mapserver.flightgear.org/shpdl/">Download shapefiles</a></li>
+        </ul>
     </li>
     <li class="mainitems">
       <div class="headerlinks"><a href="/download.php">Download</a></div>
