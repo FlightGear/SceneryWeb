@@ -163,7 +163,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: Hi, this is a new telecommunications model in Brittany, please commit.">
+            <span title="Please add a short (max 100 letters) statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.">
             <label for="comment">Comment</label>
             </span>
             </td>
