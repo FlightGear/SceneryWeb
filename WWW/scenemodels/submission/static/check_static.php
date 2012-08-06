@@ -594,12 +594,11 @@ else {
 
 if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
-    && isset($_POST['comment']) && isset($_POST['contributor'])) {
+    && isset($_POST['comment']) {
 
         $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
         $comment     = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
-        $contributor = addslashes(htmlentities(strip_tags($_POST["contributor"]), ENT_QUOTES));
         $mo_shared   = $_POST["mo_shared"];
         $author      = $_POST["mo_author"];
         $country     = $_POST["ob_country"];
