@@ -672,16 +672,29 @@ else {
     # Inserts into fgsoj_models and returns current mo_id
     $ob_model = 'Thisisthevalueformo_id';
 
-    $ob_query  = "INSERT INTO fgsoj_objects ";
-    $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model) ";
-    $ob_query .= "VALUES (";
-    $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-    $ob_query .= $gndelev.", ";                                                            // ob_gndelev
-    $ob_query .= $offset.", ";                                                             // ob_elevoffset
-    $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-    $ob_query .= "'".$country."', ";                                                       // ob_country
-    $ob_query .= $ob_model;                                                                // ob_model
-    $ob_query .= ")";
+    if ($offset != '') {
+        $ob_query  = "INSERT INTO fgsoj_objects ";
+        $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model) ";
+        $ob_query .= "VALUES (";
+        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
+        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
+        $ob_query .= $offset.", ";                                                             // ob_elevoffset
+        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
+        $ob_query .= "'".$country."', ";                                                       // ob_country
+        $ob_query .= $ob_model;                                                                // ob_model
+        $ob_query .= ")";
+    }
+    else {
+        $ob_query  = "INSERT INTO fgsoj_objects ";
+        $ob_query .= "(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model) ";
+        $ob_query .= "VALUES (";
+        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
+        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
+        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
+        $ob_query .= "'".$country."', ";                                                       // ob_country
+        $ob_query .= $ob_model;                                                                // ob_model
+        $ob_query .= ")";
+        }
 
     // Object Stuff into pending requests table.
     $ob_sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";

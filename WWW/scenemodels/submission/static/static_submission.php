@@ -297,16 +297,28 @@ if (!isset($_POST["action"])) {
 
                 // Retrieve data from query
                 echo $query_rw;
-                $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+)\)/";
 
-                preg_match($pattern, $query_rw, $matches);
+                if (substr_compare($query_rw, "ob_elevoffset", 53, 13) == 0) { // Means an offset has been sent
+                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+)\)/";
+                    preg_match($pattern, $query_rw, $matches);
 
-                $ob_long       = $matches['longitude'];
-                $ob_lat        = $matches['latitude'];
-                $ob_gndelev    = $matches['gndelev'];
-                $ob_elevoffset = $matches['offset'];
-                $ob_heading    = $matches['heading'];
-                $ob_country    = $matches['country'];
+                    $ob_long       = $matches['longitude'];
+                    $ob_lat        = $matches['latitude'];
+                    $ob_gndelev    = $matches['gndelev'];
+                    $ob_elevoffset = $matches['offset'];
+                    $ob_heading    = $matches['heading'];
+                    $ob_country    = $matches['country'];
+                }
+                else { // The query does not contain any offset
+                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+)\)/";
+                    preg_match($pattern, $query_rw, $matches);
+
+                    $ob_long       = $matches['longitude'];
+                    $ob_lat        = $matches['latitude'];
+                    $ob_gndelev    = $matches['gndelev'];
+                    $ob_heading    = $matches['heading'];
+                    $ob_country    = $matches['country'];
+                }
             }
 
         }
@@ -430,10 +442,16 @@ function validateForm()
         <td>Ground Elevation</td>
         <td><?php echo $ob_gndelev; ?></td>
     </tr>
+<?php
+    if(isset($ob_elevoffset) {
+?>
     <tr>
         <td>Elevation offset</td>
         <td><?php echo $ob_elevoffset; ?></td>
     </tr>
+<?php
+    }
+?>
     <tr>
         <td>True DB orientation</td>
         <td><?php echo $ob_heading; ?></td>
