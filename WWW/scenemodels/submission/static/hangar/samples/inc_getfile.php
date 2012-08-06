@@ -10,10 +10,10 @@
 
     // Inserting libs
     require_once ('../../../../inc/functions.inc.php');
-    
+
     if (isset($filename) && !preg_match("/[0-9a-zA-Z_.-]/", $filename))
         exit;
-        
+
     if (isset($mo_sig) && (strlen($mo_sig) == 64) && preg_match("/[0-9a-z]/", $mo_sig)) {
         $resource_rw = connect_sphere_rw();
 
@@ -35,13 +35,11 @@
 
         // Gzuncompress the query
         $query_rw = gzuncompress($sqlz);
-        
-        $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', '(?P<author>[0-9]+)', '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', '(?P<shared>[0-9]+)'\) RETURNING mo_id/";
+
+        $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
         preg_match($pattern, $query_rw, $matches);
 
         $mo_modelfile = $matches['modelfile'];
-
-    
 
         // Prepare the tmp directory
 
@@ -68,7 +66,7 @@
 
         // Looking for the file in the tmp directory
         $dir = opendir($target_path);
-        
+
         while (false !== ($file = readdir($dir))) {
             // If we know the extension
             if (isset($extension) && show_file_extension($file) == $extension) {
@@ -84,7 +82,7 @@
                 break;
             }
         }
-        
+
         // Ok, now we can delete the stuff we used - at least I think so ;-)
         // This should be done at the end of the script
         unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
