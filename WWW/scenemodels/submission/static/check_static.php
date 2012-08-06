@@ -295,7 +295,7 @@ for ($i=0; $i<12; $i++) {
 if ($fatalerror || $error > 0) {
     echo "Number of error(s): ".$error."<br/>";
     echo "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
-    echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
+    echo "Error message(s)  : ".$errormsg."<br/><br/><br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
     clear_dir($targetPath);
@@ -594,7 +594,7 @@ else {
 
 if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
-    && isset($_POST['comment']) {
+    && isset($_POST['comment'])) {
 
         $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
