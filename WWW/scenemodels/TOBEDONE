@@ -26,15 +26,37 @@ Features updates (by priority):
 
 Static objects
 ==============
+Before production:
+==================
 - Captcha
+- Remove mo_contributor in favour of mo_author. Email used will be the author's one.
+- I usually don't submit the "ob_elevoffset". According to the table
+  schema it defaults to NULL and we should leave it this way and _not_
+  write a zero.  Checking a NULL in the DB is _very_ fast, because it a
+  boolean-type operation, but checking a zero always requires to
+  interpret the result and forces a comparison to be made.
+  Therefore it there's no elevation offset, please either write NULL - or
+  simply omit the field.
+- I still tend to write the country into every, but that's non-critical.
+- Vic's model didn't have a comment, correct ?
+- Please don't quote numerical values, only strings, otherwise that'll
+  likely lead to errors.  This is your position insert:
+  INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)
+  VALUES ('', ST_PointFromText('POINT(-2.02942626 49.1645792)', 4326), '-0.3293', '0', '276', '2434', '1') RETURNING ob
+And this would be mine:
+  INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group)
+  VALUES ('Test', ST_PointFromText('POINT(-2.02942626 49.1645792)', 4326), -0.3293, 276, 'gb', 2434, 1);
+- the "don't quote numerical values also applies to the "mo_author" and "mo_shared" columns in the first INSERT.
+- fix return_values.
+
+After production:
+=================
 - Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
-- What about mo/contributor - mo author. How to distinguish both ? Insertion into objects/models...
 - Only if static : the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects). For shared models it won't go anywhere. Really think we should
   have a geographical request for that, to update all objects in DB at once... and keep stats coherent.
 
 For later:
 ==========
-- The usual (suspects ;-)) 3D model feeders are entered in the DB. How to use their email and validation scheme? => JS : if the author is known, the maintainer and email field should disappear.
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
 - Logging options
 - Add WebGL for public access as well (3D model viewer).

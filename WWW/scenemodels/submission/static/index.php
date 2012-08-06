@@ -35,7 +35,7 @@ Please, read the following:
 <ul class="warning">
 
     <li>Choose the correct family for your model: static if the model exists only once in the world (eg: Eiffel Tower) or a logical shared family (if it can be used elsewhere).</li>
-    <li>Choose the author for the model. Please contact us if you're not listed here. If you are building a new model based on another one, put the original creator's name here, and yours in the contributor field.</li>
+    <li>Choose the author for the model. Please contact us if you're not listed here. If you are building a new model based on another one, put the your name here, and the real author's one into the 'yours in the "Description" field.</li>
     <li>The country is the one where the model you're adding is located, not yours!</li>
     <li>The description is very important. Has to be short and complete, it will appear in the "name" field for instance <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=2551">here</a> as well as on the maps.</li>
     <li>Use the terrain shipped with FlightGear/Terrasync, and not any custom elevation model you may have installed/compiled, or model will be sunk/floating.</li>
@@ -91,18 +91,6 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="If you did not make the 3D model yourself, but were granted to do so, then you're a contributor. Please select your name here.">
-            <label for="contributor">Contributor</label>
-            </span>
-            </td>
-            <td>
-            <select name="contributor" id="contributor">
-            <?php list_authors(); ?>
-            </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
             <span title="This is the country code where the model is located (for static models only).">
             <label for="ob_country">Country</label>
             </span>
@@ -115,7 +103,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France">
+            <span title="Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).">
             <label for="mo_name">Description</label>
             </span>
             </td>
@@ -230,7 +218,7 @@ Please, read the following:
             // Google Captcha stuff
             require_once('../../inc/captcha/recaptchalib.php');
             $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-            //echo recaptcha_get_html($publickey);
+            echo recaptcha_get_html($publickey);
             ?>
             <br />
             <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
