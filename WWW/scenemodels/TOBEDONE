@@ -52,6 +52,7 @@ And this would be mine:
 After production:
 =================
 - We do still have /tmp/submission_ directories created and never deleted.
+- Detect already submitted models ? Should be working, seems not.
 - Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
 - The multi form for PNG files seems not to display texture names on the index form.
 - Only if static : the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects). For shared models it won't go anywhere. Really think we should

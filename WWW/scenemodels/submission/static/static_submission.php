@@ -423,7 +423,7 @@ function validateForm()
     </tr>
     <tr>
         <td>Country</td>
-        <td><?php echo $ob_country; ?></td>
+        <td><?php echo get_country_name_from_country_code($ob_country); ?></td>
     </tr>
     <tr>
         <td>Ground Elevation</td>
