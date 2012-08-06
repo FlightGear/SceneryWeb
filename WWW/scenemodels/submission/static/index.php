@@ -113,12 +113,12 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="Please add a short (max 100 letters) statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.">
+            <span title="Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.">
             <label for="comment">Comment</label>
             </span>
             </td>
             <td>
-            <input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
+            <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onchange="checkComment(this);" />
             </td>
         </tr>
         <tr>

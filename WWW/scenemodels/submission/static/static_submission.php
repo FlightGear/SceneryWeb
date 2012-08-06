@@ -147,7 +147,7 @@ if (isset($_POST["action"])) {
 
                 $result_rw_ob = @pg_query ($resource_rw, $query_rw_ob_with_mo_id);
                 $ret_ob_id = pg_fetch_row ($result_rw_ob);
-                $query_ob_text = "update fgs_objects set ob_text = '". object_name_oj($mo_id[0]) ."' where ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
+                $query_ob_text = "update fgs_objects set ob_text = '". object_name($mo_id[0]) ."' where ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
                 $result_obtext_update = @pg_query ($resource_rw, $query_ob_text);
 
                 if((!$result_rw_mo) || (!$result_rw_ob)) {
