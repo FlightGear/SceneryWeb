@@ -29,8 +29,7 @@ Static objects
 
 After production:
 =================
-- Is it really looking for already existing pathnames ?
-- Will have to authorize quotes into description/comments later on, because it is frequent in the english language.
+- Will have to authorize quotes into description/comments later on, because it is frequent in the english language cf PGSQL so-called Dollar-quoting, or from the PHP side.
 - We do still have /tmp/submission_ directories created and never deleted.
 - Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
 - The multi form for PNG files seems not to display texture names on the index form.
