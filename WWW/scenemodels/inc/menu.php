@@ -15,6 +15,7 @@
         <li><a href="/submission/shared/index_update.php">Update an existing shared object settings.</a></li>
         <li><a href="/submission/shared/index_delete.php">Delete an existing shared object position.</a></li>
         <li><a href="/submission/shared/index_mass_import.php">Mass shared object position import.</a></li>
+	<li><a href="/submission/static/index.php">Add a new 3D Model</a></li>
       </ul>
     </li>
     <li class="mainitems">
