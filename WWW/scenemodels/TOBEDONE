@@ -26,25 +26,6 @@ Features updates (by priority):
 
 Static objects
 ==============
-Before production:
-==================
-- I usually don't submit the "ob_elevoffset". According to the table
-  schema it defaults to NULL and we should leave it this way and _not_
-  write a zero.  Checking a NULL in the DB is _very_ fast, because it a
-  boolean-type operation, but checking a zero always requires to
-  interpret the result and forces a comparison to be made.
-  Therefore it there's no elevation offset, please either write NULL - or
-  simply omit the field.
-  => we can have two different submitted ob requests, one with eleveoffset set, and one not.
-- I still tend to write the country into every, but that's non-critical.
-- Vic's model didn't have a comment, correct ?
-- Please don't quote numerical values, only strings, otherwise that'll
-  likely lead to errors.  This is your position insert:
-  INSERT INTO fgsoj_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)
-  VALUES ('', ST_PointFromText('POINT(-2.02942626 49.1645792)', 4326), '-0.3293', '0', '276', '2434', '1') RETURNING ob
-And this would be mine:
-  INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group)
-  VALUES ('Test', ST_PointFromText('POINT(-2.02942626 49.1645792)', 4326), -0.3293, 276, 'gb', 2434, 1);
 
 After production:
 =================

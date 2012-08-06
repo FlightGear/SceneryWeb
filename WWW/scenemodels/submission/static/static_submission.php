@@ -299,7 +299,7 @@ if (!isset($_POST["action"])) {
                 echo $query_rw;
 
                 if (substr_compare($query_rw, "ob_elevoffset", 53, 13) == 0) { // Means an offset has been sent
-                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+)\)/";
+                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
 
                     $ob_long       = $matches['longitude'];
@@ -310,7 +310,7 @@ if (!isset($_POST["action"])) {
                     $ob_country    = $matches['country'];
                 }
                 else { // The query does not contain any offset
-                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+)\)/";
+                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
 
                     $ob_long       = $matches['longitude'];
