@@ -679,18 +679,19 @@ else {
         $ob_query .= $gndelev.", ";                                                            // ob_gndelev
         $ob_query .= $offset.", ";                                                             // ob_elevoffset
         $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-        $ob_query .= $country.", ";                                                            // ob_country
+        $ob_query .= "'".$country."', ";                                                       // ob_country
         $ob_query .= $ob_model;                                                                // ob_model
         $ob_query .= ")";
     }
     else {
         $ob_query  = "INSERT INTO fgsoj_objects ";
-        $ob_query .= "(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model) ";
+        $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model) ";
         $ob_query .= "VALUES (";
         $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
         $ob_query .= $gndelev.", ";                                                            // ob_gndelev
+        $ob_query .= "NULL, ";
         $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-        $ob_query .= $country.", ";                                                            // ob_country
+        $ob_query .= "'".$country."', ";                                                            // ob_country
         $ob_query .= $ob_model.", ";                                                           // ob_model
         $ob_query .= ")";
     }

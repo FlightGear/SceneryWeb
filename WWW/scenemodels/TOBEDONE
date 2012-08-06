@@ -35,6 +35,7 @@ Before production:
   interpret the result and forces a comparison to be made.
   Therefore it there's no elevation offset, please either write NULL - or
   simply omit the field.
+  => we can have two different submitted ob requests, one with eleveoffset set, and one not.
 - I still tend to write the country into every, but that's non-critical.
 - Vic's model didn't have a comment, correct ?
 - Please don't quote numerical values, only strings, otherwise that'll
@@ -45,25 +46,19 @@ And this would be mine:
   INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group)
   VALUES ('Test', ST_PointFromText('POINT(-2.02942626 49.1645792)', 4326), -0.3293, 276, 'gb', 2434, 1);
 
-  => we can have two different submitted ob requests, one with eleveoffset set, and one not.
-
-- fix return_values.
-
 After production:
 =================
 - We do still have /tmp/submission_ directories created and never deleted.
 - Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
 - The multi form for PNG files seems not to display texture names on the index form.
 - Put hangar stuff to /inc or something like that.
-- Only if static : the two-letter country code starts with "ob_", this goes into our objects table (fgs_objects). For shared models it won't go anywhere. Really think we should
-  have a geographical request for that, to update all objects in DB at once... and keep stats coherent.
-
 
 For later:
 ==========
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
 - Logging options
 - Add WebGL for public access as well (3D model viewer).
+- Mass country update.
 - Take roll/pitch into account.
 
 Terragear
