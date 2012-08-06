@@ -680,7 +680,7 @@ else {
         $ob_query .= $offset.", ";                                                             // ob_elevoffset
         $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
         $ob_query .= $country.", ";                                                            // ob_country
-        $ob_query .= $ob_model.", ";                                                           // ob_model
+        $ob_query .= $ob_model;                                                                // ob_model
         $ob_query .= ")";
     }
     else {
