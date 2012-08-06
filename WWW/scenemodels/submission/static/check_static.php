@@ -569,7 +569,7 @@ if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndele
         $errormsg .= "Please check the ground elevation value (-10000 < ground elevation < 10000)!<br/>";
     }
 
-    if ($offset == '') $offset = NULL;
+    if ($offset == '') $offset = "NULL";
         else if (preg_match('#[a-zA-Z ]#', $offset) || ($offset < -10000 || $offset > 10000)) {
         $error += 1;
         $errormsg .= "Please check the offset value (-10000 < offset < 10000)!<br/>";
