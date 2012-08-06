@@ -682,7 +682,7 @@ else {
         $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
         $ob_query .= "'".$country."', ";                                                       // ob_country
         $ob_query .= $ob_model.", ";                                                           // ob_model
-        $ob_query .= "1"                                                                       // ob_group
+        $ob_query .= "1";                                                                       // ob_group
         $ob_query .= ")";
     }
     else {
@@ -694,7 +694,7 @@ else {
         $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
         $ob_query .= "'".$country."', ";                                                       // ob_country
         $ob_query .= $ob_model." ,";                                                           // ob_model
-        $ob_query .= "1"
+        $ob_query .= "1";
         $ob_query .= ")";
         }
 

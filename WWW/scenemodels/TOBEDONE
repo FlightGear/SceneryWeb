@@ -29,6 +29,7 @@ Static objects
 
 After production:
 =================
+- It it really looking for already existing pathnames ?
 - We do still have /tmp/submission_ directories created and never deleted.
 - Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
 - The multi form for PNG files seems not to display texture names on the index form.
