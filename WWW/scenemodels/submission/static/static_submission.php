@@ -139,17 +139,11 @@ if (isset($_POST["action"])) {
                 $query_rw_mo = gzuncompress ($sqlz_mo);
                 $query_rw_ob = gzuncompress ($sqlz_ob);
 
-        //Debugging for Martin to check SQL
-        echo "1st query for the model :<br />".$query_rw_mo;
-
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
                 $mo_id = pg_fetch_row ($result_rw_mo);
                 $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
                 $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
-
-        //Debugging for Martin to check SQL
-        echo "<br />2nd query for the object:<br />".$query_rw_ob_with_mo_id;
 
                 $result_rw_ob = @pg_query ($resource_rw, $query_rw_ob_with_mo_id);
                 $ret_ob_id = pg_fetch_row ($result_rw_ob);
@@ -296,16 +290,12 @@ if (!isset($_POST["action"])) {
                 $query_rw = gzuncompress($sqlz);
 
                 // Retrieve data from query
-                echo $query_rw;
-
                 $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
-
                 $pos = strpos($query_rw, $search);
 
                 if ($pos === false) { // No offset is present
                     $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
-                    echo "no offset is present";
                     $ob_long       = $matches['longitude'];
                     $ob_lat        = $matches['latitude'];
                     $ob_gndelev    = $matches['gndelev'];
@@ -315,7 +305,6 @@ if (!isset($_POST["action"])) {
                 else { // ob_elevoffset has been found
                     $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
-                    echo "offset has been found";
                     $ob_long       = $matches['longitude'];
                     $ob_lat        = $matches['latitude'];
                     $ob_gndelev    = $matches['gndelev'];
