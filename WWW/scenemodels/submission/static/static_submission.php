@@ -443,7 +443,7 @@ function validateForm()
         <td><?php echo $ob_gndelev; ?></td>
     </tr>
 <?php
-    if(isset($ob_elevoffset) {
+    if(isset($ob_elevoffset)) {
 ?>
     <tr>
         <td>Elevation offset</td>
