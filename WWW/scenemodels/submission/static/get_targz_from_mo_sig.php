@@ -7,7 +7,7 @@
     require_once ('../../inc/functions.inc.php');
     header("Content-type: application/x-gtar");
     header("Content-Disposition: inline; filename=get_targz_from_mo_sig.tgz");
-        
+
     if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match("/[0-9a-z]/", $_GET["mo_sig"])) {
         $resource_rw = connect_sphere_rw();
 
@@ -29,7 +29,7 @@
 
                 // Gzuncompress the query
                 $query_rw = gzuncompress($sqlz);
-                $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', '(?P<author>[0-9]+)', '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', '(?P<shared>[0-9]+)'\) RETURNING mo_id/";
+                $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
                 preg_match($pattern, $query_rw, $matches);
 
                 echo base64_decode($matches['modelfile']);
