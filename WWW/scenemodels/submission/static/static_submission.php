@@ -303,7 +303,7 @@ if (!isset($_POST["action"])) {
                 $pos = strpos($query_rw, $search);
 
                 if ($pos === false) { // No offset is present
-                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
                     echo "no offset is present";
                     $ob_long       = $matches['longitude'];
@@ -313,7 +313,7 @@ if (!isset($_POST["action"])) {
                     $ob_country    = $matches['country'];
                 }
                 else { // ob_elevoffset has been found
-                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
                     echo "offset has been found";
                     $ob_long       = $matches['longitude'];
