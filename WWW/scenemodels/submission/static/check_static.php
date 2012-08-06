@@ -8,7 +8,6 @@ $fatalerror = 0;
 $error      = 0;
 $errormsg   = "";
 
-/*
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
     $resp = recaptcha_check_answer ($privatekey,
@@ -25,7 +24,6 @@ $errormsg   = "";
         include '../../inc/error_page.php';
         exit;
     }
-*/
 
 $page_title = "Automated Models Submission Form";
 include '../../inc/header.php';

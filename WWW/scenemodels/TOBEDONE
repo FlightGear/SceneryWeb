@@ -28,8 +28,6 @@ Static objects
 ==============
 Before production:
 ==================
-- Captcha
-- Remove mo_contributor in favour of mo_author. Email used will be the author's one.
 - I usually don't submit the "ob_elevoffset". According to the table
   schema it defaults to NULL and we should leave it this way and _not_
   write a zero.  Checking a NULL in the DB is _very_ fast, because it a
