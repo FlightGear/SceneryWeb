@@ -147,7 +147,7 @@ if (isset($_POST["action"])) {
 
                 $result_rw_ob = @pg_query ($resource_rw, $query_rw_ob_with_mo_id);
                 $ret_ob_id = pg_fetch_row ($result_rw_ob);
-                $query_ob_text = "update fgsoj_objects set ob_text = '". object_name_oj($mo_id[0]) ."' where ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
+                $query_ob_text = "update fgs_objects set ob_text = '". object_name_oj($mo_id[0]) ."' where ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
                 $result_obtext_update = @pg_query ($resource_rw, $query_ob_text);
 
                 if((!$result_rw_mo) || (!$result_rw_ob)) {
@@ -294,7 +294,7 @@ if (!isset($_POST["action"])) {
                 $pos = strpos($query_rw, $search);
 
                 if ($pos === false) { // No offset is present
-                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+                    $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
                     $ob_long       = $matches['longitude'];
                     $ob_lat        = $matches['latitude'];
@@ -303,7 +303,7 @@ if (!isset($_POST["action"])) {
                     $ob_country    = $matches['country'];
                 }
                 else { // ob_elevoffset has been found
-                    $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+                    $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
                     $ob_long       = $matches['longitude'];
                     $ob_lat        = $matches['latitude'];
@@ -346,7 +346,7 @@ if (!isset($_POST["action"])) {
             $query_rw = gzuncompress($sqlz);
 
             // Retrieve data from query
-            $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
+            $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
             preg_match($pattern, $query_rw, $matches);
 
             $mo_path      = $matches['path'];

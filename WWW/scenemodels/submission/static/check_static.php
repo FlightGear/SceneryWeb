@@ -655,7 +655,7 @@ if ($fatalerror || $error > 0) {
 else {
     # Connection to DB
     $resource_rw = connect_sphere_rw();
-    $mo_query  = "INSERT INTO fgsoj_models ";
+    $mo_query  = "INSERT INTO fgs_models ";
     $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
     $mo_query .= "VALUES (";
     $mo_query .= "DEFAULT, ";             // mo_id
@@ -669,11 +669,11 @@ else {
     $mo_query .= ") ";
     $mo_query .= "RETURNING mo_id";
 
-    # Inserts into fgsoj_models and returns current mo_id
+    # Inserts into fgs_models and returns current mo_id
     $ob_model = 'Thisisthevalueformo_id';
 
     if ($offset != '') {
-        $ob_query  = "INSERT INTO fgsoj_objects ";
+        $ob_query  = "INSERT INTO fgs_objects ";
         $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ";
         $ob_query .= "VALUES (";
         $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
@@ -686,7 +686,7 @@ else {
         $ob_query .= ")";
     }
     else {
-        $ob_query  = "INSERT INTO fgsoj_objects ";
+        $ob_query  = "INSERT INTO fgs_objects ";
         $ob_query .= "(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group) ";
         $ob_query .= "VALUES (";
         $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
