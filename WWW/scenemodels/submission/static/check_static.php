@@ -721,10 +721,8 @@ else {
         $au_email = get_authors_email_from_authors_id($author);
         if (($au_email != '') && (strlen($au_email) > 0)) {
             $safe_au_email = pg_escape_string(stripslashes($au_email));
-            echo "<p class=\"center ok\">Email: ".$safe_au_email."</p><br />";
         }
         else {
-            echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
             $failed_mail = 1;
         }
         echo "<p class=\"center\">Your 3D model insertion request has been successfully queued into the FG scenery database update requests!<br />";
@@ -808,18 +806,12 @@ else {
             // What is the subject ?
             $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
 
-            // Correctly set the object URL.
-            //$family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
-            //$object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
-            //$html_family_url = htmlspecialchars($family_url);
-            //$html_object_url = htmlspecialchars($object_url);
-
             // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
             $message3 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
-                        "Just to let you know that this 3D model import request has been sent for validation." . "\r\n" .
+                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request." . "\r\n" .
+                        "This mail is just here to let you know that this 3D model import request has been sent for validation." . "\r\n" .
                         "The first part of the unique of this request is ".substr($ob_sha_hash,0,10). "... (object)" . "\r\n" .
                         "and ".substr($mo_sha_hash,0,10). "... (model)" . "\r\n" .
                         "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";

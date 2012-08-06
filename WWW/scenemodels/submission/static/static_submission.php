@@ -295,6 +295,7 @@ if (!isset($_POST["action"])) {
                 // Gzuncompress the query
                 $query_rw = gzuncompress($sqlz);
 
+                echo $query_rw;
                 // Retrieve data from the query
                 $pattern  = "/INSERT INTO fgsoj_objects \(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group\) VALUES \('', ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), '(?P<gndelev>[0-9.-]+)', '(?P<offset>[NUL0-9.-]+)', '(?P<heading>[0-9.-]+)', '(?P<model>[a-z-A-Z_0-9-]+)', '(?P<group>[0-9]+)'\)/";
 
