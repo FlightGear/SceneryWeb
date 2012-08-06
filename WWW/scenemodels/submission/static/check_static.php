@@ -56,7 +56,7 @@ else {
 ###########################################################
 ###########################################################
 
-$tmp_dir = sys_get_temp_dir;
+$tmp_dir = sys_get_temp_dir();
 
 if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
     $targetPath   = $tmp_dir . "/static_".random_suffix()."/";
