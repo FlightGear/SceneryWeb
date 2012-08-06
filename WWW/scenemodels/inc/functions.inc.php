@@ -243,29 +243,6 @@ function get_object_longitude_from_id($ob_id)
     return ($ob_long);
 }
 
-// Returns the object longitude from an ob_id sent as parameter
-// ============================================================
-
-function get_object_longitude_from_id_oj($ob_id)
-{
-    $mg_id = pg_escape_string($ob_id);
-
-    // Connecting to the database.
-    $headerlink_family = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT ST_X(wkb_geometry) AS ob_lon FROM fgsoj_objects WHERE ob_id=".$ob_id.";";
-    $result = @pg_query($headerlink_family, $query);
-
-    while ($row = @pg_fetch_assoc($result)) {
-        $ob_long = $row["ob_lon"];
-    }
-
-    // Closing the connection.
-    @pg_close ($headerlink_family);
-    return ($ob_long);
-}
-
 // Get the object elevation from an ob_id sent as parameter
 // ========================================================
 
