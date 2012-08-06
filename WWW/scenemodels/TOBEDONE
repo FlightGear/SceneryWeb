@@ -44,7 +44,6 @@ Before production:
 And this would be mine:
   INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group)
   VALUES ('Test', ST_PointFromText('POINT(-2.02942626 49.1645792)', 4326), -0.3293, 276, 'gb', 2434, 1);
-- the "don't quote numerical values also applies to the "mo_author" and "mo_shared" columns in the first INSERT.
 - fix return_values.
 
 After production:

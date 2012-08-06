@@ -660,50 +660,59 @@ else {
     $mo_query .= "VALUES (";
     $mo_query .= "DEFAULT, ";             // mo_id
     $mo_query .= "'".$path."', ";         // mo_path
-    $mo_query .= "'".$author."', ";       // mo_author
+    $mo_query .= $author.", ";            // mo_author
     $mo_query .= "'".$name."', ";         // mo_name
     $mo_query .= "'".$comment."', ";      // mo_notes
     $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
     $mo_query .= "'".$modelFile."', ";    // mo_modelfile
-    $mo_query .= "'".$mo_shared."'";      // mo_shared
+    $mo_query .= $mo_shared;              // mo_shared
     $mo_query .= ") ";
     $mo_query .= "RETURNING mo_id";
 
     # Inserts into fgsoj_models and returns current mo_id
     $ob_model = 'Thisisthevalueformo_id';
 
-    $ob_query  = "INSERT INTO fgsoj_objects ";
-//  $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group, ob_submitter) ";
-    $ob_query .= "(ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) ";
-    $ob_query .= "VALUES (";
-    $ob_query .= "'', ";                                                                   // ob_text - to be inserted later to ease deserialization
-    $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-    $ob_query .= "'".$gndelev."', ";                                                       // ob_gndelev
-    $ob_query .= "'".$offset."', ";                                                        // ob_elevoffset
-    $ob_query .= "'".heading_stg_to_true($heading)."', ";                                  // ob_heading
-//    $ob_query .= "'".$country."', ";                                                     // ob_country (Only if static)
-    $ob_query .= "'".$ob_model."', ";                                                      // ob_model
-    $ob_query .= "'1'";                                                                    // ob_group
-//    $ob_query .= "'".$contributor."'";                                                   // ob_submitter
-    $ob_query .= ")";
+    if ($offset != '') { // We only import data into ob_elevoffset if it's really not NULL
+        $ob_query  = "INSERT INTO fgsoj_objects ";
+        $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model) ";
+        $ob_query .= "VALUES (";
+        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
+        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
+        $ob_query .= $offset.", ";                                                             // ob_elevoffset
+        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
+        $ob_query .= $country.", ";                                                            // ob_country
+        $ob_query .= $ob_model.", ";                                                           // ob_model
+        $ob_query .= ")";
+    }
+    else {
+        $ob_query  = "INSERT INTO fgsoj_objects ";
+        $ob_query .= "(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model) ";
+        $ob_query .= "VALUES (";
+        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
+        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
+        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
+        $ob_query .= $country.", ";                                                            // ob_country
+        $ob_query .= $ob_model.", ";                                                           // ob_model
+        $ob_query .= ")";
+    }
 
     // Object Stuff into pending requests table.
     $ob_sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";
     $ob_sha_hash = hash('sha256', $ob_sha_to_compute);
-    $ob_zipped_base64_rw_query = gzcompress($ob_query, 8);                       // Zipping the Base64'd request.
+    $ob_zipped_base64_rw_query = gzcompress($ob_query, 8);                         // Zipping the Base64'd request.
     $ob_base64_rw_query = base64_encode($ob_zipped_base64_rw_query);               // Coding in Base64.
     $ob_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$ob_sha_hash."', '".$ob_base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $ob_query_rw_pending_request);          // Sending the request...
+    $resultrw = @pg_query($resource_rw, $ob_query_rw_pending_request);             // Sending the request...
 
     // Model stuff into pending requests table.
     $mo_sha_to_compute = "<".microtime()."><".$ipaddr."><".$mo_query.">";
     $mo_sha_hash = hash('sha256', $mo_sha_to_compute);
-    $mo_zipped_base64_rw_query = gzcompress($mo_query, 8);                       // Zipping the Base64'd request.
+    $mo_zipped_base64_rw_query = gzcompress($mo_query, 8);                         // Zipping the Base64'd request.
     $mo_base64_rw_query = base64_encode($mo_zipped_base64_rw_query);               // Coding in Base64.
     $mo_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$mo_sha_hash."', '".$mo_base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $mo_query_rw_pending_request);          // Sending the request...
+    $resultrw = @pg_query($resource_rw, $mo_query_rw_pending_request);             // Sending the request...
 
-    @pg_close($resource_rw);                                                 // Closing the connection.
+    @pg_close($resource_rw);                                                       // Closing the connection.
 
     if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
