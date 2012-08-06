@@ -113,6 +113,16 @@ Please, read the following:
         </tr>
         <tr>
             <td>
+            <span title="Please add a short (max 100 letters) statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.">
+            <label for="comment">Comment</label>
+            </span>
+            </td>
+            <td>
+            <input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
+            </td>
+        </tr>
+        <tr>
+            <td>
             <span title="This is the WGS84 longitude of the model you want to add. Has to be between -180.000000 and +180.000000.">
             <label for="longitude">Longitude</label>
             </span>
@@ -159,16 +169,6 @@ Please, read the following:
             </td>
             <td>
             <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-            <span title="Please add a short (max 100 letters) statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.">
-            <label for="comment">Comment</label>
-            </span>
-            </td>
-            <td>
-            <input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
             </td>
         </tr>
         <tr>

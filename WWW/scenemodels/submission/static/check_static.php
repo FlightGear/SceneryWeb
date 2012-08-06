@@ -67,7 +67,7 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
     if (!mkdir($targetPath)) {
         $fatalerror = 1;
         $error += 1;
-        $errormsg .= "Impossible to create temporary directory!";
+        $errormsg .= "Impossible to create temporary directory $targetPath!";
     }
 
     if ($ac3dName == $xmlName) {

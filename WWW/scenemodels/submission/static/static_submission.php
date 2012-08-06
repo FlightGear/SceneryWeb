@@ -22,8 +22,8 @@ if (isset($_POST["action"])) {
                 $mo_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
                 if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                     $process_text = "Deleting corresponding pending query.";
-                    $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-                    $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+                    $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+                    $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
                     include '../../inc/error_page.php';
                     @pg_close($resource_rw);
                     exit;
@@ -37,7 +37,7 @@ if (isset($_POST["action"])) {
 
                 if ((!$ob_resultdel) || (!$mo_resultdel)) {
                     $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
-                    $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+                    $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     include '../../inc/error_page.php';
 
                     // Closing the rw connection.
