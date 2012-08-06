@@ -276,7 +276,7 @@ if (!isset($_POST["action"])) {
         // If connection is OK
         if($resource_rw != '0') {
 
-            // Checking the presence of sig into the database
+            // Checking the presence of ob_sig into the database
             $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["ob_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
@@ -289,24 +289,23 @@ if (!isset($_POST["action"])) {
             while ($row = pg_fetch_row($result)) {
                 $sqlzbase64 = $row[1];
 
-                // Base64 decode the query
+                // Base64 decode query
                 $sqlz = base64_decode($sqlzbase64);
 
-                // Gzuncompress the query
+                // Gzuncompress query
                 $query_rw = gzuncompress($sqlz);
 
-                echo $query_rw;
-                // Retrieve data from the query
+                // Retrieve data from query
                 $pattern  = "/INSERT INTO fgsoj_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NUL0-9.-]+), (?P<heading>[0-9.-]+), (?P<country>[a-z-A-Z-]+), (?P<model>[a-z-A-Z_0-9-]+)\)/";
 
                 preg_match($pattern, $query_rw, $matches);
 
-                $ob_long = $matches['longitude'];
-                $ob_lat = $matches['latitude'];
-                $ob_gndelev = $matches['gndelev'];
+                $ob_long       = $matches['longitude'];
+                $ob_lat        = $matches['latitude'];
+                $ob_gndelev    = $matches['gndelev'];
                 $ob_elevoffset = $matches['offset'];
-                $ob_heading = $matches['heading'];
-                $ob_country = $matches['country'];
+                $ob_heading    = $matches['heading'];
+                $ob_country    = $matches['country'];
             }
 
         }
@@ -340,19 +339,18 @@ if (!isset($_POST["action"])) {
 
             // Gzuncompress the query
             $query_rw = gzuncompress($sqlz);
-            // INSERT INTO fgsoj_models (mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared)
-            // VALUES (DEFAULT, '$path', $author', '$name', '$comment', '$thumbFile', '$modelFile', '$mo_shared') RETURNING mo_id";
 
-            $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', '(?P<author>[0-9]+)', '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', '(?P<shared>[0-9]+)'\) RETURNING mo_id/";
+            // Retrieve data from query
+            $pattern = "/INSERT INTO fgsoj_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9 ,!_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]+)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
             preg_match($pattern, $query_rw, $matches);
 
-            $mo_path = $matches['path'];
-            $mo_author = get_authors_name_from_authors_id($matches['author']);
-            $mo_name = $matches['name'];
-            $mo_notes = $matches['notes'];
+            $mo_path      = $matches['path'];
+            $mo_author    = get_authors_name_from_authors_id($matches['author']);
+            $mo_name      = $matches['name'];
+            $mo_notes     = $matches['notes'];
             $mo_thumbfile = $matches['thumbfile'];
             $mo_modelfile = $matches['modelfile'];
-            $mo_shared = $matches['shared'];
+            $mo_shared    = $matches['shared'];
         }
     }
 
@@ -385,10 +383,6 @@ function validateForm()
     <tr>
         <td>Author</td>
         <td><?php echo $mo_author; ?></td>
-    </tr>
-    <tr>
-        <td>Contributor</td>
-        <td></td>
     </tr>
     <tr>
         <td>Email</td>
@@ -429,7 +423,7 @@ function validateForm()
     </tr>
     <tr>
         <td>Country</td>
-        <td></td>
+        <td><?php echo $ob_country; ?></td>
     </tr>
     <tr>
         <td>Ground Elevation</td>
