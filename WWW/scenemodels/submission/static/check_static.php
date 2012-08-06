@@ -536,7 +536,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $modelFile = base64_encode($contents);             // Dump & encode the file
 
     unlink($tmp_dir . '/static.tgz');                         // Delete compress file
-    clear_dir($targetPath);                             // Delete temporary static directory
+    clear_dir($targetPath);                                   // Delete temporary static directory
 }
 
 ###############################################
@@ -547,7 +547,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndelev"] != "") && ($_POST["offset"] != "") && ($_POST["heading"] != "")) {
+if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndelev"] != "") && ($_POST["heading"] != "")) {
     $longitude = strip_tags($_POST["longitude"]);
     $latitude  = strip_tags($_POST["latitude"]);
     $gndelev   = strip_tags($_POST["gndelev"]);
@@ -569,7 +569,8 @@ if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndele
         $errormsg .= "Please check the ground elevation value (-10000 < ground elevation < 10000)!<br/>";
     }
 
-    if (preg_match('#[a-zA-Z ]#', $offset) || ($offset < -10000 || $offset > 10000)) {
+    if ($offset == '') $offset = NULL;
+        else if (preg_match('#[a-zA-Z ]#', $offset) || ($offset < -10000 || $offset > 10000)) {
         $error += 1;
         $errormsg .= "Please check the offset value (-10000 < offset < 10000)!<br/>";
     }
@@ -671,30 +672,16 @@ else {
     # Inserts into fgsoj_models and returns current mo_id
     $ob_model = 'Thisisthevalueformo_id';
 
-    if ($offset != '') { // We only import data into ob_elevoffset if it's really not NULL
-        $ob_query  = "INSERT INTO fgsoj_objects ";
-        $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model) ";
-        $ob_query .= "VALUES (";
-        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
-        $ob_query .= $offset.", ";                                                             // ob_elevoffset
-        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-        $ob_query .= "'".$country."', ";                                                       // ob_country
-        $ob_query .= $ob_model;                                                                // ob_model
-        $ob_query .= ")";
-    }
-    else {
-        $ob_query  = "INSERT INTO fgsoj_objects ";
-        $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model) ";
-        $ob_query .= "VALUES (";
-        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
-        $ob_query .= "NULL, ";
-        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-        $ob_query .= "'".$country."', ";                                                            // ob_country
-        $ob_query .= $ob_model.", ";                                                           // ob_model
-        $ob_query .= ")";
-    }
+    $ob_query  = "INSERT INTO fgsoj_objects ";
+    $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model) ";
+    $ob_query .= "VALUES (";
+    $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
+    $ob_query .= $gndelev.", ";                                                            // ob_gndelev
+    $ob_query .= $offset.", ";                                                             // ob_elevoffset
+    $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
+    $ob_query .= "'".$country."', ";                                                       // ob_country
+    $ob_query .= $ob_model;                                                                // ob_model
+    $ob_query .= ")";
 
     // Object Stuff into pending requests table.
     $ob_sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";
