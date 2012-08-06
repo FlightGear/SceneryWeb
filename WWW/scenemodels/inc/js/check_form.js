@@ -65,7 +65,7 @@ function checkComment(textfield)
 {
     if (!chkComment(textfield.value))
     {
-        alertsay = "Please enter only letters, numbers, and ';:!?@-_.";
+        alertsay = "Please enter only letters, numbers, and ;:!?@-_.";
         alertsay = alertsay + " in the \"" + textfield.name + "\" field.";
         alert(alertsay);
 
@@ -79,7 +79,7 @@ function checkComment(textfield)
 
 function chkComment(checkStr)
 {
-    var checkOK = numbers + letters + "';:!?@-_. ";
+    var checkOK = numbers + letters + ";:!?@-_. ";
     var allValid = true;
     var allNum = "";
 
@@ -245,7 +245,7 @@ function checkStringNotDefault(field, defaultValue)
     {
         alertsay = "Please change the value of the " + field.name + " field!";
         alert(alertsay);
-        
+
         field.focus();
         return false;
     }
