@@ -67,17 +67,6 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         <h3><a name="items">Submission items</a></h3>
         <h4>Mandantory submission items</h4>
         <ul>
-            <li>A <strong>package</strong> (preferably a TAR- or a ZIP-file) containing <strong>all files</strong> which belong to the 3D model itself, in a format supported by FlightGear - or a reference to a model already present in the database;
-                <ul class="detail">
-                  <li><strong>Multiple models may well be packaged together into a single file</strong> - as long as it is obvious to us which files belong to which model (for example by separating models into different directories);</li>
-                  <li><strong>Always choose reasonable (meaningful, descriptive) filenames
-                      for your models</strong>. At urban areas having a geometry 'tower.ac'
-                      or a texture just named 'red.rgb' or 'concrete.png' might
-                      prove not to be unique ;-)</li>
-                  <li>As a rule of thumb, try to let even a detailed, <strong>single model not exceed 1/2 MByte in total size</strong>, otherwise the simulation will face hard times when approaching densely packed areas. A typical, single office building usually can be done at (far!) less than 100 kByte;</li>
-                  <li><strong>Avoid spaces in file- and/or directory names.</strong></li>
-                </ul>
-            </li>
             <li><strong>Model placement</strong>:
                 <ul class="detail">
                   <li><strong>Position</strong> (if appropriate; either lon/lat, or Ordnance Survey grid - other grids can be added on request);</li>
@@ -86,7 +75,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
                   <li><b> -> </b>....  or just simply submit the respective .stg-line with your model.</li>
                 </ul>
             </li>
-            <li><strong>Full name of author</strong> (if not already known);</li>
+            <li><strong>Full name of author (yes you have to be known of us before submitting a 3D model.</strong></li>
             <li><strong>EMail of author</strong> (if not already known, will not be published, just as a reference);</li>
             <li>A notice which tells us that your submission is covered by the <strong>GPL</strong> (if not already known);
                 <ul class="detail">
@@ -94,19 +83,11 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
                 </ul>
             </li>
             <li>Always tell us how to <strong>name the model</strong> (like 'Tour Eiffel - Paris - France').</li>
-        </ul>
-
-        <h4>Recommended submission items</h4>
-        <ul>
             <li><strong>A 320x240 thumbnail</strong> containing an advantageous view on the model/object as (JPEG) image - this is preferred for a nice representation of your artwork;</li>
-        </ul>
-
-        <h4>Nice-to-have submission items</h4>
-        <ul>
             <li><strong>Country</strong> in which the model is located (if known to the author);</li>
             <li>Additional <strong>short comment on the author</strong>;</li>
+            <li>Full detail is available <a href="http://scenemodels.flightgear.org/submission/static/index.php">here</a></li>
         </ul>
-        <b> -> </b>After positive experience a simplified procedure is available/recommended upon negotiation.
 
         <h3><a name="tips"><font color="red">Models Best Practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
         <ul>
@@ -122,6 +103,9 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
             <li>For groupings of individual models choose a distinct, corresponding position for each of them, never mount multiple models into a single position.</li>
             <li>Textures should be in PNG format - older models which used rgb textures have been updated. <strong>The textures dimensions have to be a power of two: eg 128x256.</strong></li>
         <!--        <li>Apron, taxiway, runway or other airport pavements are being maintained at <A HREF="http://www.x-plane.org/home/robinp/index.htm#Updates">Robin Peel's airport database</A>. -->
+            <li><strong>Always choose reasonable (meaningful, descriptive) filenames for your models</strong>. At urban areas having a geometry 'tower.ac' or a texture just named 'red.png' or 'concrete.png' might prove not to be unique ;-)</li>
+            <li>As a rule of thumb, try to let even a detailed, <strong>single model not exceed 1/2 MByte in total size</strong>, otherwise the simulation will face hard times when approaching densely packed areas. A typical, single office building usually can be done at (far!) less than 100 kByte;</li>
+            <li><strong>Avoid spaces in file- and/or directory names.</strong></li>
             <li>As a general rule, do <strong>not</strong> try to (mis)use 3D models as a substitute for unfinished airfield layout or land cover. Do <strong>not</strong> place your models at incorrect positions just because the current land cover shapes do not match.</li>
             <li>Feel invited to send us an early version of your model even if it still has unfinished details. It's always possible to update the respective metadata entry with a refined model - especially when the placement of the model doesn't change any more.</li>
         </ul>
@@ -129,19 +113,8 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 
 
         <h3><a name="contact"><font color="blue">Upload facilities</font></a></h3>
-        <!-- Facilities to handle the uploading of your own model data are not yet complete, but the data can currently be submitted in 2 ways: -->
         <ul>
-            <li> By Email
-                <br/>Send a message containing the info above, to (sorry for the anti
-                spam measures, I'm sure you understand):
-                <br/>fgfsdb at stockill dot net
-        <!--                <br/>or
-                        <br/>Martin at flightgear dot org
-                <li> By anonymous FTP
-            <br/>Put all the info described above into an archive (.zip or .tar.gz
-            format) and upload it to:
-            <br/>ftp://ftp.ihg.uni-duisburg.de/FlightGear/incoming/  -->
-            </li>
+            <li>Our dedicated webform <a href="http://scenemodels.flightgear.org/submission/static/index.php">here.</a></li>
         </ul>
     </div>
 </div>

@@ -15,14 +15,14 @@ Features updates (by priority):
 - Enable maintainer to drop a comment.
 - Add the model thumbnail when editing an object. In fact objectedit and submission edit must share common ideas !
 - Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
-- Use Jquery lib for form checking & asynchronous queries.
-- Take object "SIGN" into account.
+- Take object "SIGN" into account. => 8.50 will contain them
 - Take comments into account to merge them into the generated STG file (but how will you remove them ;-)
 - Automate the altitude calculation (is there a FG server giving this online f(lat, long) ?).
 - Automate the country calculation => Being done
 - Add a possibility to switch from STG heading to true and inversely.
 - Regionalise the maintainers : if lat/lon between x and y, send the validation mail to Jon, Martin or... else
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
+- http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
 
 Static objects
 ==============
@@ -43,6 +43,7 @@ For later:
 - Mass country update.
 - Take roll/pitch into account.
 - Have an email account for spam abuse.
+- http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
 
 Terragear
 =========
