@@ -517,23 +517,23 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $contents  = fread($handle, filesize($thumbPath));
     fclose($handle);
     $thumbFile = base64_encode($contents);             // Dump & encode the file
-    unlink ($thumbPath);                                // Has to be deleted, because it's not put into the .tar.gz
+    unlink ($thumbPath);                               // Has to be deleted, because it's not put into the .tar.gz
 
     $d2u_xml_command  = 'dos2unix '.$xmlPath;          // Dos2unix on XML
     $d2u_ac3d_command = 'dos2unix '.$ac3dPath;         // Dos2Unix on AC3D
     system ($d2u_xml_command);
     system ($d2u_xml_command);
 
-    $phar = new PharData($tmp_dir . '/static.tar');           // Create archive file
-    $phar->buildFromDirectory($targetPath);            // Fills archive file
-    $phar->compress(Phar::GZ);                         // Convert archive file to compress file
-    unlink($tmp_dir . '/static.tar');                         // Delete archive file
+    $phar = new PharData($tmp_dir . '/static.tar');                // Create archive file
+    $phar->buildFromDirectory($targetPath);                        // Fills archive file
+    $phar->compress(Phar::GZ);                                     // Convert archive file to compress file
+    unlink($tmp_dir . '/static.tar');                              // Delete archive file
     rename($tmp_dir . '/static.tar.gz', $tmp_dir.'/static.tgz');   // Rename compress file
 
     $handle    = fopen($tmp_dir."/static.tgz", "r");
     $contents  = fread($handle, filesize($tmp_dir."/static.tgz"));
     fclose($handle);
-    $modelFile = base64_encode($contents);             // Dump & encode the file
+    $modelFile = base64_encode($contents);                    // Dump & encode the file
 
     unlink($tmp_dir . '/static.tgz');                         // Delete compress file
     clear_dir($targetPath);                                   // Delete temporary static directory
@@ -659,7 +659,7 @@ else {
     $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
     $mo_query .= "VALUES (";
     $mo_query .= "DEFAULT, ";             // mo_id
-    $mo_query .= "'".$path."', ";         // mo_path
+    $mo_query .= "'".$ac3dName."', ";     // mo_path
     $mo_query .= $author.", ";            // mo_author
     $mo_query .= "'".$name."', ";         // mo_name
     $mo_query .= "'".$comment."', ";      // mo_notes
