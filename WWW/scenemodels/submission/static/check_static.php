@@ -89,7 +89,7 @@ else {
     if (!$fatalerror) {
         $fatalerror = 1;
         $error += 1;
-        $errormsg .= "XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (currently ".$xmlName."), tower.ac (currently ".$ac3dName."), tower_thumbnail.jpeg (currently ".$thumbName.")!<br/>";
+        $errormsg .= "XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$xmlName."), tower.ac (currently ".$ac3dName.".ac), tower_thumbnail.jpeg (currently ".$thumbName.".jpg/jpeg)!<br/>";
     }
 }
 
