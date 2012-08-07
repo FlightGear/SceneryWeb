@@ -659,7 +659,7 @@ else {
     $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
     $mo_query .= "VALUES (";
     $mo_query .= "DEFAULT, ";             // mo_id
-    $mo_query .= "'".$ac3dName."', ";     // mo_path
+    $mo_query .= "'".$ac3dName.".ac', ";  // mo_path
     $mo_query .= $author.", ";            // mo_author
     $mo_query .= "'".$name."', ";         // mo_name
     $mo_query .= "'".$comment."', ";      // mo_notes
