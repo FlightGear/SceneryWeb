@@ -287,9 +287,9 @@ function validateForm()
         <tr>
           <th></th>
           <th>Actual value</th>
-          <th colspan="2">New value</th>
-          <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
+          <th>New value</th>
         </tr>
+        <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
         <tr>
           <td>
             <span title="This is the family name of the object you want to update."><label for="family_name">Object's family<em>*</em></label></span>
