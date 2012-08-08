@@ -250,7 +250,7 @@ else {
     $error_text = "";
 
     // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-    if (isset($_POST['latitude'] && !isset($_POST[])
+    if (isset($_POST['latitude'])
         && strlen($_POST['latitude']) <= 13
         && $_POST['latitude'] <= 90
         && $_POST['latitude'] >= -90
