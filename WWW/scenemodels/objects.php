@@ -90,13 +90,14 @@
 <form action="objects.php" method="get">
   <table>
     <tr valign="bottom">
-      <th>Lat<br/>Lon<br/><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
+        <th>ID</th>
+        <th>Lat<br/>Lon<br/><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
           <br/><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/></th>
-      <th>Ground&nbspElevation<br/>+ Offset (m)<br/><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
+        <th>Ground&nbspElevation<br/>+ Offset (m)<br/><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
           <br/><input type="text" name="elevoffset" size="6" <?php echo "value=\"".$elevoffset."\""; ?>/></th>
-      <th>Heading<br/><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
-      <th>Description<br/><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
-      <th>
+        <th>Heading<br/><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
+        <th>Description<br/><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
+        <th>
         Model<br/>
         Group<br/>
         <select name="model" style="font-size: 0.7em;">
