@@ -235,7 +235,7 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-if (isset($id_to_delete)) {
+if (isset($delete_choice)) {
     $error = false;
 }
 else {
@@ -281,7 +281,7 @@ if ($error) {
 $resource_r_deletion = connect_sphere_r();
 
 // If the delete_choice is sent directly to us from a webform "outside" the submission world
-if (isset($id_to_delete)) {
+if (isset($delete_choice)) {
     // Let's grab the information about this object from the database
     $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE ob_id = ".$id_to_delete.";";
     $result = @pg_query($resource_r_deletion, $query_pos);
