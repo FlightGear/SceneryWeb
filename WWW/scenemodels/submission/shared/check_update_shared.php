@@ -287,7 +287,7 @@ function validateForm()
         <tr>
           <th></th>
           <th>Actual value</th>
-          <th>New value</th>
+          <th colspan="2">New value</th>
         </tr>
         <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
         <tr>
@@ -437,7 +437,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
-            <td colspan="4"><?php $ob_text = get_object_text_from_id($id_to_update); echo $ob_text; ?></td>
+            <td colspan="3"><?php $ob_text = get_object_text_from_id($id_to_update); echo $ob_text; ?></td>
             <td></td>
         </tr>
         <tr>
