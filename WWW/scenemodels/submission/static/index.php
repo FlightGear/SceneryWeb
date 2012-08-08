@@ -131,7 +131,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the WGS84 latitude of the model you want to add. Has to be between -90.000000 and +90.000000.">
-            <label for="latitude">Latitude</latitude>
+            <label for="latitude">Latitude</label>
             </span>
             </td>
             <td>
