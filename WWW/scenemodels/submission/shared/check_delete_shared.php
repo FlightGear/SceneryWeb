@@ -235,6 +235,7 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
+$delete_choice = $_POST['delete_choice'];
 if (isset($delete_choice)) {
     $error = false;
 }
