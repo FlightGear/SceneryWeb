@@ -235,15 +235,22 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-$delete_choice = $_POST['delete_choice'];
-if (isset($delete_choice)) {
+if (isset($_POST['id_to_delete']) && preg_match('/^[0-9]+$/u',$_POST['id_to_delete']))
+    $id_to_delete = pg_escape_string($_POST['id_to_delete']);
+
+if (isset($_REQUEST['id_to_delete'])
+    && $_REQUEST['id_to_delete']>'0'
+    && preg_match('/^[0-9]+$/u',$_REQUEST['id_to_delete']))
+    $id_to_delete = pg_escape_string(stripslashes($_REQUEST['update_choice']));
+
+if (isset($id_to_delete)) {
     $error = false;
 }
 else {
     $error_text = "";
 
     // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-    if (isset($_POST['latitude'])
+    if (isset($_POST['latitude'] && !isset($_POST[])
         && strlen($_POST['latitude']) <= 13
         && $_POST['latitude'] <= 90
         && $_POST['latitude'] >= -90
@@ -282,7 +289,7 @@ if ($error) {
 $resource_r_deletion = connect_sphere_r();
 
 // If the delete_choice is sent directly to us from a webform "outside" the submission world
-if (isset($delete_choice)) {
+if (isset($id_to_delete)) {
     // Let's grab the information about this object from the database
     $query_pos = "SELECT ob_id, ob_modified FROM fgs_objects WHERE ob_id = ".$id_to_delete.";";
     $result = @pg_query($resource_r_deletion, $query_pos);
@@ -389,7 +396,7 @@ function validateForm()
     echo recaptcha_get_html($publickey);
 ?>
             <br />
-            <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
+            <input name="id_to_delete" type="hidden" value="<?php echo $row[0]; ?>" />
             <input name="step" type="hidden" value="3" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
 
