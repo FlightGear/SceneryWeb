@@ -235,13 +235,13 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-if (isset($_POST['id_to_delete']) && preg_match('/^[0-9]+$/u',$_POST['id_to_delete']))
-    $id_to_delete = pg_escape_string($_POST['id_to_delete']);
+if (isset($_POST['delete_choice']) && preg_match('/^[0-9]+$/u',$_POST['delete_choice']))
+    $id_to_delete = pg_escape_string($_POST['delete_choice']);
 
-if (isset($_REQUEST['id_to_delete'])
-    && $_REQUEST['id_to_delete']>'0'
-    && preg_match('/^[0-9]+$/u',$_REQUEST['id_to_delete']))
-    $id_to_delete = pg_escape_string(stripslashes($_REQUEST['update_choice']));
+if (isset($_REQUEST['delete_choice'])
+    && $_REQUEST['delete_choice']>'0'
+    && preg_match('/^[0-9]+$/u',$_REQUEST['delete_choice']))
+    $id_to_delete = pg_escape_string(stripslashes($_REQUEST['delete_choice']));
 
 if (isset($id_to_delete)) {
     $error = false;
