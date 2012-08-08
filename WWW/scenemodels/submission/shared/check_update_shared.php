@@ -307,7 +307,7 @@ function validateForm()
     if ($resource_r != '0')
     {
         // Show all the families other than the static family
-        $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
+        $result = @pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
 
         // Start the select form
         echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
@@ -436,6 +436,16 @@ function validateForm()
           <td>
             <input type="text" name="new_heading" id="new_heading" maxlength="7" value="<?php echo $actual_orientation; ?>" onchange="checkNumeric(this,0,359.999);" />
           </td>
+        </tr>
+        <tr>
+            <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
+            <td colspan="4"><?php $ob_text = get_object_text_from_id($id_to_update); echo $ob_text; ?></td>
+        </tr>
+        <tr>
+            <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php $model_id = get_object_model_from_id($id_to_update); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><span title="This is the map around the object you want to update"><label>Map</label></span></center></td>
+            <td><center><object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
         <tr>
           <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
@@ -580,6 +590,10 @@ else {
                     <td colspan="4"><?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $actual_orientation; ?></td>
                 </tr>
                 <tr>
+                    <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
+                    <td colspan="4"><?php $ob_text = get_object_text_from_id($row[0]); echo $ob_text; ?></td>
+                </tr>
+                <tr>
                     <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
                     <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
                     <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
@@ -648,6 +662,10 @@ else {
                 <tr>
                     <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
                     <td colspan="4"><?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $actual_orientation; ?></td>
+                </tr>
+                <tr>
+                    <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
+                    <td colspan="4"><?php $ob_text = get_object_text_from_id($row[0]); echo $ob_text; ?></td>
                 </tr>
                 <tr>
                     <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
