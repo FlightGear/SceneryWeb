@@ -146,7 +146,7 @@
       <th><input type="submit" name="filter" value="Filter"/></th>
     </tr>
     <tr class="bottom">
-      <td colspan="7" align="center">
+      <td colspan="8" align="center">
 <?php
         $prev = $offset-20;
         $next = $offset+20;
