@@ -371,7 +371,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
-            <td colspan="4"><?php get_object_text_from_id($row[0]); ?></td>
+            <td colspan="4"><?php $ob_text = get_object_text_from_id($row[0]); echo $ob_text; ?></td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
@@ -482,6 +482,10 @@ function validateForm()
             <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
         </tr>
         <tr>
+            <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
+            <td colspan="4"><?php $ob_text = get_object_text_from_id($row[0]); echo $ob_text; ?></td>
+        </tr>
+        <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
             <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
@@ -496,7 +500,7 @@ function validateForm()
             <td colspan="4"><input type="text" id="comment" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);"/></td>
         </tr>
         <tr>
-            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
+            <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
             <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></td>
         </tr>
         <tr>

@@ -22,6 +22,11 @@ if (isset($_POST['new_heading']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/
 if (isset($_POST['id_to_update']) && preg_match('/^[0-9]+$/u',$_POST['id_to_update']))
     $id_to_update = pg_escape_string($_POST['id_to_update']);
 
+if (isset($_REQUEST['update_choice'])
+    && $_REQUEST['update_choice']>'0'
+    && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice']))
+    $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
+
 if (isset($_POST['model_name']) && preg_match('/^[0-9]+$/u',$_POST['model_name']))
     $model_name = pg_escape_string($_POST['model_name']);
 
@@ -30,12 +35,6 @@ if (isset($_POST['email'])
     && (strlen($_POST['email']) <= 50)
     && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email']) )
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
-
-if (isset($_REQUEST['update_choice'])
-    && $_REQUEST['update_choice']>'0'
-    && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice']))
-    $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
-
 
 // Final step to edition
 if (isset($model_name)
@@ -72,7 +71,6 @@ if (isset($model_name)
     include '../../inc/header.php';
 
     // Checking that email is valid (if it exists).
-    //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     $failed_mail = false;
     if ($safe_email) {
         echo "<p class=\"center ok\">Email: ".$safe_email."</p><br />";
