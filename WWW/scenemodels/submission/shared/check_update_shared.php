@@ -296,7 +296,7 @@ function validateForm()
           </td>
           <td>
             <?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
-          </td>
+          </td colspan="2">
           <td>
 <?php
 
