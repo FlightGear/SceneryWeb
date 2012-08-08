@@ -401,6 +401,15 @@ function validateForm()
           </td>
         </tr>
         <tr>
+            <td>
+                <span title="This is the country of the object you want to update. Not editable, though, cause automatic procedures are doing it.">
+                <label for="country">Country</label></span>
+            </td>
+            <td colspan="3">
+                <?php $country = get_country_name_from_country_code(get_object_country_from_id($id_to_update)); echo $country; ?>
+            </td>
+        </tr>
+        <tr>
           <td>
             <span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
             <label for="new_gndelev">Elevation<em>*</em></label></span>
@@ -485,7 +494,7 @@ function validateForm()
 else {
 
     // Checking DB availability before all
-    $ok=check_availability();
+    $ok = check_availability();
 
     if (!$ok) {
         $page_title = "Automated Shared Models Positions Update Form";
