@@ -54,19 +54,6 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p>";
 
     // Should in fact be somewhere like here. Checking that comment exists. Just a small verification as it's not going into DB.
-
-    // (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
-    //if((isset($_POST['comment'])) && ((strlen($_POST['comment'])>0)) && ((strlen($_POST['comment']))<=100)) {
-    //    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
-    //}
-    //else {
-    //    echo "<p class=\"warning\">Comment mismatch!</p><br />";
-    //    $error=true;
-    //}
-
-    // Checking that email is valid (if it exists).
-    //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-
     $failed_mail = false;
     if (isset($safe_email)) {
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
@@ -105,8 +92,6 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
         include '../../inc/footer.php';
         exit;
     }
-
-
     echo "<p class=\"center\">Your position has been successfully queued into the FG scenery database deletion requests!<br />";
     echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
@@ -192,12 +177,6 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
         // What is the subject ?
         $subject = "[FG Scenery Submission forms] Automatic shared model position deletion request.";
-
-        // Correctly set the object URL.
-        //$family_url = "http://scenemodels.flightgear.org/modelbrowser.php?shared=".$family_id;
-        //$object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$model_id;
-        //$html_family_url = htmlspecialchars($family_url);
-        //$html_object_url = htmlspecialchars($object_url);
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message3 = "Hi," . "\r\n" .
@@ -381,6 +360,10 @@ function validateForm()
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
             <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
+        </tr>
+        <tr>
+            <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
+            <td colspan="4"><?php get_object_text_from_id($row[0]); ?></td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
