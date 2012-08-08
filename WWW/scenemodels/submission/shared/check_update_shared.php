@@ -296,8 +296,8 @@ function validateForm()
           </td>
           <td>
             <?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
-          </td colspan="2">
-          <td>
+          </td>
+          <td colspan="2">
 <?php
 
     $resource_r = connect_sphere_r();
@@ -374,7 +374,6 @@ function validateForm()
 ?>
               </select>
             </div>
-
           </td>
         </tr>
         <tr>
