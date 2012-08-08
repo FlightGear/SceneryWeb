@@ -436,9 +436,11 @@ function validateForm()
           </td>
         </tr>
         <tr>
-            <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
-            <td colspan="3"><?php $ob_text = get_object_text_from_id($id_to_update); echo $ob_text; ?></td>
-            <td></td>
+            <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description (Just for test now - don't use')</label></span></td>
+            <td><?php $actual_ob_text = get_object_text_from_id($id_to_update); echo $ob_text; ?></td>
+            <td colspan="2">
+                <input type="text" name="new_ob_text" id="new_ob_text" maxlength="100" value="<?php echo $actual_ob_text; ?>" onchange="checkComment(this);" />
+            </td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
