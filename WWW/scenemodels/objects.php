@@ -102,11 +102,11 @@
         <select name="model" style="font-size: 0.7em;">
           <option value="0"></option>
 <?php
-          $result=pg_query("SELECT mo_id,mo_path FROM fgs_models ORDER BY mo_path;");
+          $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
           while ($row = pg_fetch_assoc($result)) {
-              $models[$row["mo_id"]]=$row["mo_path"];
+              $models[$row["mo_id"]] = $row["mo_path"];
               echo "<option value=\"".$row["mo_id"]."\"";
-              if ($row["mo_id"]==$model)
+              if ($row["mo_id"] == $model)
                   echo " selected=\"selected\"";
               echo ">".$row["mo_path"]."</option>\n";
           }
@@ -116,11 +116,11 @@
         <select name="group" style="font-size: 0.7em;">
           <option value="0"></option>
 <?php
-            $result=pg_query("SELECT gp_id,gp_name FROM fgs_groups;");
+            $result = pg_query("SELECT gp_id, gp_name FROM fgs_groups;");
             while ($row = pg_fetch_assoc($result)){
-                $groups[$row["gp_id"]]=$row["gp_name"];
+                $groups[$row["gp_id"]] = $row["gp_name"];
                 echo "<option value=\"".$row["gp_id"]."\"";
-                if ($row["gp_id"]==$group)
+                if ($row["gp_id"] == $group)
                     echo " selected=\"selected\"";
                 echo ">".$row["gp_name"]."</option>\n";
             }
@@ -132,11 +132,11 @@
         <select name="country" style="font-size: 0.7em;">
           <option value="0"></option>
 <?php
-            $result=pg_query("SELECT co_code,co_name FROM fgs_countries;");
+            $result = pg_query("SELECT co_code,co_name FROM fgs_countries;");
             while ($row = pg_fetch_assoc($result)){
               $countries{$row["co_code"]}=$row["co_name"];
               echo "<option value=\"".$row["co_code"]."\"";
-              if ($row["co_code"]==$country) echo " selected=\"selected\"";
+              if ($row["co_code"] == $country) echo " selected=\"selected\"";
               echo ">".$row["co_name"]."</option>\n";
             }
 ?>
@@ -151,15 +151,15 @@
         $next = $offset+20;
 
         $filter_text="";
-        if($lat!="") $filter_text .= "&amp;lat=".$lat;
-        if($lon!="") $filter_text .= "&amp;lon=".$lon;
-        if($elevation!="") $filter_text .= "&amp;elevation=".$elevation;
-        if($elevoffset!="") $filter_text .= "&amp;elevoffset=".$elevoffset;
-        if($description!="") $filter_text .= "&amp;description=".$description;
-        if($heading!="") $filter_text .= "&amp;heading=".$heading;
-        if($model!=0) $filter_text .= "&amp;model=".$model;
-        if($group!=0) $filter_text .= "&amp;group=".$group;
-        if($country!=0) $filter_text .= "&amp;country=".$country;
+        if($lat != "") $filter_text .= "&amp;lat=".$lat;
+        if($lon != "") $filter_text .= "&amp;lon=".$lon;
+        if($elevation != "") $filter_text .= "&amp;elevation=".$elevation;
+        if($elevoffset != "") $filter_text .= "&amp;elevoffset=".$elevoffset;
+        if($description != "") $filter_text .= "&amp;description=".$description;
+        if($heading != "") $filter_text .= "&amp;heading=".$heading;
+        if($model != 0) $filter_text .= "&amp;model=".$model;
+        if($group != 0) $filter_text .= "&amp;group=".$group;
+        if($country != 0) $filter_text .= "&amp;country=".$country;
 
         echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;";
         echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
@@ -172,9 +172,10 @@
       $query.= "WHERE ob_id IS NOT NULL ".$filter." ";
       $query.= "LIMIT 20 OFFSET ".$offset;
 
-      $result=pg_query($query);
+      $result = pg_query($query);
       while ($result && $row = pg_fetch_assoc($result)) {
           echo "<tr class=\"object\">\n";
+          echo "  <td><a href='http://scenemodels.flightgear.org/objectedit.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n";
           echo "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
           $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
           echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n";
