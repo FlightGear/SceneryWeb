@@ -413,7 +413,8 @@ function validateForm()
                 <label for="country">Country</label></span>
             </td>
             <td colspan="3">
-                <?php $country = get_country_name_from_country_code(get_object_country_from_id($id_to_update)); echo $country; ?>
+                <?php $country = get_country_name_from_country_code(get_object_country_from_id($id_to_update));
+		if ($country == '') echo "Unknown!" else echo $country; ?>
             </td>
         </tr>
         <tr>

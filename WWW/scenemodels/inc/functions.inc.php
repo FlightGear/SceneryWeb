@@ -129,10 +129,11 @@ function get_object_family_from_id($ob_id)
     @pg_close ($headerlink_family);
 }
 
-// Returns the country id of an ob_id sent as parameter
-// ====================================================
+// Computes the country id of an ob_id sent as parameter
+// (ie, this is not the data in the database)
+// =====================================================
 
-function get_object_country_from_id($ob_id)
+function compute_object_country_from_id($ob_id)
 {
     $mg_id = pg_escape_string($ob_id);
 
@@ -150,6 +151,30 @@ function get_object_country_from_id($ob_id)
 
     // Closing the connection.
     pg_close ($headerlink_country);
+}
+
+// Returns the country of an ob_id sent as parameter
+// (ie, this is what's in the database)
+// =================================================
+
+function get_object_country_from_id($ob_id)
+{
+    $ob_id = pg_escape_string($ob_id);
+
+    // Connecting to the database.
+    $headerlink_family = connect_sphere_r();
+
+    // Querying...
+    $query = "SELECT ob_id, ob_country FROM fgs_objects WHERE ob_id=".$ob_id.";";
+    $result = @pg_query($headerlink_family, $query);
+
+    while ($row = @pg_fetch_assoc($result)) {
+        $ob_country = $row["ob_country"];
+    }
+
+    // Closing the connection.
+    @pg_close ($headerlink_family);
+    return ($ob_country);
 }
 
 // Returns the group name (LANDMARK, NAVAID...) from an ob_group sent as parameter
