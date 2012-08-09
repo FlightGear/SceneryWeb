@@ -38,7 +38,7 @@ if (isset($_POST['email'])
 
 if (isset($_POST['new_ob_text'])
     && (strlen($_POST['new_ob_text']) > 0)
-    && (strlen($_POST['new_ob_text']) <= 100)
+    && (strlen($_POST['new_ob_text']) <= 100))
     // && preg_match('/^[0-9a-zA-Z_\-.\[\]]+$/u',$_POST['new_ob_text']) )
     $safe_new_ob_text = pg_escape_string(stripslashes($_POST['new_ob_text']));
 
