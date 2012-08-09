@@ -660,13 +660,11 @@ else {
 
     # If an XML file is used for the model, the mo_path has to point to it, or
     # FG will not render it correctly. Else the .ac file will be used as mo_path.
-    echo "AC3DName : ". $ac3dName."\n";
-    echo "XMLName: ".$xmlName."\n";
     if ($use_xml_for_mo_path == 1) {
         $path_to_use = $xmlName;
     }
     else $path_to_use = $ac3dName;
-    echo "Path to use: ".$path_to_use."\n";
+    echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 
     $mo_query  = "INSERT INTO fgs_models ";
     $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
@@ -741,7 +739,7 @@ else {
         else {
             $failed_mail = 1;
         }
-        echo "<p class=\"center\">Your 3D model insertion request has been successfully queued into the FG scenery database update requests!<br />";
+        echo "has been successfully queued into the FG scenery database insertion requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
         echo "Want to submit another model or position?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/\">Click here to go back to the submission page.</a></p>";
