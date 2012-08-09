@@ -23,7 +23,7 @@
       </td>
     </tr>
     <?php
-      $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, to_char(mo_modified,'YYYY-dd-mm (HH24:MI)') AS mo_datedisplay, mo_shared, CHAR_LENGTH(mo_modelfile) ";
+      $query = "SELECT mo_id, mo_name, mo_path, mo_notes, mo_author, au_name, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay, mo_shared, CHAR_LENGTH(mo_modelfile) ";
       $query.= "AS mo_modelsize, mg_name, mg_id ";
       $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
       $query.= "WHERE mo_author=au_id AND mo_shared=mg_id ";
