@@ -201,11 +201,11 @@ Please, read the following:
         <tr>
             <td>
             <span title="This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a factor of 2 in height and length.">
-            <label for="png_file[]">Corresponding PNG Texture Files (files may not show even when added. Don't worry, further checking is done afterwards)</label>
+            <label for="png_files">Corresponding PNG Texture Files (files may not show even when added. Don't worry, further checking is done afterwards)</label>
             </span>
             </td>
             <td>
-            <input type="file" name="png_file[]" id="png_file[]" class="multi" maxlength="12" accept="image/png" />
+            <input type="file" name="png_files" id="png_files" class="multi" maxlength="12" accept="image/png" />
             </td>
         </tr>
         <tr>
