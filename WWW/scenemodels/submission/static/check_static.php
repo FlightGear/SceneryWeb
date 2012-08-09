@@ -783,7 +783,7 @@ else {
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "Family: ".family_name($mo_shared)."\r\n" .
         "[ ".$html_family_url." ]" . "\r\n" .
-        "Path: ". $ac3dName . "\r\n" .
+        "Path: ". $path_to_use . "\r\n" .
         "Author: ". get_authors_name_from_authors_id($author) ."\r\n" .
         "Description: ". $name ."\r\n" .
         "Comment: ". strip_tags($comment) ."\r\n" .
@@ -834,7 +834,7 @@ else {
             // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
             $message4 = "Family: ".family_name($mo_shared)."\r\n" .
                         "[ ".$html_family_url." ]" . "\r\n" .
-                        "Path: ". $ac3dName . "\r\n" .
+                        "Path: ". $path_to_use . "\r\n" .
                         "Author: ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description: ". $name ."\r\n" .
                         "Comment: ". strip_tags($comment) ."\r\n" .
