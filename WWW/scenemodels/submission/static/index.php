@@ -205,7 +205,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="file" name="png_files" id="png_files" class="multi" maxlength="12" accept="image/png" />
+            <input type="file" name="png_files[]" id="png_files" class="multi" maxlength="12" accept="image/png" />
             </td>
         </tr>
         <tr>
