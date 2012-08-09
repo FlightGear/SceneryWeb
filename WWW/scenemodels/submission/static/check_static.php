@@ -660,10 +660,13 @@ else {
 
     # If an XML file is used for the model, the mo_path has to point to it, or
     # FG will not render it correctly. Else the .ac file will be used as mo_path.
+    echo "AC3DName : ". $ac3dName."\n";
+    echo "XMLName: ".$xmlName."\n";
     if ($use_xml_for_mo_path == 1) {
         $path_to_use = $ac3dName;
     }
     else $path_to_use = $xmlName;
+    echo "Path to use: ".$path_to_use."\n";
 
     $mo_query  = "INSERT INTO fgs_models ";
     $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
