@@ -12,7 +12,7 @@ function popmap(lat,lon,zoom) {
 
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     $id = $_REQUEST['id'];
-    $result = pg_query("SELECT *, to_char(mo_modified,'YYYY-dd-mm (HH24:MI)') AS mo_datedisplay from fgs_models where mo_id=$id;");
+    $result = pg_query("SELECT *, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay from fgs_models where mo_id=$id;");
     $model = pg_fetch_assoc($result);
 };
 ?>
@@ -30,7 +30,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     <td>Type</td>
     <td>
         <?php
-            $result = pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups;");
+            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups;");
             while ($row = pg_fetch_assoc($result)) {
                 if ($row["mg_id"] == $model["mo_shared"]) print $row["mg_name"];
             }
