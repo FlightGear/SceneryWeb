@@ -1,12 +1,7 @@
 Shared objects
 ==============
-Bug/security fixing:
---------------------
-- Check for every form & page the referring page & the value of the form submitting.
-
 Features updates (by priority):
 -------------------------------
-- Review the names of the scripts to keep them coherent.
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Add pitch/roll and offset data so they can be, for instance, mass imported.
 - Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
@@ -15,13 +10,11 @@ Features updates (by priority):
 - Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
 => In update, beware that for the moment, we are replacing the current metadata, whatever
    it contains (including interesting obstruction information) by the name of the object.
-- Take comments into account to merge them into the generated STG file (but how will you remove them ;-)
+   Can also serve as a comment (better than in a STG file).
 - Automate the altitude calculation (is there a FG server giving this online f(lat, long) ?).
 - Automate the country calculation => Being done
 - Add a possibility to switch from STG heading to true and inversely.
 - Regionalise the maintainers : if lat/lon between x and y, send the validation mail to Jon, Martin or... else
-- Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
-- http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
 
 Static objects
 ==============
@@ -31,16 +24,16 @@ After production:
 - We do still have /tmp/submission_ directories created and never deleted.
 - Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
 - Put hangar stuff to /inc or something like that.
-
-For later:
-==========
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
+
+Overall work:
+=============
+- Review the names of the scripts to keep them coherent.
 - Logging options
 - Add WebGL for public access as well (3D model viewer).
-- Mass country update.
-- Take roll/pitch into account.
 - Have an email account for spam abuse.
 - http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
+- Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
 
 Terragear
 =========
