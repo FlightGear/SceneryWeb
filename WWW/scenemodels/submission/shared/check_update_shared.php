@@ -36,13 +36,20 @@ if (isset($_POST['email'])
     && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email']) )
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
 
+if (isset($_POST['new_ob_text'])
+    && (strlen($_POST['new_ob_text']) > 0)
+    && (strlen($_POST['new_ob_text']) <= 100)
+    // && preg_match('/^[0-9a-zA-Z_\-.\[\]]+$/u',$_POST['new_ob_text']) )
+    $safe_new_ob_text = pg_escape_string(stripslashes($_POST['new_ob_text']));
+
 // Final step to edition
 if (isset($model_name)
     && isset($new_long)
     && isset($new_lat)
     && isset($new_gndelev)
     && isset($new_offset)
-    && isset($new_orientation)) {
+    && isset($new_orientation)
+    && isset($safe_new_ob_text)) {
 
     // Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
@@ -82,7 +89,7 @@ if (isset($model_name)
 
     // Preparing the update request
     $query_update="UPDATE fgs_objects ".
-                  "SET ob_text='".object_name($model_name)."', wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=".$new_gndelev.", ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
+                  "SET ob_text=$$".object_name($model_name)."', wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=".$new_gndelev.", ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
                   "WHERE ob_id=".$id_to_update.";";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
@@ -354,7 +361,7 @@ function validateForm()
     $resource_r = connect_sphere_r();
 
     if ($resource_r != '0') {
-        $query = "SELECT mo_id,mo_path,mo_name,mo_shared FROM fgs_models WHERE mo_shared=".$id_family." ORDER BY mo_path;";
+        $query = "SELECT mo_id, mo_path, mo_name, mo_shared FROM fgs_models WHERE mo_shared=".$id_family." ORDER BY mo_path;";
         $result = @pg_query($query);
 
         // Showing the results.

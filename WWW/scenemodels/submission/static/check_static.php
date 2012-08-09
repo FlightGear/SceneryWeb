@@ -312,6 +312,7 @@ if ($fatalerror || $error > 0) {
 ###############################################
 
 if (file_exists($xmlPath)) {
+    $use_xml_for_mo_path = 0;
     $depth = array();
     $xml_parser = xml_parser_create();
 
@@ -347,6 +348,7 @@ if (file_exists($xmlPath)) {
                 $errormsg .= "XML error : ".xml_error_string(xml_get_error_code($xml_parser))." at line ".xml_get_current_line_number($xml_parser)."<br/>";
             }
         }
+        $use_xml_for_mo_path = 1;
         xml_parser_free($xml_parser);
     }
 
@@ -655,11 +657,19 @@ if ($fatalerror || $error > 0) {
 else {
     # Connection to DB
     $resource_rw = connect_sphere_rw();
+
+    # If an XML file is used for the model, the mo_path has to point to it, or
+    # FG will not render it correctly. Else the .ac file will be used as mo_path.
+    if ($use_xml_for_mo_path == 1) {
+        $path_to_use = $ac3dName;
+    }
+    else $path_to_use = $xmlName;
+
     $mo_query  = "INSERT INTO fgs_models ";
     $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
     $mo_query .= "VALUES (";
     $mo_query .= "DEFAULT, ";             // mo_id
-    $mo_query .= "'".$ac3dName."', ";  // mo_path
+    $mo_query .= "'".$path_to_use."', ";  // mo_path
     $mo_query .= $author.", ";            // mo_author
     $mo_query .= "'".$name."', ";         // mo_name
     $mo_query .= "'".$comment."', ";      // mo_notes
