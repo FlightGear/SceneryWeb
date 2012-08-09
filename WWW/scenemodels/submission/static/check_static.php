@@ -663,9 +663,9 @@ else {
     echo "AC3DName : ". $ac3dName."\n";
     echo "XMLName: ".$xmlName."\n";
     if ($use_xml_for_mo_path == 1) {
-        $path_to_use = $ac3dName;
+        $path_to_use = $xmlName;
     }
-    else $path_to_use = $xmlName;
+    else $path_to_use = $ac3dName;
     echo "Path to use: ".$path_to_use."\n";
 
     $mo_query  = "INSERT INTO fgs_models ";
