@@ -10,7 +10,11 @@ if (isset($_POST['step']) && preg_match('/^[0-9]+$/u',$_POST['step'])) {
 }
 
 if (isset($_REQUEST['delete_choice']) && preg_match('/^[0-9]+$/u',$_REQUEST['delete_choice'])) {
-    $id_to_delete = pg_escape_string(stripslashes($delete_choice));
+    $id_to_delete = pg_escape_string(stripslashes($_REQUEST['delete_choice']));
+}
+
+if (isset($_POST['delete_choice']) && preg_match('/^[0-9]+$/u',$_POST['delete_choice'])) {
+    $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
 }
 
 if (isset($_POST['email'])
@@ -23,7 +27,6 @@ if (isset($_POST['email'])
 if (isset($_POST['comment']) && preg_match('/^[0-9a-z-A-Z\';:!?@-_\. ]+$/u',$_POST['comment'])) {
     $comment = strip_tags($_POST['comment']);
 }
-
 
 // Final step to deletion
 if (isset($step) && ($step == 3) && isset($id_to_delete)) {
