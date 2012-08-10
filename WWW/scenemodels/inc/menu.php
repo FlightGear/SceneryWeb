@@ -12,8 +12,8 @@
       <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
       <ul class="submenus">
         <li><a href="/submission/shared/index.php">Add a new shared object position</a></li>
-        <li><a href="/submission/shared/index_update.php">Update an shared object settings</a></li>
-        <li><a href="/submission/shared/index_delete.php">Delete an shared object position</a></li>
+        <li><a href="/submission/shared/index_update.php">Update a shared object settings</a></li>
+        <li><a href="/submission/shared/index_delete.php">Delete a shared object position</a></li>
         <li><a href="/submission/shared/index_mass_import.php">Mass shared object import</a></li>
 	<li><a href="/submission/static/index.php">Add a new shared/static 3D Model</a></li>
       </ul>
