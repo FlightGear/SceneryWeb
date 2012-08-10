@@ -237,20 +237,14 @@ if ($_FILES['xml_file']['name'] != "") { // if file exists
 #############################################
 
 for ($i=0; $i<12; $i++) {
-    var_dump($_FILES["png_file"]);
     if (isset($_FILES["png_file"]["name"][$i])) {
         $pngName  = $_FILES["png_file"]["name"][$i];
-        echo "pngname: ".$pngName."\n";
         $pngType  = $_FILES["png_file"]["type"][$i];
-                echo "pngtype: ".$pngType."\n";
         $pngsize  = $_FILES["png_file"]["size"][$i];
-                echo "pngtype: ".$pngsize."\n";
         $pngError = $_FILES["png_file"]["error"][$i];
-                echo "pngfile: ".$pngError."\n";
         $pngTmp   = $_FILES["png_file"]["tmp_name"][$i];
-                echo "pngtmp: ".$pngTmp."\n";
 
-        if ($pngsize > 0 && $pngsize < 2000000 && !$fatalerror) { // check size file
+        if ($pngsize < 2000000 && !$fatalerror) { // check size file
 
             if ($pngType == 'image/png' && (show_file_extension(basename($pngName)) == "png" || show_file_extension(basename($pngName)) == "PNG")) { // check type & extension file
 
