@@ -396,7 +396,7 @@ function validateForm()
     echo recaptcha_get_html($publickey);
 ?>
             <br />
-            <input name="id_to_delete" type="hidden" value="<?php echo $row[0]; ?>" />
+            <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
             <input name="step" type="hidden" value="3" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
 
