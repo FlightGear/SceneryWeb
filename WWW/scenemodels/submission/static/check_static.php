@@ -428,7 +428,7 @@ else {
 ###############################################
 
 for ($i=0; $i<12; $i++) {
-    if (isset($_FILES["png_file"]["name"][$i])) {
+    if (isset($_FILES["png_file"]["name"][$i]) && ($_FILES['png_file']['name'][$i] != '')) {
         $pngPath  = $targetPath.$_FILES["png_file"]["name"][$i];
         $pngName  = $_FILES["png_file"]["name"][$i];
 
