@@ -3,7 +3,7 @@
   header('Content-type: application/rss+xml');
   $query = "SELECT to_char(mo_modified,'Dy, DD Mon YYYY HH24:MM') AS modtime ";
   $query.= "FROM fgs_models ";
-  $query.= "ORDER BY mo_modified DESC";
+  $query.= "ORDER BY mo_modified DESC ";
   $query.= "LIMIT 1";
   $result = pg_query($query);
   $row = pg_fetch_assoc($result);
