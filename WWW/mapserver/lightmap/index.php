@@ -39,7 +39,7 @@
 
             tarmac.setVisibility(false);
             sceneobject.setVisibility(false);
-            map.addLayers([customscene, v0cover, icubed, tarmac, osmlines, airport850, sceneobject]);
+            map.addLayers([customscene, v0cover, icubed, tarmac, osmlines, airfield, sceneobject]);
 
             map.addControl(new OpenLayers.Control.PanZoom());
             map.addControl(new OpenLayers.Control.Permalink('permalink'));
