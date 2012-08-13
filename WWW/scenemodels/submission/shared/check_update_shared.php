@@ -519,9 +519,8 @@ else {
 
     // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
     $error_text = "";
-    // (preg_match('/^[0-9\-\.]+$/u',$_POST['latitude']))
     if (isset($_POST['latitude'])
-        && strlen($_POST['latitude']) <= 13
+        && strlen($_POST['latitude']) <= 20
         && $_POST['latitude'] <= 90
         && $_POST['latitude'] >= -90) {
 
@@ -533,9 +532,8 @@ else {
     }
 
     // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-    // (preg_match('/^[0-9\-\.]+$/u',$_POST['longitude']))
     if (isset($_POST['longitude'])
-        && strlen($_POST['longitude']) <= 13
+        && strlen($_POST['longitude']) <= 20
         && $_POST['longitude'] >= -180
         && $_POST['longitude'] <= 180) {
 
