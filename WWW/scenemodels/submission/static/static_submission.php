@@ -348,16 +348,11 @@ if (!isset($_POST["action"])) {
             // Retrieve data from query
             $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9, !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
             $error === preg_match($pattern, $query_rw, $matches);
-            echo "PREG return value : ".$error;
 
             $mo_path      = $matches['path'];
-            echo "Mo_path: ".$mo_path."<br />";
             $mo_author    = get_authors_name_from_authors_id($matches['author']);
-            echo "Author : ".$matches['author']."<br />";
             $mo_name      = $matches['name'];
-            echo "Name : ".$matches['name']."<br />";
             $mo_notes     = $matches['notes'];
-            echo "Notes : ".$matches ['notes']."<br />";
             $mo_thumbfile = $matches['thumbfile'];
             $mo_modelfile = $matches['modelfile'];
             $mo_shared    = $matches['shared'];
