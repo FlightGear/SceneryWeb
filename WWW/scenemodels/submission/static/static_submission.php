@@ -82,8 +82,10 @@ if (isset($_POST["action"])) {
                 $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                             "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']  . "\r\n" .
-                            "I just wanted to let you know that the 3D model import named Blah."."\r\n" .
-                            "has been rejected and successfully deleted from the pending requests table"."\r\n" .
+                            "I just wanted to let you know that your 3D model import"."\r\n" .
+                            "- ".substr($_POST["mo_sig"],0,10). "... (model) and " . "\r\n" .
+                            "- ".substr($_POST["ob_sig"],0,10). "... (object)" . "\r\n" .
+                            "have been rejected and therefore successfully deleted from the pending requests table"."\r\n" .
                             "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
                             "We're sorry about this. Please use the maintainer's comment to enhance or"."\r\n" .
                             "correct your model before submitting it again.";

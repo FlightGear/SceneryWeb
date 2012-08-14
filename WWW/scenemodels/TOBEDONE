@@ -4,7 +4,6 @@ Features updates (by priority):
 -------------------------------
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Add pitch/roll and offset data so they can be, for instance, mass imported.
-- Just for fun, calculate when the object(s) will be available through Terrasync (12h30Z each day-emailtime).
 - Enable maintainer to drop a comment.
 - Add the model thumbnail when editing an object. In fact objectedit and submission edit must share common ideas !
 - Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
@@ -34,6 +33,8 @@ Overall work:
 - Have an email account for spam abuse.
 - http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
+  => Using HTTP API we could think of an export between ufo and fgs_objects scripts and between Blender and fgs_models scripts.
+  => cf for instance the shapefiles download on the mapserver.
 
 Terragear
 =========
