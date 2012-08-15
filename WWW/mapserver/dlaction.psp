@@ -28,7 +28,7 @@ myvars['mylayer'] = ("%(layer)s" % form)
 #
 testlayercmd = ( "SELECT COUNT(*) from conf_layer \
   WHERE maplayer = '%(mylayer)s' \
-  OR (layer = '%(mylayer)s' AND maplayer IS NULL);" % myvars )
+  OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % myvars )
 
 cursor.execute ( testlayercmd )
 layervalid = cursor.fetchone()
