@@ -23,6 +23,12 @@ cursor = ldbconnect.cursor()
 myvars = {}
 myvars['mylayer'] = ("%(layer)s" % form)
 
+# Check if the defined layer to download is a valid one
+#
+testlayercmd = ( "SELECT COUNT(*) from conf_layer \
+    WHERE maplayer = '%(mylayer)s' \
+    OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % myvars )
+
 xmin = float("%(xmin)s" % form)
 xmax = float("%(xmax)s" % form)
 ymin = float("%(ymin)s" % form)

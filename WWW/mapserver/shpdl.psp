@@ -24,7 +24,7 @@ else:
 # end
 %>
 
-<!-- calls 'dlaction.psp', 'dlshp.psp', 'dlclc00.psp', 'dlclc06.psp' or 'dlosm.psp'
+<!-- calls 'dlshp.psp'
      Pythonification into a generic abstraction to download features is
      still pending ....  -->
 
