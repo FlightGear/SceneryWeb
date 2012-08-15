@@ -15,21 +15,23 @@ import os
 
 # Define DB connection for verification of layers to download
 #
-ldbconnect = pgdb.connect ( host = 'geoscope.optiputer.net', database = 'landcover', user = 'webuser')
+ldbconnect = pgdb.connect(host='geoscope.optiputer.net',
+                          database='landcover',
+                          user='webuser')
 
-cur = ldbconnect.cursor()
+cursor = ldbconnect.cursor()
 
 myvars = {}
-myvars['mylayer'] = ( "%(pgislayer)s" % form )
+myvars['mylayer'] = ("%(layer)s" % form)
 
 # Check if the defined layer to download is a valid one
 #
 testlayercmd = ( "SELECT COUNT(*) from conf_layer \
   WHERE maplayer = '%(mylayer)s' \
-  OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % myvars )
+  OR (layer = '%(mylayer)s' AND maplayer IS NULL);" % myvars )
 
-cur.execute ( testlayercmd )
-layervalid = cur.fetchone()
+cursor.execute ( testlayercmd )
+layervalid = cursor.fetchone()
 
 # Layer not present in 'conf_layer' table
 #
@@ -37,11 +39,11 @@ if layervalid[0] != 1:
   print "Please select a valid layer!"
   exit(1)
 
-xmin = float( "%(xmin)s" % form )
-xmax = float( "%(xmax)s" % form )
-ymin = float( "%(ymin)s" % form )
-ymax = float( "%(ymax)s" % form )
-dlarea = ( (xmax - xmin) * (ymax - ymin) )
+xmin = float("%(xmin)s" % form)
+xmax = float("%(xmax)s" % form)
+ymin = float("%(ymin)s" % form)
+ymax = float("%(ymax)s" % form)
+dlarea = ((xmax - xmin) * (ymax - ymin))
 
 # West/East swapped
 #
@@ -64,33 +66,37 @@ if dlarea > 144:
 # Now, everything is ok
 #
 myvars['myuuid'] = uuid.uuid4()
-myvars['ll_geometry'] = ( "%(xmin)s %(ymin)s" % form )
-myvars['ur_geometry'] = ( "%(xmax)s %(ymax)s" % form )
+myvars['ll_geometry'] = ("%(xmin)s %(ymin)s" % form)
+myvars['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
 myvars['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 
 # After everything's verified, store an entry in the 'download' table for
 # retrieval and execution via the 'dlaction.sh' script.
 #
-insertcmd = ( "INSERT INTO download (uuid, ll_geometry, ur_geometry, pgislayer, requestdate) VALUES \
+sqlStatements = ("INSERT INTO download (uuid, ll_geometry, " + \
+                 "ur_geometry, pgislayer, requestdate) VALUES \
   ('%(myuuid)s', \
   ST_GeomFromEWKT('SRID=4326;POINT(%(ll_geometry)s)'), \
   ST_GeomFromEWKT('SRID=4326;POINT(%(ur_geometry)s)'), \
   '%(mylayer)s', \
   '%(mydate)s' \
-);" % myvars )
+);" % myvars)
 
-cur.execute( insertcmd )
+try:
+    cursor.execute(sqlStatements)
+except pgdb.DatabaseError, errText:
+    raise pgdb.DatabaseError, errText
 
 # Cleanup
 #
-cur.close()
+cursor.close()
 ldbconnect.commit()
 ldbconnect.close()
 
 # Finally call 'dlaction.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
-dumpcmd = ( "/home/fgscenery/WWW/mapserver/dlaction.sh %(myuuid)s > /tmp/dlaction.log 2>&1" % myvars )
+dumpcmd = ("/home/fgscenery/WWW/mapserver/dlaction.sh %(myuuid)s > /tmp/dlaction.log 2>&1" % myvars )
 os.system( dumpcmd )
 psp.redirect( "/download/%(mylayer)s-%(myuuid)s.zip" % myvars )
 %>

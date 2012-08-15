@@ -12,7 +12,6 @@ import uuid
 import time
 import os
 
-
 # Define DB connection for verification of layers to download
 #
 ldbconnect = pgdb.connect(host='geoscope.optiputer.net',
@@ -22,6 +21,7 @@ ldbconnect = pgdb.connect(host='geoscope.optiputer.net',
 cursor = ldbconnect.cursor()
 
 myvars = {}
+myvars['mylayer'] = ("%(layer)s" % form)
 
 xmin = float("%(xmin)s" % form)
 xmax = float("%(xmax)s" % form)
@@ -50,7 +50,6 @@ if dlarea > 144:
 # Now, everything is ok
 #
 myvars['myuuid'] = uuid.uuid4()
-myvars['mylayer'] = ("%(layer)s" % form)
 myvars['ll_geometry'] = ("%(xmin)s %(ymin)s" % form)
 myvars['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
 myvars['mydate'] = time.strftime("%Y-%m-%d %H:%M")
