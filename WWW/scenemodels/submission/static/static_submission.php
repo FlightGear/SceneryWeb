@@ -291,6 +291,9 @@ if (!isset($_POST["action"])) {
                 // Gzuncompress query
                 $query_rw = gzuncompress($sqlz);
 
+        // Debugging Thomas requests
+        echo "Object : ".$query_rw."<br/>";
+
                 // Retrieve data from query
                 $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
                 $pos = strpos($query_rw, $search);
