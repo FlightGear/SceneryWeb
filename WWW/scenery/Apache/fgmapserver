@@ -16,6 +16,7 @@ Deny from env=stay_out
 Allow from all
 </Location>
 	DocumentRoot /home/fgscenery/WWW/mapserver
+        php_value auto_prepend_file /home/jstockill/etc/config.php
 	# Support the old-style "landcover" notation:
 	ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
 	ScriptAlias /ils /usr/local/lib/cgi-bin/ils
@@ -49,6 +50,39 @@ Allow from all
 #	  ExpiresActive on
 #	  ExpiresDefault "now plus 6 hours"
 	</Directory>
+	# MS template view
+	Alias /tmp /home/fgscenery/MStmp
+	# OpenLayers
+	Alias /ol /home/martin/WWW/OpenLayers-2.11
+	<Directory "/home/martin/WWW/OpenLayers-2.11">
+	  SetEnv PYTHON_EGG_CACHE /tmp
+	</Directory>
+	# FeatureServer
+	ScriptAlias /fs /home/martin/WWW/featureserver-1.12/featureserver.cgi
+	<Directory "/home/martin/WWW/featureserver-1.12">
+	  SetEnv PYTHON_EGG_CACHE /tmp
+	</Directory>
+        # Landcover database structure
+        Alias /landcover-db.html /home/martin/WWW/mapserver/landcover-db.html
+        Alias /struct /home/martin/WWW/mapserver/struct
+	# Bulk Download
+	Alias /dl /home/martin/WWW/dl
+	<Directory "/home/martin/WWW/dl">
+	  Options -Indexes -FollowSymlinks
+	</Directory>
+	# Shapefile-Download
+	Alias /download /home/fgscenery/SHPdl
+	# Scenery-Download (Dummy/Real)
+	Alias /Scenery /home/martin/WWW/DummySceneryDownload
+	<Directory "/home/martin/WWW/DummySceneryDownload">
+	  Options +Indexes -FollowSymlinks
+	  IndexIgnore .*
+	  # Disallow download robots; Martin, 2008-12-03
+	  Order allow,deny
+	  Deny from 89.250.20.7
+	  Allow from all
+	</Directory>
+	Alias /webalizer /home/martin/WWW/webalizer
 ########################################################################
 	# FGx
 	Alias /fgx /home/ysablonier/htdocs
@@ -86,50 +120,21 @@ Allow from all
 	  Require valid-user
 	  PythonDebug Off
 	</Directory>
-	# MS template view
-	Alias /tmp /home/fgscenery/MStmp
-	# OpenLayers
-	Alias /ol /home/martin/WWW/OpenLayers-2.11
-	<Directory "/home/martin/WWW/OpenLayers-2.11">
-	  SetEnv PYTHON_EGG_CACHE /tmp
-	</Directory>
-	# FeatureServer
-	ScriptAlias /fs /home/martin/WWW/featureserver-1.12/featureserver.cgi
-	<Directory "/home/martin/WWW/featureserver-1.12">
-	  SetEnv PYTHON_EGG_CACHE /tmp
-	</Directory>
-	# Bulk Download
-	Alias /dl /home/martin/WWW/dl
-	<Directory "/home/martin/WWW/dl">
-	  Options -Indexes -FollowSymlinks
-	</Directory>
+########################################################################
 	Alias /getstart /home/martin/WWW/getstart
 	<Directory "/home/martin/WWW/getstart">
-	  DirectoryIndex getstart.html
+	  DirectoryIndex getstart-en.html
 	  Options -Indexes -FollowSymlinks
 	</Directory>
 	Alias /getstart.pdf /home/martin/WWW/getstart-en.pdf
 	Alias /getstart-fr.pdf /home/martin/WWW/getstart-fr.pdf
-	# Shapefile-Download
-	Alias /download /home/fgscenery/SHPdl
-	# Scenery-Download (Dummy/Real)
-	Alias /Scenery /home/martin/WWW/DummySceneryDownload
-	<Directory "/home/martin/WWW/DummySceneryDownload">
-	  Options +Indexes -FollowSymlinks
-	  IndexIgnore .*
-	  # Disallow download robots; Martin, 2008-12-03
-	  Order allow,deny
-	  Deny from 89.250.20.7
-	  Allow from all
-	</Directory>
-	# TerraGear - GIT
-#	LoadModule dav_module modules/mod_dav.so  # builtin
-#	LoadModule dav_fs_module modules/mod_dav_fs.so  # builtin
-#	LoadModule dav_lock_module modules/mod_dav_lock.so  # builtin
-#	DAVLockDB "/home/martin/tmp/DAV.lock"
+	Alias /Apt.Dat.txt /home/martin/WWW/mapserver/Apt.Dat.txt
+	Alias /Apt.Dat_2.txt /home/martin/WWW/mapserver/Apt.Dat_2.txt
+	Alias /apt.dat.gz /home/martin/WWW/mapserver/apt.dat.gz
+########################################################################
+	# FlightGear - GIT
 	Alias /git /home/martin/git
 	<Directory "/home/martin/git">
-#	  Dav On
 	  AddHandler perl-script .pl
 	  PerlResponseHandler ModPerl::Registry
 	  PerlOptions +ParseHeaders
@@ -139,9 +144,7 @@ Allow from all
 	  Order allow,deny
 	  Allow from all
 	</Directory>
-	# Former proxy-ing to Mapserver on 'zuluviz'
-#	ProxyPass / http://flightgear.optiputer.net:80/
-#	ProxyPassReverse / flightgear.optiputer.net:80/
+########################################################################
 	ErrorLog ${APACHE_LOG_DIR}/mapserver.flightgear.org-error.log
 	CustomLog ${APACHE_LOG_DIR}/mapserver.flightgear.org-access.log combined
 </VirtualHost>

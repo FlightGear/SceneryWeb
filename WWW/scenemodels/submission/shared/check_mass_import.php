@@ -163,8 +163,8 @@ if (!$error) {
                     $cpt_err++;
                 }
             }
-            else if ($j == 3) { // Checking Longitude, must contain only figures and ., be >-180 and <180, be 13 characters max.
-                if ((strlen($value_tag) <= 13)
+            else if ($j == 3) { // Checking Longitude, must contain only figures and ., be >-180 and <180, be 20 characters max.
+                if ((strlen($value_tag) <= 20)
                     && ($value_tag <= 180)
                     && ($value_tag >= -180)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
@@ -178,8 +178,8 @@ if (!$error) {
                     $cpt_err++;
                 }
             }
-            else if($j == "4") { // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 13 characters max.
-                if ((strlen($value_tag) <= 13)
+            else if($j == "4") { // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 20 characters max.
+                if ((strlen($value_tag) <= 20)
                     && ($value_tag <= 90)
                     && ($value_tag >= -90)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
@@ -195,8 +195,8 @@ if (!$error) {
             }
 
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
-            if ($j == 5) { // Checking Elevation, must contain only figures and, be max 10 characters
-                if ((strlen($value_tag) <= 10)
+            if ($j == 5) { // Checking Elevation, must contain only figures and, be max 20 characters
+                if ((strlen($value_tag) <= 20)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $gndelev = $value_tag;
@@ -208,9 +208,9 @@ if (!$error) {
                     $cpt_err++;
                 }
             }
-            else if($j == 6) // Checking Orientation, must contain only figures, be >0, be 17 characters max.
+            else if($j == 6) // Checking Orientation, must contain only figures, be >0, be 20 characters max.
             {
-                if ((strlen($value_tag) <= 18)
+                if ((strlen($value_tag) <= 20)
                     && ($value_tag >= 0)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td> ";
