@@ -357,7 +357,7 @@ else:
             <INPUT TYPE="submit" value="Download" checked>
             </form>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlshp?xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+                <code>http://mapserver.flightgear.org/dlshp?layer=cs&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
             </p>
             </td>
             </tr>
@@ -370,7 +370,8 @@ else:
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="/dlclc00">
+            <form method="post" action="/dlshp">
+                <INPUT TYPE="hidden" NAME="layer" VALUE="clc00">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
@@ -390,7 +391,7 @@ else:
             <INPUT TYPE="submit" value="Download" checked>
             </form>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlclc00?xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+                <code>http://mapserver.flightgear.org/dlshp?layer=clc00&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
             </p>
             </td>
             </tr>
@@ -403,7 +404,8 @@ else:
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="/dlclc06">
+            <form method="post" action="/dlshp">
+                <INPUT TYPE="hidden" NAME="layer" VALUE="clc06">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
@@ -423,7 +425,7 @@ else:
             <INPUT TYPE="submit" value="Download" checked>
             </form>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlclc06?xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+                <code>http://mapserver.flightgear.org/dlshp?layer=clc06&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
             </p>
             </td>
             </tr>
@@ -436,7 +438,8 @@ else:
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="/dlosm">
+            <form method="post" action="/dlshp">
+                <INPUT TYPE="hidden" NAME="layer" VALUE="osm">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
@@ -456,7 +459,7 @@ else:
             <INPUT TYPE="submit" value="Download" checked>
             </form>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlosm?xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+                <code>http://mapserver.flightgear.org/dlshp?layer=osm&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
             </p>
             </td>
             </tr>
