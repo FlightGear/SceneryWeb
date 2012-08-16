@@ -107,7 +107,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
-    $host = gethostbyaddr($ipaddr);
+    $host   = gethostbyaddr($ipaddr);
 
     // OK, let's start with the mail redaction.
     // Who will receive it ?
@@ -508,7 +508,6 @@ function validateForm()
         </tr>
         <tr>
             <td colspan="5" class="submit">
-            <input name="delete_choice" type="hidden" value="<?php echo $row[0]; ?>" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
             <input name="step" type="hidden" value="3" />
 <?php
