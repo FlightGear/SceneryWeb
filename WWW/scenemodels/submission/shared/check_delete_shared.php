@@ -429,7 +429,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-    <p class=\"center\"><?php echo $returned_rows;?> objects with WGS84 coordinates longitude: <?php echo $long;?>, latitude: <?php echo $lat;?> have been found in the database.<br />Please select with the left radio button the one you want to delete.</p>
+    <p class="center"><?php echo $returned_rows;?> objects with WGS84 coordinates longitude: <?php echo $long;?>, latitude: <?php echo $lat;?> have been found in the database.<br />Please select with the left radio button the one you want to delete.</p>
 
 
     <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
