@@ -81,39 +81,57 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       <tr>
         <td>Airport code - OpenLayers:</td>
         <td></td>
-        <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao"></td>
+        <td>  ICAO:</td>
+        <td> <input type="text" size="4" maxlength="4" name="icao"></td>
         <td>  <input type="submit" name="senden" value="ICAO"></td>
       </tr>
     </form>
 
     <form method="post" action="http://mapserver.flightgear.org/lonlatlayers.php">
       <tr>
-        <td>  OpenLayers - Longitude:</td><td> <input type="text" size="8" maxlength="8" name="lon"></td>
-        <td>  Latitude:</td><td> <input type="text" size="8" maxlength="8" name="lat"></td>
+        <td>  OpenLayers - Longitude:</td>
+        <td> <input type="text" size="8" maxlength="8" name="lon"></td>
+        <td>  Latitude:</td>
+        <td> <input type="text" size="8" maxlength="8" name="lat"></td>
         <td>  <input type="submit" name="senden" value="LON/LAT"></td>
       </tr>
     </form>
 
-    <tr><td></td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 
     <form method="post" action="http://mapserver.flightgear.org/icaomap.php">
       <tr>
         <td>Airport code - MS template view:</td>
         <td></td>
-        <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao"/></td>
+        <td>  ICAO:</td>
+        <td> <input type="text" size="4" maxlength="4" name="icao"/></td>
         <td>  <input type="submit" name="senden" value="ICAO"/></td>
       </tr>
     </form>
 
     <form method="post" action="http://mapserver.flightgear.org/lonlatmap.php">
       <tr>
-        <td>  MS template view - Longitude:</td><td> <input type="text" size="8" maxlength="8" name="lon"/></td>
-        <td>  Latitude:</td><td> <input type="text" size="8" maxlength="8" name="lat"/></td>
+        <td>  MS template view - Longitude:</td>
+        <td> <input type="text" size="8" maxlength="8" name="lon"/></td>
+        <td>  Latitude:</td>
+        <td> <input type="text" size="8" maxlength="8" name="lat"/></td>
         <td>  <input type="submit" name="senden" value="LON/LAT"/></td>
       </tr>
     </form>
 
-    <tr><td></td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 
     <form method="post" action="http://mapserver.flightgear.org/map/?lon=9.20438&amp;lat=47.63982&amp;zoom=11">
       <tr>
@@ -175,7 +193,13 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       </tr>
     </form>
 
-    <tr><td></td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 
     <form method="post" action="http://mapserver.flightgear.org/berlin.php">
       <tr>
@@ -217,14 +241,22 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       </tr>
     </form>
 
-    <tr><td></td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 
     <form method="get" action="http://mapserver.flightgear.org/dist.php">
-    <tr>
-      <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao1"></td>
-      <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao2"></td>
-      <td>  <input type="submit" value="Distance"/>  between two airfields</td>
-    </tr>
+      <tr>
+        <td>  ICAO:</td>
+        <td> <input type="text" size="4" maxlength="4" name="icao1"></td>
+        <td>  ICAO:</td>
+        <td> <input type="text" size="4" maxlength="4" name="icao2"></td>
+        <td>  <input type="submit" value="Distance"/>  between two airfields</td>
+      </tr>
     </form>
 
   </table>
@@ -232,7 +264,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
 
 <div class="paragraph_bloc">
   In order to retrieve airfield locations, please use this syntax:<br />
-  http://mapserver.flightgear.org/loc.php?icao=&#60add your ICAO code here&#62
+  <code>http://mapserver.flightgear.org/loc.php?icao=&lt;add your ICAO code here&gt;</code>
     <hr width="42">
   Read about the background of the whole effort. The pages are a bit
   outdated but the bottom line is still valid
