@@ -230,10 +230,6 @@ if (!$ok) {
     exit;
 }
 
-
-?>
-<br />
-<?php
 $error = false;
 global $error;
 
@@ -304,7 +300,6 @@ else {
     $result = @pg_query($resource_r_deletion, $query_pos);
     $returned_rows = pg_num_rows($result);
 }
-
 
 // We have no result
 if ($returned_rows == 0) {
