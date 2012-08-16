@@ -450,7 +450,7 @@ function validateForm()
             <th colspan="5">Object number #<?php echo $row[0]; ?></th>
         </tr>
         <tr>
-            <th rowspan="6">
+            <th rowspan="10">
                 <input type="radio" name="delete_choice" value="<?php echo $row[0];?>" <?php echo ($is_first)?"checked=\"checked\"":"";?> />
             </th>
             <td><span title="This is the family name of the object you want to delete."><label>Object's family</label></span></td>
