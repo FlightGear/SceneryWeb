@@ -264,7 +264,9 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
 
 <div class="paragraph_bloc">
   In order to retrieve airfield locations, please use this syntax:<br />
-  <code>http://mapserver.flightgear.org/loc.php?icao=&lt;add your ICAO code here&gt;</code>
+  <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
+      <code>http://mapserver.flightgear.org/loc.php?icao=&lt;add your ICAO code here&gt;</code>
+  </p>
     <hr width="42">
   Read about the background of the whole effort. The pages are a bit
   outdated but the bottom line is still valid

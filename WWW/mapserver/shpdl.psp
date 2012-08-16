@@ -340,7 +340,8 @@ else:
             </p>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
                 <code>http://mapserver.flightgear.org/dlaction?layer=&lt;layername&gt;&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
-        
+            </p>
+
         </td>
         <td valign="top" align="center">
             <p><h4>
