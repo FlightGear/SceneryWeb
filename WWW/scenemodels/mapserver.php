@@ -5,7 +5,7 @@ include 'inc/header.php';
 ?>
 <br />
 <center>
-<object data="http://mapserver.flightgear.org/" type="text/html" width="800" height="600"></object>
+<object data="http://mapserver.flightgear.org/" type="text/html" width="800" height="900"></object>
 </center>
 <?php
 include('inc/footer.php');
