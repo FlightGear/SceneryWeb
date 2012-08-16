@@ -403,8 +403,8 @@ function validateForm()
             <input name="step" type="hidden" value="3" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
 
-            <input type="submit" name="submit" value="Delete this object!" />
-            <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
+            <input type="submit" name="submit" value="Forward for deletion!" />
+            <input type="button" name="cancel" value="Cancel this deletion!" onclick="history.go(-1)"/>
             </td>
         </tr>
     </table>
@@ -518,8 +518,8 @@ function validateForm()
         echo recaptcha_get_html($publickey);
 ?>
             <br />
-            <input type="submit" name="submit" value="Delete this object!" />
-            <input type="button" name="cancel" value="Cancel - Do not delete!" onclick="history.go(-1)"/>
+            <input type="submit" name="submit" value="Forward for deletion!" />
+            <input type="button" name="cancel" value="Cancel this deletion!" onclick="history.go(-1)"/>
             </td>
         </tr>
     </table>
