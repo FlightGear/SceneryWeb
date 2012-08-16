@@ -352,12 +352,12 @@ else:
                 </table>
                 <p>
                 <select name="layer">
-                    <option value='cs' [cs_select]> Custom Scenery
-                    <option value='cs' [v0_select]> VMap0
-                    <option value='cs' [clc00_select]> CLC2000v15
-                    <option value='cs' [clc06_select]> CLC2006v15
-                    <option value='cs' [osm_select]> OpenStreetMap
-                    <option value='cs' [tgr_select]> TIGER 2006 SE
+                    <option value='cs' [cs_select]> Custom Scenery (cs)
+                    <option value='v0' [v0_select]> VMap0 (v0)
+                    <option value='clc00' [clc00_select]> CLC2000v15 (clc00)
+                    <option value='clc06' [clc06_select]> CLC2006v15 (clc06)
+                    <option value='osm' [osm_select]> OpenStreetMap (osm)
+                    <option value='tgr' [tgr_select]> TIGER 2006 SE (tgr)
                 </select>
                 <INPUT TYPE="submit" value="Download" checked>
             </form>

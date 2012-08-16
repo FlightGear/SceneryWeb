@@ -20,8 +20,13 @@ ldbconnect = pgdb.connect(host='geoscope.optiputer.net',
 
 cursor = ldbconnect.cursor()
 
+validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'tgr']
+
 myvars = {}
 myvars['mylayer'] = ("%(layer)s" % form)
+
+if myvars['mylayer'] not in validlayers:
+    exit(1)
 
 # Check if the defined layer to download is a valid one
 #
