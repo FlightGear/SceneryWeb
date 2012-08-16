@@ -91,15 +91,21 @@ else:
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
-                    <td>  North:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                    <td>  North:</td>
+                    <td> <INPUT TYPE="text" size="8" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                    <td></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
+                    <td>  West:</td>
+                    <td> <INPUT TYPE="text" size="8" maxlength="10" name="xmin" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
+                    <td>  East:</td>
+                    <td> <INPUT TYPE="text" size="8" maxlength="10" name="xmax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                    <td>  South:</td>
+                    <td> <INPUT TYPE="text" size="8" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                    <td></td>
                     <td></td>
                   </tr>
               </table>
@@ -338,8 +344,7 @@ else:
         </td>
         <td valign="top" align="center">
             <p><h4>
-              Download every polygon from
-              <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">the Landcover database</a>
+              Download every polygon from the Landcover database
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
@@ -348,15 +353,21 @@ else:
                 <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                     <tr>
                         <td></td>
-                        <td>  North:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                        <td>  North:</td>
+                        <td> <INPUT TYPE="text" size="8" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                        <td></td>
                         <td></td>
                     </tr><tr>
-                        <td>  West:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
+                        <td>  West:</td>
+                        <td> <INPUT TYPE="text" size="8" maxlength="10" name="xmin" value="<%= xmin %>"></td>
                         <td></td>
-                        <td>  East:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
+                        <td>  East:</td>
+                        <td> <INPUT TYPE="text" size="8" maxlength="10" name="xmax" value="<%= xmax %>"></td>
                     </tr><tr>
                         <td></td>
-                        <td>  South:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                        <td>  South:</td>
+                        <td> <INPUT TYPE="text" size="8" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                        <td></td>
                         <td></td>
                     </tr>
                 </table>
@@ -378,6 +389,7 @@ else:
         </td>
     </tr>
 </table>
+</div>
 
     <center>
     <p><h4>Sample use (EDLN area):</h4></p>
@@ -385,6 +397,7 @@ else:
     </center>
     <p><hr><p>
     <p><a href="/">Back</a> to the intro page.</p>
-</div>
+  </div>
+  </div>
   </body>
 </html>

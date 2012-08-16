@@ -58,8 +58,9 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       </td>
       </tr>
     </table>  
-    <br />
+</div>
 
+<div class="paragraph_bloc">
     <a href="http://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport codes From Wikipedia</a>
     <br />
     <a href="http://worldaerodata.com/countries/">ICAO airport codes From WorldAeroData.com</a>
@@ -71,7 +72,9 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     <br />
     TileCache: <a href="http://mapserver.flightgear.org/tc">http://mapserver.flightgear.org/tc</a>
     (EPSG:900913 !!)
+</div>
 
+<div class="paragraph_bloc">
     <%= tablehead %>
 
     <form method="post" action="http://mapserver.flightgear.org/icaolayers.php">
@@ -224,10 +227,20 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     </tr>
     </form>
 
-
   </table>
+</div>
+
+<div class="paragraph_bloc">
   In order to retrieve airfield locations, please use this syntax:<br />
   http://mapserver.flightgear.org/loc.php?icao=&#60add your ICAO code here&#62
+    <hr width="42">
+  Read about the background of the whole effort. The pages are a bit
+  outdated but the bottom line is still valid
+  <br />
+  <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a></div>
+</div>
+
+  </div>
   </div>
   </body>
 </html>
