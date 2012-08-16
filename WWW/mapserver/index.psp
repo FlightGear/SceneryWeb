@@ -1,21 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <%
 tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpadding=\"1\" cellspacing=\"1\" rules=\"rows\">"
 %>
 
   <head>
-    <title>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta name="robots" content="index, follow" />
     <meta name="keywords" content="VMap0, VMap1, GSHHS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
     <meta name="description" content="TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, SWBD and NIMA DAFIF Airfield database." />
+    <link rel="stylesheet" href="http://scenemodels.flightgear.org/css/style.css" type="text/css"/>
+    <title>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</title>
   </head>
 
-  <body style="margin: 0px;" onload="init()" bgcolor="#EEEEEE">
-    <center>
+  <body style="margin: 0px;" onload="init()">
+
+  <div id="content">  
+  <div class="titleback">
+    <img src="http://scenemodels.flightgear.org/img/banner.jpg" alt="Flightgear logo"/>
+  </div>
+  <div id="content2">
+
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h3>
 
     Please read the corresponding
@@ -32,11 +40,10 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
 
 <!--    <h3><font color="red">Service limited due to planned database maintenance.</font></h3> -->
 
-<!-- include 'include/locateIp.php'; -->
-
+<div class="paragraph_bloc">
     <%= tablehead %>
       <tr>
-      <td>
+      <td><center>
         <iframe
           src="http://mapserver.flightgear.org/lightmap/?lon=-117.12099&amp;lat=32.73356&amp;zoom=12"
           width="600" height="450"
@@ -44,16 +51,16 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
           marginwidth="2" marginheight="2"
           frameborder="0">
         </iframe>
-      </td>
-      <td bgcolor="#DDDDDD"><center>
-        <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
+      </center></td>
+      <td><center>
+        <p style="border:1px solid; padding: 5px;">
         <a href="/shpdl/">Download Shapefiles</a>
         </p></center>
       </td>
       </tr>
     </table>  
     <br />
-    </center>
+
     <a href="http://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport codes From Wikipedia</a>
     <br />
     <a href="http://worldaerodata.com/countries/">ICAO airport codes From WorldAeroData.com</a>
@@ -238,5 +245,6 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
   <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a>
 
   </center>
+</div>
   </body>
 </html>

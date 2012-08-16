@@ -1,4 +1,6 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
 <!-- Test-URL:
     http://mapserver.flightgear.org/shpdl?xmin=6&xmax=7&ymin=50&ymax=51
@@ -29,16 +31,23 @@ else:
      still pending ....  -->
 
   <head>
-    <title>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta name="robots" content="index, nofollow" />
     <meta name="keywords" content="VMap0, VMap1, GSHHS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
     <meta name="description" content="TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, SWBD and NIMA DAFIF Airfield database." />
+    <link rel="stylesheet" href="http://scenemodels.flightgear.org/css/style.css" type="text/css"/>
+    <title>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</title>
   </head>
-  <body bgcolor="#EEEEEE">
-    <center>
+
+  <body>
+
+  <div id="content">  
+  <div class="titleback">
+    <img src="http://scenemodels.flightgear.org/img/banner.jpg" alt="Flightgear logo"/>
+  </div>
+  <div id="content2">
+
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</h3>
-    </center>
 
 <!--    <p>
     <%  import time  %>
@@ -70,6 +79,7 @@ else:
     Shapefiles from growing beyond 2 GByte. Attempts to exceed this
     limitation will therefore result in corrupt and useless Shapefiles.<p>
 
+<div class="paragraph_bloc">
 <table border=1 cellspacing=0 cellpadding=4>
     <tr>
         <td valign="top" align="center">
@@ -376,5 +386,6 @@ else:
     </center>
     <p><hr><p>
     <p><a href="/">Back</a> to the intro page.</p>
+</div>
   </body>
 </html>
