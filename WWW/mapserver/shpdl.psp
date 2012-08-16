@@ -87,7 +87,7 @@ else:
               Download <a href="http://wiki.osgeo.org/wiki/Geodata_Repository#On_Offer_.21">individual layers</a>.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="/dlaction.psp">
+            <form method="post" action="/dlaction">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
@@ -333,7 +333,7 @@ else:
             directly using an URL of this style (the above limits still apply):
             </p>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlaction.psp?layer=&lt;layername&gt;&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+                <code>http://mapserver.flightgear.org/dlaction?layer=&lt;layername&gt;&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
         
         </td>
         <td valign="top" align="center">

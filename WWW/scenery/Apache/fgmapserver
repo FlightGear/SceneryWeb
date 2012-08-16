@@ -22,10 +22,8 @@ Allow from all
 	ScriptAlias /ils /usr/local/lib/cgi-bin/ils
 	RedirectPermanent /download.psp /shpdl/
 	ScriptAlias /shpdl /home/fgscenery/WWW/mapserver/shpdl.psp
-	ScriptAlias /dlcs /home/fgscenery/WWW/mapserver/dlcs.psp
-	ScriptAlias /dlclc00 /home/fgscenery/WWW/mapserver/dlclc00.psp
-	ScriptAlias /dlclc06 /home/fgscenery/WWW/mapserver/dlclc06.psp
-	ScriptAlias /dlosm /home/fgscenery/WWW/mapserver/dlosm.psp
+	ScriptAlias /dlaction /home/fgscenery/WWW/mapserver/dlaction.psp
+	ScriptAlias /dlshp /home/fgscenery/WWW/mapserver/dlshp.psp
 	<Directory "/usr/local/lib/cgi-bin/">
 	  Options FollowSymLinks
 	</Directory>
