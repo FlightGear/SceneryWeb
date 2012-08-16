@@ -36,6 +36,7 @@ Overall work:
   => Using HTTP API we could think of an export between ufo and fgs_objects scripts and between Blender and fgs_models scripts.
   => cf for instance the shapefiles download on the mapserver.
 - Add a field in the static form where submitters can enter the generic models which get replaced.
+- Let the maintainer the possibility to update fields in the submission checking form.
 
 Terragear
 =========
