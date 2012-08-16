@@ -117,10 +117,6 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     // What is the subject ?
     $subject = "[FG Scenery Submission forms] Automatic shared model position DELETION request: needs validation.";
 
-    // Correctly format the data for the mail.
-    //$object_url = "http://scenemodels.flightgear.org/modeledit.php?id=".$_POST['model_name'];
-    //$html_object_url = htmlspecialchars($object_url);
-
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
     if (!$failed_mail) {
         $message0 = "Hi," . "\r\n" .
@@ -216,9 +212,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     }
     include '../../inc/footer.php';
     exit;
-
 }
-
 
 // Checking DB availability before all
 $ok = check_availability();
@@ -282,7 +276,6 @@ if ($error) {
     include '../../inc/error_page.php';
     exit;
 }
-
 
 // Opening database connection...
 $resource_r_deletion = connect_sphere_r();

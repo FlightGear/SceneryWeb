@@ -35,6 +35,7 @@ Overall work:
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
   => Using HTTP API we could think of an export between ufo and fgs_objects scripts and between Blender and fgs_models scripts.
   => cf for instance the shapefiles download on the mapserver.
+- Add a field in the static form where submitters can enter the generic models which get replaced.
 
 Terragear
 =========
