@@ -40,7 +40,7 @@
     </script>
 
   </head>
-  <body <?php echo (isset($body_onload))?"onload='$body_onload'":"";?>>
+  <body<?php echo (isset($body_onload))?" onload='$body_onload'":"";?>>
 
   <div id="content">  
   <div class="titleback">
