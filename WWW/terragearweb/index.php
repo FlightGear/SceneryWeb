@@ -6,3 +6,8 @@ time to move forward.
 I also hope this will limit the people needing to install TG on their private machine and use common resources instead, therefore
 willing to participate a bit more to the core scenery more than on private stuff.
 Hopefully, Gijs did a great job on TerraGearGUI, so I hope we can paste quite a lot of his work into this project to avoid reinventing the wheel.
+
+- input : one apt.dat file with 1 airport in it (limitation for the "regular user" ?)
+- select the shape files to be used (present on sphere)
+- generate the terrain (can take some time, we have to limit the impact on sphere)
+- send the user a download link to get the data back.
