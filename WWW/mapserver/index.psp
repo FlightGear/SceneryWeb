@@ -36,7 +36,6 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     The latest reference to Custom Scenery land cover classes is available on
     <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">this page</a>.
     </p>
-    <hr />
 
 <!--    <h3><font color="red">Service limited due to planned database maintenance.</font></h3> -->
 
@@ -72,8 +71,6 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     <br />
     TileCache: <a href="http://mapserver.flightgear.org/tc">http://mapserver.flightgear.org/tc</a>
     (EPSG:900913 !!)
-    <center>
-    <hr />
 
     <%= tablehead %>
 
@@ -229,22 +226,8 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
 
 
   </table>
-  <hr />
   In order to retrieve airfield locations, please use this syntax:<br />
   http://mapserver.flightgear.org/loc.php?icao=&#60add your ICAO code here&#62
-  </center>
-  <hr />
-  <center>
-  World Custom Scenery - <a href="/git/">TerraGear GIT repository</a>
-  </center>
-  <hr />
-  <center>
-  <p>Read about the background of the whole effort. The pages are a bit
-  outdated but the bottom line is still valid
-  <br />
-  <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a>
-
-  </center>
-</div>
+  </div>
   </body>
 </html>
