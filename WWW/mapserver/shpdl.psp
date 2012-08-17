@@ -1,6 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <!-- Test-URL:
     http://mapserver.flightgear.org/shpdl?xmin=6&xmax=7&ymin=50&ymax=51
@@ -39,7 +40,7 @@ else:
     <title>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</title>
   </head>
 
-  <body>
+  <body style="margin: 0px;" onload="init()">
 
   <div id="content">  
   <div class="titleback">
@@ -54,17 +55,18 @@ else:
         Local time is: <%=time.strftime("%Y-%m-%d, %H:%M:%S")%>
     </p> -->
 
+	<p>
     Please read the corresponding
     <a href="http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data">NOTES</a>
     on the fine <a href=http://www.osgeo.org/>OSGeo</a> Wiki and use
     reasonable coordinates in order to avoid nasty error messages.
-    <p>
+    </p><p>
     <b>Download area limit:</b> In order to prevent download jobs from
     growing too large, the download area is limited to 144 square-degrees.
     This means that you are permitted to download a 12x12 degree area in
     order to cover the typical 10x10 degree tile plus one degree extra at
     each border ....  or download an area of 18x8 degrees, if you like. 
-    <p>
+    </p><p>
     Please don't forget to insert the proper signs: Use negative values for
     boundaries West of the null meridian and South of the Equator ....
     &nbsp;&nbsp;;-)
@@ -77,7 +79,8 @@ else:
     chunk.</h4>
     Remember in this context, that there's a design limit which prevents
     Shapefiles from growing beyond 2 GByte. Attempts to exceed this
-    limitation will therefore result in corrupt and useless Shapefiles.<p>
+    limitation will therefore result in corrupt and useless Shapefiles.
+    </p>
 
 <div class="paragraph_bloc">
 <table border=1 cellspacing=0 cellpadding=4>
@@ -379,6 +382,7 @@ else:
                     <option value='clc00' [clc00_select]> CLC2000v15 (layer=clc00)
                     <option value='clc06' [clc06_select]> CLC2006v15 (layer=clc06)
                     <option value='osm' [osm_select]> OpenStreetMap (layer=osm)
+                    <option value='apt' [apt_select]> Apt Dat (layer=apt)
                     <option value='tgr' [tgr_select]> TIGER 2006 SE (layer=tgr)
                 </select>
                 <INPUT TYPE="submit" value="Download" checked>

@@ -20,7 +20,7 @@ ldbconnect = pgdb.connect(host='geoscope.optiputer.net',
 
 cursor = ldbconnect.cursor()
 
-validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'tgr']
+validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'apt', 'tgr']
 
 myvars = {}
 myvars['mylayer'] = ("%(layer)s" % form)

@@ -26,13 +26,14 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
 
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h3>
 
+	<p>
     Please read the corresponding
     <a href="http://wiki.osgeo.org/wiki/Geodata_Repository#PostGIS_serving_vector_data">NOTES</a>
     on the fine <a href="http://www.osgeo.org/">OSGeo</a> Wiki -<br />
     and visit our sister projects at
     <a href="http://www.custom-scenery.org/">Custom Scenery Project</a> as well as
     <a href="http://scenemodels.flightgear.org/models.php">Scenery Model Repository</a>.
-    <p>
+    </p><p>
     The latest reference to Custom Scenery land cover classes is available on
     <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">this page</a>.
     </p>
