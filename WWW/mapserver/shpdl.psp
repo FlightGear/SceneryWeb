@@ -1,4 +1,7 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <!-- Test-URL:
     http://mapserver.flightgear.org/shpdl?xmin=6&xmax=7&ymin=50&ymax=51
@@ -29,33 +32,41 @@ else:
      still pending ....  -->
 
   <head>
-    <title>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta name="robots" content="index, nofollow" />
     <meta name="keywords" content="VMap0, VMap1, GSHHS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
     <meta name="description" content="TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, SWBD and NIMA DAFIF Airfield database." />
+    <link rel="stylesheet" href="http://scenemodels.flightgear.org/css/style.css" type="text/css"/>
+    <title>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</title>
   </head>
-  <body bgcolor="#EEEEEE">
-    <center>
+
+  <body style="margin: 0px;" onload="init()">
+
+  <div id="content">  
+  <div class="titleback">
+    <img src="http://scenemodels.flightgear.org/img/banner.jpg" alt="Flightgear logo"/>
+  </div>
+  <div id="content2">
+
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</h3>
-    </center>
 
 <!--    <p>
     <%  import time  %>
         Local time is: <%=time.strftime("%Y-%m-%d, %H:%M:%S")%>
     </p> -->
 
+	<p>
     Please read the corresponding
     <a href="http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data">NOTES</a>
     on the fine <a href=http://www.osgeo.org/>OSGeo</a> Wiki and use
     reasonable coordinates in order to avoid nasty error messages.
-    <p>
+    </p><p>
     <b>Download area limit:</b> In order to prevent download jobs from
     growing too large, the download area is limited to 144 square-degrees.
     This means that you are permitted to download a 12x12 degree area in
     order to cover the typical 10x10 degree tile plus one degree extra at
     each border ....  or download an area of 18x8 degrees, if you like. 
-    <p>
+    </p><p>
     Please don't forget to insert the proper signs: Use negative values for
     boundaries West of the null meridian and South of the Equator ....
     &nbsp;&nbsp;;-)
@@ -68,8 +79,10 @@ else:
     chunk.</h4>
     Remember in this context, that there's a design limit which prevents
     Shapefiles from growing beyond 2 GByte. Attempts to exceed this
-    limitation will therefore result in corrupt and useless Shapefiles.<p>
+    limitation will therefore result in corrupt and useless Shapefiles.
+    </p>
 
+<div class="paragraph_bloc">
 <table border=1 cellspacing=0 cellpadding=4>
     <tr>
         <td valign="top" align="center">
@@ -77,19 +90,25 @@ else:
               Download <a href="http://wiki.osgeo.org/wiki/Geodata_Repository#On_Offer_.21">individual layers</a>.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="/dlaction.psp">
+            <form method="post" action="/dlaction">
               <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                   <tr>
                     <td></td>
-                    <td>  North:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                    <td>  North:</td>
+                    <td> <INPUT TYPE="text" size="8" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                    <td></td>
                     <td></td>
                   </tr><tr>
-                    <td>  West:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
+                    <td>  West:</td>
+                    <td> <INPUT TYPE="text" size="8" maxlength="10" name="xmin" value="<%= xmin %>"></td>
                     <td></td>
-                    <td>  East:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
+                    <td>  East:</td>
+                    <td> <INPUT TYPE="text" size="8" maxlength="10" name="xmax" value="<%= xmax %>"></td>
                   </tr><tr>
                     <td></td>
-                    <td>  South:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                    <td>  South:</td>
+                    <td> <INPUT TYPE="text" size="8" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                    <td></td>
                     <td></td>
                   </tr>
               </table>
@@ -323,13 +342,13 @@ else:
             directly using an URL of this style (the above limits still apply):
             </p>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlaction.psp?layer=&lt;layername&gt;&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
-        
+                <code>http://mapserver.flightgear.org/dlaction?layer=&lt;layername&gt;&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+            </p>
+
         </td>
         <td valign="top" align="center">
             <p><h4>
-              Download every polygon from
-              <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">the Landcover database</a>
+              Download every polygon from the Landcover database
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
@@ -338,43 +357,52 @@ else:
                 <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                     <tr>
                         <td></td>
-                        <td>  North:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                        <td>  North:</td>
+                        <td> <INPUT TYPE="text" size="8" maxlength="10" name="ymax" value="<%= ymax %>"></td>
+                        <td></td>
                         <td></td>
                     </tr><tr>
-                        <td>  West:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="xmin" value="<%= xmin %>"></td>
+                        <td>  West:</td>
+                        <td> <INPUT TYPE="text" size="8" maxlength="10" name="xmin" value="<%= xmin %>"></td>
                         <td></td>
-                        <td>  East:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="xmax" value="<%= xmax %>"></td>
+                        <td>  East:</td>
+                        <td> <INPUT TYPE="text" size="8" maxlength="10" name="xmax" value="<%= xmax %>"></td>
                     </tr><tr>
                         <td></td>
-                        <td>  South:</td><td> <INPUT TYPE="text" size="4" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                        <td>  South:</td>
+                        <td> <INPUT TYPE="text" size="8" maxlength="10" name="ymin" value="<%= ymin %>"></td>
+                        <td></td>
                         <td></td>
                     </tr>
                 </table>
                 <p>
                 <select name="layer">
-                    <option value='cs' [cs_select]> Custom Scenery
-                    <option value='cs' [v0_select]> VMap0
-                    <option value='cs' [clc00_select]> CLC2000v15
-                    <option value='cs' [clc06_select]> CLC2006v15
-                    <option value='cs' [osm_select]> OpenStreetMap
-                    <option value='cs' [tgr_select]> TIGER 2006 SE
+                    <option value='cs' [cs_select]> Custom Scenery (layer=cs)
+                    <option value='v0' [v0_select]> VMap0 (layer=v0)
+                    <option value='clc00' [clc00_select]> CLC2000v15 (layer=clc00)
+                    <option value='clc06' [clc06_select]> CLC2006v15 (layer=clc06)
+                    <option value='osm' [osm_select]> OpenStreetMap (layer=osm)
+                    <option value='apt' [apt_select]> Apt Dat (layer=apt)
+                    <option value='tgr' [tgr_select]> TIGER 2006 SE (layer=tgr)
                 </select>
                 <INPUT TYPE="submit" value="Download" checked>
             </form>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlshp?layer=cs&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+                <code>http://mapserver.flightgear.org/dlshp?layer=&lt;layername&gt;&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
             </p>
 
         </td>
     </tr>
 </table>
+</div>
 
-<hr>
     <center>
     <p><h4>Sample use (EDLN area):</h4></p>
     <img src="/downloadsample.png">
     </center>
     <p><hr><p>
     <p><a href="/">Back</a> to the intro page.</p>
+  </div>
+  </div>
   </body>
 </html>

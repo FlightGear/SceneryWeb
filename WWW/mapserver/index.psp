@@ -1,42 +1,49 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <%
 tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpadding=\"1\" cellspacing=\"1\" rules=\"rows\">"
 %>
 
   <head>
-    <title>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta name="robots" content="index, follow" />
     <meta name="keywords" content="VMap0, VMap1, GSHHS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
     <meta name="description" content="TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, SWBD and NIMA DAFIF Airfield database." />
+    <link rel="stylesheet" href="http://scenemodels.flightgear.org/css/style.css" type="text/css"/>
+    <title>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</title>
   </head>
 
-  <body style="margin: 0px;" onload="init()" bgcolor="#EEEEEE">
-    <center>
+  <body style="margin: 0px;" onload="init()">
+
+  <div id="content">  
+  <div class="titleback">
+    <img src="http://scenemodels.flightgear.org/img/banner.jpg" alt="Flightgear logo"/>
+  </div>
+  <div id="content2">
+
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h3>
 
+	<p>
     Please read the corresponding
     <a href="http://wiki.osgeo.org/wiki/Geodata_Repository#PostGIS_serving_vector_data">NOTES</a>
     on the fine <a href="http://www.osgeo.org/">OSGeo</a> Wiki -<br />
     and visit our sister projects at
     <a href="http://www.custom-scenery.org/">Custom Scenery Project</a> as well as
     <a href="http://scenemodels.flightgear.org/models.php">Scenery Model Repository</a>.
-    <p>
+    </p><p>
     The latest reference to Custom Scenery land cover classes is available on
     <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">this page</a>.
     </p>
-    <hr />
 
 <!--    <h3><font color="red">Service limited due to planned database maintenance.</font></h3> -->
 
-<!-- include 'include/locateIp.php'; -->
-
+<div class="paragraph_bloc">
     <%= tablehead %>
       <tr>
-      <td>
+      <td><center>
         <iframe
           src="http://mapserver.flightgear.org/lightmap/?lon=-117.12099&amp;lat=32.73356&amp;zoom=12"
           width="600" height="450"
@@ -44,16 +51,17 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
           marginwidth="2" marginheight="2"
           frameborder="0">
         </iframe>
-      </td>
-      <td bgcolor="#DDDDDD"><center>
-        <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
+      </center></td>
+      <td><center>
+        <p style="border:1px solid; padding: 5px;">
         <a href="/shpdl/">Download Shapefiles</a>
         </p></center>
       </td>
       </tr>
     </table>  
-    <br />
-    </center>
+</div>
+
+<div class="paragraph_bloc">
     <a href="http://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport codes From Wikipedia</a>
     <br />
     <a href="http://worldaerodata.com/countries/">ICAO airport codes From WorldAeroData.com</a>
@@ -65,48 +73,66 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     <br />
     TileCache: <a href="http://mapserver.flightgear.org/tc">http://mapserver.flightgear.org/tc</a>
     (EPSG:900913 !!)
-    <center>
-    <hr />
+</div>
 
+<div class="paragraph_bloc">
     <%= tablehead %>
 
     <form method="post" action="http://mapserver.flightgear.org/icaolayers.php">
       <tr>
         <td>Airport code - OpenLayers:</td>
         <td></td>
-        <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao"></td>
+        <td>  ICAO:</td>
+        <td> <input type="text" size="4" maxlength="4" name="icao"></td>
         <td>  <input type="submit" name="senden" value="ICAO"></td>
       </tr>
     </form>
 
     <form method="post" action="http://mapserver.flightgear.org/lonlatlayers.php">
       <tr>
-        <td>  OpenLayers - Longitude:</td><td> <input type="text" size="8" maxlength="8" name="lon"></td>
-        <td>  Latitude:</td><td> <input type="text" size="8" maxlength="8" name="lat"></td>
+        <td>  OpenLayers - Longitude:</td>
+        <td> <input type="text" size="8" maxlength="8" name="lon"></td>
+        <td>  Latitude:</td>
+        <td> <input type="text" size="8" maxlength="8" name="lat"></td>
         <td>  <input type="submit" name="senden" value="LON/LAT"></td>
       </tr>
     </form>
 
-    <tr><td></td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 
     <form method="post" action="http://mapserver.flightgear.org/icaomap.php">
       <tr>
         <td>Airport code - MS template view:</td>
         <td></td>
-        <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao"/></td>
+        <td>  ICAO:</td>
+        <td> <input type="text" size="4" maxlength="4" name="icao"/></td>
         <td>  <input type="submit" name="senden" value="ICAO"/></td>
       </tr>
     </form>
 
     <form method="post" action="http://mapserver.flightgear.org/lonlatmap.php">
       <tr>
-        <td>  MS template view - Longitude:</td><td> <input type="text" size="8" maxlength="8" name="lon"/></td>
-        <td>  Latitude:</td><td> <input type="text" size="8" maxlength="8" name="lat"/></td>
+        <td>  MS template view - Longitude:</td>
+        <td> <input type="text" size="8" maxlength="8" name="lon"/></td>
+        <td>  Latitude:</td>
+        <td> <input type="text" size="8" maxlength="8" name="lat"/></td>
         <td>  <input type="submit" name="senden" value="LON/LAT"/></td>
       </tr>
     </form>
 
-    <tr><td></td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 
     <form method="post" action="http://mapserver.flightgear.org/map/?lon=9.20438&amp;lat=47.63982&amp;zoom=11">
       <tr>
@@ -168,7 +194,13 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       </tr>
     </form>
 
-    <tr><td></td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 
     <form method="post" action="http://mapserver.flightgear.org/berlin.php">
       <tr>
@@ -210,33 +242,40 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
       </tr>
     </form>
 
-    <tr><td></td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 
     <form method="get" action="http://mapserver.flightgear.org/dist.php">
-    <tr>
-      <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao1"></td>
-      <td>  ICAO:</td><td> <input type="text" size="4" maxlength="4" name="icao2"></td>
-      <td>  <input type="submit" value="Distance"/>  between two airfields</td>
-    </tr>
+      <tr>
+        <td>  ICAO:</td>
+        <td> <input type="text" size="4" maxlength="4" name="icao1"></td>
+        <td>  ICAO:</td>
+        <td> <input type="text" size="4" maxlength="4" name="icao2"></td>
+        <td>  <input type="submit" value="Distance"/>  between two airfields</td>
+      </tr>
     </form>
 
-
   </table>
-  <hr />
+</div>
+
+<div class="paragraph_bloc">
   In order to retrieve airfield locations, please use this syntax:<br />
-  http://mapserver.flightgear.org/loc.php?icao=&#60add your ICAO code here&#62
-  </center>
-  <hr />
-  <center>
-  World Custom Scenery - <a href="/git/">TerraGear GIT repository</a>
-  </center>
-  <hr />
-  <center>
-  <p>Read about the background of the whole effort. The pages are a bit
+  <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
+      <code>http://mapserver.flightgear.org/loc.php?icao=&lt;add your ICAO code here&gt;</code>
+  </p>
+    <hr width="42">
+  Read about the background of the whole effort. The pages are a bit
   outdated but the bottom line is still valid
   <br />
-  <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a>
+  <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a></div>
+</div>
 
-  </center>
+  </div>
+  </div>
   </body>
 </html>
