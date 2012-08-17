@@ -12,7 +12,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     <meta name="robots" content="index, follow" />
     <meta name="keywords" content="VMap0, VMap1, GSHHS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
     <meta name="description" content="TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, SWBD and NIMA DAFIF Airfield database." />
-    <link rel="stylesheet" href="http://scenemodels.flightgear.org/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="http://scenery.flightgear.org/css/style.css" type="text/css"/>
     <title>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</title>
   </head>
 

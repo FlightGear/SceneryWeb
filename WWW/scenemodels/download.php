@@ -1,4 +1,4 @@
-<?php include 'inc/header.php'; ?>
+<?php include 'http://scenery.flightgear.org/inc/header.php'; ?>
 <h1>Scenery Object Downloads</h1>
 <p>
   Click on any of the 10x10 degree chunks in the image below to download the objects for that area.<br/>
@@ -14,7 +14,7 @@
 
 
 <div class="center">
-<img src="img/download.png" width="720" height="450" usemap="#map" alt="Map"/>
+<img src="http://scenery.flightgear.org/img/download.png" width="720" height="450" usemap="#map" alt="Map"/>
 <map name="map" id="map">
 <area shape="rect" coords="360,200,380,225" href="/download/GlobalObjects.tgz" alt="GlobalObjects.tgz  3.97 Mb  10/15/2005"/>
 <area shape="rect" coords="360,200,380,225" href="/download/SharedModels.tgz" alt="SharedModels.tgz  0.71 Mb  10/15/2005"/>
@@ -332,4 +332,4 @@
 </p><p>
   Unpack the files from this site in the Objects directory, and the <a href="http://www.flightgear.org/Downloads/scenery-1.0.1.html">FlightGear scenery</a> files into the Terrain directory.
 </p>
-<?php include 'inc/footer.php'; ?>
+<?php include 'http://scenery.flightgear.org/inc/footer.php'; ?>

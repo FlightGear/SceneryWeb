@@ -4,7 +4,7 @@
 // There is no other (known ;-) possibility to include this in the rest of the static submission script.
 
     // Inserting libs
-    require_once ('../../inc/functions.inc.php');
+    require_once ('http://scenery.flightgear.org/inc/functions.inc.php');
     header("Content-type: application/x-gtar");
     header("Content-Disposition: inline; filename=get_targz_from_mo_sig.tgz");
 

@@ -1,7 +1,7 @@
 <?php
 
     // Inserting libs
-    require_once('../../inc/functions.inc.php');
+    require_once('http://scenery.flightgear.org/inc/functions.inc.php');
 
     // Checking DB availability before all
     $ok = check_availability();
@@ -9,7 +9,7 @@
     if (!$ok) {
         $page_title = "Automated Shared Models Positions Pending Requests Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include '../../inc/error_page.php';
+        include 'http://scenery.flightgear.org/inc/error_page.php';
         exit;
     }
 
@@ -26,7 +26,7 @@
                 $page_title = "Automated Shared Models Positions Pending Requests Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../../inc/error_page.php';
+                include 'http://scenery.flightgear.org/inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
             }
@@ -46,19 +46,19 @@
 
                     if (!$resultrw) {
                         $page_title = "Automated Shared Models Positions Pending Requests Form";
-                        include '../../inc/header.php';
+                        include 'http://scenery.flightgear.org/inc/header.php';
                         echo "<p class=\"center\">";
                         echo "Signature found.<br /> Now processing query with request number ". $_GET[sig].".</p><br />";
                         echo "<p class=\"center warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
                         // Closing the rw connection.
-                        include '../../inc/footer.php';
+                        include 'http://scenery.flightgear.org/inc/footer.php';
                         pg_close($resource_rw);
                         exit;
                     }
                     
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
-                    include '../../inc/header.php';
+                    include 'http://scenery.flightgear.org/inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_GET[sig].".</p><br />";
                     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
@@ -70,7 +70,7 @@
                         echo "<p class=\"center warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
                         // Closing the rw connection.
-                        include '../../inc/footer.php';
+                        include 'http://scenery.flightgear.org/inc/footer.php';
                         pg_close($resource_rw);
                         exit;
                     }
@@ -148,7 +148,7 @@
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
                     $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
                     $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
-                    include '../../inc/error_page.php';
+                    include 'http://scenery.flightgear.org/inc/error_page.php';
 
                     // Closing the rw connection.
                     @pg_close($resource_rw);
@@ -161,26 +161,26 @@
 
                 if (!resultdel) {
                     $page_title = "Automated Shared Models Positions Pending Requests Form";
-                    include '../../inc/header.php';
+                    include 'http://scenery.flightgear.org/inc/header.php';
                     echo "<p class=\"center\">\n";
                     echo "Signature found.<br /> Now deleting request with number ". $_GET[sig].".</p>";
                     echo "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />\n";
 
                     // Closing the rw connection.
-                    include '../../inc/footer.php';
+                    include 'http://scenery.flightgear.org/inc/footer.php';
                     pg_close($resource_rw);
                     exit;
                 }
                 
                 $page_title = "Automated Shared Models Positions Pending Requests Form";
-                include '../../inc/header.php';
+                include 'http://scenery.flightgear.org/inc/header.php';
                 echo "<p class=\"center\">";
                 echo "Signature found.<br />Now deleting request with number ". $_GET[sig].".</p>";
                 echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
                 echo "</p>";
 
                 // Closing the rw connection.
-                include '../../inc/footer.php';
+                include 'http://scenery.flightgear.org/inc/footer.php';
                 pg_close($resource_rw);
 
                 // Sending mail if entry was correctly deleted.

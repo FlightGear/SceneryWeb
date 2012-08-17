@@ -1,7 +1,7 @@
 <?php
 
     // Inserting libs
-    require_once('../../inc/functions.inc.php');
+    require_once('http://scenery.flightgear.org/inc/functions.inc.php');
 
     // Checking DB availability before all
 
@@ -10,15 +10,15 @@
     if (!$ok) {
         $page_title = "Automated Shared Models Positions Deletion Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include '../../inc/error_page.php';
+        include 'http://scenery.flightgear.org/inc/error_page.php';
         exit;
     }
 
     $page_title = "Automated Shared Models Positions Deletion Form";
-    include '../../inc/header.php';
+    include 'http://scenery.flightgear.org/inc/header.php';
 ?>
 
-<script src="/inc/check_form.js" type="text/javascript"></script>
+<script src="http://scenery.flightgear.org/inc/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 function validateForm()
@@ -62,5 +62,5 @@ function validateForm()
 </table>
 </form>
 
-<?php include '../../inc/footer.php';
+<?php include 'http://scenery.flightgear.org/inc/footer.php';
 ?>

@@ -1,4 +1,4 @@
-<?php include("inc/header.php");?>
+<?php include('http://scenery.flightgear.org/inc/header.php');?>
 
 <script type="text/javascript">
   function popmap(lat,lon,zoom) {
@@ -92,4 +92,4 @@
       </td>
     </tr>
   </table>
-<?php include 'inc/footer.php';?>
+<?php include 'http://scenery.flightgear.org/inc/footer.php';?>

@@ -1,6 +1,6 @@
 <?php
   $page_title = "Automated Scenery Submission Forms";
-  include '../inc/header.php';
+  include 'http://scenery.flightgear.org/inc/header.php';
 ?>
   <h1>FG scenery objects submission forms.</h1>
   
@@ -38,4 +38,4 @@
       </td>
     </tr>
   </table>
-<?php include '../inc/footer.php'; ?>
+<?php include 'http://scenery.flightgear.org/inc/footer.php'; ?>

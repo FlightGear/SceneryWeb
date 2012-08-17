@@ -1,5 +1,5 @@
 <?php
-    include('inc/functions.inc.php');
+    include('http://scenery.flightgear.org/inc/functions.inc.php');
 
     if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))){
         $offset = $_REQUEST['offset'];
@@ -78,7 +78,7 @@
         $description = "";
     }
 
-    include('inc/header.php');
+    include('http://scenery.flightgear.org/inc/header.php');
 ?>
 <script type="text/javascript">
   function popmap(lat,lon) {
@@ -208,4 +208,4 @@
   </table>
 </form>
 
-<?php include 'inc/footer.php';?>
+<?php include 'http://scenery.flightgear.org/inc/footer.php';?>

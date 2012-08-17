@@ -5,7 +5,7 @@
     }
 ?>
 
-<?php include 'inc/header.php';?>
+<?php include 'http://scenery.flightgear.org/inc/header.php';?>
 <h1>Scenery Author Details</h1>
 
 <table>
@@ -37,4 +37,4 @@
 
 ?>
 </table>
-<?php include 'inc/footer.php';?>
+<?php include 'http://scenery.flightgear.org/inc/footer.php';?>

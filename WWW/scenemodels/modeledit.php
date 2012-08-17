@@ -1,4 +1,4 @@
-<?php include 'inc/header.php';?>
+<?php include 'http://scenery.flightgear.org/inc/header.php';?>
 
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
@@ -89,4 +89,4 @@ while ($row = pg_fetch_assoc($result)) {
     <td colspan="3"><?php if (isset($model["mo_notes"])) print "<u>Comment:</u>&nbsp;".$model["mo_notes"]; ?></td>
 </tr>
 </table>
-<?php include 'inc/footer.php'; ?>
+<?php include 'http://scenery.flightgear.org/inc/footer.php'; ?>
