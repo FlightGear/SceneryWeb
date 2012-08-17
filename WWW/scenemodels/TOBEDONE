@@ -27,6 +27,7 @@ After production:
 
 Overall work:
 =============
+- Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Review the names of the scripts to keep them coherent.
 - Logging options
 - Add WebGL for public access as well (3D model viewer).
