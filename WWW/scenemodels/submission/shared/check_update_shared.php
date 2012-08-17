@@ -1,7 +1,7 @@
 <?php
 
 // Inserting libs
-require_once('http://scenery.flightgear.org/inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 // Checking all variables
 if (isset($_POST['new_long']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_long']))
@@ -52,7 +52,7 @@ if (isset($model_name)
     && isset($safe_new_ob_text)) {
 
     // Captcha stuff
-    require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+    require_once('../../inc/captcha/recaptchalib.php');
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
@@ -69,13 +69,13 @@ if (isset($model_name)
                       "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
                       "Don't forget to feed the Captcha, it's a mandatory item as well.".
                       " Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
     // Talking back to submitter.
     $page_title = "Automated Shared Models Positions Update Form";
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include '../../inc/header.php';
 
     // Checking that email is valid (if it exists).
     $failed_mail = false;
@@ -114,7 +114,7 @@ if (isset($model_name)
 
     if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></p>";
-        include 'http://scenery.flightgear.org/inc/footer.php';
+        include '../../inc/footer.php';
         exit;
     }
 
@@ -247,7 +247,7 @@ if (isset($model_name)
         $message = $message077.$message4;
         @mail($to, $subject, $message, $headers);
     }
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
     exit;
 }
 
@@ -257,17 +257,17 @@ if (isset($id_to_update)) {
     if (is_shared_or_static($id_to_update) == 'static') {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but only shared objects can be updated for now.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
     $page_title = "Automated Shared Models Positions Update Form";
     $body_onload = "update_objects();";
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include '../../inc/header.php';
 
 ?>
-<script src="http://scenery.flightgear.org/inc/js/update_objects.js" type ="text/javascript"></script>
-<script src="http://scenery.flightgear.org/inc/js/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/update_objects.js" type ="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 function validateForm()
@@ -485,7 +485,7 @@ function validateForm()
           <td colspan="4" class="submit">
 <?php
     // Google Captcha stuff
-    require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+    require_once('../../inc/captcha/recaptchalib.php');
     $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
     echo recaptcha_get_html($publickey);
 ?>
@@ -497,7 +497,7 @@ function validateForm()
       </table>
     </form>
 <?php
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
 }
 else {
 
@@ -507,7 +507,7 @@ else {
     if (!$ok) {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
@@ -548,7 +548,7 @@ else {
     if ($error) {
         $page_title = "Automated Shared Models Positions Update Form";
         // $error_text is defined above
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
@@ -566,12 +566,12 @@ else {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
         $advise_text = "Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
     $page_title = "Automated Shared Models Positions Update Form";
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include '../../inc/header.php';
 
     if ($returned_rows == '1') { // If we have just an answer...
         while ($row = pg_fetch_row($result)) {
@@ -629,7 +629,7 @@ else {
             </table>
             </form>
 <?php
-            include 'http://scenery.flightgear.org/inc/footer.php';
+            include '../../inc/footer.php';
         }
         exit;
     }
@@ -709,6 +709,6 @@ else {
         exit;
     }
 
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
 }
 ?>

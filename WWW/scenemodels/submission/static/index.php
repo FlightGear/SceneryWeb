@@ -1,11 +1,11 @@
 <?php
-    require_once ('http://scenery.flightgear.org/inc/functions.inc.php');
+    require_once ('../../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include '../../inc/header.php';
 ?>
-<script type="text/javascript" src="http://scenery.flightgear.org/inc/js/check_form.js"></script>
+<script type="text/javascript" src="/inc/js/check_form.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<script type="text/javascript" src="http://scenery.flightgear.org/inc/js/jquery.multifile.js"></script>
+<script type="text/javascript" src="/inc/js/jquery.multifile.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 function validateForm()
@@ -213,7 +213,7 @@ Please, read the following:
             <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
             <?php
             // Google Captcha stuff
-            require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+            require_once('../../inc/captcha/recaptchalib.php');
             $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
             echo recaptcha_get_html($publickey);
             ?>
@@ -240,4 +240,4 @@ $(document).ready(function(){
   });
 });
 </script>
-<?php include 'http://scenery.flightgear.org/inc/footer.php'; ?>
+<?php include '../../inc/footer.php'; ?>

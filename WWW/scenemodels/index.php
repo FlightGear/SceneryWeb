@@ -1,4 +1,4 @@
-<?php include 'http://scenery.flightgear.org/inc/header.php';?>
+<?php include 'inc/header.php';?>
 <?php
     if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u', $_REQUEST['offset'])) {
         $offset = $_REQUEST['offset'];
@@ -33,4 +33,4 @@
         </td>
     </tr>
   </table>
-<?php include 'http://scenery.flightgear.org/inc/footer.php';?>
+<?php include 'inc/footer.php';?>

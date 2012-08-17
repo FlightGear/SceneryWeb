@@ -1,8 +1,8 @@
 <?php
 
 # Inserting libs
-require_once('http://scenery.flightgear.org/inc/functions.inc.php');
-require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+require_once('../../inc/functions.inc.php');
+require_once('../../inc/captcha/recaptchalib.php');
 
 $fatalerror = 0;
 $error      = 0;
@@ -21,12 +21,12 @@ $errormsg   = "";
         $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/static/index.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
 $page_title = "Automated Models Submission Form";
-include 'http://scenery.flightgear.org/inc/header.php';
+include '../../inc/header.php';
 
 ################################################
 ################################################
@@ -299,7 +299,7 @@ if ($fatalerror || $error > 0) {
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
     clear_dir($targetPath);
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
     exit;
 }
 
@@ -501,7 +501,7 @@ if ($fatalerror || $error > 0) {
     echo "Error message(s)  : ".$errormsg."<br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
     clear_dir($targetPath);
     exit;
 }
@@ -650,7 +650,7 @@ if ($fatalerror || $error > 0) {
     echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
     echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
     echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
     clear_dir($targetPath);
     exit;
 }
@@ -859,5 +859,5 @@ else {
         }
     }
 }
-include 'http://scenery.flightgear.org/inc/footer.php';
+include '../../inc/footer.php';
 ?>

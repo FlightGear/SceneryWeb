@@ -1,7 +1,7 @@
 <?php
 
 // Inserting libs
-require_once('http://scenery.flightgear.org/inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
     // Checking DB availability before all
     $ok = check_availability();
@@ -9,13 +9,13 @@ require_once('http://scenery.flightgear.org/inc/functions.inc.php');
     if (!$ok) {
         $page_title = "Automated Shared Models Positions Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
 
     // Captcha stuff
-    require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+    require_once('../../inc/captcha/recaptchalib.php');
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
@@ -30,12 +30,12 @@ require_once('http://scenery.flightgear.org/inc/functions.inc.php');
         $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='index_mass_import.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
     $page_title = "Automated Shared Models Positions Submission Form";
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include '../../inc/header.php';
 ?>
 <br />
 <?php
@@ -66,7 +66,7 @@ require_once('http://scenery.flightgear.org/inc/functions.inc.php');
     else {
         echo "<p class=\"center warning\">Comment mismatch!</p>";
         $error = true;
-        include 'http://scenery.flightgear.org/inc/footer.php';
+        include '../../inc/footer.php';
         exit;
     }
 
@@ -74,7 +74,7 @@ require_once('http://scenery.flightgear.org/inc/functions.inc.php');
     if (isset($_POST['stg']) && preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg'])) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
         $error = true;
-        include 'http://scenery.flightgear.org/inc/footer.php';
+        include '../../inc/footer.php';
         exit;
     }
 
@@ -97,13 +97,13 @@ if (!$error) {
     // Limit the line numbers to
     if ($nb_lines > 100) {
         echo "<p class=\"center warning\">Too many lines submitted: 100 lines maximum per submission!</p>";
-        include 'http://scenery.flightgear.org/inc/footer.php';
+        include '../../inc/footer.php';
         exit;
     }
 
     if ($nb_lines < 1) {
         echo "<p class=\"center warning\">Not enough lines were submitted: 1 line minimum per submission!</p>";
-        include 'http://scenery.flightgear.org/inc/footer.php';
+        include '../../inc/footer.php';
         exit;
     }
 
@@ -251,12 +251,12 @@ if (!$error) {
     if ($global_ko == 1) { // If errors have been found...
         if ($cpt_err == 1) {
             echo "<p class=\"center warning\">".$cpt_err." error has been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</p>";
-            include 'http://scenery.flightgear.org/inc/footer.php';
+            include '../../inc/footer.php';
             exit;
         }
         else {
             echo "<p class=\"center warning\">".$cpt_err." errors have been found in your submission. Please correct or delete the corresponding line from your submission before submitting again.</p>";
-            include 'http://scenery.flightgear.org/inc/footer.php';
+            include '../../inc/footer.php';
             exit;
         }
     }
@@ -299,7 +299,7 @@ if (!$error) {
     // Talking back to submitter.
     if (!$resultrw) {
         echo "<p>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p>";
-        include 'http://scenery.flightgear.org/inc/footer.php';
+        include '../../inc/footer.php';
         exit;
     }
 
@@ -393,7 +393,7 @@ if (!$error) {
         @mail($to, $subject, $message, $headers);
     }
 }
-include 'http://scenery.flightgear.org/inc/footer.php';
+include '../../inc/footer.php';
 
 
 ?>

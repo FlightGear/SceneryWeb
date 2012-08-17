@@ -1,7 +1,7 @@
 <?php
 
     // Inserting libs
-    require_once('http://scenery.flightgear.org/inc/functions.inc.php');
+    require_once('../../inc/functions.inc.php');
 
     // Checking DB availability before all
 
@@ -11,16 +11,16 @@
     {
         $page_title = "Automated Shared Models Positions Update Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
 
     $page_title = "Automated Shared Models Positions Update Form";
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include '../../inc/header.php';
 ?>
 
-<script src="http://scenery.flightgear.org/inc/js/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 function validateForm()
@@ -68,5 +68,5 @@ function validateForm()
 </table>
 </form>
 
-<?php include 'http://scenery.flightgear.org/inc/footer.php'; ?>
+<?php include '../../inc/footer.php'; ?>
 

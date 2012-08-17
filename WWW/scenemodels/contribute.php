@@ -1,4 +1,4 @@
-<?php include 'http://scenery.flightgear.org/inc/header.php';?>
+<?php include 'inc/header.php';?>
 <h1>How To Contribute</h1>
 
 <p>
@@ -131,4 +131,4 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     thumbnail in the Browser view.
     </p>
 </div>
-<?php include 'http://scenery.flightgear.org/inc/footer.php';?>
+<?php include 'inc/footer.php';?>

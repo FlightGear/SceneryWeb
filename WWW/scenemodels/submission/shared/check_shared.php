@@ -1,7 +1,7 @@
 <?php
 
     // Inserting libs
-    require_once('http://scenery.flightgear.org/inc/functions.inc.php');
+    require_once('../../inc/functions.inc.php');
 
     // Checking DB availability before all
     $ok=check_availability();
@@ -9,12 +9,12 @@
     if(!$ok) {
         $page_title = "Automated Shared Models Positions Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
     // Captcha stuff
-    require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+    require_once('../../inc/captcha/recaptchalib.php');
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
@@ -30,12 +30,12 @@
         $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/shared/index.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
     $page_title = "Automated Shared Models Positions Submission Form";
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include '../../inc/header.php';
     echo "<br />";
     $error = false;
     global $error;
@@ -157,7 +157,7 @@ if (!$error) {
     // Detect if the object is already in the database
     if (detect_already_existing_object($lat, $long, $gndelev, 0, $heading, $model_id)) {
         echo "<p class=\"warning\">The object already exists in the database!</p>";
-        include 'http://scenery.flightgear.org/inc/footer.php';
+        include '../../inc/footer.php';
     }
 
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
@@ -327,6 +327,6 @@ if (!$error) {
     }
 }
 
-include 'http://scenery.flightgear.org/inc/footer.php';
+include '../../inc/footer.php';
 
 ?>

@@ -1,4 +1,4 @@
-<?php include 'http://scenery.flightgear.org/inc/header.php'; ?>
+<?php include 'inc/header.php'; ?>
 <h1>FlightGear Scenery Object Statistics</h1>
 <?php
     $result = pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
@@ -89,4 +89,4 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
       </table>
     <div class="clear"></div>
 
-<?php include 'http://scenery.flightgear.org/inc/footer.php';?>
+<?php include 'inc/footer.php';?>

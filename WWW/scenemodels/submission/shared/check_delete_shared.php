@@ -1,7 +1,7 @@
 <?php
 
 // Inserting libs
-require_once('http://scenery.flightgear.org/inc/functions.inc.php');
+require_once('../../inc/functions.inc.php');
 
 
 // Checks all variables if exist
@@ -32,7 +32,7 @@ if (isset($_POST['comment']) && preg_match('/^[0-9a-z-A-Z\';:!?@-_\. ]+$/u',$_PO
 if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
     // Captacha stuff
-    require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+    require_once('../../inc/captcha/recaptchalib.php');
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
@@ -47,12 +47,12 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
         $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/shared/index_delete.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-        include 'http://scenery.flightgear.org/inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
     $page_title = "Automated Shared Models Positions Deletion Form";
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include '../../inc/header.php';
 
     echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p>";
 
@@ -92,7 +92,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     // Talking back to submitter.
     if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
-        include 'http://scenery.flightgear.org/inc/footer.php';
+        include '../../inc/footer.php';
         exit;
     }
     echo "<p class=\"center\">Your position has been successfully queued into the FG scenery database deletion requests!<br />";
@@ -210,7 +210,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
         $message = $message077.$message4;
         @mail($to, $subject, $message, $headers);
     }
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
     exit;
 }
 
@@ -220,7 +220,7 @@ $ok = check_availability();
 if (!$ok) {
     $page_title = "Automated Shared Models Positions Deletion Form";
     $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-    include 'http://scenery.flightgear.org/inc/error_page.php';
+    include '../../inc/error_page.php';
     exit;
 }
 
@@ -273,7 +273,7 @@ else {
 if ($error) {
     $page_title = "Automated Shared Models Positions Deletion Form";
     // $error_text is defined above
-    include 'http://scenery.flightgear.org/inc/error_page.php';
+    include '../../inc/error_page.php';
     exit;
 }
 
@@ -298,12 +298,12 @@ else {
 if ($returned_rows == 0) {
     $page_title = "Automated Shared Models Positions Deletion Form";
     $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).";
-    include 'http://scenery.flightgear.org/inc/error_page.php';
+    include '../../inc/error_page.php';
     exit;
 }
 
 $page_title = "Automated Shared Models Positions Deletion Form";
-include 'http://scenery.flightgear.org/inc/header.php';
+include '../../inc/header.php';
 
 // We have only one result
 
@@ -311,7 +311,7 @@ if ($returned_rows == 1) {
     $row = pg_fetch_row($result);
     echo "<p class=\"center\">You have asked to delete object #".$row[0].".</p>";
 ?>
-<script src="http://scenery.flightgear.org/inc/js/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 function validateForm()
@@ -382,7 +382,7 @@ function validateForm()
             <td colspan="4" class="submit">
 <?php
     // Google Captcha stuff
-    require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+    require_once('../../inc/captcha/recaptchalib.php');
     $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
     echo recaptcha_get_html($publickey);
 ?>
@@ -398,7 +398,7 @@ function validateForm()
     </table>
     </form>
 <?php
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
 
     exit;
 }
@@ -407,7 +407,7 @@ function validateForm()
 else if ($returned_rows > 1) {
 
 ?>
-<script src="http://scenery.flightgear.org/inc/js/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 function validateForm()
@@ -500,7 +500,7 @@ function validateForm()
             <input name="step" type="hidden" value="3" />
 <?php
         // Google Captcha stuff
-        require_once('http://scenery.flightgear.org/inc/captcha/recaptchalib.php');
+        require_once('../../inc/captcha/recaptchalib.php');
         $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
         echo recaptcha_get_html($publickey);
 ?>
@@ -512,11 +512,11 @@ function validateForm()
     </table>
     </form>
 <?php
-    include 'http://scenery.flightgear.org/inc/footer.php';
+    include '../../inc/footer.php';
     exit;
 }
 
-include 'http://scenery.flightgear.org/inc/footer.php';
+include '../../inc/footer.php';
 
 
 ?>

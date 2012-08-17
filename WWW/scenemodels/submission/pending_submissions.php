@@ -1,7 +1,7 @@
 <?php
 
 // Inserting libs
-require_once('http://scenery.flightgear.org/inc/functions.inc.php');
+require_once('/inc/functions.inc.php');
 
 // Opening database connection...
 $resource_r = connect_sphere_r();

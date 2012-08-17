@@ -1,8 +1,8 @@
 <?php
-    include 'http://scenery.flightgear.org/inc/header.php';
+    include 'inc/header.php';
 
     // Inserting libs
-    require_once('http://scenery.flightgear.org/inc/functions.inc.php');
+    require_once('inc/functions.inc.php');
 ?>
 
 <h1>FlightGear Scenery Model Directory</h1>
@@ -96,4 +96,4 @@
 ?>
 </table>
 
-<?php include 'http://scenery.flightgear.org/inc/footer.php';?>
+<?php include 'inc/footer.php';?>
