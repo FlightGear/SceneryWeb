@@ -119,9 +119,14 @@ Allow from all
 	  PythonDebug Off
 	</Directory>
 ########################################################################
-	Alias /getstart /home/martin/WWW/getstart
-	<Directory "/home/martin/WWW/getstart">
+	Alias /getstart /home/martin/WWW/getstart-en
+	<Directory "/home/martin/WWW/getstart-en">
 	  DirectoryIndex getstart-en.html
+	  Options -Indexes -FollowSymlinks
+	</Directory>
+	Alias /getstart-fr /home/martin/WWW/getstart-fr
+	<Directory "/home/martin/WWW/getstart-fr">
+	  DirectoryIndex getstart-fr.html
 	  Options -Indexes -FollowSymlinks
 	</Directory>
 	Alias /getstart.pdf /home/martin/WWW/getstart-en.pdf
