@@ -36,7 +36,6 @@ rm -f *
 
 for LAYER in `${PSQL} "SELECT f_table_name FROM geometry_columns \
         WHERE f_table_name LIKE '${PGISLAYER}\_%' \
-        AND (type LIKE 'ST_Polygon' OR type LIKE 'POLYGON') \
         ORDER BY f_table_name"`; do
     COUNT=`${PSQL} "SELECT COUNT(wkb_geometry) FROM ${LAYER} \
               WHERE wkb_geometry && \
