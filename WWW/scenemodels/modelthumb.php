@@ -9,7 +9,7 @@ if (isset($_REQUEST['id']) && preg_match('/^[0-9]+$/u',$_GET['id']))
 	if (strlen($model["mo_thumbfile"])>1024)
 		echo base64_decode($model["mo_thumbfile"]);
 	else
-		readfile("img/nothumb.jpg");
+		readfile("http://scenery.flightgear.org/img/nothumb.jpg");
 }
 
 ?>
