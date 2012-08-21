@@ -1,7 +1,7 @@
 <?php
 
 // Inserting libs
-require_once('/inc/functions.inc.php');
+require_once('../inc/functions.inc.php');
 
 // Opening database connection...
 $resource_r = connect_sphere_r();
@@ -18,7 +18,7 @@ if ($resultr) {
     $pending_requests = "";
 
     // Retrieving information
-    while($row = @pg_fetch_object($resultr)) {
+    while ($row = @pg_fetch_object($resultr)) {
         $i++;
 
         // Decoding in Base64.
