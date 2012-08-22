@@ -8,7 +8,7 @@ $resource_r = connect_sphere_r();
 
 // Querying pending requests
 $pending_queries = "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests;";
-$resultr = @pg_query($resource_r, $pending_queries);
+$resultr = @pg_query ($resource_r, $pending_queries);
 
 // Talking back to submitter.
 
@@ -50,10 +50,17 @@ if ($resultr) {
                 "I just wanted to give you a small overview of the requests waiting for validation:" . "\r\n";
     $message077 = wordwrap ($message0, 77, "\r\n");
 
+    if (pg_num_rows($resultr) > 0) {
+
     // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
     $message1 = $pending_requests."\n";
     $message2 = "They should be somewhere in your mails. Please check again." . "\r\n" .
                             "Thanks!" ;
+    }
+    else {
+    $message1 = "There is currently no pending request. Well done!";
+    $message2 = "Hopefully, some more will come soon ;-) ...";
+    }
 
     // Preparing the headers.
     $headers = "MIME-Version: 1.0" . "\r\n";
