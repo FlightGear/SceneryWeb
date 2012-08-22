@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (isset($_REQUEST['id']) && preg_match('/^[0-9]+$/u',$_REQUEST['id']))
 {
     $id=$_REQUEST['id'];
@@ -13,7 +13,7 @@ if (isset($id))
 }
 echo "<h1>Scenery models by ".$author["au_name"]."</h1>";
 if (!empty($author["au_notes"]))
-    echo "<p>"$author["au_notes"]."</p>";
+    echo "<p>".$author["au_notes"]."</p>";
 ?>
 <table>
 <?php
