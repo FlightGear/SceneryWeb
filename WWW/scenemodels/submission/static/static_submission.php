@@ -215,7 +215,8 @@ if (isset($_POST["action"])) {
                         "I just wanted to let you know that the 3D model import with numbers :" . "\r\n" .
                         "- ".substr($_POST["mo_sig"],0,10). "... (model) and " . "\r\n" .
                         "- ".substr($_POST["ob_sig"],0,10). "... (object)" . "\r\n" .
-                        "has been successfully treated in the scenemodel database tables." . "\r\n" .
+                        "and named '".$_POST["mo_name"]."' " . "\r\n" .
+                        "has been successfully treated in the scenemodel database" . "\r\n" .
                         "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
                         "The corresponding pending entries has consequently been deleted" . "\r\n" .
                         "from the pending requests table." . "\r\n" .
@@ -407,6 +408,7 @@ function validateForm()
     <tr>
         <td>Full Name</td>
         <td><?php echo $mo_name; ?></td>
+        <input type="hidden" name="mo_name" value="<?php echo $mo_name; ?>" />
     </tr>
     <tr>
         <td>Notes</td>
