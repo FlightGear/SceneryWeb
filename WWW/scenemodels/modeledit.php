@@ -18,7 +18,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
 ?>
 <table>
 <tr>
-    <td rowspan="8" style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
+    <td rowspan="0" style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
     <td>Name</td>
     <td><?php if (isset($model["mo_name"])) print $model["mo_name"]; ?></td>
 </tr>
