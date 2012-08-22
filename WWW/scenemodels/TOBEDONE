@@ -24,7 +24,7 @@ After production:
 - Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
 - Put hangar stuff to /inc or something like that.
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
-- Use the PHP empty function instead of isset.
+- Use the PHP empty function in complement/instead of isset, where appropriate.
 
 Overall work:
 =============
