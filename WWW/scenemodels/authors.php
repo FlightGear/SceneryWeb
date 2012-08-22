@@ -14,11 +14,6 @@
         <th>Author</td>
         <th>Comments of the author</td>
     </tr>
-    <tr class="bottom">
-      <td colspan="2" align="center">
-        <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
-       </td>
-    </tr>
 
 <?php
       $query = "SELECT au_id, au_name, au_notes ";
