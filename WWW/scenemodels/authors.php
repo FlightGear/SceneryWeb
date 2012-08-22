@@ -32,7 +32,7 @@
 ?>
     <tr class="bottom">
       <td colspan="9" align="center">
-        <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
+        <a href="authors.php?offset=<?php echo $offset-20;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+20;?>">Next</a>
       </td>
     </tr>
   </table>
