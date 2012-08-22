@@ -23,7 +23,7 @@ if ($mg_id!='0')
 
     // Querying when the family is updated.
 
-    $query = "select mo_id,mo_path,mo_name,mo_shared from fgs_models where mo_shared=".$mg_id." order by mo_path;";
+    $query = "SELECT mo_id, mo_path, mo_name, mo_shared FROM fgs_models WHERE mo_shared = ".$mg_id." ORDER BY mo_path;";
     $result = @pg_query($headerlink,$query);
 
     // Showing the results.
