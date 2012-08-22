@@ -11,9 +11,13 @@
 
   <table>
     <tr class="bottom">
-      <td colspan="9" align="center">
+      <td colspan="2" align="center">
         <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
        </td>
+    </tr>
+    <tr>
+        <td>Author</td>
+        <td>Comments of the author</td>
     </tr>
 <?php
       $query = "SELECT au_id, au_name, au_notes ";
