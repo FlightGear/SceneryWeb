@@ -8,7 +8,7 @@
 ?>
 
   <h1>FlightGear Scenery Authors Directory</h1>
-  
+
   <table>
     <tr class="bottom">
       <td colspan="9" align="center">
@@ -19,7 +19,7 @@
       $query = "SELECT au_id, au_name, au_notes ";
       $query.= "FROM fgs_authors ";
       $query.= "ORDER BY au_name ";
-      $query.= "LIMIT 10 OFFSET ".$offset;
+      $query.= "LIMIT 20 OFFSET ".$offset;
       $result=pg_query($query);
       while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n";
