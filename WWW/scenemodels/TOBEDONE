@@ -27,6 +27,9 @@ After production:
 
 Overall work:
 =============
+- Put emails as Bcc
+- Enable comments fields to authorize 100 in width
+- Be more talkative on 3D models to say which model has been entererd (add its name in the emails).
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Review the names of the scripts to keep them coherent.
 - Logging options
