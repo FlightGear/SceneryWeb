@@ -10,15 +10,16 @@
   <h1>FlightGear Scenery Authors Directory</h1>
 
   <table>
+    <tr>
+        <th>Author</td>
+        <th>Comments of the author</td>
+    </tr>
     <tr class="bottom">
       <td colspan="2" align="center">
         <a href="authors.php?offset=<?php echo $offset-10;?>">Prev</a> <a href="authors.php?offset=<?php echo $offset+10;?>">Next</a>
        </td>
     </tr>
-    <tr>
-        <td>Author</td>
-        <td>Comments of the author</td>
-    </tr>
+
 <?php
       $query = "SELECT au_id, au_name, au_notes ";
       $query.= "FROM fgs_authors ";
