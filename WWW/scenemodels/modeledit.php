@@ -12,13 +12,13 @@ function popmap(lat,lon,zoom) {
 
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     $id = $_REQUEST['id'];
-    $result = pg_query("SELECT *, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay from fgs_models where mo_id=$id;");
+    $result = pg_query("SELECT *, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay FROM fgs_models WHERE mo_id=$id;");
     $model = pg_fetch_assoc($result);
 };
 ?>
 <table>
 <tr>
-    <td rowspan="8" width="320"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
+    <td rowspan="8" style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
     <td>Name</td>
     <td><?php if (isset($model["mo_name"])) print $model["mo_name"]; ?></td>
 </tr>
@@ -30,10 +30,9 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     <td>Type</td>
     <td>
         <?php
-            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups;");
-            while ($row = pg_fetch_assoc($result)) {
-                if ($row["mg_id"] == $model["mo_shared"]) print $row["mg_name"];
-            }
+            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
+            $row = pg_fetch_assoc($result);
+            print "<a href=\"modelbrowser.php?shared=".$model["mo_shared"]."\">".$row["mg_name"]."</a>";
         ?>
     </td>
 </tr>
@@ -41,10 +40,9 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
     <td>Author</td>
     <td>
         <?php
-            $result = pg_query("SELECT * FROM fgs_authors;");
-            while ($row = pg_fetch_assoc($result)) {
-                if ($model["mo_author"] == $row["au_id"]) print $row["au_name"];
-            }
+            $result = pg_query("SELECT au_id, au_name FROM fgs_authors WHERE au_id = '$model[mo_author]';");
+            $row = pg_fetch_assoc($result);
+            print "<a href=\"author.php?id=".$model["mo_author"]."\">".$row["au_name"]."</a>";
         ?>
     </td>
 </tr>
@@ -58,35 +56,25 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
 </tr>
 <tr>
     <td colspan="2" align="center">
-
-<?php
-$result = pg_query("select mo_shared from fgs_models where mo_id = $id;");
-while ($row = pg_fetch_assoc($result)) {
-    if ($row["mo_shared"] == 0) {
-        $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
-        $query.= "ST_X(wkb_geometry) AS ob_lon ";
-        $query.= "FROM fgs_objects ";
-        $query.= "WHERE ob_model=$id";
-        $chunks = pg_query($query);
-        while ($chunk = pg_fetch_assoc($chunks)) {
-            $lat = floor($chunk["ob_lat"]/10)*10;
-            $lon = floor($chunk["ob_lon"]/10)*10;
-            print "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a>&nbsp;-&nbsp";
+        <?php
+        if ($model["mo_shared"] == 0) {
+            $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
+            $query.= "ST_X(wkb_geometry) AS ob_lon ";
+            $query.= "FROM fgs_objects ";
+            $query.= "WHERE ob_model=$id";
+            $chunks = pg_query($query);
+            while ($chunk = pg_fetch_assoc($chunks)) {
+                $lat = floor($chunk["ob_lat"]/10)*10;
+                $lon = floor($chunk["ob_lon"]/10)*10;
+                print "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a>&nbsp;-&nbsp";
+            }
         }
-    }
-}
-?>
-<a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download Model</a>
-<?php
-$result = pg_query("SELECT mo_author,au_name FROM fgs_models, fgs_authors WHERE mo_author=au_id AND mo_id = $id;");
-while ($row = pg_fetch_assoc($result)) {
-    print   "<br/>List all of <a href=\"author.php?id=".$row["mo_author"]."\">".$row["au_name"]."</a>";
-}
-?>
+        ?>
+        <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download Model</a>
     </td>
 </tr>
 <tr>
-    <td colspan="3"><?php if (isset($model["mo_notes"])) print "<u>Comment:</u>&nbsp;".$model["mo_notes"]; ?></td>
+    <td colspan="3"><?php if (!empty($model["mo_notes"])) print "<u>Comment:</u>&nbsp;".$model["mo_notes"]; ?></td>
 </tr>
 </table>
 <?php include 'inc/footer.php'; ?>

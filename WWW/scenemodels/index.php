@@ -18,12 +18,12 @@
     $query.= "LIMIT 10 OFFSET ".$offset;
     $result = pg_query($query);
     while ($row = pg_fetch_assoc($result)) {
-        echo "<div class=\"paragraph_bloc\">\n";
-        echo "<div class=\"header\"><div class=\"date\">\n";
-        echo "Posted : ".$row["formdate"]."</div>";
-        echo "<div class=\"normal\">by</div><div class=\"author\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div></div>\n";
-        echo "<div class=\"body\">".$row["ne_text"]."</div>\n";
-        echo "</div>\n";
+        echo "<div class=\"paragraph_bloc\">\n" .
+             "<div class=\"header\"><div class=\"date\">\n" .
+             "Posted : ".$row["formdate"]."</div>" .
+             "<div class=\"normal\">by</div><div class=\"author\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div></div>\n" .
+             "<div class=\"body\">".$row["ne_text"]."</div>\n" .
+             "</div>\n";
     }
 ?>
   <table>  

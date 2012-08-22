@@ -27,10 +27,10 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         $query.= "LIMIT 20";
         $result = pg_query($query);
         while ($row = pg_fetch_assoc($result)) {
-            echo "<tr>\n";
-                echo "<td><a href=\"objects.php?country=".$row["co_code"]."\">".$row["co_name"]."</a></td>\n";
-                echo "<td>".$row["count"]."</td>\n";
-            echo "</tr>\n";
+            echo "<tr>\n" .
+                     "<td><a href=\"objects.php?country=".$row["co_code"]."\">".$row["co_name"]."</a></td>\n" .
+                     "<td>".$row["count"]."</td>\n" .
+                 "</tr>\n";
         }
 ?>
       </table>
@@ -46,10 +46,10 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         $query.= "LIMIT 20";
         $result = pg_query($query);
         while ($row = pg_fetch_assoc($result)) {
-            echo "<tr>\n";
-                echo "<td><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></td>\n";
-                echo "<td>".$row["count"]."</td>\n";
-            echo "</tr>\n";
+            echo "<tr>\n" .
+                     "<td><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></td>\n" .
+                     "<td>".$row["count"]."</td>\n" .
+                 "</tr>\n";
         }
 ?>
       </table>
@@ -63,10 +63,10 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
           $query.= "LIMIT 10";
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)) {
-            echo "<tr>\n";
-              echo "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n";
-              echo "<td>".$row["ob_datedisplay"]."</td>\n";
-            echo "</tr>\n";
+            echo "<tr>\n" .
+                     "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n" .
+                     "<td>".$row["ob_datedisplay"]."</td>\n" .
+                 "</tr>\n";
           }
 ?>
       </table>
@@ -80,10 +80,10 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
           $query.= "LIMIT 10";
           $result = pg_query($query);
           while ($row = pg_fetch_assoc($result)){
-            echo "<tr>\n";
-              echo "<td><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a></td>\n";
-              echo "<td>".$row["mo_datedisplay"]."</td>\n";
-            echo "</tr>\n";
+            echo "<tr>\n" .
+                     "<td><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a></td>\n" .
+                     "<td>".$row["mo_datedisplay"]."</td>\n" .
+                 "</tr>\n";
           }
 ?>
       </table>

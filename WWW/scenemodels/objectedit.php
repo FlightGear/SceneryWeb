@@ -54,10 +54,9 @@
         <td>Model</td>
         <td>
 <?php
-            $result = pg_query("select mo_id, mo_path from fgs_models;");
-            while ($row = pg_fetch_assoc($result)) {
-                if ($object["ob_model"] == $row["mo_id"]) print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
-            }
+            $result = pg_query("SELECT mo_id, mo_path FROM fgs_models WHERE mo_id = '$object[ob_model]';");
+            $row = pg_fetch_assoc($result);
+            print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
 ?>
         </td>
     </tr>
@@ -69,9 +68,9 @@
         <td>Geographical and model informations</td>
         <td>
             <center>
-            <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
-            &nbsp;
-            <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>" alt="Thumbnail"/>
+                <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
+                &nbsp;
+                <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>" alt="Thumbnail"/>
             </center>
         </td>
     </tr>
