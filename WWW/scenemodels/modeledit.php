@@ -73,8 +73,13 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
         <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download Model</a>
     </td>
 </tr>
-<tr>
-    <td colspan="3"><?php if (!empty($model["mo_notes"])) print "<u>Comment:</u>&nbsp;".$model["mo_notes"]; ?></td>
+    <?php
+    if (!empty($model["mo_notes"])) {
+        print "<tr><td colspan=\"3\">";
+        print "<u>Comment:</u>&nbsp;".$model["mo_notes"];
+        print "</td></tr>";
+    }
+?>
 </tr>
 </table>
 <?php include 'inc/footer.php'; ?>
