@@ -58,7 +58,7 @@ if ($resultr) {
                             "Thanks!" ;
     }
     else {
-    $message1 = "There is currently no pending request. Well done!";
+    $message1 = "There is currently no pending request. Well done! " . "\r\n";
     $message2 = "Hopefully, some more will come soon ;-) ...";
     }
 
