@@ -620,7 +620,7 @@ function list_authors()
     $headerlink_authors = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT au_id, au_name FROM fgs_authors order by 2 asc;";
+    $query = "SELECT au_id, au_name FROM fgs_authors ORDER BY 2 ASC;";
     $result = @pg_query($headerlink_authors, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -641,7 +641,7 @@ function list_countries()
     $headerlink_countries = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT * FROM fgs_countries order by 2 asc;";
+    $query = "SELECT * FROM fgs_countries ORDER BY 2 ASC;";
     $result = @pg_query($headerlink_countries, $query);
 
     while($row = @pg_fetch_assoc($result)) {
