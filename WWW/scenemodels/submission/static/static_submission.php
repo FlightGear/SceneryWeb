@@ -539,6 +539,7 @@ function validateForm()
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
+                $texture_file = "get_texture_by_filename.php?mo_sig=".$encoded_target_path."&name=".$png_file_name[$j];
                 $texture_file = "get_texture_from_dir.php?mo_sig=".$encoded_target_path."&amp;png_file_number=".$j;
                 // $tmp = getimagesize($texture_file); (returning false right now)
                 // $width  = $tmp[0];
@@ -571,7 +572,9 @@ function validateForm()
 </form>
 <p class="center">This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</p>
 <?php
-// The deletion of the tmp directory is made in the get_texture file, else it does not shows the texture.
+// The deletion of the tmp directory
+unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
+clear_dir($target_path);
 }
 include '../../inc/footer.php';
 ?>
