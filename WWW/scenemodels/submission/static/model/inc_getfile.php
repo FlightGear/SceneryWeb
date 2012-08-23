@@ -9,7 +9,7 @@
 **/
 
     // Inserting libs
-    require_once ('../../../../inc/functions.inc.php');
+    require_once ('../../../inc/functions.inc.php');
 
     if (isset($filename) && !preg_match("/[0-9a-zA-Z_.-]/", $filename))
         exit;
