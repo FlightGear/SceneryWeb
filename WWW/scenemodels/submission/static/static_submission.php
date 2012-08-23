@@ -539,7 +539,7 @@ function validateForm()
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
-                $texture_file = "model/get_texture_by_filename.php?mo_sig=".$encoded_target_path."&name=".$png_file_name[$j];
+                $texture_file = "model/get_texture_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
                 //$texture_file = "get_texture_from_dir.php?mo_sig=".$encoded_target_path."&amp;png_file_number=".$j;
                 // $tmp = getimagesize($texture_file); (returning false right now)
                 // $width  = $tmp[0];
