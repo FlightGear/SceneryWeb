@@ -22,14 +22,18 @@ if (!empty($model["mo_notes"])) {
 <table>
     <tr>
         <td rowspan="6" style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
+<?php
+    if ($model["mo_shared"] != 0) { // Showing the model path only if the model is not static.
+?>
         <td>Path</td>
         <td>
 <?php
             $result = pg_query("SELECT mg_id, mg_name, mg_path FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
             $row = pg_fetch_assoc($result);
-            if (isset($model["mo_path"])) print "Models/".$row["mg_path"]."".$model["mo_path"];
+            print "Models/".$row["mg_path"]."".$model["mo_path"];
+        print "</td>";
+}
 ?>
-        </td>
     </tr>
     <tr>
         <td>Type</td>
@@ -51,7 +55,7 @@ if (!empty($model["mo_notes"])) {
     </tr>
     <tr>
         <td>Last Updated</td>
-        <td><?php if (isset($model["mo_datedisplay"])) print $model["mo_datedisplay"]; ?></td>
+        <td><?php print $model["mo_datedisplay"]; ?></td>
     </tr>
     <tr>
         <td>Model-ID</td>

@@ -27,7 +27,7 @@ After production:
 
 Overall work:
 =============
-- Put emails as Bcc
+- Put emails as Bcc and to prevent spam replies, use no-reply@flightgear.org
 - Enable comments fields to authorize 100 in width
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Review the names of the scripts to keep them coherent.
