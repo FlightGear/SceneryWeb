@@ -23,14 +23,19 @@ if (!empty($model["mo_notes"])) {
     <tr>
         <td rowspan="6" style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
         <td>Path</td>
-        <td><?php if (isset($model["mo_path"])) print $model["mo_path"]; ?></td>
+        <td>
+<?php
+            $result = pg_query("SELECT mg_id, mg_name, mg_path FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
+            $row = pg_fetch_assoc($result);
+            if (isset($model["mo_path"])) print "Models/".$row["mg_path"]."/".$model["mo_path"];
+?>
+        </td>
     </tr>
     <tr>
         <td>Type</td>
         <td>
             <?php
-                $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
-                $row = pg_fetch_assoc($result);
+
                 print "<a href=\"modelbrowser.php?shared=".$model["mo_shared"]."\">".$row["mg_name"]."</a>";
             ?>
         </td>
