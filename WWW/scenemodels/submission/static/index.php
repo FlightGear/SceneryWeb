@@ -201,7 +201,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a factor of 2 in height and length.">
-            <label for="png_files">Corresponding PNG Texture Files (files may not show even when added. Don't worry, further checking is done afterwards)</label>
+            <label for="png_files">Corresponding PNG Texture Files</label>
             </span>
             </td>
             <td>

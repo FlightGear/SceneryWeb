@@ -92,9 +92,9 @@
   z-index: 100;
 }
 </style>
-<script type="text/javascript" src="libs/gl-matrix-min.js"></script>
-<script type="text/javascript" src="libs/polyfill.js"></script>
-<script type="text/javascript" src="libs/viewer.js"></script>
+<script type="text/javascript" src="../../../inc/hangar/gl-matrix-min.js"></script>
+<script type="text/javascript" src="../../../inc/hangar/polyfill.js"></script>
+<script type="text/javascript" src="../../../inc/hangar/viewer.js"></script>
 
 <script type="text/javascript">
 var Models = [

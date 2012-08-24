@@ -22,7 +22,7 @@
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';");
+            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Shared Models Positions Pending Requests Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
@@ -202,7 +202,7 @@
         if ($resource_rw != 0) {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw,"select spr_hash, spr_base64_sqlz from fgs_position_requests where spr_hash = '". $_POST["hsig"] ."';");
+            $result = @pg_query($resource_rw,"SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Shared Models Positions Pending Requests Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
