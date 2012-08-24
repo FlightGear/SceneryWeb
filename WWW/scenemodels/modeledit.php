@@ -27,17 +27,16 @@ if (!empty($model["mo_notes"])) {
 <?php
             $result = pg_query("SELECT mg_id, mg_name, mg_path FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
             $row = pg_fetch_assoc($result);
-            if (isset($model["mo_path"])) print "Models/".$row["mg_path"]."/".$model["mo_path"];
+            if (isset($model["mo_path"])) print "Models/".$row["mg_path"]."".$model["mo_path"];
 ?>
         </td>
     </tr>
     <tr>
         <td>Type</td>
         <td>
-            <?php
-
-                print "<a href=\"modelbrowser.php?shared=".$model["mo_shared"]."\">".$row["mg_name"]."</a>";
-            ?>
+<?php
+            print "<a href=\"modelbrowser.php?shared=".$model["mo_shared"]."\">".$row["mg_name"]."</a>";
+?>
         </td>
     </tr>
     <tr>
