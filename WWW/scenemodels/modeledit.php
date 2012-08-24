@@ -31,7 +31,6 @@ if (!empty($model["mo_notes"])) {
             $row = pg_fetch_assoc($result);
             if ($model["mo_shared"] != 0) print "Models/".$row["mg_path"]."".$model["mo_path"]; else print $model["mo_path"];
         print "</td>";
-}
 ?>
     </tr>
     <tr>
