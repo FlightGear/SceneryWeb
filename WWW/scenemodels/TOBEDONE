@@ -34,6 +34,7 @@ Overall work:
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Review the names of the scripts to keep them coherent.
 - Logging options
+- Position with a preceding 0 are sometime causing troubles. Should be accepted and squashed.
 - Add WebGL for public access as well (3D model viewer).
 - Have an email account for spam abuse.
 - http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
@@ -42,6 +43,8 @@ Overall work:
   => cf for instance the shapefiles download on the mapserver.
 - Add a field in the static form where submitters can enter the generic models which get replaced.
 - Let the maintainer the possibility to update fields in the submission checking form.
+- Try to enhance the error management: it would be better, when possible, to show the user all errors rather than having him to send his models a few times to correct each error.
+- Give the possibility to add .xml files for instance without a position/ac3d file. For instance a new strobe light, which is then referenced in the xml file of a 3D model.
 
 Terragear
 =========
