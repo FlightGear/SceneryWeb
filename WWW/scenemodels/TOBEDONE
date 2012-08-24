@@ -22,7 +22,6 @@ After production:
 - Will have to authorize quotes into description/comments later on, because it is frequent in the english language cf PGSQL so-called Dollar-quoting, or from the PHP side.
 - We do still have /tmp/submission_ directories created and never deleted (probably due to the objects without textures).
 - Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
-- Put hangar stuff to /inc or something like that.
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
 - Use the PHP empty function in complement/instead of isset, where appropriate.
 
@@ -30,11 +29,10 @@ Overall work:
 =============
 - Put emails as Bcc
 - Enable comments fields to authorize 100 in width
-- Be more talkative on 3D models to say which model has been entererd (add its name in the emails).
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Review the names of the scripts to keep them coherent.
 - Logging options
-- Position with a preceding 0 are sometime causing troubles. Should be accepted and squashed.
+- Position with a preceding 0 are sometimes causing troubles. Should be accepted and squashed.
 - Add WebGL for public access as well (3D model viewer).
 - Have an email account for spam abuse.
 - http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
