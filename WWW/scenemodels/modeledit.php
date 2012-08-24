@@ -23,14 +23,13 @@ if (!empty($model["mo_notes"])) {
     <tr>
         <td rowspan="6" style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
 <?php
-    if ($model["mo_shared"] != 0) { // Showing the model path only if the model is not static.
+        if ($model["mo_shared"] != 0) print "<td>Path</td>"; else print "<td>File name</td>";
 ?>
-        <td>Path</td>
         <td>
 <?php
             $result = pg_query("SELECT mg_id, mg_name, mg_path FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
             $row = pg_fetch_assoc($result);
-            print "Models/".$row["mg_path"]."".$model["mo_path"];
+            if ($model["mo_shared"] != 0) print "Models/".$row["mg_path"]."".$model["mo_path"]; else print $model["mo_path"];
         print "</td>";
 }
 ?>
