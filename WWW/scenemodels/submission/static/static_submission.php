@@ -541,9 +541,9 @@ function validateForm()
             for ($j=0; $j<$png_file_number; $j++) {
                 $texture_file = "model/get_texture_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
                 //$texture_file = "get_texture_from_dir.php?mo_sig=".$encoded_target_path."&amp;png_file_number=".$j;
-                // $tmp = getimagesize($texture_file); (returning false right now)
-                // $width  = $tmp[0];
-                // $height = $tmp[1];
+                $tmp = getimagesize($texture_file); // (returning false right now)
+                $width  = $tmp[0];
+                $height = $tmp[1];
 ?>
                 <a href="<?php echo $texture_file; ?>" rel="lightbox[submission]" />
                 <?php //imagethumb($texture_file) ?>
