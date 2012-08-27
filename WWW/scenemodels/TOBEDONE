@@ -11,6 +11,8 @@ Features updates (by priority):
    it contains (including interesting obstruction information) by the name of the object.
    Can also serve as a comment (better than in a STG file).
 - Automate the altitude calculation (is there a FG server giving this online f(lat, long) ?).
+- psql -tA -F\ -c "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects ORDER BY ob_tile" | ~/bin/fgelev | awk -F\: '{print "UPDATE fgs_objects SET ob_gndelev =" $2 " WHERE ob_id = " $1 ";"}'
+UPDATE fgs_objects SET ob_gndelev = -0.021 WHERE ob_id = 512280;
 - Automate the country calculation => Being done
 - Add a possibility to switch from STG heading to true and inversely.
 - Regionalise the maintainers : if lat/lon between x and y, send the validation mail to Jon, Martin or... else
@@ -26,8 +28,11 @@ After production:
 
 Overall work:
 =============
+- Review the intro page to add the latest models + objects stuff? Say what the scenery site + db is about, etc.
+- Add a page on offset stuff.
 - Put emails as Bcc and to prevent spam replies, use no-reply@flightgear.org
 - Enable comments fields to authorize 100 in width
+- Enhance the pending submission stuff, so the maintainer can click on a URL to submit the model.
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Review the names of the scripts to keep them coherent.
 - Logging options

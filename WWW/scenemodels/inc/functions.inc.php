@@ -414,7 +414,9 @@ function count_objects()
     $counter = @pg_query($resource, "SELECT count(*) AS rows FROM fgs_objects;");
 
     while ($line = @pg_fetch_assoc($counter)) {
-        echo number_format($line['rows'], '0', '', ' ');
+        // So the stats are happy
+        // return number_format($line['rows'], '0', '', ' ');
+        return $line['rows'];
     }
 
     // Close the database resource
@@ -433,7 +435,9 @@ function count_models()
     $counter = @pg_query($resource,"SELECT count(*) AS rows FROM fgs_models;");
 
     while ($line = @pg_fetch_assoc($counter)) {
-        echo number_format($line['rows'], '0', '', ' ');
+        // So the stats are happy
+        // return number_format($line['rows'], '0', '', ' ');
+        return $line['rows'];
     }
 
     // Close the database resource
@@ -606,7 +610,7 @@ function list_countries()
     $result = @pg_query($headerlink_countries, $query);
 
     while($row = @pg_fetch_assoc($result)) {
-        echo "<option value=\"".$row["co_code"]."\">".$row["co_name"]."</option>\n";
+        echo "<option value=\"".$row["co_code"]."\">".rtrim($row["co_name"])."</option>\n";
     }
 
     // Closing the connection.
@@ -630,7 +634,7 @@ function get_country_name_from_country_code($country_code)
         $result = @pg_query($headerlink_countries, $query);
 
         while ($row = @pg_fetch_assoc($result)) {
-            return ($row["co_name"]);
+            return rtrim(($row["co_name"]));
         }
     }
 

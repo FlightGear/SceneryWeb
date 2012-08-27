@@ -37,7 +37,7 @@ function validateForm()
 <p>
   <b>Foreword:</b> This automated mass import form goal is to ease the submission
   when submitter want to add a lot of shared models positions into FG Scenery database.
-  <br />There are currently <?php count_objects(); ?> objects in the database.
+  <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
   Help us to make it more! Simply copy/paste the NEW content of your STG files below.
 </p>
 <p>

@@ -44,7 +44,7 @@ function validateForm()
 <p class="center">
   <b>Foreword:</b> This automated form goal is to ease the submission of shared
   models positions into FG Scenery database.
-  <br />There are currently <?php count_objects(); ?> objects in the database.
+  <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
   Help us to make it more!
   <br />Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a>
   in order to understand what recommandations this script is looking for.
