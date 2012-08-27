@@ -277,6 +277,7 @@ $co_array['Timor-Leste']='NA ';
     var data1 = google.visualization.arrayToDataTable([
       ['Country', 'Object density'],
       <?php
+        connect_sphere_r();
         $query = "SELECT count(ob_id) AS count, co_name, co_code ";
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
