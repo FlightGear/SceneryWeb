@@ -302,7 +302,8 @@ $co_array['Timor-Leste']='NA ';
     var data2 = google.visualization.arrayToDataTable([
       ['Country', 'Objects'],
       <?php
-      while ($row = pg_fetch_assoc($result)) {
+        pg_result_seek($result,0);
+        while ($row = pg_fetch_assoc($result)) {
             $country = rtrim($row[co_name]);
             if ($row[count] > 0) {
                 echo "['".$country."', ".$row[count]."],\n          ";
