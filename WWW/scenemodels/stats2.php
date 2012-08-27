@@ -347,8 +347,8 @@ $co_array['Timor-Leste']='NA ';
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
         $query.= "GROUP BY co_code, co_name ";
-        $query.= "ORDER BY count DESC ";
         $query.= "HAVING count(ob_id) > 0 ";
+        $query.= "ORDER BY count DESC ";
         $result = pg_query($resource_r, $query);
 
         $list = "";
@@ -414,8 +414,8 @@ function drawBars(sorting) {
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
         $query.= "GROUP BY co_code, co_name ";
-        $query.= "ORDER BY count DESC ";
         $query.= "HAVING count(ob_id) > 0 ";
+        $query.= "ORDER BY count DESC ";
         $query.= "LIMIT 20 ";
         $result = pg_query($resource_r, $query);
 
