@@ -606,7 +606,7 @@ function list_countries()
     $result = @pg_query($headerlink_countries, $query);
 
     while($row = @pg_fetch_assoc($result)) {
-        echo "<option value=\"".$row["co_code"]."\">".$row["co_name"]."</option>\n";
+        echo "<option value=\"".$row["co_code"]."\">".rtrim($row["co_name"])."</option>\n";
     }
 
     // Closing the connection.
