@@ -541,7 +541,7 @@ function validateForm()
             for ($j=0; $j<$png_file_number; $j++) {
                 $texture_file = "http://scenemodels.flightgear.org/submission/static/model/get_texture_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
                 //$texture_file = "get_texture_from_dir.php?mo_sig=".$encoded_target_path."&amp;png_file_number=".$j;
-                $tmp = getimagesize($texture_file); // (returning false right now)
+                $tmp = getimagesize($texture_file);
                 $width  = $tmp[0];
                 $height = $tmp[1];
 ?>
