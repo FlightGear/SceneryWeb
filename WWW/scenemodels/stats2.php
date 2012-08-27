@@ -441,16 +441,19 @@ function drawBars(sorting) {
         vAxes: {
             0: {
                 color: 'blue',
+                title: 'Object density (objects per 100 sq. km)',
                 baseline: 76.56
             },
             1: {
                 color: 'red',
+                title: 'Objects',
                 logScale: true
             }
         },
         backgroundColor: 'none',
         chartArea: {width:"80%"},
-        hAxis: { slantedTextAngle: 50}
+        hAxis: { slantedTextAngle: 50},
+        focusTarget: 'category'
     };
 
     var chartBarCountry = new google.visualization.ColumnChart(document.getElementById('chart_bar_country_div'));
@@ -541,7 +544,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         <div style="float: right">
             <b>Show:</b>
             <ul>
-                <li><a onclick="drawRegionsMap('auto','data1')">Object density</a></li>
+                <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 100 sq. km)</li>
                 <li><a onclick="drawRegionsMap('auto','data2')">Absolute object count</a></li>
             </ul>
             <b>Zoom in to:</b>
@@ -576,7 +579,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         <div style="float: right">
             <b>Sort by:</b>
             <ul>
-                <li><a onclick="drawBars(false)">Object density</a></li>
+                <li><a onclick="drawBars(false)">Object density</a><br/>(objects / 100 sq. km)</li>
                 <li><a onclick="drawBars(true)">Absolute object count</a></li>
             </ul>
         </div>
