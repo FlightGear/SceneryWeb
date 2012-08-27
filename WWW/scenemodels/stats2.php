@@ -353,7 +353,7 @@ $co_array['Timor-Leste']='NA ';
 
         $list = "";
         while ($row = pg_fetch_assoc($result)) {
-            $list .= "['".rtrim($row['co_name'])."', ".$row['count']."],\n";
+            $list .= "[\"".rtrim($row['co_name'])."\", ".$row['count']."],\n";
         }
         echo $list;
         ?>
@@ -422,7 +422,7 @@ function drawBars(sorting) {
         $list = "";
         while ($row = pg_fetch_assoc($result)) {
             $country = rtrim($row['co_name']);
-            $list .= "['".$country."', ".round(($row['count']/$co_array[$country])*10000).", ".$row['count']."],\n";
+            $list .= "[\"".$country."\", ".round(($row['count']/$co_array[$country])*10000).", ".$row['count']."],\n";
         }
         echo $list;
       ?>
