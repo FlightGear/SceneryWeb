@@ -630,7 +630,7 @@ function get_country_name_from_country_code($country_code)
         $result = @pg_query($headerlink_countries, $query);
 
         while ($row = @pg_fetch_assoc($result)) {
-            return ($row["co_name"]);
+            return rtrim(($row["co_name"]));
         }
     }
 
