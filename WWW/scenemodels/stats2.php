@@ -473,7 +473,7 @@ function drawVisualization() {
         [new Date(2012,8,21), 1106060, 2605, 2074 ],
         [new Date(2012,8,22), 1106125, 2605, 2074 ],
         [new Date(2012,8,25), 1106276, 2617, 2074 ],
-        [new Date(<?php echo date('Y,m,d'); ?>), count_objects(), count_models(), count_signs() ]);
+        [new Date(<?php echo date('Y,m,d'); ?>), <?php echo $objects; ?>, <?php echo $models; ?>, <?php echo $signs; ?>]);
 
   // Create and draw the visualization.
   new google.visualization.LineChart(document.getElementById('chart_objects_div')).
@@ -501,12 +501,13 @@ google.setOnLoadCallback(drawVisualization);
 <h1>FlightGear Scenery Statistics</h1>
 <?php
     $models = count_models();
+    $objects = count_objects();
 
     $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
     $row    = pg_fetch_assoc($result);
     $signs  = $row["count"];
 
-echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".$models." models</a> placed in the scenery as <a href=\"objects.php\">".count_objects()." seperate objects</a>, plus $signs taxiway signs.</p>\n";
+echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".$models." models</a> placed in the scenery as <a href=\"objects.php\">".$objects." seperate objects</a>, plus $signs taxiway signs.</p>\n";
 
 ?>
     <table class="float">
