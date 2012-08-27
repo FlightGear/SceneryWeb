@@ -290,10 +290,10 @@ $co_array['Timor-Leste']='NA ';
         $result = pg_query($resource_r, $query);
 
         while ($row = pg_fetch_assoc($result)) {
-            $country = rtrim($row[co_name]);
+            $country = rtrim($row['co_name']);
 
-            if ($row[count] > 0 and $co_array[$country] > 0) {
-                echo "[\"".$country."\", ".round(($row[count]/$co_array[$country])*10000)."],\n ";
+            if ($row['count'] > 0 and $co_array['$country'] > 0) {
+                echo "[\"".$country."\", ".round(($row['count']/$co_array['$country'])*10000)."],\n ";
             }
 
         }
@@ -340,7 +340,7 @@ $co_array['Timor-Leste']='NA ';
         $result = pg_query($resource_r, $query);
 
         while ($row = pg_fetch_assoc($result)) {
-            echo "['".rtrim($row[co_name])."', ".$row[count]."],\n          ";
+            echo "['".rtrim($row['co_name'])."', ".$row['count']."],\n          ";
         }
         ?>
     ]);
@@ -355,7 +355,7 @@ $co_array['Timor-Leste']='NA ';
         $result = pg_query($resource_r, $query);
 
         while ($row = pg_fetch_assoc($result)) {
-            echo "['".$row[au_name]."', ".$row[count]."],\n          ";
+            echo "['".$row['au_name']."', ".$row['count']."],\n          ";
         }
         ?>
     ]);
@@ -402,9 +402,9 @@ function drawBars(sorting) {
         $result = pg_query($resource_r, $query);
 
         while ($row = pg_fetch_assoc($result)) {
-            $country = rtrim($row[co_name]);
-            if ($row[count] > 0) {
-                echo "['".$country."', ".round(($row[count]/$co_array[$country])*10000).", ".$row[count]."],\n          ";
+            $country = rtrim($row['co_name']);
+            if ($row['count'] > 0) {
+                echo "['".$country."', ".round(($row['count']/$co_array[$country])*10000).", ".$row['count']."],\n          ";
             }
         }
       ?>
