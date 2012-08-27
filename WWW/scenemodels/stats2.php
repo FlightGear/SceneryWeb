@@ -306,7 +306,7 @@ $co_array['Timor-Leste']='NA ';
         while ($row = pg_fetch_assoc($result)) {
             $country = rtrim($row['co_name']);
             if ($row['count'] > 0) {
-                echo "['".$country."', ".$row['count']."],\n          ";
+                echo "[\"".$country."\", ".$row['count']."],\n";
             }
         }
       ?>
