@@ -473,7 +473,8 @@ function drawVisualization() {
         [new Date(2012,8,21), 1106060, 2605, 2074 ],
         [new Date(2012,8,22), 1106125, 2605, 2074 ],
         [new Date(2012,8,25), 1106276, 2617, 2074 ]
-  ]);
+  ]);,
+        [new Date(<?php echo date('Y,m,d'); ?>), count_objects(), count_models(), count_signs() ]
 
   // Create and draw the visualization.
   new google.visualization.LineChart(document.getElementById('chart_objects_div')).
