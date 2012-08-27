@@ -292,8 +292,8 @@ $co_array['Timor-Leste']='NA ';
         while ($row = pg_fetch_assoc($result)) {
             $country = rtrim($row['co_name']);
 
-            if ($row['count'] > 0 and $co_array['$country'] > 0) {
-                echo "[\"".$country."\", ".round(($row['count']/$co_array['$country'])*10000)."],\n ";
+            if ($row['count'] > 0 and $co_array[$country] > 0) {
+                echo "[\"".$country."\", ".round(($row['count']/$co_array[$country])*10000)."],\n ";
             }
 
         }
