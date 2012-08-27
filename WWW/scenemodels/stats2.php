@@ -1,4 +1,8 @@
-<?php include 'inc/header.php';
+<?php
+
+// Including librairies
+require_once ('inc/functions.inc.php');
+include 'inc/header.php';
 
 $co_array['Russian Federation']='16995800';
 $co_array['Antarctica']='14000000';
@@ -277,12 +281,13 @@ $co_array['Timor-Leste']='NA ';
     var data1 = google.visualization.arrayToDataTable([
       ['Country', 'Object density'],
       <?php
+        $resource_r = connect_sphere_r();
         $query = "SELECT count(ob_id) AS count, co_name, co_code ";
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
         $query.= "GROUP BY co_code, co_name ";
         $query.= "ORDER BY count DESC ";
-        $result = pg_query($query);
+        $result = pg_query($resource_r, $query);
 
         while ($row = pg_fetch_assoc($result)) {
             $country = $row[co_name];
@@ -332,7 +337,7 @@ $co_array['Timor-Leste']='NA ';
         $query.= "GROUP BY co_code, co_name ";
         $query.= "ORDER BY count DESC ";
         $query.= "LIMIT 20";
-        $result = pg_query($query);
+        $result = pg_query($resource_r, $query);
 
         while ($row = pg_fetch_assoc($result)) {
             echo "['".$row[co_name]."', ".$row[count]."],\n          ";
@@ -347,7 +352,7 @@ $co_array['Timor-Leste']='NA ';
         $query.= "WHERE mo_author=au_id ";
         $query.= "GROUP BY au_id,au_name ";
         $query.= "ORDER BY count DESC ";
-        $result = pg_query($query);
+        $result = pg_query($resource_r, $query);
 
         while ($row = pg_fetch_assoc($result)) {
             echo "['".$row[au_name]."', ".$row[count]."],\n          ";
@@ -394,7 +399,7 @@ function drawBars(sorting) {
         $query.= "GROUP BY co_code, co_name ";
         $query.= "ORDER BY count DESC ";
         $query.= "LIMIT 20 ";
-        $result = pg_query($query);
+        $result = pg_query($resource_r, $query);
 
         while ($row = pg_fetch_assoc($result)) {
             $country = $row[co_name];
@@ -494,15 +499,15 @@ google.setOnLoadCallback(drawVisualization);
 
 <h1>FlightGear Scenery Statistics</h1>
 <?php
-    $result = pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
+    $result = pg_query($resource_r, "SELECT count(mo_id) AS count FROM fgs_models;");
     $row    = pg_fetch_assoc($result);
     $models = $row["count"];
 
-    $result = pg_query("SELECT count(ob_id) AS count FROM fgs_objects;");
+    $result = pg_query($resource_r, "SELECT count(ob_id) AS count FROM fgs_objects;");
     $row    = pg_fetch_assoc($result);
     $objects= $row["count"];
 
-    $result = pg_query("SELECT count(si_id) AS count FROM fgs_signs;");
+    $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
     $row    = pg_fetch_assoc($result);
     $signs  = $row["count"];
 
