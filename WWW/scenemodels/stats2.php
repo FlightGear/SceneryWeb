@@ -461,6 +461,7 @@ function drawVisualization() {
 
 
     dataObjects.addRows([
+        [new Date(2008,3,8), 993836, 735, 0],
         [new Date(2008,5,1), 994057, 786, 0],
         [new Date(2008,09,15), 1038108, 1269, 573 ],
         [new Date(2008,11,5), 1038477, 1306, 679 ],
