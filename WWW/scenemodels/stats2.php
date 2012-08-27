@@ -520,7 +520,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         <tr><td colspan="2"><div id="chart_pie_div" style="width: 100%; height: 250px;"></div></td></tr>
     </table>
     <table class="float">
-        <tr><th colspan="2">Objects by author</th></tr>
+        <tr><th colspan="2">Models by author</th></tr>
         <tr><td colspan="2">Click an author to remove him from the pie.</td></tr>
         <tr><td colspan="2"><div id="chart_pie_authors_div" style="width: 100%; height: 250px;"></div></td></tr>
     </table>
