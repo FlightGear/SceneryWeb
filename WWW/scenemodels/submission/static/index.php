@@ -29,7 +29,7 @@ function validateForm()
 
 <p class="center">
 <b>Foreword:</b> This automated form goal is to ease the submission of static and shared 3D models into FG Scenery database.
-There are currently <?php count_models(); ?> models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>.
+There are currently <?php $models = count_models(); echo $models; ?> models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>.
 Help us to make it more!
 Please, read the following:
 <ul class="warning">
