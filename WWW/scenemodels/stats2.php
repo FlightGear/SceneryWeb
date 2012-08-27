@@ -295,17 +295,18 @@ $co_array['Timor-Leste']='NA ';
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
         $query.= "GROUP BY co_code, co_name ";
+        $query.= "HAVING count > 0 ";
         $query.= "ORDER BY count DESC ";
         $result = pg_query($resource_r, $query);
 
+        $list = "";
         while ($row = pg_fetch_assoc($result)) {
             $country = rtrim($row['co_name']);
-
-            if ($row['count'] > 0 and $co_array[$country] > 0) {
-                echo "[\"".$country."\", ".round(($row['count']/$co_array[$country])*10000)."],\n ";
+            if ($co_array[$country] > 0) {
+                $list .= "[\"".$country."\", ".round(($row['count']/$co_array[$country])*10000)."],\n ";
             }
-
         }
+        echo $list;
 
       ?>
     ]);
@@ -313,12 +314,12 @@ $co_array['Timor-Leste']='NA ';
       ['Country', 'Objects'],
       <?php
         pg_result_seek($result,0);
+        $list = "";
         while ($row = pg_fetch_assoc($result)) {
             $country = rtrim($row['co_name']);
-            if ($row['count'] > 0) {
-                echo "[\"".$country."\", ".$row['count']."],\n";
-            }
+            $list .= "[\"".$country."\", ".$row['count']."],\n";
         }
+        echo $list;
       ?>
     ]);
 
@@ -347,12 +348,14 @@ $co_array['Timor-Leste']='NA ';
         $query.= "WHERE ob_country=co_code ";
         $query.= "GROUP BY co_code, co_name ";
         $query.= "ORDER BY count DESC ";
-        $query.= "LIMIT 20";
+        $query.= "HAVING count > 0 ";
         $result = pg_query($resource_r, $query);
 
+        $list = "";
         while ($row = pg_fetch_assoc($result)) {
-            echo "['".rtrim($row['co_name'])."', ".$row['count']."],\n          ";
+            $list .= "['".rtrim($row['co_name'])."', ".$row['count']."],\n";
         }
+        echo $list;
         ?>
     ]);
     var dataPieAuthors = google.visualization.arrayToDataTable([
@@ -365,9 +368,11 @@ $co_array['Timor-Leste']='NA ';
         $query.= "ORDER BY count DESC ";
         $result = pg_query($resource_r, $query);
 
+        $list = "";
         while ($row = pg_fetch_assoc($result)) {
-            echo "['".$row['au_name']."', ".$row['count']."],\n          ";
+            $list .= "['".$row['au_name']."', ".$row['count']."],\n";
         }
+        echo $list;
         ?>
     ]);
 
@@ -376,6 +381,7 @@ $co_array['Timor-Leste']='NA ';
         backgroundColor: 'none',
         pieSliceBorderColor: 'none',
         slices: {20: {color: '#ccc'}},
+        sliceVisibilityThreshold: 1/100,
         legend: { alignment: 'center' }
     };
 
@@ -409,15 +415,16 @@ function drawBars(sorting) {
         $query.= "WHERE ob_country=co_code ";
         $query.= "GROUP BY co_code, co_name ";
         $query.= "ORDER BY count DESC ";
+        $query.= "HAVING count > 0 ";
         $query.= "LIMIT 20 ";
         $result = pg_query($resource_r, $query);
 
+        $list = "";
         while ($row = pg_fetch_assoc($result)) {
             $country = rtrim($row['co_name']);
-            if ($row['count'] > 0) {
-                echo "['".$country."', ".round(($row['count']/$co_array[$country])*10000).", ".$row['count']."],\n          ";
-            }
+            $list .= "['".$country."', ".round(($row['count']/$co_array[$country])*10000).", ".$row['count']."],\n";
         }
+        echo $list;
       ?>
     ]);
     if (sorting != "[object Event]") {
