@@ -414,7 +414,7 @@ function count_objects()
     $counter = @pg_query($resource, "SELECT count(*) AS rows FROM fgs_objects;");
 
     while ($line = @pg_fetch_assoc($counter)) {
-        echo number_format($line['rows'], '0', '', ' ');
+        return number_format($line['rows'], '0', '', ' ');
     }
 
     // Close the database resource
@@ -433,7 +433,7 @@ function count_models()
     $counter = @pg_query($resource,"SELECT count(*) AS rows FROM fgs_models;");
 
     while ($line = @pg_fetch_assoc($counter)) {
-        echo number_format($line['rows'], '0', '', ' ');
+        return number_format($line['rows'], '0', '', ' ');
     }
 
     // Close the database resource
