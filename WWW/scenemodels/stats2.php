@@ -499,19 +499,13 @@ google.setOnLoadCallback(drawVisualization);
 
 <h1>FlightGear Scenery Statistics</h1>
 <?php
-    $result = pg_query($resource_r, "SELECT count(mo_id) AS count FROM fgs_models;");
-    $row    = pg_fetch_assoc($result);
-    $models = $row["count"];
-
-    $result = pg_query($resource_r, "SELECT count(ob_id) AS count FROM fgs_objects;");
-    $row    = pg_fetch_assoc($result);
-    $objects= $row["count"];
+    $models = count_models();
 
     $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
     $row    = pg_fetch_assoc($result);
     $signs  = $row["count"];
 
-echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".count_models()." models</a> placed in the scenery as <a href=\"objects.php\">".count_objects()." seperate objects</a>, plus $signs taxiway signs.</p>\n";
+echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".$models." models</a> placed in the scenery as <a href=\"objects.php\">".count_objects()." seperate objects</a>, plus $signs taxiway signs.</p>\n";
 
 ?>
     <table class="float">
