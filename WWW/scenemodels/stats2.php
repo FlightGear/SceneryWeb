@@ -277,7 +277,6 @@ $co_array['Timor-Leste']='NA ';
     var data1 = google.visualization.arrayToDataTable([
       ['Country', 'Object density'],
       <?php
-        connect_sphere_r();
         $query = "SELECT count(ob_id) AS count, co_name, co_code ";
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
@@ -327,7 +326,6 @@ $co_array['Timor-Leste']='NA ';
     var dataPie = google.visualization.arrayToDataTable([
         ['Country', 'Objects'],
         <?php
-        connect_sphere_r();
         $query = "SELECT count(ob_id) AS count, co_name, co_code ";
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
@@ -344,7 +342,6 @@ $co_array['Timor-Leste']='NA ';
     var dataPieAuthors = google.visualization.arrayToDataTable([
         ['Author', 'Objects'],
         <?php
-        connect_sphere_r();
         $query = "SELECT count(mo_id) as count, au_name, au_id ";
         $query.= "FROM fgs_models,fgs_authors ";
         $query.= "WHERE mo_author=au_id ";
@@ -391,7 +388,6 @@ function drawBars(sorting) {
     var dataBarCountry = google.visualization.arrayToDataTable([
       ['Country', 'Object density', 'Objects'],
       <?php
-        connect_sphere_r();
         $query = "SELECT count(ob_id) AS count, co_name, co_code ";
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
@@ -498,7 +494,6 @@ google.setOnLoadCallback(drawVisualization);
 
 <h1>FlightGear Scenery Statistics</h1>
 <?php
-    connect_sphere_r();
     $result = pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
     $row    = pg_fetch_assoc($result);
     $models = $row["count"];
