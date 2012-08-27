@@ -258,15 +258,15 @@ $co_array['Paracel Islands']='NA';
 $co_array['Saint Helena']='';
 $co_array['Timor-Leste']='NA ';
 
-?> 
+?>
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript'>
  google.load('visualization', '1', {'packages': ['geochart','corechart']});
  google.setOnLoadCallback(drawRegionsMap);
-  
+
   var regionId = 'world';
   var worldmap = 'data1';
-  
+
   function drawRegionsMap() {
     if (arguments[0]!= 'auto' && arguments[0]) {
         regionId = arguments[0];
@@ -283,12 +283,14 @@ $co_array['Timor-Leste']='NA ';
         $query.= "GROUP BY co_code, co_name ";
         $query.= "ORDER BY count DESC ";
         $result = pg_query($query);
-    
+
         while ($row = pg_fetch_assoc($result)) {
             $country = $row[co_name];
-            if ($row[count] > 0) {
-                echo "['".$country."', ".round(($row[count]/$co_array[$country])*10000)."],\n          ";
+
+            if ($row[count] > 0 and $co_array[$country] > 0) {
+                echo "[\"".$country."\", ".round(($row[count]/$co_array[$country])*10000)."],\n ";
             }
+
         }
       ?>
     ]);
@@ -304,7 +306,7 @@ $co_array['Timor-Leste']='NA ';
       ?>
     ]);
 
-    var options = { 
+    var options = {
         backgroundColor: '#ADCDFF'
     };
     if (regionId != '[object Event]') {
@@ -331,7 +333,7 @@ $co_array['Timor-Leste']='NA ';
         $query.= "ORDER BY count DESC ";
         $query.= "LIMIT 20";
         $result = pg_query($query);
-    
+
         while ($row = pg_fetch_assoc($result)) {
             echo "['".$row[co_name]."', ".$row[count]."],\n          ";
         }
@@ -346,21 +348,21 @@ $co_array['Timor-Leste']='NA ';
         $query.= "GROUP BY au_id,au_name ";
         $query.= "ORDER BY count DESC ";
         $result = pg_query($query);
-    
+
         while ($row = pg_fetch_assoc($result)) {
             echo "['".$row[au_name]."', ".$row[count]."],\n          ";
         }
         ?>
     ]);
 
-    var optionsPie = { 
+    var optionsPie = {
         chartArea: {height:"100%"},
         backgroundColor: 'none',
         pieSliceBorderColor: 'none',
         slices: {20: {color: '#ccc'}},
-		legend: { alignment: 'center' }
+        legend: { alignment: 'center' }
     };
-    
+
     var chartPie = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
     google.visualization.events.addListener(chartPie, 'select', function () {
         // GeoChart selections return an array of objects with a row property; no column information
@@ -369,7 +371,7 @@ $co_array['Timor-Leste']='NA ';
         chartPie.draw(dataPie, optionsPie);
     });
     chartPie.draw(dataPie, optionsPie);
-    
+
     var chartPieAuthors = new google.visualization.PieChart(document.getElementById('chart_pie_authors_div'));
     google.visualization.events.addListener(chartPieAuthors, 'select', function () {
         // GeoChart selections return an array of objects with a row property; no column information
@@ -378,9 +380,9 @@ $co_array['Timor-Leste']='NA ';
         chartPieAuthors.draw(dataPieAuthors, optionsPie);
     });
     chartPieAuthors.draw(dataPieAuthors, optionsPie);
-    
+
 };
-    
+
 google.setOnLoadCallback(drawBars);
 function drawBars(sorting) {
     var dataBarCountry = google.visualization.arrayToDataTable([
@@ -393,7 +395,7 @@ function drawBars(sorting) {
         $query.= "ORDER BY count DESC ";
         $query.= "LIMIT 20 ";
         $result = pg_query($query);
-    
+
         while ($row = pg_fetch_assoc($result)) {
             $country = $row[co_name];
             if ($row[count] > 0) {
@@ -409,7 +411,7 @@ function drawBars(sorting) {
             dataBarCountry.sort([{column: 1,desc: true},{column: 2,desc: true}]);
         }
     }
-    
+
 
     var optionsBarCountry = {
         series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1}},
@@ -432,7 +434,7 @@ function drawBars(sorting) {
     chartBarCountry.draw(dataBarCountry, optionsBarCountry);
 
 }
-  
+
 function drawVisualization() {
     // Create and populate the data table.
     var dataObjects = new google.visualization.DataTable();
@@ -440,7 +442,7 @@ function drawVisualization() {
     dataObjects.addColumn('number', 'Objects');
     dataObjects.addColumn('number', 'Models');
     dataObjects.addColumn('number', 'Signs');
-  
+
 
     dataObjects.addRows([
         [new Date(2008,6,1), 994057, 786, 0],
@@ -482,14 +484,14 @@ function drawVisualization() {
                     },
                     pointSize: 5,
                     backgroundColor: 'none',
-					focusTarget: 'category'
+                    focusTarget: 'category'
                   }
           );
 }
 
 google.setOnLoadCallback(drawVisualization);
 </script>
-    
+
 <h1>FlightGear Scenery Statistics</h1>
 <?php
     $result = pg_query("SELECT count(mo_id) AS count FROM fgs_models;");
@@ -567,7 +569,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         <div id="chart_bar_country_div" style="width: 80%; height: 500px;"></div>
     </td></tr>
     </table>
-        
+
     <div class="clear"></div><br/>
 
     <table>
