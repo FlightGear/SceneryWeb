@@ -534,7 +534,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         <div style="float: right">
             <b>Show:</b>
             <ul>
-                <li><a onclick="drawRegionsMap('auto','data1')">Object density (obj./100 km²)</a></li>
+                <li><a onclick="drawRegionsMap('auto','data1')">Object density</a></li>
                 <li><a onclick="drawRegionsMap('auto','data2')">Absolute object count</a></li>
             </ul>
             <b>Zoom in to:</b>
@@ -569,7 +569,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         <div style="float: right">
             <b>Sort by:</b>
             <ul>
-                <li><a onclick="drawBars(false)">Object density (obj./100 km²)</a></li>
+                <li><a onclick="drawBars(false)">Object density</a></li>
                 <li><a onclick="drawBars(true)">Absolute object count</a></li>
             </ul>
         </div>
