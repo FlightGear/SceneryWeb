@@ -282,6 +282,15 @@ $co_array['Timor-Leste']='NA ';
       ['Country', 'Object density'],
       <?php
         $resource_r = connect_sphere_r();
+
+        // Preprocessing signs and models and objects, as they are used later on.
+        $models = count_models();
+        $objects = count_objects();
+
+        $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
+        $row    = pg_fetch_assoc($result);
+        $signs  = $row["count"];
+
         $query = "SELECT count(ob_id) AS count, co_name, co_code ";
         $query.= "FROM fgs_objects, fgs_countries ";
         $query.= "WHERE ob_country=co_code ";
@@ -297,6 +306,7 @@ $co_array['Timor-Leste']='NA ';
             }
 
         }
+
       ?>
     ]);
     var data2 = google.visualization.arrayToDataTable([
@@ -500,12 +510,6 @@ google.setOnLoadCallback(drawVisualization);
 
 <h1>FlightGear Scenery Statistics</h1>
 <?php
-    $models = count_models();
-    $objects = count_objects();
-
-    $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
-    $row    = pg_fetch_assoc($result);
-    $signs  = $row["count"];
 
 echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".$models." models</a> placed in the scenery as <a href=\"objects.php\">".$objects." seperate objects</a>, plus $signs taxiway signs.</p>\n";
 
