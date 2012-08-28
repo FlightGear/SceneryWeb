@@ -324,7 +324,8 @@ $co_array["Timor-Leste"]='NA ';
     ]);
 
     var options = {
-        backgroundColor: '#ADCDFF'
+        backgroundColor: '#ADCDFF',
+        keepAspectRatio: false
     };
     if (regionId != '[object Event]') {
         options['region'] = regionId;
@@ -540,51 +541,47 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
     <div class="clear"></div><br/>
 
     <table>
-        <tr><td colspan="2">
-        <div style="float: right">
-            <b>Show:</b>
-            <ul>
-                <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 100 sq. km)</li>
-                <li><a onclick="drawRegionsMap('auto','data2')">Absolute object count</a></li>
-            </ul>
-            <b>Zoom in to:</b>
-            <ul>
-                <li><a onclick="drawRegionsMap('world','auto')">Whole world</a></li>
-                <li><a onclick="drawRegionsMap('005','auto')">South America</a></li>
-                <li><a onclick="drawRegionsMap('013','auto')">Central America</a></li>
-                <li><a onclick="drawRegionsMap('021','auto')">North America</a></li>
-                <li><a onclick="drawRegionsMap('002','auto')">All of Africa</a></li>
-                <li><a onclick="drawRegionsMap('017','auto')">Central Africa</a></li>
-                <li><a onclick="drawRegionsMap('015','auto')">Northern Africa</a></li>
-                <li><a onclick="drawRegionsMap('018','auto')">Southern Africa</a></li>
-                <li><a onclick="drawRegionsMap('030','auto')">Eastern Asia</a></li>
-                <li><a onclick="drawRegionsMap('034','auto')">Southern Asia</a></li>
-                <li><a onclick="drawRegionsMap('035','auto')">Asia/Pacific region</a></li>
-                <li><a onclick="drawRegionsMap('143','auto')">Central Asia</a></li>
-                <li><a onclick="drawRegionsMap('145','auto')">Middle East</a></li>
-                <li><a onclick="drawRegionsMap('151','auto')">Northern Asia</a></li>
-                <li><a onclick="drawRegionsMap('154','auto')">Northern Europe</a></li>
-                <li><a onclick="drawRegionsMap('155','auto')">Western Europe</a></li>
-                <li><a onclick="drawRegionsMap('039','auto')">Southern Europe</a></li>
-            </ul>
-        </div>
-        <div id="chart1_div" style="width: 80%; height: 500px;"></div>
-        </td></tr>
+        <tr>
+            <td width="80%">
+                <div id="chart1_div" style="width: 100%; height: 500px;"></div>
+            </td>
+            <td valign="top">
+                <b>Show:</b>
+                <ul>
+                    <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 100 sq. km)</li>
+                    <li><a onclick="drawRegionsMap('auto','data2')">Absolute object count</a></li>
+                </ul>
+                <b>Zoom in to:</b>
+                <ul>
+                    <li><a onclick="drawRegionsMap('002','auto')">Africa</a></li>
+                    <li><a onclick="drawRegionsMap('142','auto')">Asia</a></li>
+                    <li><a onclick="drawRegionsMap('029','auto')">Carribean</a></li>
+                    <li><a onclick="drawRegionsMap('150','auto')">Europe</a></li>
+                    <li><a onclick="drawRegionsMap('021','auto')">Northern America</a></li>
+                    <li><a onclick="drawRegionsMap('013','auto')">Central America</a></li>
+                    <li><a onclick="drawRegionsMap('005','auto')">South America</a></li>
+                    <li><a onclick="drawRegionsMap('009','auto')">Oceania</a></li><br/>
+                    <li><a onclick="drawRegionsMap('world','auto')">Reset view</a></li>
+                </ul>
+            </td>
+        </tr>
     </table>
 
     <div class="clear"></div><br/>
 
     <table>
-        <tr><td colspan="2">
-        <div style="float: right">
-            <b>Sort by:</b>
-            <ul>
-                <li><a onclick="drawBars(false)">Object density</a><br/>(objects / 100 sq. km)</li>
-                <li><a onclick="drawBars(true)">Absolute object count</a></li>
-            </ul>
-        </div>
-        <div id="chart_bar_country_div" style="width: 80%; height: 500px;"></div>
-    </td></tr>
+        <tr>
+            <td width="80%">
+                <div id="chart_bar_country_div" style="width: 100%; height: 500px;"></div>
+            </td>
+            <td valign="top">
+                <b>Sort by:</b>
+                <ul>
+                    <li><a onclick="drawBars(false)">Object density</a><br/>(objects / 100 sq. km)</li>
+                    <li><a onclick="drawBars(true)">Absolute object count</a></li>
+                </ul>
+            </td>
+        </tr>
     </table>
 
     <div class="clear"></div><br/>
