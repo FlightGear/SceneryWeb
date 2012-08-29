@@ -77,7 +77,7 @@
     }
 
     $img = imagecreatefrompng( $fichier );
-    $width = imagesx( $img );echo $width;
+    $width = imagesx( $img );echo $fichier."--".$width;
     $height = imagesy( $img );
 
     // calculate thumbnail size
