@@ -34,7 +34,6 @@ Overall work:
 - Enable comments fields to authorize 100 in width
 - Enhance the pending submission stuff, so the maintainer can click on a URL to submit the model.
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
-- Review the names of the scripts to keep them coherent.
 - Logging options
 - Position with a preceding 0 are sometimes causing troubles. Should be accepted and squashed.
 - Have an email account for spam abuse.
