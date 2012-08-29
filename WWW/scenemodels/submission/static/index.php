@@ -151,7 +151,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset.">
-            <label for="offset">Elevation offset</label> (see <a href="../../contribute.php#offset">here</a>for more help)
+            <label for="offset">Elevation offset</label> (see <a href="../../contribute.php#offset">here</a> for more help)
             </span>
             </td>
             <td>
