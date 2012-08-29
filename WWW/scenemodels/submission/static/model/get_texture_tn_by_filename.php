@@ -9,24 +9,24 @@
 
     // Inserting libs
     require_once ('../../../inc/functions.inc.php');
-echo "d0";
+
     if (!isset($filename) || !preg_match("/[0-9a-zA-Z_.-]/", $filename))
         exit;
-echo "d01";
+
     if (!isset($mo_sig) || (strlen($mo_sig) != 64) || !preg_match("/[0-9a-z]/", $mo_sig))
         exit;
-echo "d02";
+
     $resource_rw = connect_sphere_rw();
 
     // If connection is not OK
     if ($resource_rw == '0')
         exit;
-echo "d1";
+
     // Checking the presence of sig into the database
     $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $mo_sig ."';");
     if (pg_num_rows($result) != 1)
         exit;
-echo "d2";
+
     // Now we are sure there is only 1 row
     $row = pg_fetch_row($result);
     $sqlzbase64 = $row[1];
@@ -76,7 +76,6 @@ echo "d2";
         }
     }
 
-echo "d3";
     $img = imageCreateFromPNG( $fichier );
     $width = imagesx( $img );
     $height = imagesy( $img );
@@ -92,7 +91,9 @@ echo "d3";
     imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
      
     header('Content-Type: image/png');
-    imagePNG($tmp_img);
+    imagepng($tmp_img);
+    echo $width;
+    imagedestroy($tmp_img);
     
     // Ok, now we can delete the stuff we used - at least I think so ;-)
     // This should be done at the end of the script
