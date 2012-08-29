@@ -131,7 +131,7 @@ function validateForm()
         </td>
     </tr>
     <tr>
-        <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation Offset<em>*</em></label></span></td>
+        <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation Offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a>for more help)</td>
         <td>
             <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
         </td>
