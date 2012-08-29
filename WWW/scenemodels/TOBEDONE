@@ -22,7 +22,6 @@ Static objects
 After production:
 =================
 - Will have to authorize quotes into description/comments later on, because it is frequent in the english language cf PGSQL so-called Dollar-quoting, or from the PHP side.
-- Reformat textures to have a coherent picture size (precising the original dimensions) => thumbnail
 - Keep the possibility of updating the static object, its thumbnail, or deleting it ?
 - Use the PHP empty function in complement/instead of isset, where appropriate.
 
@@ -37,7 +36,6 @@ Overall work:
 - Review the names of the scripts to keep them coherent.
 - Logging options
 - Position with a preceding 0 are sometimes causing troubles. Should be accepted and squashed.
-- Add WebGL for public access as well (3D model viewer).
 - Have an email account for spam abuse.
 - http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
