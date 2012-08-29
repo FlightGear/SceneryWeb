@@ -3,7 +3,7 @@
 <style type="text/css">
 
 #canvas {
-  width: 720px;
+  width: 570px;
   cursor:move;
   z-index: 10;
 }
@@ -24,41 +24,6 @@
   margin: 0px;
   font-size: 25px;
   font-weight:bold;
-}
-
-#author {
-  margin: 0px;
-  font-size: 12px;
-}
-
-#gallery {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 125px;
-  overflow: hidden;
-  display: block;
-  background-color: #ffffff;
-  opacity: 0.25;
-  z-index: 1;
-}
-
-.thumbnail {
-  position: absolute;
-  bottom: 20px;
-  width: 90px;
-  height: 90px;
-  margin: 5px;
-  overflow: hidden;
-  display: block;
-  border: 1px solid #3f3f5f;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.thumbnail.selected {
-  margin-bottom: 25px;
 }
 
 #text {
@@ -107,7 +72,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
      
         
 var Models = [
-  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>", setup: {eye: [-28.07, -48.23, 23.66], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45, texture_path: "get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="} }
+  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>", setup: {eye: [-28.07, 10, 25], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45, texture_path: "get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="} }
 ];
 
 var canvas, details, loading, viewer, current;
