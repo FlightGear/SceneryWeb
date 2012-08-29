@@ -153,7 +153,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         your object sitting on the ground, <strong>but with 200 meters as object AGL elevation</strong>! That's why the offset is so important.
         </li>
         <li>Chimneys are objects where offsets are frequently used, but it's also the case if you want to put an object above another one.
-        For instance, this <a href="http://scenemodels.flightgear.org/objectview.php?id=3294183">Mercedes star</a> (no ad intended here) sits on top of <a href="http://scenemodels.flightgear.org/objectview.php?id=3294182">this building</a>.
+        For instance, <a href="http://scenemodels.flightgear.org/objectview.php?id=3294183">this Mercedes star</a> (no ad intended here) sits on top of <a href="http://scenemodels.flightgear.org/objectview.php?id=3294182">this building</a>.
         So the star and the building have the same ground elevation (227.0 meters above MSL), but the star has an offset of 48 meters. 48 meters is the positive offset,
         corresponding to the height of the building on which it sits. During the next elevation computation, elevation may become another one (228 or 230), but the offset
         will stay the same and the star will always be sitting on its building, and the submitter has just nothing to change!
