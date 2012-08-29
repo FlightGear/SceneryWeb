@@ -78,7 +78,7 @@ if (!empty($model["mo_notes"])) {
             <br/>
             <object data="viewer.php?id=<?php echo $id; ?>" type="text/html" width="600px" height="300px"></object>
             <br/>
-            AC3D viewer powered by Hangar - Juan Mellado (Experimental - needs WebGL activated)
+            AC3D viewer powered by Hangar - Juan Mellado (Experimental - needs WebGL activated). Read <a href="http://en.wikipedia.org/wiki/Webgl">here to learn about WebGL</a>.
         </td>
     </tr>
 </table>
