@@ -76,8 +76,8 @@
         }
     }
 
-    $img = imageCreateFromPNG( $fichier );
-    $width = imagesx( $img );
+    $img = imagecreatefrompng( $fichier );
+    $width = imagesx( $img );echo $width;
     $height = imagesy( $img );
 
     // calculate thumbnail size
@@ -92,7 +92,7 @@
      
     header('Content-Type: image/png');
     imagepng($tmp_img);
-    echo $width;
+    
     imagedestroy($tmp_img);
     
     // Ok, now we can delete the stuff we used - at least I think so ;-)
