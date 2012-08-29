@@ -70,14 +70,14 @@
 
     while (false !== ($file = readdir($dir))) {
         // If we know the extension
-        if (isset($extension) && show_file_extension($file) == "png") {
+        if (show_file_extension($file) == "png") {
             $fichier = $target_path."/".$file;
             break;
         }
     }
 
     $img = imagecreatefrompng( $fichier );
-    $width = imagesx( $img );echo $fichier."--".$width;
+    $width = imagesx( $img );
     $height = imagesy( $img );
 
     // calculate thumbnail size
