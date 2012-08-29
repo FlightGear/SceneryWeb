@@ -540,16 +540,17 @@ function validateForm()
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
                 $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/static/model/get_texture_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
-                //$texture_file = "get_texture_from_dir.php?mo_sig=".$encoded_target_path."&amp;png_file_number=".$j;
+                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/static/model/get_texture_tn_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
+
                 $tmp = getimagesize($texture_file);
                 $width  = $tmp[0];
                 $height = $tmp[1];
 ?>
                 <a href="<?php echo $texture_file; ?>" rel="lightbox[submission]" />
                 <?php //imagethumb($texture_file) ?>
-                <img src="<?php echo $texture_file; ?>" alt="Texture #<?php echo $j; ?>" />
+                <img src="<?php echo $texture_file_tn; ?>" alt="Texture #<?php echo $j; ?>" />
 <?php
-                echo $png_file_name[$j]." (Original dimensions: ".$width."x".$height.")</a><br/>";
+                echo $png_file_name[$j]." (Original size: ".$width."x".$height.")</a><br/>";
             }
 ?>
             </center>
