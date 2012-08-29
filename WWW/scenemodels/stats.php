@@ -539,7 +539,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         $result = pg_query($query);
         while ($row = pg_fetch_assoc($result)) {
             echo "<tr>\n" .
-                    "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n" .
+                    "<td><a href=\"objectview.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n" .
                     "<td>".$row["ob_datedisplay"]."</td>\n" .
                  "</tr>\n";
         }

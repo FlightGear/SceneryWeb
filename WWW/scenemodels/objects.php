@@ -176,7 +176,7 @@
       $result = pg_query($query);
       while ($result && $row = pg_fetch_assoc($result)) {
           echo "<tr class=\"object\">\n";
-          echo "  <td><a href='http://scenemodels.flightgear.org/objectedit.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n";
+          echo "  <td><a href='http://scenemodels.flightgear.org/objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n";
           echo "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
           $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
           echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n";
