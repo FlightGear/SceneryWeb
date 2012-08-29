@@ -76,7 +76,7 @@ if (!empty($model["mo_notes"])) {
             ?>
             <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download Model</a>
             <br/>
-            <object data="viewer.php?id=<?php echo $id; ?>" type="text/html" width="600px" height="300px"></object>
+            <object data="viewer.php?id=<?php echo $id; ?>" type="text/html" width="600px" height="300px" style="overflow: hidden;"></object>
             <br/>
             AC3D viewer powered by Hangar - Juan Mellado. Read <a href="http://en.wikipedia.org/wiki/Webgl">here to learn about WebGL</a>.
         </td>
