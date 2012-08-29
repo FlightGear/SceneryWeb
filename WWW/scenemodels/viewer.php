@@ -8,42 +8,6 @@
   z-index: 10;
 }
 
-#details {
-
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-  display: block;
-  padding: 10px;
-  color: #ffffff;
-  font-family: monospace;
-  z-index: 1;
-}
-
-#name {
-  margin: 0px;
-  font-size: 25px;
-  font-weight:bold;
-}
-
-#text {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  margin-bottom: 90px;
-  padding: 10px;
-  overflow: hidden;
-  display: block;
-  color: #3f3f5f;
-  font-family: monospace;
-  font-weight:bold;
-  z-index: 2;
-}
-
-#text a{
-  color: #3f3f5f;
-}
-
 #loading {
   position: absolute;
   top: 0px;
@@ -52,8 +16,7 @@
   height: 100%;
   overflow: hidden;
   display: none;
-  background: black;
-  opacity: 0.50;
+  background: url('loader.gif') no-repeat center center;
   z-index: 100;
 }
 </style>
@@ -118,7 +81,6 @@ function onLoaded(){
 
 <body onload="onLoad();">
   <canvas id="canvas"></canvas>
-  <div id="details"></div>
   <div id="loading"></div>
 </body>
 
