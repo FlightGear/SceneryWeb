@@ -25,9 +25,9 @@ to avoid misunderstandings.
         </ul>
     </li>
     <li class="toclevel-1"><a href="#thumbnails"><span class="toctext">Contributing Thumbnails</span></a></li>
+    <li class="toclevel-1"><a href="#offset"><span class="toctext">Understanding Offset</span></a></li>
     </ul>
 </div>
-
 
 <!--</table>
 <script type="text/javascript">
@@ -102,7 +102,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         <ul>
             <li>For groupings of individual models choose a distinct, corresponding position for each of them, never mount multiple models into a single position.</li>
             <li>Textures should be in PNG format - older models which used rgb textures have been updated. <strong>The textures dimensions have to be a power of two: eg 128x256.</strong></li>
-        <!--        <li>Apron, taxiway, runway or other airport pavements are being maintained at <A HREF="http://www.x-plane.org/home/robinp/index.htm#Updates">Robin Peel's airport database</A>. -->
+            <li>Apron, taxiway, runway or other airport pavements are being maintained at <a href="http://data.x-plane.com/">XPlane Robin Peel's airport database</a>.
             <li><strong>Always choose reasonable (meaningful, descriptive) filenames for your models</strong>. At urban areas having a geometry 'tower.ac' or a texture just named 'red.png' or 'concrete.png' might prove not to be unique ;-)</li>
             <li>As a rule of thumb, try to let even a detailed, <strong>single model not exceed 1/2 MByte in total size</strong>, otherwise the simulation will face hard times when approaching densely packed areas. A typical, single office building usually can be done at (far!) less than 100 kByte;</li>
             <li><strong>Avoid spaces in file- and/or directory names.</strong></li>
@@ -129,6 +129,17 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     the respective model. JPEG's of 320x240 make our overview.<br/>
     Models are easily identified by their numeric id when you click on the
     thumbnail in the Browser view.
+    </p>
+</div>
+
+<div class="paragraph_bloc">
+    <h2><a name="offset">Understanding offset</a></h2>
+
+    <p class="body">
+    Quite a lot of people are not using the offset parameter, or don't understand why it
+    sits for. The picture below is there to give a small overview of its use, with a
+    usual example within FG.
+    <img src="http://scenery.flightgear.org/img/understanding_offset.png">
     </p>
 </div>
 <?php include 'inc/footer.php';?>
