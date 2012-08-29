@@ -20,47 +20,6 @@
   z-index: 1;
 }
 
-#name {
-  margin: 0px;
-  font-size: 25px;
-  font-weight:bold;
-}
-
-#author {
-  margin: 0px;
-  font-size: 12px;
-}
-
-#gallery {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 125px;
-  overflow: hidden;
-  display: block;
-  background-color: #ffffff;
-  opacity: 0.25;
-  z-index: 1;
-}
-
-.thumbnail {
-  position: absolute;
-  bottom: 20px;
-  width: 90px;
-  height: 90px;
-  margin: 5px;
-  overflow: hidden;
-  display: block;
-  border: 1px solid #3f3f5f;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.thumbnail.selected {
-  margin-bottom: 25px;
-}
-
 #text {
   position: absolute;
   bottom: 0px;
