@@ -160,7 +160,7 @@
         if($heading != "") $filter_text .= "&amp;heading=".$heading;
         if($model != 0) $filter_text .= "&amp;model=".$model;
         if($group != 0) $filter_text .= "&amp;group=".$group;
-        if($country != 0) $filter_text .= "&amp;country=".$country;
+        if($country != "") $filter_text .= "&amp;country=".$country;
 
         echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;";
         echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
