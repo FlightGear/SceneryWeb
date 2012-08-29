@@ -141,22 +141,22 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     usual example within FG.
     <p class="center"><img src="http://scenery.flightgear.org/img/understanding_offset.png"></p>
     In this example, we use a chimney. The chimney available as shared objects are quite high by default, in order to be
-    useable in a lot of situation. Imagine if we had to create one chimney height per situation.
+    useable in a lot of situation. Imagine if we had to create one chimney of a given height per situation.
     <ul>
         <li>The model shown has an (example) overall height of 200 meters.</li>
-        <li>Unfortunately, you want it to have an elevation of 150 meters Above Ground Level (AGL) to fit your situation.</li>
-        <li>So you have to "sink" your object in the ground of 150-200=50 meters (the AGL elevation-the model height).</li>
-        <li>This -50 is the offset you have to give in our webforms, while the elevation is the ground elevation (eg 100 meters in our example).</li>
+        <li>Unfortunately, you want it to have an elevation of 150 meters Above Ground Level (AGL) to fit your situations.</li>
+        <li>So you have to "sink" your object in the ground of 150-200=-50 meters (the AGL elevation minus the model height).</li>
+        <li>This -50 meter is <strong>the offset</strong> you have to give in our webforms, while the elevation is the ground level elevation (eg 100 meters in our example).</li>
         <li>Please NEVER USE "hand crafted" elevation (in that case, you could think about putting 50m as elevation, and 0 as an offset),
-        because the elevation of all objects are regularly re-computed to match the Data Elevation Model (DEM) we use. At that occasion, the elevation of
-        this object will be readjusted and replaced to 100 meters (or 102, or whatever, if the DEM or computation gets more precise). You would then see
-        your object sitting on the ground, but with 200 meters as object elevation! That's why the offset is so important.
+        because the elevation of each object in our database is regularly re-computed to match the best Data Elevation Model (DEM) available. At that occasion, the elevation of
+        this object would be readjusted and replaced by 100 meters (or 102, or whatever, if the DEM or computation gets more precise). You would then see
+        your object sitting on the ground, <strong>but with 200 meters as object AGL elevation</strong>! That's why the offset is so important.
         </li>
         <li>Chimneys are objects where offsets are frequently used, but it's also the case if you want to put an object above another one.
-        For instance, this <a href="http://scenemodels.flightgear.org/objectview.php?id=3294183">Mercedes star</a> sits on top of <a href="http://scenemodels.flightgear.org/objectview.php?id=3294182">this building</a>.
-        So the star and the building have the same ground elevation (227.0 meters AMSL), but the star has an offset of 48 meters. 48 meters is the positive offset,
+        For instance, this <a href="http://scenemodels.flightgear.org/objectview.php?id=3294183">Mercedes star</a> (no ad intended here) sits on top of <a href="http://scenemodels.flightgear.org/objectview.php?id=3294182">this building</a>.
+        So the star and the building have the same ground elevation (227.0 meters above MSL), but the star has an offset of 48 meters. 48 meters is the positive offset,
         corresponding to the height of the building on which it sits. During the next elevation computation, elevation may become another one (228 or 230), but the offset
-        will stay the same and the start will always be sitting on its building.
+        will stay the same and the star will always be sitting on its building, and the submitter has just nothing to change!
         </li>
     </ul>
     </p>
