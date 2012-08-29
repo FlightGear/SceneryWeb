@@ -141,7 +141,7 @@ if (isset($model_name)
     $subject = "[FG Scenery Submission forms] Automatic shared model update request: needs validation.";
 
     // Correctly format the data for the mail.
-    $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$model_name;
+    $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_name;
     $html_object_url = htmlspecialchars($object_url);
 
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
@@ -207,7 +207,7 @@ if (isset($model_name)
 
         // Correctly set the object URL.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
-        $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$model_id;
+        $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id;
         $html_family_url = htmlspecialchars($family_url);
         $html_object_url = htmlspecialchars($object_url);
 
@@ -461,7 +461,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
-            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php $model_id = get_object_model_from_id($id_to_update); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = get_object_model_from_id($id_to_update); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to update"><label>Map</label></span></center></td>
             <td><center><object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
@@ -611,7 +611,7 @@ else {
                 </tr>
                 <tr>
                     <td><span title="This is the picture of the object you want to update"><a style="cursor: help; ">Picture</a></span></td>
-                    <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
+                    <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
                     <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
                     <td>
                     <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
@@ -685,7 +685,7 @@ else {
                 </tr>
                 <tr>
                     <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
-                    <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>" alt="Thumbnail"/></a></td>
+                    <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>" alt="Thumbnail"/></a></td>
                     <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
                     <td>
                     <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>

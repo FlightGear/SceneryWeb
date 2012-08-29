@@ -225,7 +225,7 @@ if (isset($_POST["action"])) {
                         "at 1230Z today or tomorrow if this time has already passed." . "\r\n" .
                         "You can follow Terrasync's data update at the following url: " . "\r\n" .
                         "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
-                        "You can also check the model directly at http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$mo_id[0].""."\r\n" .
+                        "You can also check the model directly at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$mo_id[0].""."\r\n" .
                         "Thanks for your help in making FG better!";
 
                 $message = wordwrap($message0, 77, "\r\n");

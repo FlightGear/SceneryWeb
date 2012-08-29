@@ -37,9 +37,9 @@ Please, read the following:
     <li>Choose the correct family for your model: static if the model exists only once in the world (eg: Eiffel Tower) or a logical shared family (if it can be used elsewhere).</li>
     <li>Choose the author for the model. Please contact us if you're not listed here. If you are building a new model based on another one, put the your name here, and the real author's one into the 'yours in the "Description" field.</li>
     <li>The country is the one where the model you're adding is located, not yours!</li>
-    <li>The description is very important. Has to be short and complete, it will appear in the "name" field for instance <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=2551">here</a> as well as on the maps.</li>
+    <li>The description is very important. Has to be short and complete, it will appear in the "name" field for instance <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=2551">here</a> as well as on the maps.</li>
     <li>Use the terrain shipped with FlightGear/Terrasync, and not any custom elevation model you may have installed/compiled, or model will be sunk/floating.</li>
-    <li>The comment is important too, you can be a bit more talkative on your model (not pages!). It appears as "Comment" <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=2319">here</a>, so don't just say: please commit!</li>
+    <li>The comment is important too, you can be a bit more talkative on your model (not pages!). It appears as "Comment" <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=2319">here</a>, so don't just say: please commit!</li>
     <li>You HAVE TO add at least 2 files: an AC3D file of your model and a JPEG thumbnail (PNG texture(s) and XML file if any). Files have to share a common name, for instance Rochester_Castle_Keep.ac, Rochester_Castle_Keep.xml, Rochester_Castle_Keep_thumbnail.jpg (thumbnail written as is)). If you have multiple textures, name them Rochester_Castle_Keep1.png, with an increasing figure.</li>
     <li>JPEG has to be a 320*240 exciting thumbnail.</li>
     <li>PNG size must be a power of 2 in width and height.</li>

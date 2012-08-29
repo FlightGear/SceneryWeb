@@ -77,7 +77,7 @@
                             }
                             else if($j == 4) {
                                 $model = object_name($data_from_query);
-                                echo "<td><a href=\"http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$data_from_query."\" >".$model."</a></td>\n";
+                                echo "<td><a href=\"http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$data_from_query."\" >".$model."</a></td>\n";
                             }
                             else if($j == 5) { echo ""; } // I have to admit I don't know why I wrote this
                             else if($j != 1) { echo "<td><center>".$data_from_query."</center></td>\n"; } // Nor this. Snip. But must be a reason why.

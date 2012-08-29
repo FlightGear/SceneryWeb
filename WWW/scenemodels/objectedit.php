@@ -56,7 +56,7 @@
 <?php
             $result = pg_query("SELECT mo_id, mo_path FROM fgs_models WHERE mo_id = '$object[ob_model]';");
             $row = pg_fetch_assoc($result);
-            print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
+            print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
 ?>
         </td>
     </tr>

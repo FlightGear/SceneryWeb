@@ -153,7 +153,7 @@
 // If there is no error, generating SQL to be inserted into the database pending requests table.
 if (!$error) {
     echo "<br /><p class=\"ok\">Data seems to be OK to be inserted in the database</p>";
-    
+
     // Detect if the object is already in the database
     if (detect_already_existing_object($lat, $long, $gndelev, 0, $heading, $model_id)) {
         echo "<p class=\"warning\">The object already exists in the database!</p>";
@@ -219,7 +219,7 @@ if (!$error) {
 
         // Correctly format the data for mail.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
-        $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$model_id;
+        $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id;
         $html_family_url = htmlspecialchars($family_url);
         $html_object_url = htmlspecialchars($object_url);
 
@@ -284,7 +284,7 @@ if (!$error) {
 
             // Correctly set the object URL.
             $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
-            $object_url = "http://".$_SERVER['SERVER_NAME']."/modeledit.php?id=".$model_id;
+            $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id;
             $html_family_url = htmlspecialchars($family_url);
             $html_object_url = htmlspecialchars($object_url);
 
