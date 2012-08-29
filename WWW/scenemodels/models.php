@@ -47,18 +47,18 @@
           if ($row["mo_modelsize"]>0){
               echo "<li><b>Model: </b>Available in database</li>\n";
 
-              if ($row["mo_shared"]==0){	
+              if ($row["mo_shared"]==0){
                   $modelid = $row["mo_id"];
                   $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
                   $query.= "ST_X(wkb_geometry) AS ob_lon ";
                   $query.= "FROM fgs_objects ";
                   $query.= "WHERE ob_model=".$modelid;
                   $chunks=pg_query($query);
-                    
+
                   while ($chunk = pg_fetch_assoc($chunks)) {
                       $lat=floor($chunk["ob_lat"]/10)*10;
                       $lon=floor($chunk["ob_lon"]/10)*10;
-                      
+
                       if ($lon < 0){
                           $lon=sprintf("w%03d", 0-$lon);
                       } else {
@@ -78,10 +78,10 @@
           } else {
               echo "<li><b>Model: </b>Not present in database</li>\n";
           }
-            
+
           echo "</ul>";
 
-          echo "<p align=\"right\"><a href=\"modeledit.php?id=".$row["mo_id"]."\">Edit</a></p>\n";
+          echo "<a href=\"modeledit.php?id=".$row["mo_id"]."\">Edit</a>\n";
           echo "</td>\n";
           echo "</tr>\n";
       }
