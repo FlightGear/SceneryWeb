@@ -3,7 +3,7 @@
 <style type="text/css">
 
 #canvas {
-  width: 720px;
+  width: 570px;
   cursor:move;
   z-index: 10;
 }
@@ -18,6 +18,12 @@
   color: #ffffff;
   font-family: monospace;
   z-index: 1;
+}
+
+#name {
+  margin: 0px;
+  font-size: 25px;
+  font-weight:bold;
 }
 
 #text {
@@ -51,13 +57,22 @@
   z-index: 100;
 }
 </style>
-<script type="text/javascript" src="../../../inc/hangar/gl-matrix-min.js"></script>
-<script type="text/javascript" src="../../../inc/hangar/polyfill.js"></script>
-<script type="text/javascript" src="../../../inc/hangar/viewer.js"></script>
+<script type="text/javascript" src="inc/hangar/gl-matrix-min.js"></script>
+<script type="text/javascript" src="inc/hangar/polyfill.js"></script>
+<script type="text/javascript" src="inc/hangar/viewer.js"></script>
+
+<?php
+if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
+    $id = $_REQUEST['id'];
+}
+?>
 
 <script type="text/javascript">
+
+     
+        
 var Models = [
-  { file: "get_ac3d_from_dir.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>", setup: {eye: [-28.07, -48.23, 23.66], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45, texture_path: "get_texture_by_filename.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>&name="} }
+  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>", setup: {eye: [-28.07, 10, 25], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45, texture_path: "get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="} }
 ];
 
 var canvas, details, loading, viewer, current;

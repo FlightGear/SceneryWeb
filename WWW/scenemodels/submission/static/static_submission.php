@@ -150,7 +150,7 @@ if (isset($_POST["action"])) {
 
                 $result_rw_ob = @pg_query ($resource_rw, $query_rw_ob_with_mo_id);
                 $ret_ob_id = pg_fetch_row ($result_rw_ob);
-                $query_ob_text = "update fgs_objects set ob_text = $$". object_name($mo_id[0]) ."$$ where ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
+                $query_ob_text = "UPDATE fgs_objects SET ob_text = $$". object_name($mo_id[0]) ."$$ WHERE ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
                 $result_obtext_update = @pg_query ($resource_rw, $query_ob_text);
 
                 if((!$result_rw_mo) || (!$result_rw_ob)) {
@@ -539,17 +539,18 @@ function validateForm()
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
-                $texture_file = "http://scenemodels.flightgear.org/submission/static/model/get_texture_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
-                //$texture_file = "get_texture_from_dir.php?mo_sig=".$encoded_target_path."&amp;png_file_number=".$j;
-                $tmp = getimagesize($texture_file); // (returning false right now)
+                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/static/model/get_texture_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
+                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/static/model/get_texture_tn_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
+
+                $tmp = getimagesize($texture_file);
                 $width  = $tmp[0];
                 $height = $tmp[1];
 ?>
                 <a href="<?php echo $texture_file; ?>" rel="lightbox[submission]" />
                 <?php //imagethumb($texture_file) ?>
-                <img src="<?php echo $texture_file; ?>" alt="Texture #<?php echo $j; ?>" />
+                <img src="<?php echo $texture_file_tn; ?>" alt="Texture #<?php echo $j; ?>" />
 <?php
-                echo $png_file_name[$j]." (Original dimensions: ".$width."x".$height.")</a><br/>";
+                echo $png_file_name[$j]." (Original size: ".$width."x".$height.")</a><br/>";
             }
 ?>
             </center>
