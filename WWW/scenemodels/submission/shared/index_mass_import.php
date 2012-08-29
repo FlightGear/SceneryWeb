@@ -66,6 +66,10 @@ function validateForm()
       latest version, it can't - yet - been taken into consideration. It's on
       our TODO list.
     </li>
+    <li>
+        Correct line: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03<br />
+        Incorrect line for now: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03 0.0 0.0
+    </li>
     <li>Finally, add 100 lines maximum per submission!</li>
     <li>
       You can copy/paste objects positions coming from different STG files,
