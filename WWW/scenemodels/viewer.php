@@ -69,17 +69,17 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
 
 <script type="text/javascript">
 
-     
-        
+
+
 var Models = [
-  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>", poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45, texture_path: "get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="} }
+  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>", poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45, texture_path: "get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="}
 ];
 
 var canvas, details, loading, viewer, current;
 
 function onLoad(){
   canvas = document.getElementById("canvas");
-  
+
   // check if the browser support WebGL
   if (!window.WebGLRenderingContext) {
        window.location = "http://get.webgl.org";
@@ -88,7 +88,7 @@ function onLoad(){
     loading = document.getElementById("loading");
     viewer = new HG.Viewer(canvas);
     current = 0;
-    
+
     resize();
     showModel(Models[current]);
   }
