@@ -80,20 +80,27 @@
     $width = imagesx( $img );
     $height = imagesy( $img );
 
-    // calculate thumbnail size
-    $new_width = 128;
-    $new_height = floor( $height * ( $new_width / $width ) );
-
-    // create a new temporary image
-    $tmp_img = imagecreatetruecolor( $new_width, $new_height );
-
-    // copy and resize old image into new image 
-    imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
-     
     header('Content-Type: image/png');
-    imagepng($tmp_img);
     
-    imagedestroy($tmp_img);
+    if($width>256) {
+        // calculate thumbnail size
+        $new_width = 256;
+        $new_height = floor( $height * ( $new_width / $width ) );
+
+        // create a new temporary image
+        $tmp_img = imagecreatetruecolor( $new_width, $new_height );
+
+        // copy and resize old image into new image 
+        imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+         
+        
+        imagepng($tmp_img);
+        
+        imagedestroy($tmp_img);
+    }
+    else {
+        readfile($fichier);
+    }
     
     // Ok, now we can delete the stuff we used - at least I think so ;-)
     // This should be done at the end of the script
