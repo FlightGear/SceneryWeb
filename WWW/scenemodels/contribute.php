@@ -158,6 +158,9 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         corresponding to the height of the building on which it sits. During the next elevation computation, elevation may become another one (228 or 230), but the offset
         will stay the same and the star will always be sitting on its building, and the submitter has just nothing to change!
         </li>
+        <li>
+        For those wondering, the offset is applied on export by Terrasync, which computes the (easy) operation ELEV+OFFSET (whether offset is positive or negative) and puts the result into the STG file.
+        </li>
     </ul>
     </p>
 </div>
