@@ -79,13 +79,19 @@ var canvas, details, loading, viewer, current;
 
 function onLoad(){
   canvas = document.getElementById("canvas");
-  details = document.getElementById("details");
-  loading = document.getElementById("loading");
-  viewer = new HG.Viewer(canvas);
-  current = 0;
-
-  resize();
-  showModel(Models[current]);
+  
+  // check if the browser support WebGL
+  if (!window.WebGLRenderingContext) {
+       window.location = "http://get.webgl.org";
+  } else {
+    details = document.getElementById("details");
+    loading = document.getElementById("loading");
+    viewer = new HG.Viewer(canvas);
+    current = 0;
+    
+    resize();
+    showModel(Models[current]);
+  }
 };
 
 function resize(){

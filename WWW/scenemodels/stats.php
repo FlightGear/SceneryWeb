@@ -442,7 +442,8 @@ function drawBars(sorting) {
             0: {
                 color: 'blue',
                 title: 'Object density (objects per 100 sq. km)',
-                baseline: 76.56
+                baseline: <?php echo (($objects/148940000)*10000); ?>,
+                baselineColor: 'blue'
             },
             1: {
                 color: 'red',
@@ -451,7 +452,7 @@ function drawBars(sorting) {
             }
         },
         backgroundColor: 'none',
-        chartArea: {width:"80%"},
+        chartArea: {top: 35, height: 350, width: '75%'},
         hAxis: { slantedTextAngle: 50},
         focusTarget: 'category'
     };
@@ -504,15 +505,17 @@ function drawVisualization() {
                     series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1},2:{targetAxisIndex:1}},
                     vAxes: {
                         0: {
-                            color: 'blue'
+                            color: 'blue',
+                            title: 'Objects'
                         },
                         1: {
                             color: 'red',
-                            logScale: true
+                            title: 'Models and signs'
                         }
                     },
                     pointSize: 5,
                     backgroundColor: 'none',
+                    chartArea: {top: 35, height: 430},
                     focusTarget: 'category'
                   }
           );
@@ -527,7 +530,7 @@ google.setOnLoadCallback(drawVisualization);
 echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".number_format($models, '0', '', ' ')." models</a> placed in the scenery as <a href=\"objects.php\">".number_format($objects, '0', '', ' ')." seperate objects</a>, plus ".number_format($signs, '0', '', ' ')." taxiway signs.</p>\n";
 ?>
     <table class="float">
-        <tr><th colspan="2">Recently Updated Objects</th></tr>
+        <tr><th colspan="2">Recently updated objects</th></tr>
 <?php
         $query = "SELECT ob_id, ob_text, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay ";
         $query.= "FROM fgs_objects ";
@@ -543,7 +546,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
 ?>
     </table>
     <table class="float">
-        <tr><th colspan="2">Recently Updated Models</th></tr>
+        <tr><th colspan="2">Recently updated models</th></tr>
 <?php
         $query = "SELECT mo_id, mo_name, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay ";
         $query.= "FROM fgs_models ";
@@ -558,26 +561,28 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         }
 ?>
     </table>
-    <div class="clear"></div>
+    
+    <div class="clear"></div><br/>
+    
     <table class="float">
-        <tr><th colspan="2">Objects by country</th></tr>
-        <tr><td colspan="2">Click a country to remove it from the pie.</td></tr>
-        <tr><td colspan="2"><div id="chart_pie_div" style="width: 100%; height: 250px;"></div></td></tr>
+        <tr><th>Objects by country</th></tr>
+        <tr><td>Click a country to remove it from the pie.</td></tr>
+        <tr><td><div id="chart_pie_div" style="width: 100%; height: 250px;"></div></td></tr>
     </table>
     <table class="float">
-        <tr><th colspan="2">Models by author</th></tr>
-        <tr><td colspan="2">Click an author to remove him from the pie.</td></tr>
-        <tr><td colspan="2"><div id="chart_pie_authors_div" style="width: 100%; height: 250px;"></div></td></tr>
+        <tr><th>Models by author</th></tr>
+        <tr><td>Click an author to remove him from the pie.</td></tr>
+        <tr><td><div id="chart_pie_authors_div" style="width: 100%; height: 250px;"></div></td></tr>
     </table>
 
     <div class="clear"></div><br/>
 
     <table>
         <tr>
-            <td width="80%">
+            <td width="80%" style="border: 0px;">
                 <div id="chart1_div" style="width: 100%; height: 500px;"></div>
             </td>
-            <td valign="top">
+            <td valign="top" style="border: 0px;">
                 <b>Show:</b>
                 <ul>
                     <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 100 sq. km)</li>
@@ -603,10 +608,11 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
 
     <table>
         <tr>
-            <td width="80%">
+            <td width="80%" style="border: 0px;">
                 <div id="chart_bar_country_div" style="width: 100%; height: 500px;"></div>
             </td>
-            <td valign="top">
+            <td valign="top" style="border: 0px;">
+                <p>The blue horizontal line indicates the world average object density.</p>
                 <b>Sort by:</b>
                 <ul>
                     <li><a onclick="drawBars(false)">Object density</a><br/>(objects / 100 sq. km)</li>
@@ -619,10 +625,12 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
     <div class="clear"></div><br/>
 
     <table>
-        <tr><th colspan="2">Time evolution</th></tr>
-        <tr><td colspan="2">
-        <div id="chart_objects_div" style="width: 100%; height: 500px;"></div>
-    </td></tr>
+        <tr><th>Time evolution</th></tr>
+        <tr>
+            <td>
+                <div id="chart_objects_div" style="width: 100%; height: 500px;"></div>
+            </td>
+        </tr>
     </table>
 
     <div class="clear"></div>
