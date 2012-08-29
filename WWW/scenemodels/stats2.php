@@ -525,8 +525,40 @@ google.setOnLoadCallback(drawVisualization);
 <?php
 
 echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".number_format($models, '0', '', ' ')." models</a> placed in the scenery as <a href=\"objects.php\">".number_format($objects, '0', '', ' ')." seperate objects</a>, plus ".number_format($signs, '0', '', ' ')." taxiway signs.</p>\n";
-
 ?>
+    <table class="float">
+        <tr><th colspan="2">Recently Updated Objects</th></tr>
+<?php
+        $query = "SELECT ob_id, ob_text, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay ";
+        $query.= "FROM fgs_objects ";
+        $query.= "ORDER BY ob_modified DESC ";
+        $query.= "LIMIT 10";
+        $result = pg_query($query);
+        while ($row = pg_fetch_assoc($result)) {
+            echo "<tr>\n" .
+                    "<td><a href=\"objectedit.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n" .
+                    "<td>".$row["ob_datedisplay"]."</td>\n" .
+                 "</tr>\n";
+        }
+?>
+    </table>
+    <table class="float">
+        <tr><th colspan="2">Recently Updated Models</th></tr>
+<?php
+        $query = "SELECT mo_id, mo_name, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay ";
+        $query.= "FROM fgs_models ";
+        $query.= "ORDER BY mo_modified DESC ";
+        $query.= "LIMIT 10";
+        $result = pg_query($query);
+        while ($row = pg_fetch_assoc($result)){
+            echo "<tr>\n" .
+                    "<td><a href=\"modeledit.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a></td>\n" .
+                    "<td>".$row["mo_datedisplay"]."</td>\n" .
+                "</tr>\n";
+        }
+?>
+    </table>
+    <div class="clear"></div>
     <table class="float">
         <tr><th colspan="2">Objects by country</th></tr>
         <tr><td colspan="2">Click a country to remove it from the pie.</td></tr>
