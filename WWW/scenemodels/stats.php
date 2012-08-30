@@ -441,7 +441,7 @@ function drawBars(sorting) {
         vAxes: {
             0: {
                 color: 'blue',
-                title: 'Object density (objects per 100 sq. km)',
+                title: 'Object density (objects per 10,000 sq. km)',
                 baseline: <?php echo (($objects/148940000)*10000); ?>,
                 baselineColor: 'blue'
             },
@@ -585,7 +585,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
             <td valign="top" style="border: 0px;">
                 <b>Show:</b>
                 <ul>
-                    <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 100 sq. km)</li>
+                    <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 10,000 sq. km)</li>
                     <li><a onclick="drawRegionsMap('auto','data2')">Absolute object count</a></li>
                 </ul>
                 <b>Zoom in to:</b>
@@ -615,7 +615,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
                 <p>The blue horizontal line indicates the world average object density.</p>
                 <b>Sort by:</b>
                 <ul>
-                    <li><a onclick="drawBars(false)">Object density</a><br/>(objects / 100 sq. km)</li>
+                    <li><a onclick="drawBars(false)">Object density</a><br/>(objects / 10,000 sq. km)</li>
                     <li><a onclick="drawBars(true)">Absolute object count</a></li>
                 </ul>
             </td>
