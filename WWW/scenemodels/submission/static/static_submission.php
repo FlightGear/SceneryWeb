@@ -558,7 +558,7 @@ function validateForm()
     </tr>
     <tr>
         <td>Leave a comment to the submitter</td>
-        <td><input type="text" name="maintainer_comment" size="100" value="Drop a comment to the submitter" onchange="checkComment(this)"/></td>
+        <td><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" onchange="checkComment(this)"/></td>
     </tr>
     <tr>
         <td>Action</td>
