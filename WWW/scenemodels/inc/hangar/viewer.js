@@ -1926,7 +1926,8 @@ HG.Viewer.prototype.show = function(filename, setup, callback){
 HG.Viewer.prototype.onModelLoaded = function(data, params){
   var file = new AC.File(data, params.setup.texture_path),
       scene = new HG.Scene(file),
-      camera = new HG.Camera( params.setup || this.fitToBoundingBox(scene) );
+      camera = new HG.Camera(this.fitToBoundingBox(scene) );
+      //camera.texPath = setup.texture_path;
 
   this.renderer.setScene( this.getPath(params.filename), scene, camera);
 

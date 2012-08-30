@@ -35,7 +35,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
 
 
 var Models = [
-  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>", setup: {eye: [-28.07, 10, 25], poi: [6.86, 3.30, -0.02], up:[-0.70, 0.50, 0.50], fov: 45, texture_path: "get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="} }
+  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>", setup: {texture_path: "get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="} }
 ];
 
 var canvas, details, loading, viewer, current;
