@@ -291,12 +291,11 @@ $co_array["Timor-Leste"]='NA ';
         $row    = pg_fetch_assoc($result);
         $signs  = $row["count"];
 
-        $query = "SELECT count(ob_id) AS count, co_name, co_code ";
-        $query.= "FROM fgs_objects, fgs_countries ";
-        $query.= "WHERE ob_country=co_code ";
-        $query.= "GROUP BY co_code, co_name ";
-        $query.= "HAVING count(ob_id) > 0 ";
-        $query.= "ORDER BY count DESC ";
+        $query = "SELECT COUNT(ob_id) AS count, co_name " .
+                 "FROM fgs_objects, fgs_countries " .
+                 "WHERE ob_country = co_code " .
+                 "GROUP BY co_code " .
+                 "ORDER BY count DESC ";
         $result = pg_query($resource_r, $query);
 
         $list = "";
@@ -344,12 +343,11 @@ $co_array["Timor-Leste"]='NA ';
     var dataPie = google.visualization.arrayToDataTable([
         ['Country', 'Objects'],
         <?php
-        $query = "SELECT count(ob_id) AS count, co_name, co_code ";
-        $query.= "FROM fgs_objects, fgs_countries ";
-        $query.= "WHERE ob_country=co_code ";
-        $query.= "GROUP BY co_code, co_name ";
-        $query.= "HAVING count(ob_id) > 0 ";
-        $query.= "ORDER BY count DESC ";
+        $query = "SELECT count(ob_id) AS count, co_name " .
+                 "FROM fgs_objects, fgs_countries " .
+                 "WHERE ob_country=co_code " .
+                 "GROUP BY co_code " .
+                 "ORDER BY count DESC ";
         $result = pg_query($resource_r, $query);
 
         $list = "";
@@ -362,11 +360,11 @@ $co_array["Timor-Leste"]='NA ';
     var dataPieAuthors = google.visualization.arrayToDataTable([
         ['Author', 'Objects'],
         <?php
-        $query = "SELECT count(mo_id) as count, au_name, au_id ";
-        $query.= "FROM fgs_models,fgs_authors ";
-        $query.= "WHERE mo_author=au_id ";
-        $query.= "GROUP BY au_id,au_name ";
-        $query.= "ORDER BY count DESC ";
+        $query = "SELECT COUNT(mo_id) AS count, au_name" .
+                 "FROM fgs_models, fgs_authors" .
+                 "WHERE mo_author = au_id" .
+                 "GROUP BY au_id" .
+                 "ORDER BY count DESC";
         $result = pg_query($resource_r, $query);
 
         $list = "";
@@ -411,13 +409,12 @@ function drawBars(sorting) {
     var dataBarCountry = google.visualization.arrayToDataTable([
       ['Country', 'Object density', 'Objects'],
       <?php
-        $query = "SELECT count(ob_id) AS count, co_name, co_code ";
-        $query.= "FROM fgs_objects, fgs_countries ";
-        $query.= "WHERE ob_country=co_code ";
-        $query.= "GROUP BY co_code, co_name ";
-        $query.= "HAVING count(ob_id) > 0 ";
-        $query.= "ORDER BY count DESC ";
-        $query.= "LIMIT 20 ";
+        $query = "SELECT count(ob_id) AS count, co_name " .
+                 "FROM fgs_objects, fgs_countries " .
+                 "WHERE ob_country = co_code " .
+                 "GROUP BY co_code " .
+                 "ORDER BY count DESC " .
+                 "LIMIT 20 ";
         $result = pg_query($resource_r, $query);
 
         $list = "";
@@ -532,10 +529,10 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
     <table class="float">
         <tr><th colspan="2">Recently updated objects</th></tr>
 <?php
-        $query = "SELECT ob_id, ob_text, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay ";
-        $query.= "FROM fgs_objects ";
-        $query.= "ORDER BY ob_modified DESC ";
-        $query.= "LIMIT 10";
+        $query = "SELECT ob_id, ob_text, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay " .
+                 "FROM fgs_objects " .
+                 "ORDER BY ob_modified DESC " .
+                 "LIMIT 10";
         $result = pg_query($query);
         while ($row = pg_fetch_assoc($result)) {
             echo "<tr>\n" .
@@ -548,10 +545,10 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
     <table class="float">
         <tr><th colspan="2">Recently updated models</th></tr>
 <?php
-        $query = "SELECT mo_id, mo_name, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay ";
-        $query.= "FROM fgs_models ";
-        $query.= "ORDER BY mo_modified DESC ";
-        $query.= "LIMIT 10";
+        $query = "SELECT mo_id, mo_name, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay " .
+                 "FROM fgs_models " .
+                 "ORDER BY mo_modified DESC " .
+                 "LIMIT 10";
         $result = pg_query($query);
         while ($row = pg_fetch_assoc($result)){
             echo "<tr>\n" .
