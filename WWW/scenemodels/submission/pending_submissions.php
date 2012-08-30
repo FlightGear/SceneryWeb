@@ -7,7 +7,7 @@ require_once('../inc/functions.inc.php');
 $resource_r = connect_sphere_r();
 
 // Querying pending requests
-$pending_queries = "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests ORDER BY spr_id INC;";
+$pending_queries = "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests ORDER BY spr_id ASC;";
 $resultr = @pg_query ($resource_r, $pending_queries);
 
 // Talking back to submitter.
