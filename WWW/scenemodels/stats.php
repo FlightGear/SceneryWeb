@@ -362,7 +362,7 @@ $co_array["Timor-Leste"]='NA ';
         <?php
         $query = "SELECT COUNT(mo_id) AS count, au_name " .
                  "FROM fgs_models, fgs_authors " .
-                 "WHERE mo_author = au_id" .
+                 "WHERE mo_author = au_id " .
                  "GROUP BY au_id " .
                  "ORDER BY count DESC";
         $result = pg_query($resource_r, $query);
