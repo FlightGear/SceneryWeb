@@ -15,15 +15,15 @@ if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))) {
         $gpresult = pg_query($groupquery);
         $row = pg_fetch_assoc($gpresult);
         $title = "Model Browser: ".$row['mg_name'];
-        $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models WHERE mo_shared = ".$_REQUEST['shared']." ORDER BY mo_id LIMIT 100 OFFSET $offset;";
+        $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models WHERE mo_shared = ".$_REQUEST['shared']." ORDER BY mo_id LIMIT 99 OFFSET $offset;";
     }
     else {
     $title = "FlightGear Scenery Static Model Browser";
-    $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models WHERE mo_shared = 0 ORDER BY mo_id LIMIT 100 OFFSET $offset;";
+    $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models WHERE mo_shared = 0 ORDER BY mo_id LIMIT 99 OFFSET $offset;";
     }
 }
 else {
-    $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models ORDER BY mo_id LIMIT 100 OFFSET $offset;";
+    $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models ORDER BY mo_id LIMIT 99 OFFSET $offset;";
     $title = "FlightGear Scenery Model Browser";
 }
 ?>
@@ -32,8 +32,8 @@ else {
 <table>
     <tr class="bottom">
         <td colspan="9" align="center">
-        <a href="modelbrowser.php?offset=<?php echo $offset-100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a>
-        <a href="modelbrowser.php?offset=<?php echo $offset+100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset-99;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset+99;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
         </td>
     </tr>
     <tr>
@@ -59,8 +59,8 @@ else {
     </tr>
     <tr class="bottom">
         <td colspan="9" align="center">
-        <a href="modelbrowser.php?offset=<?php echo $offset-100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a>
-        <a href="modelbrowser.php?offset=<?php echo $offset+100;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset-99;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset+99;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
         </td>
     </tr>
 </table>
