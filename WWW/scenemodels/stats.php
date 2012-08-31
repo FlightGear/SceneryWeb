@@ -360,8 +360,8 @@ $co_array["Timor-Leste"]='NA ';
     var dataPieAuthors = google.visualization.arrayToDataTable([
         ['Author', 'Objects'],
         <?php
-        $query = "SELECT COUNT(mo_id) AS count, au_name" .
-                 "FROM fgs_models, fgs_authors" .
+        $query = "SELECT COUNT(mo_id) AS count, au_name " .
+                 "FROM fgs_models, fgs_authors " .
                  "WHERE mo_author = au_id" .
                  "GROUP BY au_id " .
                  "ORDER BY count DESC";
