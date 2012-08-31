@@ -329,12 +329,16 @@ $co_array["Timor-Leste"]='NA ';
     if (regionId != '[object Event]') {
         options['region'] = regionId;
     }
-    var chart1 = new google.visualization.GeoChart(document.getElementById('chart1_div'));
+    var map = new google.visualization.GeoChart(document.getElementById('map_div'));
+    google.visualization.events.addListener(map, "error", function errorHandler(e) {
+        google.visualization.errors.removeError(e.id);
+    });
+
     if (worldmap === "data2") {
-        chart1.draw(data2, options);
+        map.draw(data2, options);
     }
     if (worldmap === "data1") {
-        chart1.draw(data1, options);
+        map.draw(data1, options);
     }
 };
 
@@ -577,7 +581,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
     <table>
         <tr>
             <td width="80%" style="border: 0px;">
-                <div id="chart1_div" style="width: 100%; height: 500px;"></div>
+                <div id="map_div" style="width: 100%; height: 500px;"></div>
             </td>
             <td valign="top" style="border: 0px;">
                 <b>Show:</b>
