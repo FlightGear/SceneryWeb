@@ -347,12 +347,7 @@ $co_array["Timor-Leste"]='NA ';
     var dataPie = google.visualization.arrayToDataTable([
         ['Country', 'Objects'],
         <?php
-        $query = "SELECT count(ob_id) AS count, co_name " .
-                 "FROM fgs_objects, fgs_countries " .
-                 "WHERE ob_country=co_code " .
-                 "GROUP BY co_code " .
-                 "ORDER BY count DESC ";
-        $result = pg_query($resource_r, $query);
+        pg_result_seek($result,0);
 
         $list = "";
         while ($row = pg_fetch_assoc($result)) {
