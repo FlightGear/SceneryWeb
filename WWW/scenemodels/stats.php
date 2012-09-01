@@ -296,7 +296,7 @@ $co_array["Timor-Leste"]='NA ';
                  "WHERE ob_country = co_code AND co_three IS NOT NULL " .
                  "GROUP BY co_code " .
                  "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
-                 "ORDER BY density DESC ";
+                 "ORDER BY count DESC ";
         $result = pg_query($resource_r, $query);
 
         $list = "";
@@ -409,7 +409,7 @@ function drawBars(sorting) {
       <?php
         $query = "SELECT count(ob_id) AS count, co_name " .
                  "FROM fgs_objects, fgs_countries " .
-                 "WHERE ob_country = co_code " .
+                 "WHERE ob_country = co_code AND ob_country != 'zz' " .
                  "GROUP BY co_code " .
                  "ORDER BY count DESC " .
                  "LIMIT 20 ";
