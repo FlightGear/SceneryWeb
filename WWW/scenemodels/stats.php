@@ -291,19 +291,18 @@ $co_array["Timor-Leste"]='NA ';
         $row    = pg_fetch_assoc($result);
         $signs  = $row["count"];
 
-        $query = "SELECT COUNT(ob_id) AS count, co_name " .
+        $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
                  "FROM fgs_objects, fgs_countries " .
-                 "WHERE ob_country = co_code " .
+                 "WHERE ob_country = co_code AND co_three IS NOT NULL " .
                  "GROUP BY co_code " .
-                 "ORDER BY count DESC ";
+                 "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
+                 "ORDER BY density DESC ";
         $result = pg_query($resource_r, $query);
 
         $list = "";
         while ($row = pg_fetch_assoc($result)) {
             $country = rtrim($row['co_name']);
-            if ($co_array[$country] > 0) {
-                $list .= "[\"".$country."\", ".round(($row['count']/$co_array[$country])*10000)."],\n ";
-            }
+            $list .= "[\"".$country."\", ".round($row['density'])."],\n ";
         }
         echo $list;
 
@@ -464,7 +463,6 @@ function drawVisualization() {
     dataObjects.addColumn('number', 'Objects');
     dataObjects.addColumn('number', 'Models');
     dataObjects.addColumn('number', 'Signs');
-
 
     dataObjects.addRows([
         [new Date(2008,3,8), 993836, 735, 0],
