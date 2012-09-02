@@ -39,7 +39,7 @@ else {
     <tr>
         <td>
         <script type="text/javascript">var noPicture = false</script>
-        <script src="images_fgfsdb.js" type="text/javascript"></script>
+        <script src="inc/js/images_fgfsdb.js" type="text/javascript"></script>
         <div id="trailimageid" style="position:absolute;z-index:10000;overflow:visible"></div>
         <?php
             $result=pg_query($query);
