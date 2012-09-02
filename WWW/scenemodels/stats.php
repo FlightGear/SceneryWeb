@@ -7,258 +7,252 @@ include 'inc/header.php';
 ?>
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript'>
- google.load('visualization', '1', {'packages': ['geochart','corechart']});
- google.setOnLoadCallback(drawRegionsMap);
+    google.load('visualization', '1', {'packages': ['geochart','corechart']});
+    google.setOnLoadCallback(drawRegionsMap);
 
-  var regionId = 'world';
-  var worldmap = 'data1';
+    var regionId = 'world';
+    var worldmap = 'data1';
 
-  function drawRegionsMap() {
-    if (arguments[0]!= 'auto' && arguments[0]) {
-        regionId = arguments[0];
-    }
-    if (arguments[1] != 'auto' && arguments[1]) {
-        worldmap = arguments[1];
-    }
-    var data1 = google.visualization.arrayToDataTable([
-      ['Country', 'Object density'],
-      <?php
-        $resource_r = connect_sphere_r();
-
-        // Preprocessing signs and models and objects, as they are used later on.
-        $models = count_models();
-        $objects = count_objects();
-
-        $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
-        $row    = pg_fetch_assoc($result);
-        $signs  = $row["count"];
-
-        $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
-                 "FROM fgs_objects, fgs_countries " .
-                 "WHERE ob_country = co_code AND co_three IS NOT NULL " .
-                 "GROUP BY co_code " .
-                 "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
-                 "ORDER BY count DESC ";
-        $result = pg_query($resource_r, $query);
-
-        $list = "";
-        while ($row = pg_fetch_assoc($result)) {
-            $country = rtrim($row['co_name']);
-            $list .= "[\"".$country."\", ".round($row['density'])."],\n ";
+    function drawRegionsMap() {
+        if (arguments[0]!= 'auto' && arguments[0]) {
+            regionId = arguments[0];
         }
-        echo $list;
-
-      ?>
-    ]);
-    var data2 = google.visualization.arrayToDataTable([
-      ['Country', 'Objects'],
-      <?php
-        pg_result_seek($result,0);
-        $list = "";
-        while ($row = pg_fetch_assoc($result)) {
-            $country = rtrim($row['co_name']);
-            $list .= "[\"".$country."\", ".$row['count']."],\n";
+        if (arguments[1] != 'auto' && arguments[1]) {
+            worldmap = arguments[1];
         }
-        echo $list;
-      ?>
-    ]);
+        var data1 = google.visualization.arrayToDataTable([
+            ['Country', 'Object density'],
+            <?php
+            $resource_r = connect_sphere_r();
 
-    var options = {
-        backgroundColor: '#ADCDFF',
-        keepAspectRatio: false
-    };
-    if (regionId != '[object Event]') {
-        options['region'] = regionId;
-    }
-    var map = new google.visualization.GeoChart(document.getElementById('map_div'));
-    google.visualization.events.addListener(map, "error", function errorHandler(e) {
-        google.visualization.errors.removeError(e.id);
-    });
+            // Preprocessing signs and models and objects, as they are used later on.
+            $models = count_models();
+            $objects = count_objects();
 
-    if (worldmap === "data2") {
-        map.draw(data2, options);
-    }
-    if (worldmap === "data1") {
-        map.draw(data1, options);
-    }
-};
+            $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
+            $row    = pg_fetch_assoc($result);
+            $signs  = $row["count"];
 
-  google.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var dataPie = google.visualization.arrayToDataTable([
-        ['Country', 'Objects'],
-        <?php
-        pg_result_seek($result,0);
+            $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
+                     "FROM fgs_objects, fgs_countries " .
+                     "WHERE ob_country = co_code AND co_three IS NOT NULL " .
+                     "GROUP BY co_code " .
+                     "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
+                     "ORDER BY count DESC ";
+            $result = pg_query($resource_r, $query);
 
-        $list = "";
-        while ($row = pg_fetch_assoc($result)) {
-            $list .= "[\"".rtrim($row['co_name'])."\", ".$row['count']."],\n";
-        }
-        echo $list;
-        ?>
-    ]);
-    var dataPieAuthors = google.visualization.arrayToDataTable([
-        ['Author', 'Objects'],
-        <?php
-        $query = "SELECT COUNT(mo_id) AS count, au_name " .
-                 "FROM fgs_models, fgs_authors " .
-                 "WHERE mo_author = au_id " .
-                 "GROUP BY au_id " .
-                 "ORDER BY count DESC";
-        $result = pg_query($resource_r, $query);
-
-        $list = "";
-        while ($row = pg_fetch_assoc($result)) {
-            $list .= "['".$row['au_name']."', ".$row['count']."],\n";
-        }
-        echo $list;
-        ?>
-    ]);
-
-    var optionsPie = {
-        chartArea: {height:"100%"},
-        backgroundColor: 'none',
-        pieSliceBorderColor: 'none',
-        slices: {20: {color: '#ccc'}},
-        sliceVisibilityThreshold: 1/100,
-        legend: { alignment: 'center' }
-    };
-
-    var chartPie = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
-    google.visualization.events.addListener(chartPie, 'select', function () {
-        // GeoChart selections return an array of objects with a row property; no column information
-        var selection = chartPie.getSelection();
-        dataPie.removeRow(selection[0].row);
-        chartPie.draw(dataPie, optionsPie);
-    });
-    chartPie.draw(dataPie, optionsPie);
-
-    var chartPieAuthors = new google.visualization.PieChart(document.getElementById('chart_pie_authors_div'));
-    google.visualization.events.addListener(chartPieAuthors, 'select', function () {
-        // GeoChart selections return an array of objects with a row property; no column information
-        var selection = chartPieAuthors.getSelection();
-        dataPieAuthors.removeRow(selection[0].row);
-        chartPieAuthors.draw(dataPieAuthors, optionsPie);
-    });
-    chartPieAuthors.draw(dataPieAuthors, optionsPie);
-
-};
-
-google.setOnLoadCallback(drawBars);
-function drawBars(sorting) {
-    var dataBarCountry = google.visualization.arrayToDataTable([
-      ['Country', 'Object density', 'Objects'],
-      <?php
-        $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
-                 "FROM fgs_objects, fgs_countries " .
-                 "WHERE ob_country = co_code AND co_three IS NOT NULL " .
-                 "GROUP BY co_code " .
-                 "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
-                 "ORDER BY count DESC " .
-                 "LIMIT 20 ";
-        $result = pg_query($resource_r, $query);
-
-        $list = "";
-        while ($row = pg_fetch_assoc($result)) {
-            $country = rtrim($row['co_name']);
-            $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
-        }
-        echo $list;
-      ?>
-    ]);
-    if (sorting != "[object Event]") {
-        if (sorting) {
-            dataBarCountry.sort([{column: 2,desc: true},{column: 1,desc: true}]);
-        } else {
-            dataBarCountry.sort([{column: 1,desc: true},{column: 2,desc: true}]);
-        }
-    }
-
-    var optionsBarCountry = {
-        series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1}},
-        vAxes: {
-            0: {
-                color: 'blue',
-                title: 'Object density (objects per 10,000 sq. km)',
-                baseline: <?php echo (($objects/148940000)*10000); ?>,
-                baselineColor: 'blue'
-            },
-            1: {
-                color: 'red',
-                title: 'Objects',
-                logScale: true
+            $list = "";
+            while ($row = pg_fetch_assoc($result)) {
+                $country = rtrim($row['co_name']);
+                $list .= "[\"".$country."\", ".round($row['density'])."],\n ";
             }
-        },
-        backgroundColor: 'none',
-        chartArea: {top: 35, height: 350, width: '75%'},
-        hAxis: { slantedTextAngle: 50},
-        focusTarget: 'category'
+            echo $list;
+            ?>
+        ]);
+        var data2 = google.visualization.arrayToDataTable([
+            ['Country', 'Objects'],
+            <?php
+            pg_result_seek($result,0);
+            $list = "";
+            while ($row = pg_fetch_assoc($result)) {
+                $country = rtrim($row['co_name']);
+                $list .= "[\"".$country."\", ".$row['count']."],\n";
+            }
+            echo $list;
+            ?>
+        ]);
+
+        var options = {
+            backgroundColor: '#ADCDFF',
+            keepAspectRatio: false
+        };
+        if (regionId != '[object Event]') {
+            options['region'] = regionId;
+        }
+        var map = new google.visualization.GeoChart(document.getElementById('map_div'));
+        google.visualization.events.addListener(map, "error", function errorHandler(e) {
+            google.visualization.errors.removeError(e.id);
+        });
+
+        if (worldmap === "data2") {
+            map.draw(data2, options);
+        }
+        if (worldmap === "data1") {
+            map.draw(data1, options);
+        }
     };
 
-    var chartBarCountry = new google.visualization.ColumnChart(document.getElementById('chart_bar_country_div'));
-    chartBarCountry.draw(dataBarCountry, optionsBarCountry);
-};
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var dataPie = google.visualization.arrayToDataTable([
+            ['Country', 'Objects'],
+            <?php
+            pg_result_seek($result,0);
 
-function drawVisualization() {
-    // Create and populate the data table.
-    var dataObjects = new google.visualization.DataTable();
-    dataObjects.addColumn('date', 'Date');
-    dataObjects.addColumn('number', 'Objects');
-    dataObjects.addColumn('number', 'Models');
-    dataObjects.addColumn('number', 'Signs');
+            $list = "";
+            while ($row = pg_fetch_assoc($result)) {
+                $list .= "[\"".rtrim($row['co_name'])."\", ".$row['count']."],\n";
+            }
+            echo $list;
+            ?>
+        ]);
+        var dataPieAuthors = google.visualization.arrayToDataTable([
+            ['Author', 'Objects'],
+            <?php
+            $query = "SELECT COUNT(mo_id) AS count, au_name " .
+                     "FROM fgs_models, fgs_authors " .
+                     "WHERE mo_author = au_id " .
+                     "GROUP BY au_id " .
+                     "ORDER BY count DESC";
+            $resultAuthors = pg_query($resource_r, $query);
 
-    dataObjects.addRows([
-        [new Date(2008,3,8), 993836, 735, 0],
-        [new Date(2008,5,1), 994057, 786, 0],
-        [new Date(2008,09,15), 1038108, 1269, 573 ],
-        [new Date(2008,11,5), 1038477, 1306, 679 ],
-        [new Date(2009,0,7), 1036978, 1340, 723 ],
-        [new Date(2009,1,1), 1113318, 1371, 723],
-        [new Date(2009,2,6), 1113341, 1392, 723 ],
-        [new Date(2009,5,6), 1113531, 1501, 723 ],
-        [new Date(2009,10,4), 1115669, 1621, 967 ],
-        [new Date(2010,2,9), 1117244, 1725, 968 ],
-        [new Date(2010,3,30), 1117270, 1729, 1235 ],
-        [new Date(2010,5,30), 1117391, 1752, 1593 ],
-        [new Date(2010,10,3), 1120218, 1931, 1743 ],
-        [new Date(2011,0,20), 1120390, 2009, 1743 ],
-        [new Date(2011,3,12), 1121693, 2112, 1900 ],
-        [new Date(2011,5,9), 1122199, 2213, 1974 ],
-        [new Date(2011,10,1), 1122439, 2324, 1974 ],
-        [new Date(2012,0,4), 1122980, 2390, 2013 ],
-        [new Date(2012,0,15), 1123543, 2400, 2013 ],
-        [new Date(2012,1,24), 1123673, 2434, 2051 ],
-        [new Date(2012,4,4), 1123722, 2477, 2074 ],
-        [new Date(2012,6,18), 1123988, 2523, 2074 ],
-        [new Date(2012,6,26), 1124686, 2523, 2074 ],
-        [new Date(2012,7,21), 1106060, 2605, 2074 ],
-        [new Date(2012,7,22), 1106125, 2605, 2074 ],
-        [new Date(2012,7,25), 1106276, 2617, 2074 ],
-        [new Date(<?php echo date('Y').",".(date('n')-1).",".date('j')."), ".$objects.", ".$models.", ".$signs; ?> ]]);
+            $list = "";
+            while ($row = pg_fetch_assoc($resultAuthors)) {
+                $list .= "['".$row['au_name']."', ".$row['count']."],\n";
+            }
+            echo $list;
+            ?>
+        ]);
 
-  // Create and draw the visualization.
-  new google.visualization.LineChart(document.getElementById('chart_objects_div')).
-      draw(dataObjects, {
-                    series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1},2:{targetAxisIndex:1}},
-                    vAxes: {
-                        0: {
-                            color: 'blue',
-                            title: 'Objects'
-                        },
-                        1: {
-                            color: 'red',
-                            title: 'Models and signs'
-                        }
-                    },
-                    pointSize: 5,
-                    backgroundColor: 'none',
-                    chartArea: {top: 35, height: 430},
-                    focusTarget: 'category'
-                  }
-          );
-};
+        var optionsPie = {
+            chartArea: {height:"100%"},
+            backgroundColor: 'none',
+            pieSliceBorderColor: 'none',
+            slices: {20: {color: '#ccc'}},
+            sliceVisibilityThreshold: 1/100,
+            legend: { alignment: 'center' }
+        };
 
-google.setOnLoadCallback(drawVisualization);
+        var chartPie = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
+        google.visualization.events.addListener(chartPie, 'select', function () {
+            // GeoChart selections return an array of objects with a row property; no column information
+            var selection = chartPie.getSelection();
+            dataPie.removeRow(selection[0].row);
+            chartPie.draw(dataPie, optionsPie);
+        });
+        chartPie.draw(dataPie, optionsPie);
+
+        var chartPieAuthors = new google.visualization.PieChart(document.getElementById('chart_pie_authors_div'));
+        google.visualization.events.addListener(chartPieAuthors, 'select', function () {
+            // GeoChart selections return an array of objects with a row property; no column information
+            var selection = chartPieAuthors.getSelection();
+            dataPieAuthors.removeRow(selection[0].row);
+            chartPieAuthors.draw(dataPieAuthors, optionsPie);
+        });
+        chartPieAuthors.draw(dataPieAuthors, optionsPie);
+    };
+
+    google.setOnLoadCallback(drawBars);
+    
+    function drawBars(sorting) {
+        var dataBarCountry = google.visualization.arrayToDataTable([
+            ['Country', 'Object density', 'Objects'],
+            <?php
+            pg_result_seek($result,0);
+            $i = 0;
+            $list = "";
+            while ($row = pg_fetch_assoc($result) and $i < 10) {
+                $country = rtrim($row['co_name']);
+                $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
+                $i++;
+            }
+            echo $list;
+            ?>
+        ]);
+        if (sorting != "[object Event]") {
+            if (sorting) {
+                dataBarCountry.sort([{column: 2,desc: true},{column: 1,desc: true}]);
+            } else {
+                dataBarCountry.sort([{column: 1,desc: true},{column: 2,desc: true}]);
+            }
+        }
+
+        var optionsBarCountry = {
+            series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1}},
+            vAxes: {
+                0: {
+                    color: 'blue',
+                    title: 'Object density (objects per 10,000 sq. km)',
+                    baseline: <?php echo (($objects/148940000)*10000); ?>,
+                    baselineColor: 'blue'
+                },
+                1: {
+                    color: 'red',
+                    title: 'Objects',
+                    logScale: true
+                }
+            },
+            backgroundColor: 'none',
+            chartArea: {top: 35, height: 350, width: '75%'},
+            hAxis: { slantedTextAngle: 50},
+            focusTarget: 'category'
+        };
+
+        var chartBarCountry = new google.visualization.ColumnChart(document.getElementById('chart_bar_country_div'));
+        chartBarCountry.draw(dataBarCountry, optionsBarCountry);
+    };
+
+    function drawVisualization() {
+        // Create and populate the data table.
+        var dataObjects = new google.visualization.DataTable();
+        dataObjects.addColumn('date', 'Date');
+        dataObjects.addColumn('number', 'Objects');
+        dataObjects.addColumn('number', 'Models');
+        dataObjects.addColumn('number', 'Signs');
+
+        dataObjects.addRows([
+            [new Date(2008,3,8), 993836, 735, 0],
+            [new Date(2008,5,1), 994057, 786, 0],
+            [new Date(2008,09,15), 1038108, 1269, 573 ],
+            [new Date(2008,11,5), 1038477, 1306, 679 ],
+            [new Date(2009,0,7), 1036978, 1340, 723 ],
+            [new Date(2009,1,1), 1113318, 1371, 723],
+            [new Date(2009,2,6), 1113341, 1392, 723 ],
+            [new Date(2009,5,6), 1113531, 1501, 723 ],
+            [new Date(2009,10,4), 1115669, 1621, 967 ],
+            [new Date(2010,2,9), 1117244, 1725, 968 ],
+            [new Date(2010,3,30), 1117270, 1729, 1235 ],
+            [new Date(2010,5,30), 1117391, 1752, 1593 ],
+            [new Date(2010,10,3), 1120218, 1931, 1743 ],
+            [new Date(2011,0,20), 1120390, 2009, 1743 ],
+            [new Date(2011,3,12), 1121693, 2112, 1900 ],
+            [new Date(2011,5,9), 1122199, 2213, 1974 ],
+            [new Date(2011,10,1), 1122439, 2324, 1974 ],
+            [new Date(2012,0,4), 1122980, 2390, 2013 ],
+            [new Date(2012,0,15), 1123543, 2400, 2013 ],
+            [new Date(2012,1,24), 1123673, 2434, 2051 ],
+            [new Date(2012,4,4), 1123722, 2477, 2074 ],
+            [new Date(2012,6,18), 1123988, 2523, 2074 ],
+            [new Date(2012,6,26), 1124686, 2523, 2074 ],
+            [new Date(2012,7,21), 1106060, 2605, 2074 ],
+            [new Date(2012,7,22), 1106125, 2605, 2074 ],
+            [new Date(2012,7,25), 1106276, 2617, 2074 ],
+            [new Date(<?php echo date('Y').",".(date('n')-1).",".date('j')."), ".$objects.", ".$models.", ".$signs; ?> ]
+        ]);
+
+        // Create and draw the visualization.
+        new google.visualization.LineChart(document.getElementById('chart_objects_div')).
+        draw(dataObjects, {
+            series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1},2:{targetAxisIndex:1}},
+            vAxes: {
+                0: {
+                    color: 'blue',
+                    title: 'Objects'
+                },
+                1: {
+                    color: 'red',
+                    title: 'Models and signs'
+                }
+            },
+            pointSize: 5,
+            backgroundColor: 'none',
+            chartArea: {top: 35, height: 430},
+            focusTarget: 'category'
+            }
+        );
+    };
+
+    google.setOnLoadCallback(drawVisualization);
 </script>
 
 <h1>FlightGear Scenery Statistics</h1>
