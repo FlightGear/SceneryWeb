@@ -151,7 +151,7 @@ include 'inc/header.php';
             pg_result_seek($result,0);
             $i = 0;
             $list = "";
-            while ($row = pg_fetch_assoc($result) and $i < 10) {
+            while ($row = pg_fetch_assoc($result) and $i < 20) {
                 $country = rtrim($row['co_name']);
                 $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
                 $i++;
