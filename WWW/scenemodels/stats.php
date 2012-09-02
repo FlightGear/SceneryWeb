@@ -153,8 +153,10 @@ include 'inc/header.php';
             $list = "";
             while ($row = pg_fetch_assoc($result) and $i < 20) {
                 $country = rtrim($row['co_name']);
-                $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
-                $i++;
+                if ($country != "Unknown") {
+                    $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
+                    $i++;
+                }
             }
             echo $list;
             ?>
