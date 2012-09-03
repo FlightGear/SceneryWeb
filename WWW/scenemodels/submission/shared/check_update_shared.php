@@ -331,7 +331,10 @@ function validateForm()
             echo "<br /><p class=\"center warning\">Sorry but the database is currently unavailable, please come again soon.</p>";
         }
     }
-    else echo "Static";
+    else {
+        $id_family = 1;
+        echo "Static";
+    }
 ?>
           </td>
         </tr>
@@ -379,7 +382,9 @@ function validateForm()
             echo "</div>\n";
         }
     }
-    else echo $actual_model_name;
+    else {
+        echo "<input name=\"model_name\" type=\"hidden\" value=\"".$row["mo_id"]."\"</input>";
+    }
 ?>
           </td>
         </tr>
