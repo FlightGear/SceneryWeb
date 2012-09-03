@@ -101,21 +101,21 @@
         Model<br/>
         Group<br/>
         <select name="model" style="font-size: 0.7em;">
-          <option value="0"></option>
+            <option value="0"></option>
 <?php
-          $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
-          while ($row = pg_fetch_assoc($result)) {
-              $models[$row["mo_id"]] = $row["mo_path"];
-              echo "<option value=\"".$row["mo_id"]."\"";
-              if ($row["mo_id"] == $model)
-                  echo " selected=\"selected\"";
-              echo ">".$row["mo_path"]."</option>\n";
-          }
+            $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
+            while ($row = pg_fetch_assoc($result)) {
+                $models[$row["mo_id"]] = $row["mo_path"];
+                echo "<option value=\"".$row["mo_id"]."\"";
+                if ($row["mo_id"] == $model)
+                    echo " selected=\"selected\"";
+                echo ">".$row["mo_path"]."</option>\n";
+            }
 ?>
         </select>
         <br/>
         <select name="group" style="font-size: 0.7em;">
-          <option value="0"></option>
+            <option value="0"></option>
 <?php
             $result = pg_query("SELECT gp_id, gp_name FROM fgs_groups;");
             while ($row = pg_fetch_assoc($result)){
@@ -131,14 +131,14 @@
       <th>
         Country<br/>
         <select name="country" style="font-size: 0.7em;">
-          <option value="0"></option>
+            <option value="0"></option>
 <?php
             $result = pg_query("SELECT co_code,co_name FROM fgs_countries;");
             while ($row = pg_fetch_assoc($result)){
-              $countries{$row["co_code"]}=$row["co_name"];
-              echo "<option value=\"".$row["co_code"]."\"";
-              if ($row["co_code"] == $country) echo " selected=\"selected\"";
-              echo ">".$row["co_name"]."</option>\n";
+                $countries{$row["co_code"]}=$row["co_name"];
+                echo "<option value=\"".$row["co_code"]."\"";
+                if ($row["co_code"] == $country) echo " selected=\"selected\"";
+                echo ">".$row["co_name"]."</option>\n";
             }
 ?>
         </select>
@@ -168,26 +168,27 @@
       </td>
     </tr>
 <?php
-      $query = "SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon ";
-      $query.= "FROM fgs_objects ";
-      $query.= "WHERE ob_id IS NOT NULL ".$filter." ";
-      $query.= "LIMIT 20 OFFSET ".$offset;
+        $query = "SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon ";
+        $query.= "FROM fgs_objects ";
+        $query.= "WHERE ob_id IS NOT NULL ".$filter." ";
+        $query.= "LIMIT 20 OFFSET ".$offset;
 
-      $result = pg_query($query);
-      while ($result && $row = pg_fetch_assoc($result)) {
-          echo "<tr class=\"object\">\n";
-          echo "  <td><a href='http://scenemodels.flightgear.org/objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n";
-          echo "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
-          $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
-          echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n";
-          echo "  <td>".$row["ob_heading"]."</td>\n";
-          echo "  <td>".$row["ob_text"]."</td>\n";
-          echo "  <td>".$models[$row["ob_model"]]."<br/><b>".$groups[$row["ob_group"]]."</b></td>\n";
-          echo "  <td>".$countries[$row["ob_country"]]."</td>\n";
-          echo "  <td>\n";
-            if (is_shared_or_static($row["ob_id"]) == 'shared') {
+        $result = pg_query($query);
+        while ($result && $row = pg_fetch_assoc($result)) {
+            echo "<tr class=\"object\">\n";
+            echo "  <td><a href='http://scenemodels.flightgear.org/objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n";
+            echo "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
+            $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
+            echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n";
+            echo "  <td>".$row["ob_heading"]."</td>\n";
+            echo "  <td>".$row["ob_text"]."</td>\n";
+            echo "  <td>".$models[$row["ob_model"]]."<br/><b>".$groups[$row["ob_group"]]."</b></td>\n";
+            echo "  <td>".$countries[$row["ob_country"]]."</td>\n";
+            echo "  <td>\n";
+            echo "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\">Update</a>";
+                if (is_shared_or_static($row["ob_id"]) == 'shared') {
 ?>
-                <a href="submission/shared/check_update_shared.php?update_choice=<?php echo $row["ob_id"]; ?>">Update</a>
+
                 <br/>
                 <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">Delete</a>
 <?php

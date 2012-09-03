@@ -253,14 +253,6 @@ if (isset($model_name)
 
 // Getting back the update_choice
 if (isset($id_to_update)) {
-
-    if (is_shared_or_static($id_to_update) == 'static') {
-        $page_title = "Automated Shared Models Positions Update Form";
-        $error_text = "Sorry, but only shared objects can be updated for now.";
-        include '../../inc/error_page.php';
-        exit;
-    }
-
     $page_title = "Automated Shared Models Positions Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
@@ -318,10 +310,9 @@ function validateForm()
 
         // Start the select form
         echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
-        while ($row = @pg_fetch_assoc($result))
-        {
-            $name=preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-            if ($actual_family==$row["mg_name"]) {
+        while ($row = @pg_fetch_assoc($result)) {
+            $name = preg_replace('/ /',"&nbsp;",$row["mg_name"]);
+            if ($actual_family == $row["mg_name"]) {
                 $id_family = $row["mg_id"];
                 echo "<option selected=\"selected\" value=\"".$row["mg_id"]."\">".$name."</option>\n";
             }
