@@ -350,30 +350,35 @@ function validateForm()
             <div id="form_objects">
               <select name='model_name' id='model_name' onchange='change_thumb()'>
 <?php
-    // Querying when the family is updated.
-    $resource_r = connect_sphere_r();
 
-    if ($resource_r != '0') {
-        $query = "SELECT mo_id, mo_path, mo_name, mo_shared FROM fgs_models WHERE mo_shared=".$id_family." ORDER BY mo_path;";
-        $result = @pg_query($query);
+    if (is_shared_or_static($id_to_update) != 'static') {
 
-        // Showing the results.
-        while ($row = @pg_fetch_assoc($result)) {
-            $id = $row["mo_id"];
-            $name = preg_replace('/ /',"&nbsp;",$row["mo_path"]);
+        // Querying when the family is updated.
+        $resource_r = connect_sphere_r();
 
-            if ($actual_model_name == $row["mo_name"])
-                echo "<option selected=\"selected\" value='".$id."'>".$name."</option>\n";
-            else
-                echo "<option value='".$id."'>".$name."</option>\n";
+        if ($resource_r != '0') {
+            $query = "SELECT mo_id, mo_path, mo_name, mo_shared FROM fgs_models WHERE mo_shared=".$id_family." ORDER BY mo_path;";
+            $result = @pg_query($query);
+
+            // Showing the results.
+            while ($row = @pg_fetch_assoc($result)) {
+                $id   = $row["mo_id"];
+                $name = preg_replace('/ /',"&nbsp;",$row["mo_path"]);
+
+                if ($actual_model_name == $row["mo_name"])
+                    echo "<option selected=\"selected\" value='".$id."'>".$name."</option>\n";
+                else
+                    echo "<option value='".$id."'>".$name."</option>\n";
+            }
+
+            // Close the database resource
+            @pg_close($resource_r);
+            echo "</select>\n";
+            echo "</div>\n"
         }
-
-        // Close the database resource
-        @pg_close($resource_r);
     }
+    else echo $actual_model_name;
 ?>
-              </select>
-            </div>
           </td>
         </tr>
         <tr>
