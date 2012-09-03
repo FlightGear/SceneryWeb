@@ -347,11 +347,13 @@ function validateForm()
 ?>
           </td>
           <td colspan="2">
-            <div id="form_objects">
-              <select name='model_name' id='model_name' onchange='change_thumb()'>
+
 <?php
 
     if (is_shared_or_static($id_to_update) != 'static') {
+
+        echo "<div id=\"form_objects\">";
+        echo "    <select name='model_name' id='model_name' onchange='change_thumb()'>";
 
         // Querying when the family is updated.
         $resource_r = connect_sphere_r();
