@@ -370,7 +370,7 @@ function validateForm()
                 $name = preg_replace('/ /',"&nbsp;",$row["mo_path"]);
 
                 if ($actual_model_name == $row["mo_name"])
-                    echo "<option selected=\"selected\" value='".get_object_model_from_id($id_to_update)."'>".$name."</option>\n";
+                    echo "<option selected=\"selected\" value='".$id."'>".$name."</option>\n";
                 else
                     echo "<option value='".$id."'>".$name."</option>\n";
             }
@@ -382,7 +382,7 @@ function validateForm()
         }
     }
     else {
-        echo "      <input name=\"model_name\" type=\"hidden\" value=\"".$row["mo_id"]."\"</input>";
+        echo "      <input name=\"model_name\" type=\"hidden\" value=\"".get_object_model_from_id($id_to_update)."\"</input>";
         echo $actual_model_name;
     }
 ?>
