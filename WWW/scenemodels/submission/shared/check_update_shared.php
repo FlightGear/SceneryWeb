@@ -299,37 +299,39 @@ function validateForm()
           <td colspan="2">
 <?php
 
-    $resource_r = connect_sphere_r();
+    if (is_shared_or_static($id_to_update) != 'static') {
+        $resource_r = connect_sphere_r();
 
-    // If connection is OK
-    $id_family = 0;
-    if ($resource_r != '0')
-    {
-        // Show all the families other than the static family
-        $result = @pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
+        // If connection is OK
+        $id_family = 0;
+        if ($resource_r != '0') {
+            // Show all the families other than the static family
+            $result = @pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
 
-        // Start the select form
-        echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
-        while ($row = @pg_fetch_assoc($result)) {
-            $name = preg_replace('/ /',"&nbsp;",$row["mg_name"]);
-            if ($actual_family == $row["mg_name"]) {
-                $id_family = $row["mg_id"];
-                echo "<option selected=\"selected\" value=\"".$row["mg_id"]."\">".$name."</option>\n";
+            // Start the select form
+            echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
+            while ($row = @pg_fetch_assoc($result)) {
+                $name = preg_replace('/ /',"&nbsp;",$row["mg_name"]);
+                if ($actual_family == $row["mg_name"]) {
+                    $id_family = $row["mg_id"];
+                    echo "<option selected=\"selected\" value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                }
+                else {
+                    echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                }
             }
-            else {
-                echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
-            }
+            echo "</select>";
+
+            // Close the database resource
+            @pg_close($resource_r);
         }
-        echo "</select>";
 
-        // Close the database resource
-        @pg_close($resource_r);
+        // Else, write message.
+        else {
+            echo "<br /><p class=\"center warning\">Sorry but the database is currently unavailable, please come again soon.</p>";
+        }
     }
-
-    // Else, write message.
-    else {
-        echo "<br /><p class=\"center warning\">Sorry but the database is currently unavailable, please come again soon.</p>";
-    }
+    else echo "Static";
 ?>
           </td>
         </tr>
