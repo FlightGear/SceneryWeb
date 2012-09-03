@@ -63,7 +63,7 @@ if (isset($model_name)
 
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
-        $page_title = "Automated Shared Models Positions Update Form";
+        $page_title = "Automated Objects Positions Update Form";
         $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly.".
                       " <a href='index_update.php'>Go back and try it again</a>" .
                       "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
@@ -74,7 +74,7 @@ if (isset($model_name)
     }
 
     // Talking back to submitter.
-    $page_title = "Automated Shared Models Positions Update Form";
+    $page_title = "Automated Objects Models Positions Update Form";
     include '../../inc/header.php';
 
     // Checking that email is valid (if it exists).
@@ -138,7 +138,7 @@ if (isset($model_name)
     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
     // What is the subject ?
-    $subject = "[FG Scenery Submission forms] Automatic shared model update request: needs validation.";
+    $subject = "[FG Scenery Submission forms] Automatic objects update request: needs validation.";
 
     // Correctly format the data for the mail.
     $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_name;
@@ -149,7 +149,7 @@ if (isset($model_name)
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery update PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
+                    "I just wanted to let you know that a new object position update request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                     "issued the following request:" . "\r\n";
     }
@@ -157,7 +157,7 @@ if (isset($model_name)
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery update PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new shared object position update request is pending." . "\r\n" .
+                    "I just wanted to let you know that a new object position update request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
     }
     $message077 = wordwrap($message0, 77, "\r\n");
@@ -203,7 +203,7 @@ if (isset($model_name)
         $to = $safe_email;
 
         // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic shared model update request.";
+        $subject = "[FG Scenery Submission forms] Automatic object update request.";
 
         // Correctly set the object URL.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
@@ -216,7 +216,7 @@ if (isset($model_name)
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
-                    "Just to let you know that this new shared object update request has been sent for validation." . "\r\n" .
+                    "Just to let you know that this new object update request has been sent for validation." . "\r\n" .
                     "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
                     "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
         $message077 = wordwrap($message3, 77, "\r\n");
@@ -253,7 +253,7 @@ if (isset($model_name)
 
 // Getting back the update_choice
 if (isset($id_to_update)) {
-    $page_title = "Automated Shared Models Positions Update Form";
+    $page_title = "Automated Object Positions Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
 
@@ -511,7 +511,7 @@ else {
     $ok = check_availability();
 
     if (!$ok) {
-        $page_title = "Automated Shared Models Positions Update Form";
+        $page_title = "Automated Objects Positions Update Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
@@ -552,7 +552,7 @@ else {
 
 
     if ($error) {
-        $page_title = "Automated Shared Models Positions Update Form";
+        $page_title = "Automated Objects Positions Update Form";
         // $error_text is defined above
         include '../../inc/error_page.php';
         exit;
@@ -569,14 +569,14 @@ else {
     $returned_rows = pg_num_rows($result);
 
     if ($returned_rows == '0') {
-        $page_title = "Automated Shared Models Positions Update Form";
+        $page_title = "Automated Objects Positions Update Form";
         $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
         $advise_text = "Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).";
         include '../../inc/error_page.php';
         exit;
     }
 
-    $page_title = "Automated Shared Models Positions Update Form";
+    $page_title = "Automated Objects Positions Update Form";
     include '../../inc/header.php';
 
     if ($returned_rows == '1') { // If we have just an answer...

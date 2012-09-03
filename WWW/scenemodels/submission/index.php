@@ -26,12 +26,13 @@
         <ul>
           <li><a href="shared/index.php">adding shared objects positions.</a></li>
           <li><a href="shared/index_delete.php">deleting shared objects positions</a> (delete an existing shared object).</li>
-          <li><a href="shared/index_update.php">updating shared objects</a> (updating position, model, offset of an object...).</li>
+          <li><a href="shared/index_update.php">updating shared or static objects geodata</a> (updating position, offset of an object...).</li>
           <li><a href="shared/index_mass_import.php">mass import tool</a> (adding tens of lines of positions in one click).</li>
         </ul>
         - on static models (objects designed for a specific location):
         <ul>
           <li><a href="static/index.php">adding static models positions and objects</a> (add a specific static or shared 3D model to the database).</li>
+          <li><a href="shared/index_update.php">updating static models objects positions</a> (updating position, offset of an object...).</li>
         </ul>
         Comments or contributions propositions are always welcome through the usual channels (<a href="http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel">devel list</a>, <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&amp;t=14671">forum</a>).
         <br/><br/>

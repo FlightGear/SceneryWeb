@@ -7,13 +7,13 @@
     $ok = check_availability();
 
     if (!$ok) {
-        $page_title = "Automated Shared Models Positions Update Form";
+        $page_title = "Automated Objects Positions Update Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
     }
 
-    $page_title = "Automated Shared Models Positions Update Form";
+    $page_title = "Automated Objects Positions Update Form";
     include '../../inc/header.php';
 ?>
 
@@ -37,8 +37,7 @@ function validateForm()
 <h1>Positions Automated Update Form</h1>
 
 <p class="center">
-  <b>Foreword:</b> This automated form goal is to ease the update of shared
-  models positions within FG Scenery database.
+  <b>Foreword:</b> This automated form goal is to ease the update of static or shared objects positions within FG Scenery database.
   <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
 </p>
 
@@ -66,4 +65,3 @@ function validateForm()
 </form>
 
 <?php include '../../inc/footer.php'; ?>
-
