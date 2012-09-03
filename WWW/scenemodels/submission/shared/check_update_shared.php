@@ -568,7 +568,7 @@ else {
     $result = @pg_query($resource_r_update, $query_pos);
     $returned_rows = pg_num_rows($result);
 
-    if ($returned_rows == '0') {
+    if ($returned_rows == 0) {
         $page_title = "Automated Objects Positions Update Form";
         $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
         $advise_text = "Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).";
@@ -579,9 +579,9 @@ else {
     $page_title = "Automated Objects Positions Update Form";
     include '../../inc/header.php';
 
-    if ($returned_rows == '1') { // If we have just an answer...
+    if ($returned_rows == 1) { // If we have just an answer...
         while ($row = pg_fetch_row($result)) {
-            echo "<p class=\"center\">One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</p><br />";
+            echo "<p class=\"center\">One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</p>";
 ?>
             <form id="update_position" method="post" action="check_update_shared.php">
             <table>
@@ -641,8 +641,8 @@ else {
     }
 
     // If we have more than one, the user has to choose...
-    if ($returned_rows > '1') {
-        echo "<p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." have been found in the database.<br />Please select with the left radio button the one you want to update.</p><br />";
+    if ($returned_rows > 1) {
+        echo "<p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." were found in the database.<br />Please select with the left radio button the one you want to update.</p>";
 
         // Starting multi-solutions form
         echo "<form id=\"update_position\" method=\"post\" action=\"check_update_shared.php\">";
