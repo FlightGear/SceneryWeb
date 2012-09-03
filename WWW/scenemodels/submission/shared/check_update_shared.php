@@ -384,6 +384,7 @@ function validateForm()
     }
     else {
         echo "<input name=\"model_name\" type=\"hidden\" value=\"".$row["mo_id"]."\"</input>";
+        echo $actual_model_name;
     }
 ?>
           </td>
