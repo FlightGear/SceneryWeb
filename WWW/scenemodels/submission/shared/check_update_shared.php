@@ -374,7 +374,7 @@ function validateForm()
             // Close the database resource
             @pg_close($resource_r);
             echo "</select>\n";
-            echo "</div>\n"
+            echo "</div>\n";
         }
     }
     else echo $actual_model_name;
