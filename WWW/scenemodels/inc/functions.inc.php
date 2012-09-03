@@ -750,4 +750,41 @@ function random_suffix()
     return $dir_random_suffix;
 }
 
+// This function extracts a tgz file into a temporary directory and returns its path.
+// ==================================================================================
+
+function open_tgz($file)
+{
+    // Managing possible concurrent accesses on the maintainer side.
+    $target_path = sys_get_temp_dir() .'/submission_'.random_suffix();
+
+    while (file_exists($target_path)) {
+        usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
+    }
+
+    if (!mkdir($target_path)) {
+        echo "Impossible to create ".$target_path." directory!";
+    }
+
+    if (file_exists($target_path) && is_dir($target_path)) {
+        $archive = base64_decode ($file);           // DeBase64 file
+        $file = $target_path.'/submitted_files.tar.gz';     // Defines the destination file
+        file_put_contents ($file, $archive);                // Writes the content of $file into submitted_files.tar.gz
+    }
+
+    $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path. '> /dev/null';
+    system($detar_command);
+    
+    return $target_path;
+}
+
+
+// This function close a temporary directory opened for a tgz file.
+// ================================================================
+
+function close_tgz($target_path)
+{
+    unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
+    clear_dir($target_path);                          // Deletes temporary submission directory
+}
 ?>

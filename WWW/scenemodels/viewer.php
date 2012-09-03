@@ -35,7 +35,7 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
 
 
 var Models = [
-  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>", setup: {texture_path: "get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="} }
+  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>"}
 ];
 
 var canvas, details, loading, viewer, current;
@@ -69,7 +69,7 @@ function resize(){
 
 function showModel(model){
   loading.style.display = "block";
-  viewer.show(model.file, model.setup, onLoaded);
+  viewer.show(model.file, {callback:onLoaded, texturePath:"get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="});
 };
 
 function onLoaded(){

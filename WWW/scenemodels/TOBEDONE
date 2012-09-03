@@ -28,7 +28,6 @@ After production:
 Overall work:
 =============
 - Review the intro page to add the latest models + objects stuff? Say what the scenery site + db is about, etc.
-- Adding an "area" column to fgs_countries.
 - Put emails as Bcc and to prevent spam replies, use no-reply@flightgear.org
 - Enable comments fields to authorize 100 in width
 - Enhance the pending submission stuff, so the maintainer can click on a URL to submit the model.

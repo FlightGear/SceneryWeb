@@ -32,7 +32,11 @@
     </tr>
     <tr>
         <td>Country</td>
-        <td><?php $country = get_country_name_from_country_code($object["ob_country"]); echo $country; ?></td>
+        <td><?php 
+            $country = get_country_name_from_country_code($object["ob_country"]);
+            if ($object["ob_country"] != "zz") echo ("<a href=\"objects.php?country=".$object["ob_country"]."\">".$country."</a>");
+            else echo $country;
+        ?></td>
     </tr>
     <tr>
         <td>Ground Elevation</td>
@@ -43,12 +47,12 @@
         <td><?php $offset = get_object_offset_from_id($id); echo $offset; ?></td>
     </tr>
     <tr>
-        <td>STG Heading (not true heading)</td>
+        <td>Heading</td>
         <td><?php $heading = heading_true_to_stg(get_object_true_orientation_from_id($id)); echo $heading." (STG) - ".get_object_true_orientation_from_id($id)." (true)"; ?></td>
     </tr>
     <tr>
         <td>Group</td>
-        <td><?php $group = get_group_name_from_id($object["ob_group"]); echo $group; ?></td>
+        <td><?php $group = get_group_name_from_id($object["ob_group"]); echo ("<a href=\"objects.php?group=".$object["ob_group"]."\">".$group."</a>"); ?></td>
     </tr>
     <tr>
         <td>Model</td>

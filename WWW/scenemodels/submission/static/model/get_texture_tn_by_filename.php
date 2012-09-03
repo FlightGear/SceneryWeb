@@ -2,10 +2,6 @@
     $mo_sig = $_GET["mo_sig"];
     $dir_array = preg_split("/\//", $_GET['name']);
     $filename = $dir_array[count($dir_array)-1];
-    //$texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/static/model/get_texture_by_filename.php?mo_sig=".$mo_sig."&name=".$name;
-    //$texture_file = "http://scenemodels.flightgear.org/submission/static/model/get_texture_by_filename.php?mo_sig=".$mo_sig."&name=".$name;
-
-
 
     // Inserting libs
     require_once ('../../../inc/functions.inc.php');
@@ -45,25 +41,7 @@
     // Prepare the tmp directory
 
     // Managing possible concurrent accesses on the maintainer side.
-    $target_path = sys_get_temp_dir() .'/submission_'.random_suffix();
-
-    while (file_exists($target_path)) {
-        usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
-    }
-
-    if (!mkdir($target_path)) {
-        echo "Impossible to create ".$target_path." directory!";
-    }
-
-    if (file_exists($target_path) && is_dir($target_path)) {
-        $archive = base64_decode ($mo_modelfile);           // DeBase64 file
-        $file = $target_path.'/submitted_files.tar.gz';     // Defines the destination file
-        file_put_contents ($file, $archive);                // Writes the content of $mo_modelfile into submitted_files.tar.gz
-    }
-
-    $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path. '> /dev/null';
-    system($detar_command);
-
+    $target_path = open_tgz($mo_modelfile);
 
     // Looking for the file in the tmp directory
     $dir = opendir($target_path);
@@ -82,7 +60,7 @@
 
     header('Content-Type: image/png');
     
-    if($width>256) {
+    if ($width>256) {
         // calculate thumbnail size
         $new_width = 256;
         $new_height = floor( $height * ( $new_width / $width ) );
@@ -93,7 +71,7 @@
         // copy and resize old image into new image 
         imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
          
-        
+        // Display the PNG directly to the browser
         imagepng($tmp_img);
         
         imagedestroy($tmp_img);
@@ -104,6 +82,5 @@
     
     // Ok, now we can delete the stuff we used - at least I think so ;-)
     // This should be done at the end of the script
-    unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
-    clear_dir($target_path);                          // Deletes temporary submission directory
+    close_tgz()
 ?>
