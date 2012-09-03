@@ -12,10 +12,10 @@
       <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
       <ul class="submenus">
         <li><a href="/submission/shared/index.php">Add a new shared object position</a></li>
-        <li><a href="/submission/shared/index_update.php">Update a shared object settings</a></li>
         <li><a href="/submission/shared/index_delete.php">Delete a shared object position</a></li>
         <li><a href="/submission/shared/index_mass_import.php">Mass shared object import</a></li>
-	<li><a href="/submission/static/index.php">Add a new shared/static 3D Model</a></li>
+        <li><a href="/submission/shared/index_update.php">Update shared/static objects data</a></li>
+    <li><a href="/submission/static/index.php">Add a new shared/static 3D Model</a></li>
       </ul>
     </li>
     <li class="mainitems">
@@ -26,11 +26,10 @@
         $query = "SELECT mg_id,mg_name ";
         $query.= "FROM fgs_modelgroups ";
         $query.= "ORDER BY mg_name";
-        $result_menu=pg_query($query);
+        $result_menu = pg_query($query);
         while ($row = pg_fetch_assoc($result_menu)) {
-            $name=preg_replace('/&/',"&amp;", $row["mg_name"]);
-            $name=preg_replace('/ /',"&nbsp;", $name);
-
+            $name = preg_replace('/&/',"&amp;", $row["mg_name"]);
+            $name = preg_replace('/ /',"&nbsp;", $name);
             echo "<li><a href=\"/modelbrowser.php?shared=".$row["mg_id"]."\">".$name."</a></li>\n";
         }
 ?>
