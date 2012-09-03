@@ -382,7 +382,7 @@ function validateForm()
         }
     }
     else {
-        echo "      <input name=\"model_name\" type=\"hidden\" value=\"".get_object_model_from_id($id_to_update)."\"</input>";
+        echo "      <input name=\"model_name\" type=\"hidden\" value=\"".get_object_model_from_id($id_to_update)."\"></input>";
         echo $actual_model_name;
     }
 ?>
