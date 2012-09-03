@@ -334,7 +334,7 @@ function validateForm()
     else {
         $id_family = 1;
         echo "Static";
-        echo "      <input name=\"family_name\" type=\"hidden\" value=\"1\"></input>";
+        echo "      <input name=\"family_name\" type=\"hidden\" value=\"0\"></input>";
     }
 ?>
           </td>
