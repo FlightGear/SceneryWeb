@@ -100,7 +100,7 @@
         <th>
         Model<br/>
         Group<br/>
-        <select name="model" style="font-size: 0.7em;">
+        <select name="model" style="font-size: 0.7em; width: 100%">
             <option value="0"></option>
 <?php
             $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
@@ -130,7 +130,7 @@
       </th>
       <th>
         Country<br/>
-        <select name="country" style="font-size: 0.7em;">
+        <select name="country" style="font-size: 0.7em; width: 100%">
             <option value="0"></option>
 <?php
             $result = pg_query("SELECT co_code,co_name FROM fgs_countries;");
