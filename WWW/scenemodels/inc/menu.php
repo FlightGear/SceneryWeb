@@ -15,13 +15,13 @@
         <li><a href="/submission/shared/index_delete.php">Delete an object position</a></li>
         <li><a href="/submission/shared/index_mass_import.php">Massive import of objects</a></li>
         <li><a href="/submission/shared/index_update.php">Update object/model geodata</a></li>
-    <li><a href="/submission/static/index.php">Add a new Model</a></li>
+    <li><a href="/submission/static/index.php">Add a new model</a></li>
       </ul>
     </li>
     <li class="mainitems">
       <div class="headerlinks"><a href="/models.php">Models</a></div>
       <ul class="submenus">
-        <li><a href="/modelbrowser.php">Browse All</a></li>
+        <li><a href="/modelbrowser.php">Browse all</a></li>
 <?php
         $query = "SELECT mg_id,mg_name ";
         $query.= "FROM fgs_modelgroups ";
