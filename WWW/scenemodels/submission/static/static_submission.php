@@ -365,19 +365,6 @@ if (!isset($_POST["action"])) {
 include '../../inc/header.php';
 
 ?>
-<script type="text/javascript" src="/inc/js/check_form.js"></script>
-<script type="text/javascript">
-/*<![CDATA[*/
-function validateForm()
-{
-    var form = document.getElementById("validation");
-
-    if (!checkComment(form["maintainer_comment"]))
-        return false;
-
-}
-/*]]>*/
-</script>
 
 <p class="center">Hi, this is the static submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/static.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
@@ -558,7 +545,7 @@ function validateForm()
     </tr>
     <tr>
         <td>Leave a comment to the submitter</td>
-        <td><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" onchange="checkComment(this)"/></td>
+        <td><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" /></td>
     </tr>
     <tr>
         <td>Action</td>
