@@ -51,38 +51,32 @@
              "<li><b>Last Updated: </b>".$row["mo_datedisplay"]."</li>\n" .
              "<li><b>Type: </b><a href=\"modelbrowser.php?shared=".$row["mg_id"]."\">".$row["mg_name"]."</a></li>\n";
 
-        if ($row["mo_modelsize"] > 0) {
-            echo "<li><b>Model: </b>Available in database</li>\n";
+        if ($row["mo_shared"] == 0) {
+            $modelid = $row["mo_id"];
+            $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
+            $query.= "ST_X(wkb_geometry) AS ob_lon ";
+            $query.= "FROM fgs_objects ";
+            $query.= "WHERE ob_model=".$modelid;
+            $chunks=pg_query($query);
 
-            if ($row["mo_shared"] == 0) {
-                $modelid = $row["mo_id"];
-                $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
-                $query.= "ST_X(wkb_geometry) AS ob_lon ";
-                $query.= "FROM fgs_objects ";
-                $query.= "WHERE ob_model=".$modelid;
-                $chunks=pg_query($query);
+                while ($chunk = pg_fetch_assoc($chunks)) {
+                    $lat = floor($chunk["ob_lat"]/10)*10;
+                    $lon = floor($chunk["ob_lon"]/10)*10;
 
-                    while ($chunk = pg_fetch_assoc($chunks)) {
-                        $lat = floor($chunk["ob_lat"]/10)*10;
-                        $lon = floor($chunk["ob_lon"]/10)*10;
-
-                        if ($lon < 0){
-                            $lon = sprintf("w%03d", 0-$lon);
-                        } else {
-                            $lon = sprintf("e%03d", $lon);
-                        }
-
-                        if ($lat < 0) {
-                            $lat = sprintf("s%02d", 0-$lat);
-                        } else {
-                            $lat=sprintf("n%02d", $lat);
-                        }
-                    echo "<li>(<a href=\"download/".$lon.$lat.".tgz\">".$lon.$lat."</a>) ";
-                    echo "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a></li>\n";
+                    if ($lon < 0){
+                        $lon = sprintf("w%03d", 0-$lon);
+                    } else {
+                        $lon = sprintf("e%03d", $lon);
                     }
+
+                    if ($lat < 0) {
+                        $lat = sprintf("s%02d", 0-$lat);
+                    } else {
+                        $lat=sprintf("n%02d", $lat);
+                    }
+                echo "<li>(<a href=\"download/".$lon.$lat.".tgz\">".$lon.$lat."</a>) ";
+                echo "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a></li>\n";
                 }
-            } else {
-                echo "<li><b>Model: </b>Not present in database</li>\n";
             }
 
             echo "<li><a href=\"modelview.php?id=".$row["mo_id"]."\">View more about this model.</a></li>\n";
