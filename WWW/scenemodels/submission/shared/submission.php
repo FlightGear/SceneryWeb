@@ -7,7 +7,7 @@
     $ok = check_availability();
 
     if (!$ok) {
-        $page_title = "Automated Shared Models Positions Pending Requests Form";
+        $page_title = "Automated Objects Pending Requests Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
@@ -23,7 +23,7 @@
         // Checking the presence of sig into the database
             $result = @pg_query($resource_rw,"SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
-                $page_title = "Automated Shared Models Positions Pending Requests Form";
+                $page_title = "Automated Objects Pending Requests Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
@@ -45,7 +45,7 @@
                     $resultrw = @pg_query($resource_rw, $query_rw);
 
                     if (!$resultrw) {
-                        $page_title = "Automated Shared Models Positions Pending Requests Form";
+                        $page_title = "Automated Objects Pending Requests Form";
                         include '../../inc/header.php';
                         echo "<p class=\"center\">";
                         echo "Signature found.<br /> Now processing query with request number ". $_GET[sig].".</p><br />";
@@ -56,8 +56,8 @@
                         pg_close($resource_rw);
                         exit;
                     }
-                    
-                    $page_title = "Automated Shared Models Positions Pending Requests Form";
+
+                    $page_title = "Automated Objects Pending Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_GET[sig].".</p><br />";
                     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
@@ -97,13 +97,13 @@
                     }
 
                     // What is the subject ?
-                    $subject = "[FG Scenery Submission forms] Automatic shared model DB pending request process confirmation.";
+                    $subject = "[FG Scenery Submission forms] Automatic objects DB pending request process confirmation.";
 
                     // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                     $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                             "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                            "I just wanted to let you know that the object position request nr :" . "\r\n" .
+                            "I just wanted to let you know that the object (addition, update, deletion) request nr :" . "\r\n" .
                             $_GET[sig]. "\r\n" .
                             "has been successfully treated in the fgs_objects table." . "\r\n" .
                             "The corresponding pending entry has consequently been deleted" . "\r\n" .
@@ -145,7 +145,7 @@
                 // If not ok...
 
                 if (pg_num_rows($result) != 1) {
-                    $page_title = "Automated Shared Models Positions Pending Requests Form";
+                    $page_title = "Automated Objects Pending Requests Form";
                     $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
                     $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
                     include '../../inc/error_page.php';
@@ -160,7 +160,7 @@
                 $resultdel = @pg_query($resource_rw, $delete_request);
 
                 if (!resultdel) {
-                    $page_title = "Automated Shared Models Positions Pending Requests Form";
+                    $page_title = "Automated Objects Pending Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">\n";
                     echo "Signature found.<br /> Now deleting request with number ". $_GET[sig].".</p>";
@@ -171,8 +171,8 @@
                     pg_close($resource_rw);
                     exit;
                 }
-                
-                $page_title = "Automated Shared Models Positions Pending Requests Form";
+
+                $page_title = "Automated Objects Pending Requests Form";
                 include '../../inc/header.php';
                 echo "<p class=\"center\">";
                 echo "Signature found.<br />Now deleting request with number ". $_GET[sig].".</p>";
@@ -201,13 +201,13 @@
                 }
 
                 // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic shared model DB reject and deletion confirmation.";
+                $subject = "[FG Scenery Submission forms] Automatic Objects DB reject and deletion confirmation.";
 
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                             "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                            "I just wanted to let you know that the object position request nr:"  . "\r\n" .
+                            "I just wanted to let you know that the object request nr:"  . "\r\n" .
                             "" .$_GET[sig]. ""."\r\n" .
                             "has been rejected and successfully deleted from the pending requests table.";
 

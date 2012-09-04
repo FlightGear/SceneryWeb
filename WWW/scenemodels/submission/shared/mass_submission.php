@@ -7,7 +7,7 @@
     $ok = check_availability();
 
     if (!$ok) {
-        $page_title = "Automated Shared Models Positions Pending Requests Form";
+        $page_title = "Automated Objects Massive Import Request Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
@@ -24,7 +24,7 @@
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
-                $page_title = "Automated Shared Models Positions Pending Requests Form";
+                $page_title = "Automated Objects Massive Import Request Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
                 $advise_text = "Else, please report to devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
@@ -41,7 +41,7 @@
 
                     // Gzuncompress the query
                     $query_rw = gzuncompress($sqlz);
-                    $page_title = "Automated Shared Models Positions Pending Requests Form";
+                    $page_title = "Automated Objects Massive Import Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n</p>\n";
                     $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
@@ -87,7 +87,6 @@
 
                         $i++;
                     }
-
 ?>
                     <tr>
                     <td colspan="7" class="submit">
@@ -106,7 +105,6 @@
     }
 
     // Managing the cancellation of a mass import by DB maintainer.
-
     if (isset($_POST["cancel"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
 
          $resource_rw = connect_sphere_rw();
@@ -120,7 +118,7 @@
 
             // If not ok...
             if (pg_num_rows($result) != 1) {
-                $page_title = "Automated Shared Models Positions Pending Requests Form";
+                $page_title = "Automated Objects Massive Import Request Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?<br/>";
                 $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
                 include '../../inc/error_page.php';
@@ -133,7 +131,7 @@
                 $resultdel = @pg_query($resource_rw,$delete_request);
 
                 if(!resultdel) {
-                    $page_title = "Automated Shared Models Positions Pending Requests Form";
+                    $page_title = "Automated Objects Massive Import Request Form";
                     $process_text = "Signature found.<br /> Now deleting request with number ". $_POST["hsig"].".";
                     $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     include '../../inc/error_page.php';
@@ -143,7 +141,7 @@
                     exit;
                 }
 
-                $page_title = "Automated Shared Models Positions Pending Requests Form";
+                $page_title = "Automated Objects Massive Import Request Form";
                 include '../../inc/header.php';
                 echo "<center>Signature found.<br />Now deleting request with number ". $_POST["hsig"].".</center><br />";
                 echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.</p>";
@@ -168,13 +166,13 @@
                 }
 
                 // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic mass import shared model DB reject and deletion confirmation.";
+                $subject = "[FG Scenery Submission forms] Automatic objects massive import DB reject and deletion confirmation.";
 
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                             "http://".$_SERVER['SERVER_NAME']."/submission/mass_submission.php"  . "\r\n" .
-                            "I just wanted to let you know that the mass object insertion request nr:"  . "\r\n" .
+                            "I just wanted to let you know that the objects massive insertion request nr:"  . "\r\n" .
                             "" .$_POST[hsig]. ""."\r\n" .
                             "has been rejected and successfully deleted from the pending requests table.";
 
@@ -204,7 +202,7 @@
             // Checking the presence of sig into the database
             $result = @pg_query($resource_rw,"SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';");
             if (pg_num_rows($result) != 1) {
-                $page_title = "Automated Shared Models Positions Pending Requests Form";
+                $page_title = "Automated Objects Massive Import Request Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to devel ML or FG Scenery forum";
                 include '../../inc/error_page.php';
@@ -282,7 +280,7 @@
                 $result_rw = @pg_query($resource_rw, $mass_rw_query);
 
                 if (!$result_rw) {
-                    $page_title = "Automated Shared Models Positions Pending Requests Form";
+                    $page_title = "Automated Objects Massive Insertion Request Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_POST[hsig].".</p><br />";
                     echo "<p class=\"warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
@@ -293,7 +291,7 @@
                     exit;
                 }
 
-                $page_title = "Automated Shared Models Positions Pending Requests Form";
+                $page_title = "Automated Objects Massive Insertion Request Form";
                 include '../../inc/header.php';
                 echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST[hsig].".</p><br />\n";
                 echo "<p class=\"center ok\">".pg_affected_rows($result_rw)." objects were added to the database!</p>\n";
@@ -334,13 +332,13 @@
                 }
 
                 // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic mass shared model submission DB pending request process confirmation.";
+                $subject = "[FG Scenery Submission forms] Automatic Objects massive DB pending request process confirmation.";
 
                 // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                 $message0 = "Hi,"  . "\r\n" .
                             "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                             "http://".$_SERVER['SERVER_NAME']."/submission/mass_submission.php"  . "\r\n" .
-                            "I just wanted to let you know that the object position request nr :" . "\r\n" .
+                            "I just wanted to let you know that the objects massive insertion request nr :" . "\r\n" .
                             $_POST[hsig]. "\r\n" .
                             "has been successfully treated in the fgs_objects table." . "\r\n" .
                             "The corresponding pending entry has consequently been deleted" . "\r\n" .

@@ -54,7 +54,7 @@ Please, read the following:
     <table>
         <tr>
             <td>
-            <span title="This is the family name of the object you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family</label></span>
+            <span title="This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family</label></span>
             </td>
             <td colspan="2">
             <select name="mo_shared" id="mo_shared">
@@ -120,7 +120,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the WGS84 longitude of the model you want to add. Has to be between -180.000000 and +180.000000.">
+            <span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000.">
             <label for="longitude">Longitude</label>
             </span>
             </td>
@@ -130,7 +130,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the WGS84 latitude of the model you want to add. Has to be between -90.000000 and +90.000000.">
+            <span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000.">
             <label for="latitude">Latitude</label>
             </span>
             </td>
@@ -140,7 +140,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the ground elevation (in meters) of the position where the model you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below.">
+            <span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your object is sunk into the ground, use the elevation offset field below.">
             <label for="gndelev">Elevation</label>
             </span>
             </td>
@@ -150,7 +150,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset.">
+            <span title="This is the offset (in meters) between your object 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset.">
             <label for="offset">Elevation offset</label> (see <a href="../../contribute.php#offset">here</a> for more help)
             </span>
             </td>

@@ -43,7 +43,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
-        $page_title = "Automated Shared Models Positions Deletion Form";
+        $page_title = "Automated Objects Deletion Form";
         $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/shared/index_delete.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
@@ -51,7 +51,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
         exit;
     }
 
-    $page_title = "Automated Shared Models Positions Deletion Form";
+    $page_title = "Automated Objects Deletion Form";
     include '../../inc/header.php';
 
     echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p>";
@@ -95,7 +95,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
         include '../../inc/footer.php';
         exit;
     }
-    echo "<p class=\"center\">Your position has been successfully queued into the FG scenery database deletion requests!<br />";
+    echo "<p class=\"center\">Your object has been successfully queued into the deletion requests!<br />";
     echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
     echo "Want to delete or submit another position ?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/\">Click here to go back to the submission page.</a></p>";
@@ -115,14 +115,14 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
     // What is the subject ?
-    $subject = "[FG Scenery Submission forms] Automatic shared model position DELETION request: needs validation.";
+    $subject = "[FG Scenery Submission forms] Automatic object DELETION request: needs validation.";
 
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
     if (!$failed_mail) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
+                    "I just wanted to let you know that a new object DELETION request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                     "issued the following request:" . "\r\n";
     }
@@ -130,7 +130,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new shared object position DELETION request is pending." . "\r\n" .
+                    "I just wanted to let you know that a new object DELETION request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
     }
     $message077 = wordwrap($message0, 77, "\r\n");
@@ -138,7 +138,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
     $message1 = "Object #: " .$id_to_delete. "\r\n" .
                 "Family: " .get_object_family_from_id($id_to_delete). "\r\n" .
-                "Object: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
+                "Model: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
                 "Latitude: " .get_object_latitude_from_id($id_to_delete). "\r\n" .
                 "Longitude: " .get_object_longitude_from_id($id_to_delete). "\r\n" .
                 "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
@@ -175,21 +175,21 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
         $to = $safe_email;
 
         // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic shared model position deletion request.";
+        $subject = "[FG Scenery Submission forms] Automatic object deletion request.";
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message3 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
-                    "Just to let you know that this shared object position deletion request has been sent for validation." . "\r\n" .
+                    "Just to let you know that this object deletion request has been sent for validation." . "\r\n" .
                     "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
                     "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
         $message077 = wordwrap($message3, 77, "\r\n");
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message4 = "Family: " .get_object_family_from_id($id_to_delete). "\r\n" .
-                    "Object: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
+                    "Model: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
                     "Latitude: " .get_object_latitude_from_id($id_to_delete). "\r\n" .
                     "Longitude: " .get_object_longitude_from_id($id_to_delete). "\r\n" .
                     "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
@@ -218,7 +218,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 $ok = check_availability();
 
 if (!$ok) {
-    $page_title = "Automated Shared Models Positions Deletion Form";
+    $page_title = "Automated Objects Deletion Form";
     $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
     include '../../inc/error_page.php';
     exit;
@@ -271,7 +271,7 @@ else {
 
 // If there is no error, generating SQL to be inserted into the database pending requests table.
 if ($error) {
-    $page_title = "Automated Shared Models Positions Deletion Form";
+    $page_title = "Automated Objects Deletion Form";
     // $error_text is defined above
     include '../../inc/error_page.php';
     exit;
@@ -284,25 +284,25 @@ $resource_r_deletion = connect_sphere_r();
 if (isset($id_to_delete)) {
     // Let's grab the information about this object from the database
     $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay FROM fgs_objects WHERE ob_id = ".$id_to_delete.";";
-    $result = @pg_query($resource_r_deletion, $query_pos);
-    $returned_rows = pg_num_rows($result);
+    $result = @pg_query ($resource_r_deletion, $query_pos);
+    $returned_rows = pg_num_rows ($result);
 }
 else {
     // Let's see in the database if something exists at this position
     $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
-    $result = @pg_query($resource_r_deletion, $query_pos);
-    $returned_rows = pg_num_rows($result);
+    $result = @pg_query ($resource_r_deletion, $query_pos);
+    $returned_rows = pg_num_rows ($result);
 }
 
 // We have no result
 if ($returned_rows == 0) {
-    $page_title = "Automated Shared Models Positions Deletion Form";
+    $page_title = "Automated Objects Deletion Form";
     $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href=\"index_delete.php\">go back and check your position</a> (see in the relevant STG file).";
     include '../../inc/error_page.php';
     exit;
 }
 
-$page_title = "Automated Shared Models Positions Deletion Form";
+$page_title = "Automated Objects Deletion Form";
 include '../../inc/header.php';
 
 // We have only one result
@@ -333,7 +333,7 @@ function validateForm()
             <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
         </tr>
         <tr>
-            <td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
+            <td><span title="This is the model name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
             <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo $model_name; ?></td>
         </tr>
         <tr>
@@ -445,7 +445,7 @@ function validateForm()
             <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
         </tr>
         <tr>
-            <td><span title="This is the name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
+            <td><span title="This is the model name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
             <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo $model_name; ?></td>
         </tr>
         <tr>
@@ -515,8 +515,5 @@ function validateForm()
     include '../../inc/footer.php';
     exit;
 }
-
 include '../../inc/footer.php';
-
-
 ?>

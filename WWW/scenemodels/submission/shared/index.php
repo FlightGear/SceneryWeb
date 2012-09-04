@@ -8,12 +8,12 @@ $ok=check_availability();
 
 if(!$ok)
 {
-    $page_title = "Automated Shared Models Positions Submission Form";
+    $page_title = "Automated Objects Submission Form";
     $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
     include '../../inc/error_page.php';
 }
 else {
-    $page_title = "Automated Shared Models Positions Submission Form";
+    $page_title = "Automated Objects Submission Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
 ?>
@@ -39,17 +39,15 @@ function validateForm()
 /*]]>*/
 </script>
 
-<h1>Positions Automated Submission Form</h1>
+<h1>Automated Objects Submission Form</h1>
 
 <p class="center">
-  <b>Foreword:</b> This automated form goal is to ease the submission of shared
-  models positions into FG Scenery database.
+  <b>Foreword:</b> This automated form goal is to ease the submission of objects into FG Scenery database.
   <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
   Help us to make it more!
   <br />Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a>
   in order to understand what recommandations this script is looking for.
-  <br />Also note that all fields are now mandatory. If you need some more help,
-  just put your mouse over the left column (eg "Elevation Offset").
+  <br />Also note that all fields are now mandatory. If you need some more help, just place your mouse over the left column (eg "Elevation Offset").
 </p>
 
 <form id="positions" method="post" action="check_shared.php" onsubmit="return validateForm();">

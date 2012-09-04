@@ -4,16 +4,16 @@
     require_once('../../inc/functions.inc.php');
 
     // Checking DB availability before all
-    $ok=check_availability();
+    $ok = check_availability();
 
     if (!$ok) {
-        $page_title = "Automated Shared Models Positions Mass Import Submission Form";
+        $page_title = "Automated Objects Massive Import Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
     }
 
-    $page_title = "Automated Shared Models Positions Mass Import Submission Form";
+    $page_title = "Automated Objects Massive Import Submission Form";
     include '../../inc/header.php';
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -32,11 +32,11 @@ function validateForm()
 /*]]>*/
 </script>
 
-<h1>Positions Automated Mass Import Submission Form</h1>
+<h1>Automated Objects Massive Import Submission Form</h1>
 
 <p>
-  <b>Foreword:</b> This automated mass import form goal is to ease the submission
-  when submitter want to add a lot of shared models positions into FG Scenery database.
+  <b>Foreword:</b> This automated massive import form goal is to ease the submission
+  when submitter wants to add a lot of objects positions into FG Scenery database.
   <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
   Help us to make it more! Simply copy/paste the NEW content of your STG files below.
 </p>

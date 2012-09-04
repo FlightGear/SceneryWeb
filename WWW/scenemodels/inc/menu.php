@@ -11,11 +11,11 @@
     <li class="mainitems">
       <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
       <ul class="submenus">
-        <li><a href="/submission/shared/index.php">Add a new shared object position</a></li>
-        <li><a href="/submission/shared/index_delete.php">Delete a shared object position</a></li>
-        <li><a href="/submission/shared/index_mass_import.php">Mass shared object import</a></li>
-        <li><a href="/submission/shared/index_update.php">Update shared/static objects data</a></li>
-    <li><a href="/submission/static/index.php">Add a new shared/static 3D Model</a></li>
+        <li><a href="/submission/shared/index.php">Add a new object position</a></li>
+        <li><a href="/submission/shared/index_delete.php">Delete an object position</a></li>
+        <li><a href="/submission/shared/index_mass_import.php">Massive import of objects</a></li>
+        <li><a href="/submission/shared/index_update.php">Update object/model geodata</a></li>
+    <li><a href="/submission/static/index.php">Add a new Model</a></li>
       </ul>
     </li>
     <li class="mainitems">

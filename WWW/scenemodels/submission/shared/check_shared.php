@@ -7,7 +7,7 @@
     $ok=check_availability();
 
     if(!$ok) {
-        $page_title = "Automated Shared Models Positions Submission Form";
+        $page_title = "Automated Objects Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
@@ -25,7 +25,7 @@
 
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
-        $page_title = "Automated Shared Models Positions Submission Form";
+        $page_title = "Automated Objects Submission Form";
 
         $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/shared/index.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
@@ -34,7 +34,7 @@
         exit;
     }
 
-    $page_title = "Automated Shared Models Positions Submission Form";
+    $page_title = "Automated Objects Submission Form";
     include '../../inc/header.php';
     echo "<br />";
     $error = false;
@@ -194,10 +194,10 @@ if (!$error) {
         echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
     }
     else {
-        echo "<br />Your position has been successfully queued into the FG scenery database update requests!<br />";
+        echo "<br />Your object request has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to submit another position ?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/\">Click here to go back to the submission page.</a>";
+        echo "Want to submit another object?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/\">Click here to go back to the submission page.</a>";
         echo "</center>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
@@ -215,7 +215,7 @@ if (!$error) {
         $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
         // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic shared model position request: needs validation.";
+        $subject = "[FG Scenery Submission forms] Automatic object request: needs validation.";
 
         // Correctly format the data for mail.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
@@ -228,7 +228,7 @@ if (!$error) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
+                        "I just wanted to let you know that a new object insertion request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                         "issued the following request:" . "\r\n";
         }
@@ -236,7 +236,7 @@ if (!$error) {
             $message0 = "Hi," . "\r\n" .
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "I just wanted to let you know that a new shared object position insertion request is pending." . "\r\n" .
+                        "I just wanted to let you know that a new object insertion request is pending." . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
         }
 
@@ -244,7 +244,7 @@ if (!$error) {
 
         // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
         $message1 = "Family: ".$family_real_name."\r\n" . "[ ".$html_family_url." ]" . "\r\n" .
-                    "Object: ".$model_real_name."\r\n" . "[ ".$html_object_url." ]" . "\r\n" .
+                    "Model: ".$model_real_name."\r\n" . "[ ".$html_object_url." ]" . "\r\n" .
                     "Latitude: ". $lat . "\r\n" .
                     "Longitude: ". $long . "\r\n" .
                     "Ground elevation: ". $gndelev . "\r\n" .
@@ -280,7 +280,7 @@ if (!$error) {
             $to = $safe_email;
 
             // What is the subject ?
-            $subject = "[FG Scenery Submission forms] Automatic shared model position submission request.";
+            $subject = "[FG Scenery Submission forms] Automatic object submission request.";
 
             // Correctly set the object URL.
             $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
@@ -293,7 +293,7 @@ if (!$error) {
                         "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                         "http://".$_SERVER['SERVER_NAME']."/submission/check_update_shared.php" . "\r\n" .
                         "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
-                        "Just to let you know that this new shared object position insertion request has been sent for validation." . "\r\n" .
+                        "Just to let you know that this new object insertion request has been sent for validation." . "\r\n" .
                         "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
                         "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
 
@@ -302,7 +302,7 @@ if (!$error) {
             // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
             $message4 = "Family: ".$family_real_name."\r\n" .
                         "[ ".$html_family_url." ]" . "\r\n" .
-                        "Object: ".$model_real_name."\r\n" .
+                        "Model: ".$model_real_name."\r\n" .
                         "[ ".$html_object_url." ]" . "\r\n" .
                         "Latitude: ". $lat . "\r\n" .
                         "Longitude: ". $long . "\r\n" .

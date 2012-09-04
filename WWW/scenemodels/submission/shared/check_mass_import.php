@@ -7,7 +7,7 @@ require_once('../../inc/functions.inc.php');
     $ok = check_availability();
 
     if (!$ok) {
-        $page_title = "Automated Shared Models Positions Submission Form";
+        $page_title = "Automated Objects Massive Import Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
@@ -26,7 +26,7 @@ require_once('../../inc/functions.inc.php');
 
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
-        $page_title = "Automated Shared Models Mass Import Form";
+        $page_title = "Automated Objects Massive Import Submission Form";
         $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='index_mass_import.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
@@ -34,7 +34,7 @@ require_once('../../inc/functions.inc.php');
         exit;
     }
 
-    $page_title = "Automated Shared Models Positions Submission Form";
+    $page_title = "Automated Objects Massive Import Submission Form";
     include '../../inc/header.php';
 ?>
 <br />
@@ -46,8 +46,8 @@ require_once('../../inc/functions.inc.php');
     //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     $failed_mail = false;
     if (isset($_POST['email'])
-        && (strlen($_POST['email'])>0)
-        && (strlen($_POST['email'])<=50)) {
+        && (strlen($_POST['email']) > 0)
+        && (strlen($_POST['email']) <= 50)) {
         $safe_email = pg_escape_string(stripslashes($_POST['email']));
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
     }
@@ -231,7 +231,7 @@ if (!$error) {
                 $ko = 1;
                 $global_ko = 1;
                 $cpt_err++;
-                
+
                 echo "<td><p class=\"center warning\">Already exists!</p></td>";
             } else {
                 echo "<td><p class=\"center ok\">OK</p></td>";
@@ -324,23 +324,23 @@ if (!$error) {
     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
     // What is the subject ?
-    $subject = "[FG Scenery Submission forms] Automatic mass shared model position request: needs validation.";
+    $subject = "[FG Scenery Submission forms] Automatic objects massive import request: needs validation.";
 
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
     if (!$failed_mail) {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
+                    "I just wanted to let you know that a new objects massive import request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
-                    "issued a mass shared object insertion request." . "\r\n";
+                    "issued an objects massive import request." . "\r\n";
     }
     else {
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new mass shared object position insertion request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued a mass shared object insertion request." . "\r\n";
+                    "I just wanted to let you know that a new objects massive import request is pending." . "\r\n" .
+                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued an objects massive import request." . "\r\n";
     }
     $message077 = wordwrap($message0, 77, "\r\n");
 
@@ -369,14 +369,14 @@ if (!$error) {
         $to = $safe_email;
 
         // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic mass shared model position submission request.";
+        $subject = "[FG Scenery Submission forms] Automatic objects massive import request.";
 
         // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
         $message3 = "Hi," . "\r\n" .
                     "This is the automated FG scenery submission PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n" .
-                    "Just to let you know that this new mass shared object position insertion request has been sent for validation." . "\r\n" .
+                    "Just to let you know that this new objects massive import request has been sent for validation." . "\r\n" .
                     "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
                     "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
 
@@ -394,6 +394,5 @@ if (!$error) {
     }
 }
 include '../../inc/footer.php';
-
 
 ?>

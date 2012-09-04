@@ -63,7 +63,7 @@ if (isset($model_name)
 
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
-        $page_title = "Automated Objects Positions Update Form";
+        $page_title = "Automated Objects Update Form";
         $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly.".
                       " <a href='index_update.php'>Go back and try it again</a>" .
                       "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
@@ -74,7 +74,7 @@ if (isset($model_name)
     }
 
     // Talking back to submitter.
-    $page_title = "Automated Objects Models Positions Update Form";
+    $page_title = "Automated Objects Update Form";
     include '../../inc/header.php';
 
     // Checking that email is valid (if it exists).
@@ -118,7 +118,7 @@ if (isset($model_name)
         exit;
     }
 
-    echo "<p class=\"center\">Your update request has been successfully queued into the FG scenery database update requests!<br />";
+    echo "<p class=\"center\">Your update request has been successfully queued into the FG scenery update requests!<br />";
     echo "Unless it's rejected, the object should be updated in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
     echo "Want to update, delete or submit another position?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/\">Click here to go back to the submission page.</a></p>";
@@ -149,7 +149,7 @@ if (isset($model_name)
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery update PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new object position update request is pending." . "\r\n" .
+                    "I just wanted to let you know that a new object update request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
                     "issued the following request:" . "\r\n";
     }
@@ -157,7 +157,7 @@ if (isset($model_name)
         $message0 = "Hi," . "\r\n" .
                     "This is the automated FG scenery update PHP form at:" . "\r\n" .
                     "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new object position update request is pending." . "\r\n" .
+                    "I just wanted to let you know that a new object update request is pending." . "\r\n" .
                     "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
     }
     $message077 = wordwrap($message0, 77, "\r\n");
@@ -165,7 +165,7 @@ if (isset($model_name)
     // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
     $message1 = "Object #: ".$id_to_update."\r\n" .
                 "Family: ". get_object_family_from_id($id_to_update) ." => ".family_name($_POST['family_name'])."\r\n" .
-                "Object: ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
+                "Model: ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
                 "[ ".$html_object_url." ]" . "\r\n" .
                 "Latitude: ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
                 "Longitude: ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
@@ -225,7 +225,7 @@ if (isset($model_name)
         $message4 = "Object #: ".$id_to_update."\r\n" .
                     "Family: ". get_object_family_from_id($id_to_update) ." => ".family_name($_POST['family_name'])."\r\n" .
                     "[ ".$html_family_url." ]" . "\r\n" .
-                    "Object: ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
+                    "Model: ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
                     "[ ".$html_object_url." ]" . "\r\n" .
                     "Latitude: ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
                     "Longitude: ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
@@ -253,7 +253,7 @@ if (isset($model_name)
 
 // Getting back the update_choice
 if (isset($id_to_update)) {
-    $page_title = "Automated Object Positions Update Form";
+    $page_title = "Automated Object Update Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
 
@@ -341,7 +341,7 @@ function validateForm()
         </tr>
         <tr>
           <td>
-            <span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
+            <span title="This is the model name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
             <label for="model_name">Model name<em>*</em></label></span>
           </td>
           <td>
@@ -425,7 +425,7 @@ function validateForm()
         </tr>
         <tr>
           <td>
-            <span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
+            <span title="This is the ground elevation (in meters) where the object you want to update is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below.">
             <label for="new_gndelev">Elevation<em>*</em></label></span>
           </td>
           <td>
@@ -511,7 +511,7 @@ else {
     $ok = check_availability();
 
     if (!$ok) {
-        $page_title = "Automated Objects Positions Update Form";
+        $page_title = "Automated Objects Update Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
         exit;
@@ -552,7 +552,7 @@ else {
 
 
     if ($error) {
-        $page_title = "Automated Objects Positions Update Form";
+        $page_title = "Automated Objects Update Form";
         // $error_text is defined above
         include '../../inc/error_page.php';
         exit;
@@ -565,18 +565,18 @@ else {
 
     // Let's see in the database if something exists at this position
     $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
-    $result = @pg_query($resource_r_update, $query_pos);
-    $returned_rows = pg_num_rows($result);
+    $result = @pg_query ($resource_r_update, $query_pos);
+    $returned_rows = pg_num_rows ($result);
 
     if ($returned_rows == 0) {
-        $page_title = "Automated Objects Positions Update Form";
-        $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
+        $page_title  = "Automated Objects Update Form";
+        $error_text  = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
         $advise_text = "Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).";
         include '../../inc/error_page.php';
         exit;
     }
 
-    $page_title = "Automated Objects Positions Update Form";
+    $page_title = "Automated Objects Update Form";
     include '../../inc/header.php';
 
     if ($returned_rows == 1) { // If we have just an answer...
@@ -590,7 +590,7 @@ else {
                     <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
                 </tr>
                 <tr>
-                    <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
+                    <td><span title="This is the model name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
                     <td colspan="4"><?php $real_name = object_name($row[5]); echo $real_name; ?></td>
                     <input name="model_id" type="hidden" value="<?php echo $row[5]; ?>" />
                 </tr>
@@ -663,7 +663,7 @@ else {
                     <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
                 </tr>
                 <tr>
-                    <td><span title="This is the name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
+                    <td><span title="This is the model name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
                     <label>Model name</label></span></td>
                     <td colspan="4"><?php $real_name = object_name($row[5]); echo $real_name; ?></td>
                 </tr>
@@ -714,7 +714,6 @@ else {
 <?php
         exit;
     }
-
     include '../../inc/footer.php';
 }
 ?>
