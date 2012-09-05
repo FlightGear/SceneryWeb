@@ -544,67 +544,16 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 #                                             #
-# STEP 9 : CHECK GEOGRAPHICAL INFORMATION     #
+#  STEP 9 : CHECK GENERAL INFORMATION         #
 #                                             #
 ###############################################
 ###############################################
 
-if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndelev"] != "") && ($_POST["heading"] != "")) {
-    $longitude = strip_tags($_POST["longitude"]);
-    $latitude  = strip_tags($_POST["latitude"]);
-    $gndelev   = strip_tags($_POST["gndelev"]);
-    $offset    = strip_tags($_POST["offset"]);
-    $heading   = strip_tags($_POST["heading"]);
-
-    if (preg_match('#[a-zA-Z ]#', $longitude) || ($longitude < -180 || $longitude > 180)) {
-        $error += 1;
-        $errormsg .= "Please check the longitude value (-180 < longitude < 180)!<br/>";
-    }
-
-    if (preg_match('#[a-zA-Z ]#', $latitude) || ($latitude < -90 || $latitude > 90)) {
-        $error += 1;
-        $errormsg .= "Please check the latitude value (-90 < latitude < 90)!<br/>";
-    }
-
-    if (preg_match('#[a-zA-Z ]#', $gndelev) || ($gndelev < -10000 || $gndelev > 10000)) {
-        $error += 1;
-        $errormsg .= "Please check the ground elevation value (-10000 < ground elevation < 10000)!<br/>";
-    }
-
-    if ($offset == '') $offset = "NULL";
-        else if (preg_match('#[a-zA-Z ]#', $offset) || ($offset < -10000 || $offset > 10000)) {
-        $error += 1;
-        $errormsg .= "Please check the offset value (-10000 < offset < 10000)!<br/>";
-    }
-
-    if (preg_match('#[a-zA-Z ]#', $heading) || ($heading < 0 || $heading > 359.999)) {
-        $error += 1;
-        $errormsg .= "Please check the heading value (0 < heading < 359.999)!<br/>";
-    }
-}
-else {
-    $error += 1;
-    $errormsg .= "Please fill in all required fields!<br/>";
-}
-
-###############################################
-###############################################
-#                                             #
-# STEP 10 : CHECK GENERAL INFORMATION         #
-#                                             #
-###############################################
-###############################################
-
-if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
-    && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
+if (($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
     && isset($_POST['comment'])) {
 
         $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
-        $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
         $comment     = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
-        $mo_shared   = $_POST["mo_shared"];
-        $author      = $_POST["mo_author"];
-        $country     = $_POST["ob_country"];
         $ipaddr      = $_POST["IPAddr"];
 
     if ($mo_shared != 0) { // This is only used for shared objects.
@@ -614,17 +563,7 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
         }
     }
 
-    if (!preg_match('#^[0-9]{1,3}$#', $author)) {
-        $error += 1;
-        $errormsg .= "Please check the author value!<br/>";
     }
-
-    if (!preg_match('#^[a-zA-Z]{1,3}$#', $country)) {
-        $error += 1;
-        $errormsg .= "Please check the country value!<br/>";
-    }
-
-}
 else {
     $error += 1;
     $errormsg .= "Please fill in all required fields!<br/>";
@@ -679,43 +618,6 @@ else {
     $mo_query .= $mo_shared;              // mo_shared
     $mo_query .= ") ";
     $mo_query .= "RETURNING mo_id";
-
-    # Inserts into fgs_models and returns current mo_id
-    $ob_model = 'Thisisthevalueformo_id';
-
-    if ($offset != '') {
-        $ob_query  = "INSERT INTO fgs_objects ";
-        $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ";
-        $ob_query .= "VALUES (";
-        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
-        $ob_query .= $offset.", ";                                                             // ob_elevoffset
-        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-        $ob_query .= "'".$country."', ";                                                       // ob_country
-        $ob_query .= $ob_model.", ";                                                           // ob_model
-        $ob_query .= "1";                                                                       // ob_group
-        $ob_query .= ")";
-    }
-    else {
-        $ob_query  = "INSERT INTO fgs_objects ";
-        $ob_query .= "(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group) ";
-        $ob_query .= "VALUES (";
-        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
-        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-        $ob_query .= "'".$country."', ";                                                       // ob_country
-        $ob_query .= $ob_model." ,";                                                           // ob_model
-        $ob_query .= "1";
-        $ob_query .= ")";
-        }
-
-    // Object Stuff into pending requests table.
-    $ob_sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";
-    $ob_sha_hash = hash('sha256', $ob_sha_to_compute);
-    $ob_zipped_base64_rw_query = gzcompress($ob_query, 8);                         // Zipping the Base64'd request.
-    $ob_base64_rw_query = base64_encode($ob_zipped_base64_rw_query);               // Coding in Base64.
-    $ob_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$ob_sha_hash."', '".$ob_base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $ob_query_rw_pending_request);             // Sending the request...
 
     // Model stuff into pending requests table.
     $mo_sha_to_compute = "<".microtime()."><".$ipaddr."><".$mo_query.">";
