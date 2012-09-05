@@ -100,15 +100,14 @@
         <th>
         Model<br/>
         Group<br/>
-        <select name="model" style="font-size: 0.7em;">
+        <select name="model" style="font-size: 0.7em; width: 100%">
             <option value="0"></option>
 <?php
             $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
             while ($row = pg_fetch_assoc($result)) {
                 $models[$row["mo_id"]] = $row["mo_path"];
                 echo "<option value=\"".$row["mo_id"]."\"";
-                if ($row["mo_id"] == $model)
-                    echo " selected=\"selected\"";
+                if ($row["mo_id"] == $model) echo " selected=\"selected\"";
                 echo ">".$row["mo_path"]."</option>\n";
             }
 ?>
@@ -121,8 +120,7 @@
             while ($row = pg_fetch_assoc($result)){
                 $groups[$row["gp_id"]] = $row["gp_name"];
                 echo "<option value=\"".$row["gp_id"]."\"";
-                if ($row["gp_id"] == $group)
-                    echo " selected=\"selected\"";
+                if ($row["gp_id"] == $group) echo " selected=\"selected\"";
                 echo ">".$row["gp_name"]."</option>\n";
             }
 ?>
@@ -130,7 +128,7 @@
       </th>
       <th>
         Country<br/>
-        <select name="country" style="font-size: 0.7em;">
+        <select name="country" style="font-size: 0.7em; width: 100%">
             <option value="0"></option>
 <?php
             $result = pg_query("SELECT co_code,co_name FROM fgs_countries;");
@@ -162,8 +160,8 @@
         if($group != 0) $filter_text .= "&amp;group=".$group;
         if($country != "") $filter_text .= "&amp;country=".$country;
 
-        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;";
-        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
+        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;" .
+             "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
 ?>
       </td>
     </tr>
@@ -175,34 +173,33 @@
 
         $result = pg_query($query);
         while ($result && $row = pg_fetch_assoc($result)) {
-            echo "<tr class=\"object\">\n";
-            echo "  <td><a href='http://scenemodels.flightgear.org/objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n";
-            echo "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
+            echo "<tr class=\"object\">\n" .
+                 "  <td><a href='objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n" .
+                 "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
             $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
-            echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n";
-            echo "  <td>".$row["ob_heading"]."</td>\n";
-            echo "  <td>".$row["ob_text"]."</td>\n";
-            echo "  <td>".$models[$row["ob_model"]]."<br/><b>".$groups[$row["ob_group"]]."</b></td>\n";
-            echo "  <td>".$countries[$row["ob_country"]]."</td>\n";
-            echo "  <td>\n";
-            echo "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\">Update</a>";
-                if (is_shared_or_static($row["ob_id"]) == 'shared') {
+            echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n" .
+                 "  <td>".$row["ob_heading"]."</td>\n" .
+                 "  <td>".$row["ob_text"]."</td>\n" .
+                 "  <td><a href=\"modelview.php?id=".$row["ob_model"]."\">".$models[$row["ob_model"]]."</a><br/><b>".$groups[$row["ob_group"]]."</b></td>\n" .
+                 "  <td>".$countries[$row["ob_country"]]."</td>\n" .
+                 "  <td>\n" .
+                 "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\">Update</a>";
+            if (is_shared_or_static($row["ob_id"]) == 'shared') {
 ?>
-
                 <br/>
                 <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">Delete</a>
 <?php
             }
-          echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>";
-          echo "  </td>\n";
-          echo "</tr>\n";
+          echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>" .
+               "  </td>\n" .
+               "</tr>\n";
       }
 ?>
     <tr class="bottom">
       <td colspan="7" align="center">
 <?php
-          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;";
-          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
+          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;" .
+               "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
 ?>
       </td>
     </tr>
