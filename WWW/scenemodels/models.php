@@ -59,28 +59,29 @@
             $query.= "WHERE ob_model=".$modelid;
             $chunks=pg_query($query);
 
-                while ($chunk = pg_fetch_assoc($chunks)) {
-                    $lat = floor($chunk["ob_lat"]/10)*10;
-                    $lon = floor($chunk["ob_lon"]/10)*10;
+            while ($chunk = pg_fetch_assoc($chunks)) {
+                $lat = floor($chunk["ob_lat"]/10)*10;
+                $lon = floor($chunk["ob_lon"]/10)*10;
 
-                    if ($lon < 0){
-                        $lon = sprintf("w%03d", 0-$lon);
-                    } else {
-                        $lon = sprintf("e%03d", $lon);
-                    }
+                if ($lon < 0){
+                    $lon = sprintf("w%03d", 0-$lon);
+                } else {
+                    $lon = sprintf("e%03d", $lon);
+                }
 
-                    if ($lat < 0) {
-                        $lat = sprintf("s%02d", 0-$lat);
-                    } else {
-                        $lat=sprintf("n%02d", $lat);
-                    }
+                if ($lat < 0) {
+                    $lat = sprintf("s%02d", 0-$lat);
+                } else {
+                    $lat=sprintf("n%02d", $lat);
+                }
+                
                 echo "<li>(<a href=\"download/".$lon.$lat.".tgz\">".$lon.$lat."</a>) ";
                 echo "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a></li>\n";
-                }
             }
+        }
 
-            echo "<li><a href=\"modelview.php?id=".$row["mo_id"]."\">View more about this model.</a></li>\n";
-            echo "</ul>";
+        echo "<li><a href=\"modelview.php?id=".$row["mo_id"]."\">View more about this model.</a></li>\n";
+        echo "</ul>";
         echo "</td>\n";
         echo "</tr>\n";
     }
