@@ -9,12 +9,13 @@
 	ServerAlias 3.flightgear.telascience.org
 	ServerAlias 4.flightgear.telascience.org
 # See if this works - locking out fakes bots ....
-SetEnvIfNoCase User-Agent "^MJ12bot(.*)1\.0\.8" stay_out
-<Location />
-Order Allow,Deny
-Deny from env=stay_out
-Allow from all
-</Location>
+	SetEnvIfNoCase User-Agent "^MJ12bot(.*)1\.0\.8" stay_out
+	<Location />
+	  Order Allow,Deny
+	  Deny from env=stay_out
+	  Allow from all
+	</Location>
+########################################################################
 	DocumentRoot /home/fgscenery/WWW/mapserver
         php_value auto_prepend_file /home/jstockill/etc/config.php
 	# Support the old-style "landcover" notation:
@@ -148,6 +149,6 @@ Allow from all
 	  Allow from all
 	</Directory>
 ########################################################################
-	ErrorLog ${APACHE_LOG_DIR}/mapserver.flightgear.org-error.log
-	CustomLog ${APACHE_LOG_DIR}/mapserver.flightgear.org-access.log combined
+	ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
+	CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
 </VirtualHost>
