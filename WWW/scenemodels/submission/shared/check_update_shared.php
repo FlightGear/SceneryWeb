@@ -656,7 +656,7 @@ else {
                     </td>
                 </tr>
                 <tr>
-                    <th rowspan="6">
+                    <th rowspan="7">
                         <input type="radio" name="update_choice" value="<?php echo $row[0];?>" <?php echo ($i==1)?"checked=\"checked\"":""; ?> />
                     </th>
                     <td><span title="This is the family name of the object you want to update."><label>Object's family</label></span></td>
