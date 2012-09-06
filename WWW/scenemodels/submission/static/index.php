@@ -88,18 +88,6 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the country code where the model is located (for static models only).">
-            <label for="ob_country">Country</label>
-            </span>
-            </td>
-            <td>
-            <select name="ob_country" id="ob_country">
-            <?php list_countries(); ?>
-            </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
             <span title="Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).">
             <label for="mo_name">Description</label>
             </span>
@@ -136,6 +124,18 @@ Please, read the following:
             </td>
             <td>
             <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="checkNumeric(this,-90,90);" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <span title="This is the country code where the model is located (for static models only).">
+            <label for="ob_country">Country</label>
+            </span>
+            </td>
+            <td>
+            <select name="ob_country" id="ob_country">
+            <?php list_countries(); ?>
+            </select>
             </td>
         </tr>
         <tr>

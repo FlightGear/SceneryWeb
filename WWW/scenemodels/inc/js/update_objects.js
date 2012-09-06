@@ -2,14 +2,14 @@ function update_objects()
 {
     //retrives information from a php-generated xml
     var url = '/inc/objects_xml.php?mg_id='+document.getElementById('family_name').value;
-              
+
     var hreq = null;
     if(window.XMLHttpRequest){//firefox, chrome,...
        hreq = new XMLHttpRequest();
     } else {
        hreq = new ActiveXObject("Microsoft.XMLHTTP");//IE
     }
-      
+
     hreq.onreadystatechange = function(){changeObjectsList(hreq); };
     hreq.open("GET", url, true); //true=asynchronous
     hreq.send(null);
@@ -18,11 +18,11 @@ function update_objects()
 function changeObjectsList(hreq)
 {
     var text="<select name='model_name' id='model_name' onchange='change_thumb()'>";
-	
+
     if(hreq.readyState == 4) //checks that the request is finished       
-    { 
+    {
         var objects=hreq.responseXML.getElementsByTagName("object");
-	 
+
         for(i=0; i<objects.length; i++) 
         {
             var object=objects[i];
@@ -34,7 +34,7 @@ function changeObjectsList(hreq)
     }
   
     text+="</select>";
-  
+
     document.getElementById('form_objects').innerHTML = text;
     change_thumb();
 }
@@ -51,4 +51,50 @@ function update_map()
     
     if(longitude!="" && latitude!="")
         document.getElementById('map').src = "http://mapserver.flightgear.org/submap/?zoom=13&lat="+latitude+"&lon="+longitude;
+}
+
+
+function update_country()
+{
+    var longitude = document.getElementById('longitude').value;
+    var latitude = document.getElementById('latitude').value;
+    
+    if(longitude!="" && latitude!="")
+    {
+        //retrives information from a php-generated xml
+        var url = '/inc/country_xml.php?lt='+longitude+"&lg"+latitude;
+                  
+        var hreq = null;
+        if(window.XMLHttpRequest){//firefox, chrome,...
+           hreq = new XMLHttpRequest();
+        } else {
+           hreq = new ActiveXObject("Microsoft.XMLHTTP");//IE
+        }
+          
+        hreq.onreadystatechange = function(){update_country_aux(hreq); };
+        hreq.open("GET", url, true); //true=asynchronous
+        hreq.send(null);
+    }
+}
+
+function update_country_aux(hreq)
+{
+    if(hreq.readyState == 4) //checks that the request is finished       
+    {
+        var country=hreq.responseXML.getElementsByTagName("country")[0].childNodes[0].nodeValue;
+
+        var ddl = document.getElementById('ob_country');
+        
+        for (var i = 0; i < ddl.options.length; i++)
+        {
+            if (ddl.options[i].value == country)
+            {
+                if (ddl.selectedIndex != i) {
+                    ddl.selectedIndex = i;
+                    ddl.onchange();
+                }
+                break;
+            }
+        }
+    }
 }
