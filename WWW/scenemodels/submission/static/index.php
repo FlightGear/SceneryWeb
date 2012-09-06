@@ -3,6 +3,7 @@
     $page_title = "Automated Models Submission Form";
     include '../../inc/header.php';
 ?>
+<script type="text/javascript" src="/inc/js/update_objects.js"></script>
 <script type="text/javascript" src="/inc/js/check_form.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript" src="/inc/js/jquery.multifile.js"></script>
@@ -113,7 +114,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="checkNumeric(this,-180,180);" />
+            <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="update_country();checkNumeric(this,-180,180);" />
             </td>
         </tr>
         <tr>
@@ -123,7 +124,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="checkNumeric(this,-90,90);" />
+            <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="update_country();checkNumeric(this,-90,90);" />
             </td>
         </tr>
         <tr>
