@@ -12,9 +12,9 @@ $long=pg_escape_string($_GET['lg']);
 $lat=pg_escape_string($_GET['lt']);
 
 header('Content-Type: text/xml');
-echo "<?xml version=\"1.0\" standalone=\"yes\" ?>\n";
-echo "<country>";
-compute_country_code_from_position($long, $lat);
-echo "</country>";
+echo "<?xml version=\"1.0\" standalone=\"yes\" ?>\n".
+     "<country>".
+     compute_country_code_from_position($long, $lat).
+     "</country>";
 
 ?>
