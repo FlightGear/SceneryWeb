@@ -145,8 +145,8 @@ function compute_object_country_from_id($ob_id)
     $result = pg_query($headerlink_country, $query);
 
     while ($row = pg_fetch_assoc($result)) {
-        if ($row["co_code"] == '') return (0);
-        else return ($row["co_code"]);
+        if ($row["co_code"] == '') return 0;
+        else return $row["co_code"];
     }
 
     // Closing the connection.
@@ -163,10 +163,11 @@ function compute_country_code_from_position($long, $lat)
     
     // Querying...
     $query = "SELECT co_code FROM gadm2, fgs_countries WHERE ST_Within(ST_PointFromText('POINT($long $lat)', 4326), gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+    $result = pg_query($headerlink_country, $query);
     
     while ($row = pg_fetch_assoc($result)) {
-        if ($row["co_code"] == '') return (0);
-        else return ($row["co_code"]);
+        if ($row["co_code"] == '') return '';
+        else return $row["co_code"];
     }
 
     // Closing the connection.
