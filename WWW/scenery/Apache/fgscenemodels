@@ -22,6 +22,6 @@
 	  AllowOverride AuthConfig
 	</Directory>
 	Alias /download /home/jstockill/scenemodels/download
-	ErrorLog ${APACHE_LOG_DIR}/scenemodels.flightgear.org-error.log
-	CustomLog ${APACHE_LOG_DIR}/scenemodels.flightgear.org-access.log combined
+	ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
+	CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
 </VirtualHost>

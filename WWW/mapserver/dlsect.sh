@@ -11,7 +11,7 @@ PGUSER=webuser
 PGDATABASE=landcover
 PSQL="psql -h ${PGHOST} -d ${PGDATABASE} -U webuser -tA -c"
 BASEDIR=/home/fgscenery
-PGSQL2SHP=/opt/PostgreSQL/bin/pgsql2shp
+PGSQL2SHP=/home/martin/bin/pgsql2shp
 DUMPDIR=${BASEDIR}/SHPdump/${UUID}
 DLDIR=${BASEDIR}/SHPdl
 
