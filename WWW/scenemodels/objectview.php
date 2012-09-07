@@ -5,7 +5,12 @@
     require_once('inc/functions.inc.php');
 ?>
 
-<h1>FlightGear Scenery Model Directory</h1>
+<h1>
+<?php 
+    if (isset($object["ob_text"])) print $object["ob_text"];
+    else print "FlightGear Scenery Model Directory"; 
+?>
+</h1>
 
 <?php
     if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
