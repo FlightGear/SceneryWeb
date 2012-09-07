@@ -3,22 +3,19 @@
 
     // Inserting libs
     require_once('inc/functions.inc.php');
-?>
 
-<h1>
-<?php 
-    if (isset($object["ob_text"])) print $object["ob_text"];
-    else print "FlightGear Scenery Model Directory"; 
-?>
-</h1>
-
-<?php
     if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
         $id = $_REQUEST['id'];
         $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
         $object = pg_fetch_assoc($result);
     }
 ?>
+<h1>
+<?php 
+    if (isset($object["ob_text"])) print $object["ob_text"];
+    else print "FlightGear Scenery Model Directory"; 
+?>
+</h1>
 
 <input type="hidden" name="id" value="<?php if (isset($id)) print $id; ?>" />
 
@@ -68,10 +65,6 @@
             print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$object["ob_model"]."\">".$row["mo_path"]."</a>";
 ?>
         </td>
-    </tr>
-    <tr>
-        <td>Description</td>
-        <td><?php if (isset($object["ob_text"])) print $object["ob_text"]; ?></td>
     </tr>
     <tr>
         <td>Geographical and model informations</td>
