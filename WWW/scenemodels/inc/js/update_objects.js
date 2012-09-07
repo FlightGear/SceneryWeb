@@ -62,7 +62,7 @@ function update_country()
     if(longitude!="" && latitude!="")
     {
         //retrives information from a php-generated xml
-        var url = '/inc/country_xml.php?lt='+longitude+"&lg"+latitude;
+        var url = '/inc/country_xml.php?lt='+longitude+"&lg="+latitude;
                   
         var hreq = null;
         if(window.XMLHttpRequest){//firefox, chrome,...
