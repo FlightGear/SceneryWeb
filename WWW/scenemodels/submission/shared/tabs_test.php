@@ -42,7 +42,7 @@ function validateForm()
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 <script>
 $(function() {
-    $( "#tabs" ).tabs();
+    $( "#tabs" ).tabs({ disabled: [1, 2] });
 });
 </script>
 
