@@ -47,7 +47,7 @@ function validateForm()
     If you need some more help, just place your mouse over the left column (eg "Elevation Offset").
 </p>
 <p>
-    <em color="red">*</em> mandatory field
+    <em style="color: red">*</em> mandatory field
 </p>
 
 <form id="positions" method="post" action="check_shared.php" onsubmit="return validateForm();">
@@ -119,7 +119,7 @@ function validateForm()
             Map
         </td>
         <td>
-            <object data="http://mapserver.flightgear.org/submap/?zoom=13&amp;lat=0&amp;lon=0" type="text/html" width="300" height="225"></object>
+            <object id="map" data="http://mapserver.flightgear.org/submap/?zoom=13&amp;lat=0&amp;lon=0" type="text/html" width="300" height="225"></object>
         </td>
     </tr>
     <tr>
