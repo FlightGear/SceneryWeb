@@ -19,8 +19,8 @@
     $result = pg_query($query);
     while ($row = pg_fetch_assoc($result)) {
         echo "<div class=\"paragraph_bloc\">\n" .
-             "<div class=\"header\"><div class=\"date\">\n" .
-             "Posted : ".$row["formdate"]."</div>" .
+             "<div class=\"header\">\n" .
+             "<div class=\"date\">".$row["formdate"]."</div>\n" .
              "<div class=\"normal\">by</div><div class=\"author\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div></div>\n" .
              "<div class=\"body\">".$row["ne_text"]."</div>\n" .
              "</div>\n";
@@ -29,7 +29,12 @@
   <table>  
     <tr class="bottom">
         <td colspan="9" align="center">
-        <a href="index.php?offset=<?php echo $offset-10;?>">&lt;&lt; Previous</a> <a href="index.php?offset=<?php echo $offset+10;?>">Next &gt;&gt;</a>
+            <?php 
+            if ($offset >= 10) {
+                echo "<a href=\"index.php?offset=".($offset-10)."\">&lt; Newer news</a> | ";
+            }
+            ?>
+            <a href="index.php?offset=<?php echo $offset+10;?>">Older news &gt;</a>
         </td>
     </tr>
   </table>
