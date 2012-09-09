@@ -119,7 +119,7 @@ function validateForm()
             Map
         </td>
         <td>
-            <object id="map" data="http://mapserver.flightgear.org/submap/?zoom=13&amp;lat=0&amp;lon=0" type="text/html" width="300" height="225"></object>
+            <object id="map" data="" type="text/html" width="300" height="225"></object>
         </td>
     </tr>
     <tr>
