@@ -41,13 +41,13 @@ function validateForm()
 
 <h1>Automated Objects Submission Form</h1>
 
-<p class="center">
-  <b>Foreword:</b> This automated form goal is to ease the submission of objects into FG Scenery database.
-  <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
-  Help us to make it more!
-  <br />Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a>
-  in order to understand what recommandations this script is looking for.
-  <br />Also note that all fields are now mandatory. If you need some more help, just place your mouse over the left column (eg "Elevation Offset").
+<p>
+    This automated form's goal is to ease the submission of objects into the FlightGear Scenery database. There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database. Help us to make it more!<br/>
+    Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what recommandations this script is looking for.<br />
+    If you need some more help, just place your mouse over the left column (eg "Elevation Offset").
+</p>
+<p>
+    <em color="red">*</em> mandatory field
 </p>
 
 <form id="positions" method="post" action="check_shared.php" onsubmit="return validateForm();">
@@ -129,7 +129,7 @@ function validateForm()
         </td>
     </tr>
     <tr>
-        <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation Offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a>for more help)</td>
+        <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
         <td>
             <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
         </td>
@@ -143,12 +143,12 @@ function validateForm()
     <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><label for="comment">Comment<em>*</em></label></span></td>
         <td>
-            <input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
+            <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onchange="checkComment(this);" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
         </td>
     </tr>
     <tr>
-        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address (not mandatory)</label></span></td>
+        <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
         <td>
             <input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
         </td>

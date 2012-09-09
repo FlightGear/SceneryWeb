@@ -91,13 +91,13 @@ function validateForm()
     <tr>
         <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
         <td>
-            <input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
+            <input type="text" name="email" id="email" maxlength="50" size="50" value="" onchange="checkEmail(this);" />
         </td>
     </tr>
     <tr>
         <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit"><label for="comment">Comment<em>*</em></label></span></td>
         <td>
-            <input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this);" />
+            <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onchange="checkComment(this);" />
             <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
         </td>
     </tr>
