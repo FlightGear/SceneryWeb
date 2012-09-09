@@ -36,6 +36,16 @@ function validateForm()
         return false;
 
 }
+
+function  next_tab(tabid) 
+{
+	if (tabid == 1) {
+		$( "#tabs" ).tabs({ disabled: [2] });
+	}
+	if (tabid == 2) {
+		$( "#tabs" ).tabs({ disabled: false });
+	}
+}
 /*]]>*/
 </script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
@@ -81,7 +91,7 @@ $(function() {
                                 $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
 
                                 // Start the select form
-                                echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
+                                echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); next_tab(1);\">";
                                 echo "<option selected=\"selected\" value=\"0\">Please select a family</option>\n";
                                 while ($row = @pg_fetch_assoc($result)) {
                                     $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
@@ -124,13 +134,13 @@ $(function() {
                 <tr>
                     <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-180,180);" />
+                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-180,180);next_tab(2);" />
                     </td>
                 </tr>
                 <tr>
                     <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-90,90);" />
+                        <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-90,90);next_tab(2);" />
                     </td>
                 </tr>
                 <tr>
@@ -144,19 +154,19 @@ $(function() {
                 <tr>
                     <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
+                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);next_tab(2);" />
                     </td>
                 </tr>
                 <tr>
                     <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
                     <td>
-                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
+                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);next_tab(2);" />
                     </td>
                 </tr>
                 <tr>
                     <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="heading">Orientation<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
+                        <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);next_tab(2);" />
                     </td>
                 </tr>
             </table>
