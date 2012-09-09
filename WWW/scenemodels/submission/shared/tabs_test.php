@@ -65,127 +65,131 @@ $(function() {
     </ul>
 
     <form id="positions" method="post" action="check_shared.php" onsubmit="return validateForm();">
-    <table width="400">
         <div id="tabs-1">
-            <tr>
-                <td><span title="This is the family name of the object you want to add."><label for="family_name">Object's family<em>*</em></label></span></td>
-                <td colspan="2">
-        <?php
+            <table width="400">
+                <tr>
+                    <td><span title="This is the family name of the object you want to add."><label for="family_name">Object's family<em>*</em></label></span></td>
+                    <td colspan="2">
+            <?php
 
-                        $resource_r = connect_sphere_r();
+                            $resource_r = connect_sphere_r();
 
-                        // If connection is OK
-                        if ($resource_r!='0') {
+                            // If connection is OK
+                            if ($resource_r!='0') {
 
-                            // Show all the families other than the static family
-                            $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
+                                // Show all the families other than the static family
+                                $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
 
-                            // Start the select form
-                            echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
-                            echo "<option selected=\"selected\" value=\"0\">Please select a family</option>\n";
-                            while ($row = @pg_fetch_assoc($result)) {
-                                $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
-                                $name=preg_replace('/ /',"&nbsp;",$name);
-                                echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                                // Start the select form
+                                echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
+                                echo "<option selected=\"selected\" value=\"0\">Please select a family</option>\n";
+                                while ($row = @pg_fetch_assoc($result)) {
+                                    $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
+                                    $name=preg_replace('/ /',"&nbsp;",$name);
+                                    echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                                }
+                                echo "</select>";
+
+                                // Close the database resource
+                                @pg_close($resource_r);
                             }
-                            echo "</select>";
 
-                            // Close the database resource
-                            @pg_close($resource_r);
-                        }
+                            // Else, write message.
+                            else {
+                                echo "<br /><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
+                            }
+            ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span title="This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file."><label for="model_name">Model name<em>*</em></label></span></td>
+                    <td>
+                        <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
 
-                        // Else, write message.
-                        else {
-                            echo "<br /><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
-                        }
-        ?>
-                </td>
-            </tr>
-            <tr>
-                <td><span title="This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file."><label for="model_name">Model name<em>*</em></label></span></td>
-                <td>
-                    <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
-
-                    <div id="form_objects"></div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Model overview
-                </td>
-                <td>
-                    <img id="form_objects_thumb" src="" alt=""/>
-                </td>
-            </tr>
+                        <div id="form_objects"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Model overview
+                    </td>
+                    <td>
+                        <img id="form_objects_thumb" src="" alt=""/>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div id="tabs-2">
-            <tr>
-                <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
-                <td>
-                    <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-180,180);" />
-                </td>
-            </tr>
-            <tr>
-                <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
-                <td>
-                    <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-90,90);" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Map
-                </td>
-                <td>
-                    <object id="map" data="" type="text/html" width="300" height="225"></object>
-                </td>
-            </tr>
-            <tr>
-                <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
-                <td>
-                    <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
-                </td>
-            </tr>
-            <tr>
-                <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
-                <td>
-                    <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
-                </td>
-            </tr>
-            <tr>
-                <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="heading">Orientation<em>*</em></label></span></td>
-                <td>
-                    <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
-                </td>
-            </tr>
+            <table width="400">
+                <tr>
+                    <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
+                    <td>
+                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-180,180);" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
+                    <td>
+                        <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map();checkNumeric(this,-90,90);" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Map
+                    </td>
+                    <td>
+                        <object id="map" data="" type="text/html" width="300" height="225"></object>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
+                    <td>
+                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
+                    <td>
+                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="heading">Orientation<em>*</em></label></span></td>
+                    <td>
+                        <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
+                    </td>
+                </tr>
+            </table>
         </div>
         <div id="tabs-3">
-            <tr>
-                <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><label for="comment">Comment<em>*</em></label></span></td>
-                <td>
-                    <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onchange="checkComment(this);" />
-                    <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
-                </td>
-            </tr>
-            <tr>
-                <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
-                <td>
-                    <input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="submit">
-        <?php
-                    // Google Captcha stuff
-                    require_once('../../inc/captcha/recaptchalib.php');
-                    $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-                    echo recaptcha_get_html($publickey);
-        ?>
-                    <br />
-                    <input type="submit" value="Submit position" />
-                </td>
-            </tr>
+            <table width="400">
+                <tr>
+                    <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><label for="comment">Comment<em>*</em></label></span></td>
+                    <td>
+                        <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onchange="checkComment(this);" />
+                        <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
+                    <td>
+                        <input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="submit">
+            <?php
+                        // Google Captcha stuff
+                        require_once('../../inc/captcha/recaptchalib.php');
+                        $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+                        echo recaptcha_get_html($publickey);
+            ?>
+                        <br />
+                        <input type="submit" value="Submit position" />
+                    </td>
+                </tr>
+            </table>
         </div>
-    </table>
     </form>
 </div>
 
