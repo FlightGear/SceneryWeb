@@ -69,9 +69,9 @@ $(function() {
 
 <div id="tabs">
     <ul>
-        <li><a href="#tabs-1">Model</a></li>
-        <li><a href="#tabs-2">Location</a></li>
-        <li><a href="#tabs-3">Submit</a></li>
+        <li><a href="#tabs-1">1: Model</a></li>
+        <li><a href="#tabs-2">2: Location</a></li>
+        <li><a href="#tabs-3">3: Submit</a></li>
     </ul>
 
     <form id="positions" method="post" action="check_shared.php" onsubmit="return validateForm();">
