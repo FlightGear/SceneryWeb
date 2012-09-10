@@ -21,7 +21,7 @@
 
 <table>
     <tr>
-        <td>Unique ID</td>
+        <td style="width: 320px">Unique ID</td>
         <td><?php echo $id; ?></td>
     </tr>
     <tr>
