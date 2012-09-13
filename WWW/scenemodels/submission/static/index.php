@@ -16,6 +16,7 @@ function validateForm()
     if (!checkNumeric(form["longitude"],-180,180) ||
         !checkNumeric(form["latitude"],-90,90) ||
         !checkComment(form["mo_name"]) ||
+        !checkStringNotDefault(form["mo_name"], "Tell us more about your model.") ||
         !checkNumeric(form["gndelev"],-10000,10000) ||
         !checkNumeric(form["offset"],-10000,10000) ||
         !checkNumeric(form["heading"],0,359.999) ||
