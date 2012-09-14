@@ -54,7 +54,13 @@
             echo "<tr>\n" .
                     "<td><a href=\"objectview.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a><br/>" .
                     $row["ob_datedisplay"]."</td>\n" .
-                    "<td>".."</td>\n" .
+                    "<td>".
+                    "<a href=\"/modelview.php?id=<?php echo $row['mo_id'];?>\">" .
+                    "    <img title=\"<?php echo $row['mo_name'].' ['.$row['mo_path'].']';?>\"" .
+                    "    src=\"modelthumb.php?id=<?php echo $row['mo_id'];?>\" width=\"100\" height=\"75\"" .
+                    "    alt="" />" .
+                    "</a>" .
+                    "</td>\n" .
                  "</tr>\n";
         }
 ?>
