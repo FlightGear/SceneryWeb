@@ -95,7 +95,7 @@ Please, read the following:
             </span>
             </td>
             <td>
-            <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" value="Tell us more about your model." onchange="checkComment(this);"/>
+            <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" value="Tell us more about your model." onfocus="emptyDefaultValue(this, 'Tell us more about your model.');" onchange="checkComment(this);"/>
             </td>
         </tr>
         <tr>

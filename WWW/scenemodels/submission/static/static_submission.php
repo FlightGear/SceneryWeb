@@ -545,7 +545,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Leave a comment to the submitter</td>
-        <td><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" /></td>
+        <td><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" onfocus="emptyDefaultValue(this, 'Drop a comment to the submitter');"/></td>
     </tr>
     <tr>
         <td>Action</td>
