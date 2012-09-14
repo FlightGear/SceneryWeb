@@ -20,7 +20,7 @@
     $query.= "FROM fgs_news, fgs_authors ";
     $query.= "WHERE au_id = ne_author ";
     $query.= "ORDER BY ne_timestamp DESC ";
-    $query.= "LIMIT 5 OFFSET ".$offset;
+    $query.= "LIMIT 3 OFFSET ".$offset;
     $result = pg_query($query);
     while ($row = pg_fetch_assoc($result)) {
         echo "<tr><td>\n" .
@@ -41,6 +41,8 @@
         </td>
     </tr>
   </table>
+  
+  <br/>
   
   <table class="float">
       <tr><th colspan="2">Recently updated objects</th></tr>
