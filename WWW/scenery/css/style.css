@@ -101,6 +101,31 @@ UL.table LI {
     margin-left: 10px;
 }
 
+
+.newsauthor {
+    font-weight: bold;
+    float: left;
+    margin-left: 10px;
+}
+
+.newsdate {
+    font-style: italic;
+    font-weight: bold;
+    float: left;
+    margin-left: 10px;
+}
+
+.newsnormal {
+    float: left;
+    margin-left: 10px;
+}
+
+HR {
+    width: 70%;
+    size:1px;
+    color: #bbb;
+}
+
 .clear {
     clear: both;
 }
