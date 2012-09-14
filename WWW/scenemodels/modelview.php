@@ -50,6 +50,19 @@ if (!empty($model["mo_notes"])) {
             ?>
         </td>
     </tr>
+    <?php
+    if ($model["mo_shared"] == 1) {
+        $query = "SELECT COUNT(*) AS number " .
+                 "FROM fgs_objects " .
+                 "WHERE ob_model=$id";
+        $numbers = pg_query($query);
+        $number = pg_fetch_assoc($numbers);
+        echo "<tr>" .
+              "    <td>Occurrences</td>" .
+              "    <td>".$number["number"]."</td>" .
+              "</tr>";
+    }
+    ?>
     <tr>
         <td>Last updated</td>
         <td><?php print $model["mo_datedisplay"]; ?></td>
