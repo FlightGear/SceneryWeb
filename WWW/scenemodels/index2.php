@@ -33,11 +33,11 @@
     <tr class="bottom">
         <td colspan="9" align="center">
             <?php 
-            if ($offset >= 5) {
-                echo "<a href=\"index.php?offset=".($offset-5)."\">&lt; Newer news</a> | ";
+            if ($offset >= 3) {
+                echo "<a href=\"index.php?offset=".($offset-3)."\">&lt; Newer news</a> | ";
             }
             ?>
-            <a href="index.php?offset=<?php echo $offset+5;?>">Older news &gt;</a>
+            <a href="index.php?offset=<?php echo $offset+3;?>">Older news &gt;</a>
         </td>
     </tr>
   </table>
