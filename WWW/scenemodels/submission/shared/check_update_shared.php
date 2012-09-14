@@ -286,7 +286,7 @@ function validateForm()
         <tr>
           <th></th>
           <th>Actual value</th>
-          <th colspan="2">New value</th>
+          <th>New value</th>
         </tr>
         <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
         <tr>
@@ -296,7 +296,7 @@ function validateForm()
           <td>
             <?php $actual_family = get_object_family_from_id($id_to_update); echo $actual_family; ?>
           </td>
-          <td colspan="2">
+          <td>
 <?php
 
     if (is_shared_or_static($id_to_update) != 'static') {
@@ -350,7 +350,7 @@ function validateForm()
     echo $actual_model_name;
 ?>
           </td>
-          <td colspan="2">
+          <td>
 <?php
 
     if (is_shared_or_static($id_to_update) != 'static') {
@@ -397,8 +397,8 @@ function validateForm()
           <td>
             <?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
           </td>
-          <td colspan="2">
-            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onchange="checkNumeric(this,-180,180);" />
+          <td>
+            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onchange="update_map('new_long','new_lat');checkNumeric(this,-180,180);" />
           </td>
         </tr>
         <tr>
@@ -409,8 +409,8 @@ function validateForm()
           <td>
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
           </td>
-          <td colspan="2">
-            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onchange="checkNumeric(this,-90,90);" />
+          <td>
+            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onchange="update_map('new_long','new_lat');checkNumeric(this,-90,90);" />
           </td>
         </tr>
         <tr>
@@ -418,9 +418,11 @@ function validateForm()
                 <span title="This is the country of the object you want to update. Not editable, though, cause automatic procedures are doing it.">
                 <label for="country">Country</label></span>
             </td>
-            <td colspan="3">
-                <?php $country = get_country_name_from_country_code(get_object_country_from_id($id_to_update));
-        if ($country == '') echo "Unknown!"; else echo $country; ?>
+            <td colspan="2">
+<?php
+        $country = get_country_name_from_country_code(get_object_country_from_id($id_to_update));
+        if ($country == '') echo "Unknown!"; else echo $country;
+?>
             </td>
         </tr>
         <tr>
@@ -431,7 +433,7 @@ function validateForm()
           <td>
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
           </td>
-          <td colspan="2">
+          <td>
             <input type="text" name="new_gndelev" id="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onchange="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
@@ -443,7 +445,7 @@ function validateForm()
           <td>
             <?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
           </td>
-          <td colspan="2">
+          <td>
             <input type="text" name="new_offset" id="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onchange="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
@@ -454,28 +456,32 @@ function validateForm()
           <td>
             <?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
           </td>
-          <td colspan="2">
+          <td>
             <input type="text" name="new_heading" id="new_heading" maxlength="7" value="<?php echo $actual_orientation; ?>" onchange="checkNumeric(this,0,359.999);" />
           </td>
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description (Just for test now - don't use)</label></span></td>
             <td><?php $actual_ob_text = get_object_text_from_id($id_to_update); echo $actual_ob_text; ?></td>
-            <td colspan="2">
+            <td>
                 <input type="text" name="new_ob_text" id="new_ob_text" size="50" maxlength="100" value="<?php echo $actual_ob_text; ?>" onchange="checkComment(this);" />
             </td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
-            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = get_object_model_from_id($id_to_update); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
-            <td><center><span title="This is the map around the object you want to update"><label>Map</label></span></center></td>
-            <td><center><object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = get_object_model_from_id($id_to_update); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Actual thumbnail"/></a></center></td>
+            <td><img id="form_objects_thumb" src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="New thumbnail"/></td>
+        </tr>
+        <tr>
+            <td><span title="This is the map around the object you want to update"><label>Map</label></span></td>
+            <td><object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></td>
+            <td><object id="map" data="http://mapserver.flightgear.org/submap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></td>
         </tr>
         <tr>
           <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
             <label for="comment">Comment<em>*</em></label></span>
           </td>
-          <td colspan="3">
+          <td colspan="2">
             <center><input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this)"/></center>
           </td>
         </tr>
@@ -483,12 +489,12 @@ function validateForm()
           <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
             <label for="email">Email address</label></span>
           </td>
-          <td colspan="3">
+          <td colspan="2">
             <center><input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></center>
           </td>
         </tr>
         <tr>
-          <td colspan="4" class="submit">
+          <td colspan="3" class="submit">
 <?php
     // Google Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
