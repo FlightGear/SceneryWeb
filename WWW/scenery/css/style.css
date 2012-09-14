@@ -246,6 +246,16 @@ TABLE.float {
     width:48%;
 }
 
+TABLE.left {
+    float:left;
+    width:49%;
+}
+
+TABLE.right {
+    float:right;
+    width:49%;
+}
+
 FORM {
     margin-top: 30px;
 }

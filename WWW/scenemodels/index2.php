@@ -44,7 +44,7 @@
   
   <br/>
   
-  <table class="float">
+  <table class="left">
       <tr><th colspan="2">Recently updated objects</th></tr>
 <?php
         $query = "SELECT ob_id, ob_text, ob_model, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay " .
@@ -67,7 +67,7 @@
         }
 ?>
   </table>
-  <table class="float">
+  <table class="right">
       <tr><th colspan="2">Recently updated models</th></tr>
 <?php
         $query = "SELECT mo_id, mo_name, mo_path, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay " .
