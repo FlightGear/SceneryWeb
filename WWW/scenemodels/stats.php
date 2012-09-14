@@ -262,7 +262,7 @@ include 'inc/header.php';
 
 echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".number_format($models, '0', '', ' ')." models</a> placed in the scenery as <a href=\"objects.php\">".number_format($objects, '0', '', ' ')." seperate objects</a>, plus ".number_format($signs, '0', '', ' ')." taxiway signs.</p>\n";
 ?>
-    <table class="float">
+    <table class="left">
         <tr><th colspan="2">Recently updated objects</th></tr>
 <?php
         $query = "SELECT ob_id, ob_text, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay " .
@@ -278,7 +278,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
         }
 ?>
     </table>
-    <table class="float">
+    <table class="right">
         <tr><th colspan="2">Recently updated models</th></tr>
 <?php
         $query = "SELECT mo_id, mo_name, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay " .
@@ -297,12 +297,12 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
     
     <div class="clear"></div><br/>
     
-    <table class="float">
+    <table class="left">
         <tr><th>Objects by country</th></tr>
         <tr><td>Click a country to remove it from the pie.</td></tr>
         <tr><td><div id="chart_pie_div" style="width: 100%; height: 250px;"></div></td></tr>
     </table>
-    <table class="float">
+    <table class="right">
         <tr><th>Models by author</th></tr>
         <tr><td>Click an author to remove him from the pie.</td></tr>
         <tr><td><div id="chart_pie_authors_div" style="width: 100%; height: 250px;"></div></td></tr>
