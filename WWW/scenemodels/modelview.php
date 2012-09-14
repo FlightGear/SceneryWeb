@@ -51,7 +51,7 @@ if (!empty($model["mo_notes"])) {
         </td>
     </tr>
     <?php
-    if ($model["mo_shared"] == 1) {
+    if ($model["mo_shared"] != 0) {
         $query = "SELECT COUNT(*) AS number " .
                  "FROM fgs_objects " .
                  "WHERE ob_model=$id";
