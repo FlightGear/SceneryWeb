@@ -10,40 +10,8 @@
 
   <h1>FlightGear Scenery Database</h1>
   
-  
-  <table class="float">
-      <tr><th colspan="2">Recently updated objects</th></tr>
-<?php
-        $query = "SELECT ob_id, ob_text, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay " .
-                 "FROM fgs_objects " .
-                 "ORDER BY ob_modified DESC " .
-                 "LIMIT 10";
-        $result = pg_query($query);
-        while ($row = pg_fetch_assoc($result)) {
-            echo "<tr>\n" .
-                    "<td><a href=\"objectview.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a></td>\n" .
-                    "<td>".$row["ob_datedisplay"]."</td>\n" .
-                 "</tr>\n";
-        }
-?>
-  </table>
-  <table class="float">
-      <tr><th colspan="2">Recently updated models</th></tr>
-<?php
-        $query = "SELECT mo_id, mo_name, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay " .
-                 "FROM fgs_models " .
-                 "ORDER BY mo_modified DESC " .
-                 "LIMIT 10";
-        $result = pg_query($query);
-        while ($row = pg_fetch_assoc($result)){
-            echo "<tr>\n" .
-                    "<td><a href=\"modelview.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a></td>\n" .
-                    "<td>".$row["mo_datedisplay"]."</td>\n" .
-                "</tr>\n";
-        }
-?>
-  </table>
-  <div class="clear"></div><br/>
+  <p>Welcome to the FlightGear scenery models database!</p>
+  <p>The website is used to gather all 3D models and positions of objects around the world! You can here contribute to FlightGear scenery by adding objects in your favorite place! Please don't hesitate, your help is welcomed!</p>
   
   <table>
     <tr><th colspan="2">Latest news</th></tr>
@@ -73,4 +41,47 @@
         </td>
     </tr>
   </table>
+  
+  <table class="float">
+      <tr><th colspan="2">Recently updated objects</th></tr>
+<?php
+        $query = "SELECT ob_id, ob_text, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay " .
+                 "FROM fgs_objects " .
+                 "ORDER BY ob_modified DESC " .
+                 "LIMIT 10";
+        $result = pg_query($query);
+        while ($row = pg_fetch_assoc($result)) {
+            echo "<tr>\n" .
+                    "<td><a href=\"objectview.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a><br/>" .
+                    $row["ob_datedisplay"]."</td>\n" .
+                    "<td>".."</td>\n" .
+                 "</tr>\n";
+        }
+?>
+  </table>
+  <table class="float">
+      <tr><th colspan="2">Recently updated models</th></tr>
+<?php
+        $query = "SELECT mo_id, mo_name, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay " .
+                 "FROM fgs_models " .
+                 "ORDER BY mo_modified DESC " .
+                 "LIMIT 10";
+        $result = pg_query($query);
+        while ($row = pg_fetch_assoc($result)){
+            echo "<tr>\n" .
+                    "<td><a href=\"modelview.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a>" .
+                    $row["mo_datedisplay"]"</td>\n" .
+                    "<td>".
+                    "<a href=\"/modelview.php?id=<?php echo $row['mo_id'];?>\">" .
+                    "    <img title=\"<?php echo $row['mo_name'].' ['.$row['mo_path'].']';?>\"" .
+                    "    src=\"modelthumb.php?id=<?php echo $row['mo_id'];?>\" width=\"100\" height=\"75\"" .
+                    "    alt="" />" .
+                    "</a>" .
+                    "</td>\n" .
+                "</tr>\n";
+        }
+?>
+  </table>
+  <div class="clear"></div><br/>
+  
 <?php include 'inc/footer.php';?>
