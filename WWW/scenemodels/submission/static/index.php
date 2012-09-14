@@ -56,7 +56,7 @@ Please, read the following:
     <table>
         <tr>
             <td>
-            <span title="This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family</label></span>
+            <span title="This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family<em>*</em></label></span>
             </td>
             <td colspan="2">
             <select name="mo_shared" id="mo_shared">
@@ -79,7 +79,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the name of the author. If the author does not exist, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.">
-            <label for="mo_author">Author</label>
+            <label for="mo_author">Author<em>*</em></label>
             </span>
             </td>
             <td>
@@ -91,7 +91,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).">
-            <label for="mo_name">Description</label>
+            <label for="mo_name">Description<em>*</em></label>
             </span>
             </td>
             <td>
@@ -111,7 +111,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000.">
-            <label for="longitude">Longitude</label>
+            <label for="longitude">Longitude<em>*</em></label>
             </span>
             </td>
             <td>
@@ -121,7 +121,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000.">
-            <label for="latitude">Latitude</label>
+            <label for="latitude">Latitude<em>*</em></label>
             </span>
             </td>
             <td>
@@ -143,7 +143,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your object is sunk into the ground, use the elevation offset field below.">
-            <label for="gndelev">Elevation</label>
+            <label for="gndelev">Elevation<em>*</em></label>
             </span>
             </td>
             <td>
@@ -163,7 +163,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="The orientation (in degrees) of the object you want to add - as it appears in the .stg file (this is NOT the true heading). Let 0 if there is no specific orientation.">
-            <label for="heading">Orientation</label>
+            <label for="heading">Orientation<em>*</em></label>
             </span>
             </td>
             <td>
@@ -173,7 +173,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is a nice picture representing your model in FG the best way (eg: tower_thumbnail.jpeg).">
-            <label for="mo_thumbfile">Corresponding 320x240 JPEG thumbnail</label>
+            <label for="mo_thumbfile">Corresponding 320x240 JPEG thumbnail<em>*</em></label>
             </span>
             </td>
             <td>
@@ -183,7 +183,7 @@ Please, read the following:
         <tr>
             <td>
             <span title="This is the AC3D file of your model (eg: tower.ac).">
-            <label for="ac3d_file">Corresponding AC3D File</label>
+            <label for="ac3d_file">Corresponding AC3D File<em>*</em></label>
             </span>
             </td>
             <td>
