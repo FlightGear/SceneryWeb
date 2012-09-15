@@ -32,11 +32,11 @@ $number= pg_fetch_assoc($result);
     <tr class="bottom">
         <td colspan="2" align="center">
             <?php 
-            if ($offset >= 10) {
-                echo "<a href=\"modelsnothumb.php?offset=".($offset-10)."\">Prev</a> | ";
+            if ($offset >= 20) {
+                echo "<a href=\"modelsnothumb.php?offset=".($offset-20)."\">Prev</a> | ";
             }
             ?>
-            <a href="modelsnothumb.php?offset=<?php echo $offset+10;?>">Next</a>
+            <a href="modelsnothumb.php?offset=<?php echo $offset+20;?>">Next</a>
         </td>
     </tr>
 <?php
@@ -45,11 +45,14 @@ $number= pg_fetch_assoc($result);
     $query.= "FROM fgs_models, fgs_authors, fgs_modelgroups ";
     $query.= "WHERE mo_author=au_id AND mo_shared=mg_id AND mo_thumbfile IS NULL ";
     $query.= "ORDER BY mo_modified DESC ";
-    $query.= "LIMIT 10 OFFSET ".$offset;
+    $query.= "LIMIT 20 OFFSET ".$offset;
     $result=pg_query($query);
+    $odd = true;
     while ($row = pg_fetch_assoc($result)){
-        echo "<tr>\n" .
-             "<td>\n" .
+        if ($odd) {
+            echo "<tr>\n";
+        }
+        echo "<td>\n" .
              "<ul class=\"table\">" .
              "<li><b>Name:</b> ".$row["mo_name"]."</li>\n" .
              "<li><b>Path:</b> ".$row["mo_path"]."</li>\n";
@@ -92,17 +95,22 @@ $number= pg_fetch_assoc($result);
         echo "<li><a href=\"modelview.php?id=".$row["mo_id"]."\">View more about this model.</a></li>\n";
         echo "</ul>";
         echo "</td>\n";
-        echo "</tr>\n";
+        if (!$odd) {
+            echo "</tr>\n";
+            $odd = true;
+        } else {
+            $odd = false;
+        }
     }
     ?>
     <tr class="bottom">
         <td colspan="2" align="center">
             <?php 
-            if ($offset >= 10) {
-                echo "<a href=\"modelsnothumb.php?offset=".($offset-10)."\">Prev</a> | ";
+            if ($offset >= 20) {
+                echo "<a href=\"modelsnothumb.php?offset=".($offset-20)."\">Prev</a> | ";
             }
             ?>
-            <a href="modelsnothumb.php?offset=<?php echo $offset+10;?>">Next</a>
+            <a href="modelsnothumb.php?offset=<?php echo $offset+20;?>">Next</a>
         </td>
     </tr>
   </table>
