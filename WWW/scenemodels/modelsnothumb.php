@@ -12,7 +12,7 @@
 $resource_r = connect_sphere_r();
 $query = "SELECT COUNT(*) AS number " .
          "FROM fgs_models " .
-         "WHERE mo_thumbfile IS NULL";
+         "WHERE mo_thumbfile IS NULL;";
 $result = pg_query($query);
 $number= pg_fetch_assoc($result);
 ?>
