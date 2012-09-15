@@ -83,24 +83,10 @@ UL.table LI {
     border-bottom:1px solid #999;
 }
 
-.header .author {
-    font-weight: bold;
+.newsnormal {
     float: left;
     margin-left: 10px;
 }
-
-.header .date {
-    font-style: italic;
-    font-weight: bold;
-    float: left;
-    margin-left: 10px;
-}
-
-.header .normal {
-    float: left;
-    margin-left: 10px;
-}
-
 
 .newsauthor {
     font-weight: bold;
@@ -111,11 +97,6 @@ UL.table LI {
 .newsdate {
     font-style: italic;
     font-weight: bold;
-    float: left;
-    margin-left: 10px;
-}
-
-.newsnormal {
     float: left;
     margin-left: 10px;
 }
