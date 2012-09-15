@@ -9,12 +9,14 @@
 
 <h1>Models without thumbnail</h1>
 <?php
+$resource_r = connect_sphere_r();
 $query = "SELECT COUNT(*) AS number " .
          "FROM fgs_models " .
          "WHERE mo_thumbfile IS NULL";
-$result=pg_query($query);
+$result = pg_query($query);
+$number= pg_fetch_assoc($result);
 ?>
-<p>This page lists models that lack a thumbnail. There are currently <?php echo $result['number']; ?> of such models in the database. Please help us bringing this number to 0!</p>
+<p>This page lists models that lack a thumbnail. There are currently <?php echo $number['number']; ?> of such models in the database. Please help us bringing this number to 0!</p>
 
   <table>
 <?php
