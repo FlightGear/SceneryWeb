@@ -65,7 +65,7 @@
 ?>
     <tr class="bottom">
         <td colspan="2" align="center">
-            <a href="objects.php">More recently update models</a>
+            <a href="models.php">More recently update models</a>
         </td>
     </tr>
   </table>
