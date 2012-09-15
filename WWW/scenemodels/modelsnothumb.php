@@ -1,4 +1,7 @@
-<?php include("inc/header.php");?>
+<?php
+include("inc/header.php");
+require_once ('inc/functions.inc.php');
+?>
 
 <script type="text/javascript">
   function popmap(lat,lon,zoom) {
