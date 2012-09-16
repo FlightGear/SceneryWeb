@@ -164,6 +164,7 @@ function update_object_country_from_id($ob_id)
     
     $headerlink_country = connect_sphere_rw();
     $query = "UPDATE fgs_objects SET co_code='$country_code' WHERE ob_id = ".$mg_id.";";
+    $result = pg_query($headerlink_country, $query);
     
     // Closing the connection.
     pg_close ($headerlink_country);
