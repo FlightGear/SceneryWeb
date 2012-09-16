@@ -10,7 +10,7 @@
 
   <h1>FlightGear Scenery Database</h1>
   
-  <p>Welcome to the FlightGear scenery models database!</p>
+  <p>Welcome to the <a href="http://www.flightgear.org">FlightGear</a> scenery models database!</p>
   <p>The website is used to gather all 3D models and positions of objects around the world! You can here contribute to FlightGear scenery by adding objects in your favorite place! Please don't hesitate, your help is welcomed!</p>
   
     <table class="left">
@@ -65,7 +65,7 @@
 ?>
     <tr class="bottom">
         <td colspan="2" align="center">
-            <a href="models.php">More recently update models</a>
+            <a href="models.php">More recently updated models</a>
         </td>
     </tr>
   </table>

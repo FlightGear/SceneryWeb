@@ -20,8 +20,8 @@
     while ($row = pg_fetch_assoc($result)) {
         echo "<div class=\"paragraph_bloc\">\n" .
              "<div class=\"header\">\n" .
-             "<div class=\"date\">".$row["formdate"]."</div>\n" .
-             "<div class=\"normal\">by</div><div class=\"author\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div></div>\n" .
+             "<div class=\"newsdate\">".$row["formdate"]."</div>\n" .
+             "<div class=\"newsnormal\">by</div><div class=\"newsauthor\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div></div>\n" .
              "<div class=\"body\">".$row["ne_text"]."</div>\n" .
              "</div>\n";
     }
