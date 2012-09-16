@@ -9,7 +9,7 @@
         $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
         $object = pg_fetch_assoc($result);
         
-        update_object_country_from_id($ob_id);
+        update_object_country_from_id($id);
     }
 ?>
 <h1>
