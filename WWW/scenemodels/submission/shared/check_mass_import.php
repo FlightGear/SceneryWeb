@@ -110,7 +110,7 @@ if (!$error) {
     $i = 1;
     $ko = 0;
     echo "<table>\n";
-    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\nth>Orientation</th>\n<th><th>Elev. offset</th>\n<Result</th>\n</tr>\n";
+    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th><th>Elev. offset</th>\n<Result</th>\n</tr>\n";
 
     foreach ($tab_lines as $value) { // Now printing the lines...
         echo "<tr>";
@@ -226,8 +226,8 @@ if (!$error) {
                 break;
                 
             case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
-                echo "Nb:".count($tab_lines);
-                if (count($tab_lines)==7) {
+                echo "Nb:".count($tab_tags);
+                if (count($tab_tags)==7) {
                     if ((strlen($value_tag) <= 20)
                         && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                         //echo "<td><center>".$value_tag."</center></td>";
@@ -243,8 +243,10 @@ if (!$error) {
                     $elevoffset = 0;
                 }
 
-                if (isset($elevoffset))
-                    echo "<td><center>".$elevoffset."</center></td> ";
+                echo "<td><center>";
+                if (isset($elevoffset)) echo $elevoffset;
+                echo "</center></td> ";
+                
                 break;
             }
             $j++;
