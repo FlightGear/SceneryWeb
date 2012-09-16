@@ -227,7 +227,6 @@ if (!$error) {
                 break;
                 
             case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
-                echo "Nb:".count($tab_tags);
                 if (count($tab_tags)==7) {
                     if ((strlen($value_tag) <= 20)
                         && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
