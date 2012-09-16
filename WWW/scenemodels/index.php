@@ -25,7 +25,7 @@
             echo "<tr>\n" .
                     "<td><a href=\"objectview.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a><br/>" .
                     $row["ob_datedisplay"]."</td>\n" .
-                    "<td>".
+                    "<td style=\"width: 100px;\">".
                     "<a href=\"/modelview.php?id=". $row['ob_model'] . "\">" .
                     "    <img title=\"". $row['ob_text']."\"" .
                     "    src=\"modelthumb.php?id=". $row['ob_model'] . "\" width=\"100\" height=\"75\"" .
@@ -53,7 +53,7 @@
             echo "<tr>\n" .
                     "<td><a href=\"modelview.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a><br/>" .
                     $row["mo_datedisplay"]. "</td>\n" .
-                    "<td>".
+                    "<td style=\"width: 100px;\">".
                     "<a href=\"/modelview.php?id=". $row['mo_id'] ."\">" .
                     "    <img title=\"". $row['mo_name'].' ['.$row['mo_path'].']'."\"" .
                     "    src=\"modelthumb.php?id=". $row['mo_id'] ."\" width=\"100\" height=\"75\"" .
