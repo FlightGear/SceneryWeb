@@ -110,9 +110,10 @@ if (!$error) {
     $i = 1;
     $ko = 0;
     echo "<table>\n";
-    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th><th>Elev. offset</th>\n<Result</th>\n</tr>\n";
+    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Elev. offset</th>\n<th>Result</th>\n</tr>\n";
 
     foreach ($tab_lines as $value) { // Now printing the lines...
+        $elevoffset = 0;
         echo "<tr>";
         echo "<td><center>".($i)."</center></td>";
         $tab_tags = explode(" ",$value);
@@ -239,18 +240,14 @@ if (!$error) {
                         $global_ko = 1;
                         $cpt_err++;
                     }
-                } else {
-                    $elevoffset = 0;
                 }
-
-                echo "<td><center>";
-                if (isset($elevoffset)) echo $elevoffset;
-                echo "</center></td> ";
                 
                 break;
             }
             $j++;
         }
+        
+        echo "<td><center>".$elevoffset."</center></td> ";
 
         if ($ko == 0) {
             if (detect_already_existing_object($lat, $long, $gndelev, $elevoffset, $orientation, $model_id)) {
