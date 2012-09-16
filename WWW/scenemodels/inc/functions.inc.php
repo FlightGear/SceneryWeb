@@ -141,7 +141,6 @@ function compute_object_country_from_id($ob_id)
     $headerlink_country = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT co_code, fgs_objects.wkb_geometry FROM gadm2, fgs_countries, fgs_objects WHERE fgs_objects.ob_id = ".$mg_id." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
     $result = pg_query($headerlink_country, $query);
 
     while ($row = pg_fetch_assoc($result)) {
@@ -163,7 +162,7 @@ function update_object_country_from_id($ob_id)
     $country_code = compute_object_country_from_id($mg_id);
     
     $headerlink_country = connect_sphere_rw();
-    $query = "UPDATE fgs_objects SET co_code='$country_code' WHERE ob_id = ".$mg_id.";";
+    $query = "UPDATE fgs_objects SET ob_country='$country_code' WHERE ob_id = ".$mg_id.";";
     $result = pg_query($headerlink_country, $query);
     
     // Closing the connection.
