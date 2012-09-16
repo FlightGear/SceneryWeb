@@ -153,8 +153,24 @@ function compute_object_country_from_id($ob_id)
     pg_close ($headerlink_country);
 }
 
+// Update the object's country using its location
+// ==============================================
+
+function update_object_country_from_id($ob_id)
+{
+    $mg_id = pg_escape_string($ob_id);
+
+    $country_code = compute_object_country_from_id($mg_id);
+    
+    $headerlink_country = connect_sphere_rw();
+    $query = "UPDATE fgs_objects SET co_code='$country_code' WHERE ob_id = ".$mg_id.";";
+    
+    // Closing the connection.
+    pg_close ($headerlink_country);
+}
+
 // Computes the country id of position specified by longitude and latitude
-// =====================================================
+// =======================================================================
 
 function compute_country_code_from_position($long, $lat)
 {
