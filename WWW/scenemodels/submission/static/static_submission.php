@@ -153,7 +153,7 @@ if (isset($_POST["action"])) {
                 $query_ob_text = "UPDATE fgs_objects SET ob_text = $$". object_name($mo_id[0]) ."$$ WHERE ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
                 $result_obtext_update = @pg_query ($resource_rw, $query_ob_text);
 
-                if((!$result_rw_mo) || (!$result_rw_ob)) {
+                if (!$result_rw_mo || !$result_rw_ob) {
                     $process_text = "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
                     $error_text = "Sorry, but the INSERT queries could not be processed.";
                     $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
@@ -170,12 +170,12 @@ if (isset($_POST["action"])) {
                 echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
                 // Delete the entries from the pending query table.
-                $delete_request_mo = "delete from fgs_position_requests where spr_hash = '". $_POST["mo_sig"] ."';";
-                $delete_request_ob = "delete from fgs_position_requests where spr_hash = '". $_POST["ob_sig"] ."';";
+                $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
+                $delete_request_ob = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
                 $resultdel_mo = @pg_query ($resource_rw, $delete_request_mo);
                 $resultdel_ob = @pg_query ($resource_rw, $delete_request_ob);
 
-                if((!$resultdel_mo) || (!$resultdel_ob)) {
+                if (!$resultdel_mo || !$resultdel_ob) {
                     echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
 
                     // Closing the rw connection.
@@ -256,7 +256,7 @@ if (!isset($_POST["action"])) {
     // Checking DB availability before all
     $ok = check_availability();
 
-    if(!$ok) {
+    if (!$ok) {
         $page_title = "Automated Models Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
         include '../../inc/error_page.php';
@@ -271,7 +271,7 @@ if (!isset($_POST["action"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
-        if($resource_rw != '0') {
+        if ($resource_rw != '0') {
 
             // Checking the presence of ob_sig into the database
             $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["ob_sig"] ."';");

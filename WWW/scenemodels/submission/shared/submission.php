@@ -63,7 +63,7 @@
                     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
                     // Delete the entry from the pending query table.
-                    $delete_request = "delete from fgs_position_requests where spr_hash = '". $_GET["sig"] ."';";
+                    $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
                     $resultdel = @pg_query($resource_rw,$delete_request);
 
                     if(!resultdel) {
