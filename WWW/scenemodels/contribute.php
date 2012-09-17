@@ -128,7 +128,8 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     pages, pick those models which lack a thumbnail and create a nice view on
     the respective model. JPEG's of 320x240 make our overview.<br/>
     Models are easily identified by their numeric id when you click on the
-    thumbnail in the Browser view.
+    thumbnail in the Browser view.<br/>
+    You can find <a href="modelsnothumb.php">here the models without thumbnail</a>.
     </p>
 </div>
 
