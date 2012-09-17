@@ -44,6 +44,7 @@
                     $page_title = "Automated Objects Massive Import Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n</p>\n";
+                    
                     $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                     echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
@@ -216,37 +217,20 @@
                 $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                 $i = 1;
                 foreach ($tab_tags as $value_tag) {
-                    if($i > 0) {
-                        $trigged_0 = str_replace("ST_PointFromText('POINT(", "", $value_tag); // Removing ST_PointFromText...;
-                        $trigged_1 = str_replace(")', 4326),","",$trigged_0);                 // Removing )", 4326), from data;
-                        $trigged_2 = str_replace("1);","",$trigged_1);                        // Removing 1); from data;
-                        $trigged_3 = str_replace(", 1)","",$trigged_2);                       // Removing " 1)," - family;
-                        $trigged_4 = str_replace(" NULL","",$trigged_3);                      // Removing NULL from offset;
-                        $trigged_5 = str_replace(",,",",",$trigged_4);                        // Finally, removing , from data;
-                        $data = explode(", ",$trigged_5);                                     // Now showing the results
-                        $j = 0;
-                        foreach ($data as $data_from_query) {
-                            $j++;
-                            if($j == 2) { // Managing the data not separated by comma;
-                                $fix = explode(" ",$data_from_query);
-                                $k = 0;
-                                foreach ($fix as $value) {
-                                    $k++;
-                                    if ($k == 1) { $long = $value; }
-                                    if ($k == 2) { $lat = $value; }
-                                    if ($k == 3) { $elevation = $value; }
-                                }
-                            }
-                            else if ($j == 3) {
-                                $orientation = $data_from_query;
-                            }
-                            else if ($j == 4) {
-                                $model = $data_from_query;
-                                $ob_text = object_name($data_from_query);
-                            }
-                        }
-                    $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", NULL, ".$orientation.", ".$model.", 1)";
-                    }
+                    $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), 1\)/";
+                    
+                    $error === preg_match($pattern, $value_tag, $matches);
+
+                    $long = $matches['long'];
+                    $lat = $matches['lat'];
+                    $elevation = $matches['elev'];
+                    $elevoffset = $matches['elevoffset'];
+                    $orientation = $matches['orientation'];
+                    $model = $matches['model_id'];
+                    $ob_text = object_name($model);
+
+                    $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ".elevoffset.", ".$orientation.", ".$model.", 1)";
+
                     $i++;
                 }
 
