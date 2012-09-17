@@ -141,7 +141,7 @@ function compute_object_country_from_id($ob_id)
     $headerlink_country = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT co_code, fgs_objects.wkb_geometry FROM gadm2, fgs_countries, fgs_objects WHERE fgs_objects.ob_id = ".$mg_id." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+    $query = "SELECT co_code FROM gadm2, fgs_countries, fgs_objects WHERE fgs_objects.ob_id = ".$mg_id." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
     $result = pg_query($headerlink_country, $query);
 
     while ($row = pg_fetch_assoc($result)) {

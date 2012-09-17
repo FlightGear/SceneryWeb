@@ -229,7 +229,7 @@
                     $model = $matches['model_id'];
                     $ob_text = object_name($model);
 
-                    $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ".elevoffset.", ".$orientation.", ".$model.", 1)";
+                    $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ".$elevoffset.", ".$orientation.", ".$model.", 1)";
 
                     $i++;
                 }
