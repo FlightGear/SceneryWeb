@@ -44,6 +44,7 @@ include 'inc/header.php';
             $list = "";
             while ($row = pg_fetch_assoc($result)) {
                 $country = rtrim($row['co_name']);
+                if ($country = "Iran (Islamic Republic of)") $country = "Iran";
                 $list .= "[\"".$country."\", ".round($row['density'])."],\n ";
             }
             echo $list;
@@ -56,6 +57,7 @@ include 'inc/header.php';
             $list = "";
             while ($row = pg_fetch_assoc($result)) {
                 $country = rtrim($row['co_name']);
+                if ($country = "Iran (Islamic Republic of)") $country = "Iran";
                 $list .= "[\"".$country."\", ".$row['count']."],\n";
             }
             echo $list;
