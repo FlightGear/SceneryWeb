@@ -51,7 +51,7 @@
       <div class="headerlinks"><a href="/download.php">Download</a></div>
       <ul class="submenus">
         <li><a href="/objects_download.php">Download latest scenery objects</a></li>
-        <li><a href="/scenery_download.php">Download scenery objects &amp; grounds</a></li>
+        <li><a href="/scenery_download.php">Download scenery objects &amp; terrain</a></li>
         <li><a href="/download/GlobalObjects.tgz">Global objects</a></li>
         <li><a href="/download/SharedModels.tgz">Shared models</a></li>
       </ul>
