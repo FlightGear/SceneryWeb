@@ -97,7 +97,7 @@
                     }
 
                     // What is the subject ?
-                    $subject = "[FG Scenery Submission forms] Automatic objects DB pending request process confirmation.";
+                    $subject = "[FG Scenery Submission forms] Automatic Objects DB pending request process confirmation.";
 
                     // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
                     $message0 = "Hi,"  . "\r\n" .
