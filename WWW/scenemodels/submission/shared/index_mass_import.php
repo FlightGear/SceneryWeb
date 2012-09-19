@@ -62,13 +62,14 @@ function validateForm()
       any custom elevation model you may have installed/compiled.
     </li>
     <li>
-      Do <strong>NOT</strong> add pitch or roll information issued by UFO in the
-      latest version, it can't - yet - been taken into consideration. It's on
+      Pitch or roll information issued by UFO in the
+      latest version, can't - yet - been taken into consideration. It's on
       our TODO list.
     </li>
     <li>
-        Correct line: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03<br />
-        Incorrect line for now: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03 0.0 0.0
+        Line without offset, pitch and roll: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03<br />
+        Line with offset: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03 -20.0<br />
+        Line with pitch and roll (ignored), but without offset: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03 0.0 0.0
     </li>
     <li>Finally, add 100 lines maximum per submission!</li>
     <li>

@@ -83,22 +83,28 @@ UL.table LI {
     border-bottom:1px solid #999;
 }
 
-.header .author {
+.newsnormal {
+    float: left;
+    margin-left: 10px;
+}
+
+.newsauthor {
     font-weight: bold;
     float: left;
     margin-left: 10px;
 }
 
-.header .date {
+.newsdate {
     font-style: italic;
     font-weight: bold;
     float: left;
     margin-left: 10px;
 }
 
-.header .normal {
-    float: left;
-    margin-left: 10px;
+HR {
+    width: 70%;
+    size:1px;
+    color: #bbb;
 }
 
 .clear {
@@ -219,6 +225,16 @@ TABLE.float {
     float:left;
     margin-left:10px;
     width:48%;
+}
+
+TABLE.left {
+    float:left;
+    width:49%;
+}
+
+TABLE.right {
+    float:right;
+    width:49%;
 }
 
 FORM {

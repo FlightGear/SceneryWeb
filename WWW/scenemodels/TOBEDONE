@@ -5,7 +5,7 @@ Features updates (by priority):
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Add pitch/roll and offset data so they can be, for instance, mass imported.
 - Enable maintainer to drop a comment.
-- Add the model thumbnail when editing an object. In fact objectedit and submission edit must share common ideas !
+- Add the model thumbnail when editing an object (done, needs check). In fact objectedit and submission edit must share common ideas !
 - Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
 => In update, beware that for the moment, we are replacing the current metadata, whatever
    it contains (including interesting obstruction information) by the name of the object.
@@ -27,7 +27,7 @@ After production:
 
 Overall work:
 =============
-- Review the intro page to add the latest models + objects stuff? Say what the scenery site + db is about, etc.
+- Review the intro page. Say what the scenery site + db is about, etc.
 - Put emails as Bcc and to prevent spam replies, use no-reply@flightgear.org
 - Enable comments fields to authorize 100 in width
 - Enhance the pending submission stuff, so the maintainer can click on a URL to submit the model.

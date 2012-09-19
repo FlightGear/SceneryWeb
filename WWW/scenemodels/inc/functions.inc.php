@@ -141,7 +141,7 @@ function compute_object_country_from_id($ob_id)
     $headerlink_country = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT co_code, fgs_objects.wkb_geometry FROM gadm2, fgs_countries, fgs_objects WHERE fgs_objects.ob_id = ".$mg_id." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+    $query = "SELECT co_code FROM gadm2, fgs_countries, fgs_objects WHERE fgs_objects.ob_id = ".$mg_id." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
     $result = pg_query($headerlink_country, $query);
 
     while ($row = pg_fetch_assoc($result)) {
@@ -153,8 +153,25 @@ function compute_object_country_from_id($ob_id)
     pg_close ($headerlink_country);
 }
 
+// Update the object's country using its location
+// ==============================================
+
+function update_object_country_from_id($ob_id)
+{
+    $mg_id = pg_escape_string($ob_id);
+
+    $country_code = compute_object_country_from_id($mg_id);
+    
+    $headerlink_country = connect_sphere_rw();
+    $query = "UPDATE fgs_objects SET ob_country='$country_code' WHERE ob_id = ".$mg_id.";";
+    $result = pg_query($headerlink_country, $query);
+    
+    // Closing the connection.
+    pg_close ($headerlink_country);
+}
+
 // Computes the country id of position specified by longitude and latitude
-// =====================================================
+// =======================================================================
 
 function compute_country_code_from_position($long, $lat)
 {
@@ -712,7 +729,7 @@ function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset,
     $resource_r = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT ob_id FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$lon." ".$lat.")', 4326) AND ob_gndelev = ".$ob_gndelev." AND ob_heading = ".heading_stg_to_true($ob_heading)." AND ob_model = ".$ob_model.";";
+    $query = "SELECT ob_id FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$lon." ".$lat.")', 4326) AND ob_gndelev = ".$ob_gndelev." AND ob_elevoffset=".$ob_elevoffset." AND ob_heading = ".heading_stg_to_true($ob_heading)." AND ob_model = ".$ob_model.";";
     $result = @pg_query($resource_r, $query);
     $returned_rows = pg_num_rows($result);
 

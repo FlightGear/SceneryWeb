@@ -3,6 +3,12 @@
 var numbers = "0123456789";
 var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+function emptyDefaultValue(field, defaultValue)
+{
+    if (field.value == defaultValue)
+        field.value = "";
+}
+
 function checkNumeric(numberfield, minval, maxval)
 {
     if (!chkNumeric(numberfield, minval, maxval))

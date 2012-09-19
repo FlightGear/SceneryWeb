@@ -110,16 +110,18 @@ if (!$error) {
     $i = 1;
     $ko = 0;
     echo "<table>\n";
-    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Result</th>\n</tr>\n";
+    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Elev. offset</th>\n<th>Result</th>\n</tr>\n";
 
     foreach ($tab_lines as $value) { // Now printing the lines...
+        $elevoffset = 0;
         echo "<tr>";
         echo "<td><center>".($i)."</center></td>";
         $tab_tags = explode(" ",$value);
         $j = 1;
 
         foreach ($tab_tags as $value_tag) { // !=> Have also to check the number of tab_tags returned!
-            if ($j == 1) { // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
+            switch($j) {
+            case 1:  // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
                 if (!strcmp($value_tag, "OBJECT_SHARED")) {
                     echo "<td><center>".$value_tag."</center></td> ";
                 }
@@ -129,8 +131,8 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
-            }
-            else if ($j == 2) { // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
+                break;
+            case 2:  // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
                 if (!preg_match("/^[a-z0-9_\/.-]$/i",$value_tag)) {
                     $return_value = model_exists($value_tag);
                     if ($return_value == 0) {
@@ -162,8 +164,9 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
-            }
-            else if ($j == 3) { // Checking Longitude, must contain only figures and ., be >-180 and <180, be 20 characters max.
+                
+                break;
+            case 3:  // Checking Longitude, must contain only figures and ., be >-180 and <180, be 20 characters max.
                 if ((strlen($value_tag) <= 20)
                     && ($value_tag <= 180)
                     && ($value_tag >= -180)
@@ -177,8 +180,8 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
-            }
-            else if($j == "4") { // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 20 characters max.
+                break;
+            case 4:  // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 20 characters max.
                 if ((strlen($value_tag) <= 20)
                     && ($value_tag <= 90)
                     && ($value_tag >= -90)
@@ -192,10 +195,10 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
-            }
-
+                
+                break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
-            if ($j == 5) { // Checking Elevation, must contain only figures and, be max 20 characters
+            case 5:  // Checking Elevation, must contain only figures and, be max 20 characters
                 if ((strlen($value_tag) <= 20)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
@@ -207,9 +210,8 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
-            }
-            else if($j == 6) // Checking Orientation, must contain only figures, be >0, be 20 characters max.
-            {
+                break;
+            case 6:  // Checking Orientation, must contain only figures, be >0, be 20 characters max.
                 if ((strlen($value_tag) <= 20)
                     && ($value_tag >= 0)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
@@ -222,12 +224,32 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
+                break;
+                
+            case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
+                if (count($tab_tags)==7) {
+                    if ((strlen($value_tag) <= 20)
+                        && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
+                        //echo "<td><center>".$value_tag."</center></td>";
+                        $elevoffset = $value_tag;
+                    }
+                    else {
+                        //echo "<td><p class=\"center warning\">Offset Error!</p></td>";
+                        $ko = 1;
+                        $global_ko = 1;
+                        $cpt_err++;
+                    }
+                }
+                
+                break;
             }
             $j++;
         }
+        
+        echo "<td><center>".$elevoffset."</center></td> ";
 
         if ($ko == 0) {
-            if (detect_already_existing_object($lat, $long, $gndelev, 0, $orientation, $model_id)) {
+            if (detect_already_existing_object($lat, $long, $gndelev, $elevoffset, $orientation, $model_id)) {
                 $ko = 1;
                 $global_ko = 1;
                 $cpt_err++;
@@ -235,7 +257,7 @@ if (!$error) {
                 echo "<td><p class=\"center warning\">Already exists!</p></td>";
             } else {
                 echo "<td><p class=\"center ok\">OK</p></td>";
-                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($orientation).", ".$model_id.", 1)";
+                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", 1)";
             }
         }
         else {
@@ -321,6 +343,7 @@ if (!$error) {
     // Who will receive it ?
 
     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
+    $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>" . ", ";
     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
     // What is the subject ?

@@ -102,7 +102,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         <ul>
             <li>For groupings of individual models choose a distinct, corresponding position for each of them, never mount multiple models into a single position.</li>
             <li>Textures should be in PNG format - older models which used rgb textures have been updated. <strong>The textures dimensions have to be a power of two: eg 128x256.</strong></li>
-            <li>Apron, taxiway, runway or other airport pavements are being maintained at <a href="http://data.x-plane.com/">XPlane Robin Peel's airport database</a>.
+            <li>Apron, taxiway, runway or other airport pavements are being maintained at <a href="http://data.x-plane.com/">XPlane Robin Peel's airport database</a>.</li>
             <li><strong>Always choose reasonable (meaningful, descriptive) filenames for your models</strong>. At urban areas having a geometry 'tower.ac' or a texture just named 'red.png' or 'concrete.png' might prove not to be unique ;-)</li>
             <li>As a rule of thumb, try to let even a detailed, <strong>single model not exceed 1/2 MByte in total size</strong>, otherwise the simulation will face hard times when approaching densely packed areas. A typical, single office building usually can be done at (far!) less than 100 kByte;</li>
             <li><strong>Avoid spaces in file- and/or directory names.</strong></li>
@@ -128,7 +128,8 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     pages, pick those models which lack a thumbnail and create a nice view on
     the respective model. JPEG's of 320x240 make our overview.<br/>
     Models are easily identified by their numeric id when you click on the
-    thumbnail in the Browser view.
+    thumbnail in the Browser view.<br/>
+    You can find <a href="modelsnothumb.php">here the models without thumbnail</a>.
     </p>
 </div>
 

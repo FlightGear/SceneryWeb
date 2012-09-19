@@ -166,10 +166,11 @@
       </td>
     </tr>
 <?php
-        $query = "SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon ";
-        $query.= "FROM fgs_objects ";
-        $query.= "WHERE ob_id IS NOT NULL ".$filter." ";
-        $query.= "LIMIT 20 OFFSET ".$offset;
+        $query = "SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon " .
+                 "FROM fgs_objects " .
+                 "WHERE ob_id IS NOT NULL ".$filter." " .
+                 "ORDER BY ob_modified DESC " .
+                 "LIMIT 20 OFFSET ".$offset;
 
         $result = pg_query($query);
         while ($result && $row = pg_fetch_assoc($result)) {

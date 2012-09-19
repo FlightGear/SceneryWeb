@@ -21,7 +21,6 @@ if (!empty($model["mo_notes"])) {
 ?>
 <table>
     <tr>
-        <td rowspan="6" style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
 <?php
         if ($model["mo_shared"] != 0) print "<td>Path</td>"; else print "<td>File name</td>";
 ?>
@@ -51,8 +50,21 @@ if (!empty($model["mo_notes"])) {
             ?>
         </td>
     </tr>
+    <?php
+    if ($model["mo_shared"] != 0) {
+        $query = "SELECT COUNT(*) AS number " .
+                 "FROM fgs_objects " .
+                 "WHERE ob_model=$id";
+        $numbers = pg_query($query);
+        $number = pg_fetch_assoc($numbers);
+        echo "<tr>" .
+              "    <td>Occurrences</td>" .
+              "    <td>".$number["number"]."</td>" .
+              "</tr>";
+    }
+    ?>
     <tr>
-        <td>Last Updated</td>
+        <td>Last updated</td>
         <td><?php print $model["mo_datedisplay"]; ?></td>
     </tr>
     <tr>
@@ -60,7 +72,8 @@ if (!empty($model["mo_notes"])) {
         <td><?php print $id; ?></td>
     </tr>
     <tr>
-        <td colspan="2" align="center">
+        <td style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
+        <td align="center">
             <?php
             if ($model["mo_shared"] == 0) {
                 $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
@@ -74,7 +87,7 @@ if (!empty($model["mo_notes"])) {
                 print "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a>&nbsp;-&nbsp";
             }
             ?>
-            <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download Model</a>
+            <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download model</a>
             <br/>
             <object data="viewer.php?id=<?php echo $id; ?>" type="text/html" width="600px" height="300px" style="overflow: hidden;"></object>
             <br/>

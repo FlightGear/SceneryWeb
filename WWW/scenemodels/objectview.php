@@ -21,7 +21,7 @@
 
 <table>
     <tr>
-        <td>Unique ID</td>
+        <td style="width: 320px">Unique ID</td>
         <td><?php echo $id; ?></td>
     </tr>
     <tr>
@@ -41,11 +41,11 @@
         ?></td>
     </tr>
     <tr>
-        <td>Ground Elevation</td>
+        <td>Ground elevation</td>
         <td><?php $elevation = get_object_elevation_from_id($id); echo $elevation; ?></td>
     </tr>
     <tr>
-        <td>Elevation Offset</td>
+        <td>Elevation offset</td>
         <td><?php $offset = get_object_offset_from_id($id); echo $offset; ?></td>
     </tr>
     <tr>
@@ -67,13 +67,11 @@
         </td>
     </tr>
     <tr>
-        <td>Geographical and model informations</td>
         <td>
-            <center>
-                <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
-                &nbsp;
-                <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>" alt="Thumbnail"/>
-            </center>
+            <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>" alt="Thumbnail"/>
+        </td>
+        <td>
+            <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="100%" height="240"></object>
         </td>
     </tr>
     <tr>
