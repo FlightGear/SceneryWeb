@@ -36,7 +36,7 @@
         <td>Country</td>
         <td><?php 
             $country = get_country_name_from_country_code($object["ob_country"]);
-            if ($object["ob_country"] != "zz") echo ("<a href=\"objects.php?country=".$object["ob_country"]."\">".$country."</a>");
+            if ($object["ob_country"] != "zz" and !empty($object["ob_country"])) echo ("<a href=\"objects.php?country=".$object["ob_country"]."\">".$country."</a>");
             else echo $country;
         ?></td>
     </tr>
