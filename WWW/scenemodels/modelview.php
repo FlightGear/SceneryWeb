@@ -68,9 +68,19 @@ if (!empty($model["mo_notes"])) {
         <td><?php print $model["mo_datedisplay"]; ?></td>
     </tr>
     <tr>
-        <td>Model-ID</td>
+        <td>Model ID</td>
         <td><?php print $id; ?></td>
     </tr>
+    <?php
+    if ($model["mo_shared"] == 0) {
+        $result = pg_query("SELECT ob_id FROM fgs_objects WHERE ob_model = '$id';");
+        $row = pg_fetch_assoc($result);
+        ?>
+        <tr>
+            <td>Corresponding object ID</td>
+            <td><a href="objectview.php?id=<?php echo $row["ob_id"]."\">".$row["ob_id"]; ?></a></td>
+        </tr>
+    <?php } ?>
     <tr>
         <td style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
         <td align="center">
