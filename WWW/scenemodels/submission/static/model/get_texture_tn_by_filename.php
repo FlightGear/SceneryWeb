@@ -48,7 +48,7 @@
 
     while (false !== ($file = readdir($dir))) {
         // If we know the extension
-        if (show_file_extension($file) == "png") {
+        if (show_file_extension($file) == "png" && $file == $filename) {
             $fichier = $target_path."/".$file;
             break;
         }
