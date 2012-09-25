@@ -163,16 +163,17 @@ include 'inc/header.php';
             echo $list;
             ?>
         ]);
-        $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
+        var dataBarCountryDensity = google.visualization.arrayToDataTable([
+            ['Country', 'Object density', 'Objects'],
+            <?php
+            $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
                      "FROM fgs_objects, fgs_countries " .
                      "WHERE ob_country = co_code AND co_three IS NOT NULL " .
                      "GROUP BY co_code " .
                      "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
                      "ORDER BY density DESC ";
-        $result = pg_query($resource_r, $query);
-        var dataBarCountryDensity = google.visualization.arrayToDataTable([
-            ['Country', 'Object density', 'Objects'],
-            <?php
+            $result = pg_query($resource_r, $query);
+        
             $i = 0;
             $list = "";
             while ($row = pg_fetch_assoc($result) and $i < 20) {
