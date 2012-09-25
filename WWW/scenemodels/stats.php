@@ -185,16 +185,7 @@ include 'inc/header.php';
             echo $list;
             ?>
         ]);
-        if (sorting != "[object Event]") {
-            if (sorting) {
-                dataBarCountry.sort([{column: 2,desc: true},{column: 1,desc: true}]);
-                chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
-            } else {
-                dataBarCountry.sort([{column: 1,desc: true},{column: 2,desc: true}]);
-                chartBarCountry.draw(dataBarCountryDensity, optionsBarCountry);
-            }
-        }
-
+        
         var optionsBarCountry = {
             series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1}},
             vAxes: {
@@ -218,6 +209,16 @@ include 'inc/header.php';
 
         var chartBarCountry = new google.visualization.ColumnChart(document.getElementById('chart_bar_country_div'));
         chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
+        
+        if (sorting != "[object Event]") {
+            if (sorting) {
+                dataBarCountry.sort([{column: 2,desc: true},{column: 1,desc: true}]);
+                chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
+            } else {
+                dataBarCountry.sort([{column: 1,desc: true},{column: 2,desc: true}]);
+                chartBarCountry.draw(dataBarCountryDensity, optionsBarCountry);
+            }
+        }
     };
 
     function drawVisualization() {
