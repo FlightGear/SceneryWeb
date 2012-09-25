@@ -88,83 +88,85 @@
 </script>
 
 <form action="objects.php" method="get">
-  <table>
-    <tr valign="bottom">
-        <th>ID</th>
-        <th>Lat<br/>Lon<br/><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
-          <br/><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/></th>
-        <th>Ground&nbspElevation<br/>+ Offset (m)<br/><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
-          <br/><input type="text" name="elevoffset" size="6" <?php echo "value=\"".$elevoffset."\""; ?>/></th>
-        <th>Heading<br/><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
-        <th>Description<br/><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
-        <th>
-        Model<br/>
-        Group<br/>
-        <select name="model" style="font-size: 0.7em; width: 100%">
-            <option value="0"></option>
-<?php
-            $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
-            while ($row = pg_fetch_assoc($result)) {
-                $models[$row["mo_id"]] = $row["mo_path"];
-                echo "<option value=\"".$row["mo_id"]."\"";
-                if ($row["mo_id"] == $model) echo " selected=\"selected\"";
-                echo ">".$row["mo_path"]."</option>\n";
-            }
-?>
-        </select>
-        <br/>
-        <select name="group" style="font-size: 0.7em;">
-            <option value="0"></option>
-<?php
-            $result = pg_query("SELECT gp_id, gp_name FROM fgs_groups;");
-            while ($row = pg_fetch_assoc($result)){
-                $groups[$row["gp_id"]] = $row["gp_name"];
-                echo "<option value=\"".$row["gp_id"]."\"";
-                if ($row["gp_id"] == $group) echo " selected=\"selected\"";
-                echo ">".$row["gp_name"]."</option>\n";
-            }
-?>
-        </select>
-      </th>
-      <th>
-        Country<br/>
-        <select name="country" style="font-size: 0.7em; width: 100%">
-            <option value="0"></option>
-<?php
-            $result = pg_query("SELECT co_code,co_name FROM fgs_countries;");
-            while ($row = pg_fetch_assoc($result)){
-                $countries{$row["co_code"]}=$row["co_name"];
-                echo "<option value=\"".$row["co_code"]."\"";
-                if ($row["co_code"] == $country) echo " selected=\"selected\"";
-                echo ">".$row["co_name"]."</option>\n";
-            }
-?>
-        </select>
-      </th>
-      <th><input type="submit" name="filter" value="Filter"/></th>
-    </tr>
-    <tr class="bottom">
-      <td colspan="8" align="center">
-<?php
-        $prev = $offset-20;
-        $next = $offset+20;
+    <table>
+        <tr valign="bottom">
+            <th>ID</th>
+            <th>Lat<br/>Lon<br/><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
+              <br/><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/></th>
+            <th>Ground&nbspElevation<br/>+ Offset (m)<br/><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
+              <br/><input type="text" name="elevoffset" size="6" <?php echo "value=\"".$elevoffset."\""; ?>/></th>
+            <th>Heading<br/><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
+            <th>Description<br/><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
+            <th>
+                Model<br/>
+                Group<br/>
+                <select name="model" style="font-size: 0.7em; width: 100%">
+                    <option value="0"></option>
+                    <?php
+                    $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
+                    while ($row = pg_fetch_assoc($result)) {
+                        $models[$row["mo_id"]] = $row["mo_path"];
+                        echo "<option value=\"".$row["mo_id"]."\"";
+                        if ($row["mo_id"] == $model) echo " selected=\"selected\"";
+                        echo ">".$row["mo_path"]."</option>\n";
+                    }
+                    ?>
+                </select>
+                <br/>
+                <select name="group" style="font-size: 0.7em;">
+                    <option value="0"></option>
+                    <?php
+                    $result = pg_query("SELECT gp_id, gp_name FROM fgs_groups;");
+                    while ($row = pg_fetch_assoc($result)){
+                        $groups[$row["gp_id"]] = $row["gp_name"];
+                        echo "<option value=\"".$row["gp_id"]."\"";
+                        if ($row["gp_id"] == $group) echo " selected=\"selected\"";
+                        echo ">".$row["gp_name"]."</option>\n";
+                    }
+                ?>
+                </select>
+            </th>
+            <th>
+                Country<br/>
+                <select name="country" style="font-size: 0.7em; width: 100%">
+                    <option value="0"></option>
+                    <?php
+                    $result = pg_query("SELECT co_code,co_name FROM fgs_countries;");
+                    while ($row = pg_fetch_assoc($result)){
+                        $countries{$row["co_code"]}=$row["co_name"];
+                        echo "<option value=\"".$row["co_code"]."\"";
+                        if ($row["co_code"] == $country) echo " selected=\"selected\"";
+                        echo ">".$row["co_name"]."</option>\n";
+                    }
+                    ?>
+                </select>
+            </th>
+            <th><input type="submit" name="filter" value="Filter"/></th>
+        </tr>
+        <tr class="bottom">
+            <td colspan="8" align="center">
+                <?php
+                $prev = $offset-20;
+                $next = $offset+20;
 
-        $filter_text="";
-        if($lat != "") $filter_text .= "&amp;lat=".$lat;
-        if($lon != "") $filter_text .= "&amp;lon=".$lon;
-        if($elevation != "") $filter_text .= "&amp;elevation=".$elevation;
-        if($elevoffset != "") $filter_text .= "&amp;elevoffset=".$elevoffset;
-        if($description != "") $filter_text .= "&amp;description=".$description;
-        if($heading != "") $filter_text .= "&amp;heading=".$heading;
-        if($model != 0) $filter_text .= "&amp;model=".$model;
-        if($group != 0) $filter_text .= "&amp;group=".$group;
-        if($country != "") $filter_text .= "&amp;country=".$country;
+                $filter_text="";
+                if($lat != "") $filter_text .= "&amp;lat=".$lat;
+                if($lon != "") $filter_text .= "&amp;lon=".$lon;
+                if($elevation != "") $filter_text .= "&amp;elevation=".$elevation;
+                if($elevoffset != "") $filter_text .= "&amp;elevoffset=".$elevoffset;
+                if($description != "") $filter_text .= "&amp;description=".$description;
+                if($heading != "") $filter_text .= "&amp;heading=".$heading;
+                if($model != 0) $filter_text .= "&amp;model=".$model;
+                if($group != 0) $filter_text .= "&amp;group=".$group;
+                if($country != "") $filter_text .= "&amp;country=".$country;
 
-        echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;" .
-             "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
-?>
-      </td>
-    </tr>
+                if ($prev < 0) {
+                    echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
+                }
+                ?>
+                <a href="objects.php?filter=Filter&amp;offset=<?php echo $next . $filter_text;?>">Next</a>
+            </td>
+        </tr>
 <?php
         $query = "SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon " .
                  "FROM fgs_objects " .
@@ -191,20 +193,22 @@
                 <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">Delete</a>
 <?php
             }
-          echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>" .
-               "  </td>\n" .
-               "</tr>\n";
-      }
+            echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\">Map</a>" .
+                 "  </td>\n" .
+                 "</tr>\n";
+        }
 ?>
-    <tr class="bottom">
-      <td colspan="7" align="center">
-<?php
-          echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">&lt;&lt; Previous</a>&nbsp;&nbsp;" .
-               "<a href=\"objects.php?filter=Filter&amp;offset=".$next . $filter_text."\">Next &gt;&gt;</a>";
-?>
-      </td>
-    </tr>
-  </table>
+        <tr class="bottom">
+            <td colspan="7" align="center">
+                <?php 
+                if ($prev < 0) {
+                    echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
+                }
+                ?>
+                <a href="objects.php?filter=Filter&amp;offset=<?php echo $next . $filter_text;?>">Next</a>
+            </td>
+        </tr>
+    </table>
 </form>
 
 <?php include 'inc/footer.php';?>
