@@ -160,7 +160,7 @@
                 if($group != 0) $filter_text .= "&amp;group=".$group;
                 if($country != "") $filter_text .= "&amp;country=".$country;
 
-                if ($prev < 0) {
+                if ($prev >= 0) {
                     echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
                 }
                 ?>
@@ -201,7 +201,7 @@
         <tr class="bottom">
             <td colspan="7" align="center">
                 <?php 
-                if ($prev < 0) {
+                if ($prev >= 0) {
                     echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
                 }
                 ?>
