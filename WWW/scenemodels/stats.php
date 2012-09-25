@@ -147,7 +147,7 @@ include 'inc/header.php';
     google.setOnLoadCallback(drawBars);
     
     function drawBars(sorting) {
-        var dataBarCountry = google.visualization.arrayToDataTable([
+        var dataBarCountryObjects = google.visualization.arrayToDataTable([
             ['Country', 'Object density', 'Objects'],
             <?php
             pg_result_seek($result,0);
@@ -163,11 +163,35 @@ include 'inc/header.php';
             echo $list;
             ?>
         ]);
+        $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
+                     "FROM fgs_objects, fgs_countries " .
+                     "WHERE ob_country = co_code AND co_three IS NOT NULL " .
+                     "GROUP BY co_code " .
+                     "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
+                     "ORDER BY density DESC ";
+        $result = pg_query($resource_r, $query);
+        var dataBarCountryDensity = google.visualization.arrayToDataTable([
+            ['Country', 'Object density', 'Objects'],
+            <?php
+            $i = 0;
+            $list = "";
+            while ($row = pg_fetch_assoc($result) and $i < 20) {
+                $country = rtrim($row['co_name']);
+                if ($country != "Unknown") {
+                    $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
+                    $i++;
+                }
+            }
+            echo $list;
+            ?>
+        ]);
         if (sorting != "[object Event]") {
             if (sorting) {
                 dataBarCountry.sort([{column: 2,desc: true},{column: 1,desc: true}]);
+                chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
             } else {
                 dataBarCountry.sort([{column: 1,desc: true},{column: 2,desc: true}]);
+                chartBarCountry.draw(dataBarCountryDensity, optionsBarCountry);
             }
         }
 
@@ -193,7 +217,7 @@ include 'inc/header.php';
         };
 
         var chartBarCountry = new google.visualization.ColumnChart(document.getElementById('chart_bar_country_div'));
-        chartBarCountry.draw(dataBarCountry, optionsBarCountry);
+        chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
     };
 
     function drawVisualization() {
