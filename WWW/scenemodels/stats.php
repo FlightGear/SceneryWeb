@@ -186,6 +186,7 @@ include 'inc/header.php';
             echo $list;
             ?>
         ]);
+        dataBarCountryDensity.sort([{column: 1,desc: true},{column: 2,desc: true}]);
         
         var optionsBarCountry = {
             series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1}},
@@ -207,16 +208,15 @@ include 'inc/header.php';
             hAxis: { slantedTextAngle: 50},
             focusTarget: 'category'
         };
+        dataBarCountryObjects.sort([{column: 2,desc: true},{column: 1,desc: true}]);
 
         var chartBarCountry = new google.visualization.ColumnChart(document.getElementById('chart_bar_country_div'));
         chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
         
         if (sorting != "[object Event]") {
             if (sorting) {
-                dataBarCountry.sort([{column: 2,desc: true},{column: 1,desc: true}]);
                 chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
             } else {
-                dataBarCountry.sort([{column: 1,desc: true},{column: 2,desc: true}]);
                 chartBarCountry.draw(dataBarCountryDensity, optionsBarCountry);
             }
         }
