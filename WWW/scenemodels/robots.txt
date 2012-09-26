@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /tmp/
+Disallow: /update/
+Disallow: /modeledit.php
+Disallow: /objects.php
