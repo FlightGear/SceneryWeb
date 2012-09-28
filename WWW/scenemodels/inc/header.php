@@ -34,6 +34,8 @@
 <?php
     }
 ?>
+    <script type="text/javascript" src="/inc/js/lightbox/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/inc/js/lightbox/lightbox.js"></script>
 
     <script type="text/javascript">
         $('refresh').remove();
