@@ -263,7 +263,7 @@
                 graphicWidth: 14,
                 graphicHeight: 15,
                 rotation: "${heading}"
-            },
+            }
         }), 
         projection: new OpenLayers.Projection("EPSG:4326"),
         visibility: true,
