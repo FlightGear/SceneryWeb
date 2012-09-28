@@ -1,10 +1,9 @@
 <?php include 'inc/header.php';?>
-<h1>How To Contribute</h1>
+<h1>How to contribute</h1>
 
 <p>
-<b>Foreword:</b> The instructions on this page are being presented in a
-pretty elaborate, detailed way which might look a bit complicated at first
-glance.
+<b>Foreword:</b> The instructions on this page are presented in a pretty elaborate, 
+detailed way thatt might look a bit complicated at first glance.
 
 Please don't get this wrong - contributing to the repository is pretty
 simple, especially through the use of our web forms. We experienced that almost
@@ -16,16 +15,16 @@ to avoid misunderstandings.
 <div class="paragraph_bloc">
     <h2>Contents</h2>
     <ul class="body">
-    <li class="toclevel-1"><a href="#positions"><span class="toctext">Contributing Positions</span></a></li>
-    <li class="toclevel-1"><a href="#models"><span class="toctext">Contributing Models</span></a>
+    <li class="toclevel-1"><a href="#positions"><span class="toctext">Contributing positions</span></a></li>
+    <li class="toclevel-1"><a href="#models"><span class="toctext">Contributing models</span></a>
         <ul class="detail">
             <li class="toclevel-1"><a href="#items"><span class="toctext">Submission items</span></a></li>
-            <li class="toclevel-1"><a href="#tips"><span class="toctext"><font color="red">Models Best Practice</font></span></a></li>
+            <li class="toclevel-1"><a href="#tips"><span class="toctext"><font color="red">Models best practice</font></span></a></li>
             <li class="toclevel-1"><a href="#contact"><span class="toctext"><font color="blue">Upload facilities</font></span></a></li>
         </ul>
     </li>
-    <li class="toclevel-1"><a href="#thumbnails"><span class="toctext">Contributing Thumbnails</span></a></li>
-    <li class="toclevel-1"><a href="#offset"><span class="toctext">Understanding Offset</span></a></li>
+    <li class="toclevel-1"><a href="#thumbnails"><span class="toctext">Contributing thumbnails</span></a></li>
+    <li class="toclevel-1"><a href="#offset"><span class="toctext">Understanding offset</span></a></li>
     </ul>
 </div>
 
@@ -36,7 +35,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 </td></tr>-->
 
 <div class="paragraph_bloc">
-    <h2><a name="positions">Contributing Positions</a></h2>
+    <h2><a name="positions">Contributing positions</a></h2>
 
     <div class="body">
         If you wish to contribute positions for the many shared models that are
@@ -60,7 +59,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         </div>
 
         <div class="paragraph_bloc">
-        <h2><a name="models">Contributing Models</a></h2>
+        <h2><a name="models">Contributing models</a></h2>
         <div class="body">
         <p>If you wish to help populate the world with interesting static objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:</p>
 
@@ -69,27 +68,27 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         <ul>
             <li><strong>Model placement</strong>:
                 <ul class="detail">
-                  <li><strong>Position</strong> (if appropriate; either lon/lat, or Ordnance Survey grid - other grids can be added on request);</li>
-                  <li><strong>Heading</strong> (if appropriate);</li>
-                  <li><strong>Ground elevation</strong> (if known to the author) - in any !! case, report if the model has to be sunken into the ground in order to display properly !!;</li>
+                  <li><strong>Position</strong> (if appropriate; either lon/lat, or Ordnance Survey grid - other grids can be added on request).</li>
+                  <li><strong>Heading</strong> (if appropriate).</li>
+                  <li><strong>Ground elevation</strong> (if known to the author) - in any !! case, report if the model has to be sunken into the ground in order to display properly !!</li>
                   <li><b> -> </b>....  or just simply submit the respective .stg-line with your model.</li>
                 </ul>
             </li>
-            <li><strong>Full name of author (yes you have to be known of us before submitting a 3D model.</strong></li>
-            <li><strong>EMail of author</strong> (if not already known, will not be published, just as a reference);</li>
-            <li>A notice which tells us that your submission is covered by the <strong>GPL</strong> (if not already known);
+            <li><strong>Full name of author (yes you have to be known to us before submitting a 3D model.</strong></li>
+            <li><strong>Email address of author</strong> (if not already known, will not be published, just as a reference).</li>
+            <li>A notice which tells us that your submission is covered by the <strong>GNU GPL v2</strong> (if not already known).
                 <ul class="detail">
-                  <li>The nature of the FlightGear project does not allow us to accept submissions that don't comply with the GPL;</li>
+                  <li>The nature of the FlightGear project does not allow us to accept submissions that don't comply with the GPL.</li>
                 </ul>
             </li>
             <li>Always tell us how to <strong>name the model</strong> (like 'Tour Eiffel - Paris - France').</li>
-            <li><strong>A 320x240 thumbnail</strong> containing an advantageous view on the model/object as (JPEG) image - this is preferred for a nice representation of your artwork;</li>
-            <li><strong>Country</strong> in which the model is located (if known to the author);</li>
-            <li>Additional <strong>short comment on the author</strong>;</li>
-            <li>Full detail is available <a href="http://scenemodels.flightgear.org/submission/static/index.php">here</a></li>
+            <li><strong>A 320x240 thumbnail</strong> containing an advantageous view on the model/object as (JPEG) image - this is preferred for a nice representation of your artwork.</li>
+            <li><strong>Country</strong> in which the model is located (if known to the author).</li>
+            <li>Additional <strong>short comment on the author</strong>.</li>
+            <li>Details are available <a href="http://scenemodels.flightgear.org/submission/static/index.php">here</a>.</li>
         </ul>
 
-        <h3><a name="tips"><font color="red">Models Best Practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
+        <h3><a name="tips"><font color="red">Models best practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
         <ul>
             <li>Never group different, detached buildings into a single geometry file.</li>
             <li>Never put surface materials (tarmac, grass, roads, parkings, ...) into Scenery Model geometries.</li>
@@ -120,7 +119,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 </div>
 
 <div class="paragraph_bloc">
-    <h2><a name="thumbnails">Contributing Thumbnails</a></h2>
+    <h2><a name="thumbnails">Contributing thumbnails</a></h2>
 
     <p class="body">
     A noticeable amount of model submissions are missing a thumbnail. If you
