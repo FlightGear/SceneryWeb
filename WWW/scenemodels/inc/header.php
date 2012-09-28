@@ -25,7 +25,7 @@
     document.write("<!-- ");
     /*]]>*/
     </script>
-    <meta id="refresh" http-equiv="Refresh" content="0;URL='nojs.php'" />
+    <meta id="refresh" http-equiv="Refresh" content="0;URL='/nojs.php'" />
     <script type="text/javascript">
     /*<![CDATA[*/
         document.write(' --><script type=\"text/javascript\">');
