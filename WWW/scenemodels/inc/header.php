@@ -28,8 +28,7 @@
     <meta id="refresh" http-equiv="Refresh" content="0;URL='nojs.php'" />
     <script type="text/javascript">
     /*<![CDATA[*/
-        document.write(' //-->');
-        document.write('<script type="text/javascript">');
+        document.write(' --&gt;<script type="text/javascript">');
     /*]]>*/
     </script>
 <?php
