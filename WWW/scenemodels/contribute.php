@@ -3,7 +3,7 @@
 
 <p>
 <b>Foreword:</b> The instructions on this page are presented in a pretty elaborate, 
-detailed way thatt might look a bit complicated at first glance.
+detailed way that might look a bit complicated at first glance.
 
 Please don't get this wrong - contributing to the repository is pretty
 simple, especially through the use of our web forms. We experienced that almost
