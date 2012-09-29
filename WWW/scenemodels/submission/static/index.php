@@ -48,6 +48,9 @@ Please, read the following:
     <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only send XML if necessary to the model, as it has a performance impact.</li>
     <li>Please also read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what recommandations this script is looking for.</li>
     <li>Do not try to import/update an already existing model: there will be an update script [when we have some spare time].</li>
+    <li>Please do not put 2 separated buildings into 1 AC file: because the terrain elevation is subject to updates, this could lead to inaccuracies.</li>
+    <li>Do not add trees into your AC file. For the same reason as the above, they have to be placed separately (mass import, for instance).</li>
+    <li>Do not add flat surfaces 3D models, such as soccer fields, for instance. Still for the same reason and for z-fighting issues. We should try to fix this in FG sometimes.</li>
     <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
     <li>I think that's all, folks ;-) Ah yes, be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
 </ul>
