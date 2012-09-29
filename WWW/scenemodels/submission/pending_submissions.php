@@ -29,7 +29,7 @@ if ($resultr) {
         $pending_requests .= "\nRequest #".$i." identified by ".$row->spr_hash."\n";
         $pending_requests .= "=========================================================================================\n";
         $pending_requests .= substr($unzipped_base64_query,0,1024)."\n";
-        $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$spr_hash."\n";
+        $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
     }
 
     // Sets the time to UTC.
@@ -47,7 +47,7 @@ if ($resultr) {
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
     $message0 = "Hi," . "\r\n" .
                 "This is the automated FG scenery PHP form at:" . "\r\n" .
-                "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
+                "http://scenemodels.flightgear.org/".$_SERVER['SCRIPT_NAME'] . "\r\n" .
                 "I just wanted to give you a small overview of the requests waiting for validation:" . "\r\n";
     $message077 = wordwrap ($message0, 77, "\r\n");
 
