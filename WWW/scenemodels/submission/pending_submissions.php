@@ -81,7 +81,7 @@ if ($resultr) {
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
     $message0 = "Hi," . "\r\n" .
                 "This is the automated FG scenery PHP form at:" . "\r\n" .
-                "http://scenemodels.flightgear.org/submissions/".$_SERVER['SCRIPT_NAME'] . "\r\n" .
+                "http://scenemodels.flightgear.org/submission/".$_SERVER['SCRIPT_NAME'] . "\r\n" .
                 "I just wanted to give you a small overview of the requests waiting for validation:" . "\r\n";
     $message077 = wordwrap ($message0, 77, "\r\n");
 
