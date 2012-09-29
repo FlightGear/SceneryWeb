@@ -47,6 +47,7 @@ Please, read the following:
     <li>PNG size must be a power of 2 in width and height.</li>
     <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only send XML if necessary to the model, as it has a performance impact.</li>
     <li>Please also read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what recommandations this script is looking for.</li>
+    <li>Please instanciate your model once: if it's a shared object, put a latitude and longitude. Else the object will be placed at lat=0 and long=0: an object is always generated when you add a 3D model.</li>
     <li>Do not try to import/update an already existing model: there will be an update script [when we have some spare time].</li>
     <li>Please do not put 2 separated buildings into 1 AC file: because the terrain elevation is subject to updates, this could lead to inaccuracies.</li>
     <li>Do not add trees into your AC file. For the same reason as the above, they have to be placed separately (mass import, for instance).</li>
