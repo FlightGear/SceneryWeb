@@ -43,10 +43,15 @@ if ($resultr) {
 
         // If the request contains a "INSERT INTO fgs_objects" but does NOT contain a formoid
         // If there is just one value, it's a single object insertion
-        // Else, is a mass insertion
-
+        if ((substr_count($unzipped_base64_query,"INSERT INTO fgs_objects") == 1) && (substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 0)) {
+            if (substr_count($unzipped_base64_query,"VALUES") == 1) {
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
+            }
+            // Else, is a mass insertion
+            else $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=confirm&sig=".$row->spr_hash."\n";
+        }
         // If the request contains a "UPDATE FROM fgs_objects"
-        if (substr_count($unzipped_base64_query,"DELETE FROM fgs_objects") == 1) {
+        if (substr_count($unzipped_base64_query,"UPDATE FROM fgs_objects") == 1) {
             $pending_requests .= "This is an object update request! Click on the following link to submit it!\n";
             $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
         }
@@ -68,7 +73,7 @@ if ($resultr) {
 //    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
     // What is the subject ?
-    $subject = "[FG Scenery Pending Requests] Automatic shared model pending requests list.";
+    $subject = "[FG Scenery Pending Requests] Automatic pending requests list.";
 
     // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
     $message0 = "Hi," . "\r\n" .
