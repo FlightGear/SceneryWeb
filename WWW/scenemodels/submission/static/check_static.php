@@ -556,14 +556,14 @@ if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndele
     $offset    = strip_tags($_POST["offset"]);
     $heading   = strip_tags($_POST["heading"]);
 
-    if (preg_match('#[a-zA-Z ]#', $longitude) || ($longitude < -180 || $longitude > 180)) {
+    if (preg_match('#[a-zA-Z ]#', $longitude) || ($longitude < -180 || $longitude > 180) || $longitude == 0) {
         $error += 1;
-        $errormsg .= "Please check the longitude value (-180 < longitude < 180)!<br/>";
+        $errormsg .= "Please check the longitude value (-180 < longitude < 180) and not null!<br/>";
     }
 
-    if (preg_match('#[a-zA-Z ]#', $latitude) || ($latitude < -90 || $latitude > 90)) {
+    if (preg_match('#[a-zA-Z ]#', $latitude) || ($latitude < -90 || $latitude > 90) || $latitude == 0) {
         $error += 1;
-        $errormsg .= "Please check the latitude value (-90 < latitude < 90)!<br/>";
+        $errormsg .= "Please check the latitude value (-90 < latitude < 90) and not null!<br/>";
     }
 
     if (preg_match('#[a-zA-Z ]#', $gndelev) || ($gndelev < -10000 || $gndelev > 10000)) {
