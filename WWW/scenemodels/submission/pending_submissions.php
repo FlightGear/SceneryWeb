@@ -73,7 +73,7 @@ if ($resultr) {
     // OK, let's start with the mail redaction.
     // Who will receive it ?
     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
-//    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
     // What is the subject ?
     $subject = "[FG Scenery Pending Requests] Automatic pending requests list.";
