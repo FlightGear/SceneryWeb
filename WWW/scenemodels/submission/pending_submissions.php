@@ -33,12 +33,29 @@ if ($resultr) {
         // We have 6 cases : static model, object going along with a 3D model, [add, update, delete] shared model, mass insertion.
         // Static model: easy, has a formoid. Not easy: we have to take the next spr_hash as object
         if (substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 1) {
-            $pending_requests .= "This is an object linked to a static model!\n";
+            $pending_requests .= "This is an object linked to a static model! See the model link below.\n";
+            $current_ob_id = $row->spr_hash;
         }
         if (substr_count($unzipped_base64_query,"INSERT INTO fgs_models") == 1) {
             $pending_requests .= "This is a 3D model query!\n";
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/static/static_submission.php?ob_sig=".$current_ob_id."&mo_sig=".$row->spr_hash."\n";
         }
-        $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
+
+        // If the request contains a "INSERT INTO fgs_objects" but does NOT contain a formoid
+        // If there is just one value, it's a single object insertion
+        // Else, is a mass insertion
+
+        // If the request contains a "UPDATE FROM fgs_objects"
+        if (substr_count($unzipped_base64_query,"DELETE FROM fgs_objects") == 1) {
+            $pending_requests .= "This is an object update request! Click on the following link to submit it!\n";
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
+        }
+
+        // If the request contains a "DELETE FROM fgs_objects"
+        if (substr_count($unzipped_base64_query,"DELETE FROM fgs_objects") == 1) {
+            $pending_requests .= "This is an object deletion request! Click on the following link to submit it!\n";
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
+        }
     }
 
     // Sets the time to UTC.
