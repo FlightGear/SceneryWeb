@@ -28,7 +28,6 @@ if ($resultr) {
         $unzipped_base64_query = gzuncompress ($base64_decoded_query);
         $pending_requests .= "\nRequest #".$i." identified by ".$row->spr_hash."\n";
         $pending_requests .= "=========================================================================================\n";
-        $pending_requests .= substr($unzipped_base64_query,0,1024)."\n";
 
         // We have 6 cases : static model, object going along with a 3D model, [add, update, delete] shared model, mass insertion.
         // Static model: easy, has a formoid. Not easy: we have to take the next spr_hash as object
@@ -37,6 +36,7 @@ if ($resultr) {
             $current_ob_id = $row->spr_hash;
         }
         if (substr_count($unzipped_base64_query,"INSERT INTO fgs_models") == 1) {
+            $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is a 3D model query!\n";
             $pending_requests .= "http://scenemodels.flightgear.org/submission/static/static_submission.php?ob_sig=".$current_ob_id."&mo_sig=".$row->spr_hash."\n";
         }
@@ -44,20 +44,23 @@ if ($resultr) {
         // If the request contains a "INSERT INTO fgs_objects" but does NOT contain a formoid
         // If there is just one value, it's a single object insertion
         if ((substr_count($unzipped_base64_query,"INSERT INTO fgs_objects") == 1) && (substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 0)) {
+            $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             if (substr_count($unzipped_base64_query,"VALUES") == 1) {
-            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
+                $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
             }
             // Else, is a mass insertion
             else $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=confirm&sig=".$row->spr_hash."\n";
         }
         // If the request contains a "UPDATE FROM fgs_objects"
         if (substr_count($unzipped_base64_query,"UPDATE FROM fgs_objects") == 1) {
+            $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is an object update request! Click on the following link to submit it!\n";
             $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
         }
 
         // If the request contains a "DELETE FROM fgs_objects"
         if (substr_count($unzipped_base64_query,"DELETE FROM fgs_objects") == 1) {
+            $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is an object deletion request! Click on the following link to submit it!\n";
             $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
         }
