@@ -114,7 +114,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000.">
+            <span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000 and not O.">
             <label for="longitude">Longitude<em>*</em></label>
             </span>
             </td>
@@ -124,7 +124,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000.">
+            <span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000 and not 0.">
             <label for="latitude">Latitude<em>*</em></label>
             </span>
             </td>

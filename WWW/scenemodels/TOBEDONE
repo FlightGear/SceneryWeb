@@ -3,7 +3,7 @@ Shared objects
 Features updates (by priority):
 -------------------------------
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
-- Add pitch/roll and offset data so they can be, for instance, mass imported.
+- Add pitch/roll so they can be, for instance, mass imported [can be added now, but they are not taken into account].
 - Enable maintainer to drop a comment.
 - Add the model thumbnail when editing an object (done, needs check). In fact objectedit and submission edit must share common ideas !
 - Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
@@ -27,13 +27,11 @@ After production:
 
 Overall work:
 =============
-- Review the intro page. Say what the scenery site + db is about, etc.
 - Put emails as Bcc and to prevent spam replies, use no-reply@flightgear.org
-- Enable comments fields to authorize 100 in width
 - Enhance the pending submission stuff, so the maintainer can click on a URL to submit the model.
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Logging options
-- Position with a preceding 0 are sometimes causing troubles. Should be accepted and squashed.
+- Position with a preceeding 0 are sometimes causing troubles. Should be accepted and squashed.
 - Have an email account for spam abuse.
 - http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!

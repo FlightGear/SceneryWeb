@@ -29,6 +29,7 @@ if ($resultr) {
         $pending_requests .= "\nRequest #".$i." identified by ".$row->spr_hash."\n";
         $pending_requests .= "=========================================================================================\n";
         $pending_requests .= substr($unzipped_base64_query,0,1024)."\n";
+        $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$spr_hash."\n";
     }
 
     // Sets the time to UTC.
@@ -38,7 +39,7 @@ if ($resultr) {
     // OK, let's start with the mail redaction.
     // Who will receive it ?
     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
-    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+//    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
 
     // What is the subject ?
     $subject = "[FG Scenery Pending Requests] Automatic shared model pending requests list.";
