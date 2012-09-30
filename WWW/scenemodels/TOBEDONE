@@ -41,6 +41,7 @@ Overall work:
 - Let the maintainer the possibility to update fields in the submission checking form.
 - Try to enhance the error management: it would be better, when possible, to show the user all errors rather than having him to send his models a few times to correct each error.
 - Give the possibility to add .xml files for instance without a position/ac3d file. For instance a new strobe light, which is then referenced in the xml file of a 3D model.
+- Improve statistics performance. Maybe create the stats only once a day and store them in some file, so we don't need to re-do all the math every time stats.php is loaded?
 
 Terragear
 =========
