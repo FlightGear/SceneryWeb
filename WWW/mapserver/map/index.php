@@ -96,8 +96,8 @@
             osmlines.setVisibility(true);
             osmlinecover.setVisibility(false);
             noaroads.setVisibility(false);
-            airfield.setVisibility(false);
-            airport850.setVisibility(true);
+            airfield.setVisibility(true);
+            airport850.setVisibility(false);
             navaid850.setVisibility(false);
             sceneobject.setVisibility(false);
             gshhs.setVisibility(false);
