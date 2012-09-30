@@ -63,6 +63,25 @@ include 'inc/header.php';
             echo $list;
             ?>
         ]);
+        var data_static = google.visualization.arrayToDataTable([
+            ['Country', 'Unique models'],
+            <?php
+            $query_static = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
+                            "FROM fgs_objects, fgs_countries, fgs_models " .
+                            "WHERE ob_country = co_code AND ob_model = mo_id AND co_three IS NOT NULL AND mo_shared = 0 " .
+                            "GROUP BY co_code " .
+                            "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
+                            "ORDER BY density DESC";
+            $result_static = pg_query($resource_r, $query_static);
+            $list = "";
+            while ($row = pg_fetch_assoc($result)) {
+                $country = rtrim($row['co_name']);
+                if ($country == "Iran (Islamic Republic of)") $country = "Iran";
+                $list .= "[\"".$country."\", ".$row['count']."],\n";
+            }
+            echo $list;
+            ?>
+        ]);
 
         var options = {
             backgroundColor: '#ADCDFF',
@@ -81,6 +100,9 @@ include 'inc/header.php';
         }
         if (worldmap === "data1") {
             map.draw(data1, options);
+        }
+        if (worldmap === "static") {
+            map.draw(data_static, options);
         }
     };
 
@@ -314,6 +336,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
                 <ul>
                     <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 10,000 sq. km)</li>
                     <li><a onclick="drawRegionsMap('auto','data2')">Absolute object count</a></li>
+                    <li><a onclick="drawRegionsMap('auto','static')">Unique (static) model count</a></li>
                 </ul>
                 <b>Zoom in to:</b>
                 <ul>
