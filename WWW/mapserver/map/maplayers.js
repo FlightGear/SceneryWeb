@@ -128,21 +128,6 @@
 	    {isBaseLayer: false}
 	);
 
-    var airport850 = new OpenLayers.Layer.WMS( "v8.50 Airfields (symbol)",
-	      "http://map.fgx.ch:81/mapnik/fgxcache.py?",
-	      {layers: 'fgx_850_apt', transparent: 'true', format: 'image/png'},
-	      {isBaseLayer: false}
-    );
-
-//    var navaid850 = new OpenLayers.Layer.WMS( "v8.50 Navaids (symbol)",
-//	    [ "http://1.flightgear.telascience.org/tc?",
-//	      "http://2.flightgear.telascience.org/tc?",
-//	      "http://3.flightgear.telascience.org/tc?",
-//	      "http://4.flightgear.telascience.org/tc?" ],
-//	    {layers: 'navaid850', transparent: 'true', format: 'image/png'},
-//	    {isBaseLayer: false}
-//	);
-
     var osmlines = new OpenLayers.Layer.WMS( "OSM line features",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
@@ -197,13 +182,34 @@
 	);
 
     var airport850 = new OpenLayers.Layer.WMS( "v8.50 Airfields (symbol)",
-	    [ "http://1.flightgear.telascience.org/tc?",
-	      "http://2.flightgear.telascience.org/tc?",
-	      "http://3.flightgear.telascience.org/tc?",
-	      "http://4.flightgear.telascience.org/tc?" ],
-	    {layers: 'airport850', transparent: 'true', format: 'image/png'},
-	    {isBaseLayer: false}
-	);
+	      "http://map.fgx.ch:81/mapnik/fgxcache.py?",
+	      {layers: 'fgx_850_apt', transparent: 'true', format: 'image/png'},
+	      {isBaseLayer: false}
+    );
+
+//    var airport850 = new OpenLayers.Layer.WMS( "v8.50 Airfields (symbol)",
+//	    [ "http://1.flightgear.telascience.org/tc?",
+//	      "http://2.flightgear.telascience.org/tc?",
+//	      "http://3.flightgear.telascience.org/tc?",
+//	      "http://4.flightgear.telascience.org/tc?" ],
+//	    {layers: 'airport850', transparent: 'true', format: 'image/png'},
+//	    {isBaseLayer: false}
+//	);
+
+    var navaid850 = new OpenLayers.Layer.WMS( "v8.50 Navaids (symbol)",
+	      "http://map.fgx.ch:81/mapnik/fgxcache.py?",
+	      {layers: 'fgx_850_vor,fgx_850_dme,fgx_850_ndb', transparent: 'true', format: 'image/png'},
+	      {isBaseLayer: false}
+    );
+
+//    var navaid850 = new OpenLayers.Layer.WMS( "v8.50 Navaids (symbol)",
+//	    [ "http://1.flightgear.telascience.org/tc?",
+//	      "http://2.flightgear.telascience.org/tc?",
+//	      "http://3.flightgear.telascience.org/tc?",
+//	      "http://4.flightgear.telascience.org/tc?" ],
+//	    {layers: 'navaid850', transparent: 'true', format: 'image/png'},
+//	    {isBaseLayer: false}
+//	);
 
     var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
 	    [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
