@@ -74,10 +74,10 @@ include 'inc/header.php';
                             "ORDER BY density DESC";
             $result_static = pg_query($resource_r, $query_static);
             $list = "";
-            while ($row = pg_fetch_assoc($result)) {
-                $country = rtrim($row['co_name']);
+            while ($row_static = pg_fetch_assoc($result_static)) {
+                $country = rtrim($row_static['co_name']);
                 if ($country == "Iran (Islamic Republic of)") $country = "Iran";
-                $list .= "[\"".$country."\", ".$row['count']."],\n";
+                $list .= "[\"".$country."\", ".$row_static['count']."],\n";
             }
             echo $list;
             ?>
