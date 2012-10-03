@@ -50,19 +50,6 @@ if (!empty($model["mo_notes"])) {
             ?>
         </td>
     </tr>
-    <?php
-    if ($model["mo_shared"] != 0) {
-        $query = "SELECT COUNT(*) AS number " .
-                 "FROM fgs_objects " .
-                 "WHERE ob_model=$id";
-        $numbers = pg_query($query);
-        $number = pg_fetch_assoc($numbers);
-        echo "<tr>" .
-              "    <td>Occurrences</td>" .
-              "    <td>".$number["number"]."</td>" .
-              "</tr>";
-    }
-    ?>
     <tr>
         <td>Last updated</td>
         <td><?php print $model["mo_datedisplay"]; ?></td>
@@ -80,7 +67,23 @@ if (!empty($model["mo_notes"])) {
             <td>Corresponding object ID</td>
             <td><a href="objectview.php?id=<?php echo $row["ob_id"]."\">".$row["ob_id"]; ?></a></td>
         </tr>
-    <?php } ?>
+    <?php } else {
+        $query = "SELECT COUNT(*) AS number " .
+                 "FROM fgs_objects " .
+                 "WHERE ob_model=$id";
+        $numbers = pg_query($query);
+        $number = pg_fetch_assoc($numbers);
+        $occurences = $number["number"];
+        echo "<tr>" .
+                "<td>Occurrences</td>" .
+                "<td>";
+            if ($occurences > 0)
+                echo "<a href=\"objects.php?model=".$id."\">".$occurences." objects</a>";
+            else 
+                echo "0 objects";
+        echo "</tr>";
+    }
+    ?>
     <tr>
         <td style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
         <td align="center">
