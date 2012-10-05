@@ -68,7 +68,7 @@ if (!empty($model["mo_notes"])) {
             <td><a href="objectview.php?id=<?php echo $row["ob_id"]."\">".$row["ob_id"]; ?></a></td>
         </tr>
     <?php } else {
-        $query = "SELECT COUNT(*) AS number, id " .
+        $query = "SELECT COUNT(*) AS number, ob_id " .
                  "FROM fgs_objects " .
                  "WHERE ob_model=$id";
         $numbers = pg_query($query);
@@ -78,7 +78,7 @@ if (!empty($model["mo_notes"])) {
                 "<td>Occurrences</td>" .
                 "<td>";
             if ($occurences == 1)
-                echo "<a href=\"objectview.php?id=".$number["id"]."\">1 object</a>";
+                echo "<a href=\"objectview.php?id=".$number["ob_id"]."\">1 object</a>";
             else if ($occurences > 1)
                 echo "<a href=\"objects.php?model=".$id."\">".$occurences." objects</a>";
             else 
