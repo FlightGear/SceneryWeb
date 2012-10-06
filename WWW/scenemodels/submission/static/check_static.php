@@ -753,6 +753,7 @@ else {
         // Who will receive it ?
         $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
         $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
+        $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
         $to .= "\"Martin SPOTT\" <martin.spott@mgras.net> ";
 
         // What is the subject ?

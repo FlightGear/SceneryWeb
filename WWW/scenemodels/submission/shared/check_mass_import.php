@@ -164,7 +164,7 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
-                
+
                 break;
             case 3:  // Checking Longitude, must contain only figures and ., be >-180 and <180, be 20 characters max.
                 if ((strlen($value_tag) <= 20)
@@ -195,7 +195,7 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
-                
+
                 break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             case 5:  // Checking Elevation, must contain only figures and, be max 20 characters
@@ -225,7 +225,7 @@ if (!$error) {
                     $cpt_err++;
                 }
                 break;
-                
+
             case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
                 if (count($tab_tags)==7) {
                     if ((strlen($value_tag) <= 20)
@@ -240,12 +240,12 @@ if (!$error) {
                         $cpt_err++;
                     }
                 }
-                
+
                 break;
             }
             $j++;
         }
-        
+
         echo "<td><center>".$elevoffset."</center></td> ";
 
         if ($ko == 0) {
@@ -344,7 +344,8 @@ if (!$error) {
 
     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
     $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>" . ", ";
-    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>" . ", ";
+    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
 
     // What is the subject ?
     $subject = "[FG Scenery Submission forms] Automatic objects massive import request: needs validation.";

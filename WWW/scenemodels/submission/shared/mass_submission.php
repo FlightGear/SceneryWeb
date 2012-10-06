@@ -13,7 +13,6 @@
         exit;
     }
 
-
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
     if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"]) && ($_GET["action"] == "check")) {
         $resource_rw = connect_sphere_rw();
@@ -44,7 +43,7 @@
                     $page_title = "Automated Objects Massive Import Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n</p>\n";
-                    
+
                     $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                     echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
@@ -52,7 +51,7 @@
                     $i = 1;
                     foreach ($tab_tags as $value_tag) {
                         $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), 1\)/";
-                    
+
                         $error === preg_match($pattern, $value_tag, $matches);
 
                         $long = $matches['long'];
@@ -61,7 +60,7 @@
                         $elevoffset = $matches['elevoffset'];
                         $orientation = $matches['orientation'];
                         $model_id = $matches['model_id'];
-                        
+
                         echo "<tr>\n" .
                              "<td><center>".$i."</center></td>\n" .
                              "<td><center>".$long."</center></td>\n" .
@@ -147,10 +146,12 @@
                 $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
                 if (isset($_POST["email"])) {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, " ;
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
                     $to .= $_POST["email"];
                 }
                 else {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
                 }
 
                 // What is the subject ?
@@ -218,7 +219,7 @@
                 $i = 1;
                 foreach ($tab_tags as $value_tag) {
                     $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), 1\)/";
-                    
+
                     $error === preg_match($pattern, $value_tag, $matches);
 
                     $long = $matches['long'];
@@ -296,10 +297,11 @@
                 $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
                 if (isset($_POST['email'])) {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
                     $to .= $_POST["email"];
                 }
                 else {
-                    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
                 }
 
                 // What is the subject ?

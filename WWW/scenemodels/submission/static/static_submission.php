@@ -68,10 +68,12 @@ if (isset($_POST["action"])) {
                 if(isset($_POST['email'])) {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
                     $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
                     $to .= $_POST["email"];
                 }
                 else {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
                     $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>";
                 }
 
@@ -200,10 +202,12 @@ if (isset($_POST["action"])) {
                 if (isset($_POST["email"])) {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
                     $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
                     $to .= $_POST["email"];
                 }
                 else {
-                    //$to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
                 }
 
                 // What is the subject ?

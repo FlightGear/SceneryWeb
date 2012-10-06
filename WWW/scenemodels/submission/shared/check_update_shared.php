@@ -135,7 +135,8 @@ if (isset($model_name)
     // OK, let's start with the mail redaction.
     // Who will receive it ?
     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
 
     // What is the subject ?
     $subject = "[FG Scenery Submission forms] Automatic objects update request: needs validation.";

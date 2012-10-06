@@ -4,7 +4,7 @@
     require_once('../../inc/functions.inc.php');
 
     // Checking DB availability before all
-    $ok=check_availability();
+    $ok = check_availability();
 
     if(!$ok) {
         $page_title = "Automated Objects Submission Form";
@@ -212,7 +212,8 @@ if (!$error) {
         // OK, let's start with the mail redaction.
         // Who will receive it ?
         $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>" . ", ";
-        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+        $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
 
         // What is the subject ?
         $subject = "[FG Scenery Submission forms] Automatic object request: needs validation.";

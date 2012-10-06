@@ -90,10 +90,12 @@
                     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
                     if (isset($_GET['email'])) {
                         $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                        $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
                         $to .= $_GET["email"];
                     }
                     else {
                         $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                        $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
                     }
 
                     // What is the subject ?
@@ -194,10 +196,12 @@
                 $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
                 if(isset($_GET['email'])) {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
                     $to .= $_GET["email"];
                 }
                 else {
                     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
+                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
                 }
 
                 // What is the subject ?

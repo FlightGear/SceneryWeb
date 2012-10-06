@@ -74,6 +74,7 @@ if ($resultr) {
     // Who will receive it ?
     $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
     $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
+    $to .= "\"Vic Marriott\" <vic165@btinternet.com>";
 
     // What is the subject ?
     $subject = "[FG Scenery Pending Requests] Automatic pending requests list.";
