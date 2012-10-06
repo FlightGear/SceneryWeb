@@ -72,7 +72,7 @@ if ($resultr) {
 
     // OK, let's start with the mail redaction.
     // Who will receive it ?
-    $to  = "Bcc: olivier.jacq@free.fr; martin.spott@mgras.net; vic165@btinternet.com";
+    $to  = "Bcc: <olivier.jacq@free.fr>, <martin.spott@mgras.net>, <vic165@btinternet.com>";
 
     // What is the subject ?
     $subject = "[FG Scenery Pending Requests] Automatic pending requests list.";
