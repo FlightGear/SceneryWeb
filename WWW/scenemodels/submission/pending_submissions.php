@@ -72,9 +72,7 @@ if ($resultr) {
 
     // OK, let's start with the mail redaction.
     // Who will receive it ?
-    $to = "\"Bcc: Olivier JACQ\" <olivier.jacq@free.fr>; ";
-    $to .= "\"Bcc: Martin SPOTT\" <martin.spott@mgras.net>, ";
-    $to .= "\"Bcc: Vic Marriott\" <vic165@btinternet.com>";
+    $to  = "Bcc: olivier.jacq@free.fr; martin.spott@mgras.net; vic165@btinternet.com";
 
     // What is the subject ?
     $subject = "[FG Scenery Pending Requests] Automatic pending requests list.";
@@ -105,7 +103,7 @@ if ($resultr) {
 
     // Let's send it ! No management of mail() errors to avoid being too talkative...
     $message = $message077.$message1.$message2;
-    @mail($to, $subject, $message, $headers);
+    @mail('', $subject, $message, $headers);
 }
 
 // Closing the connection.
