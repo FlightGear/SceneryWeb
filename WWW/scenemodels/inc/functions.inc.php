@@ -1,7 +1,7 @@
 <?php
 
 // Setting maintainers (will have to be moved somewhere on sphere)
-$maintainers = "Bcc: <olivier.jacq@free.fr>, <martin.spott@mgras.net>, <vic165@btinternet.com>" ."\r\n";
+include ("/home/ojacq/.maintainers");
 
 // Connects Read Only to the database
 // ==================================
