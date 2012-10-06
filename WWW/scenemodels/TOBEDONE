@@ -24,7 +24,6 @@ After production:
 
 Overall work:
 =============
-- Put emails as Bcc and to prevent spam replies, use no-reply@flightgear.org
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Logging options
 - Position with a preceeding 0 are sometimes causing troubles. Should be accepted and squashed.
