@@ -71,9 +71,6 @@ if ($resultr) {
     $dtg = date('l jS \of F Y h:i:s A');
 
     // OK, let's start with the mail redaction.
-    // Who will receive it ?
-    $to  = "Bcc: <olivier.jacq@free.fr>, <martin.spott@mgras.net>, <vic165@btinternet.com>";
-
     // What is the subject ?
     $subject = "[FG Scenery Pending Requests] Automatic pending requests list.";
 
@@ -99,6 +96,7 @@ if ($resultr) {
     // Preparing the headers.
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "From: \"FG Scenery Pending Requests Form\" <no-reply@flightgear.org>" . "\r\n";
+    $headers .= "Bcc: <olivier.jacq@free.fr>, <martin.spott@mgras.net>, <vic165@btinternet.com>" ."\r\n";
     $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
     // Let's send it ! No management of mail() errors to avoid being too talkative...
