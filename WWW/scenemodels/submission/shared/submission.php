@@ -87,16 +87,8 @@
 
                     // OK, let's start with the mail redaction.
                     // Who will receive it ?
-                    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-                    if (isset($_GET['email'])) {
-                        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-                        $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
-                        $to .= $_GET["email"];
-                    }
-                    else {
-                        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-                        $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
-                    }
+                    if (isset($_GET['email'])) $to .= $_GET["email"];
+                    else $to = "";
 
                     // What is the subject ?
                     $subject = "[FG Scenery Submission forms] Automatic Objects DB pending request process confirmation.";
@@ -121,7 +113,8 @@
                     // Preparing the headers.
 
                     $headers = "MIME-Version: 1.0" . "\r\n";
-                    $headers .= "From: \"FG Scenery Pending Requests forms\" <martin.spott@mgras.net>" . "\r\n";
+                    $headers .= "From: \"FG Scenery Pending Requests forms\" <no-reply@flightgear.org>" . "\r\n";
+                    $headers .= $maintainers;
                     $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
                     // Let's send it ! No management of mail() errors to avoid being too talkative...
@@ -193,16 +186,8 @@
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
-                $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-                if(isset($_GET['email'])) {
-                    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>, ";
-                    $to .= $_GET["email"];
-                }
-                else {
-                    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>, ";
-                    $to .= "\"Vic MARRIOTT\" <vic165@btinternet.com>";
-                }
+                if(isset($_GET['email'])) $to = $_GET["email"];
+                    else $to = "";
 
                 // What is the subject ?
                 $subject = "[FG Scenery Submission forms] Automatic Objects DB reject and deletion confirmation.";
@@ -219,7 +204,8 @@
 
                 // Preparing the headers.
                 $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "From: \"FG Scenery Pending Requests forms\" <martin.spott@mgras.net>" . "\r\n";
+                $headers .= "From: \"FG Scenery Pending Requests forms\" <no-reply@flightgear.org>" . "\r\n";
+                $headers .= $maintainers;
                 $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
                 // Let's send it ! No management of mail() errors to avoid being too talkative...

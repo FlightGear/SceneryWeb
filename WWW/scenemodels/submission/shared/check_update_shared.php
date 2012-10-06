@@ -185,7 +185,7 @@ if (isset($model_name)
 
     // Preparing the headers.
     $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "From: \"FG Scenery Update forms\" <martin.spott@mgras.net>" . "\r\n";
+    $headers .= "From: \"FG Scenery Update forms\" <no-reply@flightgear.org>" . "\r\n";
     $headers .= $maintainers;
     $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
@@ -237,7 +237,7 @@ if (isset($model_name)
 
         // Preparing the headers.
         $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
+        $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
         $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
         // Let's send it ! No management of mail() errors to avoid being too talkative...
