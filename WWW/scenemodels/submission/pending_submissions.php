@@ -96,7 +96,7 @@ if ($resultr) {
     // Preparing the headers.
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "From: \"FG Scenery Pending Requests Form\" <no-reply@flightgear.org>" . "\r\n";
-    $headers .= "Bcc: <olivier.jacq@free.fr>, <martin.spott@mgras.net>, <vic165@btinternet.com>" ."\r\n";
+    $headers .= $maintainers;
     $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
     // Let's send it ! No management of mail() errors to avoid being too talkative...
