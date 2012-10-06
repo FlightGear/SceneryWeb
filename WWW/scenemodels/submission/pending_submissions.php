@@ -72,9 +72,9 @@ if ($resultr) {
 
     // OK, let's start with the mail redaction.
     // Who will receive it ?
-    $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>";
-    $to .= "\"Martin SPOTT\" <martin.spott@mgras.net>";
-    $to .= "\"Vic Marriott\" <vic165@btinternet.com>";
+    $to = "\"Bcc: Olivier JACQ\" <olivier.jacq@free.fr>; ";
+    $to .= "\"Bcc: Martin SPOTT\" <martin.spott@mgras.net>, ";
+    $to .= "\"Bcc: Vic Marriott\" <vic165@btinternet.com>";
 
     // What is the subject ?
     $subject = "[FG Scenery Pending Requests] Automatic pending requests list.";
@@ -100,7 +100,7 @@ if ($resultr) {
 
     // Preparing the headers.
     $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "From: \"FG Scenery Pending Requests Form\" <martin.spott@mgras.net>" . "\r\n";
+    $headers .= "From: \"FG Scenery Pending Requests Form\" <no-reply@flightgear.org>" . "\r\n";
     $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
     // Let's send it ! No management of mail() errors to avoid being too talkative...
