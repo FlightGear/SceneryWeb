@@ -652,11 +652,6 @@ else {
         $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
 
-        // Who will receive it ?
-        $to = "\"Olivier JACQ\" <olivier.jacq@free.fr>, ";
-        $to .= "\"Julien NGUYEN\" <jnguyen@etu.emse.fr>, ";
-        $to .= "\"Martin SPOTT\" <martin.spott@mgras.net> ";
-
         // What is the subject ?
         $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
 
@@ -706,15 +701,16 @@ else {
 
         // Preparing the headers.
         $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
+        $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
+        $headers .= $maintainers;
         $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
         // Let's send it ! No management of mail() errors to avoid being too talkative...
         $message = $message077.$message1.$message2;
-        @mail($to, $subject, $message, $headers);
+        @mail("", $subject, $message, $headers);
 
-                // Mailing the submitter
-        if($failed_mail != 1) {
+        // Mailing the submitter
+        if ($failed_mail != 1) {
 
             // Tell the submitter that its submission has been sent for validation.
             $to = $safe_au_email;
@@ -752,7 +748,7 @@ else {
 
             // Preparing the headers.
             $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "From: \"FG Scenery Submission forms\" <martin.spott@mgras.net>" . "\r\n";
+            $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
             $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
             // Let's send it ! No management of mail() errors to avoid being too talkative...
