@@ -101,7 +101,7 @@ if ($resultr) {
 
     // Let's send it ! No management of mail() errors to avoid being too talkative...
     $message = $message077.$message1.$message2;
-    @mail('no-reply@flightgear.org', $subject, $message, $headers);
+    @mail('', $subject, $message, $headers);
 }
 
 // Closing the connection.
