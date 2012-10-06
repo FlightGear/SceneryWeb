@@ -11,9 +11,6 @@ Features updates (by priority):
    it contains (including interesting obstruction information) by the name of the object.
    Can also serve as a comment (better than in a STG file).
 - Automate the altitude calculation (is there a FG server giving this online f(lat, long) ?).
-- psql -tA -F\ -c "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects ORDER BY ob_tile" | ~/bin/fgelev | awk -F\: '{print "UPDATE fgs_objects SET ob_gndelev =" $2 " WHERE ob_id = " $1 ";"}'
-UPDATE fgs_objects SET ob_gndelev = -0.021 WHERE ob_id = 512280;
-- Automate the country calculation => Being done
 - Add a possibility to switch from STG heading to true and inversely.
 - Regionalise the maintainers : if lat/lon between x and y, send the validation mail to Jon, Martin or... else
 
@@ -28,7 +25,6 @@ After production:
 Overall work:
 =============
 - Put emails as Bcc and to prevent spam replies, use no-reply@flightgear.org
-- Enhance the pending submission stuff, so the maintainer can click on a URL to submit the model.
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Logging options
 - Position with a preceeding 0 are sometimes causing troubles. Should be accepted and squashed.
@@ -41,7 +37,6 @@ Overall work:
 - Let the maintainer the possibility to update fields in the submission checking form.
 - Try to enhance the error management: it would be better, when possible, to show the user all errors rather than having him to send his models a few times to correct each error.
 - Give the possibility to add .xml files for instance without a position/ac3d file. For instance a new strobe light, which is then referenced in the xml file of a 3D model.
-- Improve statistics performance. Maybe create the stats only once a day and store them in some file, so we don't need to re-do all the math every time stats.php is loaded?
 
 Terragear
 =========
