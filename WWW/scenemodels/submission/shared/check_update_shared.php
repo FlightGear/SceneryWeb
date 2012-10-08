@@ -276,13 +276,13 @@ function validateForm()
 /*]]>*/
 </script>
 
-    <p class="center">You have asked to update object #<?php echo $id_to_update;?>.</p>
+    <p class="center">You have asked to update object <?php echo "<a href=\"objectview.php?id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
 
     <form id="update" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
       <table>
         <tr>
           <th></th>
-          <th>Actual value</th>
+          <th>Current value</th>
           <th>New value</th>
         </tr>
         <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
@@ -479,7 +479,7 @@ function validateForm()
             <label for="comment">Comment<em>*</em></label></span>
           </td>
           <td colspan="2">
-            <center><input type="text" name="comment" id="comment" maxlength="100" size="40" value="" onchange="checkComment(this)"/></center>
+            <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onchange="checkComment(this)"/>
           </td>
         </tr>
         <tr>
@@ -487,7 +487,7 @@ function validateForm()
             <label for="email">Email address</label></span>
           </td>
           <td colspan="2">
-            <center><input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></center>
+            <input type="text" name="email" id="email" maxlength="50" size="50" value="" onchange="checkEmail(this);"/>
           </td>
         </tr>
         <tr>
