@@ -466,7 +466,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
-            <td><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Actual thumbnail"/></td>
+            <td><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php $model_id = get_object_model_from_id($id_to_update); echo $model_id; ?>" alt="Actual thumbnail"/></td>
             <td><img id="form_objects_thumb" src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="New thumbnail"/></td>
         </tr>
         <tr>
