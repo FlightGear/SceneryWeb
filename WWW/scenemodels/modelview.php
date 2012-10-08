@@ -68,7 +68,7 @@ if (!empty($model["mo_notes"])) {
             <td><a href="objectview.php?id=<?php echo $row["ob_id"]."\">".$row["ob_id"]; ?></a></td>
         </tr>
     <?php } else {
-        $query = "SELECT COUNT(*) AS number, ob_id " .
+        $query = "SELECT COUNT(*) AS number " .
                  "FROM fgs_objects " .
                  "WHERE ob_model=$id";
         $numbers = pg_query($query);
