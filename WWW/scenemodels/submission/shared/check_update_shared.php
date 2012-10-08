@@ -276,7 +276,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-    <p class="center">You have asked to update object <?php echo "<a href=\"objectview.php?id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
+    <p class="center">You have asked to update object <?php echo "<a href=\"/objectview.php?id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
 
     <form id="update" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
       <table>
