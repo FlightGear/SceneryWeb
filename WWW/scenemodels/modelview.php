@@ -77,12 +77,13 @@ if (!empty($model["mo_notes"])) {
         echo "<tr>" .
                 "<td>Occurrences</td>" .
                 "<td>";
-            if ($occurences > 0)
+            if ($occurences > 0) {
                 echo "<a href=\"objects.php?model=".$id."\">".$occurences;
-				echo $occurences > 1 ? " objects" : " object";
-				echo "</a>";
-            else
+                echo $occurences > 1 ? " objects" : " object";
+                echo "</a>";
+            } else {
                 echo "0 objects";
+            }
         echo "</tr>";
     }
     ?>
