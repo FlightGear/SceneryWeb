@@ -306,7 +306,7 @@ include '../../inc/header.php';
 
 if ($returned_rows == 1) {
     $row = pg_fetch_row($result);
-    echo "<p class=\"center\">You have asked to delete object #".$row[0].".</p>";
+    echo "<p class=\"center\">You have asked to delete object <a href=\"/objectview.php?id=".$row[0]."\">#".$row[0]."</a>.</p>";
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -485,11 +485,11 @@ function validateForm()
 ?>
         <tr>
             <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><label for="comment">Comment<em>*</em></label></span></td>
-            <td colspan="4"><input type="text" id="comment" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);"/></td>
+            <td colspan="4"><input type="text" id="comment" name="comment" maxlength="100" size="100" value="" onchange="checkComment(this);"/></td>
         </tr>
         <tr>
             <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
-            <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></td>
+            <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="50" value="" onchange="checkEmail(this);"/></td>
         </tr>
         <tr>
             <td colspan="5" class="submit">
