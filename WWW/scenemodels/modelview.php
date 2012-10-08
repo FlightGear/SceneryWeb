@@ -76,7 +76,7 @@ if (!empty($model["mo_notes"])) {
         $occurences = $number["number"];
         echo "<tr>" .
                 "<td>Occurrences</td>" .
-                "<td>";
+                "<td>".$occurences;
             if ($occurences == 1) {
                 echo "<a href=\"objectview.php?id=".$number["ob_id"]."\">1 object</a>";
             } elseif ($occurences > 1) {
