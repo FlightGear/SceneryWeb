@@ -51,3 +51,4 @@
 
 <?php include 'menu.php';?>
   <div id="content2">
+<h3><font color="red">Service temporarily unavailable due to database maintenance</font></h3> 
