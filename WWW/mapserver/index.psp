@@ -24,6 +24,8 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
   </div>
   <div id="content2">
 
+<!--    <h3 class="warning">Service temporarily unavailable database maintenance.</h3> -->
+
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h3>
 
 	<p>
@@ -37,8 +39,6 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     The latest reference to Custom Scenery land cover classes is available on
     <a href="http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail">this page</a>.
     </p>
-
-<!--    <h3><font color="red">Service limited due to planned database maintenance.</font></h3> -->
 
 <div class="paragraph_bloc">
     <%= tablehead %>

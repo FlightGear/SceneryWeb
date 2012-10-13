@@ -65,4 +65,3 @@
   </ul>
 
   <div id="clearmenu" style="clear: left"></div>
-  <!-- <h3 class="warning">Service limited due to planned database maintenance.</h3> -->
