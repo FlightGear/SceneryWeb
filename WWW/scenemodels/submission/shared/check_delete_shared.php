@@ -143,7 +143,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
                 "Text currently shipped with object: ".get_object_text_from_id($id_to_delete). "\r\n" .
                 "Comment: " .$comment. "\r\n" .
                 "Please click:". "\r\n" .
-                "http://mapserver.flightgear.org/submap/?lon=" .get_object_longitude_from_id($id_to_delete). "&lat=" .get_object_latitude_from_id($id_to_delete). "&zoom=15"."\r\n" .
+                "http://mapserver.flightgear.org/popmap/?lon=" .get_object_longitude_from_id($id_to_delete). "&lat=" .get_object_latitude_from_id($id_to_delete). "&zoom=15"."\r\n" .
                 "to locate the object on the map.";
 
     $message2 = "\r\n".
@@ -194,7 +194,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
                     "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
                     "Comment: " .$comment ."\r\n".
                     "Please click:" . "\r\n" .
-                    "http://mapserver.flightgear.org/submap/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14" . "\r\n" .
+                    "http://mapserver.flightgear.org/popmap/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14" . "\r\n" .
                     "to locate the object on the map." . "\r\n" .
                     "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
@@ -365,7 +365,7 @@ function validateForm()
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
             <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
-            <td><center><object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
+            <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
         <tr>
             <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: this model is in a river, so please delete it"><label for="comment">Comment<em>*</em></label></span></td>
@@ -477,7 +477,7 @@ function validateForm()
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
             <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
-            <td><center><object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
+            <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
 <?php
         $is_first = false;

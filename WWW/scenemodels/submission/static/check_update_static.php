@@ -690,7 +690,7 @@ else {
         "Elevation offset: ". $offset . "\r\n" .
         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
         "Please click:" . "\r\n" .
-        "http://mapserver.flightgear.org/submap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
+        "http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
         "to locate the object on the map." ;
 
         $message2 = "\r\n".
@@ -742,7 +742,7 @@ else {
                         "Elevation offset: ". $offset . "\r\n" .
                         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Please click:" . "\r\n" .
-                        "http://mapserver.flightgear.org/submap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
+                        "http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
                         "to locate the object on the map." . "\r\n" .
                         "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 

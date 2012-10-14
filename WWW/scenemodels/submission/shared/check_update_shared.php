@@ -171,7 +171,7 @@ if (isset($model_name)
                 "Text currently shipped with object: ".get_object_text_from_id($id_to_update). "\r\n" .
                 "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                 "Please click:" . "\r\n" .
-                "http://mapserver.flightgear.org/submap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
+                "http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
                 "to locate the object on the map (eventually new position)." ;
 
     $message2 = "\r\n".
@@ -231,7 +231,7 @@ if (isset($model_name)
                     "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
                     "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
                     "Please click:" . "\r\n" .
-                    "http://mapserver.flightgear.org/submap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
+                    "http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
                     "to locate the object on the map (eventually new position)." . "\r\n" .
                     "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
 
@@ -471,8 +471,8 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the map around the object you want to update"><label>Map</label></span></td>
-            <td><object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="100%" height="225"></object></td>
-            <td><object id="map" data="http://mapserver.flightgear.org/submap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="100%" height="225"></object></td>
+            <td><object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="100%" height="225"></object></td>
+            <td><object id="map" data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="100%" height="225"></object></td>
         </tr>
         <tr>
           <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
@@ -623,7 +623,7 @@ else {
                     <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>"></a></td>
                     <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
                     <td>
-                    <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
+                    <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
                 <input name="update_choice" type="hidden" value="<?php echo $row[0]; ?>" />
@@ -697,7 +697,7 @@ else {
                     <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $row[5]; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $row[5]; ?>" alt="Thumbnail"/></a></td>
                     <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
                     <td>
-                    <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
+                    <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
 <?php

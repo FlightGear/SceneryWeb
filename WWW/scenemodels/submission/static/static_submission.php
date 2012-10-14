@@ -399,7 +399,7 @@ include '../../inc/header.php';
         <td>Map</td>
         <td>
         <center>
-        <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $ob_long; ?>&amp;lat=<?php echo $ob_lat; ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
+        <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $ob_long; ?>&amp;lat=<?php echo $ob_lat; ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
         </center>
         </td>
     </tr>

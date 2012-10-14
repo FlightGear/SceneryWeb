@@ -69,7 +69,7 @@
                              "<td><center>".$elevoffset."</center></td>\n" .
                              "<td><center>".$orientation."</center></td>\n" .
                              "<td><center>".object_name($model_id)."</center></td>\n" .
-                             "<td><center><a href=\"http://mapserver.flightgear.org/submap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
+                             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
                              "</tr>\n";
 
                         $i++;
