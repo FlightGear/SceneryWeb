@@ -28,7 +28,7 @@
                     "<td style=\"width: 100px;\">".
                     "<a href=\"/objectview.php?id=". $row['ob_id'] . "\">" .
                     "    <img title=\"". $row['ob_text']."\"" .
-                    "    src=\"modelthumb.php?id=". $row['ob_model'] . "\" width=\"100\" height=\"75\"" .
+                    "    src=\"modelthumb.php?id=". $row['ob_model'] . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
                     "</td>\n" .
@@ -56,7 +56,7 @@
                     "<td style=\"width: 100px;\">".
                     "<a href=\"/modelview.php?id=". $row['mo_id'] ."\">" .
                     "    <img title=\"". $row['mo_name'].' ['.$row['mo_path'].']'."\"" .
-                    "    src=\"modelthumb.php?id=". $row['mo_id'] ."\" width=\"100\" height=\"75\"" .
+                    "    src=\"modelthumb.php?id=". $row['mo_id'] ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
                     "</td>\n" .
