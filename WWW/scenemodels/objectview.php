@@ -11,9 +11,9 @@
     }
 ?>
 <h1>
-<?php 
+<?php
     if (isset($object["ob_text"])) print $object["ob_text"];
-    else print "FlightGear Scenery Model Directory"; 
+    else print "FlightGear Scenery Model Directory";
 ?>
 </h1>
 
@@ -34,7 +34,7 @@
     </tr>
     <tr>
         <td>Country</td>
-        <td><?php 
+        <td><?php
             $country = get_country_name_from_country_code($object["ob_country"]);
             if ($object["ob_country"] != "zz" and !empty($object["ob_country"])) echo ("<a href=\"objects.php?country=".$object["ob_country"]."\">".$country."</a>");
             else echo $country;
@@ -71,7 +71,7 @@
             <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>" alt="Thumbnail"/>
         </td>
         <td>
-            <object data="http://mapserver.flightgear.org/submap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="100%" height="240"></object>
+            <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="100%" height="240"></object>
         </td>
     </tr>
     <tr>
