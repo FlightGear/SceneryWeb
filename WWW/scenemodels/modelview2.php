@@ -5,10 +5,6 @@ function popmap(lat,lon,zoom) {
     popup = window.open("http://mapserver.flightgear.org/popmap?zoom="+zoom+"&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
     popup.focus();
 }
-if (!window.WebGLRenderingContext) {
-    var webglFrame = document.getElementById('webglFrame');
-    webglFrame.style.display = "none";
-}
 </script>
 
 <?php
@@ -115,4 +111,12 @@ if (!empty($model["mo_notes"])) {
         </td>
     </tr>
 </table>
+
+<script type="text/javascript">
+if (!window.WebGLRenderingContext) {
+    var webglFrame = document.getElementById('webglFrame');
+    webglFrame.style.display = "none";
+}
+</script>
+
 <?php include 'inc/footer.php'; ?>
