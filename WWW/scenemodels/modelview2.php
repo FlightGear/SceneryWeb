@@ -21,7 +21,7 @@ if (!empty($model["mo_notes"])) {
 ?>
 <table>
     <tr>
-        <td style="width: 320px" rowspan="8"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
+        <td style="width: 320px" rowspan="6"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
 <?php
         if ($model["mo_shared"] != 0) print "<td>Path</td>"; else print "<td>File name</td>";
 ?>
@@ -89,7 +89,7 @@ if (!empty($model["mo_notes"])) {
     }
     ?>
     <tr>
-        <td align="center">
+        <td align="center" colspan="3">
             <?php
             if ($model["mo_shared"] == 0) {
                 $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
