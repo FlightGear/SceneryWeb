@@ -21,6 +21,7 @@ if (!empty($model["mo_notes"])) {
 ?>
 <table>
     <tr>
+        <td style="width: 320px" rowspan="7"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
 <?php
         if ($model["mo_shared"] != 0) print "<td>Path</td>"; else print "<td>File name</td>";
 ?>
@@ -88,8 +89,7 @@ if (!empty($model["mo_notes"])) {
     }
     ?>
     <tr>
-        <td style="width: 320px"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
-        <td align="center">
+        <td colspan="2">
             <?php
             if ($model["mo_shared"] == 0) {
                 $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
@@ -104,11 +104,22 @@ if (!empty($model["mo_notes"])) {
             }
             ?>
             <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download model</a>
-            <br/>
+        </td>
+    </tr>
+    <tr id="webglFrame">
+        <td align="center" colspan="3">
             <object data="viewer.php?id=<?php echo $id; ?>" type="text/html" width="600px" height="300px" style="overflow: hidden;"></object>
             <br/>
             AC3D viewer powered by Hangar - Juan Mellado. Read <a href="http://en.wikipedia.org/wiki/Webgl">here to learn about WebGL</a>.
         </td>
     </tr>
 </table>
+
+<script type="text/javascript">
+if (!window.WebGLRenderingContext) {
+    var webglFrame = document.getElementById('webglFrame');
+    webglFrame.style.display = "none";
+}
+</script>
+
 <?php include 'inc/footer.php'; ?>
