@@ -51,4 +51,4 @@
 
 <?php include 'menu.php';?>
   <div id="content2">
-<h3 class="warning">Service temporarily unavailable database maintenance.</h3>
+<!-- <h3 class="warning">Service temporarily unavailable due to database maintenance.</h3> -->
