@@ -25,7 +25,7 @@ After production:
 
 Overall work:
 =============
-- Replace submap by popmap and increase the height of the map windows by 10%.
+- Increase the height of the popmap windows by 10%.
 - Enhance the width of the site. May not show properly with all screen widths. Depends of pages, resolution, etc.
 - Logging options
 - Position with a preceeding 0 are sometimes causing troubles. Should be accepted and squashed.
