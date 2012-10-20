@@ -29,7 +29,7 @@
                     new OpenLayers.Control.MousePosition(),
                     new OpenLayers.Control.Permalink(),
                     new OpenLayers.Control.LayerSwitcher(),
-                    new OpenLayers.Control.PanZoomBar(),
+                    new OpenLayers.Control.PanZoom(),
                     new OpenLayers.Control.ScaleLine()
                 ],
                 maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
