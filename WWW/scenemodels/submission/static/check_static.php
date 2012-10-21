@@ -36,7 +36,6 @@ include '../../inc/header.php';
 ################################################
 ################################################
 
-//if (($_FILES["mo_thumbfile"]['name'] != "") && ($_FILES["ac3d_file"]['name'] != "")) {
 if (($_FILES["mo_thumbfile"]['name'] != "") && (($_FILES["ac3d_file"]['name'] != "") || ($_FILES["xml_file"]['name'] != ""))) {
     $thumbName = remove_file_extension ($_FILES["mo_thumbfile"]['name']);
     $ac3dName  = remove_file_extension ($_FILES["ac3d_file"]['name']);
@@ -46,8 +45,7 @@ if (($_FILES["mo_thumbfile"]['name'] != "") && (($_FILES["ac3d_file"]['name'] !=
 else {
     $fatalerror = 1;
     $error += 1;
-//  $errormsg .= "You <u>must</u> provide at least 1 thumbnail and 1 AC file!<br/>";
-    $errormsg .= "You <u>must</u> provide at least 1 thumbnail and 1 AC file or 1 XML file!<br/>";
+    $errormsg .= "You <u>must</u> provide at least 1 thumbnail and 1 AC file!<br/>";
 }
 
 ###########################################################
