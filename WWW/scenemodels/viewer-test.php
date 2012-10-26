@@ -40,7 +40,7 @@
 
     var canvas, details, loading, viewer, current, gl;
 
-    function launchLogo() {
+    function launchViewer() {
         details = document.getElementById("details");
         loading = document.getElementById("loading");
         viewer = new HG.Viewer(canvas);
@@ -50,7 +50,7 @@
         showModel(Models[current]);
     }
 
-    function pageLoaded() {
+    function onLoad() {
         canvas = document.getElementById("canvas");
         var experimental = false;
         try { gl = canvas.getContext("webgl"); }
@@ -63,7 +63,7 @@
 
         if (gl) {
             // WebGL is supported and enabled
-            launchLogo();
+            launchViewer();
         } else if ("WebGLRenderingContext" in window) {
             // WebGL is supported, but not enabled
             window.location = "http://get.webgl.org";
