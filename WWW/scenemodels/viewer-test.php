@@ -44,7 +44,7 @@ function onLoad(){
   canvas = document.getElementById("canvas");
   // check if the browser support WebGL
   window.alert("webgl: "+canvas.getContext("webgl")+"\nexperimental-webgl: "+canvas.getContext("experimental-webgl"));
-  if (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")) {
+  if (canvas.getContext("webgl")) {
 	details = document.getElementById("details");
     loading = document.getElementById("loading");
     viewer = new HG.Viewer(canvas);
@@ -52,10 +52,10 @@ function onLoad(){
 
     resize();
     showModel(Models[current]);
+  } else if (canvas.getContext("experimental-webgl")) {
+    window.alert("Test!");
   } else if (window.WebGLRenderingContext) {
     window.location = "http://get.webgl.org";
-  } else {
-	window.alert("Test!");
   }
 };
 
