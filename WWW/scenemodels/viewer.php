@@ -41,21 +41,25 @@ var Models = [
 var canvas, details, loading, viewer, current;
 
 function onLoad(){
-  canvas = document.getElementById("canvas");
+  
 
   // check if the browser support WebGL
   if (!window.WebGLRenderingContext) {
        window.location = "http://liveries.flightgear.org";
-  } else if (!canvas.getContext("webgl")) {
-       window.location = "http://flightgear.org";
   } else {
-    details = document.getElementById("details");
-    loading = document.getElementById("loading");
-    viewer = new HG.Viewer(canvas);
-    current = 0;
+	canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("webgl");
+	if (!ctx) {
+       window.location = "http://flightgear.org";
+	} else {
+      details = document.getElementById("details");
+      loading = document.getElementById("loading");
+      viewer = new HG.Viewer(canvas);
+      current = 0;
 
-    resize();
-    showModel(Models[current]);
+      resize();
+      showModel(Models[current]);
+	}
   }
 };
 
