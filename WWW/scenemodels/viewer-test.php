@@ -94,15 +94,13 @@ function pageLoaded() {
     }
 
     if (gl) {
-        // WebGL is supported and available
-        removeClass($$("webgl-yes"), "webgl-hidden");
+        // WebGL is supported and enabled
         launchLogo();
     } else if ("WebGLRenderingContext" in window) {
-        // not a foolproof way to check if the browser
-        // might actually support WebGL, but better than nothing
-        removeClass($$("webgl-disabled"), "webgl-hidden");
+        // WebGL is supported, but not enabled
+        window.location = "http://get.webgl.org";
     } else {
-        // Show the no webgl message.
+        // WebGL is not supported
         window.location = "http://get.webgl.org";
     }
 }
@@ -131,15 +129,18 @@ window.onload = pageLoaded;
 </script>
   </head>
   <body>
+  
+  <div id="logo-container">
+		<canvas id="canvas"></canvas>
+		<div id="loading"></div>
+	</div>
+			
     <div id="wrapper">
       <div id="support">
 
         <div class="webgl-hidden" id="have-javascript">
           <div class="webgl-hidden webgl-div" id="webgl-yes">
-            <div id="logo-container">
-				<canvas id="canvas"></canvas>
-				<div id="loading"></div>
-            </div>
+            
           </div>
 
           <div class="webgl-hidden webgl-div" id="webgl-disabled">
