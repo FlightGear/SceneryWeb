@@ -46,10 +46,10 @@ function onLoad(){
   // check if the browser support WebGL
   if (!window.WebGLRenderingContext) {
        window.location = "http://get.webgl.org";
-       alert("!window.WebGLRenderingContext");
+       window.alert("!window.WebGLRenderingContext");
   } else if (!canvas.getContext("webgl")) {
        window.location = "http://get.webgl.org";
-       alert("!canvas.getContext(webgl)");
+       window.alert("!canvas.getContext(webgl)");
   } else {
     details = document.getElementById("details");
     loading = document.getElementById("loading");
