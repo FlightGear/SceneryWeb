@@ -44,7 +44,7 @@ function onLoad(){
   canvas = document.getElementById("canvas");
 
   // check if the browser support WebGL
-  if (!window.WebGLRenderingContext) {
+  if (!window.WebGLRenderingContext or !canvas.getContext("webgl")) {
        window.location = "http://get.webgl.org";
   } else {
     details = document.getElementById("details");
