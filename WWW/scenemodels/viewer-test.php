@@ -57,32 +57,7 @@ function launchLogo() {
     showModel(Models[current]);
 }
 
-function log(msg) {
-    var d = document.createElement("div");
-    d.appendChild(document.createTextNode(msg));
-    document.body.appendChild(d);
-}
-
-function removeClass(element, clas) {
-    // Does not work in IE var classes = element.getAttribute("class");
-    var classes = element.className;
-    if (classes) {
-        var cs = classes.split(/\s+/);
-        if (cs.indexOf(clas) != -1) {
-            cs.splice(cs.indexOf(clas), 1);
-        }
-        // Does not work in IE element.setAttribute("class", cs.join(" "));
-        element.className = cs.join(" ");
-    }
-}
-
-function addClass(element, clas) {
-    element.className = element.className + " " + clas;
-}
-
 function pageLoaded() {
-    removeClass($$("have-javascript"), "webgl-hidden");
-    addClass($$("no-javascript"), "webgl-hidden");
     canvas = document.getElementById("canvas");
     var experimental = false;
     try { gl = canvas.getContext("webgl"); }
@@ -130,63 +105,10 @@ window.onload = pageLoaded;
   </head>
   <body>
   
-  <div id="logo-container">
-		<canvas id="canvas"></canvas>
-		<div id="loading"></div>
-	</div>
-			
-    <div id="wrapper">
-      <div id="support">
-
-        <div class="webgl-hidden" id="have-javascript">
-          <div class="webgl-hidden webgl-div" id="webgl-yes">
-            
-          </div>
-
-          <div class="webgl-hidden webgl-div" id="webgl-disabled">
-            <p>Hmm.  While your browser seems to support WebGL, it is disabled or unavailable.  If possible, please ensure that you are running the latest drivers for your video card.</p>
-            <p id="known-browser" class="webgl-hidden"><a id="troubleshooting-link" href="">For more help, please click this link</a>.</p>
-            <p id="unknown-browser">For more help, please visit the support site for your browser.</p>
-          </div>
-
-          <div class="webgl-hidden webgl-div" id="webgl-no">
-            <p>Oh no!  We are sorry, but your browser does not seem to support WebGL.</p>
-            <div id="upgrade-browser">
-            <p><a id="upgrade-link" href="">You can upgrade <span id="name"></span> by clicking this link.</a></p>
-            </div>
-            <div id="get-browser" class="webgl-hidden">
-            <p>You may want to download one of the following browsers to view WebGL content.</p>
-
-            <p>The following browsers support WebGL on <span id="platform"></span>:</p>
-
-              <div id="webgl-browser-list">
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div id="no-javascript">
-          You must enable JavaScript to use WebGL.
-        </div>
-
-      </div>
-      <hr />
-      <div id="resources">
-
-        <div>Check out some of the following links to learn
-        more about WebGL and to find more web applications
-        using WebGL.</div><br />
-
-        <div><a href="http://www.khronos.org/webgl/wiki/Main_Page">WebGL Wiki</a></div>
- 
-      </div>
-      <div id="moreinfo">
-        <div>Want more information about WebGL?</div><br />
-
-        <div><a href="http://khronos.org/webgl">khronos.org/webgl</a></div>
-      </div>
-    </div>
-  </div>
+<div id="logo-container">
+	<canvas id="canvas"></canvas>
+	<div id="loading"></div>
+</div>
 
   </body>
 </html>
