@@ -43,7 +43,7 @@ var canvas, details, loading, viewer, current;
 function onLoad(){
   canvas = document.getElementById("canvas");
   // check if the browser support WebGL
-  if (canvas.getContext("webgl") or canvas.getContext("experimental-webgl")) {
+  if (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")) {
 	details = document.getElementById("details");
     loading = document.getElementById("loading");
     viewer = new HG.Viewer(canvas);
