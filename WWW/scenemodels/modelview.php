@@ -115,11 +115,4 @@ if (!empty($model["mo_notes"])) {
     </tr>
 </table>
 
-<script type="text/javascript">
-if (!window.WebGLRenderingContext) {
-    var webglFrame = document.getElementById('webglFrame');
-    webglFrame.style.display = "none";
-}
-</script>
-
 <?php include 'inc/footer.php'; ?>
