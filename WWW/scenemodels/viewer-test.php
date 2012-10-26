@@ -115,6 +115,9 @@
       }
 
     </style>
+<script type="text/javascript" src="inc/hangar/gl-matrix-min.js"></script>
+<script type="text/javascript" src="inc/hangar/polyfill.js"></script>
+<script type="text/javascript" src="inc/hangar/viewer.js"></script>
 
 <?php
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
