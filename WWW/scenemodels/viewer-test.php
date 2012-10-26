@@ -43,6 +43,7 @@ var canvas, details, loading, viewer, current;
 function onLoad(){
   canvas = document.getElementById("canvas");
   // check if the browser support WebGL
+  window.alert(canvas.getContext("webgl")+" "+canvas.getContext("experimental-webgl")+" "+window.WebGLRenderingContext);
   if (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")) {
 	details = document.getElementById("details");
     loading = document.getElementById("loading");
