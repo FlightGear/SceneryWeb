@@ -1,114 +1,103 @@
-<!doctype html>
 <html>
-  <head>
-
-    <style>
+<head>
+    <style type="text/css">
         #canvas {
-          width: 570px;
-          cursor:move;
-          z-index: 10;
+            width: 570px;
+            cursor:move;
+            z-index: 10;
         }
 
         #loading {
-          position: absolute;
-          top: 0px;
-          left: 0px;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          display: none;
-          background: url('loader.gif') no-repeat center center;
-          z-index: 100;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: none;
+            background: url('loader.gif') no-repeat center center;
+            z-index: 100;
+        }
+    </style>
+    <script type="text/javascript" src="inc/hangar/gl-matrix-min.js"></script>
+    <script type="text/javascript" src="inc/hangar/polyfill.js"></script>
+    <script type="text/javascript" src="inc/hangar/viewer.js"></script>
+
+    <?php
+    if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
+        $id = $_REQUEST['id'];
+    }
+    ?>
+
+    <script type="text/javascript">
+    function $$(x) {
+        return document.getElementById(x);
+    }
+
+    var Models = [
+        { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>"}
+    ];
+
+    var canvas, details, loading, viewer, current, gl;
+
+    function launchLogo() {
+        details = document.getElementById("details");
+        loading = document.getElementById("loading");
+        viewer = new HG.Viewer(canvas);
+        current = 0;
+
+        resize();
+        showModel(Models[current]);
+    }
+
+    function pageLoaded() {
+        canvas = document.getElementById("canvas");
+        var experimental = false;
+        try { gl = canvas.getContext("webgl"); }
+        catch (x) { gl = null; }
+
+        if (gl == null) {
+            try { gl = canvas.getContext("experimental-webgl"); experimental = true; }
+            catch (x) { gl = null; }
         }
 
-      .webgl-hidden {
-          display: none;
-      }
-
-    </style>
-<script type="text/javascript" src="inc/hangar/gl-matrix-min.js"></script>
-<script type="text/javascript" src="inc/hangar/polyfill.js"></script>
-<script type="text/javascript" src="inc/hangar/viewer.js"></script>
-
-<?php
-if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
-    $id = $_REQUEST['id'];
-}
-?>
-
-<script type="text/javascript">
-function $$(x) {
-    return document.getElementById(x);
-}
-
-var Models = [
-  { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>"}
-];
-
-var canvas, details, loading, viewer, current, gl;
-
-function launchLogo() {
-    details = document.getElementById("details");
-    loading = document.getElementById("loading");
-    viewer = new HG.Viewer(canvas);
-    current = 0;
-
-    resize();
-    showModel(Models[current]);
-}
-
-function pageLoaded() {
-    canvas = document.getElementById("canvas");
-    var experimental = false;
-    try { gl = canvas.getContext("webgl"); }
-    catch (x) { gl = null; }
-
-    if (gl == null) {
-        try { gl = canvas.getContext("experimental-webgl"); experimental = true; }
-        catch (x) { gl = null; }
+        if (gl) {
+            // WebGL is supported and enabled
+            launchLogo();
+        } else if ("WebGLRenderingContext" in window) {
+            // WebGL is supported, but not enabled
+            window.location = "http://get.webgl.org";
+        } else {
+            // WebGL is not supported
+            window.location = "http://get.webgl.org";
+        }
     }
 
-    if (gl) {
-        // WebGL is supported and enabled
-        launchLogo();
-    } else if ("WebGLRenderingContext" in window) {
-        // WebGL is supported, but not enabled
-        window.location = "http://get.webgl.org";
-    } else {
-        // WebGL is not supported
-        window.location = "http://get.webgl.org";
-    }
-}
+    function resize(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-function resize(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+      window.addEventListener("resize",
+        function(event){
+          viewer.onResize(window.innerWidth, window.innerHeight);
+        }, false);
+    };
 
-  window.addEventListener("resize",
-    function(event){
-      viewer.onResize(window.innerWidth, window.innerHeight);
-    }, false);
-};
+    function showModel(model){
+        loading.style.display = "block";
+        viewer.show(model.file, {callback:onLoaded, texturePath:"get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="});
+    };
 
-function showModel(model){
-  loading.style.display = "block";
-  viewer.show(model.file, {callback:onLoaded, texturePath:"get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="});
-};
+    function onLoaded(){
+        loading.style.display = "none";
+    };
+    </script>
 
-function onLoaded(){
-  loading.style.display = "none";
-};
+</head>
 
-// addEventListener does not work on IE7/8.
-window.onload = pageLoaded;
-</script>
-  </head>
-  <body>
-  
-<div id="logo-container">
-	<canvas id="canvas"></canvas>
-	<div id="loading"></div>
-</div>
+<body onload="onLoad();">
+    <canvas id="canvas"></canvas>
+    <div id="loading"></div>
+</body>
 
-  </body>
 </html>
