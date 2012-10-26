@@ -108,7 +108,7 @@ if (!empty($model["mo_notes"])) {
     </tr>
     <tr id="webglFrame">
         <td align="center" colspan="3">
-            <object data="viewer.php?id=<?php echo $id; ?>" type="text/html" width="600px" height="300px" style="overflow: hidden;"></object>
+            <object data="viewer.php?id=<?php echo $id; ?>" type="text/html" width="600px" height="300px" style="overflow: hidden; height: 295px;"></object>
             <br/>
             AC3D viewer powered by Hangar - Juan Mellado. Read <a href="http://en.wikipedia.org/wiki/Webgl">here to learn about WebGL</a>.
         </td>
