@@ -84,9 +84,6 @@ function pageLoaded() {
     removeClass($$("have-javascript"), "webgl-hidden");
     addClass($$("no-javascript"), "webgl-hidden");
     canvas = document.getElementById("canvas");
-    var ratio = (window.devicePixelRatio ? window.devicePixelRatio : 1);
-    canvas.width = 140 * ratio;
-    canvas.height = 150 * ratio;
     var experimental = false;
     try { gl = canvas.getContext("webgl"); }
     catch (x) { gl = null; }
@@ -97,10 +94,7 @@ function pageLoaded() {
     }
 
     if (gl) {
-        // hide/show phrase for webgl-experimental
-        $$("webgl-experimental").style.display = experimental ? "auto" : "none";
-
-        // show webgl supported div, and launch webgl demo
+        // WebGL is supported and available
         removeClass($$("webgl-yes"), "webgl-hidden");
         launchLogo();
     } else if ("WebGLRenderingContext" in window) {
@@ -109,7 +103,7 @@ function pageLoaded() {
         removeClass($$("webgl-disabled"), "webgl-hidden");
     } else {
         // Show the no webgl message.
-        removeClass($$("webgl-no"), "webgl-hidden");
+        window.location = "http://get.webgl.org";
     }
 }
 
@@ -142,17 +136,9 @@ window.onload = pageLoaded;
 
         <div class="webgl-hidden" id="have-javascript">
           <div class="webgl-hidden webgl-div" id="webgl-yes">
-            <h1 class="good">Your browser supports WebGL</h1>
-
-            <div id="webgl-experimental">However, it indicates that support is
-            experimental; you might see issues with some content.</div>
-
-            <div>You should see a spinning cube. If you do not, please
-            <a id="support-link">visit the support site for your browser</a>.</div>
-
             <div id="logo-container">
-            <canvas id="canvas"></canvas>
-            <div id="loading"></div>
+				<canvas id="canvas"></canvas>
+				<div id="loading"></div>
             </div>
           </div>
 
