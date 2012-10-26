@@ -241,6 +241,7 @@ window.onload = pageLoaded;
 
             <div id="logo-container">
             <canvas id="canvas" style="width: 140px; height: 150px;" /></canvas>
+			<div id="loading"></div>
             </div>
           </div>
 
