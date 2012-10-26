@@ -45,11 +45,9 @@ function onLoad(){
 
   // check if the browser support WebGL
   if (!window.WebGLRenderingContext) {
-       window.location = "http://get.webgl.org";
-       window.alert("!window.WebGLRenderingContext");
+       window.location = "http://liveries.flightgear.org";
   } else if (!canvas.getContext("webgl")) {
-       window.location = "http://get.webgl.org";
-       window.alert("!canvas.getContext(webgl)");
+       window.location = "http://flightgear.org";
   } else {
     details = document.getElementById("details");
     loading = document.getElementById("loading");
