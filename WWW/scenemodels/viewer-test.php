@@ -1,28 +1,120 @@
+<!doctype html>
 <html>
-<head>
-<style type="text/css">
+  <head>
 
-#canvas {
-  width: 570px;
-  cursor:move;
-  z-index: 10;
-}
+    <style>
 
-#loading {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: none;
-  background: url('loader.gif') no-repeat center center;
-  z-index: 100;
-}
-</style>
-<script type="text/javascript" src="inc/hangar/gl-matrix-min.js"></script>
-<script type="text/javascript" src="inc/hangar/polyfill.js"></script>
-<script type="text/javascript" src="inc/hangar/viewer.js"></script>
+      body {
+
+        color: #6b6b6b;
+        font-family: ubuntu, helvetica, arial, sans, sans-serif;
+
+      }
+
+      a {
+
+        color: #3194d5;
+
+      }
+
+      @media (max-device-width: 480px) {
+
+          #wrapper #support h1 {
+            font-weight: bold;
+            font-size: 20px;
+            margin: 10px 0px;
+          }
+          #wrapper #support .webgl-div div {
+            margin: 10px 10px;    
+          }
+          #wrapper #support #logo-container {
+            text-align: center;
+          }
+          #wrapper #support canvas {
+            margin: 10px 0px 10px 0px;
+          }
+          #wrapper hr {
+            margin: 10px 0px;
+          }
+          #wrapper #moreinfo {
+            margin: 10px 0px 0px 0px;
+          }
+
+      }
+
+      @media (min-device-width: 600px) {
+
+          #wrapper #support h1 {
+            font-weight: normal;
+            font-size: 40px;
+            margin: 40px 0px;
+          }
+
+          #wrapper #support {
+            text-align: center;
+          }
+    
+          #wrapper #support canvas {
+            margin: 30px 0px 10px 0px;
+          }
+    
+          #wrapper hr {
+            margin: 40px 0px;
+          }
+
+          #wrapper {
+            width: 600px;
+          }
+
+          #wrapper #moreinfo {
+            width: 250px;
+            margin: 0px 20px 0px 20px;
+            float: left;
+          }
+
+          #wrapper #resources {
+            width: 250px;
+            height: 150px;
+            margin: 0px 20px 0px 40px;
+            float: left;
+          }
+
+          #wrapper #support .webgl-div div {
+            margin: 20px 100px;    
+          }
+      }
+
+      #wrapper {
+        margin: auto;
+      }
+
+      #wrapper hr {
+        border-top: solid #e3e3e3;
+        border-width: 1px 0px 0px 0px;
+        height: 0px;
+      }
+
+      #wrapper #support h1 {
+        color: #33a933;
+      }
+
+      #wrapper #resources div {
+        font-size: 13px;
+      }
+
+      #wrapper #moreinfo div {
+        font-size: 13px;
+      }
+
+      .webgl-hidden {
+          display: none;
+      }
+
+      #webgl-browser-list {
+          white-space: nowrap;
+      }
+
+    </style>
 
 <?php
 if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
@@ -31,33 +123,140 @@ if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
 ?>
 
 <script type="text/javascript">
-
-
+function $$(x) {
+    return document.getElementById(x);
+}
 
 var Models = [
   { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>"}
 ];
 
-var canvas, details, loading, viewer, current;
+var canvas, details, loading, viewer, current, gl;
 
-function onLoad(){
-  canvas = document.getElementById("canvas");
-  // check if the browser support WebGL
-  //window.alert("webgl: "+canvas.getContext("webgl")+"\nexperimental-webgl: "+canvas.getContext("experimental-webgl"));
-  if (canvas.getContext("webgl")) {
-	details = document.getElementById("details");
+function launchLogo() {
+    details = document.getElementById("details");
     loading = document.getElementById("loading");
     viewer = new HG.Viewer(canvas);
     current = 0;
 
     resize();
     showModel(Models[current]);
-  } else if (canvas.getContext("experimental-webgl")) {
-    window.alert("Test!");
-  } else if (window.WebGLRenderingContext) {
-    window.location = "http://get.webgl.org";
-  }
-};
+}
+
+function log(msg) {
+    var d = document.createElement("div");
+    d.appendChild(document.createTextNode(msg));
+    document.body.appendChild(d);
+}
+
+function removeClass(element, clas) {
+    // Does not work in IE var classes = element.getAttribute("class");
+    var classes = element.className;
+    if (classes) {
+        var cs = classes.split(/\s+/);
+        if (cs.indexOf(clas) != -1) {
+            cs.splice(cs.indexOf(clas), 1);
+        }
+        // Does not work in IE element.setAttribute("class", cs.join(" "));
+        element.className = cs.join(" ");
+    }
+}
+
+function addClass(element, clas) {
+    element.className = element.className + " " + clas;
+}
+
+function pageLoaded() {
+    removeClass($$("have-javascript"), "webgl-hidden");
+    addClass($$("no-javascript"), "webgl-hidden");
+    b = BrowserDetect;
+    b.init();
+    canvas = document.getElementById("canvas");
+    var ratio = (window.devicePixelRatio ? window.devicePixelRatio : 1);
+    canvas.width = 140 * ratio;
+    canvas.height = 150 * ratio;
+    var experimental = false;
+    try { gl = canvas.getContext("webgl"); }
+    catch (x) { gl = null; }
+
+    if (gl == null) {
+        try { gl = canvas.getContext("experimental-webgl"); experimental = true; }
+        catch (x) { gl = null; }
+    }
+
+    if (gl) {
+        // hide/show phrase for webgl-experimental
+        $$("webgl-experimental").style.display = experimental ? "auto" : "none";
+
+        // Set the support link to the correct URL for the browser.
+        $$("support-link").href = b.urls.troubleshootingUrl;
+
+        // show webgl supported div, and launch webgl demo
+        removeClass($$("webgl-yes"), "webgl-hidden");
+        launchLogo();
+    } else if ("WebGLRenderingContext" in window) {
+        // not a foolproof way to check if the browser
+        // might actually support WebGL, but better than nothing
+        removeClass($$("webgl-disabled"), "webgl-hidden");
+
+        // Do we know this browser?
+        if (b.browser != "unknown") {
+            // Yes. So show the known-browser message.
+            removeClass($$("known-browser"), "webgl-hidden");
+
+            // Hide the unknonw-browser message.
+            addClass($$("unknown-browser"), "webgl-hidden");
+
+            // Set the correct link for troubleshooting.
+            $$("troubleshooting-link").href = b.urls.troubleshootingUrl;
+        }
+    } else {
+        // Show the no webgl message.
+        removeClass($$("webgl-no"), "webgl-hidden");
+
+        // Do we know the browser and can it be upgraded?
+        if (b.browser != "unknown" && b.urls.upgradeUrl) {
+            // Yes, show the browser and the upgrade link.
+            $$("name").innerHTML = b.browser;
+            $$("upgrade-link").href = b.urls.upgradeUrl;
+        } else {
+            // No, so only the link for browser for this platform.
+            randomizeBrowsers();
+            addClass($$("upgrade-browser"), "webgl-hidden");
+            removeClass($$("get-browser"), "webgl-hidden");
+            $$("platform").innerHTML = b.platform;
+        }
+    }
+}
+
+function randomizeBrowsers() {
+
+    var bl = $$("webgl-browser-list");
+    var browsers = [];
+    var infos = b.platformInfo.browsers;
+    for (var ii = 0; ii < infos.length; ++ii) {
+      browsers.push({
+        info: infos[ii],
+        weight: Math.random()
+      });
+    }
+
+    browsers = browsers.sort(function(a, b) {
+        if (a.weight < b.weight) return -1;
+        if (a.weight > b.weight) return 1;
+        return 0;
+    });
+
+    for (var ii = 0; ii < browsers.length; ++ii) {
+        var info = browsers[ii].info;
+        var div = document.createElement("p");
+        var a = document.createElement("a");
+        a.href = info.url;
+        a.innerHTML = info.name;
+        div.appendChild(a);
+        bl.appendChild(div);
+    }
+}
 
 function resize(){
   canvas.width = window.innerWidth;
@@ -77,13 +276,74 @@ function showModel(model){
 function onLoaded(){
   loading.style.display = "none";
 };
+
+// addEventListener does not work on IE7/8.
+window.onload = pageLoaded;
 </script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="support">
 
-</head>
+        <div class="webgl-hidden" id="have-javascript">
+          <div class="webgl-hidden webgl-div" id="webgl-yes">
+            <h1 class="good">Your browser supports WebGL</h1>
 
-<body onload="onLoad();">
-  <canvas id="canvas"></canvas>
-  <div id="loading"></div>
-</body>
+            <div id="webgl-experimental">However, it indicates that support is
+            experimental; you might see issues with some content.</div>
 
+            <div>You should see a spinning cube. If you do not, please
+            <a id="support-link">visit the support site for your browser</a>.</div>
+
+            <div id="logo-container">
+            <canvas id="canvas" style="width: 140px; height: 150px;" /></canvas>
+            </div>
+          </div>
+
+          <div class="webgl-hidden webgl-div" id="webgl-disabled">
+            <p>Hmm.  While your browser seems to support WebGL, it is disabled or unavailable.  If possible, please ensure that you are running the latest drivers for your video card.</p>
+            <p id="known-browser" class="webgl-hidden"><a id="troubleshooting-link" href="">For more help, please click this link</a>.</p>
+            <p id="unknown-browser">For more help, please visit the support site for your browser.</p>
+          </div>
+
+          <div class="webgl-hidden webgl-div" id="webgl-no">
+            <p>Oh no!  We are sorry, but your browser does not seem to support WebGL.</p>
+            <div id="upgrade-browser">
+            <p><a id="upgrade-link" href="">You can upgrade <span id="name"></span> by clicking this link.</a></p>
+            </div>
+            <div id="get-browser" class="webgl-hidden">
+            <p>You may want to download one of the following browsers to view WebGL content.</p>
+
+            <p>The following browsers support WebGL on <span id="platform"></span>:</p>
+
+              <div id="webgl-browser-list">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div id="no-javascript">
+          You must enable JavaScript to use WebGL.
+        </div>
+
+      </div>
+      <hr />
+      <div id="resources">
+
+        <div>Check out some of the following links to learn
+        more about WebGL and to find more web applications
+        using WebGL.</div><br />
+
+        <div><a href="http://www.khronos.org/webgl/wiki/Main_Page">WebGL Wiki</a></div>
+ 
+      </div>
+      <div id="moreinfo">
+        <div>Want more information about WebGL?</div><br />
+
+        <div><a href="http://khronos.org/webgl">khronos.org/webgl</a></div>
+      </div>
+    </div>
+  </div>
+
+  </body>
 </html>
