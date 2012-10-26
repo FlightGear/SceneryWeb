@@ -3,115 +3,26 @@
   <head>
 
     <style>
+        #canvas {
+          width: 570px;
+          cursor:move;
+          z-index: 10;
+        }
 
-      body {
-
-        color: #6b6b6b;
-        font-family: ubuntu, helvetica, arial, sans, sans-serif;
-
-      }
-
-      a {
-
-        color: #3194d5;
-
-      }
-
-      @media (max-device-width: 480px) {
-
-          #wrapper #support h1 {
-            font-weight: bold;
-            font-size: 20px;
-            margin: 10px 0px;
-          }
-          #wrapper #support .webgl-div div {
-            margin: 10px 10px;    
-          }
-          #wrapper #support #logo-container {
-            text-align: center;
-          }
-          #wrapper #support canvas {
-            margin: 10px 0px 10px 0px;
-          }
-          #wrapper hr {
-            margin: 10px 0px;
-          }
-          #wrapper #moreinfo {
-            margin: 10px 0px 0px 0px;
-          }
-
-      }
-
-      @media (min-device-width: 600px) {
-
-          #wrapper #support h1 {
-            font-weight: normal;
-            font-size: 40px;
-            margin: 40px 0px;
-          }
-
-          #wrapper #support {
-            text-align: center;
-          }
-    
-          #wrapper #support canvas {
-            margin: 30px 0px 10px 0px;
-          }
-    
-          #wrapper hr {
-            margin: 40px 0px;
-          }
-
-          #wrapper {
-            width: 600px;
-          }
-
-          #wrapper #moreinfo {
-            width: 250px;
-            margin: 0px 20px 0px 20px;
-            float: left;
-          }
-
-          #wrapper #resources {
-            width: 250px;
-            height: 150px;
-            margin: 0px 20px 0px 40px;
-            float: left;
-          }
-
-          #wrapper #support .webgl-div div {
-            margin: 20px 100px;    
-          }
-      }
-
-      #wrapper {
-        margin: auto;
-      }
-
-      #wrapper hr {
-        border-top: solid #e3e3e3;
-        border-width: 1px 0px 0px 0px;
-        height: 0px;
-      }
-
-      #wrapper #support h1 {
-        color: #33a933;
-      }
-
-      #wrapper #resources div {
-        font-size: 13px;
-      }
-
-      #wrapper #moreinfo div {
-        font-size: 13px;
-      }
+        #loading {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          display: none;
+          background: url('loader.gif') no-repeat center center;
+          z-index: 100;
+        }
 
       .webgl-hidden {
           display: none;
-      }
-
-      #webgl-browser-list {
-          white-space: nowrap;
       }
 
     </style>
@@ -240,8 +151,8 @@ window.onload = pageLoaded;
             <a id="support-link">visit the support site for your browser</a>.</div>
 
             <div id="logo-container">
-            <canvas id="canvas" style="width: 140px; height: 150px;" /></canvas>
-			<div id="loading"></div>
+            <canvas id="canvas"></canvas>
+            <div id="loading"></div>
             </div>
           </div>
 
