@@ -119,7 +119,7 @@
 	    {isBaseLayer: false}
 	);
 
-    var tarmac850 = new OpenLayers.Layer.WMS( "Airfield layouts (v8.50, 2012.08)",
+    var tarmac850 = new OpenLayers.Layer.WMS( "Airfield layouts (v9.00, 2012.08)",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
 	      "http://3.flightgear.telascience.org/tc?",
@@ -128,7 +128,7 @@
 	    {isBaseLayer: false}
 	);
 
-    var osmlines = new OpenLayers.Layer.WMS( "OSM line features (120912)",
+    var osmlines = new OpenLayers.Layer.WMS( "OSM line features (121017)",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
 	      "http://3.flightgear.telascience.org/tc?",
@@ -138,7 +138,7 @@
 //    {gutter: 50}
     );
 
-    var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (120912)",
+    var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (121017)",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
 	      "http://3.flightgear.telascience.org/tc?",
