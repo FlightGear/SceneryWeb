@@ -108,20 +108,19 @@ if (!empty($model["mo_notes"])) {
     </tr>
     <tr id="webglFrame">
         <td align="center" colspan="3" id ="webglTd">
-            <!--<object data="viewer.php?id=<?php echo $id; ?>" type="text/html" width="600px" height="300px" style="overflow: hidden; height: 295px;"></object>-->
-            <br/>
-            AC3D viewer powered by Hangar - Juan Mellado. Read <a href="http://en.wikipedia.org/wiki/Webgl">here to learn about WebGL</a>.
         </td>
     </tr>
 </table>
 
 <script type="text/javascript">
     var objectViewer = document.createElement("object");
-    objectViewer.width = "100px";
-    objectViewer.height = "100px";
+    objectViewer.width = "600px";
+    objectViewer.height = "300px";
     objectViewer.data = "viewer.php?id=<?php echo $id; ?>";
     objectViewer.type = "text/html";
+    objectViewer.style = "overflow: hidden; height: 300px";
     document.getElementById("webglTd").appendChild(objectViewer);
+    document.getElementById("webglTd").innerHTML += "<br/>AC3D viewer powered by Hangar - Juan Mellado. Read <a href=\"http://en.wikipedia.org/wiki/Webgl\">here to learn about WebGL</a>."
 </script>
 
 <?php include 'inc/footer.php'; ?>
