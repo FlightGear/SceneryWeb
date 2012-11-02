@@ -114,7 +114,7 @@ if (!empty($model["mo_notes"])) {
 </table>
 
 <script type="text/javascript">
-function showWebgl {
+function showWebgl() {
     var objectViewer = document.createElement("object");
     objectViewer.width = "600px";
     objectViewer.height = "300px";
