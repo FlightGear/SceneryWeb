@@ -117,10 +117,9 @@ if (!empty($model["mo_notes"])) {
 function showWebgl() {
     var objectViewer = document.createElement("object");
     objectViewer.width = "600px";
-    objectViewer.height = "300px";
+    objectViewer.height = "301px";
     objectViewer.data = "viewer.php?id=<?php echo $id; ?>";
     objectViewer.type = "text/html";
-    objectViewer.style = "overflow: hidden; height: 300px";
     var webglTd = document.getElementById("webglTd");
     webglTd.innerHTML = "";
     webglTd.appendChild(objectViewer);
