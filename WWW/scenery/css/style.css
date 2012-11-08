@@ -1,5 +1,5 @@
 DIV.titleback {
-    background-image:url("http://scenery.flightgear.org/img/titleback.jpg");
+    background: rgb(94, 126, 167);
 }
 
 BODY {
@@ -43,13 +43,8 @@ IMG {
     border: 0px;
 }
 
-
 LI {
     margin-bottom: 1px;
-}
-
-UL {
-    margin-bottom: 10px;
 }
 
 UL.detail {
