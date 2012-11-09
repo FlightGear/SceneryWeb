@@ -91,21 +91,16 @@
     <table>
         <tr valign="bottom">
             <th>ID</th>
-            <th>Lat<br/>Lon</th>
-            <th>Ground&nbsp;elev.<br/>Offset (m)</th>
-            <th>Heading</th>
             <th>Description</th>
             <th>Model<br/>Group</th>
             <th>Country</th>
+            <th>Lat<br/>Lon</th>
+            <th>Ground&nbsp;elev.<br/>Offset (m)</th>
+            <th>Heading</th>
             <th>&nbsp;</th>
         </tr>
         <tr valign="bottom">
             <th>&nbsp;</th>
-            <th><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
-              <br/><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/></th>
-            <th><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
-              <br/><input type="text" name="elevoffset" size="6" <?php echo "value=\"".$elevoffset."\""; ?>/></th>
-            <th><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
             <th><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
             <th>
                 <select name="model" style="font-size: 0.7em; width: 100%">
@@ -148,6 +143,11 @@
                     ?>
                 </select>
             </th>
+            <th><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
+              <br/><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/></th>
+            <th><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
+              <br/><input type="text" name="elevoffset" size="6" <?php echo "value=\"".$elevoffset."\""; ?>/></th>
+            <th><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
             <th><input type="submit" name="filter" value="Filter"/></th>
         </tr>
         <tr class="bottom">
@@ -184,15 +184,15 @@
         $result = pg_query($query);
         $rowclass;
         while ($result && $row = pg_fetch_assoc($result)) {
+            $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
             echo "<tr class=\"object".$rowclass."\">\n";
             echo "  <td><a href='objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n" .
-                 "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
-            $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
-            echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n" .
-                 "  <td>".$row["ob_heading"]."</td>\n" .
                  "  <td>".$row["ob_text"]."</td>\n" .
                  "  <td><a href=\"modelview.php?id=".$row["ob_model"]."\">".$models[$row["ob_model"]]."</a><br/><b>".$groups[$row["ob_group"]]."</b></td>\n" .
                  "  <td>".$countries[$row["ob_country"]]."</td>\n" .
+                 "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n" .
+                 "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n" .
+                 "  <td>".$row["ob_heading"]."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
                  "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
             if (is_shared_or_static($row["ob_id"]) == 'shared') {
