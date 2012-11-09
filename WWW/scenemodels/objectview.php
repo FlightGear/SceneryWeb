@@ -93,7 +93,7 @@
 function showMap() {
     var objectViewer = document.createElement("object");
     objectViewer.width = "100%";
-    objectViewer.height = "100%";
+    objectViewer.height = "99%";
     objectViewer.data = "http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&lat=<?php echo $latitude; ?>&zoom=14";
     objectViewer.type = "text/html";
     var map = document.getElementById("map");
