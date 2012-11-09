@@ -324,3 +324,7 @@ label {
 label em {
     color: #ff0000;
 }
+
+img.icon {
+    width: 16px;
+}
