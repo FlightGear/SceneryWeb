@@ -21,6 +21,7 @@
 
 <table>
     <tr>
+        <td style="width: 320px" rowspan="9"><img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>" alt="Thumbnail"/></td>
         <td style="width: 320px">Unique ID</td>
         <td><?php echo $id; ?></td>
     </tr>
@@ -67,14 +68,6 @@
         </td>
     </tr>
     <tr>
-        <td>
-            <img src="modelthumb.php?id=<?php echo $object["ob_model"]; ?>" alt="Thumbnail"/>
-        </td>
-        <td>
-            <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="100%" height="240"></object>
-        </td>
-    </tr>
-    <tr>
         <td colspan="2" align="center">
             <form id="update" method="post" action="submission/shared/check_update_shared.php">
                 <input name="update_choice" type="hidden" maxlength="13" value="<?php echo $id;?>" />
@@ -94,6 +87,24 @@
 ?>
         </td>
     </tr>
+    <tr>
+        <td align="center" colspan="3" id ="mapTd">
+            <a onclick="showMap()">Show location on map.</a>
+        </td>
+    </tr>
 </table>
+
+<script type="text/javascript">
+function showMap() {
+    var objectViewer = document.createElement("object");
+    objectViewer.width = "100%";
+    objectViewer.height = "500px";
+    objectViewer.data = "http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14";
+    objectViewer.type = "text/html";
+    var webglTd = document.getElementById("mapTd");
+    webglTd.innerHTML = "";
+    webglTd.appendChild(objectViewer);
+}
+</script>
 
 <?php include 'inc/footer.php';?>
