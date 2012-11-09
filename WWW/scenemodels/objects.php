@@ -188,7 +188,7 @@
             echo "<tr class=\"object".$rowclass."\">\n";
             echo "  <td><a href='objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n" .
                  "  <td>".$row["ob_text"]."</td>\n" .
-                 "  <td><a href=\"modelview.php?id=".$row["ob_model"]."\">".$models[$row["ob_model"]]."</a><br/><b>".$groups[$row["ob_group"]]."</b></td>\n" .
+                 "  <td><a href=\"modelview.php?id=".$row["ob_model"]."\">".$models[$row["ob_model"]]."</a><br/>".$groups[$row["ob_group"]]."</td>\n" .
                  "  <td>".$countries[$row["ob_country"]]."</td>\n" .
                  "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n" .
                  "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n" .

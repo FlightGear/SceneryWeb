@@ -330,5 +330,9 @@ img.icon {
 }
 
 tr.objectlight {
-	background-color: rgb(244, 255, 244);
+    background-color: rgb(244, 255, 244);
+}
+tr.object td, tr.objectlight td {
+    border: 0px;
+    border-bottom: 1px solid #999;
 }
