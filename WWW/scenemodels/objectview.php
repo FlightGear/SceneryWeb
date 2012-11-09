@@ -82,7 +82,7 @@
     </tr>
     <tr>
         <td align="center" colspan="3">
-            <div id="map" style="resize: vertical; overflow: auto;">
+            <div id="map" style="resize: vertical; overflow: auto; height: 500px">
                 <a onclick="showMap()">Show location on map.</a>
             </div>
         </td>
