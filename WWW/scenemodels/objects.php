@@ -203,7 +203,7 @@
             echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\"/></a>" .
                  "  </td>\n" .
                  "</tr>\n";
-            if ($rowclass = "") {
+            if ($rowclass == "") {
                 $rowclass = "light";
             } else { 
                 $rowclass = "";
