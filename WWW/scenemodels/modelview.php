@@ -107,7 +107,7 @@ if (!empty($model["mo_notes"])) {
         </td>
     </tr>
     <tr>
-        <td align="center" colspan="3">
+        <td align="center" colspan="3" id="webglTd">
             <div id="webgl" style="resize: vertical; overflow: auto;">
                 <a onclick="showWebgl()">Show 3D preview in WebGL.</a>
             </div>
@@ -125,8 +125,9 @@ function showWebgl() {
     var webgl = document.getElementById("webgl");
     webgl.innerHTML = "";
     webgl.style.height = "500px";
+    webgl.style.textAlign = "center";
     webgl.appendChild(objectViewer);
-    webgl.innerHTML += "<br/>AC3D viewer powered by Hangar - Juan Mellado. Read <a href=\"http://en.wikipedia.org/wiki/Webgl\">here to learn about WebGL</a>."
+    document.getElementById("webglTd").innerHTML += "<br/>AC3D viewer powered by Hangar - Juan Mellado. Read <a href=\"http://en.wikipedia.org/wiki/Webgl\">here to learn about WebGL</a>."
 }
 </script>
 
