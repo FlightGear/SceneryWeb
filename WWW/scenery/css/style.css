@@ -328,3 +328,7 @@ label em {
 img.icon {
     width: 16px;
 }
+
+tr.objectlight {
+	background-color: rgb(244, 255, 244);
+}

@@ -182,9 +182,10 @@
                  "LIMIT 20 OFFSET ".$offset;
 
         $result = pg_query($query);
+        $rowclass;
         while ($result && $row = pg_fetch_assoc($result)) {
-            echo "<tr class=\"object\">\n" .
-                 "  <td><a href='objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n" .
+            echo "<tr class=\"object".$rowclass."\">\n";
+            echo "  <td><a href='objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n" .
                  "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n";
             $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
             echo "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n" .
@@ -202,6 +203,11 @@
             echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\"/></a>" .
                  "  </td>\n" .
                  "</tr>\n";
+            if ($rowclass = "") {
+                $rowclass = "light";
+            } else { 
+                $rowclass = "";
+            }
         }
 ?>
         <tr class="bottom">
