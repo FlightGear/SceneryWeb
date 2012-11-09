@@ -69,18 +69,12 @@
     </tr>
     <tr>
         <td colspan="3" align="center">
-            <form id="update" method="post" action="submission/shared/check_update_shared.php">
-                <input name="update_choice" type="hidden" maxlength="13" value="<?php echo $id;?>" />
-                <input type="submit" name="submit" value="Update this object"/>
-            </form>
+            <a href="submission/shared/check_update_shared.php?update_choice=<?php echo $id;?>">Update this object</a>
 <?php
     // If the object is static, let not user fix it with a shared script...
     if (is_shared_or_static($id) == 'shared') {
 ?>
-            <form id="delete" method="post" action="submission/shared/check_delete_shared.php">
-                <input name="delete_choice" type="hidden" maxlength="13" value="<?php echo $id;?>" />
-                <input type="submit" name="submit" value="Delete this object"/>
-            </form>
+            &nbsp;| <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $id;?>">Delete this object</a>
 <?php
     }
 ?>
