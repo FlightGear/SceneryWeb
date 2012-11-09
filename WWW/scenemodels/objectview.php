@@ -81,8 +81,10 @@
         </td>
     </tr>
     <tr>
-        <td align="center" colspan="3" id ="mapTd">
-            <a onclick="showMap()">Show location on map.</a>
+        <td align="center" colspan="3">
+            <div id="map" style="resize: vertical; overlow: auto;">
+                <a onclick="showMap()">Show location on map.</a>
+            </div>
         </td>
     </tr>
 </table>
@@ -91,10 +93,10 @@
 function showMap() {
     var objectViewer = document.createElement("object");
     objectViewer.width = "100%";
-    objectViewer.height = "500px";
+    objectViewer.height = "100%";
     objectViewer.data = "http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&lat=<?php echo $latitude; ?>&zoom=14";
     objectViewer.type = "text/html";
-    var webglTd = document.getElementById("mapTd");
+    var webglTd = document.getElementById("map");
     webglTd.innerHTML = "";
     webglTd.appendChild(objectViewer);
 }
