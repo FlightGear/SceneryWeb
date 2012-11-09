@@ -192,7 +192,7 @@
                  "  <td>".$row["ob_text"]."</td>\n" .
                  "  <td><a href=\"modelview.php?id=".$row["ob_model"]."\">".$models[$row["ob_model"]]."</a><br/><b>".$groups[$row["ob_group"]]."</b></td>\n" .
                  "  <td>".$countries[$row["ob_country"]]."</td>\n" .
-                 "  <td>\n" .
+                 "  <td style=\"width: 58px; text-align: center\">\n" .
                  "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
             if (is_shared_or_static($row["ob_id"]) == 'shared') {
 ?>
