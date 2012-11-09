@@ -82,7 +82,7 @@
     </tr>
     <tr>
         <td align="center" colspan="3">
-            <div id="map" style="resize: vertical; overflow: auto; height: 500px">
+            <div id="map" style="resize: vertical; overflow: auto;">
                 <a onclick="showMap()">Show location on map.</a>
             </div>
         </td>
@@ -96,9 +96,10 @@ function showMap() {
     objectViewer.height = "100%";
     objectViewer.data = "http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&lat=<?php echo $latitude; ?>&zoom=14";
     objectViewer.type = "text/html";
-    var webglTd = document.getElementById("map");
-    webglTd.innerHTML = "";
-    webglTd.appendChild(objectViewer);
+    var map = document.getElementById("map");
+    map.innerHTML = "";
+    map.style.height = "500px";
+    map.appendChild(objectViewer);
 }
 </script>
 
