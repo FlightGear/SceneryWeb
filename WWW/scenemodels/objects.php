@@ -193,14 +193,13 @@
                  "  <td><a href=\"modelview.php?id=".$row["ob_model"]."\">".$models[$row["ob_model"]]."</a><br/><b>".$groups[$row["ob_group"]]."</b></td>\n" .
                  "  <td>".$countries[$row["ob_country"]]."</td>\n" .
                  "  <td>\n" .
-                 "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\"><img src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
+                 "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
             if (is_shared_or_static($row["ob_id"]) == 'shared') {
 ?>
-                <br/>
-                <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>"><img src="http://scenery.flightgear.org/img/icons/delete.png"/></a>
+                <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>"><img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png"/></a>
 <?php
             }
-            echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\"><img src=\"http://scenery.flightgear.org/img/icons/world.png\"/></a>" .
+            echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\"/></a>" .
                  "  </td>\n" .
                  "</tr>\n";
         }
