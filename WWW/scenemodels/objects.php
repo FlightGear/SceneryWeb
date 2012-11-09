@@ -91,15 +91,23 @@
     <table>
         <tr valign="bottom">
             <th>ID</th>
-            <th>Lat<br/>Lon<br/><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
+            <th>Lat<br/>Lon</th>
+            <th>Ground elev.<br/>Offset (m)</th>
+            <th>Heading</th>
+            <th>Description</th>
+            <th>Model<br/>Group</th>
+            <th>Country</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr valign="bottom">
+            <th>&nbsp;</th>
+            <th><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
               <br/><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/></th>
-            <th>Ground&nbspElevation<br/>+ Offset (m)<br/><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
+            <th><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
               <br/><input type="text" name="elevoffset" size="6" <?php echo "value=\"".$elevoffset."\""; ?>/></th>
-            <th>Heading<br/><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
-            <th>Description<br/><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
+            <th><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
+            <th><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
             <th>
-                Model<br/>
-                Group<br/>
                 <select name="model" style="font-size: 0.7em; width: 100%">
                     <option value="0"></option>
                     <?php
@@ -127,7 +135,6 @@
                 </select>
             </th>
             <th>
-                Country<br/>
                 <select name="country" style="font-size: 0.7em; width: 100%">
                     <option value="0"></option>
                     <?php
