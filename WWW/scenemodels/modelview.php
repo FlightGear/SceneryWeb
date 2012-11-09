@@ -106,9 +106,11 @@ if (!empty($model["mo_notes"])) {
             <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download model</a>
         </td>
     </tr>
-    <tr id="webglFrame">
-        <td align="center" colspan="3" id ="webglTd">
-            <a onclick="showWebgl()">Show 3D preview in WebGL.</a>
+    <tr>
+        <td align="center" colspan="3">
+            <div id="webgl" style="resize: vertical; overflow: auto;">
+                <a onclick="showWebgl()">Show 3D preview in WebGL.</a>
+            </div>
         </td>
     </tr>
 </table>
@@ -116,14 +118,15 @@ if (!empty($model["mo_notes"])) {
 <script type="text/javascript">
 function showWebgl() {
     var objectViewer = document.createElement("object");
-    objectViewer.width = "600px";
-    objectViewer.height = "301px";
+    objectViewer.width = "100%";
+    objectViewer.height = "99%";
     objectViewer.data = "viewer.php?id=<?php echo $id; ?>";
     objectViewer.type = "text/html";
-    var webglTd = document.getElementById("webglTd");
-    webglTd.innerHTML = "";
-    webglTd.appendChild(objectViewer);
-    webglTd.innerHTML += "<br/>AC3D viewer powered by Hangar - Juan Mellado. Read <a href=\"http://en.wikipedia.org/wiki/Webgl\">here to learn about WebGL</a>."
+    var webgl = document.getElementById("webgl");
+    webgl.innerHTML = "";
+    webgl.style.height = "500px";
+    webgl.appendChild(objectViewer);
+    webgl.innerHTML += "<br/>AC3D viewer powered by Hangar - Juan Mellado. Read <a href=\"http://en.wikipedia.org/wiki/Webgl\">here to learn about WebGL</a>."
 }
 </script>
 

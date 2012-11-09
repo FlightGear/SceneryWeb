@@ -2,7 +2,7 @@
 <head>
     <style type="text/css">
         #canvas {
-            width: 570px;
+            height: 100%;
             cursor:move;
             z-index: 10;
         }
