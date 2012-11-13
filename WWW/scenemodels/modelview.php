@@ -90,29 +90,51 @@ if (!empty($model["mo_notes"])) {
     ?>
     <tr>
         <td colspan="2">
-            <?php
-            if ($model["mo_shared"] == 0) {
-                $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, ";
-                $query.= "ST_X(wkb_geometry) AS ob_lon ";
-                $query.= "FROM fgs_objects ";
-                $query.= "WHERE ob_model=$id";
-                $chunks = pg_query($query);
-                $chunk = pg_fetch_assoc($chunks);
-                $lat = floor($chunk["ob_lat"]/10)*10;
-                $lon = floor($chunk["ob_lon"]/10)*10;
-                print "<a href=\"javascript:popmap(".$chunk["ob_lat"].",".$chunk["ob_lon"].",13)\">Map</a>&nbsp;-&nbsp";
-            }
-            ?>
             <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download model</a>
         </td>
     </tr>
     <tr>
         <td align="center" colspan="3" id="webglTd">
             <div id="webgl" style="resize: vertical; overflow: auto;">
-                <a onclick="showWebgl()">Show 3D preview in WebGL.</a>
+                <a onclick="showWebgl()">Show 3D preview in WebGL</a>
             </div>
         </td>
     </tr>
+    <?php
+    if ($model["mo_shared"] == 0) {
+        $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, " .
+                 "ST_X(wkb_geometry) AS ob_lon " .
+                 "FROM fgs_objects " .
+                 "WHERE ob_model=$id";
+        $chunks = pg_query($query);
+        $chunk = pg_fetch_assoc($chunks);
+        $lat = floor($chunk["ob_lat"]/10)*10;
+        $lon = floor($chunk["ob_lon"]/10)*10;
+    ?>
+        <tr>
+            <td align="center" colspan="3">
+                <div id="map" style="resize: vertical; overflow: auto;">
+                    <a onclick="showMap()">Show location on map</a>
+                </div>
+            </td>
+        </tr>
+        <script type="text/javascript">
+        function showMap() {
+            var objectMap = document.createElement("object");
+            objectMap.width = "100%";
+            objectMap.height = "99%";
+            objectMap.data = "http://mapserver.flightgear.org/popmap/?zoom=13&lat=<?php echo $chunk["ob_lat"]; ?>&lon=<?php echo $chunk["ob_lon"]; ?>";
+            objectMap.type = "text/html";
+            var map = document.getElementById("map");
+            map.innerHTML = "";
+            map.style.height = "500px";
+            map.style.textAlign = "center";
+            map.appendChild(objectMap);
+        }
+        </script>
+    <?php
+    }
+    ?>
 </table>
 
 <script type="text/javascript">
