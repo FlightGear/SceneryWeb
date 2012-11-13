@@ -309,7 +309,7 @@ include 'inc/header.php';
 <h1>FlightGear Scenery Statistics</h1>
 <?php
 
-echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".number_format($models, '0', '', ' ')." models</a> placed in the scenery as <a href=\"objects.php\">".number_format($objects, '0', '', ' ')." seperate objects</a>, plus ".number_format($signs, '0', '', ' ')." taxiway signs.</p>\n";
+echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".number_format($models, '0', '', ',')." models</a> placed in the scenery as <a href=\"objects.php\">".number_format($objects, '0', '', ',')." seperate objects</a>, plus ".number_format($signs, '0', '', ',')." taxiway signs.</p>\n";
 ?>
     
     <table class="left">
