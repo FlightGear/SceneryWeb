@@ -83,7 +83,8 @@ include 'inc/header.php';
 
         var options = {
             backgroundColor: '#ADCDFF',
-            keepAspectRatio: false
+            keepAspectRatio: false,
+            colorAxis { }
         };
         if (regionId != '[object Event]') {
             options['region'] = regionId;
