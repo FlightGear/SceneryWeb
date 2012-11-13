@@ -97,6 +97,7 @@ include 'inc/header.php';
             map.draw(data2, options);
         }
         if (worldmap === "data1") {
+            options['colorAxis']['maxValue'] = 3000;
             map.draw(data1, options);
         }
         if (worldmap === "static") {
