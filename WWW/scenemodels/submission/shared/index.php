@@ -98,6 +98,9 @@ function validateForm()
                         echo ">".$name."</option>\n";
                     }
                     echo "</select>";
+                    
+                    if ($ufo)
+                        echo "<script>update_objects('".$model."');</script>";
 
                     // Close the database resource
                     @pg_close($resource_r);

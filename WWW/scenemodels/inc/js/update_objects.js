@@ -1,4 +1,4 @@
-function update_objects()
+function update_objects(path)
 {
     //retrives information from a php-generated xml
     var url = '/inc/objects_xml.php?mg_id='+document.getElementById('family_name').value;
@@ -10,12 +10,12 @@ function update_objects()
        hreq = new ActiveXObject("Microsoft.XMLHTTP");//IE
     }
 
-    hreq.onreadystatechange = function(){changeObjectsList(hreq); };
+    hreq.onreadystatechange = function(){changeObjectsList(hreq,path); };
     hreq.open("GET", url, true); //true=asynchronous
     hreq.send(null);
 }
 
-function changeObjectsList(hreq)
+function changeObjectsList(hreq, path)
 {
     var text="<select name='model_name' id='model_name' onchange='change_thumb()'>";
 
@@ -28,8 +28,11 @@ function changeObjectsList(hreq)
             var object=objects[i];
             var id=object.getElementsByTagName("id")[0].childNodes[0].nodeValue;
             var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-
-            text+="<option value='"+id+"'>"+name+"</option>\n";
+            text+="<option value='"+id+"'";
+            if(path == name) {
+                text+= " selected";
+            }
+            text+=">"+name+"</option>\n";
         }
     }
 
