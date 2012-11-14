@@ -30,9 +30,9 @@ function changeObjectsList(hreq, path)
             var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
             text+="<option value='"+id+"'";
             if(path == name) {
-                text+= " selected";
+                text+= " selected=\"selected\"";
             }
-            text+=">"+name+" "+path+"</option>\n";
+            text+=">"+name+"</option>\n";
         }
     }
 
