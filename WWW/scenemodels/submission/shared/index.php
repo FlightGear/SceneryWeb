@@ -74,7 +74,7 @@ function validateForm()
                         if ($modelpart[0] == "Models") {
                             $family="";
                             for($i = 1; $i<(count($modelpart)-1); $i++){
-                                $family += $modelpart[$i]."/";
+                                $family .= $modelpart[$i]."/";
                             }
                             echo $family;
                             $ufo = true;
