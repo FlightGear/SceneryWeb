@@ -105,13 +105,13 @@ function validateForm()
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
         <td>
-            <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map('longitude','latitude');checkNumeric(this,-180,180);" />
+            <input type="text" name="longitude" id="longitude" maxlength="13" value="<?php echo $_GET['lon']; ?>" onchange="update_map('longitude','latitude');checkNumeric(this,-180,180);" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
         <td>
-            <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map('longitude','latitude');checkNumeric(this,-90,90);" />
+            <input type="text" name="latitude" id="latitude" maxlength="13" value="<?php echo $_GET['lat']; ?>" onchange="update_map('longitude','latitude');checkNumeric(this,-90,90);" />
         </td>
     </tr>
     <tr>
@@ -125,7 +125,7 @@ function validateForm()
     <tr>
         <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
         <td>
-            <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="gndelev" id="gndelev" maxlength="10" value="<?php echo $_GET['elev']; ?>" onchange="checkNumeric(this,-10000,10000);" />
         </td>
     </tr>
     <tr>
@@ -137,7 +137,7 @@ function validateForm()
     <tr>
         <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="heading">Orientation<em>*</em></label></span></td>
         <td>
-            <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
+            <input type="text" name="heading" id="heading" maxlength="7" value="<?php echo $_GET['hdg']; ?>" onchange="checkNumeric(this,0,359.999);" />
         </td>
     </tr>
     <tr>
