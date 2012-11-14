@@ -72,6 +72,7 @@ function validateForm()
                         $modelpart = explode("/", $modelpath);
                         // Check if it is a shared model
                         if ($modelpart[0] == "Models") {
+                            $family="";
                             for($i = 1; $i<(count($modelpart)-1); $i++){
                                 $family += $modelpart[$i]."/";
                             }
