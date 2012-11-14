@@ -76,8 +76,9 @@ function validateForm()
                             for($i = 1; $i<(count($modelpart)-1); $i++){
                                 $family .= $modelpart[$i]."/";
                             }
-                            echo $family;
                             $ufo = true;
+                            $model = $modelpart[(count($modelpart)-1)];
+                            echo $model;
                         }
                     }
 
