@@ -63,15 +63,36 @@ function validateForm()
                 if ($resource_r!='0') {
 
                     // Show all the families other than the static family
-                    $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
+                    $result = @pg_query("SELECT mg_id,mg_name,mg_path FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
+                    
+                    // Check if the UFO export was used
+                    $ufo = false;
+                    if (!empty($_GET['model'])) {
+                        $modelpath = $_GET['model'];
+                        $modelpart = explode("/", $modelpath);
+                        // Check if it is a shared model
+                        if ($modelpart[0] == "Models") {
+                            for($i = 1; $i<(count($modelpart)-1); $i++){
+                                $family += $modelpart[$i]."/";
+                            }
+                            $ufo = true;
+                        }
+                    }
 
                     // Start the select form
                     echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">";
-                    echo "<option selected=\"selected\" value=\"0\">Please select a family</option>\n";
+                    echo "<option ";
+                    if (!$ufo)
+                        echo "selected=\"selected\"";
+                    echo "value=\"0\">Please select a family</option>\n";
+                    
                     while ($row = @pg_fetch_assoc($result)) {
                         $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
                         $name=preg_replace('/ /',"&nbsp;",$name);
-                        echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                        echo "<option value=\"".$row["mg_id"]."\"";
+                        if ($ufo and $family == $row['mg_path'])
+                            echo " selected=\"selected\"";
+                        echo ">".$name."</option>\n";
                     }
                     echo "</select>";
 
