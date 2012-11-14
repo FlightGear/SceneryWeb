@@ -29,11 +29,10 @@ function changeObjectsList(hreq, path)
             var id=object.getElementsByTagName("id")[0].childNodes[0].nodeValue;
             var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
             text+="<option value='"+id+"'";
-            window.alert("path:"+path+"\n name:"+name);
             if(path == name) {
                 text+= " selected";
             }
-            text+=">"+name+"</option>\n";
+            text+=">"+name+" "+path+"</option>\n";
         }
     }
 
