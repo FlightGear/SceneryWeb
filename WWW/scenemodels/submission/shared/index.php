@@ -138,6 +138,10 @@ function validateForm()
         <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
         <td>
             <input type="text" name="latitude" id="latitude" maxlength="13" value="<?php echo substr($_GET['lat'],0,13); ?>" onchange="update_map('longitude','latitude');checkNumeric(this,-90,90);" />
+            <?php 
+            if ($ufo)
+                echo "<script>update_map('longitude','latitude');checkNumeric(this,-90,90)</script>";
+            ?>
         </td>
     </tr>
     <tr>
