@@ -78,7 +78,6 @@ function validateForm()
                             }
                             $ufo = true;
                             $model = $modelpart[(count($modelpart)-1)];
-                            echo $model;
                         }
                     }
 
