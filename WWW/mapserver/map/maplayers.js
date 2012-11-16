@@ -79,7 +79,7 @@
 	    {layers: 'clc00', format: 'image/png'}
 	);
 
-	var clc06 = new OpenLayers.Layer.WMS( "CORINE CLC2006v15",
+	var clc06 = new OpenLayers.Layer.WMS( "CORINE CLC2006v16",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
 	      "http://3.flightgear.telascience.org/tc?",

@@ -380,7 +380,7 @@ else:
                     <option value='cs' [cs_select]> Custom Scenery (layer=cs)
                     <option value='v0' [v0_select]> VMap0 (layer=v0)
                     <option value='clc00' [clc00_select]> CLC2000v15 (layer=clc00)
-                    <option value='clc06' [clc06_select]> CLC2006v15 (layer=clc06)
+                    <option value='clc06' [clc06_select]> CLC2006v16 (layer=clc06)
                     <option value='osm' [osm_select]> OpenStreetMap (layer=osm)
                     <option value='apt' [apt_select]> Apt Dat (layer=apt)
                     <option value='tgr' [tgr_select]> TIGER 2006 SE (layer=tgr)
