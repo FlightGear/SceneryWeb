@@ -22,6 +22,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
   <div class="titleback">
     <img src="http://scenery.flightgear.org/img/banner.jpg" alt="Flightgear logo"/>
   </div>
+  <psp:include path="http://scenemodels.flightgear.org/inc/menu.php">
   <div id="content2">
 
 <!--    <h3 class="warning">Service temporarily unavailable due to database maintenance.</h3> -->
