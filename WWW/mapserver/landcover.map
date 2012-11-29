@@ -1113,70 +1113,70 @@ MAP
   END # v0_barrencover
 
   LAYER
-    NAME v0_grasscover
+    NAME v0_grassland
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_grasscover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_grassland USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_grasscover"
+      NAME "v0_grassland"
       STYLE
         COLOR 155 211 13
       END
     END
     METADATA
-      "wms_title" "v0_grasscover"
+      "wms_title" "v0_grassland"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_grasscover"
+      "wfs_title" "v0_grassland"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_grasscover
+  END # v0_grassland
 
   LAYER
-    NAME v0_scrubcover
+    NAME v0_scrub
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_scrubcover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_scrub USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_scrubcover"
+      NAME "v0_scrub"
       STYLE
         COLOR 183 239 0
       END
     END
     METADATA
-      "wms_title" "v0_scrubcover"
+      "wms_title" "v0_scrub"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_scrubcover"
+      "wfs_title" "v0_scrub"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_scrubcover
+  END # v0_scrub
 
   LAYER
     NAME v0_marsh
@@ -1609,136 +1609,136 @@ MAP
   END # v1_mixedswamp
 
   LAYER
-    NAME v0_herbtundracover
+    NAME v0_herbtundra
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_herbtundracover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_herbtundra USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_herbtundracover"
+      NAME "v0_herbtundra"
       STYLE
         COLOR 211 211 0
       END
     END
     METADATA
-      "wms_title" "v0_herbtundracover"
+      "wms_title" "v0_herbtundra"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_herbtundracover"
+      "wfs_title" "v0_herbtundra"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_herbtundracover
+  END # v0_herbtundra
 
   LAYER
-    NAME v0_mixedcroppasturecover
+    NAME v0_mixedcrop
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_mixedcroppasturecover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_mixedcroppasturecover"
+      NAME "v0_mixedcrop"
       STYLE
         COLOR 239 211 99
       END
     END
     METADATA
-      "wms_title" "v0_mixedcroppasturecover"
+      "wms_title" "v0_mixedcrop"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_mixedcroppasturecover"
+      "wfs_title" "v0_mixedcrop"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_mixedcroppasturecover
+  END # v0_mixedcrop
 
   LAYER
-    NAME v0_drycroppasturecover
+    NAME v0_drycrop
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_drycroppasturecover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_drycrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_drycroppasturecover"
+      NAME "v0_drycrop"
       STYLE
         COLOR 239 239 126
       END
     END
     METADATA
-      "wms_title" "v0_drycroppasturecover"
+      "wms_title" "v0_drycrop"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_drycroppasturecover"
+      "wfs_title" "v0_drycrop"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_drycroppasturecover
+  END # v0_drycrop
 
   LAYER
-    NAME v0_irrcroppasturecover
+    NAME v0_irrcrop
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_irrcroppasturecover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_irrcroppasturecover"
+      NAME "v0_irrcrop"
       STYLE
         COLOR 183 183 71
       END
     END
     METADATA
-      "wms_title" "v0_irrcroppasturecover"
+      "wms_title" "v0_irrcrop"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_irrcroppasturecover"
+      "wfs_title" "v0_irrcrop"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_irrcroppasturecover
+  END # v0_irrcrop
 
   LAYER
     NAME v1_ricefield
@@ -1873,103 +1873,103 @@ MAP
   END # v1_herbtundracover
 
   LAYER
-    NAME v0_deciduousbroadcover
+    NAME v0_deciduousforest
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_deciduousbroadcover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_deciduousbroadcover"
+      NAME "v0_deciduousforest"
       STYLE
         COLOR 0 183 0
       END
     END
     METADATA
-      "wms_title" "v0_deciduousbroadcover"
+      "wms_title" "v0_deciduousforest"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_deciduousbroadcover"
+      "wfs_title" "v0_deciduousforest"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_deciduousbroadcover
+  END # v0_deciduousforest
 
   LAYER
-    NAME v0_evergreenbroadcover
+    NAME v0_evergreenforest
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_evergreenbroadcover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_evergreenbroadcover"
+      NAME "v0_evergreenforest"
       STYLE
         COLOR 0 126 99
       END
     END
     METADATA
-      "wms_title" "v0_evergreenbroadcover"
+      "wms_title" "v0_evergreenforest"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_evergreenbroadcover"
+      "wfs_title" "v0_evergreenforest"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_evergreenbroadcover
+  END # v0_evergreenforest
 
   LAYER
-    NAME v0_mixedforestcover
+    NAME v0_mixedforest
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
     CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_mixedforestcover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v0_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "v0_mixedforestcover"
+      NAME "v0_mixedforest"
       STYLE
         COLOR 0 126 0
       END
     END
     METADATA
-      "wms_title" "v0_mixedforestcover"
+      "wms_title" "v0_mixedforest"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_mixedforestcover"
+      "wfs_title" "v0_mixedforest"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
       "gml_include_items" "all"
     END
-  END # v0_mixedforestcover
+  END # v0_mixedforest
 
   LAYER
     NAME v1_orchard
