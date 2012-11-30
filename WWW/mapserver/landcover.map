@@ -2401,39 +2401,6 @@ MAP
   END # v1_mixedforest
 
   LAYER
-    NAME v0_fishing
-    TYPE POLYGON
-    DUMP TRUE
-    STATUS OFF
-    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
-    CONNECTIONTYPE postgis
-    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM v0_fishing USING UNIQUE ogc_fid USING SRID=4326"
-    PROJECTION
-      "init=epsg:4326"
-    END
-    EXTENT -180 -90 180 90
-    CLASS
-      NAME "v0_fishing"
-      STYLE
-        COLOR 85 155 239
-      END
-    END
-    METADATA
-      "wms_title" "v0_fishing"
-      "wms_extent" "-180 -90 180 90"
-      "wms_srs" "EPSG:4326 EPSG:900913"
-      "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "wfs_title" "v0_fishing"
-      "wfs_extent" "-180 -90 180 90"
-      "wfs_srs" "EPSG:4326 EPSG:900913"
-      "wfs_featureid" "ID"
-      "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
-      "gml_include_items" "all"
-    END
-  END # v0_fishing
-
-  LAYER
     NAME v0_lake
     TYPE POLYGON
     DUMP TRUE
@@ -2498,6 +2465,39 @@ MAP
       "gml_include_items" "all"
     END
   END # v0_intermittentlake
+
+  LAYER
+    NAME v0_fishing
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM v0_fishing USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "v0_fishing"
+      STYLE
+        COLOR 85 155 239
+      END
+    END
+    METADATA
+      "wms_title" "v0_fishing"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
+      "wfs_title" "v0_fishing"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
+      "gml_include_items" "all"
+    END
+  END # v0_fishing
 
   LAYER
     NAME v0_suburban

@@ -137,9 +137,9 @@ else:
                 <option value='v0_deciduousforest' [v0_deciduousforest_select]> v0_deciduousforest
                 <option value='v0_evergreenforest' [v0_evergreenforest_select]> v0_evergreenforest
                 <option value='v0_mixedforest' [v0_mixedforest_select]> v0_mixedforest
-                <option value='v0_fishing' [v0_fishing_select]> v0_fishing
                 <option value='v0_lake' [v0_lake_select]> v0_lake
                 <option value='v0_intermittentlake' [v0_intermittentlake_select]> v0_intermittentlake
+                <option value='v0_fishing' [v0_fishing_select]> v0_fishing
                 <option value='v0_suburban' [v0_suburban_select]> v0_suburban
                 <option value='v0_urban' [v0_urban_select]> v0_urban
                 <option value='v0_stream' [v0_stream_select]> v0_stream
