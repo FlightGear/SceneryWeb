@@ -1212,6 +1212,72 @@ MAP
   END # v0_marsh
 
   LAYER
+    NAME v0_openmining
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM v0_openmining USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "v0_openmining"
+      STYLE
+        COLOR 126 211 155
+      END
+    END
+    METADATA
+      "wms_title" "v0_openmining"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "wfs_title" "v0_openmining"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "gml_include_items" "all"
+    END
+  END # v0_openmining
+
+  LAYER
+    NAME v0_saline
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM v0_saline USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "v0_saline"
+      STYLE
+        COLOR 230 230 255
+      END
+    END
+    METADATA
+      "wms_title" "v0_saline"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "wfs_title" "v0_saline"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "gml_include_items" "all"
+    END
+  END # v0_saline
+
+  LAYER
     NAME v0_bog
     TYPE POLYGON
     DUMP TRUE
@@ -2335,6 +2401,39 @@ MAP
   END # v1_mixedforest
 
   LAYER
+    NAME v0_fishing
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM v0_fishing USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "v0_fishing"
+      STYLE
+        COLOR 85 155 239
+      END
+    END
+    METADATA
+      "wms_title" "v0_fishing"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
+      "wfs_title" "v0_fishing"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
+      "gml_include_items" "all"
+    END
+  END # v0_fishing
+
+  LAYER
     NAME v0_lake
     TYPE POLYGON
     DUMP TRUE
@@ -2399,6 +2498,39 @@ MAP
       "gml_include_items" "all"
     END
   END # v0_intermittentlake
+
+  LAYER
+    NAME v0_suburban
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM v0_suburban USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "v0_suburban"
+      STYLE
+        COLOR 225 21 35
+      END
+    END
+    METADATA
+      "wms_title" "v0_suburban"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "wfs_title" "v0_suburban"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "gml_include_items" "all"
+    END
+  END # v0_suburban
 
   LAYER
     NAME v0_urban
@@ -7829,7 +7961,7 @@ MAP
     CLASS
       NAME "cs_intermittentstream"
       STYLE
-        COLOR 85 85 255
+        COLOR 85 85 155
         SIZE 2
       END
     END

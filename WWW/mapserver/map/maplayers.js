@@ -63,7 +63,7 @@
 	    {isBaseLayer: false}
     );
 
-    var v0cover = new OpenLayers.Layer.WMS( "Landcover-DB VMap0-Vector",
+    var v0cover = new OpenLayers.Layer.WMS( "Landcover-DB VMap0 edt.5",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
 	      "http://3.flightgear.telascience.org/tc?",
