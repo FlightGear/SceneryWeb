@@ -40,14 +40,16 @@
 	  PythonDebug Off
 	</Directory>
 	# TileCache
-	ScriptAlias /tc /home/martin/WWW/tilecache-svn/tilecache.py
-	<Directory "/home/martin/WWW/tilecache-svn/">
+#	WSGIDaemonProcess tilecache processes=20 threads=25 maximum-requests=750 display-name=tc_wsgi
+#	WSGIProcessGroup tilecache
+	ScriptAlias /tc /home/martin/WWW/tilecache-2.11/tilecache.py
+	<Directory "/home/martin/WWW/tilecache-2.11/">
 	  SetHandler python-program
 	  PythonHandler TileCache.Service
 	  PythonOption TileCacheConfig /home/fgscenery/WWW/mapserver/tilecache.cfg
-	  PythonDebug On
+#	  PythonDebug On
 #	  ExpiresActive on
-#	  ExpiresDefault "now plus 6 hours"
+#	  ExpiresDefault "now plus 6 days"
 	</Directory>
 	# MS template view
 	Alias /tmp /home/fgscenery/MStmp
