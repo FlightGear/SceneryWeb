@@ -323,6 +323,8 @@ function validateForm()
 /*]]>*/
 </script>
 
+<ul class="warning">If you want to replace an object which is an obstruction (FAA, or other, see the metadata hereunder) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
+
     <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
     <table>
         <tr>
@@ -421,6 +423,7 @@ function validateForm()
 
     <p class="center"><?php echo $returned_rows;?> objects with WGS84 coordinates longitude: <?php echo $long;?>, latitude: <?php echo $lat;?> have been found in the database.<br />Please select with the left radio button the one you want to delete.</p>
 
+    <ul class="warning">If you want to replace an object which is an obstruction (FAA, or other, see the metadata hereunder) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
 
     <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
     <table>
