@@ -323,7 +323,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-<ul class="warning">If you want to replace an object which is an obstruction (FAA, or other, see the metadata hereunder in the "Description" field) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
+    <ul class="warning">If you want to replace an object which is set as an "OBSTRUCTION" (see the object's family hereunder) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
 
     <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
     <table>
@@ -427,7 +427,7 @@ function validateForm()
 
     <p class="center"><?php echo $returned_rows;?> objects with WGS84 coordinates longitude: <?php echo $long;?>, latitude: <?php echo $lat;?> have been found in the database.<br />Please select with the left radio button the one you want to delete.</p>
 
-    <ul class="warning">If you want to replace an object which is an obstruction (FAA, or other, see the metadata hereunder) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
+    <ul class="warning">If you want to replace an object which is set as an "OBSTRUCTION" (see the object's family hereunder) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
 
     <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
     <table>
@@ -477,7 +477,7 @@ function validateForm()
             <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
         </tr>
         <tr>
-            <td><span title="Object's family (obstruction, ...)."><label>Object's family</label></span></td>
+            <td><span title="Object's family (OBSTRUCTION, LANDMARK, ...)."><label>Object's family</label></span></td>
             <td colspan="4"><?php $ob_text = get_group_name_from_id($row[2]); echo $ob_text; ?></td>
         </tr>
         <tr>
