@@ -280,13 +280,13 @@ $resource_r_deletion = connect_sphere_r();
 // If the delete_choice is sent directly to us from a webform "outside" the submission world
 if (isset($id_to_delete)) {
     // Let's grab the information about this object from the database
-    $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay FROM fgs_objects WHERE ob_id = ".$id_to_delete.";";
+    $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay, ob_group FROM fgs_objects WHERE ob_id = ".$id_to_delete.";";
     $result = @pg_query ($resource_r_deletion, $query_pos);
     $returned_rows = pg_num_rows ($result);
 }
 else {
     // Let's see in the database if something exists at this position
-    $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
+    $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay, ob_group FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
     $result = @pg_query ($resource_r_deletion, $query_pos);
     $returned_rows = pg_num_rows ($result);
 }
@@ -323,7 +323,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-<ul class="warning">If you want to replace an object which is an obstruction (FAA, or other, see the metadata hereunder) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
+<ul class="warning">If you want to replace an object which is an obstruction (FAA, or other, see the metadata hereunder in the "Description" field) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
 
     <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
     <table>
@@ -358,6 +358,10 @@ function validateForm()
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
             <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
+        </tr>
+        <tr>
+            <td><span title="Object's family (obstruction, ...)."><label>Object's family</label></span></td>
+            <td colspan="4"><?php $ob_text = get_group_name_from_id($row[2]); echo $ob_text; ?></td>
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
@@ -471,6 +475,10 @@ function validateForm()
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
             <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
+        </tr>
+        <tr>
+            <td><span title="Object's family (obstruction, ...)."><label>Object's family</label></span></td>
+            <td colspan="4"><?php $ob_text = get_group_name_from_id($row[2]); echo $ob_text; ?></td>
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
