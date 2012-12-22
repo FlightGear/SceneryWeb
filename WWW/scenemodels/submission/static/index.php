@@ -182,6 +182,21 @@ Please, read the following:
             </td>
             <td>
             <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" />
+            <script type="text/javascript">
+            $(function(){
+                function endsWith(str, suffix) {
+                    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+                }
+                $('#mo_thumbfile').MultiFile({
+                    afterFileAppend: function(element, value, master_element){
+                        if (endsWith(value, thumbnail.jpg) || endsWith(value, thumbnail.jpeg)) {
+                            alert("Your thumbnail filename must end on '_thumbnail'.");
+                            element.prev().click();
+                        }
+                    }
+                });
+            });
+            </script>
             </td>
         </tr>
         <tr>
