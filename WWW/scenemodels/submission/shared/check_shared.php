@@ -93,7 +93,14 @@
     }
     
     // Country.
-    $country = $_POST["ob_country"];
+    if($_POST['ob_country'] != "") {
+        $country = $_POST["ob_country"];
+        echo "<p class=\"ok\">Country: ".$country."</p>";
+    }
+    else {
+        echo "<p class=\"warning\">Country error!</p>";
+        $error = true;
+    }
 
     // Checking that ground elevation exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
     if(isset($_POST['gndelev']) &&
