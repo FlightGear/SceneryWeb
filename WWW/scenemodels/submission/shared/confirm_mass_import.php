@@ -109,9 +109,9 @@ if (!$error) {
 
     $i = 1;
     $ko = 0;
-	?>
-	<form id="positions" method="post" action="check_mass_import2.php" onsubmit="return validateForm();">
-	<?php
+    ?>
+    <form id="positions" method="post" action="check_mass_import2.php" onsubmit="return validateForm();">
+    <?php
     echo "<table>\n";
     echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Elev. offset</th>\n<th>Result</th>\n</tr>\n";
 
@@ -198,8 +198,11 @@ if (!$error) {
                     $global_ko = 1;
                     $cpt_err++;
                 }
-
                 break;
+            // Country
+            echo "<select name='ob_country_".$j."' id='ob_country_".$j."'>" .
+                 list_countries_select(compute_country_code_from_position($long, $lat)) .
+                 "</select>";
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             case 5:  // Checking Elevation, must contain only figures and, be max 20 characters
                 if ((strlen($value_tag) <= 20)
