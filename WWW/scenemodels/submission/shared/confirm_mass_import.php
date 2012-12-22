@@ -249,7 +249,7 @@ if (!$error) {
             }
             $j++;
         }
-        while ($j < 8) {
+        while ($j < 7) {
             echo "<td></td>";
             $j++;
         }
@@ -273,7 +273,7 @@ if (!$error) {
             }
         }
         else {
-            echo "<td><p class=\"center warning\">KO</p></td>"; // Good or not ?
+            echo "<td style='background-color: red; text-align: center;'>KO</td>"; // Good or not ?
         }
         echo "</tr>\n";      // Finishes the line.
         $i++;                // Increments the line number.
