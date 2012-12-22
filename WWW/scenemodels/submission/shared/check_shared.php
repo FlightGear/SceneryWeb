@@ -91,6 +91,9 @@
         echo "<p class=\"warning\">Longitude mismatch!</p>";
         $error = true;
     }
+    
+    // Country.
+    $country = $_POST["ob_country"];
 
     // Checking that ground elevation exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
     if(isset($_POST['gndelev']) &&
@@ -163,10 +166,10 @@ if (!$error) {
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
     if (($offset == 0) || ($offset == '')) {
-        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", ".$model_id.", 1);";
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", '".$country."', ".$model_id.", 1);";
     }
     else {
-        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", ".$model_id.", 1);";
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", '".$country."', ".$model_id.", 1);";
     }
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)

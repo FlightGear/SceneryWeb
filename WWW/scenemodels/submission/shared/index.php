@@ -131,13 +131,21 @@ function validateForm()
     <tr>
         <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
         <td>
-            <input type="text" name="longitude" id="longitude" maxlength="13" value="<?php echo substr($_GET['lon'],0,13); ?>" onchange="update_map('longitude','latitude');checkNumeric(this,-180,180);" />
+            <input type="text" name="longitude" id="longitude" maxlength="13" value="<?php echo substr($_GET['lon'],0,13); ?>" onchange="update_map('longitude','latitude');checkNumeric(this,-180,180);update_country();" />
         </td>
     </tr>
     <tr>
         <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
         <td>
-            <input type="text" name="latitude" id="latitude" maxlength="13" value="<?php echo substr($_GET['lat'],0,13); ?>" onchange="update_map('longitude','latitude');checkNumeric(this,-90,90);" />
+            <input type="text" name="latitude" id="latitude" maxlength="13" value="<?php echo substr($_GET['lat'],0,13); ?>" onchange="update_map('longitude','latitude');checkNumeric(this,-90,90);update_country();" />
+        </td>
+    </tr>    
+    <tr>
+        <td><span title="This is the country code where the model is located."><label for="ob_country">Country<em>*</em></label></span></td>
+        <td>
+            <select name="ob_country" id="ob_country">
+                <?php list_countries(); ?>
+            </select>
         </td>
     </tr>
     <tr>
