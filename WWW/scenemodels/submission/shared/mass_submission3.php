@@ -5,6 +5,8 @@
 
     // Checking DB availability before all
     $ok = check_availability();
+	
+	error_reporting(-1);
 
     if (!$ok) {
         $page_title = "Automated Objects Massive Import Request Form";
