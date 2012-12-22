@@ -260,7 +260,7 @@ if (!$error) {
                 echo "<td><p class=\"center warning\">Already exists!</p></td>";
             } else {
                 echo "<td><p class=\"center ok\">OK</p></td>";
-                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", ".$ob_country.", 1)";
+                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country."', 1)";
             }
         }
         else {
