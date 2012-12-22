@@ -200,9 +200,9 @@ if (!$error) {
                 }
                 break;
             case 5:  // Country
-                echo "<select name='ob_country_".$j."' id='ob_country_".$j."'>";
+                echo "<td><select name='ob_country_".$j."' id='ob_country_".$j."'>";
                      list_countries_select(compute_country_code_from_position($long, $lat));
-                echo "</select>";
+                echo "</select></td>";
                 break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             case 6:  // Checking Elevation, must contain only figures and, be max 20 characters
