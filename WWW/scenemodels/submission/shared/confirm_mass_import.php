@@ -40,47 +40,47 @@ require_once('../../inc/functions.inc.php');
 ?>
 <br />
 <?php
+global $error;
+$error = false;
+
+// Checking that email is valid (if it exists).
+//(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+$failed_mail = false;
+if (isset($_POST['email'])
+    && (strlen($_POST['email']) > 0)
+    && (strlen($_POST['email']) <= 50)) {
+    $safe_email = pg_escape_string(stripslashes($_POST['email']));
+    echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
+}
+else {
+    echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
+    $failed_mail = true;
+}
+
+// Checking that comment exists. Just a small verification as it's not going into DB.
+if (isset($_POST['comment'])
+    && (strlen($_POST['comment']) > 0)
+    && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u', $_POST['comment']))
+    && (strlen($_POST['comment'] <= 100))) {
+    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
+}
+else {
+    echo "<p class=\"center warning\">Comment mismatch!</p>";
+    $error = true;
+    include '../../inc/footer.php';
+    exit;
+}
+
 if (!$_POST['submit']) {
-        global $error;
-        $error = false;
+    // Checking that stg exists and is containing only letters or figures.
+    if (isset($_POST['stg']) && preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg'])) {
+        echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
+        $error = true;
+        include '../../inc/footer.php';
+        exit;
+    }
 
-        // Checking that email is valid (if it exists).
-        //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-        $failed_mail = false;
-        if (isset($_POST['email'])
-            && (strlen($_POST['email']) > 0)
-            && (strlen($_POST['email']) <= 50)) {
-            $safe_email = pg_escape_string(stripslashes($_POST['email']));
-            echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
-        }
-        else {
-            echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
-            $failed_mail = true;
-        }
-
-        // Checking that comment exists. Just a small verification as it's not going into DB.
-        if (isset($_POST['comment'])
-            && (strlen($_POST['comment']) > 0)
-            && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u', $_POST['comment']))
-            && (strlen($_POST['comment'] <= 100))) {
-            $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
-        }
-        else {
-            echo "<p class=\"center warning\">Comment mismatch!</p>";
-            $error = true;
-            include '../../inc/footer.php';
-            exit;
-        }
-
-        // Checking that stg exists and is containing only letters or figures.
-        if (isset($_POST['stg']) && preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg'])) {
-            echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
-            $error = true;
-            include '../../inc/footer.php';
-            exit;
-        }
-
-        echo "<p class=\"center ok\">The content of the STG file seems correct, now proceeding with in-depth checks...</p>";
+    echo "<p class=\"center ok\">The content of the STG file seems correct, now proceeding with in-depth checks...</p>";
 
 
     // If there is no false, generating SQL to be inserted into the database pending requests table.
