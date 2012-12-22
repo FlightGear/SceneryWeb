@@ -90,6 +90,8 @@ else {
         $fatalerror = 1;
         $error += 1;
         $errormsg .= "XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$_FILES["xml_file"]['name']."), tower.ac (currently ".$ac3dName.".ac), tower_thumbnail.jpeg (currently ".$thumbName.".jpg/jpeg)!<br/>";
+        if (substr($thumbName, -10) != "_thumbnail")
+            $errormsg .= "The thumbnail file must end with *_thumbnail.<br/>";
     }
 }
 

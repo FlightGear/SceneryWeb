@@ -244,16 +244,6 @@ $(document).ready(function(){
             $('input[type="submit"]').attr('disabled','disabled');
         }
     });
-    
-    // Check if the thumbnail ends on _thumbnail
-    $('#mo_thumbfile').MultiFile({
-        onFileSelect: function(element, value, master_element){
-            if (value.substr(-14) != "_thumbnail.jpg" && value.substr(-15) != "_thumbnail.jpeg") {
-                alert("Your thumbnail filename must end on '_thumbnail'.");
-                element.prev().click();
-            }
-        }
-    });
 });
 </script>
 <?php include '../../inc/footer.php'; ?>
