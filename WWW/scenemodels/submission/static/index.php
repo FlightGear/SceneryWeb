@@ -247,7 +247,7 @@ $(document).ready(function(){
     
     // Check if the thumbnail ends on _thumbnail
     $('#mo_thumbfile').MultiFile({
-        afterFileAppend: function(element, value, master_element){
+        onFileSelect: function(element, value, master_element){
             if (value.substr(-14) != "_thumbnail.jpg" && value.substr(-15) != "_thumbnail.jpeg") {
                 alert("Your thumbnail filename must end on '_thumbnail'.");
                 element.prev().click();
