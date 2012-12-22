@@ -5,8 +5,6 @@
 
     // Checking DB availability before all
     $ok = check_availability();
-	
-	error_reporting(-1);
 
     if (!$ok) {
         $page_title = "Automated Objects Massive Import Request Form";
@@ -61,7 +59,7 @@
                         $elev = $matches['elev'];
                         $elevoffset = $matches['elevoffset'];
                         $orientation = $matches['orientation'];
-						$country = $matches['country']
+                        $country = $matches['country'];
                         $model_id = $matches['model_id'];
 
                         echo "<tr>\n" .
