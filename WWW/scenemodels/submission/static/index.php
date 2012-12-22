@@ -182,21 +182,6 @@ Please, read the following:
             </td>
             <td>
             <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" />
-            <script type="text/javascript">
-            $(function(){
-                function endsWith(str, suffix) {
-                    return str.indexOf(suffix, str.length - suffix.length) !== -1;
-                }
-                $('#mo_thumbfile').MultiFile({
-                    afterFileAppend: function(element, value, master_element){
-                        if (endsWith(value, "_thumbnail.jpg") || endsWith(value, "_thumbnail.jpeg")) {
-                            alert("Your thumbnail filename must end on '_thumbnail'.");
-                            element.prev().click();
-                        }
-                    }
-                });
-            });
-            </script>
             </td>
         </tr>
         <tr>
@@ -249,16 +234,26 @@ Please, read the following:
 
 <script type="text/javascript">
 $(document).ready(function(){
-  // Checks if the GPL checkbox is checked
-  $('input[type="submit"]').attr('disabled','disabled');
-
-  $('input[name="gpl"]').change(function(){
-    if($('input[name="gpl"]').is(':checked')){
-      $('input[type="submit"]').removeAttr('disabled');
-    }else{
-      $('input[type="submit"]').attr('disabled','disabled');
-    }
-  });
+    // Checks if the GPL checkbox is checked
+    $('input[type="submit"]').attr('disabled','disabled');
+    
+    $('input[name="gpl"]').change(function(){
+        if($('input[name="gpl"]').is(':checked')){
+            $('input[type="submit"]').removeAttr('disabled');
+        }else{
+            $('input[type="submit"]').attr('disabled','disabled');
+        }
+    });
+    
+    // Check if the thumbnail ends on _thumbnail
+    $('#mo_thumbfile').MultiFile({
+        afterFileAppend: function(element, value, master_element){
+            if (value.substr(-14) != "_thumbnail.jpg" && value.substr(-15) != "_thumbnail.jpeg") {
+                alert("Your thumbnail filename must end on '_thumbnail'.");
+                element.prev().click();
+            }
+        }
+    });
 });
 </script>
 <?php include '../../inc/footer.php'; ?>
