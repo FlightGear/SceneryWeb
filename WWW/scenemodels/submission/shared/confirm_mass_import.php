@@ -106,6 +106,8 @@ if (!$error) {
         include '../../inc/footer.php';
         exit;
     }
+    
+    echo "Please check the table below carefully, and make sure that your submission was read correctly. We have proposed a country for each object, but this may be inccorect. You can only change the countries on this page. Please <a href='javascript:history.go(-1)'>go back and edit your lines</a> if you would like to edit other things.";
 
     $i = 1;
     $ko = 0;
@@ -260,10 +262,9 @@ if (!$error) {
                 $ko = 1;
                 $global_ko = 1;
                 $cpt_err++;
-
-                echo "<td><p class=\"center warning\">Already exists!</p></td>";
+                echo "<td style='background-color: red;'>Exists already</td>";
             } else {
-                echo "<td><p class=\"center ok\">OK</p></td>";
+                echo "<td style='background-color: green; text-align: center;'>OK</td>";
                 $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", 1)";
             }
         }
@@ -291,7 +292,7 @@ if (!$error) {
     }
 
     // Else, proceed on with the request generation
-    echo "<p class=\"center ok\">No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded.</p><br /></form>";
+    echo "<p class=\"center ok\">No error has been found in your submission, all fields have been checked and seem to be OK to be proceeded. Press to button below to finish your submission.</p><br /><input type='submit' value='Submit objects' /></form>";
 }
 include '../../inc/footer.php';
 ?>
