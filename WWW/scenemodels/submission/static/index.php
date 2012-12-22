@@ -189,7 +189,7 @@ Please, read the following:
                 }
                 $('#mo_thumbfile').MultiFile({
                     afterFileAppend: function(element, value, master_element){
-                        if (endsWith(value, thumbnail.jpg) || endsWith(value, thumbnail.jpeg)) {
+                        if (endsWith(value, "_thumbnail.jpg") || endsWith(value, "_thumbnail.jpeg")) {
                             alert("Your thumbnail filename must end on '_thumbnail'.");
                             element.prev().click();
                         }
