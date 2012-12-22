@@ -113,7 +113,7 @@ if (!$error) {
     <form id="positions" method="post" action="check_mass_import2.php" onsubmit="return validateForm();">
     <?php
     echo "<table>\n";
-    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Elev. offset</th>\n<th>Result</th>\n</tr>\n";
+    echo "<tr>\n<th>Line #</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Elev. offset</th>\n<th>Result</th>\n</tr>\n";
 
     foreach ($tab_lines as $value) { // Now printing the lines...
         $elevoffset = 0;
@@ -189,7 +189,7 @@ if (!$error) {
                     && ($value_tag <= 90)
                     && ($value_tag >= -90)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
-                    echo "<td><center>".$value_tag."<center></td>";
+                    echo "<td><center>".$value_tag."</center></td>";
                     $lat = $value_tag;
                 }
                 else {
@@ -199,12 +199,13 @@ if (!$error) {
                     $cpt_err++;
                 }
                 break;
-            // Country
-            echo "<select name='ob_country_".$j."' id='ob_country_".$j."'>" .
-                 list_countries_select(compute_country_code_from_position($long, $lat)) .
-                 "</select>";
+            case 5:  // Country
+                echo "<select name='ob_country_".$j."' id='ob_country_".$j."'>" .
+                     list_countries_select(compute_country_code_from_position($long, $lat)) .
+                     "</select>";
+                break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
-            case 5:  // Checking Elevation, must contain only figures and, be max 20 characters
+            case 6:  // Checking Elevation, must contain only figures and, be max 20 characters
                 if ((strlen($value_tag) <= 20)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
@@ -217,7 +218,7 @@ if (!$error) {
                     $cpt_err++;
                 }
                 break;
-            case 6:  // Checking Orientation, must contain only figures, be >0, be 20 characters max.
+            case 7:  // Checking Orientation, must contain only figures, be >0, be 20 characters max.
                 if ((strlen($value_tag) <= 20)
                     && ($value_tag >= 0)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
@@ -232,8 +233,8 @@ if (!$error) {
                 }
                 break;
 
-            case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
-                if (count($tab_tags)==7) {
+            case 8:  //If 8 columns, it's the offset. if 9 columns, it's pitch
+                if (count($tab_tags)==8) {
                     if ((strlen($value_tag) <= 20)
                         && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                         //echo "<td><center>".$value_tag."</center></td>";
