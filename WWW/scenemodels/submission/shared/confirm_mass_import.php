@@ -304,7 +304,7 @@ if (!$_POST['submit']) {
         }
 
         // Else, allow submitter to proceed
-        echo "<p class=\"center ok\">No errors have been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br/>Press to button below to finish your submission.<br /><br/><input type='submit' value='Submit objects' /></p></form>";
+        echo "<p class=\"center ok\">No errors have been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br/>Press to button below to finish your submission.<br /><br/><input name='submit' type='submit' value='Submit objects' /></p></form>";
     }
 } else {
     // Else, proceed on with the request generation
