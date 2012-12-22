@@ -47,7 +47,7 @@ else {
         $error += 1;
         $errormsg .= "<li>You must provide a thumbnail.</li>";
     }
-    if (($_FILES["ac3d_file"]['name'] = "") && ($_FILES["xml_file"]['name'] == "")) {
+    if (($_FILES["ac3d_file"]['name'] == "") && ($_FILES["xml_file"]['name'] == "")) {
         $fatalerror = 1;
         $error += 1;
         $errormsg .= "<li>You must provide at least one model (AC or XML) file.</li>";
