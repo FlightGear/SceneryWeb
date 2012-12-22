@@ -249,6 +249,8 @@ if (!$error) {
             }
             $j++;
         }
+        while ($j < 8)
+            echo "<td></td>";
 
         echo "<td><center>".$elevoffset."</center></td> ";
         
