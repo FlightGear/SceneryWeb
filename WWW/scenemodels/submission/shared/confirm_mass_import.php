@@ -259,11 +259,11 @@ if (!$error) {
         // Country
         if (!$_POST['submit']) {
             $ob_country = compute_country_code_from_position($long, $lat);
-            echo "<td><select name='ob_country_".$j."' id='ob_country_".$j."' style='width: 100%;'>";
+            echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>";
                  list_countries_select($ob_country);
             echo "</select></td>";
         } else {
-            echo "<td>".get_country_name_from_country_code($_POST['ob_country_$j'])."</td>";
+            echo "<td>".get_country_name_from_country_code($_POST['ob_country_$i'])."</td>";
         }
         
         if ($ko == 0) {
