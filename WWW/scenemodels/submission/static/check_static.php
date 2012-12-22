@@ -18,7 +18,7 @@ $errormsg   = "";
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Models Submission Form";
-        $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/static/index.php'>Go back and try it again</a>" .
+        $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='' onclick='history.back()'>Go back and try it again</a>." .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';
@@ -295,11 +295,13 @@ for ($i=0; $i<12; $i++) {
 ######################################################
 
 if ($fatalerror || $error > 0) {
-    echo "Number of error(s): ".$error."<br/>";
-    echo "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
-    echo "Error message(s)  : ".$errormsg."<br/><br/><br/>";
-    echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
-    echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
+    echo "<h2>Oops, something went wrong</h2>" .
+         "Number of error(s): ".$error."<br/>" .
+         "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
+         "Error message(s)  : ".$errormsg."<br/><br/>" .
+         "<a href='' onclick='history.back()'>Go back and correct your mistakes</a>.<br/><br/>" .
+         "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
+         "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
     clear_dir($targetPath);
     include '../../inc/footer.php';
     exit;
@@ -497,12 +499,14 @@ else {
 ####################################################
 
 if ($fatalerror || $error > 0) {
-    echo "<p span=\"center\">";
-    echo "Number of error(s): ".$error."<br/>";
-    echo "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
-    echo "Error message(s)  : ".$errormsg."<br/>";
-    echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
-    echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
+    echo "<h2>Oops, something went wrong</h2>" .
+         "Number of error(s): ".$error."<br/>" .
+         "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
+         "Error message(s)  : ".$errormsg."<br/><br/>" .
+         "<a href='' onclick='history.back()'>Go back and correct your mistakes</a>.<br/><br/>" .
+         "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
+         "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
+         
     include '../../inc/footer.php';
     clear_dir($targetPath);
     exit;
@@ -646,12 +650,13 @@ if (!isset($_POST["gpl"])) {
 ###############################################
 
 if ($fatalerror || $error > 0) {
-    echo "<p span=\"center\">";
-    echo "Number of error(s): ".$error."<br/>";
-    echo "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>";
-    echo "Error message(s)  : <br/>".$errormsg."<br/><br/><br/>";
-    echo "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> ";
-    echo "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!</p>";
+    echo "<h2>Oops, something went wrong</h2>" .
+         "Number of error(s): ".$error."<br/>" .
+         "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
+         "Error message(s)  : ".$errormsg."<br/><br/>" .
+         "<a href='' onclick='history.back()'>Go back and correct your mistakes</a>.<br/><br/>" .
+         "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
+         "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
     include '../../inc/footer.php';
     clear_dir($targetPath);
     exit;
