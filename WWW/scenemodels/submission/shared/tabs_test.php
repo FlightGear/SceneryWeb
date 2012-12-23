@@ -119,11 +119,13 @@ $(function() {
                                 $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
 
                                 // Start the select form
-                                echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">";
-                                echo "<option selected=\"selected\" value=\"0\">Please select a family</option>\n";
+                                echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
+                                     "<option selected=\"selected\" value=\"0\">Please select a family</option>\n" .
+                                     "<option value=\"0\">----</option>\n";
                                 while ($row = @pg_fetch_assoc($result)) {
                                     $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
                                     $name=preg_replace('/ /',"&nbsp;",$name);
+                                    $name=preg_replace('/Shared - /',"",$name);
                                     echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                                 }
                                 echo "</select>";
