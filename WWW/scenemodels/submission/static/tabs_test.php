@@ -68,6 +68,8 @@ $(function() {
 }
 .ui-tabs-panel, .ui-state-active a {
     background-color: rgb(224, 255, 224) !important;
+}
+.ui-tabs-panel {
     padding: 0px !important;
 }
 form {
@@ -107,9 +109,9 @@ form {
                 <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only include XML if necessary for the model.</li>
                 <li>The thumbnail must be in JPEG and 320*240 resolution. Filename must end on _thumbnail.</li>
             </ul>
-            <table>
+            <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
-                    <td>
+                    <td style="width: 200px;">
                         <span title="This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family<em>*</em></label></span>
                     </td>
                     <td colspan="2">
@@ -198,9 +200,9 @@ form {
                 <li>The country is the one where the model is located.</li>
                 <li>For the elevation, use the terrain shipped with FlightGear/Terrasync, else the model may be sunk or floating. Alternatively enter -9999 to place the object at ground level (this is then automatically calculated from TerraSync terrain).</li>
             </ul>
-            <table>
+            <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
-                    <td>
+                    <td style="width: 200px;">
                         <span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000 and not O.">
                             <label for="longitude">Longitude<em>*</em></label>
                         </span>
@@ -272,7 +274,7 @@ form {
                 <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
             </ul>
-            <table>
+            <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
                     <td>
                         <span title="This is the name of the author. If the author does not exist, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.">
