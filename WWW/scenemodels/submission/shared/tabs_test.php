@@ -125,7 +125,7 @@ $(function() {
                                 while ($row = @pg_fetch_assoc($result)) {
                                     $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
                                     $name=preg_replace('/ /',"&nbsp;",$name);
-                                    $name=str_replace('Shared&nbsp-&nbsp',"",$name);
+                                    $name=str_replace('Shared&nbsp;-&nbsp;',"",$name);
                                     echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                                 }
                                 echo "</select>";
