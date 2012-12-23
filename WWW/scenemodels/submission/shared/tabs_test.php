@@ -47,24 +47,20 @@ function  validateTabs()
         return false;
     }
     // Tab 2
-    if (!checkStringNotDefault(form["longitude"], "") || !checkNumeric(form["longitude"],-180,180) ||
-        !checkStringNotDefault(form["latitude"], "") || !checkNumeric(form["latitude"],-90,90) ||
-        !checkStringNotDefault(form["gndelev"], "") || !checkNumeric(form['gndelev'],-10000,10000) ||
-        !checkNumeric(form['offset'],-10000,10000) ||
-        !checkStringNotDefault(form["heading"], "") || !checkNumeric(form['heading'],0,359.999)) {
+    if (!checkStringNotDefault(form["longitude"], "") ||
+        !checkStringNotDefault(form["latitude"], "") ||
+        !checkStringNotDefault(form["gndelev"], "") ||
+        !checkStringNotDefault(form["heading"], "")) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }
 }
+
+validateTabs();
 /*]]>*/
 </script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-<script>
-$(function() {
-    validateTabs();
-});
-</script>
 
 <h1>Automated Objects Submission Form</h1>
 
