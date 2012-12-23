@@ -56,7 +56,7 @@ function  validateTabs()
     }
 }
 $(function() {
-    validateTabs();
+    $( "#tabs" ).tabs({ disabled: [1, 2] });
 });
 /*]]>*/
 </script>
