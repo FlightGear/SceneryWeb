@@ -94,8 +94,8 @@
     
     // Country.
     if($_POST['ob_country'] != "") {
-        $country = $_POST["ob_country"];
-        echo "<p class=\"ok\">Country: ".$country."</p>";
+        $ob_country = $_POST["ob_country"];
+        echo "<p class=\"ok\">Country: ".get_country_name_from_country_code($ob_country)."</p>";
     }
     else {
         echo "<p class=\"warning\">Country error!</p>";
@@ -173,10 +173,10 @@ if (!$error) {
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
     if (($offset == 0) || ($offset == '')) {
-        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", '".$country."', ".$model_id.", 1);";
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
     }
     else {
-        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", '".$country."', ".$model_id.", 1);";
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
     }
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
@@ -253,6 +253,7 @@ if (!$error) {
                     "Model: ".$model_real_name."\r\n" . "[ ".$html_object_url." ]" . "\r\n" .
                     "Latitude: ". $lat . "\r\n" .
                     "Longitude: ". $long . "\r\n" .
+                    "Country: ". get_country_name_from_country_code($ob_country) . "\r\n" .
                     "Ground elevation: ". $gndelev . "\r\n" .
                     "Elevation offset: ". $offset . "\r\n" .
                     "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
@@ -313,6 +314,7 @@ if (!$error) {
                         "[ ".$html_object_url." ]" . "\r\n" .
                         "Latitude: ". $lat . "\r\n" .
                         "Longitude: ". $long . "\r\n" .
+                        "Country: ". get_country_name_from_country_code($ob_country) . "\r\n" .
                         "Ground elevation: ". $gndelev . "\r\n" .
                         "Elevation offset: ". $offset . "\r\n" .
                         "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
