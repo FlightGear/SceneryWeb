@@ -105,7 +105,7 @@ $(function() {
 
     <form id="positions" method="post" action="check_shared.php" onsubmit="return validateForm();">
         <div id="tabs-1">
-            <table width="400">
+            <table>
                 <tr>
                     <td><span title="This is the family name of the object you want to add."><label for="family_name">Object's family<em>*</em></label></span></td>
                     <td colspan="2">
@@ -158,11 +158,14 @@ $(function() {
             </table>
         </div>
         <div id="tabs-2">
-            <table width="400">
+            <table>
                 <tr>
                     <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
                     <td>
                         <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map('longitude','latitude');checkNumeric(this,-180,180);update_country();validateTabs();" />
+                    </td>
+                    <td rowspan="6">
+                        <object id="map" data="" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
                 <tr>
@@ -177,14 +180,6 @@ $(function() {
                         <select name="ob_country" id="ob_country">
                             <?php list_countries(); ?>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Map
-                    </td>
-                    <td>
-                        <object id="map" data="" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
                 <tr>
@@ -208,11 +203,11 @@ $(function() {
             </table>
         </div>
         <div id="tabs-3">
-            <table width="400">
+            <table>
                 <tr>
                     <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><label for="comment">Comment<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onchange="checkComment(this);" />
+                        <input type="text" name="comment" id="comment" maxlength="100" style="width: 100%;" value="" onchange="checkComment(this);" />
                         <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
                     </td>
                 </tr>
