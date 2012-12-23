@@ -65,6 +65,7 @@ $(function() {
 }
 .ui-tabs, .ui-tabs-panel {
     padding: 0px !important;
+    background-color: rgb(224, 255, 224);
 }
 .ui-tabs-nav {
     margin-bottom: -30px !important;
@@ -75,14 +76,14 @@ $(function() {
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
-<h1>Models Automated Submission Form</h1>
+<h1>Submit a model</h1>
 
 <p>
-    <b>Foreword:</b> This automated form goal is to ease the submission of static and shared 3D models into the FlightGear scenery database.
-    There are currently <?php $models = count_models(); echo number_format($models, '0', '', ' '); ?> models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>. Help us to make it more!
+    This automated form goal is to ease the submission of static and shared 3D models into the FlightGear scenery database.
+    There are currently <?php $models = count_models(); echo number_format($models, '0', '', ' '); ?> unique models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>. Help us to make it more!
 </p>
 <p>
-    Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what recommandations this script is looking for.
+    Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> for a better understanding of the various requirements.
 </p>
 
 <div id="tabs">
@@ -94,17 +95,17 @@ $(function() {
     
     <form id="positions" method="post" action="check_static.php" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div id="tabs-1">
-            <ul class="warning">
-                <li>Choose the correct family for your model: static if the model exists only once in the world (eg: Eiffel Tower) or a logical shared family (if it can be used elsewhere).</li>
-                <li>The name is very important. Has to be short and complete, it will appear in the "name" field for instance <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=2551">here</a> as well as on the maps.</li>
-                <li>The description is important too, you can be a bit more talkative on your model (not pages!). It appears as "Comment" <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=2319">here</a>, so don't just say: please commit!</li>
-                <li>You HAVE TO add at least 2 files: an AC3D file of your model and a JPEG thumbnail (PNG texture(s) and XML file if any). Files have to share a common name, for instance Rochester_Castle_Keep.ac, Rochester_Castle_Keep.xml, Rochester_Castle_Keep_thumbnail.jpg (thumbnail written as is)). If you have multiple textures, name them Rochester_Castle_Keep1.png, with an increasing figure.</li>
-                <li>PNG size must be a power of 2 in width and height.</li>
-                <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only send XML if necessary to the model, as it has a performance impact.</li>
-                <li>JPEG has to be a 320*240 exciting thumbnail; filename must end on _thumbnail.</li>
-                <li>Please do not put 2 separated buildings into 1 AC file: because the terrain elevation is subject to updates, this could lead to inaccuracies.</li>
-                <li>Do not add trees into your AC file. For the same reason as the above, they have to be placed separately (mass import, for instance).</li>
-                <li>Do not add flat surfaces 3D models, such as soccer fields, for instance. Still for the same reason and for z-fighting issues. We should try to fix this in FG sometimes.</li>
+            <ul>
+                <li>Choose the static family if the model exists only once in the world (eg: Eiffel Tower) or a shared family if it can be used elsewhere (eg. windturbine).</li>
+                <li>The name has to be short and complete, it will appear in the "name" field for instance <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=2551">here</a> as well as on the maps.</li>
+                <li>The description appears as "Comment" <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=2319">here</a>, so please write something informative about your model.</li>
+                <li>Files have to share a common name, for instance: modelname.ac, modelname.xml, modelname.png and modelname_thumbnail.jpg (the _thumbnail extension is required).</li>
+                <li>Please do not group separate buildings into one AC file. The terrain elevation is subject to updates, so this could lead to inaccuracies.</li>
+                <li>Do not add trees or flat surfaces (such as soccer fields) into your AC file.</li>
+                <li>PNG resolution must be a power of 2 in width and height.</li>
+                <li>If you have multiple textures, name them modelname1.png, modelname2.png etc.</li>
+                <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only include XML if necessary for the model.</li>
+                <li>The thumbnail must be in JPEG and 320*240 resolution. Filename must end on _thumbnail.</li>
             </ul>
             <table>
                 <tr>
@@ -171,7 +172,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a factor of 2 in height and length.">
+                        <span title="This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a power of 2 in width and height.">
                             <label for="png_files">PNG texture file(s)</label>
                         </span>
                     </td>
@@ -192,10 +193,10 @@ $(function() {
             </table>
         </div>
         <div id="tabs-2">
-            <ul class="warning">
-                <li>The country is the one where the model you're adding is located, not yours!</li>
-                <li>Use the terrain shipped with FlightGear/Terrasync, and not any custom elevation model you may have installed/compiled, or model will be sunk/floating.</li>
-                <li>Please instanciate your model once: if it's a shared object, put a latitude and longitude. Else the object will be placed at lat=0 and long=0: an object is always generated when you add a 3D model.</li>
+            <ul>
+                <li>Please locate your model, even when you are adding a shared model.</li>
+                <li>The country is the one where the model is located.</li>
+                <li>For the elevation, use the terrain shipped with FlightGear/Terrasync, else the model may be sunk or floating. Alternatively enter -9999 to place the object at ground level (this is then automatically calculated from TerraSync terrain).</li>
             </ul>
             <table>
                 <tr>
@@ -266,7 +267,7 @@ $(function() {
             </table>
         </div>
         <div id="tabs-3">
-            <ul class="warning">
+            <ul>
                 <li>Choose the author for the model. Please contact us if you're not listed here. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
                 <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
