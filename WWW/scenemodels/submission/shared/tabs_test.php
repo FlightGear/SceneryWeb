@@ -57,7 +57,7 @@ function  validateTabs()
 }
 $(function() {
     validateTabs();
-}
+});
 /*]]>*/
 </script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
