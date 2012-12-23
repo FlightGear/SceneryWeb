@@ -70,11 +70,11 @@ $(function() {
     background: none;
     border: none;
 }
-.ui-tabs {
+.ui-tabs, .ui-tabs-panel {
     padding: 0px;
 }
 .ui-tabs-nav {
-    margin-bottom: -30px;
+    margin: 0px 0px -30px 0px;
 }
 .ui-state-active a {
     background-color: rgb(224, 255, 224);
