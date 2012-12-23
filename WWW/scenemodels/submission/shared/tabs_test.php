@@ -17,25 +17,6 @@ else {
     $body_onload = "update_objects();";
     include '../../inc/header.php';
 ?>
-<style type="text/css">
-.ui-widget-content {
-    background: none;
-    border: none;
-}
-.ui-widget-header {
-    background: none;
-    border: none;
-}
-.ui-tabs {
-    padding: 0px;
-}
-.ui-tabs-nav {
-    margin-bottom: -30px;
-}
-.ui-state-active a {
-    background-color: rgb(224, 255, 224);
-}
-</style>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -80,6 +61,25 @@ $(function() {
 /*]]>*/
 </script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
+<style type="text/css">
+.ui-widget-content {
+    background: none;
+    border: none;
+}
+.ui-widget-header {
+    background: none;
+    border: none;
+}
+.ui-tabs {
+    padding: 0px;
+}
+.ui-tabs-nav {
+    margin-bottom: -30px;
+}
+.ui-state-active a {
+    background-color: rgb(224, 255, 224);
+}
+</style>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
 <h1>Automated Objects Submission Form</h1>
