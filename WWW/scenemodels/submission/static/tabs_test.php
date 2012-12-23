@@ -56,22 +56,21 @@ $(function() {
     font-size: 1em;
 }
 .ui-widget-content {
-    background: none;
+    background-color: rgb(224, 255, 224);
     border: none;
 }
 .ui-widget-header {
     background: none;
     border: none;
 }
-.ui-tabs, .ui-tabs-panel {
+.ui-tabs, .ui-tabs-nav {
     padding: 0px !important;
+}
+.ui-tabs-panel, .ui-state-active a {
     background-color: rgb(224, 255, 224);
 }
-.ui-tabs-nav {
-    margin-bottom: -30px !important;
-}
-.ui-state-active a {
-    background-color: rgb(224, 255, 224);
+form {
+    margin: -15px;
 }
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
