@@ -185,7 +185,7 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" value="Tell us more about your model." onfocus="emptyDefaultValue(this, 'Tell us more about your model.');" onchange="checkComment(this);"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" value="Tell us more about your model." onfocus="emptyDefaultValue(this, 'Tell us more about your model.');" onchange="checkComment(this);validateTabs();"/>
                     </td>
                 </tr>
                 <tr>
@@ -195,7 +195,7 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onchange="checkComment(this);" />
+                        <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onchange="checkComment(this);validateTabs();" />
                     </td>
                 </tr>
             </table>
@@ -209,7 +209,7 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="update_country();checkNumeric(this,-180,180);" />
+                        <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="update_country();checkNumeric(this,-180,180);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -219,7 +219,7 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="update_country();checkNumeric(this,-90,90);" />
+                        <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="update_country();checkNumeric(this,-90,90);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -241,7 +241,7 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);" />
+                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -251,7 +251,7 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);" />
+                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -261,7 +261,7 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);" />
+                        <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);validateTabs();" />
                     </td>
                 </tr>
             </table>
