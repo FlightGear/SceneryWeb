@@ -31,8 +31,7 @@ function  validateTabs()
     
     // Tab 1
     if (form["mo_name"].value == "" ||
-        form["mo_name"].value == "Tell us more about your model." ||
-        form["comment"].value == "") {
+        form["mo_name"].value == "Tell us more about your model.") {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
@@ -209,7 +208,10 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="update_country();checkNumeric(this,-180,180);validateTabs();" />
+                        <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="checkNumeric(this,-180,180);update_country();update_map('longitude','latitude');validateTabs();" />
+                    </td>
+                    <td rowspan="6">
+                        <object id="map" data="" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
                 <tr>
@@ -219,7 +221,7 @@ Please, read the following:
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="update_country();checkNumeric(this,-90,90);validateTabs();" />
+                        <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="checkNumeric(this,-90,90);update_country();update_map('longitude','latitude');validateTabs();" />
                     </td>
                 </tr>
                 <tr>
