@@ -71,10 +71,10 @@ $(function() {
     border: none;
 }
 .ui-tabs, .ui-tabs-panel {
-    padding: 0px;
+    padding: 0px !important;
 }
 .ui-tabs-nav {
-    margin: 0px 0px -30px 0px;
+    margin-bottom: -30px !important;
 }
 .ui-state-active a {
     background-color: rgb(224, 255, 224);
