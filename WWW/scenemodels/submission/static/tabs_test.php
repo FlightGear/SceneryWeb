@@ -56,7 +56,7 @@ $(function() {
     font-size: 1em;
 }
 .ui-widget-content {
-    background-color: rgb(224, 255, 224);
+    background: none;
     border: none;
 }
 .ui-widget-header {
@@ -67,10 +67,11 @@ $(function() {
     padding: 0px !important;
 }
 .ui-tabs-panel, .ui-state-active a {
-    background-color: rgb(224, 255, 224);
+    background-color: rgb(224, 255, 224) !important;
+    padding: 0px !important;
 }
 form {
-    margin: -15px;
+    margin-top: -14px;
 }
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
