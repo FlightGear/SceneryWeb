@@ -42,15 +42,15 @@ function  validateTabs()
     $( "#tabs" ).tabs({ disabled: false });
     
     // Tab 1
-    if (!checkStringNotDefault(form["family_name"], 0)) {
+    if (form["family_name"].value != 0) {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
     // Tab 2
-    if (!checkStringNotDefault(form["longitude"], "") ||
-        !checkStringNotDefault(form["latitude"], "") ||
-        !checkStringNotDefault(form["gndelev"], "") ||
-        !checkStringNotDefault(form["heading"], "")) {
+    if (form["longitude"].value != "" ||
+        form["latitude"].value != "" ||
+        form["gndelev"].value != "" ||
+        form["heading"].value != "") {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }
