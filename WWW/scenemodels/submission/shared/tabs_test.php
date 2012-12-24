@@ -55,10 +55,11 @@ function  validateTabs()
         return false;
     }
     // Tab 2
-    if (form["longitude"].value == "" ||
-        form["latitude"].value == "" ||
-        form["gndelev"].value == "" ||
-        form["heading"].value == "") {
+    if (form["longitude"].value == "" || !checkNumeric(form["longitude"],-180,180) ||
+        form["latitude"].value == "" || !checkNumeric(form["latitude"],-90,90) ||
+        form["gndelev"].value == "" || !checkNumeric(form['gndelev'],-10000,10000) ||
+        !checkNumeric(form['offset'],-10000,10000) ||
+        form["heading"].value == "" ||  !checkNumeric(form['heading'],0,359.999)) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }
@@ -173,7 +174,7 @@ $(function() {
                 <tr>
                     <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map('longitude','latitude');checkNumeric(this,-180,180);update_country();validateTabs();" />
+                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onchange="update_map('longitude','latitude');update_country();validateTabs();" />
                     </td>
                     <td rowspan="6">
                         <object id="map" data="" type="text/html" width="300" height="225"></object>
@@ -182,7 +183,7 @@ $(function() {
                 <tr>
                     <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map('longitude','latitude');checkNumeric(this,-90,90);update_country();validateTabs();" />
+                        <input type="text" name="latitude" id="latitude" maxlength="13" value="" onchange="update_map('longitude','latitude');update_country();validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -196,19 +197,19 @@ $(function() {
                 <tr>
                     <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);validateTabs();" />
+                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="validateTabs();" />
                     </td>
                 </tr>
                 <tr>
                     <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
                     <td>
-                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);validateTabs();" />
+                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="validateTabs();" />
                     </td>
                 </tr>
                 <tr>
                     <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="heading">Orientation<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);validateTabs();" />
+                        <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="validateTabs();" />
                     </td>
                 </tr>
             </table>
