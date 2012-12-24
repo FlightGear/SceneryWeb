@@ -114,8 +114,8 @@ function checkEmail(emailfield)
     {
         emailfield.select();
         emailfield.focus();
-        return false;
         emailfield.style.border = "2px solid red";
+        return false;
     } else {
         emailfield.style.border = "2px solid green";
     }
