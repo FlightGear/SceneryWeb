@@ -50,10 +50,10 @@ $(function() {
 
     $('#mo_thumbfile').MultiFile({
         afterFileRemove: function(element, value, master_element){
-            alert("afterFileRemove - "+value);
+            alert('afterFileRemove - '+value)
         },
         afterFileAppend: function(element, value, master_element){
-            alert("afterFileAppend - "+value);
+            alert('afterFileAppend - '+value)
         }
     });
 });
@@ -198,7 +198,7 @@ form {
                         </span>
                     </td>
                     <td>
-                        <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" onchange="validateTabs();" />
+                        <input type="file" name="mo_thumbfile" id="mo_thumbfile" maxlength="1" accept="image/jpg, image/jpeg" onchange="validateTabs();" />
                     </td>
                 </tr>
             </table>
