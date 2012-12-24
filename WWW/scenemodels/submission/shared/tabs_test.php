@@ -63,6 +63,8 @@ function checkComment(element) {
         if (j == checkOK.length) {
             element.style.border = "2px solid rgb(200, 0, 0)";
             break;
+        } else if (element.value != "") {
+            element.style.border = "2px solid rgb(0, 200, 0)";
         } else {
             element.style.border = "none";
         }
