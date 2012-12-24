@@ -41,7 +41,9 @@ function checkNumeric(element, min, max) {
         element.style.border = "2px solid rgb(0, 200, 0)";
     } else {
         element.style.border = "2px solid rgb(200, 0, 0)";
+        return false;
     }
+    return true;
 }
 
 function  validateTabs()
@@ -174,7 +176,7 @@ $(function() {
                 <tr>
                     <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onkeyup="checkNumeric(form['longitude'],-180,180);update_map('longitude','latitude');update_country();validateTabs();" />
+                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onkeyup="checkNumeric(form['longitude'],-180,180);update_map('longitude','latitude');validateTabs();" onchange="update_map('longitude','latitude');" />
                     </td>
                     <td rowspan="6">
                         <object id="map" data="" type="text/html" width="300" height="225"></object>
@@ -183,7 +185,7 @@ $(function() {
                 <tr>
                     <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="latitude" id="latitude" maxlength="13" value="" onkeyup="checkNumeric(form['latitude'],-90,90);update_map('longitude','latitude');update_country();validateTabs();" />
+                        <input type="text" name="latitude" id="latitude" maxlength="13" value="" onkeyup="checkNumeric(form['latitude'],-90,90);update_country();validateTabs();" onchange="update_map('longitude','latitude');" />
                     </td>
                 </tr>
                 <tr>
