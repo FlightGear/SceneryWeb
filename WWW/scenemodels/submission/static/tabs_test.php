@@ -47,6 +47,15 @@ function  validateTabs()
 }
 $(function() {
     $( "#tabs" ).tabs({ disabled: [1, 2] });
+
+    $('#mo_thumbfile').MultiFile({
+        afterFileRemove: function(element, value, master_element){
+            alert("afterFileRemove - "+value);
+        },
+        afterFileAppend: function(element, value, master_element){
+            alert("afterFileAppend - "+value);
+        }
+    });
 });
 /*]]>*/
 </script>
@@ -159,7 +168,7 @@ form {
                         </span>
                     </td>
                     <td>
-                        <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac"/>
+                        <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac" onchange="validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -189,7 +198,7 @@ form {
                         </span>
                     </td>
                     <td>
-                        <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" />
+                        <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" onchange="validateTabs();" />
                     </td>
                 </tr>
             </table>
