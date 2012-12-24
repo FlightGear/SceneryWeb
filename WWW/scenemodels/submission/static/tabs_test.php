@@ -31,7 +31,8 @@ function  validateTabs()
     // Tab 1
     if (form["mo_name"].value == "" ||
         form["ac3d_file"].value == "" ||
-        form["mo_thumbfile"].value == "") {
+        (form["mo_thumbnail"].value.indexOf("_thumbnail.jpg", value.length - 14) === -1 && 
+        form["mo_thumbnail"].value..indexOf("_thumbnail.jpeg", value.length - 14) === -1) {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
@@ -50,10 +51,13 @@ $(function() {
 
     $('#mo_thumbfile').MultiFile({
         afterFileRemove: function(element, value, master_element){
-            alert('afterFileRemove - '+value)
+            validateTabs();
         },
         afterFileAppend: function(element, value, master_element){
-            alert('afterFileAppend - '+value)
+            if (value.indexOf("_thumbnail.jpg", value.length - 14) === -1 && value.indexOf("_thumbnail.jpeg", value.length - 14) === -1) {
+                alert("The thumbnail name must end with _thumbnail");
+            }
+            validateTabs();
         }
     });
 });
