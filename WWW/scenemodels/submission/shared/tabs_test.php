@@ -43,7 +43,7 @@ function checkNumeric(element, min, max) {
         if (element.value != "") {
             element.style.border = "2px solid rgb(200, 0, 0)";
         } else {
-            element.style.border = "none";
+            element.style.border = "";
         }
         return false;
     }
@@ -66,7 +66,7 @@ function checkComment(element) {
         } else if (element.value != "") {
             element.style.border = "2px solid rgb(0, 200, 0)";
         } else {
-            element.style.border = "none";
+            element.style.border = "";
         }
     }
 }
