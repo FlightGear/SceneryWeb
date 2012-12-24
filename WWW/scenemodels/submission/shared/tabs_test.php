@@ -37,7 +37,7 @@ function validateForm()
 }
 
 function checkNumeric(element, min, max) {
-    if ((element.value > min) && (element.value < max) $$ element.value != "") {
+    if ((element.value > min) && (element.value < max) && element.value != "") {
         element.style.border = "2px solid rgb(0, 200, 0)";
     } else {
         element.style.border = "2px solid rgb(200, 0, 0)";
