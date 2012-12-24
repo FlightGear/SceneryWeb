@@ -29,9 +29,9 @@ function  validateTabs()
     $( "#tabs" ).tabs({ disabled: false });
     
     // Tab 1
-    if (form["mo_name"].value == "") ||
-        form["ac3d_file"].value == "") ||
-        form["mo_thumbfile"].value == "")) {
+    if (form["mo_name"].value == "" ||
+        form["ac3d_file"].value == "" ||
+        form["mo_thumbfile"].value == "") {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
