@@ -16,7 +16,6 @@ function validateForm()
     if (!checkNumeric(form["longitude"],-180,180) ||
         !checkNumeric(form["latitude"],-90,90) ||
         !checkComment(form["mo_name"]) ||
-        !checkStringNotDefault(form["mo_name"], "Tell us more about your model.") ||
         !checkNumeric(form["gndelev"],-10000,10000) ||
         !checkNumeric(form["offset"],-10000,10000) ||
         !checkNumeric(form["heading"],0,359.999) ||
@@ -30,8 +29,9 @@ function  validateTabs()
     $( "#tabs" ).tabs({ disabled: false });
     
     // Tab 1
-    if (form["mo_name"].value == "" ||
-        form["mo_name"].value == "Tell us more about your model.") {
+    if (form["mo_name"].value == "") ||
+        form["ac3d_file"].value == "") ||
+        form["mo_thumbfile"].value == "")) {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
@@ -66,6 +66,9 @@ $(function() {
 .ui-tabs, .ui-tabs-nav {
     padding: 0px !important;
 }
+.ui-tabs-nav li a {
+    background-color: rgb(224, 224, 255);
+}
 .ui-tabs-panel, .ui-state-active a {
     background-color: rgb(224, 255, 224) !important;
 }
@@ -85,7 +88,7 @@ form {
     There are currently <?php $models = count_models(); echo number_format($models, '0', '', ' '); ?> unique models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>. Help us to make it more!
 </p>
 <p>
-    Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> for a better understanding of the various requirements.
+    Hover your mouse over the various field titles (left column) to view some information about what to do with that particular field. Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> for a better understanding of the various requirements.
 </p>
 
 <div id="tabs">
@@ -98,9 +101,6 @@ form {
     <form id="positions" method="post" action="check_static.php" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div id="tabs-1">
             <ul>
-                <li>Choose the static family if the model exists only once in the world (eg: Eiffel Tower) or a shared family if it can be used elsewhere (eg. windturbine).</li>
-                <li>The name has to be short and complete, it will appear in the "name" field for instance <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=2551">here</a> as well as on the maps.</li>
-                <li>The description appears as "Comment" <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=2319">here</a>, so please write something informative about your model.</li>
                 <li>Files have to share a common name, for instance: modelname.ac, modelname.xml, modelname.png and modelname_thumbnail.jpg (the _thumbnail extension is required).</li>
                 <li>Please do not group separate buildings into one AC file. The terrain elevation is subject to updates, so this could lead to inaccuracies.</li>
                 <li>Do not add trees or flat surfaces (such as soccer fields) into your AC file.</li>
@@ -139,7 +139,7 @@ form {
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" value="Tell us more about your model." onfocus="emptyDefaultValue(this, 'Tell us more about your model.');" onchange="checkComment(this);validateTabs();"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" onchange="checkComment(this);validateTabs();"/>
                     </td>
                 </tr>
                 <tr>
@@ -197,7 +197,7 @@ form {
         <div id="tabs-2">
             <ul>
                 <li>Please locate your model, even when you are adding a shared model.</li>
-                <li>The country is the one where the model is located.</li>
+                <li>The country is the one where the model is located. After entering longitude and latitude, we will try to propose a country. Please check if it is correct.</li>
                 <li>For the elevation, use the terrain shipped with FlightGear/Terrasync, else the model may be sunk or floating. Alternatively enter -9999 to place the object at ground level (this is then automatically calculated from TerraSync terrain).</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">

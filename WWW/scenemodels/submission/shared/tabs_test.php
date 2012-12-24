@@ -78,6 +78,7 @@ $(function() {
 }
 .ui-tabs-nav {
     margin-bottom: -30px !important;
+    padding: 0px !important;
 }
 .ui-state-active a {
     background-color: rgb(224, 255, 224);
