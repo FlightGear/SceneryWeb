@@ -49,6 +49,7 @@ function chkNumeric(objName, minval, maxval)
         alertsay = "Please enter only the values :\""
         alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
         alert(alertsay);
+        checkStr.style.border = "2px solid rgb(200, 0, 0)";
         return false;
     }
 
@@ -61,9 +62,11 @@ function chkNumeric(objName, minval, maxval)
         alertsay = alertsay + "equal to \"" + minval + "\" and less than or "
         alertsay = alertsay + "equal to \"" + maxval + "\" in the \"" + checkStr.name + "\" field."
         alert(alertsay);
+        checkStr.style.border = "2px solid rgb(200, 0, 0)";
         return false;
     }
-
+    
+    checkStr.style.border = "2px solid rgb(0, 200, 0)";
     return true;
 }
 
