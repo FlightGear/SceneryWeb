@@ -50,6 +50,25 @@ function checkNumeric(element, min, max) {
     return true;
 }
 
+function checkComment(element) {
+    var checkStr = element.value;
+    var checkOK = numbers + letters + ";:!?@-_. ";
+
+    for (i = 0;  i < checkStr.length;  i++)
+    {
+        ch = checkStr.charAt(i);
+        for (j = 0;  j < checkOK.length;  j++)
+            if (ch == checkOK.charAt(j))
+                break;
+        if (j == checkOK.length) {
+            element.style.border = "2px solid rgb(200, 0, 0)";
+            break;
+        } else {
+            element.style.border = "none";
+        }
+    }
+}
+
 function  validateTabs()
 {
     var form = document.getElementById("positions");
@@ -225,7 +244,7 @@ $(function() {
                 <tr>
                     <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit."><label for="comment">Comment<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="comment" id="comment" maxlength="100" style="width: 100%;" value="" onchange="checkComment(this);" />
+                        <input type="text" name="comment" id="comment" maxlength="100" style="width: 100%;" value="" onkeyup="checkComment(this);" />
                         <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
                     </td>
                 </tr>
