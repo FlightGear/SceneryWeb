@@ -161,7 +161,7 @@ function validateForm()
         </td>
     </tr>
     <tr>
-        <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
+        <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Put -9999 if you want the elevation to be automatically computed. Warning: if your model is sunk into/is set above the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
         <td>
             <input type="text" name="gndelev" id="gndelev" maxlength="10" value="<?php echo substr($_GET['elev'],0,10); ?>" onchange="checkNumeric(this,-10000,10000);" />
         </td>

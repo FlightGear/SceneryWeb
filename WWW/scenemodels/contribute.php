@@ -70,7 +70,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
                 <ul class="detail">
                   <li><strong>Position</strong> (if appropriate; either lon/lat, or Ordnance Survey grid - other grids can be added on request).</li>
                   <li><strong>Heading</strong> (if appropriate).</li>
-                  <li><strong>Ground elevation</strong> (if known to the author) - in any !! case, report if the model has to be sunken into the ground in order to display properly !!</li>
+                  <li><strong>Ground elevation</strong> (if known to the author) - in any case, report if the model has to be sunk into the ground (what we call offset) in order to display properly !! In the web forms, use -9999 to let FG compute automatically the elevation.</li>
                   <li><b> -> </b>....  or just simply submit the respective .stg-line with your model.</li>
                 </ul>
             </li>
@@ -91,7 +91,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         <h3><a name="tips"><font color="red">Models best practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
         <ul>
             <li>Never group different, detached buildings into a single geometry file.</li>
-            <li>Never put surface materials (tarmac, grass, roads, parkings, ...) into Scenery Model geometries.</li>
+            <li>Never put surface materials (tarmac, grass, roads, parkings, ...) or trees into Scenery Model geometries.</li>
         </ul>
 
         <div class="conclusion"><b> -> </b> The reason is simple: Depending on the angle of view, the

@@ -219,6 +219,7 @@
                     $lat = $matches['lat'];
                     $elevation = $matches['elev'];
                     $elevoffset = $matches['elevoffset'];
+                    if ($elevoffset == 0 || $elevoffset =='') $elevoffset = NULL;
                     $orientation = $matches['orientation'];
                     $model = $matches['model_id'];
                     $ob_text = object_name($model);

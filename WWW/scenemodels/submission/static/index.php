@@ -146,7 +146,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your object is sunk into the ground, use the elevation offset field below.">
+            <span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Put -9999 if you want the elevation to be automatically computed. Warning: if your object is sunk into the ground, use the elevation offset field below.">
             <label for="gndelev">Elevation<em>*</em></label>
             </span>
             </td>
@@ -156,7 +156,7 @@ Please, read the following:
         </tr>
         <tr>
             <td>
-            <span title="This is the offset (in meters) between your object 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset.">
+            <span title="This is the offset (in meters) between your object 'zero' and the elevation at the considered place (ie if it is sunk into/set above the ground). Let 0 if there is no offset.">
             <label for="offset">Elevation offset</label> (see <a href="../../contribute.php#offset">here</a> for more help)
             </span>
             </td>

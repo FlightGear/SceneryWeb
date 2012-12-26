@@ -13,8 +13,10 @@ if (isset($_POST['new_lat']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$
 if (isset($_POST['new_gndelev']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_gndelev']))
     $new_gndelev = pg_escape_string($_POST['new_gndelev']);
 
-if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset']))
+if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
+    if ($new_offset == '' || $new_offset == 0) $new_offset = NULL;
+}
 
 if (isset($_POST['new_heading']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_heading']))
     $new_orientation = pg_escape_string($_POST['new_heading']);

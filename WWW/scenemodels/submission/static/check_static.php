@@ -304,7 +304,7 @@ if ($fatalerror || $error > 0) {
     echo "<h2>Oops, something went wrong</h2>" .
          "Number of error(s): ".$error."<br/>" .
          "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
-         "Error message(s)  : <br/>" . 
+         "Error message(s)  : <br/>" .
          "<ul>".$errormsg."</ul><br/>" .
          "<a href='javascript:history.go(-1)'>Go back and correct your mistakes</a>.<br/><br/>" .
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
@@ -509,12 +509,12 @@ if ($fatalerror || $error > 0) {
     echo "<h2>Oops, something went wrong</h2>" .
          "Number of error(s): ".$error."<br/>" .
          "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
-         "Error message(s)  : <br/>" . 
+         "Error message(s)  : <br/>" .
          "<ul>".$errormsg."</ul><br/>" .
          "<a href='javascript:history.go(-1)'>Go back and correct your mistakes</a>.<br/><br/>" .
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
          "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
-         
+
     include '../../inc/footer.php';
     clear_dir($targetPath);
     exit;
@@ -585,7 +585,7 @@ if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndele
         $errormsg .= "<li>Please check the ground elevation value (-10000 < ground elevation < 10000).</li>";
     }
 
-    if ($offset == '') $offset = "NULL";
+    if ($offset == '' || $offset == '0') $offset = "NULL";
         else if (preg_match('#[a-zA-Z ]#', $offset) || ($offset < -10000 || $offset > 10000)) {
         $error += 1;
         $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
@@ -661,7 +661,7 @@ if ($fatalerror || $error > 0) {
     echo "<h2>Oops, something went wrong</h2>" .
          "Number of error(s): ".$error."<br/>" .
          "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
-         "Error message(s)  : <br/>" . 
+         "Error message(s)  : <br/>" .
          "<ul>".$errormsg."</ul><br/>" .
          "<a href='javascript:history.go(-1)'>Go back and correct your mistakes</a>.<br/><br/>" .
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
