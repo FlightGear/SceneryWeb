@@ -44,13 +44,13 @@
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n</p>\n";
 
-                    $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
+                    $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
-                    echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
-                    echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
+                    echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission3.php\">";
+                    echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
                     $i = 1;
                     foreach ($tab_tags as $value_tag) {
-                        $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), 1\)/";
+                        $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
 
                         $error === preg_match($pattern, $value_tag, $matches);
 
@@ -59,12 +59,14 @@
                         $elev = $matches['elev'];
                         $elevoffset = $matches['elevoffset'];
                         $orientation = $matches['orientation'];
+                        $country = $matches['country'];
                         $model_id = $matches['model_id'];
 
                         echo "<tr>\n" .
                              "<td><center>".$i."</center></td>\n" .
                              "<td><center>".$long."</center></td>\n" .
                              "<td><center>".$lat."</center></td>\n" .
+                             "<td><center>".$country."</center></td>\n" .
                              "<td><center>".$elev."</center></td>\n" .
                              "<td><center>".$elevoffset."</center></td>\n" .
                              "<td><center>".$orientation."</center></td>\n" .
@@ -207,17 +209,18 @@
                 // and rebuild the query, taking care of the presence of " or , in the ob_text field (while I did not do it in the single addition.
                 // ####################################################################################################################################################
 
-                $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group)","",$query_rw); // Removing the start of the query from the data;
+                $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group)","",$query_rw); // Removing the start of the query from the data;
                 $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                 $i = 1;
                 foreach ($tab_tags as $value_tag) {
-                    $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), 1\)/";
+                    $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
 
                     $error === preg_match($pattern, $value_tag, $matches);
 
                     $long = $matches['long'];
                     $lat = $matches['lat'];
                     $elevation = $matches['elev'];
+                    $country = $matches['country'];
                     $elevoffset = $matches['elevoffset'];
                     $orientation = $matches['orientation'];
                     $model = $matches['model_id'];
@@ -227,11 +230,12 @@
                     $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
                     if ($elevoffset == 0) $data_rw[$i] .= "NULL";
                         else $data_rw[$i] .= $elevoffset;
-                    $data_rw[$i] .= ", ".$orientation.", ".$model.", 1)";
+                    $data_rw[$i] .= ", ".$orientation.", ".$model.", '".$country."', 1)";
+
                     $i++;
                 }
 
-                $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_group) VALUES ";
+                $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
                 for ($j = 1; $j<$i; $j++) { // For each line, add the data content to the request
                     if ($j == ($i-1)) {
                         $data_query_rw = $data_query_rw.$data_rw[$j].";";
@@ -243,6 +247,7 @@
                 $mass_rw_query = $query_rw.$data_query_rw;
 
                 // ###########################################################################################################################
+
                 // Sending the request...
                 $result_rw = @pg_query($resource_rw, $mass_rw_query);
 
