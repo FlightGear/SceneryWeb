@@ -263,7 +263,8 @@ if (!$error) {
                  list_countries_select($ob_country);
             echo "</select></td>";
         } else {
-            echo "<td>".get_country_name_from_country_code($_POST['ob_country_'.$i])."</td>";
+            $ob_country = $_POST['ob_country_'.$i];
+            echo "<td>".get_country_name_from_country_code($ob_country)."</td>";
         }
         
         if ($ko == 0) {
