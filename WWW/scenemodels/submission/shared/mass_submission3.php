@@ -46,7 +46,7 @@
 
                     $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
-                    echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
+                    echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission3.php\">";
                     echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
                     $i = 1;
                     foreach ($tab_tags as $value_tag) {
@@ -228,7 +228,7 @@
                     $model = $matches['model_id'];
                     $ob_text = object_name($model);
 
-                      // Avoiding "0" data to be inserted for ob_elevoffset. Should be NULL. This avoids later computation delays on exports
+                    // Avoiding "0" data to be inserted for ob_elevoffset. Should be NULL. This avoids later computation delays on exports
                     $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
                     if ($elevoffset == 0) $data_rw[$i] .= "NULL";
                         else $data_rw[$i] .= $elevoffset;
