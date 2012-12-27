@@ -274,7 +274,7 @@ if (!$error) {
                 echo "<td style='background-color: rgb(255, 200, 0);'>Exists already</td>";
             } else {
                 echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
-                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", ".$ob_country.", 1)";
+                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country."', 1)";
             }
         }
         else {
