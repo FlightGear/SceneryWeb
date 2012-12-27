@@ -75,7 +75,7 @@ function  validateTabs()
 {
     var form = document.getElementById("positions");
     $( "#tabs" ).tabs({ disabled: false });
-    
+
     // Tab 1
     if (form["family_name"].value == 0) {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
@@ -214,7 +214,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="This is the country code where the model is located."><label for="ob_country">Country<em>*</em></label></span></td>
+                    <td><span title="This is the country where the model is located."><label for="ob_country">Country<em>*</em></label></span></td>
                     <td>
                         <select name="ob_country" id="ob_country">
                             <?php list_countries(); ?>
@@ -222,7 +222,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Warning: if your model is sunk into the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
+                    <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Put -9999 if you want the elevation to be automatically computed. Warning: if your model is sunk into/is set above the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
                     <td>
                         <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onkeyup="checkNumeric(form['gndelev'],-10000,10000);validateTabs();" />
                     </td>

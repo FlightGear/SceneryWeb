@@ -64,7 +64,7 @@ function validateForm()
 
                     // Show all the families other than the static family
                     $result = @pg_query("SELECT mg_id,mg_name,mg_path FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
-                    
+
                     // Check if the UFO export was used
                     $ufo = false;
                     if (!empty($_GET['model'])) {
@@ -87,7 +87,7 @@ function validateForm()
                     if (!$ufo)
                         echo "selected=\"selected\"";
                     echo "value=\"0\">Please select a family</option>\n";
-                    
+
                     while ($row = @pg_fetch_assoc($result)) {
                         $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
                         $name=preg_replace('/ /',"&nbsp;",$name);
@@ -97,7 +97,7 @@ function validateForm()
                         echo ">".$name."</option>\n";
                     }
                     echo "</select>";
-                    
+
                     if ($ufo)
                         echo "<script>update_objects('".$model."');</script>";
 
@@ -139,9 +139,9 @@ function validateForm()
         <td>
             <input type="text" name="latitude" id="latitude" maxlength="13" value="<?php echo substr($_GET['lat'],0,13); ?>" onchange="update_map('longitude','latitude');checkNumeric(this,-90,90);update_country();" />
         </td>
-    </tr>    
+    </tr>
     <tr>
-        <td><span title="This is the country code where the model is located."><label for="ob_country">Country<em>*</em></label></span></td>
+        <td><span title="This is the country where the model is located."><label for="ob_country">Country<em>*</em></label></span></td>
         <td>
             <select name="ob_country" id="ob_country">
                 <?php list_countries(); ?>
@@ -154,7 +154,7 @@ function validateForm()
         </td>
         <td>
             <object id="map" data="" type="text/html" width="300" height="225"></object>
-            <?php 
+            <?php
             if ($ufo)
                 echo "<script>update_map('longitude','latitude');checkNumeric(this,-90,90)</script>";
             ?>
