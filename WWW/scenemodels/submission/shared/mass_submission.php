@@ -223,10 +223,7 @@
                     $model = $matches['model_id'];
                     $ob_text = object_name($model);
 
-                    // Without offset NULL management
-                    //$data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ".$elevoffset.", ".$orientation.", ".$model.", 1)";
-
-                    // With offset NULL management
+                    // Avoiding "0" data to be inserted for ob_elevoffset. Should be NULL. This avoids later computation delays on exports
                     $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
                     if ($elevoffset == 0) $data_rw[$i] .= "NULL";
                         else $data_rw[$i] .= $elevoffset;
@@ -240,15 +237,12 @@
                         $data_query_rw = $data_query_rw.$data_rw[$j].";";
                     }
                     else {
-                        echo $j.": ".$data_query_rw."<br />";
                         $data_query_rw = $data_query_rw.$data_rw[$j].", ";
                     }
                 }
                 $mass_rw_query = $query_rw.$data_query_rw;
-                echo $mass_rw_query;
 
                 // ###########################################################################################################################
-
                 // Sending the request...
                 $result_rw = @pg_query($resource_rw, $mass_rw_query);
 
