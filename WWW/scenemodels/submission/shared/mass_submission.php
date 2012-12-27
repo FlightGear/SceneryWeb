@@ -46,7 +46,7 @@
 
                     $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
-                    echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission3.php\">";
+                    echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
                     echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
                     $i = 1;
                     foreach ($tab_tags as $value_tag) {
@@ -78,7 +78,7 @@
                     }
 ?>
                     <tr>
-                    <td colspan="8" class="submit">
+                    <td colspan="9" class="submit">
                         <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET[email]."\" />"; ?>
                         <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET[sig]."\" />"; ?>
                         <input type="submit" name="submit" value="Submit the mass import!" />
