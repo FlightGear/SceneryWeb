@@ -50,10 +50,12 @@ if (isset($_POST['email'])
     && (strlen($_POST['email']) > 0)
     && (strlen($_POST['email']) <= 50)) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
-    echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
+    if (!$_POST['submit'])
+        echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
 }
 else {
-    echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
+    if (!$_POST['submit'])
+        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
     $failed_mail = true;
 }
 
@@ -71,15 +73,17 @@ else {
     exit;
 }
 
-// Checking that stg exists and is containing only letters or figures.
-if (isset($_POST['stg']) && preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg'])) {
-    echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
-    $error = true;
-    include '../../inc/footer.php';
-    exit;
+if (!$_POST['submit']) {
+    // Checking that stg exists and is containing only letters or figures.
+    if (isset($_POST['stg']) && preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg'])) {
+        echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
+        $error = true;
+        include '../../inc/footer.php';
+        exit;
+    }
+        
+    echo "<p class=\"center ok\">The content of the STG file seems correct, now proceeding with in-depth checks...</p>";
 }
-
-echo "<p class=\"center ok\">The content of the STG file seems correct, now proceeding with in-depth checks...</p>";
 
 // If there is no false, generating SQL to be inserted into the database pending requests table.
 if (!$error) {
@@ -92,22 +96,24 @@ if (!$error) {
     $global_ko = 0;                                     // Validates - or no - the right to go further.
     $cpt_err = 0;                                       // Counts the number of errors.
 
-    echo '<p class=\"center\">Counted a number of '.$nb_lines.' lines submitted.</p>';
+    if (!$_POST['submit']) {
+        echo '<p class=\"center\">Counted a number of '.$nb_lines.' lines submitted.</p>';
 
-    // Limit the line numbers to
-    if ($nb_lines > 100) {
-        echo "<p class=\"center warning\">Too many lines submitted: 100 lines maximum per submission!</p>";
-        include '../../inc/footer.php';
-        exit;
-    }
+        // Limit the line numbers to
+        if ($nb_lines > 100) {
+            echo "<p class=\"center warning\">Too many lines submitted: 100 lines maximum per submission!</p>";
+            include '../../inc/footer.php';
+            exit;
+        }
 
-    if ($nb_lines < 1) {
-        echo "<p class=\"center warning\">Not enough lines were submitted: 1 line minimum per submission!</p>";
-        include '../../inc/footer.php';
-        exit;
-    }
+        if ($nb_lines < 1) {
+            echo "<p class=\"center warning\">Not enough lines were submitted: 1 line minimum per submission!</p>";
+            include '../../inc/footer.php';
+            exit;
+        }
     
-    echo "Please check the table below carefully, and make sure that your submission was read correctly. We have proposed a country for each object, but this may be inccorect. You can only change the countries on this page. Please <a href='javascript:history.go(-1)'>go back and edit your lines</a> if you would like to edit other things.";
+        echo "Please check the table below carefully, and make sure that your submission was read correctly. We have proposed a country for each object, but this may be inccorect. You can only change the countries on this page. Please <a href='javascript:history.go(-1)'>go back and edit your lines</a> if you would like to edit other things.";
+    }
 
     $i = 1;
     $ko = 0;
