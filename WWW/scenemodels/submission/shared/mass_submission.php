@@ -223,8 +223,14 @@
                     $model = $matches['model_id'];
                     $ob_text = object_name($model);
 
-                    $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ".$elevoffset.", ".$orientation.", ".$model.", 1)";
+                    // Without offset NULL management
+                    //$data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ".$elevoffset.", ".$orientation.", ".$model.", 1)";
 
+                    // With offset NULL management
+                    $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
+                    if ($elevoffset == 0) $data_rw[$i] .= "NULL";
+                        else $data_rw[$i] .= $elevoffset;
+                    $data_rw[$i] .= ", ".$orientation.", ".$model.", 1)";
                     $i++;
                 }
 
