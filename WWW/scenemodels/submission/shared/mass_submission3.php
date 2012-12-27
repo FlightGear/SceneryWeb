@@ -50,6 +50,7 @@
                     echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
                     $i = 1;
                     foreach ($tab_tags as $value_tag) {
+                        echo $value_tag."\n\n";
                         $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), (?P<country>[a-z]+), 1\)/";
 
                         $error === preg_match($pattern, $value_tag, $matches);
@@ -213,6 +214,7 @@
                 $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                 $i = 1;
                 foreach ($tab_tags as $value_tag) {
+                    echo $value_tag."\n\n";
                     $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), (?P<country>[a-z]+), 1\)/";
 
                     $error === preg_match($pattern, $value_tag, $matches);
