@@ -43,7 +43,7 @@ include 'inc/header.php';
 
             $list = "";
             while ($row = pg_fetch_assoc($result)) {
-                $country = rtrim($row['co_name']);
+                $country = rtrim($row['co_three']);
                 if ($country == "Iran (Islamic Republic of)") $country = "Iran";
                 $list .= "[\"".$country."\", ".round($row['density'])."],\n ";
             }
@@ -56,7 +56,7 @@ include 'inc/header.php';
             pg_result_seek($result,0);
             $list = "";
             while ($row = pg_fetch_assoc($result)) {
-                $country = rtrim($row['co_name']);
+                $country = rtrim($row['co_three']);
                 if ($country == "Iran (Islamic Republic of)") $country = "Iran";
                 $list .= "[\"".$country."\", ".$row['count']."],\n";
             }
@@ -66,14 +66,14 @@ include 'inc/header.php';
         var data_static = google.visualization.arrayToDataTable([
             ['Country', 'Unique models'],
             <?php
-            $query_static = "SELECT COUNT(ob_id) AS count, co_name " .
+            $query_static = "SELECT COUNT(ob_id) AS count, co_three " .
                             "FROM fgs_objects, fgs_countries, fgs_models " .
                             "WHERE ob_country = co_code AND ob_model = mo_id AND mo_shared = 0 " .
                             "GROUP BY co_code ";
             $result_static = pg_query($resource_r, $query_static);
             $list = "";
             while ($row_static = pg_fetch_assoc($result_static)) {
-                $country = rtrim($row_static['co_name']);
+                $country = rtrim($row_static['co_three']);
                 if ($country == "Iran (Islamic Republic of)") $country = "Iran";
                 $list .= "[\"".$country."\", ".$row_static['count']."],\n";
             }
