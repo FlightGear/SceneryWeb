@@ -46,9 +46,6 @@ function chkNumeric(objName, minval, maxval)
 
     if (!allValid)
     {
-        alertsay = "Please enter only the values :\""
-        alertsay = alertsay + checkOK + "\" in the \"" + checkStr.name + "\" field."
-        alert(alertsay);
         checkStr.style.border = "2px solid rgb(200, 0, 0)";
         return false;
     }
@@ -58,10 +55,6 @@ function chkNumeric(objName, minval, maxval)
     var prsVal = parseInt(allNum);
     if (chkVal != "" && !(prsVal >= minval && prsVal <= maxval))
     {
-        alertsay = "Please enter a value greater than or "
-        alertsay = alertsay + "equal to \"" + minval + "\" and less than or "
-        alertsay = alertsay + "equal to \"" + maxval + "\" in the \"" + checkStr.name + "\" field."
-        alert(alertsay);
         checkStr.style.border = "2px solid rgb(200, 0, 0)";
         return false;
     }
@@ -74,12 +67,6 @@ function checkComment(textfield)
 {
     if (!chkComment(textfield.value))
     {
-        alertsay = "Please enter only letters, numbers, and ;:!?@-_.";
-        alertsay = alertsay + " in the \"" + textfield.name + "\" field.";
-        alert(alertsay);
-
-        textfield.select();
-        textfield.focus();
         return false;
     }
 
@@ -100,8 +87,13 @@ function chkComment(checkStr)
                 break;
         if (j == checkOK.length)
         {
+            element.style.border = "2px solid rgb(200, 0, 0)";
             allValid = false;
             break;
+        } else if (element.value != "") {
+            element.style.border = "2px solid rgb(0, 200, 0)";
+        } else {
+            element.style.border = "";
         }
     }
 
@@ -148,10 +140,6 @@ function chkEmail(emailfield)
 
     if(!allValid)
     {
-        alertsay = "Please enter only letters, numbers, '@', '_', '-' and '.'";
-        alertsay = alertsay + " in the \"" + emailfield.name + "\" field.";
-        alert(alertsay);
-
         return false;
     }
 
@@ -171,7 +159,6 @@ function chkEmail(emailfield)
     if(numberOfAt != 1 || numberOfPointAfterAt<1)
     {
         allValid = false;
-        alert("This is not a valid email adress!");
     }
 
     return allValid;

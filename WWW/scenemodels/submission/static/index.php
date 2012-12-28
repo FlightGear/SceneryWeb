@@ -29,19 +29,20 @@ function  validateTabs()
     $( "#tabs" ).tabs({ disabled: false });
     
     // Tab 1
-    if (form["mo_name"].value == "" ||
+    if (!checkComment(form["mo_name"]) ||
         form["ac3d_file"].value == "" ||
+        form["mo_thumbfile"].value == "" ||
         (form["mo_thumbfile"].value.indexOf("_thumbnail.jpg", value.length - 14) === -1 && 
         form["mo_thumbfile"].value.indexOf("_thumbnail.jpeg", value.length - 14) === -1)) {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
     // Tab 2
-    if (form["longitude"].value == "" ||
-        form["latitude"].value == "" ||
-        form["gndelev"].value == "" ||
-        form["offset"].value == "" ||
-        form["heading"].value == "") {
+    if (!checkNumeric(form["longitude"],-180,180) ||
+        !checkNumeric(form["latitude"],-90,90) ||
+        !checkNumeric(form["gndelev"],-10000,10000) ||
+        !checkNumeric(form["offset"],-10000,10000) ||
+        !checkNumeric(form["heading"],0,359.999)) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }
@@ -124,7 +125,7 @@ $(function() {
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" onchange="checkComment(this);validateTabs();"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" onkeyup="checkComment(this);validateTabs();"/>
                     </td>
                 </tr>
                 <tr>
@@ -134,7 +135,7 @@ $(function() {
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onchange="checkComment(this);validateTabs();" />
+                        <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onkeyup="checkComment(this);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -193,7 +194,7 @@ $(function() {
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="checkNumeric(this,-180,180);update_country();update_map('longitude','latitude');validateTabs();" />
+                        <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="update_map('longitude','latitude');" onkeyup="checkNumeric(this,-180,180);update_country();validateTabs();" />
                     </td>
                     <td rowspan="6" style="width: 300px; height: 225px;">
                         <object id="map" data="" type="text/html" width="300" height="225"></object>
@@ -206,7 +207,7 @@ $(function() {
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="checkNumeric(this,-90,90);update_country();update_map('longitude','latitude');validateTabs();" />
+                        <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="update_map('longitude','latitude');" onkeyup="checkNumeric(this,-90,90);update_country();validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -228,7 +229,7 @@ $(function() {
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onchange="checkNumeric(this,-10000,10000);validateTabs();" />
+                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onkeyup="checkNumeric(this,-10000,10000);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -238,7 +239,7 @@ $(function() {
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onchange="checkNumeric(this,-10000,10000);validateTabs();" />
+                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onkeyup="checkNumeric(this,-10000,10000);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -248,7 +249,7 @@ $(function() {
                         </span>
                     </td>
                     <td>
-                        <input type="text" name="heading" id="heading" maxlength="7" value="" onchange="checkNumeric(this,0,359.999);validateTabs();" />
+                        <input type="text" name="heading" id="heading" maxlength="7" value="" onkeyup="checkNumeric(this,0,359.999);validateTabs();" />
                     </td>
                 </tr>
             </table>
