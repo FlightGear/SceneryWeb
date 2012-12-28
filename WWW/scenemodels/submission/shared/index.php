@@ -37,6 +37,7 @@ function validateForm()
 }
 
 function checkNumeric(fieldname, min, max) {
+    var form = document.getElementById("positions");
     element = form[fieldname];
     if ((element.value >= min) && (element.value <= max) && element.value != "") {
         element.style.border = "2px solid rgb(0, 200, 0)";
