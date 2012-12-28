@@ -358,6 +358,6 @@ tr.object td, tr.objectlight td {
     margin-bottom: -30px !important;
     padding: 0px !important;
 }
-.ui-state-active a {
+.ui-state-active a, .ui-tabs-panel {
     background-color: rgb(224, 255, 224) !important;
 }

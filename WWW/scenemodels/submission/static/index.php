@@ -195,7 +195,7 @@ $(function() {
                     <td>
                         <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="checkNumeric(this,-180,180);update_country();update_map('longitude','latitude');validateTabs();" />
                     </td>
-                    <td rowspan="6">
+                    <td rowspan="6" style="width: 300px; height: 225px;">
                         <object id="map" data="" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
