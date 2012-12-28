@@ -117,6 +117,7 @@ if (!$error) {
 
     $i = 1;
     $ko = 0;
+    $unknown_country = false;
     ?>
     <form id="positions" method="post" action="confirm_mass_import.php" onsubmit="return validateForm();">
     <?php
@@ -265,7 +266,11 @@ if (!$error) {
         // Country
         if (!$_POST['submit']) {
             $ob_country = compute_country_code_from_position($long, $lat);
-            echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>";
+            if ($ob_country == "")
+                $unknown_country = true;
+            echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>" .
+                 "<option value=\"NULL\">Unknown" .
+                 "<option value=\"NULL\">----";
                  list_countries_select($ob_country);
             echo "</select></td>";
         } else {
@@ -290,6 +295,13 @@ if (!$error) {
         echo "</tr>\n";      // Finishes the line.
         $i++;                // Increments the line number.
         $ko = 0;             // Resets the local KO to "0".
+    }
+    if ($unknown_country) {
+        echo "<tr><td colspan=\"8\"></td><td>" .
+             "<select name='global_country' id='global_country' style='width: 100%;'>" .
+             list_countries_select($ob_country);
+        echo "</select>" .
+             "</td><td></td></tr>";
     }
     echo "</table>\n";
     
