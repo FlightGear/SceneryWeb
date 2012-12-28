@@ -53,6 +53,7 @@ function checkNumeric(element, min, max) {
 function checkComment(element) {
     var checkStr = element.value;
     var checkOK = numbers + letters + ";:!?@-_. ";
+    var allValid = true;
 
     for (i = 0;  i < checkStr.length;  i++)
     {
@@ -62,6 +63,7 @@ function checkComment(element) {
                 break;
         if (j == checkOK.length) {
             element.style.border = "2px solid rgb(200, 0, 0)";
+            allValid = false;
             break;
         } else if (element.value != "") {
             element.style.border = "2px solid rgb(0, 200, 0)";
@@ -69,6 +71,7 @@ function checkComment(element) {
             element.style.border = "";
         }
     }
+    return allValid;
 }
 
 function  validateTabs()
