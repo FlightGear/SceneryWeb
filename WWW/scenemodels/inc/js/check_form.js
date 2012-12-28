@@ -13,7 +13,9 @@ function checkNumeric(numberfield, minval, maxval)
 {
     if (!chkNumeric(numberfield, minval, maxval))
     {
-        return false;
+        numberfield.select();
+	numberfield.focus();
+	return false;
     }
 
     return true;
