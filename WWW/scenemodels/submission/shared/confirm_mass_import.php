@@ -308,9 +308,9 @@ if (!$error) {
         $ko = 0;             // Resets the local KO to "0".
     }
     if ($unknown_country) {
-        echo "<tr><td colspan=\"8\" aling=\"right\">Set all 'unknown' countries to:</td><td>" .
+        echo "<tr><td colspan=\"8\" align=\"right\">Set all 'unknown' countries to:</td><td>" .
              "<select name='global_country' id='global_country' style='width: 100%;' onchange='update_countries(this.value,".$i.")'>" .
-			 "<option value="">----</option>";
+             "<option value=\"\">----</option>";
              list_countries();
         echo "</select></td><td></td></tr>";
     }
