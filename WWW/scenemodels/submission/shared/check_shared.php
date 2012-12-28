@@ -91,7 +91,7 @@
         echo "<p class=\"warning\">Longitude mismatch!</p>";
         $error = true;
     }
-    
+
     // Country.
     if($_POST['ob_country'] != "") {
         $ob_country = $_POST["ob_country"];
@@ -208,6 +208,7 @@ if (!$error) {
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
         echo "Want to submit another object?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/\">Click here to go back to the submission page.</a>";
+        echo "Please remember to use the <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php\">massive insertion script</a> should you have many objects to add.";
         echo "</center>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
@@ -323,6 +324,7 @@ if (!$error) {
                         "http://mapserver.flightgear.org/popmap/?lon=". $long ."&lat=". $lat ."&zoom=14" . "\r\n" .
                         "to locate the object on the map." . "\r\n" .
                         "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
+                        "Please remember to use the <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php\">massive insertion script</a> should you have many objects to add.";
 
             // Preparing the headers.
             $headers = "MIME-Version: 1.0" . "\r\n";
