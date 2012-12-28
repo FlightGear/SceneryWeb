@@ -49,11 +49,9 @@ if (isset($model_name)
     && isset($new_long)
     && isset($new_lat)
     && isset($new_gndelev)
-    && isset($new_offset)
+    && (isset($new_offset) || $new_offset == NULL)
     && isset($new_orientation)
     && isset($safe_new_ob_text)) {
-    
-    print ("Form is submitted");
 
     // Captcha stuff
     require_once('../../inc/captcha/recaptchalib.php');
