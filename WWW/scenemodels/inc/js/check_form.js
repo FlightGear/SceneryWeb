@@ -87,13 +87,13 @@ function chkComment(checkStr)
                 break;
         if (j == checkOK.length)
         {
-            element.style.border = "2px solid rgb(200, 0, 0)";
+            checkStr.style.border = "2px solid rgb(200, 0, 0)";
             allValid = false;
             break;
-        } else if (element.value != "") {
-            element.style.border = "2px solid rgb(0, 200, 0)";
+        } else if (checkStr.value != "") {
+            checkStr.style.border = "2px solid rgb(0, 200, 0)";
         } else {
-            element.style.border = "";
+            checkStr.style.border = "";
         }
     }
 
