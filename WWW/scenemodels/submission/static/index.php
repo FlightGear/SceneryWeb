@@ -39,11 +39,11 @@ function  validateTabs()
         return false;
     }
     // Tab 2
-    if (!checkNumeric(form["longitude"],-180,180) ||
-        !checkNumeric(form["latitude"],-90,90) ||
-        !checkNumeric(form["gndelev"],-10000,10000) ||
-        !checkNumeric(form["offset"],-10000,10000) ||
-        !checkNumeric(form["heading"],0,359.999)) {
+    if (form["longitude"].value == "" || !checkNumeric(form["longitude"],-180,180) ||
+        form["latitude"].value == "" || !checkNumeric(form["latitude"],-90,90) ||
+        form["gndelev"].value == "" || !checkNumeric(form['gndelev'],-10000,10000) ||
+        !checkNumeric(form['offset'],-10000,10000) ||
+        form["heading"].value == "" ||  !checkNumeric(form['heading'],0,359.999)) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }
