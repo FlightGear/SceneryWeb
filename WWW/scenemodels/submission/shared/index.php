@@ -36,9 +36,11 @@ function validateForm()
         return false;
 }
 
-function checkNumeric(element, min, max) {
+function checkNumeric(fieldname, min, max) {
+    element = form[fieldname];
     if ((element.value >= min) && (element.value <= max) && element.value != "") {
         element.style.border = "2px solid rgb(0, 200, 0)";
+        element.innerHTML += "<br/><small style=\"color: red\">The value is either too small or too big, or empty.</small>";
     } else {
         if (element.value != "") {
             element.style.border = "2px solid rgb(200, 0, 0)";
@@ -181,7 +183,7 @@ $(function() {
                 <tr>
                     <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onkeyup="checkNumeric(form['longitude'],-180,180);update_map('longitude','latitude');validateTabs();" onchange="update_map('longitude','latitude');" />
+                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onkeyup="checkNumeric('longitude',-180,180);update_map('longitude','latitude');validateTabs();" onchange="update_map('longitude','latitude');" />
                     </td>
                     <td rowspan="6" style="width: 300px; height: 225px;">
                         <object id="map" data="" type="text/html" width="300" height="225"></object>
