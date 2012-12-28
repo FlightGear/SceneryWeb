@@ -67,7 +67,7 @@ if (isset($model_name)
     if (!$resp->is_valid) {
         $page_title = "Automated Objects Update Form";
         $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly.".
-                      " <a href='index_update.php'>Go back and try it again</a>" .
+                      " <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
                       "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
                       "Don't forget to feed the Captcha, it's a mandatory item as well.".
                       " Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
@@ -277,8 +277,6 @@ function validateForm()
 }
 /*]]>*/
 </script>
-    <b><font color="red">Seems to be buggy right now. Please be patient.</font></b>
-
     <p class="center">You have asked to update object <?php echo "<a href=\"/objectview.php?id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
 
     <form id="update" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
@@ -577,7 +575,7 @@ else {
     if ($returned_rows == 0) {
         $page_title  = "Automated Objects Update Form";
         $error_text  = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
-        $advise_text = "Please <a href=\"index_update.php\">go back and check your position</a> (see in the relevant STG file).";
+        $advise_text = "Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
         include '../../inc/error_page.php';
         exit;
     }
