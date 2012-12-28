@@ -38,6 +38,7 @@ if (!$_POST['submit']) {
 $page_title = "Automated Objects Massive Import Submission Form";
 include '../../inc/header.php';
 ?>
+<script src="/inc/js/update_objects.js" type ="text/javascript"></script>
 <br />
 <?php
 global $error;
