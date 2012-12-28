@@ -299,9 +299,8 @@ if (!$error) {
     if ($unknown_country) {
         echo "<tr><td colspan=\"8\"></td><td>" .
              "<select name='global_country' id='global_country' style='width: 100%;'>" .
-             list_countries_select($ob_country);
-        echo "</select>" .
-             "</td><td></td></tr>";
+             list_countries();
+        echo "</select></td><td></td></tr>";
     }
     echo "</table>\n";
     
