@@ -277,6 +277,7 @@ function validateForm()
 }
 /*]]>*/
 </script>
+    <b><font color="red">Seems to be buggy right now. Please be patient.</font></b>
 
     <p class="center">You have asked to update object <?php echo "<a href=\"/objectview.php?id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
 

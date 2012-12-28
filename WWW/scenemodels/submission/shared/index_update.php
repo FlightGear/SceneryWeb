@@ -41,6 +41,8 @@ function validateForm()
   <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
 </p>
 
+<b><font color="red">Seems to be buggy right now. Please be patient.</font></b>
+
 <form id="edition" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
 <table>
     <tr>
