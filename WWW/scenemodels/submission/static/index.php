@@ -15,6 +15,7 @@ function validateForm()
 
     if (!checkNumeric(form["longitude"],-180,180) ||
         !checkNumeric(form["latitude"],-90,90) ||
+        form["mo_name"].value == "" ||
         !checkComment(form["mo_name"]) ||
         !checkNumeric(form["gndelev"],-10000,10000) ||
         !checkNumeric(form["offset"],-10000,10000) ||
@@ -30,6 +31,7 @@ function  validateTabs()
     
     // Tab 1
     if (!checkComment(form["mo_name"]) ||
+        form["mo_name"].value == "" ||
         form["ac3d_file"].value == "" ||
         (form["mo_thumbfile"].value.indexOf("_thumbnail.jpg", value.length - 14) === -1 && 
         form["mo_thumbfile"].value.indexOf("_thumbnail.jpeg", value.length - 14) === -1)) {
