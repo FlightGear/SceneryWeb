@@ -38,7 +38,17 @@ if (!$_POST['submit']) {
 $page_title = "Automated Objects Massive Import Submission Form";
 include '../../inc/header.php';
 ?>
-<script src="/inc/js/update_objects.js" type ="text/javascript"></script>
+<script type ="text/javascript">
+function update_countries(code,n)
+{
+    for(var i = 1; i <= n; i++)
+    {
+        if (!document.getElementById("ob_country_"+i).value) { 
+            document.getElementById("ob_country_"+i).value=code;
+        }
+    }
+}
+</script>
 <br />
 <?php
 global $error;
