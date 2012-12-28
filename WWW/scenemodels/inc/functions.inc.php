@@ -754,12 +754,12 @@ function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset,
     $resource_r = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT ob_id FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$lon." ".$lat.")', 4326) AND ";
-    if ($ob_gndelev == 0)
-        $query .= "ob_gndelev IS NULL ";
+    $query = "SELECT ob_id FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$lon." ".$lat.")', 4326) AND ob_gndelev = ".$ob_gndelev." AND ";
+    if ($ob_elevoffset == 0)
+        $query .= "ob_elevoffset IS NULL ";
     else 
-        $query .= "ob_gndelev = ".$ob_gndelev." ";
-    $query .= "AND ob_elevoffset=".$ob_elevoffset." AND ob_heading = ".heading_stg_to_true($ob_heading)." AND ob_model = ".$ob_model.";";
+        $query .= "ob_elevoffset = ".$ob_elevoffset." ";
+    $query .= "AND ob_heading = ".heading_stg_to_true($ob_heading)." AND ob_model = ".$ob_model.";";
     $result = @pg_query($resource_r, $query);
     $returned_rows = pg_num_rows($result);
 
