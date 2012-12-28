@@ -396,7 +396,7 @@ function validateForm()
             <?php $actual_long = get_object_longitude_from_id($id_to_update); echo $actual_long; ?>
           </td>
           <td>
-            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onchange="update_map('new_long','new_lat');checkNumeric(this,-180,180);" />
+            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?php echo $actual_long; ?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-180,180);" />
           </td>
         </tr>
         <tr>
@@ -408,7 +408,7 @@ function validateForm()
             <?php $actual_lat = get_object_latitude_from_id($id_to_update); echo $actual_lat; ?>
           </td>
           <td>
-            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onchange="update_map('new_long','new_lat');checkNumeric(this,-90,90);" />
+            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?php echo $actual_lat; ?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-90,90);" />
           </td>
         </tr>
         <tr>
@@ -432,7 +432,7 @@ function validateForm()
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
           </td>
           <td>
-            <input type="text" name="new_gndelev" id="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="new_gndelev" id="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onkeyup="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
         <tr>
@@ -444,7 +444,7 @@ function validateForm()
             <?php $actual_offset = get_object_offset_from_id($id_to_update); echo $actual_offset; ?>
           </td>
           <td>
-            <input type="text" name="new_offset" id="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onchange="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="new_offset" id="new_offset" maxlength="10" value="<?php echo $actual_offset; ?>" onkeyup="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
         <tr>
@@ -455,14 +455,14 @@ function validateForm()
             <?php $actual_orientation = heading_true_to_stg(get_object_true_orientation_from_id($id_to_update)); echo $actual_orientation; ?>
           </td>
           <td>
-            <input type="text" name="new_heading" id="new_heading" maxlength="7" value="<?php echo $actual_orientation; ?>" onchange="checkNumeric(this,0,359.999);" />
+            <input type="text" name="new_heading" id="new_heading" maxlength="7" value="<?php echo $actual_orientation; ?>" onkeyup="checkNumeric(this,0,359.999);" />
           </td>
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description (Just for test now - don't use)</label></span></td>
             <td><?php $actual_ob_text = get_object_text_from_id($id_to_update); echo $actual_ob_text; ?></td>
             <td>
-                <input type="text" name="new_ob_text" id="new_ob_text" size="50" maxlength="100" value="<?php echo $actual_ob_text; ?>" onchange="checkComment(this);" />
+                <input type="text" name="new_ob_text" id="new_ob_text" size="50" maxlength="100" value="<?php echo $actual_ob_text; ?>" onkeyup="checkComment(this);" />
             </td>
         </tr>
         <tr>
@@ -480,7 +480,7 @@ function validateForm()
             <label for="comment">Comment<em>*</em></label></span>
           </td>
           <td colspan="2">
-            <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onchange="checkComment(this)"/>
+            <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onkeyup="checkComment(this)"/>
           </td>
         </tr>
         <tr>
@@ -488,7 +488,7 @@ function validateForm()
             <label for="email">Email address</label></span>
           </td>
           <td colspan="2">
-            <input type="text" name="email" id="email" maxlength="50" size="50" value="" onchange="checkEmail(this);"/>
+            <input type="text" name="email" id="email" maxlength="50" size="50" value="" onkeyup="checkEmail(this);"/>
           </td>
         </tr>
         <tr>
