@@ -280,8 +280,8 @@ if (!$error) {
             if ($ob_country == "")
                 $unknown_country = true;
             echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>" .
-                 "<option value=\"NULL\">Unknown" .
-                 "<option value=\"NULL\">----";
+                 "<option value=\"\">Unknown</option>" .
+                 "<option value=\"\">----</option>";
                  list_countries_select($ob_country);
             echo "</select></td>";
         } else {
@@ -308,8 +308,9 @@ if (!$error) {
         $ko = 0;             // Resets the local KO to "0".
     }
     if ($unknown_country) {
-        echo "<tr><td colspan=\"8\"></td><td>" .
-             "<select name='global_country' id='global_country' style='width: 100%;' onchange='update_countries(this.value,".$i.")'>";
+        echo "<tr><td colspan=\"8\" aling=\"right\">Set all 'unknown' countries to:</td><td>" .
+             "<select name='global_country' id='global_country' style='width: 100%;' onchange='update_countries(this.value,".$i.")'>" .
+			 "<option value="">----</option>";
              list_countries();
         echo "</select></td><td></td></tr>";
     }
