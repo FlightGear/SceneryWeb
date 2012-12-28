@@ -133,7 +133,7 @@
                 <select name="country" style="font-size: 0.7em; width: 100%">
                     <option value="0"></option>
                     <?php
-                    $result = pg_query("SELECT co_code,co_name FROM fgs_countries;");
+                    $result = pg_query("SELECT co_code, co_name FROM fgs_countries ORDER BY co_name;");
                     while ($row = pg_fetch_assoc($result)){
                         $countries{$row["co_code"]}=$row["co_name"];
                         echo "<option value=\"".$row["co_code"]."\"";
@@ -205,14 +205,14 @@
                  "</tr>\n";
             if ($rowclass == "") {
                 $rowclass = "light";
-            } else { 
+            } else {
                 $rowclass = "";
             }
         }
 ?>
         <tr class="bottom">
             <td colspan="7" align="center">
-                <?php 
+                <?php
                 if ($prev >= 0) {
                     echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
                 }
