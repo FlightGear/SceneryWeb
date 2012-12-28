@@ -43,8 +43,7 @@ include 'inc/header.php';
 
             $list = "";
             while ($row = pg_fetch_assoc($result)) {
-                $country = rtrim($row['co_three']);
-                if ($country == "Iran (Islamic Republic of)") $country = "Iran";
+                $country = strtoupper(rtrim($row['co_three']));
                 $list .= "[\"".$country."\", ".round($row['density'])."],\n ";
             }
             echo $list;
@@ -56,8 +55,7 @@ include 'inc/header.php';
             pg_result_seek($result,0);
             $list = "";
             while ($row = pg_fetch_assoc($result)) {
-                $country = rtrim($row['co_three']);
-                if ($country == "Iran (Islamic Republic of)") $country = "Iran";
+                $country = strtoupper(rtrim($row['co_three']));
                 $list .= "[\"".$country."\", ".$row['count']."],\n";
             }
             echo $list;
@@ -73,8 +71,7 @@ include 'inc/header.php';
             $result_static = pg_query($resource_r, $query_static);
             $list = "";
             while ($row_static = pg_fetch_assoc($result_static)) {
-                $country = rtrim($row_static['co_three']);
-                if ($country == "Iran (Islamic Republic of)") $country = "Iran";
+                $country = strtoupper(rtrim($row_static['co_three']));
                 $list .= "[\"".$country."\", ".$row_static['count']."],\n";
             }
             echo $list;
