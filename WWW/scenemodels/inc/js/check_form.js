@@ -67,7 +67,12 @@ function checkComment(textfield)
 {
     if (!chkComment(textfield.value))
     {
+        textfield.style.border = "2px solid rgb(200, 0, 0)";
         return false;
+    } else if (textfield.value != "") {
+        textfield.style.border = "2px solid rgb(0, 200, 0)";
+    } else {
+        textfield.style.border = "";
     }
 
     return true;
@@ -87,13 +92,8 @@ function chkComment(checkStr)
                 break;
         if (j == checkOK.length)
         {
-            checkStr.style.border = "2px solid rgb(200, 0, 0)";
             allValid = false;
             break;
-        } else if (checkStr.value != "") {
-            checkStr.style.border = "2px solid rgb(0, 200, 0)";
-        } else {
-            checkStr.style.border = "";
         }
     }
 
