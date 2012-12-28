@@ -102,7 +102,8 @@ function update_country_aux(hreq)
     }
 }
 
-function update_countries(code,n) {
+function update_countries(code,n)
+{
     for(var i = 1; i <= n; i++)
     {
         if (!document.getElementById("ob_country_"+i).value) { 
