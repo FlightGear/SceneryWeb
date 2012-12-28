@@ -64,34 +64,6 @@ $(function() {
 /*]]>*/
 </script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
-<style type="text/css">
-.ui-widget {
-    font-size: 1em;
-}
-.ui-widget-content {
-    background: none;
-    border: none;
-}
-.ui-widget-header {
-    background: none;
-    border: none;
-}
-.ui-tabs, .ui-tabs-nav {
-    padding: 0px !important;
-}
-.ui-tabs-nav li a {
-    background-color: rgb(224, 224, 255);
-}
-.ui-tabs-panel, .ui-state-active a {
-    background-color: rgb(224, 255, 224) !important;
-}
-.ui-tabs-panel {
-    padding: 0px !important;
-}
-form {
-    margin-top: -14px;
-}
-</style>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
 <h1>Submit a model</h1>

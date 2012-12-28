@@ -100,29 +100,6 @@ $(function() {
 /*]]>*/
 </script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
-<style type="text/css">
-.ui-widget {
-    font-size: 1em;
-}
-.ui-widget-content {
-    background: none;
-    border: none;
-}
-.ui-widget-header {
-    background: none;
-    border: none;
-}
-.ui-tabs, .ui-tabs-panel {
-    padding: 0px !important;
-}
-.ui-tabs-nav {
-    margin-bottom: -30px !important;
-    padding: 0px !important;
-}
-.ui-state-active a {
-    background-color: rgb(224, 255, 224);
-}
-</style>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
 <h1>Automated Objects Submission Form</h1>
