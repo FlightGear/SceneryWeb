@@ -195,7 +195,7 @@ $(function() {
                 <tr>
                     <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
                     <td>
-                        <input type="text" name="email" id="email" maxlength="50" size="40" value="" onchange="checkEmail(this);" />
+                        <input type="text" name="email" id="email" maxlength="50" size="40" value="" onkeyup="checkEmail(this);" />
                     </td>
                 </tr>
                 <tr>

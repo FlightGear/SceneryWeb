@@ -31,7 +31,6 @@ function  validateTabs()
     // Tab 1
     if (!checkComment(form["mo_name"]) ||
         form["ac3d_file"].value == "" ||
-        form["mo_thumbfile"].value == "" ||
         (form["mo_thumbfile"].value.indexOf("_thumbnail.jpg", value.length - 14) === -1 && 
         form["mo_thumbfile"].value.indexOf("_thumbnail.jpeg", value.length - 14) === -1)) {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
