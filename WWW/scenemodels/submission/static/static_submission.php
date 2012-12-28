@@ -135,6 +135,9 @@ if (isset($_POST["action"])) {
                 $query_rw_mo = gzuncompress ($sqlz_mo);
                 $query_rw_ob = gzuncompress ($sqlz_ob);
 
+                echo "query mo : ".$query_rw_mo."<br /><hr>";
+                echo "query ob : ".$query_rw_ob."<br />";
+
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
                 $mo_id = pg_fetch_row ($result_rw_mo);
