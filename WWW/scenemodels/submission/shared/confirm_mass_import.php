@@ -41,7 +41,7 @@ include '../../inc/header.php';
 <script type ="text/javascript">
 function update_countries(code,n)
 {
-    for(var i = 1; i <= n; i++)
+    for(var i = 1; i < n; i++)
     {
         if (!document.getElementById("ob_country_"+i).value) { 
             document.getElementById("ob_country_"+i).value=code;
