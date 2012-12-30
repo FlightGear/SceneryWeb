@@ -290,7 +290,6 @@ else:
                 <option value='cs_construction' [cs_construction_select]> cs_construction
                 <option value='cs_cropgrass' [cs_cropgrass_select]> cs_cropgrass
                 <option value='cs_deciduousforest' [cs_deciduousforest_select]> cs_deciduousforest
-                <option value='cs_default' [cs_default_select]> cs_default
                 <option value='cs_dirt' [cs_dirt_select]> cs_dirt
                 <option value='cs_drycrop' [cs_drycrop_select]> cs_drycrop
                 <option value='cs_dump' [cs_dump_select]> cs_dump

@@ -6126,39 +6126,6 @@ MAP
   END # clc06_estuary
 
   LAYER
-    NAME cs_default
-    TYPE POLYGON
-    DUMP TRUE
-    STATUS OFF
-    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
-    CONNECTIONTYPE postgis
-    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM cs_default USING UNIQUE ogc_fid USING SRID=4326"
-    PROJECTION
-      "init=epsg:4326"
-    END
-    EXTENT -180 -90 180 90
-    CLASS
-      NAME "cs_default"
-      STYLE
-        COLOR 231 91 18
-      END
-    END
-    METADATA
-      "wms_title" "cs_default"
-      "wms_extent" "-180 -90 180 90"
-      "wms_srs" "EPSG:4326 EPSG:900913"
-      "wms_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
-      "wfs_title" "cs_default"
-      "wfs_extent" "-180 -90 180 90"
-      "wfs_srs" "EPSG:4326 EPSG:900913"
-      "wfs_featureid" "ID"
-      "wfs_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
-      "gml_include_items" "all"
-    END
-  END # cs_default
-
-  LAYER
     NAME cs_airport
     TYPE POLYGON
     DUMP TRUE

@@ -56,13 +56,6 @@
 //	      {layers: 'customscene', format: 'image/png'}
 //    );
 
-    var csdefault = new OpenLayers.Layer.WMS( "Landcover-DB CS Voidfill",
-	    [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-	      "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
-	    {layers: 'cs_default', transparent: 'true', format: 'image/png'},
-	    {isBaseLayer: false}
-    );
-
     var v0cover = new OpenLayers.Layer.WMS( "Landcover-DB VMap0 edt.5",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
