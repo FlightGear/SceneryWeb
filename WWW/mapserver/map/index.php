@@ -102,11 +102,10 @@
             sceneobject.setVisibility(false);
             gshhs.setVisibility(false);
             fgbuckets.setVisibility(false);
-            csdefault.setVisibility(false);
             downloadbox.setVisibility(false);
             opacity_sliders.setVisibility(false);
 
-            map.addLayers([customscene, v0cover, yahoosat, googlesat, icubed, mapnik, clc00, clc06, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, csdefault, downloadbox, opacity_sliders]);
+            map.addLayers([customscene, v0cover, yahoosat, googlesat, icubed, mapnik, clc00, clc06, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, downloadbox, opacity_sliders]);
 
             map.addControl(new OpenLayers.Control.LayerSwitcher());
             map.addControl(new OpenLayers.Control.PanZoom());
