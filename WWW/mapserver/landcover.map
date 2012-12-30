@@ -519,6 +519,39 @@ MAP
   END # mgrs
 
   LAYER
+    NAME v0_void
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    CONNECTION "host=geoscope.optiputer.net port=5432 dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM v0_void USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "v0_void"
+      STYLE
+        COLOR 255 255 176
+      END
+    END
+    METADATA
+      "wms_title" "v0_void"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
+      "wfs_title" "v0_void"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
+      "gml_include_items" "all"
+    END
+  END # v0_void
+
+  LAYER
     NAME v0_floodland
     TYPE POLYGON
     DUMP TRUE
