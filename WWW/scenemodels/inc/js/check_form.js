@@ -102,10 +102,10 @@ function checkEmail(emailfield)
 {
     if (!chkEmail(emailfield))
     {
-        emailfield.style.border = "2px solid red";
+        emailfield.style.border = "2px solid rgb(200, 0, 0)";
         return false;
     } else {
-        emailfield.style.border = "2px solid green";
+        emailfield.style.border = "2px solid rgb(0, 200, 0)";
     }
 
     return true;
