@@ -89,8 +89,8 @@
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
             map = new OpenLayers.Map('map', options);
 
-            tarmac.setVisibility(true);
-            tarmac850.setVisibility(false);
+            tarmac.setVisibility(false);
+            tarmac850.setVisibility(true);
             osmtarmac.setVisibility(false);
             cslines.setVisibility(false);
             osmlines.setVisibility(true);
