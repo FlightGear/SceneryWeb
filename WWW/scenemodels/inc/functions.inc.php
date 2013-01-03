@@ -861,7 +861,7 @@ function close_tgz($target_path)
 
 function check_terrasync_update_passed($time)
 {
-    if (strtotime($time) > strtotime(gmdate("H:i", time()))) {
+    if (strtotime(gmdate("H:i", time())) > strtotime($time)) {
         return true;
     }
     return false;
