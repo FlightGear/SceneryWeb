@@ -855,4 +855,15 @@ function close_tgz($target_path)
     unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
     clear_dir($target_path);                          // Deletes temporary submission directory
 }
+
+// Return true if the next TerraSync update is tomorrow
+// ================================================================
+
+function check_terrasync_update_passed($time)
+{
+    if (strtotime($time) > strtotime(gmdate("H:i", time()))) {
+        return true;
+    }
+    return false;
+}
 ?>
