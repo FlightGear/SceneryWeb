@@ -15,6 +15,7 @@ if (isset($_POST['new_gndelev']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/
 
 if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
+    // Have to put quotes around NULL, else we're gonna have problems with the SQL query.
     if ($new_offset == '' || $new_offset == 0) $new_offset = 'NULL';
 }
 
@@ -49,6 +50,7 @@ if (isset($model_name)
     && isset($new_long)
     && isset($new_lat)
     && isset($new_gndelev)
+    // Have to keep the NULL between quotes else we'll have a parse error of the SQL INSERT request
     && (isset($new_offset) || $new_offset == 'NULL')
     && isset($new_orientation)
     && isset($safe_new_ob_text)) {
@@ -89,7 +91,7 @@ if (isset($model_name)
         $failed_mail = true;
     }
 
-    // Preparing the update request
+    // Preparing the update request: the quotes around NULL put above were tested OK.
     $query_update="UPDATE fgs_objects ".
                   "SET ob_text=$$".object_name($model_name)."$$, wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=".$new_gndelev.", ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
                   "WHERE ob_id=".$id_to_update.";";

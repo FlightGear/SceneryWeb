@@ -48,7 +48,6 @@
                         $page_title = "Automated Objects Pending Requests Form";
                         include '../../inc/header.php';
                         echo "<p class=\"center\">";
-                        echo $query_rw;
                         echo "Signature found.<br /> Now processing query with request number ". $_GET[sig].".</p><br />";
                         echo "<p class=\"center warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
