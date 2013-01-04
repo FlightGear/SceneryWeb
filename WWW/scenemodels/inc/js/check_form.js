@@ -13,7 +13,7 @@ function checkNumeric(numberfield, minval, maxval)
 {
     if (!chkNumeric(numberfield, minval, maxval))
     {
-	return false;
+        return false;
     }
 
     return true;
@@ -140,19 +140,9 @@ function chkEmail(emailfield)
     }
 
     //Checks if the value looks like an email adress
-    var numberOfAt = 0;
-    var numberOfPointAfterAt = 0;
-    for (i = 0;  i < checkStr.length;  i++)
-    {
-        ch = checkStr.charAt(i);
-
-        if(ch=='@')
-            numberOfAt++;
-        if(numberOfAt>=1 && ch=='.')
-            numberOfPointAfterAt++;
-    }
-
-    if(numberOfAt != 1 || numberOfPointAfterAt<1)
+    var atpos=checkStr.indexOf("@");
+    var dotpos=checkStr.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=checkStr.length)
     {
         allValid = false;
     }
