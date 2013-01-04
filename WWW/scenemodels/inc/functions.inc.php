@@ -797,7 +797,7 @@ function detect_nearby_object($lat, $lon, $ob_model)
     ))::integer < 15";
     $result = @pg_query($resource_r, $query);
 
-    if ($result) {
+    if (pg_fetch_row($result)[0]) {
         return true;
     }
     else return false;
