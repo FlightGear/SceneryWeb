@@ -798,7 +798,7 @@ function detect_nearby_object($lat, $lon, $ob_model)
     $result = @pg_query($resource_r, $query);
     $row = pg_fetch_row($result);
 
-    if ($row[1]) {
+    if ($row[0]) {
         return true;
     }
     else return false;
