@@ -859,11 +859,12 @@ function close_tgz($target_path)
 // Return true if the next TerraSync update is tomorrow
 // ================================================================
 
-function check_terrasync_update_passed($time)
+function check_terrasync_update_passed()
 {
+    $time = "12:30";
     if (strtotime(gmdate("H:i", time())) > strtotime($time)) {
-        return true;
+        return $time."Z tomorrow";
     }
-    return false;
+    return $time."Z today";
 }
 ?>

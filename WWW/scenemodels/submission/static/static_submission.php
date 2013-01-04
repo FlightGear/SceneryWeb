@@ -207,8 +207,7 @@ if (isset($_POST["action"])) {
                         "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
                         "The corresponding pending entries has consequently been deleted" . "\r\n" .
                         "from the pending requests table." . "\r\n" .
-                        "The corresponding entries will be added in Terrasync" . "\r\n" .
-                        "at 1230Z today or tomorrow if this time has already passed." . "\r\n" .
+                        "The corresponding entries will added in TerraSync at " . check_terrasync_update_passed() . "." . "\r\n" .
                         "You can follow Terrasync's data update at the following url: " . "\r\n" .
                         "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
                         "You can also check the model directly at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$mo_id[0].""."\r\n" .
