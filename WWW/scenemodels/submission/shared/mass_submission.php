@@ -309,8 +309,8 @@
                             "has been successfully treated in the fgs_objects table." . "\r\n" .
                             "The corresponding pending entry has consequently been deleted" . "\r\n" .
                             "from the pending requests table." . "\r\n" .
-                            "The corresponding entries will added in TerraSync at " . check_terrasync_update_passed() . "." . "\r\n" .
-                            "You can follow Terrasync's data update at the following url: " . "\r\n" .
+                            "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . "." . "\r\n" .
+                            "You can follow TerraSync's data update at the following url: " . "\r\n" .
                             "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
                             "Thanks for your help in making FG better!";
                 $message = wordwrap($message0, 77, "\r\n");
