@@ -369,6 +369,9 @@ label {
     cursor: help;
     position: relative;
 }
+label em {
+    border-bottom: none;
+}
 label span {
     margin-left: -999em;
     position: absolute;
