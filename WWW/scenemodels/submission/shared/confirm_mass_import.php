@@ -295,11 +295,12 @@ if (!$error) {
                 $global_ko = 1;
                 $cpt_err++;
                 echo "<td style='background-color: rgb(255, 200, 0);'>Exists already</td>";
-            } elseif (detect_nearby_object($lat, $long, $model_id)) {
-                $ko = 1;
-                $global_ko = 1;
-                $cpt_err++;
-                echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>";
+				// does not work as expected
+            // } elseif (detect_nearby_object($lat, $long, $model_id)) {
+                // $ko = 1;
+                // $global_ko = 1;
+                // $cpt_err++;
+                // echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>";
             } else {
                 echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
                 $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country."', 1)";
