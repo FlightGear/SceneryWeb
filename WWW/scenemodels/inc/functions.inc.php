@@ -796,9 +796,8 @@ function detect_nearby_object($lat, $lon, $ob_model)
         'SPHEROID[\"WGS84\",6378137.000,298.257223563]'
     ))::integer < 15";
     $result = @pg_query($resource_r, $query);
-    $returned_rows = pg_num_rows($result);
 
-    if ($returned_rows > 0) {
+    if ($result) {
         return true;
     }
     else return false;
