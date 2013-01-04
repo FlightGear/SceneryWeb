@@ -170,7 +170,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground). Let 0 if there is no offset."><label for="offset">Elevation offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
+                    <td><span title="This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset."><label for="offset">Elevation offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
                     <td>
                         <input type="text" name="offset" id="offset" maxlength="10" value="0" onkeyup="checkNumeric(form['offset'],-10000,10000);validateTabs();" />
                     </td>

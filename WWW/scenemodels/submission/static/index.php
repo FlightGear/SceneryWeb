@@ -28,7 +28,7 @@ function  validateTabs()
 {
     var form = document.getElementById("positions");
     $( "#tabs" ).tabs({ disabled: false });
-    
+
     // Tab 1
     if (!checkComment(form["mo_name"]) ||
         form["mo_name"].value == "" ||
@@ -83,7 +83,7 @@ $(function() {
         <li><a href="#tabs-2">2: Location</a></li>
         <li><a href="#tabs-3">3: Submit</a></li>
     </ul>
-    
+
     <form id="positions" method="post" action="check_static.php" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div id="tabs-1">
             <ul>
@@ -234,7 +234,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This is the offset (in meters) between your object 'zero' and the elevation at the considered place (ie if it is sunk into the ground/set above the ground). Let 0 if there is no offset.">
+                        <span title="This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset.">
                             <label for="offset">Elevation offset</label> (see <a href="../../contribute.php#offset">here</a> for more help)
                         </span>
                     </td>
@@ -297,7 +297,7 @@ $(function() {
 $(document).ready(function(){
     // Checks if the GPL checkbox is checked
     $('input[type="submit"]').attr('disabled','disabled');
-    
+
     $('input[name="gpl"]').change(function(){
         if($('input[name="gpl"]').is(':checked')){
             $('input[type="submit"]').removeAttr('disabled');
