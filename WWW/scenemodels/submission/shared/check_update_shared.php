@@ -478,7 +478,7 @@ function validateForm()
             <td><object id="map" data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $actual_long; ?>&amp;lat=<?php echo $actual_lat; ?>&amp;zoom=14" type="text/html" width="100%" height="225"></object></td>
         </tr>
         <tr>
-          <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it">
+          <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it. Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted.">
             <label for="comment">Comment<em>*</em></label></span>
           </td>
           <td colspan="2">
