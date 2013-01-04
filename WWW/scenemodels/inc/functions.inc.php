@@ -772,6 +772,41 @@ function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset,
     @pg_close ($resource_r);
 }
 
+// Detects if an object exists in the database that is located (suspiciously) close to the submitted position
+// Nearby means (at the moment) within 15 meters
+// ===========================================================================================================
+
+function detect_nearby_object($lat, $lon, $ob_model)
+{
+    // Connecting to the database.
+    $resource_r = connect_sphere_r();
+
+    // Querying...
+    $query = "SELECT (ST_Distance_Spheroid(
+        (SELECT wkb_geometry
+        FROM fgs_objects
+        WHERE ob_model = ".$ob_model."
+        ORDER BY ABS( ST_Distance_Spheroid(
+                (wkb_geometry),
+                (ST_PointFromText('POINT(".$lon." ".$lat.")', 4326)),
+                'SPHEROID[\"WGS84\",6378137.000,298.257223563]'
+            ) ) ASC
+        LIMIT 1),
+        (ST_PointFromText('POINT(".$lon." ".$lat.")', 4326)),
+        'SPHEROID[\"WGS84\",6378137.000,298.257223563]'
+    ))::integer < 15";
+    $result = @pg_query($resource_r, $query);
+    $returned_rows = pg_num_rows($result);
+
+    if ($returned_rows > 0) {
+        return true;
+    }
+    else return false;
+
+    // Closing the connection.
+    @pg_close ($resource_r);
+}
+
 // This function returns the core filename of a file, ie without its native extension.
 // ===================================================================================
 
