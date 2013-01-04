@@ -86,7 +86,7 @@ $(function() {
         <div id="tabs-1">
             <table>
                 <tr>
-                    <td><span title="This is the family name of the object you want to add."><label for="family_name">Object's family<em>*</em></label></span></td>
+                    <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object you want to add.</span></label></td>
                     <td colspan="2">
             <?php
                             $resource_r = connect_sphere_r();
@@ -121,7 +121,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file."><label for="model_name">Model name<em>*</em></label></span></td>
+                    <td><label for="model_name">Model name<em>*</em><span>This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file.</span></label></td>
                     <td>
                         <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
 
@@ -141,7 +141,7 @@ $(function() {
         <div id="tabs-2">
             <table>
                 <tr>
-                    <td><span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000."><label for="longitude">Longitude<em>*</em></label></span></td>
+                    <td><label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000.</span></label></td>
                     <td>
                         <input type="text" name="longitude" id="longitude" maxlength="13" value="" onkeyup="checkNumeric(form['longitude'],-180,180);update_map('longitude','latitude');validateTabs();" onchange="update_map('longitude','latitude');" />
                     </td>
@@ -150,13 +150,13 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000."><label for="latitude">Latitude<em>*</em></label></span></td>
+                    <td><label for="latitude">Latitude<em>*</em><span>This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000.</span></label></td>
                     <td>
                         <input type="text" name="latitude" id="latitude" maxlength="13" value="" onkeyup="checkNumeric(form['latitude'],-90,90);update_country();validateTabs();" onchange="update_map('longitude','latitude');" />
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="This is the country where the model is located."><label for="ob_country">Country<em>*</em></label></span></td>
+                    <td><label for="ob_country">Country<em>*</em><span>This is the country where the model is located.</span></label></td>
                     <td>
                         <select name="ob_country" id="ob_country">
                             <?php list_countries(); ?>
@@ -164,19 +164,19 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Put -9999 if you want the elevation to be automatically computed. Warning: if your model is sunk into/is set above the ground, use the elevation offset field below."><label for="gndelev">Elevation<em>*</em></label></span></td>
+                    <td><label for="gndelev">Elevation<em>*</em><span>This is the ground elevation (in meters) of the position where the object you want to add is located. Put -9999 if you want the elevation to be automatically computed. Warning: if your model is sunk into/is set above the ground, use the elevation offset field below.</span></label></td>
                     <td>
                         <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onkeyup="checkNumeric(form['gndelev'],-10000,10000);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset."><label for="offset">Elevation offset<em>*</em></label></span> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
+                    <td><label for="offset">Elevation offset<em>*</em><span>This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset.</span></label> (see <a href="../../contribute.php#offset">here</a> for more help)</td>
                     <td>
                         <input type="text" name="offset" id="offset" maxlength="10" value="0" onkeyup="checkNumeric(form['offset'],-10000,10000);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="heading">Orientation<em>*</em></label></span></td>
+                    <td><label for="heading">Orientation<em>*</em><span>The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation.</span></label></td>
                     <td>
                         <input type="text" name="heading" id="heading" maxlength="7" value="" onkeyup="checkNumeric(form['heading'],0,359.999);validateTabs();" />
                     </td>
@@ -186,14 +186,14 @@ $(function() {
         <div id="tabs-3">
             <table>
                 <tr>
-                    <td><span title="Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit. Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted."><label for="comment">Comment<em>*</em></label></span></td>
+                    <td><label for="comment">Comment<em>*</em><span>Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: I have placed a couple of aircraft shelters and static F16's at EHVK, please commit. Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted.</span></label></td>
                     <td>
                         <input type="text" name="comment" id="comment" maxlength="100" style="width: 100%;" value="" onkeyup="checkComment(this);" />
                         <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
                     </td>
                 </tr>
                 <tr>
-                    <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address</label></span></td>
+                    <td><label for="email">Email address<span>Please leave YOUR VALID email address over here. This will help you be informed of your submission process.</span></label></td>
                     <td>
                         <input type="text" name="email" id="email" maxlength="50" size="40" value="" onkeyup="checkEmail(this);" />
                     </td>
