@@ -15,7 +15,7 @@ if (isset($_POST['new_gndelev']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/
 
 if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
-    if ($new_offset == '' || $new_offset == 0) $new_offset = NULL;
+    if ($new_offset == '' || $new_offset == 0) $new_offset = 'NULL';
 }
 
 if (isset($_POST['new_heading']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_heading']))
@@ -49,7 +49,7 @@ if (isset($model_name)
     && isset($new_long)
     && isset($new_lat)
     && isset($new_gndelev)
-    && (isset($new_offset) || $new_offset == NULL)
+    && (isset($new_offset) || $new_offset == 'NULL')
     && isset($new_orientation)
     && isset($safe_new_ob_text)) {
 
