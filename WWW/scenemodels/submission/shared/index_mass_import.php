@@ -90,7 +90,7 @@ function validateForm()
         <td><textarea name="stg" id="stg" rows="30" cols="100" onchange="checkSTG(this);"></textarea></td>
     </tr>
     <tr>
-        <td><label for="email">Email address<span>Please leave YOUR VALID email address over here. This will help you be informed of your submission process.></span></label></td>
+        <td><label for="email">Email address<span>Please leave YOUR VALID email address over here. This will help you be informed of your submission process.</span></label></td>
         <td>
             <input type="text" name="email" id="email" maxlength="50" size="50" value="" onkeyup="checkEmail(this);" />
         </td>

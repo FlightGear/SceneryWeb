@@ -41,79 +41,71 @@ Please, read the following:
     <table>
         <tr>
             <td>
-            <span title="This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family</label></span>
+                <label for="mo_shared">Model's family<span>This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family.</span></label>
             </td>
             <td colspan="2">
-            <select name="mo_shared" id="mo_shared">
-            <?php
-            $resource_r = connect_sphere_r();
-            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
+                <select name="mo_shared" id="mo_shared">
+                <?php
+                $resource_r = connect_sphere_r();
+                $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
 
-            while ($row = pg_fetch_assoc($result)) {
-                $name = preg_replace('/ /',"&nbsp;", $row["mg_name"]);
-                // Selecting static family by default
-                if(($row["mg_id"]) == 0)
-                    echo "<option value=\"".$row["mg_id"]."\" selected=\"selected\">".$name."</option>\n";
-                else echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
-            }
-            pg_close ($resource_r);
-            ?>
-            </select>
+                while ($row = pg_fetch_assoc($result)) {
+                    $name = preg_replace('/ /',"&nbsp;", $row["mg_name"]);
+                    // Selecting static family by default
+                    if(($row["mg_id"]) == 0)
+                        echo "<option value=\"".$row["mg_id"]."\" selected=\"selected\">".$name."</option>\n";
+                    else echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                }
+                pg_close ($resource_r);
+                ?>
+                </select>
             </td>
         </tr>
         <tr>
             <td>
-            <span title="This is a nice picture representing your model in FG the best way (eg: tower_thumbnail.jpeg).">
-            <label for="mo_thumbfile">Corresponding 320x240 JPEG thumbnail</label>
-            </span>
+                <label for="mo_thumbfile">Corresponding 320x240 JPEG thumbnail<span>This is a nice picture representing your model in FG the best way (eg: tower_thumbnail.jpeg).</span></label>
             </td>
             <td>
-            <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" />
+                <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" />
             </td>
         </tr>
         <tr>
             <td>
-            <span title="This is the AC3D file of your model (eg: tower.ac).">
-            <label for="ac3d_file">Corresponding AC3D File</label>
-            </span>
+                <label for="ac3d_file">Corresponding AC3D File<span>This is the AC3D file of your model (eg: tower.ac).</span></label>
             </td>
             <td>
-            <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac"/>
+                <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac"/>
             </td>
         </tr>
         <tr>
             <td>
-            <span title="This is the XML file of your model (eg: tower.xml).">
-            <label for="xml_file">Corresponding XML File</label>
-            </span>
+                <label for="xml_file">Corresponding XML File<span>This is the XML file of your model (eg: tower.xml)</span></label>
             </td>
             <td>
-            <input type="file" name="xml_file" id="xml_file" class="multi" maxlength="1" accept="text/xml" />
+                <input type="file" name="xml_file" id="xml_file" class="multi" maxlength="1" accept="text/xml" />
             </td>
         </tr>
         <tr>
             <td>
-            <span title="This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a factor of 2 in height and length.">
-            <label for="png_files">Corresponding PNG Texture Files</label>
-            </span>
+                <label for="png_files">Corresponding PNG Texture Files<span>This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a factor of 2 in height and length.</span></label>
             </td>
             <td>
-            <input type="file" name="png_file[]" id="png_files" class="multi" maxlength="12" accept="image/png" />
+                <input type="file" name="png_file[]" id="png_files" class="multi" maxlength="12" accept="image/png" />
             </td>
         </tr>
         <tr>
             <td colspan="2" class="submit">
-            <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
-            <?php
-            // Google Captcha stuff
-            require_once('../../inc/captcha/recaptchalib.php');
-            $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-            echo recaptcha_get_html($publickey);
-            ?>
-            <br />
-            <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
-            <input type="submit" value="Submit model" />
+                <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
+                <?php
+                // Google Captcha stuff
+                require_once('../../inc/captcha/recaptchalib.php');
+                $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+                echo recaptcha_get_html($publickey);
+                ?>
+                <br />
+                <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
+                <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
+                <input type="submit" value="Submit model" />
             </td>
         </tr>
     </table>

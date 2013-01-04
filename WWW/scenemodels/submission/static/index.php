@@ -98,7 +98,7 @@ $(function() {
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
                     <td style="width: 200px;">
-                        <span title="This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family."><label for="mo_shared">Model's family<em>*</em></label></span>
+                        <label for="mo_shared">Model's family<em>*</em><span>This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family.</span></label>
                     </td>
                     <td colspan="2">
                         <select name="mo_shared" id="mo_shared">
@@ -120,9 +120,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).">
-                            <label for="mo_name">Model name<em>*</em></label>
-                        </span>
+                        <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
                         <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" onkeyup="checkComment(this);validateTabs();"/>
@@ -130,9 +128,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.">
-                            <label for="comment">Model description</label>
-                        </span>
+                        <label for="comment">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
                         <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onkeyup="checkComment(this);validateTabs();" />
@@ -140,9 +136,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This is the AC3D file of your model (eg: tower.ac).">
-                            <label for="ac3d_file">AC3D file<em>*</em></label>
-                        </span>
+                        <label for="ac3d_file">AC3D file<em>*</em><span >This is the AC3D file of your model (eg: tower.ac).</span></label>
                     </td>
                     <td>
                         <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac" onchange="validateTabs();" />
@@ -150,9 +144,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This is the XML file of your model (eg: tower.xml).">
-                            <label for="xml_file">XML file</label>
-                        </span>
+                        <label for="xml_file">XML file<span>This is the XML file of your model (eg: tower.xml).</span></label>
                     </td>
                     <td>
                         <input type="file" name="xml_file" id="xml_file" class="multi" maxlength="1" accept="text/xml" />
@@ -160,9 +152,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a power of 2 in width and height.">
-                            <label for="png_files">PNG texture file(s)</label>
-                        </span>
+                        <label for="png_files">PNG texture file(s)<span>This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a power of 2 in width and height.</span></label>
                     </td>
                     <td>
                         <input type="file" name="png_file[]" id="png_files" class="multi" maxlength="12" accept="image/png" />
@@ -170,9 +160,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This is a nice picture representing your model in FG the best way (eg: tower_thumbnail.jpeg).">
-                            <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em></label>
-                        </span>
+                        <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em><span>This is a nice picture representing your model in FlightGear in the best way (eg: tower_thumbnail.jpeg). The filename must end on _thumbnail.</span></label>
                     </td>
                     <td>
                         <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" onchange="validateTabs();" />
@@ -189,9 +177,7 @@ $(function() {
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
                     <td style="width: 200px;">
-                        <span title="This is the WGS84 longitude of the object you want to add. Has to be between -180.000000 and +180.000000 and not O.">
-                            <label for="longitude">Longitude<em>*</em></label>
-                        </span>
+                        <label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to add. Has to be between -180 and 180 and not 0.</span></label>
                     </td>
                     <td>
                         <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="update_map('longitude','latitude');" onkeyup="checkNumeric(this,-180,180);update_country();validateTabs();" />
@@ -202,9 +188,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This is the WGS84 latitude of the object you want to add. Has to be between -90.000000 and +90.000000 and not 0.">
-                            <label for="latitude">Latitude<em>*</em></label>
-                        </span>
+                        <label for="latitude">Latitude<em>*</em><span>This is the WGS84 latitude of the object you want to add. Has to be between -90 and 90 and not 0.</span></label>
                     </td>
                     <td>
                         <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="update_map('longitude','latitude');" onkeyup="checkNumeric(this,-90,90);update_country();validateTabs();" />
@@ -212,9 +196,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This is the country code where the model is located (for static models only).">
-                            <label for="ob_country">Country</label>
-                        </span>
+                        <label for="ob_country">Country<span>This is the country code where the model is located.</span></label>
                     </td>
                     <td>
                         <select name="ob_country" id="ob_country">
@@ -224,9 +206,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This is the ground elevation (in meters) of the position where the object you want to add is located. Put -9999 if you want the elevation to be automatically computed. Warning: if your object is sunk into the ground, use the elevation offset field below.">
-                            <label for="gndelev">Elevation<em>*</em></label>
-                        </span>
+                        <label for="gndelev">Elevation<em>*</em><span>This is the ground elevation (in meters) of the position where the object you want to add is located. Put -9999 if you want the elevation to be automatically computed. Warning: if your object is sunk into the ground, use the elevation offset field below.</span></label>
                     </td>
                     <td>
                         <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onkeyup="checkNumeric(this,-10000,10000);validateTabs();" />
@@ -234,9 +214,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset.">
-                            <label for="offset">Elevation offset</label> (see <a href="../../contribute.php#offset">here</a> for more help)
-                        </span>
+                        <label for="offset">Elevation offset<span>This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset.</span></label> (see <a href="../../contribute.php#offset">here</a> for more help)
                     </td>
                     <td>
                         <input type="text" name="offset" id="offset" maxlength="10" value="0" onkeyup="checkNumeric(this,-10000,10000);validateTabs();" />
@@ -244,9 +222,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <span title="The orientation (in degrees) of the object you want to add - as it appears in the .stg file (this is NOT the true heading). Let 0 if there is no specific orientation.">
-                            <label for="heading">Orientation<em>*</em></label>
-                        </span>
+                        <label for="heading">Orientation<em>*</em><span>The orientation (in degrees) of the object you want to add - as it appears in the .stg file (this is NOT the true heading). Let 0 if there is no specific orientation.</span></label>
                     </td>
                     <td>
                         <input type="text" name="heading" id="heading" maxlength="7" value="" onkeyup="checkNumeric(this,0,359.999);validateTabs();" />
@@ -256,16 +232,14 @@ $(function() {
         </div>
         <div id="tabs-3">
             <ul>
-                <li>Choose the author for the model. Please contact us if you're not listed here. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
+                <li>Choose the author for the model. Please contact us <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671">at the forum</a> if you're not listed here. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
                 <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
                     <td>
-                        <span title="This is the name of the author. If the author does not exist, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.">
-                            <label for="mo_author">Author<em>*</em></label>
-                        </span>
+                        <label for="mo_author">Author<em>*</em><span>This is the name of the author. If the author is not listed, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.</span></label>
                     </td>
                     <td>
                         <select name="mo_author" id="mo_author">
