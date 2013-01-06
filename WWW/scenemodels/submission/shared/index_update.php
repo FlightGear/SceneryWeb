@@ -29,30 +29,28 @@ function validateForm()
         !checkStringNotDefault(form["latitude"], "")
         || !checkNumeric(form["latitude"],-90,90))
         return false;
-
 }
 /*]]>*/
 </script>
 
 <h1>Objects Automated Update Form</h1>
 
-<p class="center">
-  <b>Foreword:</b> This automated form goal is to ease the update of objects within FG Scenery database.
-  <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
+<p>
+    Through this form you can update a shared object (eg. windturbine, power pylon) at a given location. You can alternatively look for the object on <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/coverage.php">the map</a> if you are unsure of the exact coordinates of the object.
 </p>
 
 <form id="edition" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
 <table>
     <tr>
-        <td><label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to update. Has to be between -180 and 180.</span></label></td>
+        <td><label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object. Has to be between -180 and 180.</span></label></td>
         <td>
-            <input type="text" name="longitude" id="longitude" maxlength="13" value="0" onchange="checkNumeric(this,-180,180);" />
+            <input type="text" name="longitude" id="longitude" maxlength="13" value="0" onkeyup="checkNumeric(this,-180,180);" />
         </td>
     </tr>
     <tr>
-        <td><label for="latitude">Latitude<em>*</em><span>This is the WGS84 latitude of the object you want to update. Has to be between -90 and 90.</span></label></td>
+        <td><label for="latitude">Latitude<em>*</em><span>This is the WGS84 latitude of the object. Has to be between -90 and 90.</span></label></td>
         <td>
-            <input type="text" name="latitude" id="latitude" maxlength="13" value="0" onchange="checkNumeric(this,-90,90);" />
+            <input type="text" name="latitude" id="latitude" maxlength="13" value="0" onkeyup="checkNumeric(this,-90,90);" />
         </td>
     </tr>
     <tr>
