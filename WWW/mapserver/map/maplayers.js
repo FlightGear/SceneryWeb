@@ -12,7 +12,7 @@
         {
             x = ((x % limit) + limit) % limit;
 
-            var path = z + "/" + x + "/" + y + "." + this.type; 
+            var path = z + "/" + x + "/" + y + "." + this.type;
             var url = this.url;
             if (url instanceof Array) {
                 url = this.selectUrl(path, url);
@@ -21,6 +21,7 @@
         }
     }
 
+    var BingKey = "Ajtevu0iL__zuuZp7ot9Uwu-j470VZfLsZKAV6NWkIDU4_dRAq51rr7rzBquQtKs"
 
     var googlesat = new OpenLayers.Layer.Google( "Google Satellite (License!!)",
         {type: G_SATELLITE_MAP, 'sphericalMercator': true, numZoomLevels: 20}
@@ -28,6 +29,14 @@
 
     var yahoosat = new OpenLayers.Layer.Yahoo( "Yahoo Satellite (License!?)",
         {type: YAHOO_MAP_SAT, 'sphericalMercator': true, numZoomLevels: 20}
+    );
+
+    var bingaerial = new OpenLayers.Layer.Bing(
+        {key: BingKey, type: "Aerial"}
+    );
+
+    var bingroad = new OpenLayers.Layer.Bing(
+        {key: BingKey, type: "Road"}
     );
 
     var mrsmap = new OpenLayers.Layer.WMS( "MSR Maps Map Server",
@@ -80,7 +89,7 @@
 	    {layers: 'clc06', format: 'image/png'}
 	);
 
-	var icubed = new OpenLayers.Layer.WMS( "TelaScience i-Cubed", 
+	var icubed = new OpenLayers.Layer.WMS( "TelaScience i-Cubed",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
 	      "http://3.flightgear.telascience.org/tc?",
@@ -96,7 +105,7 @@
 //        {type:'png', getURL: get_osm_url, displayOutsideMaxExtent: true, 'buffer':1, transitionEffect: 'resize'}
 //    );
 
-    var osmarender = new OpenLayers.Layer.TMS( "osmarender", 
+    var osmarender = new OpenLayers.Layer.TMS( "osmarender",
         [ "http://a.tah.openstreetmap.org/Tiles/tile/",
           "http://b.tah.openstreetmap.org/Tiles/tile/",
           "http://c.tah.openstreetmap.org/Tiles/tile/" ],
@@ -227,7 +236,7 @@
         {isBaseLayer: false, maxScale: 5000 }
     );
 
-    //TODO This is temporary code    
+    //TODO This is temporary code
     var wfssigns = new OpenLayers.Layer.WMS( "WMS Taxiway Signs",
         [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
           "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
@@ -249,7 +258,7 @@
         {layers: 'fgs_staticobjects,fgs_sharedobjects', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false, maxScale: 12500 }
     );
-    
+
     var jsonobjects = new OpenLayers.Layer.Vector("Scenery Object Details",{
         strategies: [new OpenLayers.Strategy.BBOX()],
         protocol: new OpenLayers.Protocol.HTTP({
@@ -263,7 +272,7 @@
                 graphicHeight: 15,
                 rotation: "${heading}"
             }
-        }), 
+        }),
         projection: new OpenLayers.Projection("EPSG:4326"),
         visibility: true,
         minScale: 12500 }
