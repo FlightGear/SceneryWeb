@@ -146,7 +146,7 @@ $(function() {
                         <input type="text" name="longitude" id="longitude" maxlength="13" value="" onkeyup="checkNumeric(form['longitude'],-180,180);update_map('longitude','latitude');validateTabs();" onchange="update_map('longitude','latitude');" />
                     </td>
                     <td rowspan="6" style="width: 300px; height: 225px;">
-                        <object id="map" data="" type="text/html" width="300" height="225"></object>
+                        <object id="map" data="http://mapserver.flightgear.org/popmap/?zoom=1&lat=0&lon=0" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
                 <tr>
