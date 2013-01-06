@@ -18,7 +18,7 @@
     include '../../inc/header.php';
 ?>
 
-<script src="/inc/check_form.js" type="text/javascript"></script>
+<script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 function validateForm()
