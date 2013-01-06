@@ -32,11 +32,11 @@
     );
 
     var bingaerial = new OpenLayers.Layer.Bing(
-        {key: BingKey, type: "Aerial"}
+        {name: "Bing Aerial (License!!)", key: BingKey, type: "Aerial"}
     );
 
     var bingroad = new OpenLayers.Layer.Bing(
-        {key: BingKey, type: "Road"}
+        {name: "Bing Road (License!!)", key: BingKey, type: "Road"}
     );
 
     var mrsmap = new OpenLayers.Layer.WMS( "MSR Maps Map Server",
