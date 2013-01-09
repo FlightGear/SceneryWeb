@@ -89,35 +89,10 @@
                     // Who will receive it ?
                     if (isset($_GET['email'])) $to .= $_GET["email"];
                     else $to = "";
+                    $sig = $_GET[sig];
+                    
+                    email("pending_request_process_confirmation");
 
-                    // What is the subject ?
-                    $subject = "[FG Scenery Submission forms] Automatic Objects DB pending request process confirmation.";
-
-                    // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-                    $message0 = "Hi,"  . "\r\n" .
-                            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                            "I just wanted to let you know that the object (addition, update, deletion) request nr :" . "\r\n" .
-                            $_GET[sig]. "\r\n" .
-                            "has been successfully treated in the fgs_objects table." . "\r\n" .
-                            "The corresponding pending entry has consequently been deleted" . "\r\n" .
-                            "from the pending requests table." . "\r\n" .
-                            "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . "." . "\r\n" .
-                            "You can follow TerraSync's data update at the following url: " . "\r\n" .
-                            "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
-                            "Thanks for your help in making FG better!";
-
-                    $message = wordwrap($message0, 77, "\r\n");
-
-                    // Preparing the headers.
-
-                    $headers = "MIME-Version: 1.0" . "\r\n";
-                    $headers .= "From: \"FG Scenery Pending Requests forms\" <no-reply@flightgear.org>" . "\r\n";
-                    $headers .= $maintainers;
-                    $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-                    // Let's send it ! No management of mail() errors to avoid being too talkative...
-                    @mail($to, $subject, $message, $headers);
                     exit;
                 }
             }
@@ -187,28 +162,10 @@
                 // Who will receive it ?
                 if(isset($_GET['email'])) $to = $_GET["email"];
                     else $to = "";
+                $sig = $_GET[sig];
 
-                // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic Objects DB reject and deletion confirmation.";
-
-                // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-                $message0 = "Hi,"  . "\r\n" .
-                            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                            "I just wanted to let you know that the object request nr:"  . "\r\n" .
-                            "" .$_GET[sig]. ""."\r\n" .
-                            "has been rejected and successfully deleted from the pending requests table.";
-
-                $message = wordwrap($message0, 77, "\r\n");
-
-                // Preparing the headers.
-                $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "From: \"FG Scenery Pending Requests forms\" <no-reply@flightgear.org>" . "\r\n";
-                $headers .= $maintainers;
-                $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-                // Let's send it ! No management of mail() errors to avoid being too talkative...
-                @mail($to, $subject, $message, $headers);
+                mail("reject_and_deletion_confirmation");
+                
                 exit;
             }
         }

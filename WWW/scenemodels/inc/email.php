@@ -3,22 +3,21 @@
 // Global email function
 // ================================================================
 
+// Defaults
+$to = "";
+
 function email($case)
 {
+    require_once('../../inc/functions.inc.php');
+    
     // Register variables that we'd like to use inside this function
-    global $dtg,$host,$ipaddr,$safe_email,$sent_comment,$sha_hash,$to;
+    global $dtg,$host,$ipaddr,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
     
     $message = "Hi," . "\r\n\r\n";
     switch ($case) {
-        case "mass_import_sent_for_validation":
-            $subject  = "[FlightGear Scenery Database] Automatic objects massive import request";
-            $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n" .
-                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
-                        "For reference, the first part of the unique ID of this request is ".substr($sha_hash,0,10). "..." . "\r\n\r\n";
-            break;
         case "mass_import_request_pending":
             $subject  = "[FlightGear Scenery Database] Automatic objects massive import request: needs validation";
             $message .= "We would like to let you know that a new objects massive import request is pending. " .
@@ -28,6 +27,23 @@ function email($case)
             $message .= "issued an objects massive import request." . "\r\n\r\n" .
                         "Comment by user: ".strip_tags($sent_comment)."\r\n\r\n" .
                         "Now please click the following link to check and confirm or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
+            $backend = true;
+            break;
+        case "mass_import_sent_for_validation":
+            $subject  = "[FlightGear Scenery Database] Automatic objects massive import request";
+            $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n\r\n" .
+                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
+                        "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'" . "\r\n\r\n";
+            break;
+        case "pending_request_process_confirmation":
+            $subject  = "[FlightGear Scenery Database] Automatic objects pending request process confirmation";
+            $message .= "We would like to let you know that the object (addition, update, deletion) request nr :" . $sig. "has been successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table." . "\r\n\r\n" .
+                        "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list" . "\r\n\r\n";
+            $backend = true;
+            break;
+        case "reject_and_deletion_confirmation":
+            $subject  = "[FlightGear Scenery Database] Automatic objects reject and deletion confirmation";
+            $message .= "We would like to let you know that the object request nr: " . $sig . ". has been rejected and successfully deleted from the pending requests table." . "\r\n\r\n";
             $backend = true;
             break;
     }
@@ -49,7 +65,6 @@ function email($case)
         // Setting maintainers (will have to be moved somewhere on sphere)
         include ("/home/ojacq/.maintainers");
         $headers .= $maintainers;
-        $to = "";
     }
     $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
     
