@@ -1,7 +1,5 @@
 <?php
 
-
-
 // Global email function
 // ================================================================
 
@@ -23,13 +21,13 @@ function email($case)
             break;
         case "mass_import_request_pending":
             $subject  = "[FlightGear Scenery Database] Automatic objects massive import request: needs validation";
-            $message .= "We would like to let you know that a new objects massive import request is pending." . "\r\n" .
+            $message .= "We would like to let you know that a new objects massive import request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
             if (!empty($to))
                 $message .= "and with email address ".$safe_email." ";
             $message .= "issued an objects massive import request." . "\r\n\r\n" .
-                        "Comment added by user: ".strip_tags($sent_comment)."\r\n\r\n" .
-                        "Now please click: http://".$_SERVER['SERVER_NAME']."/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email . " to check and confirm or reject the submission.";
+                        "Comment by user: ".strip_tags($sent_comment)."\r\n\r\n" .
+                        "Now please click the following link to check and confirm or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
             $backend = true;
             break;
     }
