@@ -230,7 +230,12 @@
                     $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
                     if ($elevoffset == 0) $data_rw[$i] .= "NULL";
                         else $data_rw[$i] .= $elevoffset;
-                    $data_rw[$i] .= ", ".$orientation.", ".$model.", '".$country."', 1)";
+                    $data_rw[$i] .= ", ".$orientation.", ".$model.", ";
+                    if ($country == "unknown")
+                        $data_rw[$i] .= "NULL";
+                    else
+                        $data_rw[$i] .= "'".$country."'";
+                    $data_rw[$i] .= ", 1)";
 
                     $i++;
                 }
