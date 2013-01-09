@@ -823,51 +823,10 @@ else {
         $message = $message077.$message1.$message2;
         @mail('', $subject, $message, $headers);
 
-        // Mailing the submitter
+        // Mailing the submitter to tell him that his submission has been sent for validation
         if($failed_mail != 1) {
-
-            // Tell the submitter that its submission has been sent for validation.
             $to = $safe_au_email;
-
-            // What is the subject ?
-            $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
-
-            // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-            $message3 = "Hi," . "\r\n" .
-                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request." . "\r\n" .
-                        "This mail is just here to let you know that this 3D model import request has been sent for validation." . "\r\n" .
-                        "The first part of the unique of this request is ".substr($ob_sha_hash,0,10). "... (object)" . "\r\n" .
-                        "and ".substr($mo_sha_hash,0,10). "... (model)" . "\r\n" .
-                        "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
-            $message077 = wordwrap($message3, 77, "\r\n");
-
-            // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-            $message4 = "Family: ".family_name($mo_shared)."\r\n" .
-                        "[ ".$html_family_url." ]" . "\r\n" .
-                        "Path: ". $path_to_use . "\r\n" .
-                        "Author: ". get_authors_name_from_authors_id($author) ."\r\n" .
-                        "Description: ". $name ."\r\n" .
-                        "Comment: ". strip_tags($comment) ."\r\n" .
-                        "Latitude: ". $latitude . "\r\n" .
-                        "Longitude: ". $longitude . "\r\n" .
-                        "Ground elevation: ". $gndelev . "\r\n" .
-                        "Elevation offset: ". $offset . "\r\n" .
-                        "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
-                        "Please click:" . "\r\n" .
-                        "http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
-                        "to locate the object on the map." . "\r\n" .
-                        "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
-
-            // Preparing the headers.
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
-            $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-            // Let's send it ! No management of mail() errors to avoid being too talkative...
-            $message = $message077.$message4;
-            @mail($to, $subject, $message, $headers);
+            email("static_request_sent_for_validation"):
         }
     }
 }
