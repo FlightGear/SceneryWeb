@@ -1,8 +1,9 @@
 <?php
 
 # Inserting libs
-require_once('../../inc/functions.inc.php');
 require_once('../../inc/captcha/recaptchalib.php');
+require_once('../../inc/email.php');
+require_once('../../inc/functions.inc.php');
 
 $fatalerror = 0;
 $error      = 0;
@@ -826,7 +827,7 @@ else {
         // Mailing the submitter to tell him that his submission has been sent for validation
         if($failed_mail != 1) {
             $to = $safe_au_email;
-            email("static_request_sent_for_validation"):
+            email("static_request_sent_for_validation");
         }
     }
 }
