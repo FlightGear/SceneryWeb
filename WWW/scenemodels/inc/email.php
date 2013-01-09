@@ -46,6 +46,8 @@ function email($case)
     $headers  = "MIME-Version: 1.0" . "\r\n";
     $headers .= "From: " . $from . "\r\n";
     if ($backend) {
+        // Setting maintainers (will have to be moved somewhere on sphere)
+        include ("/home/ojacq/.maintainers");
         $headers .= $maintainers;
         $to = "";
     }
