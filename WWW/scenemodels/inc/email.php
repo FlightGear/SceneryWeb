@@ -11,7 +11,7 @@ function email($case)
     require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
-    global $dtg,$host,$ipaddr,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $dtg,$family_real_name,$gndelev,$heading,$host,$ipaddr,$lat,$long,$model_real_name,$ob_country,$offset,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -43,8 +43,24 @@ function email($case)
             break;
         case "reject_and_deletion_confirmation":
             $subject  = "[FlightGear Scenery Database] Automatic objects reject and deletion confirmation";
-            $message .= "We would like to let you know that the object request nr: " . $sig . ". has been rejected and successfully deleted from the pending requests table." . "\r\n\r\n";
+            $message .= "We would like to let you know that the object request nr: " . $sig . " has been rejected and successfully deleted from the pending requests table." . "\r\n\r\n";
             $backend = true;
+            break;
+        case "shared_request_pending":
+            $subject  = "[FlightGear Scenery Database] Automatic object submission request";
+            $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared submission request." . "\r\n\r\n" .
+                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
+                        "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'" . "\r\n\r\n" .
+                        "Family:           ". $family_real_name . "\r\n" .
+                        "Model:            ". $model_real_name . "\r\n" .
+                        "Latitude:         ". $lat . "\r\n" .
+                        "Longitude:        ". $long . "\r\n" .
+                        "Country:          ". get_country_name_from_country_code($ob_country) . "\r\n" .
+                        "Ground elevation: ". $gndelev . "\r\n" .
+                        "Elevation offset: ". $offset . "\r\n" .
+                        "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
+                        "Comment:          ". strip_tags($sent_comment) ."\r\n\r\n" .
+                        "Please remember to use the <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php\">massive insertion script</a> should you have many objects to add.";
             break;
     }
     
