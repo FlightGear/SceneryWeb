@@ -24,8 +24,8 @@ function email($case)
             $message .= "We would like to let you know that a new objects massive import request is pending." . "\r\n" .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
             if (!empty($to))
-                $message . ="and with email address ".$safe_email." ";
-            $message . ="issued an objects massive import request." . "\r\n\r\n" .
+                $message .= "and with email address ".$safe_email." ";
+            $message .= "issued an objects massive import request." . "\r\n\r\n" .
                         "Comment added by user: ".strip_tags($sent_comment)."\r\n\r\n" .
                         "Now please click: http://".$_SERVER['SERVER_NAME']."/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email . " to check and confirm or reject the submission.";
             $backend = true;
