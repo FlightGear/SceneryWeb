@@ -1,6 +1,7 @@
 <?php
 
 // Inserting libs
+require_once('../../inc/email.php');
 require_once('../../inc/functions.inc.php');
 
 // Checking DB availability before all
@@ -437,35 +438,10 @@ if (!$_POST['submit']) {
     $message = $message077.$message1;
     @mail('', $subject, $message, $headers);
 
-    // Mailing the submitter
+    // Mailing the submitter to tell that his submission has been sent for validation.
     if (!$failed_mail) {
-
-        // Tell the submitter that its submission has been sent for validation.
         $to = $safe_email;
-
-        // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic objects massive import request.";
-
-        // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        $message3 = "Hi," . "\r\n" .
-                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n" .
-                    "Just to let you know that this new objects massive import request has been sent for validation." . "\r\n" .
-                    "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
-                    "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
-
-        $message077 = wordwrap($message3, 77, "\r\n");
-        $message4 = "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
-
-        // Preparing the headers.
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
-        $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-        // Let's send it ! No management of mail() errors to avoid being too talkative...
-        $message = $message077.$message4;
-        @mail($to, $subject, $message, $headers);
+        email("mass_import_sent_for_validation");
     }
 }
 include '../../inc/footer.php';
