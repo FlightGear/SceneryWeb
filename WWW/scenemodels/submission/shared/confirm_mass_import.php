@@ -397,46 +397,7 @@ if (!$_POST['submit']) {
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
     $host = gethostbyaddr($ipaddr);
 
-    // OK, let's start with the mail redaction.
-    // What is the subject ?
-    $subject = "[FG Scenery Submission forms] Automatic objects massive import request: needs validation.";
-
-    // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-    if (!$failed_mail) {
-        $message0 = "Hi," . "\r\n" .
-                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new objects massive import request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
-                    "issued an objects massive import request." . "\r\n";
-    }
-    else {
-        $message0 = "Hi," . "\r\n" .
-                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new objects massive import request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued an objects massive import request." . "\r\n";
-    }
-    $message077 = wordwrap($message0, 77, "\r\n");
-
-    // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-    $message1 = "\r\n".
-                "Comment added by user: " .
-                strip_tags($sent_comment) ."\r\n" .
-                "Now please click:" . "\r\n" .
-                "http://".$_SERVER['SERVER_NAME']."/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email ."\r\n" .
-                "to check and confirm or reject the submission" . "\r\n" .
-                "Thanks!" ;
-
-    // Preparing the headers.
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
-    $headers .= $maintainers;
-    $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-    // Let's send it ! No management of mail() errors to avoid being too talkative...
-    $message = $message077.$message1;
-    @mail('', $subject, $message, $headers);
+    email("mass_import_request_pending");
 
     // Mailing the submitter to tell that his submission has been sent for validation.
     if (!$failed_mail) {
