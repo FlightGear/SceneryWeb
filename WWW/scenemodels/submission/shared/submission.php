@@ -89,7 +89,7 @@
                     // Who will receive it ?
                     if (isset($_GET['email'])) $to .= $_GET["email"];
                     else $to = "";
-                    $sig = $_GET[sig];
+                    $sig = $_GET['sig'];
                     
                     email("pending_request_process_confirmation");
 
@@ -162,9 +162,9 @@
                 // Who will receive it ?
                 if(isset($_GET['email'])) $to = $_GET["email"];
                     else $to = "";
-                $sig = $_GET[sig];
+                $sig = $_GET['sig'];
 
-                mail("reject_and_deletion_confirmation");
+                email("reject_and_deletion_confirmation");
                 
                 exit;
             }
