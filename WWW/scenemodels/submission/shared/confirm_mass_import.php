@@ -305,7 +305,7 @@ if (!$error) {
                 else
                     $ob_country_db = "'".$ob_country."'";
                 $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", ".$ob_country_db.", 1)";
-                print $data_rw[$i]."\n";
+                echo "Data rw: ".$data_rw[$i]."\n";
             }
         }
         else {
