@@ -11,7 +11,7 @@ function email($case)
     require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
-    global $dtg,$family_real_name,$gndelev,$heading,$host,$ipaddr,$lat,$long,$model_real_name,$ob_country,$offset,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$ipaddr,$lat,$long,$model_real_name,$ob_country,$offset,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -47,6 +47,27 @@ function email($case)
             $backend = true;
             break;
         case "shared_request_pending":
+            $subject  = "[FlightGear Scenery Database] Automatic object request: needs validation";
+            $message .= "We would like to let you know that a new object request is pending. " .
+                        "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
+            if (!empty($safe_email))
+                $message .= "and with email address ".$safe_email." ";
+            $message .= "issued the following request:" . "\r\n\r\n" .
+                        "Family:           ". $family_real_name . "\r\n" . "[ ".$html_family_url." ]" . "\r\n" .
+                        "Model:            ". $model_real_name . "\r\n" . "[ ".$html_object_url." ]" . "\r\n" .
+                        "Latitude:         ". $lat . "\r\n" .
+                        "Longitude:        ". $long . "\r\n" .
+                        "Country:          ". get_country_name_from_country_code($ob_country) . "\r\n" .
+                        "Ground elevation: ". $gndelev . "\r\n" .
+                        "Elevation offset: ". $offset . "\r\n" .
+                        "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
+                        "Comment:          ". strip_tags($sent_comment) . "\r\n" .
+                        "Map:              http://mapserver.flightgear.org/popmap/?lon=". $long ."&lat=". $lat ."&zoom=14" . "\r\n\r\n" .
+                        "Confirm: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                        "Reject: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n\r\n";
+            $backend = true;
+            break;
+        case "shared_request_sent_for_validation":
             $subject  = "[FlightGear Scenery Database] Automatic object submission request";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared submission request." . "\r\n\r\n" .
                         "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
@@ -60,7 +81,7 @@ function email($case)
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment:          ". strip_tags($sent_comment) ."\r\n\r\n" .
-                        "Please remember to use the <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php\">massive insertion script</a> should you have many objects to add.";
+                        "Please remember to use the massive insertion script should you have many objects to add: http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php" . "\r\n\r\n";
             break;
     }
     

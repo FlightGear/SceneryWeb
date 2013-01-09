@@ -221,72 +221,18 @@ if (!$error) {
         $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
         $host = gethostbyaddr($ipaddr);
 
-        // OK, let's start with the mail redaction.
-        // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic object request: needs validation.";
-
         // Correctly format the data for mail.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
         $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id;
         $html_family_url = htmlspecialchars($family_url);
         $html_object_url = htmlspecialchars($object_url);
 
-        // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if(!$failed_mail) {
-            $message0 = "Hi," . "\r\n" .
-                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "I just wanted to let you know that a new object insertion request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
-                        "issued the following request:" . "\r\n";
-        }
-        else {
-            $message0 = "Hi," . "\r\n" .
-                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "I just wanted to let you know that a new object insertion request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
-        }
-
-        $message077 = wordwrap($message0, 77, "\r\n");
-
-        // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-        $message1 = "Family: ".$family_real_name."\r\n" . "[ ".$html_family_url." ]" . "\r\n" .
-                    "Model: ".$model_real_name."\r\n" . "[ ".$html_object_url." ]" . "\r\n" .
-                    "Latitude: ". $lat . "\r\n" .
-                    "Longitude: ". $long . "\r\n" .
-                    "Country: ". get_country_name_from_country_code($ob_country) . "\r\n" .
-                    "Ground elevation: ". $gndelev . "\r\n" .
-                    "Elevation offset: ". $offset . "\r\n" .
-                    "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
-                    "Comment: ". strip_tags($sent_comment) ."\r\n" .
-                    "Please click:" . "\r\n" .
-                    "http://mapserver.flightgear.org/popmap/?lon=". $long ."&lat=". $lat ."&zoom=14" . "\r\n" .
-                    "to locate the object on the map." ;
-
-        $message2 = "\r\n".
-                    "Now please click:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
-                    "to confirm the submission" . "\r\n" .
-                    "or" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
-                    "to reject the submission." . "\r\n" . "\r\n" .
-                    "Thanks!" ;
-
-        // Preparing the headers.
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
-        $headers .= $maintainers;
-        $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-        // Let's send it ! No management of mail() errors to avoid being too talkative...
-        $message = $message077.$message1.$message2;
-        @mail('', $subject, $message, $headers);
+        email("shared_request_pending");
 
         // Mailing the submitter to tell him that his submission has been sent for validation
         if(!$failed_mail) {
             $to = $safe_email;
-            email("shared_request_pending");
+            email("shared_request_sent_for_validation");
         }
     }
 }
