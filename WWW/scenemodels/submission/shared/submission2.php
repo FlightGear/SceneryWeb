@@ -81,8 +81,8 @@
                         <td colspan="8" class="submit">
                             <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET[email]."\" />"; ?>
                             <?php echo "<input type=\"hidden\" name=\"sig\" value=\"".$_GET[sig]."\" />"; ?>
-                            <input type="submit" name="submit" value="Accept" />
-                            <input type="submit" name="cancel" value="Reject" />
+                            <input type="submit" name="action" value="Accept" />
+                            <input type="submit" name="action" value="Reject" />
                         </td>
                     </tr>
                     </table>
@@ -94,7 +94,7 @@
     }
 
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
-    if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'accept')) {
+    if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'Accept')) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -181,7 +181,7 @@
 
     // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
     else {
-        if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'reject')) {
+        if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'Reject')) {
             $resource_rw = connect_sphere_rw();
 
             // If connection is OK
