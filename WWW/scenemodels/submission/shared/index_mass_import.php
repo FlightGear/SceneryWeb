@@ -30,9 +30,10 @@ function validateForm()
 }
 function setTextareaHeight(textarea)
 {
-    if (textarea.scrollHeight < 130)
-        textarea.scrollHeight = 130;
-    textarea.style.height = textarea.scrollHeight + 13 + 'px';
+    if (textarea.scrollHeight < 130p)
+        textarea.style.height = 130 + 'px";
+    else
+        textarea.style.height = textarea.scrollHeight + 13 + 'px';
 }
 /*]]>*/
 </script>
