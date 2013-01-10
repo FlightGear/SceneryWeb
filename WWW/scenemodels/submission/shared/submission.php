@@ -94,7 +94,7 @@
     }
 
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
-    if (isset($_POST["sig"]) && (strlen($_POST["sig"]) == 64) && preg_match("/[0-9a-z]/",$_POST["sig"]) && ($_POST["action"] == 'Accept' or $_GET["action"] == "confirm")) {
+    if ((isset($_POST["sig"]) && (strlen($_POST["sig"]) == 64) && preg_match("/[0-9a-z]/",$_POST["sig"]) && $_POST["action"] == 'Accept') or (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && $_GET["action"] == "confirm")) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -182,7 +182,7 @@
 
     // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
     else {
-        if (isset($_POST["sig"]) && (strlen($_POST["sig"]) == 64) && preg_match("/[0-9a-z]/",$_POST["sig"]) && ($_POST["action"] == 'Reject' or $_GET["action"] == "reject")) {
+        if ((isset($_POST["sig"]) && (strlen($_POST["sig"]) == 64) && preg_match("/[0-9a-z]/",$_POST["sig"]) && $_POST["action"] == 'Reject') or (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) &&  $_GET["action"] == "reject")) {
             $resource_rw = connect_sphere_rw();
 
             // If connection is OK
