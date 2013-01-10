@@ -75,8 +75,7 @@ function email($case)
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment:          ". strip_tags($sent_comment) . "\r\n" .
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". $long ."&lat=". $lat ."&zoom=14" . "\r\n\r\n" .
-                        "Confirm: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
-                        "Reject: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n\r\n";
+                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email."\r\n\r\n";
             $backend = true;
             break;
         case "shared_request_sent_for_validation":

@@ -148,7 +148,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
     $message2 = "\r\n".
                 "Now please click:" . "\r\n" .
-                "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=confirm&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
+                "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=accept&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
                 "to confirm the deletion" . "\r\n" .
                 "or" . "\r\n" .
                 "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
