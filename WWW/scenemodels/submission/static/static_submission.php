@@ -1,6 +1,7 @@
 <?php
 if (isset($_POST["action"])) {
     // Inserting libs
+    require_once ('../../inc/email.php');
     require_once ('../../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
 
@@ -61,38 +62,16 @@ if (isset($_POST["action"])) {
 
                 date_default_timezone_set('UTC');
                 $dtg = date('l jS \of F Y h:i:s A');
+                $mo_sha_hash = $_POST["mo_sig"];
+                $ob_sha_hash = $_POST["ob_sig"];
+                $name = $_POST["mo_name"];
+                $comment = $_POST["maintainer_comment"];
 
-                // OK, let's start with the mail redaction.
-                // Who will receive it ?
                 if(isset($_POST['email'])) $to = $_POST["email"];
                     else $to = "";
-
-                // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic 3D model insertion DB reject and deletion confirmation.";
-
-                // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-                $message0 = "Hi,"  . "\r\n" .
-                            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']  . "\r\n" .
-                            "I just wanted to let you know that your 3D model import"."\r\n" .
-                            "- ".substr($_POST["mo_sig"],0,10). "... (model) and " . "\r\n" .
-                            "- ".substr($_POST["ob_sig"],0,10). "... (object)" . "\r\n" .
-                            "and named '".$_POST["mo_name"]."' " . "\r\n" .
-                            "has been rejected and therefore successfully deleted from the pending requests table"."\r\n" .
-                            "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
-                            "We're sorry about this. Please use the maintainer's comment to enhance or"."\r\n" .
-                            "correct your model before submitting it again.";
-
-                $message = wordwrap($message0, 77, "\r\n");
-
-                // Preparing the headers.
-                $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "From: \"FG Scenery Pending Requests forms\" <no-reply@flightgear.org>" . "\r\n";
-                $headers .= $maintainers;
-                $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-                // Let's send it ! No management of mail() errors to avoid being too talkative...
-                @mail($to, $subject, $message, $headers);
+ 
+                email("static_request_rejected");
+                
                 exit;
 
                 /*echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";

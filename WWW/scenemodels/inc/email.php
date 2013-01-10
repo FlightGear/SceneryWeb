@@ -11,7 +11,7 @@ function email($case)
     require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
-    global $author,$comment,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$ipaddr,$lat,$latitude,$long,$longitude,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $author,$comment,$country,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$ipaddr,$lat,$latitude,$long,$longitude,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -97,13 +97,22 @@ function email($case)
                         "Comment:          ". strip_tags($comment) ."\r\n" .
                         "Latitude:         ". $latitude . "\r\n" .
                         "Longitude:        ". $longitude . "\r\n" .
-                        "Country:          ". get_country_name_from_country_code($ob_country) . "\r\n" .
+                        "Country:          ". get_country_name_from_country_code($country) . "\r\n" .
                         "Ground elevation: ". $gndelev . "\r\n" .
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment:          ". strip_tags($sent_comment) . "\r\n" .
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n\r\n" .
-                        "Now please click the following link to view and confirm/reject the submission:" . "http://".$_SERVER['SERVER_NAME']."/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
+                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
+            $backend = true;
+            break;
+        case "static_request_rejected":
+            $subject  = "[FlightGear Scenery Database] Automatic 3D model import request rejected";
+            $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request." . "\r\n\r\n" .
+                        "We are sorry to let you know that this request has been rejected. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
+                        "For reference, the first part of the unique IDs of this request were '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it was named '". $name ."'.\r\n\r\n" .
+                        "The screener left a comment for you: " . $comment . "\r\n\r\n" .
+                        "We're sorry about this. Please use the maintainer's comment to enhance or correct your model before submitting it again." . "\r\n\r\n";
             $backend = true;
             break;
         case "static_request_sent_for_validation":
@@ -118,7 +127,7 @@ function email($case)
                         "Comment:          ". strip_tags($comment) ."\r\n" .
                         "Latitude:         ". $latitude . "\r\n" .
                         "Longitude:        ". $longitude . "\r\n" .
-                        "Country:          ". get_country_name_from_country_code($ob_country) . "\r\n" .
+                        "Country:          ". get_country_name_from_country_code($country) . "\r\n" .
                         "Ground elevation: ". $gndelev . "\r\n" .
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
