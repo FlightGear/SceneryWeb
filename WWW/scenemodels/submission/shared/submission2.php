@@ -94,14 +94,14 @@
     }
 
     // Check the presence of "action", the presence of "signature", its length (64) and its content.
-    if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'Accept')) {
+    if (isset($_POST["action"]) && isset($_POST["sig"]) && (strlen($_POST["sig"]) == 64) && preg_match("/[0-9a-z]/",$_POST["sig"]) && ($_POST["action"] == 'Accept')) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if ($resource_rw != '0') {
 
         // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw,"SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
+            $result = @pg_query($resource_rw,"SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Objects Pending Requests Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
@@ -111,7 +111,7 @@
                 exit;
             }
 
-            if ($_GET["action"] == 'accept') {   // If action comes from the unitary insertion script
+            if ($_POST["action"] == 'Accept') {   // If action comes from the unitary insertion script
                 while ($row = pg_fetch_row($result)) {
                     $sqlzbase64 = $row[1];
 
@@ -128,7 +128,7 @@
                         $page_title = "Automated Objects Pending Requests Form";
                         include '../../inc/header.php';
                         echo "<p class=\"center\">";
-                        echo "Signature found.<br /> Now processing query with request number ". $_GET[sig].".</p><br />";
+                        echo "Signature found.<br /> Now processing query with request number ". $_POST[sig].".</p><br />";
                         echo "<p class=\"center warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
                         // Closing the rw connection.
@@ -139,11 +139,11 @@
 
                     $page_title = "Automated Objects Pending Requests Form";
                     include '../../inc/header.php';
-                    echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_GET[sig].".</p><br />";
+                    echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST[sig].".</p><br />";
                     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
                     // Delete the entry from the pending query table.
-                    $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
+                    $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["sig"] ."';";
                     $resultdel = @pg_query($resource_rw,$delete_request);
 
                     if(!resultdel) {
@@ -167,9 +167,9 @@
 
                     // OK, let's start with the mail redaction.
                     // Who will receive it ?
-                    if (isset($_GET['email'])) $to .= $_GET["email"];
+                    if (isset($_POST['email'])) $to .= $_POST["email"];
                     else $to = "";
-                    $sig = $_GET['sig'];
+                    $sig = $_POST['sig'];
                     
                     email("pending_request_process_confirmation");
 
@@ -181,14 +181,14 @@
 
     // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
     else {
-        if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && ($_GET["action"] == 'Reject')) {
+        if (isset($_POST["action"]) && isset($_POST["sig"]) && (strlen($_POST["sig"]) == 64) && preg_match("/[0-9a-z]/",$_POST["sig"]) && ($_POST["action"] == 'Reject')) {
             $resource_rw = connect_sphere_rw();
 
             // If connection is OK
             if ($resource_rw != '0') {
 
                 // Checking the presence of sig into the database
-                $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
+                $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_POST["sig"] ."';";
                 $result = @pg_query($delete_query);
 
                 // If not ok...
@@ -205,14 +205,14 @@
                 }
 
                 // Delete the entry from the pending query table.
-                $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
+                $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["sig"] ."';";
                 $resultdel = @pg_query($resource_rw, $delete_request);
 
                 if (!resultdel) {
                     $page_title = "Automated Objects Pending Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">\n";
-                    echo "Signature found.<br /> Now deleting request with number ". $_GET[sig].".</p>";
+                    echo "Signature found.<br /> Now deleting request with number ". $_POST[sig].".</p>";
                     echo "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />\n";
 
                     // Closing the rw connection.
@@ -224,7 +224,7 @@
                 $page_title = "Automated Objects Pending Requests Form";
                 include '../../inc/header.php';
                 echo "<p class=\"center\">";
-                echo "Signature found.<br />Now deleting request with number ". $_GET[sig].".</p>";
+                echo "Signature found.<br />Now deleting request with number ". $_POST[sig].".</p>";
                 echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
                 echo "</p>";
 
@@ -240,9 +240,9 @@
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
-                if(isset($_GET['email'])) $to = $_GET["email"];
+                if(isset($_POST['email'])) $to = $_POST["email"];
                     else $to = "";
-                $sig = $_GET['sig'];
+                $sig = $_POST['sig'];
 
                 email("reject_and_deletion_confirmation");
                 
