@@ -75,7 +75,7 @@
                     $country = $matches['country'];
                     $model_id = $matches['model_id'];
 
-                    echo "<tr>\n"
+                    echo "<tr>\n" .
                          "<td><center>".$long."</center></td>\n" .
                          "<td><center>".$lat."</center></td>\n" .
                          "<td><center>".$country."</center></td>\n" .
