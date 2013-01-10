@@ -55,7 +55,7 @@
             $modelid = $row["mo_id"];
             $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, " .
                      "ST_X(wkb_geometry) AS ob_lon, " .
-                     "fn_SceneDir(wkb_geometry) AS dir "
+                     "fn_SceneDir(wkb_geometry) AS dir " .
                      "FROM fgs_objects " .
                      "WHERE ob_model=".$modelid;
             $chunks = pg_query($query);
