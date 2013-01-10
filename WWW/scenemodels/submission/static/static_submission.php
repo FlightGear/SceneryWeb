@@ -165,44 +165,19 @@ if (isset($_POST["action"])) {
                 // Sets the time to UTC.
                 date_default_timezone_set('UTC');
                 $dtg = date('l jS \of F Y h:i:s A');
+                $mo_sha_hash = $_POST["mo_sig"];
+                $ob_sha_hash = $_POST["ob_sig"];
+                $name = $_POST["mo_name"];
+                $comment = $_POST["maintainer_comment"];
+                $model_id = $mo_id[0];
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
                 if (isset($_POST["email"])) $to = $_POST["email"];
                     else $to = "";
 
-                // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic 3D model insertion DB insertion confirmation.";
-
-                // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-                $message0 = "Hi,"  . "\r\n" .
-                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "I just wanted to let you know that the 3D model import with numbers :" . "\r\n" .
-                        "- ".substr($_POST["mo_sig"],0,10). "... (model) and " . "\r\n" .
-                        "- ".substr($_POST["ob_sig"],0,10). "... (object)" . "\r\n" .
-                        "and named '".$_POST["mo_name"]."' " . "\r\n" .
-                        "has been successfully treated in the scenemodel database" . "\r\n" .
-                        "with the following comment :\"".$_POST["maintainer_comment"]."\"."."\r\n" .
-                        "The corresponding pending entries has consequently been deleted" . "\r\n" .
-                        "from the pending requests table." . "\r\n" .
-                        "The corresponding entries will de added in TerraSync at " . check_terrasync_update_passed() . "." . "\r\n" .
-                        "You can follow TerraSync's data update at the following url: " . "\r\n" .
-                        "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
-                        "You can also check the model directly at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$mo_id[0].""."\r\n" .
-                        "Thanks for your help in making FG better!";
-
-                $message = wordwrap($message0, 77, "\r\n");
-
-                // Preparing the headers.
-
-                $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "From: \"FG Scenery Pending Requests forms\" <no-reply@flightgear.org>" . "\r\n";
-                $headers .= $maintainers;
-                $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-                // Let's send it ! No management of mail() errors to avoid being too talkative...
-                @mail($to, $subject, $message, $headers);
+                email("static_request_accepted");
+                
                 include '../../inc/footer.php';
                 exit;
             }

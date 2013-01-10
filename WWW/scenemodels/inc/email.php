@@ -11,7 +11,7 @@ function email($case)
     require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
-    global $author,$comment,$country,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$ipaddr,$lat,$latitude,$long,$longitude,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $author,$comment,$country,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -83,6 +83,17 @@ function email($case)
                         "Comment:          ". strip_tags($sent_comment) ."\r\n\r\n" .
                         "Please remember to use the massive insertion script should you have many objects to add: http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php" . "\r\n\r\n";
             break;
+        case "static_request_accepted":
+            $subject  = "[FlightGear Scenery Database] Automatic 3D model import request accepted";
+            $message .= "On ".$dtg." UTC, you issued a 3D model import request." . "\r\n\r\n" .
+                        "We are glad to let you know that this request has been accepted!" . "\r\n\r\n" .
+                        "For reference, the first part of the unique IDs of this request are '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it is named '". $name ."'.\r\n\r\n";
+                        if ($comment != "Drop a comment to the submitter")
+                            $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
+            $message .= "The corresponding entries will de added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list Or check the model directly at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id."\r\n\r\n" .
+                        "Thanks for your help in making FlightGear better!" . "\r\n\r\n";
+            $backend = true;
+            break;
         case "static_request_pending":
             $subject  = "[FlightGear Scenery Database] Automatic 3D model import request: needs validation.";
             $message .= "We would like to let you know that a new 3D model request is pending. " .
@@ -108,8 +119,8 @@ function email($case)
             break;
         case "static_request_rejected":
             $subject  = "[FlightGear Scenery Database] Automatic 3D model import request rejected";
-            $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request." . "\r\n\r\n" .
-                        "We are sorry to let you know that this request has been rejected. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
+            $message .= "On ".$dtg." UTC, you issued a 3D model import request." . "\r\n\r\n" .
+                        "We are sorry to let you know that this request has been rejected." . "\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request were '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it was named '". $name ."'.\r\n\r\n";
                         if ($comment != "Drop a comment to the submitter")
                             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
