@@ -11,7 +11,7 @@ function email($case)
     require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
-    global $author,$comment,$country,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$ipaddr,$lat,$latitude,$long,$longitude,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $author,$comment,$country,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$ipaddr,$lat,$latitude,$long,$longitude,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -110,9 +110,10 @@ function email($case)
             $subject  = "[FlightGear Scenery Database] Automatic 3D model import request rejected";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request." . "\r\n\r\n" .
                         "We are sorry to let you know that this request has been rejected. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
-                        "For reference, the first part of the unique IDs of this request were '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it was named '". $name ."'.\r\n\r\n" .
-                        "The screener left a comment for you: " . $comment . "\r\n\r\n" .
-                        "We're sorry about this. Please use the maintainer's comment to enhance or correct your model before submitting it again." . "\r\n\r\n";
+                        "For reference, the first part of the unique IDs of this request were '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it was named '". $name ."'.\r\n\r\n";
+                        if ($comment != "Drop a comment to the submitter")
+                            $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
+            $message .=  "Please do not let this stop you from sending us an improved version of this model or other models." . "\r\n\r\n";
             $backend = true;
             break;
         case "static_request_sent_for_validation":
