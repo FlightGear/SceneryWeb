@@ -78,12 +78,16 @@
                     }
 ?>
                     <tr>
-                    <td colspan="9" class="submit">
-                        <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET[email]."\" />"; ?>
-                        <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET[sig]."\" />"; ?>
-                        <input type="submit" name="submit" value="Submit the mass import!" />
-                        <input type="submit" name="cancel" value="Reject - Do not import!" />
-                    </td>
+                        <td colspan="3">Leave a comment to the submitter</td>
+                        <td colspan="6"><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" onfocus="emptyDefaultValue(this, 'Drop a comment to the submitter');"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" class="submit">
+                            <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET[email]."\" />"; ?>
+                            <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET[sig]."\" />"; ?>
+                            <input type="submit" name="submit" value="Submit the mass import!" />
+                            <input type="submit" name="cancel" value="Reject - Do not import!" />
+                        </td>
                     </tr>
                     </table>
 <?php
@@ -142,33 +146,14 @@
                 // Sets the time to UTC.
                 date_default_timezone_set('UTC');
                 $dtg = date('l jS \of F Y h:i:s A');
+                $comment = $_POST["maintainer_comment"];
+                $hsig = $_POST[hsig];
 
-                // OK, let's start with the mail redaction.
-                // Who will receive it ?
                 if (isset($_POST["email"])) $to = $_POST["email"];
                     else $to = "";
 
-                // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic objects massive import DB reject and deletion confirmation.";
-
-                // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-                $message0 = "Hi,"  . "\r\n" .
-                            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://".$_SERVER['SERVER_NAME']."/submission/mass_submission.php"  . "\r\n" .
-                            "I just wanted to let you know that the objects massive insertion request nr:"  . "\r\n" .
-                            "" .$_POST[hsig]. ""."\r\n" .
-                            "has been rejected and successfully deleted from the pending requests table.";
-
-                $message = wordwrap($message0, 77, "\r\n");
-
-                // Preparing the headers.
-                $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "From: \"FG Scenery Pending Requests forms\" <no-reply@flightgear.org>" . "\r\n";
-                $headers .= $maintainers;
-                $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-                // Let's send it ! No management of mail() errors to avoid being too talkative...
-                @mail($to, $subject, $message, $headers);
+                email("mass_import_request_rejected");
+                
                 include '../../inc/footer.php';
                 exit;
             }
