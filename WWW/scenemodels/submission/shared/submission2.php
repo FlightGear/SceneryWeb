@@ -62,13 +62,13 @@
                     $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                     
-                    echo $tab_tags; // Debugging
+                    echo $tab_tags[0]; // Debugging
                     
                     echo "<form id=\"check_mass\" method=\"post\" action=\"submission.php\">";
                     echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
                     $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
                     
-                    $error === preg_match($pattern, $tab_tags, $matches);
+                    $error === preg_match($pattern, $tab_tags[0], $matches);
 
                     $long = $matches['long'];
                     $lat = $matches['lat'];
