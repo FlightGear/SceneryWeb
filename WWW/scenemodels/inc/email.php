@@ -54,6 +54,8 @@ function email($case)
         case "reject_and_deletion_confirmation":
             $subject  = "[FlightGear Scenery Database] Automatic objects reject and deletion confirmation";
             $message .= "We would like to let you know that the object request nr: " . $sig . " has been rejected and successfully deleted from the pending requests table." . "\r\n\r\n";
+            if ($comment != "Drop a comment to the submitter")
+                $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $backend = true;
             break;
         case "shared_request_pending":

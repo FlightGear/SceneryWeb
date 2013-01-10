@@ -164,6 +164,7 @@
                     // Sets the time to UTC.
                     date_default_timezone_set('UTC');
                     $dtg = date('l jS \of F Y h:i:s A');
+                    $comment = $_POST['maintainer_comment'];
 
                     // OK, let's start with the mail redaction.
                     // Who will receive it ?
@@ -237,6 +238,7 @@
 
                 date_default_timezone_set('UTC');
                 $dtg = date('l jS \of F Y h:i:s A');
+                $comment = $_POST['maintainer_comment'];
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
