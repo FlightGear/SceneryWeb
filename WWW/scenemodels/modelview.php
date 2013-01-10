@@ -108,8 +108,6 @@ if (!empty($model["mo_notes"])) {
                  "WHERE ob_model=$id";
         $chunks = pg_query($query);
         $chunk = pg_fetch_assoc($chunks);
-        $lat = floor($chunk["ob_lat"]/10)*10;
-        $lon = floor($chunk["ob_lon"]/10)*10;
     ?>
         <tr>
             <td align="center" colspan="3">
