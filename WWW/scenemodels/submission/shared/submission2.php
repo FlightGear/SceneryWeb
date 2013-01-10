@@ -31,18 +31,6 @@
                 @pg_close($resource_rw);
                 exit;
             }
-            
-            $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
-
-            $error === preg_match($pattern, $value_tag, $matches);
-
-            $long = $matches['long'];
-            $lat = $matches['lat'];
-            $elev = $matches['elev'];
-            $elevoffset = $matches['elevoffset'];
-            $orientation = $matches['orientation'];
-            $country = $matches['country'];
-            $model_id = $matches['model_id'];
 
             if ($_GET["action"] == "check") {  // If action comes from the mass submission script
                 while ($row = pg_fetch_row($result)) {
