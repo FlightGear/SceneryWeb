@@ -56,7 +56,9 @@
                     $page_title = "Automated Objects Massive Import Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n</p>\n";
-
+                    
+                    echo $query_rw; // Debugging
+                    
                     $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                     echo "<form id=\"check_mass\" method=\"post\" action=\"submission.php\">";
