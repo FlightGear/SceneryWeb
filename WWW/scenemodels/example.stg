@@ -1,11 +1,6 @@
-#country: gb
-#submitter: JonS
-#desc: Wakefield Cathedral
 OBJECT_STATIC WakefieldCathedral.xml -1.497343 53.682987 46.57 90
-#desc: Ferrybridge powerstation chimney
 OBJECT_STATIC ferrybridgechimney.xml -1.2798805 53.715335 19.78 180
 OBJECT_STATIC ferrybridgechimney.xml -1.2783575 53.7157753 20 180
-#desc: Ferrybridge powerstation cooling tower
 OBJECT_SHARED Models/Power/coolingtower.xml -1.2799614 53.7194706 15.77 180
 OBJECT_SHARED Models/Power/coolingtower.xml -1.2788853 53.720363 14.7 180
 OBJECT_SHARED Models/Power/coolingtower.xml -1.2787645 53.7185644 15.18 180
@@ -14,7 +9,6 @@ OBJECT_SHARED Models/Power/coolingtower.xml -1.2775737 53.7172987 15.84 180
 OBJECT_SHARED Models/Power/coolingtower.xml -1.2768022 53.7181031 14.57 180
 OBJECT_SHARED Models/Power/coolingtower.xml -1.276383 53.716033 18.42 180
 OBJECT_SHARED Models/Power/coolingtower.xml -1.2757599 53.7170181 14.91 180
-#desc: Housing, Newton Hill
 OBJECT_SHARED Models/Residential/SDHouse1.xml -1.499961 53.705564 74.16 20
 OBJECT_SHARED Models/Residential/SDHouse1.xml -1.499953 53.700529 68.8 70
 OBJECT_SHARED Models/Residential/SDHouse1.xml -1.499926 53.700789 68.96 340
