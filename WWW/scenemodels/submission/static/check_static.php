@@ -766,63 +766,12 @@ else {
         $dtg = date('l jS \of F Y h:i:s A');
         $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
-
-        // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic 3D model import request: needs validation.";
-
+        
         // Correctly set the object URL.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$mo_shared;
         $html_family_url = htmlspecialchars($family_url);
-
-        // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        if($failed_mail != 1) {
-            $message0 = "Hi," . "\r\n" .
-                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "I just wanted to let you know that a new 3D model import request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_au_email."\r\n" .
-                        "issued the following request:" . "\r\n";
-        }
-        else {
-            $message0 = "Hi," . "\r\n" .
-                        "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                        "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                        "I just wanted to let you know that a new 3D model import request is pending." . "\r\n" .
-                        "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
-        }
-        $message077 = wordwrap($message0, 77, "\r\n");
-
-        // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-        $message1 = "Family: ".family_name($mo_shared)."\r\n" .
-        "[ ".$html_family_url." ]" . "\r\n" .
-        "Path: ". $path_to_use . "\r\n" .
-        "Author: ". get_authors_name_from_authors_id($author) ."\r\n" .
-        "Description: ". $name ."\r\n" .
-        "Comment: ". strip_tags($comment) ."\r\n" .
-        "Latitude: ". $latitude . "\r\n" .
-        "Longitude: ". $longitude . "\r\n" .
-        "Ground elevation: ". $gndelev . "\r\n" .
-        "Elevation offset: ". $offset . "\r\n" .
-        "True (DB) orientation: ". heading_stg_to_true($heading) . "\r\n" .
-        "Please click:" . "\r\n" .
-        "http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n" .
-        "to locate the object on the map." ;
-
-        $message2 = "\r\n".
-        "Now please click:" . "\r\n" .
-        "http://".$_SERVER['SERVER_NAME']."/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email."\r\n" .
-        "to view and confirm/reject the submission." . "\r\n" .
-        "Thanks!" ;
-
-        // Preparing the headers.
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
-        $headers .= $maintainers;
-        $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-        // Let's send it ! No management of mail() errors to avoid being too talkative...
-        $message = $message077.$message1.$message2;
-        @mail('', $subject, $message, $headers);
+        
+        email("static_request_pending");
 
         // Mailing the submitter to tell him that his submission has been sent for validation
         if($failed_mail != 1) {

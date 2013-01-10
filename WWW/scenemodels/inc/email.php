@@ -83,8 +83,31 @@ function email($case)
                         "Comment:          ". strip_tags($sent_comment) ."\r\n\r\n" .
                         "Please remember to use the massive insertion script should you have many objects to add: http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php" . "\r\n\r\n";
             break;
+        case "static_request_pending":
+            $subject  = "[FlightGear Scenery Database] Automatic 3D model import request: needs validation.";
+            $message .= "We would like to let you know that a new 3D model request is pending. " .
+                        "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
+            if (!empty($safe_email))
+                $message .= "and with email address ".$safe_email." ";
+            $message .= "issued the following request:" . "\r\n\r\n" .
+                        "Family:           ". family_name($mo_shared) . "\r\n" . "[ ".$html_family_url." ]" . "\r\n" .
+                        "Path:             ". $path_to_use . "\r\n" .
+                        "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
+                        "Description:      ". $name ."\r\n" .
+                        "Comment:          ". strip_tags($comment) ."\r\n" .
+                        "Latitude:         ". $latitude . "\r\n" .
+                        "Longitude:        ". $longitude . "\r\n" .
+                        "Country:          ". get_country_name_from_country_code($ob_country) . "\r\n" .
+                        "Ground elevation: ". $gndelev . "\r\n" .
+                        "Elevation offset: ". $offset . "\r\n" .
+                        "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
+                        "Comment:          ". strip_tags($sent_comment) . "\r\n" .
+                        "Map:              http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n\r\n" .
+                        "Now please click the following link to view and confirm/reject the submission:" . "http://".$_SERVER['SERVER_NAME']."/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
+            $backend = true;
+            break;
         case "static_request_sent_for_validation":
-            $subject  = "[FlightGear Scenery Database] Automatic 3D model import request: needs validation";
+            $subject  = "[FlightGear Scenery Database] Automatic 3D model import request";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request." . "\r\n\r\n" .
                         "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request are '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model)". "\r\n\r\n" .
