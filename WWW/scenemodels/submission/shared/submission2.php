@@ -51,28 +51,31 @@
                     
                     echo "<form id=\"check_mass\" method=\"post\" action=\"submission.php\">";
                     echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
-                    $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
-                    
-                    $error === preg_match($pattern, $trigged_query_rw, $matches);
+                    $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
+                    foreach ($tab_tags as $value_tag) {
+                        $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
+                        
+                        preg_match($pattern, $value_tag, $matches);
 
-                    $long = $matches['long'];
-                    $lat = $matches['lat'];
-                    $elev = $matches['elev'];
-                    $elevoffset = $matches['elevoffset'];
-                    $orientation = $matches['orientation'];
-                    $country = $matches['country'];
-                    $model_id = $matches['model_id'];
+                        $long = $matches['long'];
+                        $lat = $matches['lat'];
+                        $elev = $matches['elev'];
+                        $elevoffset = $matches['elevoffset'];
+                        $orientation = $matches['orientation'];
+                        $country = $matches['country'];
+                        $model_id = $matches['model_id'];
 
-                    echo "<tr>\n" .
-                         "<td><center>".$long."</center></td>\n" .
-                         "<td><center>".$lat."</center></td>\n" .
-                         "<td><center>".$country."</center></td>\n" .
-                         "<td><center>".$elev."</center></td>\n" .
-                         "<td><center>".$elevoffset."</center></td>\n" .
-                         "<td><center>".$orientation."</center></td>\n" .
-                         "<td><center>".object_name($model_id)."</center></td>\n" .
-                         "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
-                         "</tr>\n";
+                        echo "<tr>\n" .
+                             "<td><center>".$long."</center></td>\n" .
+                             "<td><center>".$lat."</center></td>\n" .
+                             "<td><center>".$country."</center></td>\n" .
+                             "<td><center>".$elev."</center></td>\n" .
+                             "<td><center>".$elevoffset."</center></td>\n" .
+                             "<td><center>".$orientation."</center></td>\n" .
+                             "<td><center>".object_name($model_id)."</center></td>\n" .
+                             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
+                             "</tr>\n";
+                    }
 ?>
                     <tr>
                         <td colspan="3">Leave a comment to the submitter</td>
