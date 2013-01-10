@@ -31,6 +31,8 @@ function validateForm()
 function setTextareaHeight(textarea)
 {
     var lines = textarea.value.match(/\n/g).length + 1;
+    if (lines < 10)
+        lines = 10;
     if (lines > 100)
         lines = 100;
     textarea.style.height = lines * 13 + "px";
@@ -92,7 +94,7 @@ function setTextareaHeight(textarea)
 <form id="positions" method="post" action="confirm_mass_import.php" onsubmit="return validateForm();">
 <table>
     <tr>
-        <td><label for="stg">Content to add<em>*</em><span>This is the content of the STG file you want to add.</span></label></td>
+        <td style="vertical-align: top;"><label for="stg">Content to add<em>*</em><span>This is the content of the STG file you want to add.</span></label></td>
         <td><textarea name="stg" id="stg" rows="10" cols="100" onchange="checkSTG(this);" onkeyup="setTextareaHeight(this)" style="line-height: 13px; overflow: hidden;"></textarea></td>
     </tr>
     <tr>
