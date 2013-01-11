@@ -58,6 +58,26 @@ function email($case)
                 $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $backend = true;
             break;
+        case "shared_delete_request_pending":
+            $subject  = "[FlightGear Scenery Database] Automatic object deletion request: needs validation";
+            $message .= "We would like to let you know that a new object deletion request is pending. " .
+                        "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
+            if (!empty($safe_email))
+                $message .= "and with email address ".$safe_email." ";
+            $message .= "issued the following request:" . "\r\n\r\n" .
+                        "Family:           " .get_object_family_from_id($id_to_delete). "\r\n" .
+                        "Model:            " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
+                        "Latitude:         " .get_object_latitude_from_id($id_to_delete). "\r\n" .
+                        "Longitude:        " .get_object_longitude_from_id($id_to_delete). "\r\n" .
+                        "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
+                        "Elevation offset: " .get_object_offset_from_id($id_to_delete). "\r\n" .
+                        "True orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
+                        "Comment:          " .strip_tags($comment) . "\r\n" .
+                        "Map:              http://mapserver.flightgear.org/popmap/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14" . "\r\n\r\n" .
+                        "Accept: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=accept&sig=". $sha_hash ."&email=". $safe_email . "\r\n" .
+                        "Reject: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
+            $backend = true;
+            break;
         case "shared_delete_request_sent_for_validation":
             $subject  = "[FlightGear Scenery Database] Automatic object deletion request";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared deletion request." . "\r\n\r\n" .

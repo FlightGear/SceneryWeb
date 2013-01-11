@@ -109,62 +109,8 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
     $host   = gethostbyaddr($ipaddr);
-
-    // OK, let's start with the mail redaction.
-    // What is the subject ?
-    $subject = "[FG Scenery Submission forms] Automatic object DELETION request: needs validation.";
-
-    // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-    if (!$failed_mail) {
-        $message0 = "Hi," . "\r\n" .
-                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new object DELETION request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") and with email address ".$safe_email."\r\n" .
-                    "issued the following request:" . "\r\n";
-    }
-    else {
-        $message0 = "Hi," . "\r\n" .
-                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "I just wanted to let you know that a new object DELETION request is pending." . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host.") issued the following request:" . "\r\n";
-    }
-    $message077 = wordwrap($message0, 77, "\r\n");
-
-    // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-    $message1 = "Object #: " .$id_to_delete. "\r\n" .
-                "Family: " .get_object_family_from_id($id_to_delete). "\r\n" .
-                "Model: " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
-                "Latitude: " .get_object_latitude_from_id($id_to_delete). "\r\n" .
-                "Longitude: " .get_object_longitude_from_id($id_to_delete). "\r\n" .
-                "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
-                "Elevation offset: " .get_object_offset_from_id($id_to_delete). "\r\n" .
-                "True (DB) orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
-                "Text currently shipped with object: ".get_object_text_from_id($id_to_delete). "\r\n" .
-                "Comment: " .$comment. "\r\n" .
-                "Please click:". "\r\n" .
-                "http://mapserver.flightgear.org/popmap/?lon=" .get_object_longitude_from_id($id_to_delete). "&lat=" .get_object_latitude_from_id($id_to_delete). "&zoom=15"."\r\n" .
-                "to locate the object on the map.";
-
-    $message2 = "\r\n".
-                "Now please click:" . "\r\n" .
-                "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=accept&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
-                "to confirm the deletion" . "\r\n" .
-                "or" . "\r\n" .
-                "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email."\r\n" .
-                "to reject the deletion." . "\r\n" . "\r\n" .
-                "Thanks!";
-
-    // Preparing the headers.
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "From: \"FG Scenery Deletion forms\" <no-reply@flightgear.org>" . "\r\n";
-    $headers .= $maintainers;
-    $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-    // Let's send it ! No management of mail() errors to avoid being too talkative...
-    $message = $message077.$message1.$message2;
-    @mail('', $subject, $message, $headers);
+    
+    email("shared_delete_request_pending");
 
     // Mailing the submitter and tell him that his submission has been sent for validation.
     if (!$failed_mail) {
