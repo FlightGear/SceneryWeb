@@ -11,7 +11,7 @@ function email($case)
     require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
-    global $author,$comment,$country,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $author,$comment,$country,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -57,6 +57,21 @@ function email($case)
             if ($comment != "Drop a comment to the submitter")
                 $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $backend = true;
+            break;
+        case "shared_delete_request_sent_for_validation":
+            $subject  = "[FlightGear Scenery Database] Automatic object deletion request";
+            $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared deletion request." . "\r\n\r\n" .
+                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
+                        "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'" . "\r\n\r\n" .
+                        "Family:           " .get_object_family_from_id($id_to_delete). "\r\n" .
+                        "Model:            " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
+                        "Latitude:         " .get_object_latitude_from_id($id_to_delete). "\r\n" .
+                        "Longitude:        " .get_object_longitude_from_id($id_to_delete). "\r\n" .
+                        "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
+                        "Elevation offset: " .get_object_offset_from_id($id_to_delete). "\r\n" .
+                        "True orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
+                        "Comment:          " .strip_tags($comment) . "\r\n".
+                        "Map:              http://mapserver.flightgear.org/popmap/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14" . "\r\n\r\n";
             break;
         case "shared_request_pending":
             $subject  = "[FlightGear Scenery Database] Automatic object request: needs validation";
