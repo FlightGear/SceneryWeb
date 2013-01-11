@@ -34,7 +34,7 @@ function email($case)
             $message .= "On ".$dtg." UTC, you issued an objects massive import request." . "\r\n\r\n" .
                         "We are sorry to let you know that this request has been rejected." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request was '".substr($hsig,0,10). "'\r\n\r\n";
-                        if ($comment != "Drop a comment to the submitter")
+                        if (!empty($comment) && $comment != "Drop a comment to the submitter")
                             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $message .= "Please do not let this stop you from sending us corrected object locations or models." . "\r\n\r\n";
             $backend = true;
@@ -54,7 +54,7 @@ function email($case)
         case "reject_and_deletion_confirmation":
             $subject  = "[FlightGear Scenery Database] Automatic objects reject and deletion confirmation";
             $message .= "We would like to let you know that the object request nr: " . $sig . " has been rejected and successfully deleted from the pending requests table." . "\r\n\r\n";
-            if ($comment != "Drop a comment to the submitter")
+            if (!empty($comment) && $comment != "Drop a comment to the submitter")
                 $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $backend = true;
             break;
@@ -134,7 +134,7 @@ function email($case)
             $message .= "On ".$dtg." UTC, you issued a 3D model import request." . "\r\n\r\n" .
                         "We are glad to let you know that this request has been accepted!" . "\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request are '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it is named '". $name ."'.\r\n\r\n";
-                        if ($comment != "Drop a comment to the submitter")
+                        if (!empty($comment) && $comment != "Drop a comment to the submitter")
                             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $message .= "The corresponding entries will de added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id."\r\n\r\n" .
                         "Thanks for your help in making FlightGear better!" . "\r\n\r\n";
@@ -168,7 +168,7 @@ function email($case)
             $message .= "On ".$dtg." UTC, you issued a 3D model import request." . "\r\n\r\n" .
                         "We are sorry to let you know that this request has been rejected." . "\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request were '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it was named '". $name ."'.\r\n\r\n";
-                        if ($comment != "Drop a comment to the submitter")
+                        if (!empty($comment) && $comment != "Drop a comment to the submitter")
                             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $message .=  "Please do not let this stop you from sending us an improved version of this model or other models." . "\r\n\r\n";
             $backend = true;
