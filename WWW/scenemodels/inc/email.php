@@ -11,7 +11,7 @@ function email($case)
     require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
-    global $author,$comment,$country,$dtg,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $author,$comment,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -128,6 +128,23 @@ function email($case)
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment:          ". strip_tags($sent_comment) ."\r\n\r\n" .
                         "Please remember to use the massive insertion script should you have many objects to add: http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php" . "\r\n\r\n";
+            break;
+        case "shared_update_request_sent_for_validation":
+            $subject  = "[FlightGear Scenery Database] Automatic object update request";
+            $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared update request." . "\r\n\r\n" .
+                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
+                        "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'" . "\r\n\r\n" .
+                        "Object #:          ".$id_to_update."\r\n" .
+                        "Family:            ". get_object_family_from_id($id_to_update) ." => ".family_name($family_name)."\r\n" .
+                        "[ ".$html_family_url." ]" . "\r\n" .
+                        "Model:             ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
+                        "[ ".$html_object_url." ]" . "\r\n" .
+                        "Latitude:          ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
+                        "Longitude:         ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
+                        "Ground elevation:  ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
+                        "Elevation offset:  ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
+                        "True rientation:   ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
+                        "Comment:           ". strip_tags($comment) ."\r\n\r\n";
             break;
         case "static_request_accepted":
             $subject  = "[FlightGear Scenery Database] Automatic 3D model import request accepted";

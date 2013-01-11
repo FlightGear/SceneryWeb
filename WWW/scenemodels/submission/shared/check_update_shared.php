@@ -1,6 +1,7 @@
 <?php
 
 // Inserting libs
+require_once('../../inc/email.php');
 require_once('../../inc/functions.inc.php');
 
 // Checking all variables
@@ -197,56 +198,19 @@ if (isset($model_name)
     $message = $message077.$message1.$message2;
     @mail('', $subject, $message, $headers);
 
-    // Mailing the submitter
+    // Mailing the submitter to tell him that his submission has been sent for validation.
     if (!$failed_mail) {
-
-        // Tell the submitter that its submission has been sent for validation.
         $to = $safe_email;
-
-        // What is the subject ?
-        $subject = "[FG Scenery Submission forms] Automatic object update request.";
 
         // Correctly set the object URL.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
         $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id;
         $html_family_url = htmlspecialchars($family_url);
         $html_object_url = htmlspecialchars($object_url);
+        $family_name = $_POST['family_name'];
+        $comment = $_POST['comment'];
 
-        // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-        $message3 = "Hi," . "\r\n" .
-                    "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                    "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                    "On ".$dtg." UTC, user with the IP address ".$ipaddr." (".$host."), which is thought to be you, issued the following request." . "\r\n" .
-                    "Just to let you know that this new object update request has been sent for validation." . "\r\n" .
-                    "The first part of the unique of this request is ".substr($sha_hash,0,10). "..." . "\r\n" .
-                    "If you have not asked for anything, or think this is a spam, please read the last part of this email." ."\r\n";
-        $message077 = wordwrap($message3, 77, "\r\n");
-
-        // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-        $message4 = "Object #: ".$id_to_update."\r\n" .
-                    "Family: ". get_object_family_from_id($id_to_update) ." => ".family_name($_POST['family_name'])."\r\n" .
-                    "[ ".$html_family_url." ]" . "\r\n" .
-                    "Model: ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
-                    "[ ".$html_object_url." ]" . "\r\n" .
-                    "Latitude: ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
-                    "Longitude: ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
-                    "Ground elevation: ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
-                    "Elevation offset: ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
-                    "True (DB) orientation: ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
-                    "Comment: ". strip_tags($_POST['comment']) ."\r\n" .
-                    "Please click:" . "\r\n" .
-                    "http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
-                    "to locate the object on the map (eventually new position)." . "\r\n" .
-                    "This process has been going through antispam measures. However, if this email is not sollicited, please excuse-us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
-
-        // Preparing the headers.
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "From: \"FG Scenery Submission forms\" <no-reply@flightgear.org>" . "\r\n";
-        $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-        // Let's send it ! No management of mail() errors to avoid being too talkative...
-        $message = $message077.$message4;
-        @mail($to, $subject, $message, $headers);
+        email("shared_update_request_sent_for_validation");
     }
     include '../../inc/footer.php';
     exit;
