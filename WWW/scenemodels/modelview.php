@@ -22,14 +22,10 @@ if (!empty($model["mo_notes"])) {
 <table>
     <tr>
         <td style="width: 320px" rowspan="7"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
-<?php
-        if ($model["mo_shared"] != 0) print "<td>Path</td>"; else print "<td>File name</td>";
-?>
+        <td>File name</td>
         <td>
 <?php
-            $result = pg_query("SELECT mg_id, mg_name, mg_path FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
-            $row = pg_fetch_assoc($result);
-            if ($model["mo_shared"] != 0) print "Models/".$row["mg_path"]."".$model["mo_path"]; else print $model["mo_path"];
+            print $model["mo_path"];
         print "</td>";
 ?>
     </tr>
