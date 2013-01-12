@@ -33,6 +33,8 @@ if (!empty($model["mo_notes"])) {
         <td>Type</td>
         <td>
 <?php
+            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
+            $row = pg_fetch_assoc($result);
             print "<a href=\"modelbrowser.php?shared=".$model["mo_shared"]."\">".$row["mg_name"]."</a>";
 ?>
         </td>
