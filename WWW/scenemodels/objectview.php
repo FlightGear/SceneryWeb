@@ -43,15 +43,15 @@
     </tr>
     <tr>
         <td>Ground elevation</td>
-        <td><?php $elevation = get_object_elevation_from_id($id); echo $elevation; ?></td>
+        <td><?php $elevation = get_object_elevation_from_id($id); echo $elevation; ?> m</td>
     </tr>
     <tr>
         <td>Elevation offset</td>
-        <td><?php $offset = get_object_offset_from_id($id); echo $offset; ?></td>
+        <td><?php $offset = get_object_offset_from_id($id); echo $offset; ?> m</td>
     </tr>
     <tr>
         <td>Heading</td>
-        <td><?php $heading = heading_true_to_stg(get_object_true_orientation_from_id($id)); echo $heading." (STG) - ".get_object_true_orientation_from_id($id)." (true)"; ?></td>
+        <td><?php $heading = heading_true_to_stg(get_object_true_orientation_from_id($id)); echo $heading."&deg; (STG) - ".get_object_true_orientation_from_id($id)."&deg; (true)"; ?></td>
     </tr>
     <tr>
         <td>Group</td>
