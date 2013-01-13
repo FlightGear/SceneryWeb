@@ -182,7 +182,7 @@
                  "LIMIT 20 OFFSET ".$offset;
 
         $result = pg_query($query);
-        $rowclass;
+        $rowclass = "";
         while ($result && $row = pg_fetch_assoc($result)) {
             $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
             echo "<tr class=\"object".$rowclass."\">\n";
