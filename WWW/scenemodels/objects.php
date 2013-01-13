@@ -82,7 +82,7 @@
 ?>
 <script type="text/javascript">
   function popmap(lat,lon) {
-    popup = window.open("http://mapserver.flightgear.org/popmap?zoom=12&amp;lat="+lat+"&amp;lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
+    popup = window.open("http://mapserver.flightgear.org/popmap?zoom=12&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
     popup.focus();
   }
 </script>

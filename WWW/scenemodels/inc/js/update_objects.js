@@ -53,7 +53,7 @@ function update_map(long_id, lat_id)
     var latitude = document.getElementById(lat_id).value;
 
     if(longitude!="" && latitude!="")
-        document.getElementById('map').data = "http://mapserver.flightgear.org/popmap/?zoom=13&amp;lat="+latitude+"&amp;lon="+longitude;
+        document.getElementById('map').data = "http://mapserver.flightgear.org/popmap/?zoom=13&lat="+latitude+"&lon="+longitude;
 }
 
 
@@ -65,7 +65,7 @@ function update_country()
     if (longitude!="" && latitude!="")
     {
         //retrives information from a php-generated xml
-        var url = '/inc/country_xml.php?lg='+longitude+"&amp;lt="+latitude;
+        var url = '/inc/country_xml.php?lg='+longitude+"&lt="+latitude;
 
         var hreq = null;
         if(window.XMLHttpRequest){//firefox, chrome,...
