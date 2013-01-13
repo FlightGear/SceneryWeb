@@ -1,8 +1,8 @@
 <?php
 
 // Inserting libs
-require_once('../../inc/email.php');
 require_once('../../inc/functions.inc.php');
+require_once('../../inc/email.php');
 
 // Checking all variables
 if (isset($_POST['new_long']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_long']))

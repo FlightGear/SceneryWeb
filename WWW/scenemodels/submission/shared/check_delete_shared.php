@@ -1,8 +1,8 @@
 <?php
 
 // Inserting libs
-require_once('../../inc/email.php');
 require_once('../../inc/functions.inc.php');
+require_once('../../inc/email.php');
 
 
 // Checks all variables if exist

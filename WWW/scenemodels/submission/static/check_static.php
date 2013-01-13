@@ -2,8 +2,8 @@
 
 # Inserting libs
 require_once('../../inc/captcha/recaptchalib.php');
-require_once('../../inc/email.php');
 require_once('../../inc/functions.inc.php');
+require_once('../../inc/email.php');
 
 $fatalerror = 0;
 $error      = 0;
