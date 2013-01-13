@@ -70,8 +70,12 @@ if ($resultr) {
     // Sets the time to UTC.
     date_default_timezone_set('UTC');
     $dtg = date('l jS \of F Y h:i:s A');
-
-    email("pending_requests");
+    
+    if (pg_num_rows($resultr) > 0) {
+        email("pending_requests");
+    } else {
+        email("pending_requests_none");
+    }
 }
 
 // Closing the connection.
