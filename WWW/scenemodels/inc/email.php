@@ -147,7 +147,7 @@ function email($case)
                         "Elevation offset:  ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
                         "True rientation:   ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
                         "Map (new potision): http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
-                        "Comment:           ". strip_tags($comment) ."\r\n\r\n";
+                        "Comment:           ". strip_tags($comment) ."\r\n\r\n" .
                         "Accept: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=accept&sig=". $sha_hash ."&email=". $safe_email . "\r\n" .
                         "Reject: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
             $backend = true;
