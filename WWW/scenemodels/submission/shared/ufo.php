@@ -113,7 +113,7 @@ if (file_exists($file)) {
 <table>
     <tr>
         <td style="vertical-align: top;"><label for="stg">Content to add<em>*</em><span>This is the content of the STG file you want to add.</span></label></td>
-        <td><textarea name="stg" id="stg" rows="30" cols="100" onchange="checkSTG(this);" value="<?php echo $stg; ?>"></textarea></td>
+        <td><textarea name="stg" id="stg" rows="30" cols="100" onchange="checkSTG(this);"><?php echo $stg; ?></textarea></td>
     </tr>
     <tr>
         <td><label for="email">Email address<span>Please leave YOUR VALID email address over here. This will help you be informed of your submission process.</span></label></td>
