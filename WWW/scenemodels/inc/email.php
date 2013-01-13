@@ -8,7 +8,7 @@ $to = "";
 
 function email($case)
 {
-    require_once('http://'.$_SERVER['SERVER_NAME'].'/inc/functions.inc.php');
+    require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
     global $author,$comment,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$pending_requests,$resultr,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
