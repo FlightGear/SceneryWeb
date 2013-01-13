@@ -112,6 +112,14 @@
         {type:'png', getURL: get_osm_url, displayOutsideMaxExtent: true, 'buffer':1, transitionEffect: 'resize'}
     );
 
+    var nlcd2006r = new OpenLayers.Layer.WMS( "NLCD 2006 raster",
+	    [ "http://1.flightgear.telascience.org/tc?",
+	      "http://2.flightgear.telascience.org/tc?",
+	      "http://3.flightgear.telascience.org/tc?",
+	      "http://4.flightgear.telascience.org/tc?" ],
+	    {layers: 'nlcd2006r', format: 'image/png'}
+	);
+
     var tarmac = new OpenLayers.Layer.WMS( "Airfield layouts (v8.10)",
 	    [ "http://1.flightgear.telascience.org/tc?",
 	      "http://2.flightgear.telascience.org/tc?",
