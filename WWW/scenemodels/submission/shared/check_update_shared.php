@@ -136,7 +136,9 @@ if (isset($model_name)
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
     $host = gethostbyaddr($ipaddr);
-    $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_name;
+    $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
+    $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id;
+    $html_family_url = htmlspecialchars($family_url);
     $html_object_url = htmlspecialchars($object_url);
     $family_name = $_POST['family_name'];
     $comment = $_POST['comment'];
