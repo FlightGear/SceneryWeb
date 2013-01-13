@@ -32,8 +32,8 @@ else {
 <table>
     <tr class="bottom">
         <td colspan="9" align="center">
-        <a href="modelbrowser.php?offset=<?php echo $offset-99;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a>
-        <a href="modelbrowser.php?offset=<?php echo $offset+99;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset-99;if (isset($_REQUEST['shared'])) {echo "&amp;shared=".$_REQUEST['shared'];};?>">Prev</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset+99;if (isset($_REQUEST['shared'])) {echo "&amp;shared=".$_REQUEST['shared'];};?>">Next</a>
         </td>
     </tr>
     <tr>
@@ -59,8 +59,8 @@ else {
     </tr>
     <tr class="bottom">
         <td colspan="9" align="center">
-        <a href="modelbrowser.php?offset=<?php echo $offset-99;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Prev</a>
-        <a href="modelbrowser.php?offset=<?php echo $offset+99;if (isset($_REQUEST['shared'])) {echo "&shared=".$_REQUEST['shared'];};?>">Next</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset-99;if (isset($_REQUEST['shared'])) {echo "&amp;shared=".$_REQUEST['shared'];};?>">Prev</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset+99;if (isset($_REQUEST['shared'])) {echo "&amp;shared=".$_REQUEST['shared'];};?>">Next</a>
         </td>
     </tr>
 </table>
