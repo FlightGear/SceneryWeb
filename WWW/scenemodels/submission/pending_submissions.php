@@ -1,6 +1,7 @@
 <?php
 
 // Inserting libs
+require_once('../inc/email.php');
 require_once('../inc/functions.inc.php');
 
 // Opening database connection...
@@ -70,38 +71,7 @@ if ($resultr) {
     date_default_timezone_set('UTC');
     $dtg = date('l jS \of F Y h:i:s A');
 
-    // OK, let's start with the mail redaction.
-    // What is the subject ?
-    $subject = "[FG Scenery Pending Requests] Automatic pending requests list.";
-
-    // Generating the message and wrapping it to 77 signs per HTML line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-    $message0 = "Hi," . "\r\n" .
-                "This is the automated FG scenery PHP form at:" . "\r\n" .
-                "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'] . "\r\n" .
-                "I just wanted to give you a small overview of the requests waiting for validation:" . "\r\n";
-    $message077 = wordwrap ($message0, 77, "\r\n");
-
-    if (pg_num_rows($resultr) > 0) {
-
-    // There is no possibility to wrap the URL or it will not work, nor the rest of the message (short lines), or it will not work.
-    $message1 = $pending_requests."\n";
-    $message2 = "They should be somewhere in your mails. Please check again." . "\r\n" .
-                            "Thanks!" ;
-    }
-    else {
-    $message1 = "There is currently no pending request. Well done! " . "\r\n";
-    $message2 = "Hopefully, some more will come soon ;-) ...";
-    }
-
-    // Preparing the headers.
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "From: \"FG Scenery Pending Requests Form\" <no-reply@flightgear.org>" . "\r\n";
-    $headers .= $maintainers;
-    $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-    // Let's send it ! No management of mail() errors to avoid being too talkative...
-    $message = $message077.$message1.$message2;
-    @mail('', $subject, $message, $headers);
+    email("pending_requests");
 }
 
 // Closing the connection.

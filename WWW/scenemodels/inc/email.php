@@ -11,7 +11,7 @@ function email($case)
     require_once('../../inc/functions.inc.php');
     
     // Register variables that we'd like to use inside this function
-    global $author,$comment,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $author,$comment,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$pending_requests,$resultr,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
     
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -61,6 +61,16 @@ function email($case)
             $message .= "We would like to let you know that the object (addition, update, deletion) request nr :" . $sig. "has been successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table." . "\r\n\r\n" .
                         "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list" . "\r\n\r\n";
             $backend = true;
+            break;
+        case "pending_requests":
+            $subject  = "[FlightGear Scenery Database] Pending requests";
+            $message .= "We would like to give you an overview of the remaining pending requests." . "\r\n\r\n";
+                if (pg_num_rows($resultr) > 0) {
+                    $message .= $pending_requests . "\r\n" .
+								"They should be somewhere in your mails. Please check again." . "\r\n\r\n";
+                } else {
+                    $message .= "There is currently no pending request. Well done! Hopefully, some more will come soon ;-)". "\r\n\r\n";
+                }
             break;
         case "reject_and_deletion_confirmation":
             $subject  = "[FlightGear Scenery Database] Automatic objects reject and deletion confirmation";
