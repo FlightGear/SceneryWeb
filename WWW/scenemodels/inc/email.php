@@ -129,6 +129,29 @@ function email($case)
                         "Comment:          ". strip_tags($sent_comment) ."\r\n\r\n" .
                         "Please remember to use the massive insertion script should you have many objects to add: http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php" . "\r\n\r\n";
             break;
+        case "shared_update_request_pending":
+            $subject  = "[FlightGear Scenery Database] Automatic object update request: needs validation";
+            $message .= "We would like to let you know that an object update request is pending. " .
+                        "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
+            if (!empty($safe_email))
+                $message .= "and with email address ".$safe_email." ";
+            $message .= "issued the following request:" . "\r\n\r\n" .
+                        "Object #:          ".$id_to_update."\r\n" .
+                        "Family:            ". get_object_family_from_id($id_to_update) ." => ".family_name($family_name)."\r\n" .
+                        "[ ".$html_family_url." ]" . "\r\n" .
+                        "Model:             ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
+                        "[ ".$html_object_url." ]" . "\r\n" .
+                        "Latitude:          ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
+                        "Longitude:         ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
+                        "Ground elevation:  ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
+                        "Elevation offset:  ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
+                        "True rientation:   ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
+                        "Map (new potision): http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
+                        "Comment:           ". strip_tags($comment) ."\r\n\r\n";
+                        "Accept: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=accept&sig=". $sha_hash ."&email=". $safe_email . "\r\n" .
+                        "Reject: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
+            $backend = true;
+            break;
         case "shared_update_request_sent_for_validation":
             $subject  = "[FlightGear Scenery Database] Automatic object update request";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared update request." . "\r\n\r\n" .
