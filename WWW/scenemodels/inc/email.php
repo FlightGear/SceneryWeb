@@ -65,12 +65,13 @@ function email($case)
         case "pending_requests":
             $subject  = "[FlightGear Scenery Database] Pending requests";
             $message .= "We would like to give you an overview of the remaining pending requests." . "\r\n\r\n";
-                if (pg_num_rows($resultr) > 0) {
-                    $message .= $pending_requests . "\r\n" .
-								"They should be somewhere in your mails. Please check again." . "\r\n\r\n";
-                } else {
-                    $message .= "There is currently no pending request. Well done! Hopefully, some more will come soon ;-)". "\r\n\r\n";
-                }
+            if (pg_num_rows($resultr) > 0) {
+                $message .= $pending_requests . "\r\n" .
+                            "They should be somewhere in your mails. Please check again." . "\r\n\r\n";
+            } else {
+                $message .= "There is currently no pending request. Well done! Hopefully, some more will come soon ;-)". "\r\n\r\n";
+            }
+            $backend = true;
             break;
         case "reject_and_deletion_confirmation":
             $subject  = "[FlightGear Scenery Database] Automatic objects reject and deletion confirmation";
