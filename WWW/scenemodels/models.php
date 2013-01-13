@@ -37,7 +37,7 @@
     $result=pg_query($query);
     while ($row = pg_fetch_assoc($result)){
         echo "<tr>\n" .
-             "<td width=\"320\">\n" .
+             "<td style=\"width: 320px\">\n" .
              "<a href=\"modelview.php?id=".$row["mo_id"]."\"><img src=\"modelthumb.php?id=".$row["mo_id"]."\" alt=\"Model ".$row["mo_id"]."\"/></a>\n" .
              "</td>\n" .
              "<td>\n" .

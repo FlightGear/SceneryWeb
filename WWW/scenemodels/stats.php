@@ -326,7 +326,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
 
     <table>
         <tr>
-            <td width="80%" style="border: 0px;">
+            <td style="border: 0px; width:80%;">
                 <div id="map_div" style="width: 100%; height: 500px;"></div>
             </td>
             <td valign="top" style="border: 0px;">
@@ -356,7 +356,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
 
     <table>
         <tr>
-            <td width="80%" style="border: 0px;">
+            <td style="border: 0px; width:80%;">
                 <div id="chart_bar_country_div" style="width: 100%; height: 500px;"></div>
             </td>
             <td valign="top" style="border: 0px;">

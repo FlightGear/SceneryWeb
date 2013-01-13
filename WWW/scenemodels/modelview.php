@@ -119,7 +119,7 @@ if (!empty($model["mo_notes"])) {
             var objectMap = document.createElement("object");
             objectMap.width = "100%";
             objectMap.height = "99%";
-            objectMap.data = "http://mapserver.flightgear.org/popmap/?zoom=13&lat=<?php echo $chunk["ob_lat"]; ?>&lon=<?php echo $chunk["ob_lon"]; ?>";
+            objectMap.data = "http://mapserver.flightgear.org/popmap/?lat=<?php echo $chunk["ob_lat"]; ?>&amp;lon=<?php echo $chunk["ob_lon"]; ?>&amp;zoom=14&amp;layers=B0TFTTTTT";
             objectMap.type = "text/html";
             var map = document.getElementById("map");
             map.innerHTML = "";
