@@ -11916,7 +11916,7 @@ MAP
 
   LAYER
     NAME nlcd2006r
-    DATA "/home/martin/live/MRLC/nlcd2006_landcover_4-20-11_se5.tiff"
+    DATA "/home/martin/live/MRLC/nlcd2006_landcover_4-20-11_se5_to.tiff"
     TYPE RASTER
     STATUS ON
     PROJECTION  # SR-ORG:6630
