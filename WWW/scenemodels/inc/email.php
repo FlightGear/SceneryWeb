@@ -18,6 +18,17 @@ function email($case)
     
     $message = "Hi," . "\r\n\r\n";
     switch ($case) {
+        case "mass_import_request_accepted":
+            $subject  = "[FlightGear Scenery Database] Automatic objects massive import request accepted";
+            $message .= "On ".$dtg." UTC, you issued an objects massive import request." . "\r\n\r\n" .
+                        "We are glad to let you know that this request has been accepted!" . "\r\n\r\n" .
+                        "For reference, the first part of the unique ID of this request was '".substr($hsig,0,10). "'\r\n\r\n";
+                        if (!empty($comment) && $comment != "Drop a comment to the submitter")
+                            $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
+            $message .= "The corresponding entries will de added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list" . "\r\n\r\n" .
+                        "Thanks for your help in making FlightGear better!" . "\r\n\r\n";
+            $backend = true;
+            break;
         case "mass_import_request_pending":
             $subject  = "[FlightGear Scenery Database] Automatic objects massive import request: needs validation";
             $message .= "We would like to let you know that a new objects massive import request is pending. " .

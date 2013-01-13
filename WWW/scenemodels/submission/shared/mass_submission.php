@@ -282,38 +282,13 @@
                 // Sets the time to UTC.
                 date_default_timezone_set('UTC');
                 $dtg = date('l jS \of F Y h:i:s A');
+                $hsig = $_POST['hsig'];
 
-                // OK, let's start with the mail redaction.
-                // Who will receive it ?
                 if (isset($_POST['email'])) $to = $_POST["email"];
                     else $to = "";
-
-                // What is the subject ?
-                $subject = "[FG Scenery Submission forms] Automatic Objects massive DB pending request process confirmation.";
-
-                // Generating the message and wrapping it to 77 signs per line (asked by Martin). But warning, this must NOT cut an URL, or this will not work.
-                $message0 = "Hi,"  . "\r\n" .
-                            "This is the automated FG scenery submission PHP form at:" . "\r\n" .
-                            "http://".$_SERVER['SERVER_NAME']."/submission/mass_submission.php"  . "\r\n" .
-                            "I just wanted to let you know that the objects massive insertion request nr :" . "\r\n" .
-                            $_POST[hsig]. "\r\n" .
-                            "has been successfully treated in the fgs_objects table." . "\r\n" .
-                            "The corresponding pending entry has consequently been deleted" . "\r\n" .
-                            "from the pending requests table." . "\r\n" .
-                            "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . "." . "\r\n" .
-                            "You can follow TerraSync's data update at the following url: " . "\r\n" .
-                            "http://code.google.com/p/terrascenery/source/list" . "\r\n" . "\r\n" .
-                            "Thanks for your help in making FG better!";
-                $message = wordwrap($message0, 77, "\r\n");
-
-                // Preparing the headers.
-                $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "From: \"FG Scenery Pending Requests forms\" <no-reply@flightgear.org>" . "\r\n";
-                $headers .= $maintainers;
-                $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-                // Let's send it ! No management of mail() errors to avoid being too talkative...
-                @mail($to, $subject, $message, $headers);
+                            
+                email("mass_import_request_accepted");
+                
                 include '../../inc/footer.php';
                 exit;
             }
