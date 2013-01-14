@@ -108,6 +108,8 @@ if (isset($_POST["action"])) {
 
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
+                
+                echo $query_rw_mo; // Debug
 
                 if (!$result_rw_mo) {
                     $process_text = "Signatures found.<br /> Now processing query with request number ". $_POST["mo_sig"];
