@@ -157,6 +157,9 @@ $(function() {
                     <td>
                         <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac" onchange="validateTabs();" />
                     </td>
+                    <td rowspan="4">
+                        <img id="form_objects_thumb" src="" alt=""/>
+                    </td>
                 </tr>
                 <tr>
                     <td>

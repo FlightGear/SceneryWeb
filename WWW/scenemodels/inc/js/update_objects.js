@@ -67,6 +67,7 @@ function changeModelInfo(hreq, path)
         var object=objects[0];
         var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
         var notes=object.getElementsByTagName("notes")[0].childNodes[0].nodeValue;
+		alert(notes);
     }
 
     document.getElementById('old_mo_name').innerHTML = name;
