@@ -96,7 +96,7 @@ $(function() {
                             if ($resource_r!='0') {
 
                                 // Show all the families other than the static family
-                                $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
+                                $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups ORDER BY mg_name;");
 
                                 // Start the select form
                                 echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
@@ -105,7 +105,6 @@ $(function() {
                                 while ($row = @pg_fetch_assoc($result)) {
                                     $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
                                     $name=preg_replace('/ /',"&nbsp;",$name);
-                                    $name=str_replace('Shared&nbsp;-&nbsp;',"",$name);
                                     echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                                 }
                                 echo "</select>";
