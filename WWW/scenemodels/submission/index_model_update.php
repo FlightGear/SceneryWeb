@@ -1,7 +1,7 @@
 <?php
-    require_once ('../../inc/functions.inc.php');
+    require_once ('../inc/functions.inc.php');
     $page_title = "Automated Models Submission Form";
-    include '../../inc/header.php';
+    include '../inc/header.php';
 ?>
 <script type="text/javascript" src="/inc/js/update_objects.js"></script>
 <script type="text/javascript" src="/inc/js/check_form.js"></script>
@@ -71,10 +71,10 @@ $(function() {
 <div id="tabs">
     <ul>
         <li><a href="#tabs-1">1: Model</a></li>
-        <li><a href="#tabs-2">3: Submit</a></li>
+        <li><a href="#tabs-2">2: Submit</a></li>
     </ul>
 
-    <form id="positions" method="post" action="check_update_test.php" enctype="multipart/form-data" onsubmit="return validateForm();">
+    <form id="positions" method="post" action="check_model_update.php" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div id="tabs-1">
             <ul>
                 <li>Files have to share a common name, for instance: modelname.ac, modelname.xml, modelname.png and modelname_thumbnail.jpg (the _thumbnail extension is required).</li>
@@ -84,10 +84,11 @@ $(function() {
                 <li>If you have multiple textures, name them modelname1.png, modelname2.png etc.</li>
                 <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only include XML if necessary for the model.</li>
                 <li>The thumbnail must be in JPEG and 320*240 resolution. Filename must end on _thumbnail.</li>
+				<li>Add ALL files, INCLUDING those that you did not change. Files not included will get lost.</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
-                    <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object you want to add.</span></label></td>
+                    <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object.</span></label></td>
                     <td colspan="2">
             <?php
                             $resource_r = connect_sphere_r();
@@ -121,7 +122,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="model_name">Model name<em>*</em><span>This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file.</span></label></td>
+                    <td><label for="model_name">Model name<em>*</em><span>This is the name of the object, ie the as it appears in the .stg file.</span></label></td>
                     <td>
                         <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
 
@@ -180,7 +181,7 @@ $(function() {
         </div>
         <div id="tabs-2">
             <ul>
-                <li>Choose the author for the model. Please contact us <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671">at the forum</a> if you're not listed here. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
+                <li>Choose the author for the model.</li>
                 <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
             </ul>
@@ -200,7 +201,7 @@ $(function() {
                         <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
                         <?php
                         // Google Captcha stuff
-                        require_once('../../inc/captcha/recaptchalib.php');
+                        require_once('../inc/captcha/recaptchalib.php');
                         $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                         echo recaptcha_get_html($publickey);
                         ?>
@@ -229,4 +230,4 @@ $(document).ready(function(){
     });
 });
 </script>
-<?php include '../../inc/footer.php'; ?>
+<?php include '../inc/footer.php'; ?>

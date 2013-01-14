@@ -1,8 +1,8 @@
 <?php
 if (isset($_POST["action"])) {
     // Inserting libs
-    require_once ('../../inc/functions.inc.php');
-    require_once ('../../inc/email.php');
+    require_once ('../inc/functions.inc.php');
+    require_once ('../inc/email.php');
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
@@ -24,7 +24,7 @@ if (isset($_POST["action"])) {
                     $process_text = "Deleting corresponding pending query.";
                     $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
                     $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
-                    include '../../inc/error_page.php';
+                    include '../inc/error_page.php';
                     @pg_close($resource_rw);
                     exit;
                 }
@@ -36,14 +36,14 @@ if (isset($_POST["action"])) {
                 if (!$mo_resultdel) {
                     $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $_POST["mo_sig"];
                     $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                    include '../../inc/error_page.php';
+                    include '../inc/error_page.php';
 
                     // Closing the rw connection.
                     pg_close($resource_rw);
                     exit;
                 }
 
-                include '../../inc/header.php';
+                include '../inc/header.php';
                 echo "<p class=\"center\">Deleting corresponding pending query.</p>";
                 echo "<p class=\"center\">";
                 echo "Signature found.<br />Now deleting request with number ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
@@ -51,7 +51,7 @@ if (isset($_POST["action"])) {
                 echo "</p>";
 
                 // Closing the rw connection.
-                include '../../inc/footer.php';
+                include '../inc/footer.php';
                 pg_close($resource_rw);
 
                 // Sending mail if entry was correctly deleted.
@@ -92,7 +92,7 @@ if (isset($_POST["action"])) {
             if (pg_num_rows($mo_result) != 1) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../../inc/error_page.php';
+                include '../inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
             }
@@ -115,14 +115,14 @@ if (isset($_POST["action"])) {
                     $process_text = "Signatures found.<br /> Now processing query with request number ". $_POST["mo_sig"];
                     $error_text = "Sorry, but the INSERT queries could not be processed.";
                     $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                    include '../../inc/error_page.php';
+                    include '../inc/error_page.php';
 
                     // Closing the rw connection.
                     pg_close ($resource_rw);
                     exit;
                 }
 
-                include '../../inc/header.php';
+                include '../inc/header.php';
                 echo "<p class=\"center\">";
                 echo "Signatures found.<br /> Now processing INSERT query of model with number ". $_POST["mo_sig"].".</p>";
                 echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
@@ -135,7 +135,7 @@ if (isset($_POST["action"])) {
                     echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
 
                     // Closing the rw connection.
-                    include '../../inc/footer.php';
+                    include '../inc/footer.php';
                     pg_close($resource_rw);
                     exit;
                 }
@@ -161,19 +161,19 @@ if (isset($_POST["action"])) {
 
                 email("model_update_request_accepted");
                 
-                include '../../inc/footer.php';
+                include '../inc/footer.php';
                 exit;
             }
         }
     }
-    include '../../inc/footer.php';
+    include '../inc/footer.php';
 }
 
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    require_once ('../../inc/functions.inc.php');
-    include_once '../../inc/geshi/geshi.php';
+    require_once ('../inc/functions.inc.php');
+    include_once '../inc/geshi/geshi.php';
 
 
     // Checking DB availability before all
@@ -182,7 +182,7 @@ if (!isset($_POST["action"])) {
     if (!$ok) {
         $page_title = "Automated Models Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include '../../inc/error_page.php';
+        include '../inc/error_page.php';
         exit;
     }
 
@@ -201,7 +201,7 @@ if (!isset($_POST["action"])) {
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../../inc/error_page.php';
+                include '../inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
             }
@@ -232,14 +232,14 @@ if (!isset($_POST["action"])) {
         }
     }
 
-include '../../inc/header.php';
+include '../inc/header.php';
 
 ?>
 
 <p class="center">Hi, this is the static submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/static.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
-<form id="validation" method="post" action="update_submission.php" onsubmit="return validateForm();">
+<form id="validation" method="post" action="model_update_submission.php" onsubmit="return validateForm();">
 <table>
     <tr>
         <th>Data</th>
@@ -395,5 +395,5 @@ include '../../inc/header.php';
 unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
 clear_dir($target_path);
 }
-include '../../inc/footer.php';
+include '../inc/footer.php';
 ?>
