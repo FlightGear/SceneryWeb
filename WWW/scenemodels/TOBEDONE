@@ -4,7 +4,6 @@ Features updates (by priority):
 -------------------------------
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Add pitch/roll so they can be, for instance, mass imported [can be added now, but they are not taken into account].
-- Enable maintainer to drop a comment.
 - The massive insertion script must use dollar quoting ($$) for ob_text, else ob_texts with , (such as square helipad) are not getting inserted.
 - Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
 => In update, beware that for the moment, we are replacing the current metadata, whatever
@@ -18,7 +17,6 @@ Static objects
 After production:
 =================
 - Will have to authorize quotes into description/comments later on, because it is frequent in the english language cf PGSQL so-called Dollar-quoting, or from the PHP side.
-- Keep the possibility of updating the static object (it's now possible to update the corresponding object : lat, long, elev, offset...), its thumbnail, or deleting it ?
 - Use the PHP empty function in complement/instead of isset, where appropriate.
 
 Overall work:
