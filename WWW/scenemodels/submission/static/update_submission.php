@@ -131,7 +131,7 @@ if (isset($_POST["action"])) {
                 $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
                 $resultdel_mo = @pg_query ($resource_rw, $delete_request_mo);
 
-                if (!$resultdel_mo || !$resultdel_ob) {
+                if (!$resultdel_mo) {
                     echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
 
                     // Closing the rw connection.
