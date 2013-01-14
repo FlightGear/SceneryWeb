@@ -13,7 +13,7 @@ $mg_id=pg_escape_string($_GET['mg_id']);
 
 // Connecting to the database. Doing no error checking, because it would not show off properly at this position in HTML.
 
-if ($mg_id!='0')
+if ($mg_id!="")
 {
     $headerlink = connect_sphere_r();
 
