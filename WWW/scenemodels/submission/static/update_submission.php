@@ -66,7 +66,7 @@ if (isset($_POST["action"])) {
                 if(isset($_POST['email'])) $to = $_POST["email"];
                     else $to = "";
  
-                email("static_request_rejected");
+                email("model_update_request_rejected");
                 
                 exit;
 
@@ -159,7 +159,7 @@ if (isset($_POST["action"])) {
                 if (isset($_POST["email"])) $to = $_POST["email"];
                     else $to = "";
 
-                email("static_request_accepted");
+                email("model_update_request_accepted");
                 
                 include '../../inc/footer.php';
                 exit;

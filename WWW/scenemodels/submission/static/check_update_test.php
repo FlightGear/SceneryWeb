@@ -666,12 +666,12 @@ else {
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$mo_shared;
         $html_family_url = htmlspecialchars($family_url);
         
-        email("static_request_pending");
+        email("model_update_request_pending");
 
         // Mailing the submitter to tell him that his submission has been sent for validation
         if($failed_mail != 1) {
             $to = $safe_au_email;
-            email("static_request_sent_for_validation");
+            email("model_update_request_sent_for_validation");
         }
     }
 }
