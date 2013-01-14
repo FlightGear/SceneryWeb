@@ -564,14 +564,14 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
+if (($_POST["family_name"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["model_name"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
     && isset($_POST['comment'])) {
 
         $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
         $comment     = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
-        $mo_shared   = $_POST["mo_shared"];
+        $mo_shared   = $_POST["family_name"];
         $author      = $_POST["mo_author"];
         $model_name  = $_POST["model_name"];
         $ipaddr      = $_POST["IPAddr"];
