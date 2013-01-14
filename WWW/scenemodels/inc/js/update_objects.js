@@ -64,14 +64,13 @@ function changeModelInfo(hreq, path)
     if(hreq.readyState == 4) //checks that the request is finished
     {
         var objects=hreq.responseXML.getElementsByTagName("object");
-        for(i=0; i<objects.length; i++)
-        {
-            var object=objects[i];
-            var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-			alert(name);
-            var notes=object.getElementsByTagName("notes")[0].childNodes[0].nodeValue;
-            
-        }
+		var object=objects[0];
+		var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+		if (object.getElementsByTagName("notes")[0].childNodes[0].nodeValue) {
+			var notes=object.getElementsByTagName("notes")[0].childNodes[0].nodeValue;
+		} else {
+			var notes = "";
+		}
     }
 
     document.getElementById('old_mo_name').innerHTML = name;
