@@ -625,18 +625,9 @@ else {
     else $path_to_use = $ac3dName;
     echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 
-    $mo_query  = "INSERT INTO fgs_models ";
-    $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
-    $mo_query .= "VALUES (";
-    $mo_query .= $model_name.", ";        // mo_id
-    $mo_query .= "'".$path_to_use."', ";  // mo_path
-    $mo_query .= $author.", ";            // mo_author
-    $mo_query .= "'".$name."', ";         // mo_name
-    $mo_query .= "'".$comment."', ";      // mo_notes
-    $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
-    $mo_query .= "'".$modelFile."', ";    // mo_modelfile
-    $mo_query .= $mo_shared;              // mo_shared
-    $mo_query .= ")";
+    $mo_query  = "UPDATE fgs_models ";
+    $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$author.", mo_name = '".$name."', mo_notes = '".$comment."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared .
+	$mo_query .= " WHERE mo_id = ".$model_name;
 
     // Model stuff into pending requests table.
     $mo_sha_to_compute = "<".microtime()."><".$ipaddr."><".$mo_query.">";
