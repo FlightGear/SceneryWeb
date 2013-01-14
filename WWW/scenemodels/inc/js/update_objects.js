@@ -17,7 +17,7 @@ function update_objects(path)
 
 function changeObjectsList(hreq, path)
 {
-    var text="<select name='model_name' id='model_name' onchange='change_thumb()'>";
+    var text="<select name='model_name' id='model_name' onchange='change_thumb();update_model_info();'>";
 
     if(hreq.readyState == 4) //checks that the request is finished
     {
@@ -40,6 +40,41 @@ function changeObjectsList(hreq, path)
 
     document.getElementById('form_objects').innerHTML = text;
     change_thumb();
+}
+
+function update_model_info(path)
+{
+    //retrives information from a php-generated xml
+    var url = '/inc/model_info_xml.php?mo_id='+document.getElementById('model_name').value;
+
+    var hreq = null;
+    if(window.XMLHttpRequest){//firefox, chrome,...
+       hreq = new XMLHttpRequest();
+    } else {
+       hreq = new ActiveXObject("Microsoft.XMLHTTP");//IE
+    }
+
+    hreq.onreadystatechange = function(){changeModelInfo(hreq,path); };
+    hreq.open("GET", url, true); //true=asynchronous
+    hreq.send(null);
+}
+
+function changeModelInfo(hreq, path)
+{
+    if(hreq.readyState == 4) //checks that the request is finished
+    {
+        var objects=hreq.responseXML.getElementsByTagName("object");
+
+        for(i=0; i<objects.length; i++)
+        {
+            var object=objects[i];
+            var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+            var notes=object.getElementsByTagName("notes")[0].childNodes[0].nodeValue;
+        }
+    }
+
+    document.getElementById('old_mo_name').innerHTML = name;
+    document.getElementById('old_mo_notes').innerHTML = notes;
 }
 
 function change_thumb()

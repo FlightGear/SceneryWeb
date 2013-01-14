@@ -58,11 +58,10 @@ $(function() {
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
 
-<h1>Submit a model</h1>
+<h1>Update a model</h1>
 
 <p>
-    This automated form goal is to ease the submission of static and shared 3D models into the FlightGear scenery database.
-    There are currently <?php $models = count_models(); echo number_format($models, '0', '', ' '); ?> unique models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>. Help us to make it more!
+    Through this form you can update existing models in the FlightGear Scenery Database.
 </p>
 <p>
     Hover your mouse over the various field titles (left column) to view some information about what to do with that particular field. Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> for a better understanding of the various requirements.
@@ -77,6 +76,7 @@ $(function() {
     <form id="positions" method="post" action="check_model_update.php" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div id="tabs-1">
             <ul>
+                <li>Add ALL files related to the model, INCLUDING those that you did not change. Any file not included will get lost.</li>
                 <li>Files have to share a common name, for instance: modelname.ac, modelname.xml, modelname.png and modelname_thumbnail.jpg (the _thumbnail extension is required).</li>
                 <li>Please do not group separate buildings into one AC file. The terrain elevation is subject to updates, so this could lead to inaccuracies.</li>
                 <li>Do not add trees or flat surfaces (such as soccer fields) into your AC file.</li>
@@ -84,7 +84,6 @@ $(function() {
                 <li>If you have multiple textures, name them modelname1.png, modelname2.png etc.</li>
                 <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only include XML if necessary for the model.</li>
                 <li>The thumbnail must be in JPEG and 320*240 resolution. Filename must end on _thumbnail.</li>
-				<li>Add ALL files, INCLUDING those that you did not change. Files not included will get lost.</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
@@ -122,8 +121,8 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="model_name">Model name<em>*</em><span>This is the name of the object, ie the as it appears in the .stg file.</span></label></td>
-                    <td>
+                    <td><label for="model_name">File name<em>*</em><span>This is the name of the object, ie as it appears in the .stg file.</span></label></td>
+                    <td colspan="2">
                         <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
 
                         <div id="form_objects"></div>
@@ -131,7 +130,10 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <label for="mo_name">New model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
+                        <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
+                    </td>
+                    <td>
+                        <div id="old_mo_name"></div>
                     </td>
                     <td>
                         <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" onkeyup="checkComment(this);validateTabs();"/>
@@ -140,6 +142,9 @@ $(function() {
                 <tr>
                     <td>
                         <label for="comment">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
+                    </td>
+                    <td>
+                        <div id="old_mo_notes"></div>
                     </td>
                     <td>
                         <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onkeyup="checkComment(this);validateTabs();" />
