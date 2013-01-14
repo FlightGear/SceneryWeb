@@ -229,6 +229,8 @@ if (!isset($_POST["action"])) {
             $mo_thumbfile = $matches['thumbfile'];
             $mo_modelfile = $matches['modelfile'];
             $mo_shared    = $matches['shared'];
+			
+			echo $mo_thumbfile;
         }
     }
 
