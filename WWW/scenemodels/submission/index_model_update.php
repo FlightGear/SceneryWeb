@@ -172,7 +172,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td>
                         <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em><span>This is a nice picture representing your model in FlightGear in the best way (eg: tower_thumbnail.jpeg). The filename must end on _thumbnail.</span></label>
                     </td>
                     <td colspan="2">
