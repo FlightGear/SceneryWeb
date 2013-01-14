@@ -85,7 +85,7 @@ $(function() {
                 <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only include XML if necessary for the model.</li>
                 <li>The thumbnail must be in JPEG and 320*240 resolution. Filename must end on _thumbnail.</li>
             </ul>
-            <table style="width: auto; margin-left: auto; margin-right: auto;">
+            <table style="width: 100%;">
                 <tr>
                     <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object.</span></label></td>
                     <td>
@@ -175,7 +175,7 @@ $(function() {
                     <td colspan="2">
                         <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em><span>This is a nice picture representing your model in FlightGear in the best way (eg: tower_thumbnail.jpeg). The filename must end on _thumbnail.</span></label>
                     </td>
-                    <td>
+                    <td colspan="2">
                         <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" onchange="validateTabs();" />
                     </td>
                 </tr>
