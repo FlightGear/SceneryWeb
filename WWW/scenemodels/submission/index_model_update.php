@@ -88,7 +88,7 @@ $(function() {
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
                     <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object.</span></label></td>
-                    <td colspan="2">
+                    <td>
             <?php
                             $resource_r = connect_sphere_r();
 
@@ -119,10 +119,13 @@ $(function() {
                             }
             ?>
                     </td>
+                    <td rowspan="4">
+                        <img id="form_objects_thumb" width="200px" src="" alt=""/>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="model_name">File name<em>*</em><span>This is the name of the object, ie as it appears in the .stg file.</span></label></td>
-                    <td colspan="2">
+                    <td>
                         <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
 
                         <div id="form_objects"></div>
@@ -133,18 +136,12 @@ $(function() {
                         <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
-                        <div id="old_mo_name"></div>
-                    </td>
-                    <td>
                         <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" onkeyup="checkComment(this);validateTabs();"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="comment">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
-                    </td>
-                    <td>
-                        <div id="old_mo_notes"></div>
                     </td>
                     <td>
                         <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onkeyup="checkComment(this);validateTabs();" />
@@ -154,18 +151,15 @@ $(function() {
                     <td>
                         <label for="ac3d_file">AC3D file<em>*</em><span >This is the AC3D file of your model (eg: tower.ac).</span></label>
                     </td>
-                    <td>
+                    <td colspan="2">
                         <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac" onchange="validateTabs();" />
-                    </td>
-                    <td rowspan="4">
-                        <img id="form_objects_thumb" src="" alt=""/>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="xml_file">XML file<span>This is the XML file of your model (eg: tower.xml).</span></label>
                     </td>
-                    <td>
+                    <td colspan="2">
                         <input type="file" name="xml_file" id="xml_file" class="multi" maxlength="1" accept="text/xml" />
                     </td>
                 </tr>
@@ -173,12 +167,12 @@ $(function() {
                     <td>
                         <label for="png_files">PNG texture file(s)<span>This (Those) is (are) the PNG texture(s) file(s) of your model. Has to be a power of 2 in width and height.</span></label>
                     </td>
-                    <td>
+                    <td colspan="2">
                         <input type="file" name="png_file[]" id="png_files" class="multi" maxlength="12" accept="image/png" />
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colspan="2">
                         <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em><span>This is a nice picture representing your model in FlightGear in the best way (eg: tower_thumbnail.jpeg). The filename must end on _thumbnail.</span></label>
                     </td>
                     <td>

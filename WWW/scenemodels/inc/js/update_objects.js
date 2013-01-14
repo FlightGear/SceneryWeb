@@ -69,8 +69,8 @@ function changeModelInfo(hreq, path)
         var notes=object.getElementsByTagName("notes")[0].childNodes[0].nodeValue;
     }
 
-    document.getElementById('old_mo_name').innerHTML = name;
-    document.getElementById('old_mo_notes').innerHTML = notes;
+    document.getElementById('mo_name').value = name;
+    document.getElementById('comment').value = notes;
 }
 
 function change_thumb()
