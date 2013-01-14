@@ -271,7 +271,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></center></td>
+        <td><center><img src="get_thumbnail_from_mo_sig_update.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></center></td>
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
