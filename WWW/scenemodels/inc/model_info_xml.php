@@ -28,7 +28,9 @@ if ($mo_id!="")
     while($row = @pg_fetch_assoc($result))
     {
         $name=$row["mo_name"];
-		$notes=$row["mo_notes"];
+        $notes=$row["mo_notes"];
+        if ($notes == "")
+            $notes = "-";
         echo "<object>\n<name>$name</name>\n<notes>$notes</notes>\n</object>\n";
     }
     echo "</objects>\n";

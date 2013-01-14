@@ -66,11 +66,7 @@ function changeModelInfo(hreq, path)
         var objects=hreq.responseXML.getElementsByTagName("object");
         var object=objects[0];
         var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-        if (object.getElementsByTagName("notes")[0].childNodes[0].nodeValue === undefined) {
-            var notes = "";
-        } else {
-            var notes=object.getElementsByTagName("notes")[0].childNodes[0].nodeValue;
-        }
+        var notes=object.getElementsByTagName("notes")[0].childNodes[0].nodeValue;
     }
 
     document.getElementById('old_mo_name').innerHTML = name;
