@@ -101,7 +101,7 @@ $(function() {
                                 // Start the select form
                                 echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
                                      "<option ";
-                                if (empty($_GET['mg_id'])
+                                if (empty($_GET['mg_id']))
                                     echo "selected=\"selected\" ";
                                 echo "value=\"0\">Please select a family</option>\n" .
                                      "<option value=\"0\">----</option>\n";
