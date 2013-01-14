@@ -626,7 +626,7 @@ else {
     echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 
     $mo_query  = "UPDATE fgs_models ";
-    $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$author.", mo_name = '".$name."', mo_notes = '".$comment."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared .
+    $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$author.", mo_name = '".$name."', mo_notes = '".$comment."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared;
 	$mo_query .= " WHERE mo_id = ".$model_name;
 
     // Model stuff into pending requests table.
