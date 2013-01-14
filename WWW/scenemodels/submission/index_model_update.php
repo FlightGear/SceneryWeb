@@ -100,12 +100,18 @@ $(function() {
 
                                 // Start the select form
                                 echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
-                                     "<option selected=\"selected\" value=\"0\">Please select a family</option>\n" .
+                                     "<option ";
+                                if (empty($_GET['mg_id'])
+                                    echo "selected=\"selected\" ";
+                                echo "value=\"0\">Please select a family</option>\n" .
                                      "<option value=\"0\">----</option>\n";
                                 while ($row = @pg_fetch_assoc($result)) {
                                     $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
                                     $name=preg_replace('/ /',"&nbsp;",$name);
-                                    echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
+                                    echo "<option value=\"".$row["mg_id"]."\"";
+                                    if ($row["mg_id"] == $_GET['mg_id'])
+                                        echo " selected=\"selected\"";
+                                    echo ">".$name."</option>\n";
                                 }
                                 echo "</select>";
 
@@ -136,7 +142,7 @@ $(function() {
                         <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" size="40" onkeyup="checkComment(this);validateTabs();"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();"/>
                     </td>
                 </tr>
                 <tr>
@@ -144,7 +150,7 @@ $(function() {
                         <label for="comment">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onkeyup="checkComment(this);validateTabs();" />
+                        <input type="text" name="comment" id="comment" maxlength="500" style="width: 100%" value="" onkeyup="checkComment(this);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -172,7 +178,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="width: 200px">
                         <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em><span>This is a nice picture representing your model in FlightGear in the best way (eg: tower_thumbnail.jpeg). The filename must end on _thumbnail.</span></label>
                     </td>
                     <td colspan="2">
