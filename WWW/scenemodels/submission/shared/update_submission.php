@@ -45,7 +45,7 @@
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
 					
-					echo $trigged_query_rw;
+					echo $query_rw,;
                     
                     $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
                     
