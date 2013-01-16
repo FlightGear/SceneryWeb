@@ -44,10 +44,6 @@ IMG {
     border: 0px;
 }
 
-LI {
-    margin-bottom: 1px;
-}
-
 UL.detail {
     list-style-type: square;
     font-size: 0.9em;
@@ -250,6 +246,9 @@ FORM {
     padding: 0;
     margin: 0;
     list-style: none;
+    display: table;
+    width: 100%;
+    background-color: #e0e0ff;
 }
 
 #csstopmenu li{
@@ -280,8 +279,10 @@ FORM {
     top: 1.2em;
     left: 0;
     background-color: #e0e0ff;
-    border: 1px solid black;
+    border: 1px solid rgb(153, 153, 153);
+    border-top: 0px;
     z-index: 99;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .submenus li{
