@@ -46,7 +46,7 @@
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
 					
                     $trigged_query_rw = strstr($query_rw, 'wkb_geometry'); // Removing the start of the query from the data;
-					$trigged_query_rw = str_replace('$',''$trigged_query_rw);
+					$trigged_query_rw = str_replace('$','',$trigged_query_rw);
                     
                     echo "<table>\n<tr>\n<th></th>\n<th>Old</th>\n<th>New</th>\n</tr>\n";
                     
@@ -69,14 +69,14 @@
                     $model_id = $matches['model_id'];
                     $object_id = $matches['object_id'];
 
-                    echo "<tr><td>Description</td><td><center>".$notes."</center></td></tr>\n" .
-                         "<tr><td>Longitude</td><td><center>".$long."</center></td></tr>\n" .
-                         "<tr><td>Latitude</td><td><center>".$lat."</center></td></tr>\n" .
-                         "<tr><td>Elevation</td><td><center>".$elev."</center></td></tr>\n" .
-                         "<tr><td>Elevation offset</td><td><center>".$elevoffset."</center></td></tr>\n" .
-                         "<tr><td>Heading</td><td><center>".$orientation."</center></td></tr>\n" .
-                         "<tr><td>Object</td><td><center>".object_name($model_id)."</center></td></tr>\n" .
-                         "<tr><td>Map</td><td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td></tr>\n" .
+                    echo "<tr><td>Description</td><td>".$notes."</td></tr>\n" .
+                         "<tr><td>Longitude</td><td>".$long."</td></tr>\n" .
+                         "<tr><td>Latitude</td><td>".$lat."</td></tr>\n" .
+                         "<tr><td>Elevation</td><td>".$elev."</td></tr>\n" .
+                         "<tr><td>Elevation offset</td><td>".$elevoffset."</td></tr>\n" .
+                         "<tr><td>Heading</td><td>".$orientation."</td></tr>\n" .
+                         "<tr><td>Object</td><td>".object_name($model_id)."</td></tr>\n" .
+                         "<tr><td>Map</td><td><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></td></tr>\n" .
                          "</tr>\n";
 ?>
                     <!--<tr>
