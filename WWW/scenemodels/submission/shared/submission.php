@@ -187,8 +187,8 @@
                     </tr>-->
                     <tr>
                         <td colspan="3" class="submit">                            
-                            <?php echo "<a href=\"update_submission.php?action=accept&amp;sig=".$_GET[sig]."&amp;email=".$_GET[email]."\" />Accept</a> | ";?>
-                            <?php echo "<a href=\"update_submission.php?action=reject&amp;sig=".$_GET[sig]."&amp;email=".$_GET[email]."\" />Reject</a>";?>
+                            <?php echo "<a href=\"submission.php?action=accept&amp;sig=".$_GET[sig]."&amp;email=".$_GET[email]."\" />Accept</a> | ";?>
+                            <?php echo "<a href=\"submission.php?action=reject&amp;sig=".$_GET[sig]."&amp;email=".$_GET[email]."\" />Reject</a>";?>
                         </td>
                     </tr>
                     </table>
