@@ -44,6 +44,8 @@
                     $page_title = "Automated Objects Massive Import Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
+					
+					echo $trigged_query_rw;
                     
                     $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
                     
@@ -61,17 +63,16 @@
                     $orientation = $matches['orientation'];
                     // $country = $matches['country'];
                     $model_id = $matches['model_id'];
-                    $object_id = $matches['model_id'];
+                    $object_id = $matches['object_id'];
 
-                    echo "<tr>\n" .
-                         "<td>Description</td><td><center>".$notes."</center></td>\n" .
-                         "<td>Longitude</td><td><center>".$long."</center></td>\n" .
-                         "<td>Latitude</td><td><center>".$lat."</center></td>\n" .
-                         "<td>Elevation</td><td><center>".$elev."</center></td>\n" .
-                         "<td>Elevation offset</td><td><center>".$elevoffset."</center></td>\n" .
-                         "<td>Heading</td><td><center>".$orientation."</center></td>\n" .
-                         "<td>Object</td><td><center>".object_name($model_id)."</center></td>\n" .
-                         "<td>Map</td><td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
+                    echo "<tr><td>Description</td><td><center>".$notes."</center></td></tr>\n" .
+                         "<tr><td>Longitude</td><td><center>".$long."</center></td></tr>\n" .
+                         "<tr><td>Latitude</td><td><center>".$lat."</center></td></tr>\n" .
+                         "<tr><td>Elevation</td><td><center>".$elev."</center></td></tr>\n" .
+                         "<tr><td>Elevation offset</td><td><center>".$elevoffset."</center></td></tr>\n" .
+                         "<tr><td>Heading</td><td><center>".$orientation."</center></td></tr>\n" .
+                         "<tr><td>Object</td><td><center>".object_name($model_id)."</center></td></tr>\n" .
+                         "<tr><td>Map</td><td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td></tr>\n" .
                          "</tr>\n";
 ?>
                     <!--<tr>
