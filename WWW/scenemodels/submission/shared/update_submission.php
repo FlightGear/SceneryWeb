@@ -73,7 +73,7 @@
 					$result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$object_id;");
 					$object = pg_fetch_assoc($result);
 
-                    echo "<tr><td>Description</td><td>$object["ob_text"]</td><td>".$notes."</td></tr>\n" .
+                    echo "<tr><td>Description</td><td>".$object["ob_text"]."</td><td>".$notes."</td></tr>\n" .
                          "<tr><td>Longitude</td><td>".get_object_longitude_from_id($object_id)."</td><td>".$long."</td></tr>\n" .
                          "<tr><td>Latitude</td><td>".get_object_latitude_from_id($object_id)."</td><td>".$lat."</td></tr>\n" .
                          "<tr><td>Elevation</td><td>".get_object_elevation_from_id($object_id)."</td><td>".$elev."</td></tr>\n" .
