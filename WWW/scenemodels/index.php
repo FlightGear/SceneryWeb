@@ -8,13 +8,13 @@
     }
 ?>
 
-  <h1>FlightGear Scenery Website</h1>
-  
-  <p>Welcome to the <a href="http://www.flightgear.org">FlightGear</a> scenery website!</p>
-  <p>This website is used to share common tools and data for all FlightGear scenery related items. It also features webforms to help gathering all 3D models and objects positions all around the world! You can here contribute to FlightGear scenery by adding objects in your favorite place! Please don't hesitate, your help is welcomed!</p>
+    <h1>FlightGear Scenery Website</h1>
+
+    <p>Welcome to the <a href="http://www.flightgear.org">FlightGear</a> scenery website!</p>
+    <p>This website is used to share common tools and data for all FlightGear scenery related items. It also features webforms to help gathering all 3D models and objects positions all around the world! You can here contribute to FlightGear scenery by adding objects in your favorite place! Please don't hesitate, your help is welcomed!</p>
   
     <table class="left">
-    <tr><th colspan="2">Recently updated objects</th></tr>
+        <tr><th colspan="2">Recently updated objects</th></tr>
 <?php
         $query = "SELECT ob_id, ob_text, ob_model, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay " .
                  "FROM fgs_objects " .
@@ -35,14 +35,14 @@
                  "</tr>\n";
         }
 ?>
-    <tr class="bottom">
-        <td colspan="2" align="center">
-            <a href="objects.php">More recently updated objects</a>
-        </td>
-    </tr>
-  </table>
-  <table class="right">
-    <tr><th colspan="2">Recently updated models</th></tr>
+        <tr class="bottom">
+            <td colspan="2" align="center">
+                <a href="objects.php">More recently updated objects</a>
+            </td>
+        </tr>
+    </table>
+    <table class="right">
+        <tr><th colspan="2">Recently updated models</th></tr>
 <?php
         $query = "SELECT mo_id, mo_name, mo_path, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay " .
                  "FROM fgs_models " .
@@ -63,39 +63,35 @@
                 "</tr>\n";
         }
 ?>
-    <tr class="bottom">
-        <td colspan="2" align="center">
-            <a href="models.php">More recently updated models</a>
-        </td>
-    </tr>
-  </table>
-  <div class="clear"></div><br/>
+        <tr class="bottom">
+            <td colspan="2" align="center">
+                <a href="models.php">More recently updated models</a>
+            </td>
+        </tr>
+    </table>
+    <div class="clear"></div><br/>
   
-  <table>
-    <tr><th colspan="2">Latest news</th></tr>
+    <table>
+        <tr><th colspan="2">Latest news</th></tr>
 <?php
-    $query = "SELECT *, date_trunc('seconds',ne_timestamp) AS formdate ";
-    $query.= "FROM fgs_news, fgs_authors ";
-    $query.= "WHERE au_id = ne_author ";
-    $query.= "ORDER BY ne_timestamp DESC ";
-    $query.= "LIMIT 3 OFFSET ".$offset;
-    $result = pg_query($query);
-    while ($row = pg_fetch_assoc($result)) {
-        echo "<tr><td>\n" .
-             "<div class=\"newsdate\">".$row["formdate"]."</div>\n" .
-             "<div class=\"newsnormal\">by</div><div class=\"newsauthor\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div><hr/>\n" .
-             "".$row["ne_text"]."</td></tr>\n";
-    }
-?>
-
-    <tr class="bottom">
-        <td colspan="9" align="center">
-            <a href="news.php">Older news &gt;</a>
-        </td>
-    </tr>
-  </table>
-  
-  <br/>
-  
+        $query = "SELECT *, date_trunc('seconds',ne_timestamp) AS formdate ";
+        $query.= "FROM fgs_news, fgs_authors ";
+        $query.= "WHERE au_id = ne_author ";
+        $query.= "ORDER BY ne_timestamp DESC ";
+        $query.= "LIMIT 3 OFFSET ".$offset;
+        $result = pg_query($query);
+        while ($row = pg_fetch_assoc($result)) {
+            echo "<tr><td>\n" .
+                 "<div class=\"newsdate\">".$row["formdate"]."</div>\n" .
+                 "<div class=\"newsnormal\">by</div><div class=\"newsauthor\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div><hr/>\n" .
+                 "".$row["ne_text"]."</td></tr>\n";
+        }
+    ?>
+        <tr class="bottom">
+            <td colspan="9" align="center">
+                <a href="news.php">Older news &gt;</a>
+            </td>
+        </tr>
+    </table> 
   
 <?php include 'inc/footer.php';?>

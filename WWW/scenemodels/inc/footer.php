@@ -1,7 +1,6 @@
         </div>
     </div>
     <p class="center">
-        <br />
         <?php
         // What's the last GIT version of the website and when was it last updated?
         $filename = '/home/fgscenery/WWW/.git/refs/heads/master';
