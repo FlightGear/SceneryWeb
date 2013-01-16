@@ -50,9 +50,9 @@
 					echo $trigged_query_rw;
                     echo "<table>\n<tr>\n<th></th>\n<th>Old</th>\n<th>New</th>\n</tr>\n";
                     
-                    $pattern = "/SET ob_text\=\$\$(?P<notes>[a-zA-Z0-9 ,!_.-]*)\$\$, wkb_geometry\=ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+);/";
+                    $pattern = "/SET ob_text\=\$\$(?P<notes>[a-zA-Z0-9 ,!_.-]*)\$\$, wkb_geometry\=ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/";
                     
-                    $error === preg_match($pattern, $trigged_query_rw, $matches);
+                    preg_match($pattern, $trigged_query_rw, $matches);
 
                     $notes = $matches['notes'];
                     $long = $matches['long'];
