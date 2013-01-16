@@ -54,9 +54,8 @@
 					echo $pattern."\r\n\r\n";
 					echo $trigged_query_rw;
                     
-                    preg_match($pattern, $trigged_query_rw, $matches);
-					
-					echo  pg_last_error();
+                    $error === preg_match($pattern, $trigged_query_rw, $matches);
+					print $error;
 					
 					print_r($matches);
 					
