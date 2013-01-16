@@ -51,13 +51,8 @@
                     echo "<table>\n<tr>\n<th></th>\n<th>Old</th>\n<th>New</th>\n</tr>\n";
                     
                     $pattern = "/SET ob_text\=(?P<notes>[a-zA-Z0-9 ,!_.-]*), wkb_geometry\=ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/";
-					
-					echo $pattern."\r\n\r\n";
-					echo $trigged_query_rw;
                     
                     $error === preg_match($pattern, $trigged_query_rw, $matches);
-					
-					print_r($matches);
 					
                     $notes = $matches['notes'];
                     $long = $matches['long'];
@@ -79,8 +74,8 @@
                          "<tr><td>Elevation</td><td>".get_object_elevation_from_id($object_id)."</td><td>".$elev."</td></tr>\n" .
                          "<tr><td>Elevation offset</td><td>".get_object_offset_from_id($object_id)."</td><td>".$elevoffset."</td></tr>\n" .
                          "<tr><td>Heading (STG)</td><td>".heading_true_to_stg(get_object_true_orientation_from_id($object_id))."</td><td>".$orientation."</td></tr>\n" .
-                         "<tr><td>Object</td><td></td><td>".object_name($object["ob_model"])."</td><td>".object_name($model_id)."</td></tr>\n" .
-                         "<tr><td>Map</td><td><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></td></tr>\n" .
+                         "<tr><td>Object</td><td>".object_name($object["ob_model"])."</td><td>".object_name($model_id)."</td></tr>\n" .
+                         "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".get_object_longitude_from_id($object_id)."&amp;lat=".get_object_latitude_from_id($object_id)."&amp;zoom=14\" type=\"text/html\" width=\"320\" height=\"240\"></object></td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\" type=\"text/html\" width=\"320\" height=\"240\"></object></td></tr>\n" .
                          "</tr>\n";
 ?>
                     <!--<tr>
