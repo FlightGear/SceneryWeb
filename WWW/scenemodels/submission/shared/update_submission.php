@@ -45,7 +45,7 @@
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
 					
-                    $trigged_query_rw = strstr($query_rw, 'wkb_geometry'); // Removing the start of the query from the data;
+                    $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
 					$trigged_query_rw = str_replace('$','',$trigged_query_rw);
                     
                     echo "<table>\n<tr>\n<th></th>\n<th>Old</th>\n<th>New</th>\n</tr>\n";
