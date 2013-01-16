@@ -152,31 +152,31 @@
 
                     echo "<tr";
                     if ($object["ob_text"] != $notes)
-                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                        echo " style=\"background-color: rgb(255, 200, 0)\"";
                     echo "><td>Description</td><td>".$object["ob_text"]."</td><td>".$notes."</td></tr>\n";
                     echo "<tr";
                     if ($lon_old != $lon)
-                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                        echo " style=\"background-color: rgb(255, 200, 0)\"";
                     echo "><td>Longitude</td><td>".$lon_old."</td><td>".$lon."</td></tr>\n";
                     echo "<tr";
                     if ($lat_old != $lat)
-                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                        echo " style=\"background-color: rgb(255, 200, 0)\"";
                     echo "><td>Latitude</td><td>".$lat_old."</td><td>".$lat."</td></tr>\n";
                     echo "<tr";
                     if ($elev_old != $elev)
-                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                        echo " style=\"background-color: rgb(255, 200, 0)\"";
                     echo "><td>Elevation</td><td>".$elev_old."</td><td>".$elev."</td></tr>\n";
                     echo "<tr";
                     if ($elevoffset_old != $elevoffset)
-                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                        echo " style=\"background-color: rgb(255, 200, 0)\"";
                     echo "><td>Elevation offset</td><td>".$elevoffset_old."</td><td>".$elevoffset."</td></tr>\n";
                     echo "<tr";
                     if ($orientation_old != $orientation)
-                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                        echo " style=\"background-color: rgb(255, 200, 0)\"";
                     echo "><td>Heading (STG)</td><td>".heading_true_to_stg($orientation_old)." (STG) - ".$orientation_old."(true)</td><td>".heading_true_to_stg($orientation)." (STG) - ".$orientation." (true)</td></tr>\n";
                     echo "<tr";
                     if ($object["ob_text"] != $notes)
-                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                        echo " style=\"background-color: rgb(255, 200, 0)\"";
                     echo "><td>Object</td><td>".object_name($object["ob_model"])."</td><td>".object_name($model_id)."</td></tr>\n";
                     echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$lon_old."&amp;lat=".$lat_old."&amp;zoom=14\" type=\"text/html\" width=\"320\" height=\"240\"></object></td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$lon."&amp;lat=".$lat."&amp;zoom=14\" type=\"text/html\" width=\"320\" height=\"240\"></object></td></tr>\n" .
                          "</tr>\n";
