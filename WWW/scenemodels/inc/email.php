@@ -17,7 +17,7 @@ function email($case)
     $message = "Hi," . "\r\n\r\n";
     switch ($case) {
         case "mass_import_request_accepted":
-            $subject  = "[FlightGear Scenery Database] Massive object import accepted";
+            $subject  = "Massive object import accepted";
             $message .= "On ".$dtg." UTC, you issued an objects massive import request." . "\r\n\r\n" .
                         "We are glad to let you know that this request has been accepted!" . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request was '".substr($hsig,0,10). "'\r\n\r\n";
@@ -28,7 +28,7 @@ function email($case)
             $backend = true;
             break;
         case "mass_import_request_pending":
-            $subject  = "[FlightGear Scenery Database] Massive object import needs validation";
+            $subject  = "Massive object import needs validation";
             $message .= "We would like to let you know that a new objects massive import request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
             if (!empty($to))
@@ -39,7 +39,7 @@ function email($case)
             $backend = true;
             break;
         case "mass_import_request_rejected":
-            $subject  = "[FlightGear Scenery Database] Massive object import rejected";
+            $subject  = "Massive object import rejected";
             $message .= "On ".$dtg." UTC, you issued an objects massive import request." . "\r\n\r\n" .
                         "We are sorry to let you know that this request has been rejected." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request was '".substr($hsig,0,10). "'\r\n\r\n";
@@ -49,13 +49,13 @@ function email($case)
             $backend = true;
             break;
         case "mass_import_sent_for_validation":
-            $subject  = "[FlightGear Scenery Database] Massive object import";
+            $subject  = "Massive object import";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request." . "\r\n\r\n" .
                         "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'" . "\r\n\r\n";
             break;
         case "model_update_request_accepted":
-            $subject  = "[FlightGear Scenery Database] 3D model update accepted";
+            $subject  = "3D model update accepted";
             $message .= "On ".$dtg." UTC, you issued a 3D model update request." . "\r\n\r\n" .
                         "We are glad to let you know that this request has been accepted!" . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($mo_sha_hash,0,10). "' and it is named '". $name ."'.\r\n\r\n";
@@ -66,7 +66,7 @@ function email($case)
             $backend = true;
             break;
         case "model_update_request_pending":
-            $subject  = "[FlightGear Scenery Database] 3D model update needs validation.";
+            $subject  = "3D model update needs validation.";
             $message .= "We would like to let you know that an update for a 3D model request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
             if (!empty($safe_email))
@@ -82,7 +82,7 @@ function email($case)
             $backend = true;
             break;
         case "model_update_request_rejected":
-            $subject  = "[FlightGear Scenery Database] 3D model update rejected";
+            $subject  = "3D model update rejected";
             $message .= "On ".$dtg." UTC, you issued a 3D model update request." . "\r\n\r\n" .
                         "We are sorry to let you know that this request has been rejected." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request was '".substr($mo_sha_hash,0,10). "' and it was named '". $name ."'.\r\n\r\n";
@@ -92,7 +92,7 @@ function email($case)
             $backend = true;
             break;
         case "model_update_request_sent_for_validation":
-            $subject  = "[FlightGear Scenery Database] 3D model update request";
+            $subject  = "3D model update request";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model update request." . "\r\n\r\n" .
                         "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($mo_sha_hash,0,10). "'". "\r\n\r\n" .
@@ -104,32 +104,32 @@ function email($case)
                         "Comment:          ". strip_tags($sent_comment) . "\r\n\r\n";
             break;
         case "pending_request_process_confirmation":
-            $subject  = "[FlightGear Scenery Database] Automatic objects pending request process confirmation";
+            $subject  = "Automatic objects pending request process confirmation";
             $message .= "We would like to let you know that the object (addition, update, deletion) request nr :" . $sig. "has been successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table." . "\r\n\r\n" .
                         "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list" . "\r\n\r\n";
             $backend = true;
             break;
         case "pending_requests":
-            $subject  = "[FlightGear Scenery Database] Pending requests";
+            $subject  = "Pending requests";
             $message .= "We would like to give you an overview of the remaining pending requests." . "\r\n\r\n" .
                         $pending_requests . "\r\n" .
                         "They should be somewhere in your mails. Please check again." . "\r\n\r\n";
             $backend = true;
             break;
         case "pending_requests_none":
-            $subject  = "[FlightGear Scenery Database] Pending requests";
+            $subject  = "Pending requests";
             $message .= "There are currently no pending requests. Well done! Hopefully some more will come soon ;-)." . "\r\n\r\n";
             $backend = true;
             break;
         case "reject_and_deletion_confirmation":
-            $subject  = "[FlightGear Scenery Database] Automatic objects reject and deletion confirmation";
+            $subject  = "Automatic objects reject and deletion confirmation";
             $message .= "We are sorry to let you know that the object request nr: " . $sig . " has been rejected." . "\r\n\r\n";
             if (!empty($comment) && $comment != "Drop a comment to the submitter")
                 $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $backend = true;
             break;
         case "shared_delete_request_pending":
-            $subject  = "[FlightGear Scenery Database] Object deletion needs validation";
+            $subject  = "Object deletion needs validation";
             $message .= "We would like to let you know that a new object deletion request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
             if (!empty($safe_email))
@@ -149,7 +149,7 @@ function email($case)
             $backend = true;
             break;
         case "shared_delete_request_sent_for_validation":
-            $subject  = "[FlightGear Scenery Database] Object deletion";
+            $subject  = "Object deletion";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared deletion request." . "\r\n\r\n" .
                         "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'" . "\r\n\r\n" .
@@ -164,7 +164,7 @@ function email($case)
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14" . "\r\n\r\n";
             break;
         case "shared_request_pending":
-            $subject  = "[FlightGear Scenery Database] Automatic object request needs validation";
+            $subject  = "Automatic object request needs validation";
             $message .= "We would like to let you know that a new object request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
             if (!empty($safe_email))
@@ -184,7 +184,7 @@ function email($case)
             $backend = true;
             break;
         case "shared_request_sent_for_validation":
-            $subject  = "[FlightGear Scenery Database] Object submission";
+            $subject  = "Object submission";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared submission request." . "\r\n\r\n" .
                         "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'" . "\r\n\r\n" .
@@ -200,7 +200,7 @@ function email($case)
                         "Please remember to use the massive insertion script should you have many objects to add: http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php" . "\r\n\r\n";
             break;
         case "shared_update_request_pending":
-            $subject  = "[FlightGear Scenery Database] Object update needs validation";
+            $subject  = "Object update needs validation";
             $message .= "We would like to let you know that an object update request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
             if (!empty($safe_email))
@@ -223,7 +223,7 @@ function email($case)
             $backend = true;
             break;
         case "shared_update_request_sent_for_validation":
-            $subject  = "[FlightGear Scenery Database] Object update";
+            $subject  = "Object update";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared update request." . "\r\n\r\n" .
                         "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'" . "\r\n\r\n" .
@@ -240,7 +240,7 @@ function email($case)
                         "Comment:           ". strip_tags($comment) ."\r\n\r\n";
             break;
         case "static_request_accepted":
-            $subject  = "[FlightGear Scenery Database] 3D model import accepted";
+            $subject  = "3D model import accepted";
             $message .= "On ".$dtg." UTC, you issued a 3D model import request." . "\r\n\r\n" .
                         "We are glad to let you know that this request has been accepted!" . "\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request are '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it is named '". $name ."'.\r\n\r\n";
@@ -251,7 +251,7 @@ function email($case)
             $backend = true;
             break;
         case "static_request_pending":
-            $subject  = "[FlightGear Scenery Database] 3D model import needs validation.";
+            $subject  = "3D model import needs validation.";
             $message .= "We would like to let you know that a new 3D model request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
             if (!empty($safe_email))
@@ -274,7 +274,7 @@ function email($case)
             $backend = true;
             break;
         case "static_request_rejected":
-            $subject  = "[FlightGear Scenery Database] 3D model import rejected";
+            $subject  = "3D model import rejected";
             $message .= "On ".$dtg." UTC, you issued a 3D model import request." . "\r\n\r\n" .
                         "We are sorry to let you know that this request has been rejected." . "\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request were '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it was named '". $name ."'.\r\n\r\n";
@@ -284,7 +284,7 @@ function email($case)
             $backend = true;
             break;
         case "static_request_sent_for_validation":
-            $subject  = "[FlightGear Scenery Database] 3D model import";
+            $subject  = "3D model import";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request." . "\r\n\r\n" .
                         "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request are '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model)". "\r\n\r\n" .
