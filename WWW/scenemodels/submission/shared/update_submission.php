@@ -68,14 +68,18 @@
                     // $country = $matches['country'];
                     $model_id = $matches['model_id'];
                     $object_id = $matches['object_id'];
+					
+					// Obtain old/current values
+					$result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$object_id;");
+					$object = pg_fetch_assoc($result);
 
-                    echo "<tr><td>Description</td><td>".$notes."</td></tr>\n" .
-                         "<tr><td>Longitude</td><td>".$long."</td></tr>\n" .
-                         "<tr><td>Latitude</td><td>".$lat."</td></tr>\n" .
-                         "<tr><td>Elevation</td><td>".$elev."</td></tr>\n" .
-                         "<tr><td>Elevation offset</td><td>".$elevoffset."</td></tr>\n" .
-                         "<tr><td>Heading</td><td>".$orientation."</td></tr>\n" .
-                         "<tr><td>Object</td><td>".object_name($model_id)."</td></tr>\n" .
+                    echo "<tr><td>Description</td><td>$object["ob_text"]</td><td>".$notes."</td></tr>\n" .
+                         "<tr><td>Longitude</td><td>".get_object_longitude_from_id($object_id)."</td><td>".$long."</td></tr>\n" .
+                         "<tr><td>Latitude</td><td>".get_object_latitude_from_id($object_id)."</td><td>".$lat."</td></tr>\n" .
+                         "<tr><td>Elevation</td><td>".get_object_elevation_from_id($object_id)."</td><td>".$elev."</td></tr>\n" .
+                         "<tr><td>Elevation offset</td><td>".get_object_offset_from_id($object_id)."</td><td>".$elevoffset."</td></tr>\n" .
+                         "<tr><td>Heading (STG)</td><td>".heading_true_to_stg(get_object_true_orientation_from_id($object_id))."</td><td>".$orientation."</td></tr>\n" .
+                         "<tr><td>Object</td><td></td><td>".object_name($object["ob_model"])."</td><td>".object_name($model_id)."</td></tr>\n" .
                          "<tr><td>Map</td><td><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></td></tr>\n" .
                          "</tr>\n";
 ?>
