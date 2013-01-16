@@ -124,7 +124,7 @@
                 $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
                 $resultdel = @pg_query($resource_rw,$delete_request);
 
-                if(!resultdel) {
+                if(!$resultdel) {
                     $page_title = "Automated Objects Massive Import Request Form";
                     $process_text = "Signature found.<br /> Now deleting request with number ". $_POST["hsig"].".";
                     $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
@@ -148,7 +148,7 @@
                 date_default_timezone_set('UTC');
                 $dtg = date('l jS \of F Y h:i:s A');
                 $comment = $_POST["maintainer_comment"];
-                $hsig = $_POST[hsig];
+                $hsig = $_POST["hsig"];
 
                 if (isset($_POST["email"])) $to = $_POST["email"];
                     else $to = "";
@@ -245,7 +245,7 @@
                 if (!$result_rw) {
                     $page_title = "Automated Objects Massive Insertion Request Form";
                     include '../../inc/header.php';
-                    echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_POST[hsig].".</p><br />";
+                    echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_POST["hsig"].".</p><br />";
                     echo "<p class=\"warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
                     // Closing the rw connection.
@@ -256,7 +256,7 @@
 
                 $page_title = "Automated Objects Massive Insertion Request Form";
                 include '../../inc/header.php';
-                echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST[hsig].".</p><br />\n";
+                echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST["hsig"].".</p><br />\n";
                 echo "<p class=\"center ok\">".pg_affected_rows($result_rw)." objects were added to the database!</p>\n";
                 echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
@@ -264,7 +264,7 @@
                 $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
                 $resultdel = @pg_query($resource_rw, $delete_request);
 
-                if (!resultdel) {
+                if (!$resultdel) {
                     echo "<p class=\"warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
                     // Closing the rw connection.
