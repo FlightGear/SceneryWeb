@@ -44,18 +44,18 @@
                     $page_title = "Automated Objects Massive Import Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
-					
+                    
                     $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
-					$trigged_query_rw = str_replace('$','',$trigged_query_rw);
+                    $trigged_query_rw = str_replace('$','',$trigged_query_rw);
                     
                     echo "<table>\n<tr>\n<th></th>\n<th>Old</th>\n<th>New</th>\n</tr>\n";
                     
-                    $pattern = "/SET ob_text\=(?P<notes>[a-zA-Z0-9 ,!_.-]*), wkb_geometry\=ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/";
+                    $pattern = "/SET ob_text\=(?P<notes>[a-zA-Z0-9 ,!_.-]*), wkb_geometry\=ST_PointFromText\('POINT\((?P<lon>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/";
                     
                     $error === preg_match($pattern, $trigged_query_rw, $matches);
-					
+                    
                     $notes = $matches['notes'];
-                    $long = $matches['long'];
+                    $lon = $matches['lon'];
                     $lat = $matches['lat'];
                     $elev = $matches['elev'];
                     $elevoffset = $matches['elevoffset'];
@@ -63,40 +63,46 @@
                     // $country = $matches['country'];
                     $model_id = $matches['model_id'];
                     $object_id = $matches['object_id'];
-					
-					// Obtain old/current values
-					$result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$object_id;");
-					$object = pg_fetch_assoc($result);
+                    
+                    // Obtain old/current values
+                    $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$object_id;");
+                    $object = pg_fetch_assoc($result);
+                    
+                    $lon_old = get_object_longitude_from_id($object_id);
+                    $lat_old = get_object_latitude_from_id($object_id);
+                    $elev_old = get_object_elevation_from_id($object_id);
+                    $elevoffset_old = get_object_offset_from_id($object_id);
+                    $orientation_old = get_object_true_orientation_from_id($object_id);
 
-					echo "<tr";
-					if ($object["ob_text"] != $notes)
-						echo " style=\"border: 2px solid orange\"";
+                    echo "<tr";
+                    if ($object["ob_text"] != $notes)
+                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
                     echo "><td>Description</td><td>".$object["ob_text"]."</td><td>".$notes."</td></tr>\n";
                     echo "<tr";
-					if (get_object_longitude_from_id($object_id) != $long)
-						echo " style=\"border: 2px solid orange\"";
-                    echo "><td>Longitude</td><td>".get_object_longitude_from_id($object_id)."</td><td>".$long."</td></tr>\n";
+                    if ($lon_old != $lon)
+                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                    echo "><td>Longitude</td><td>".$lon_old."</td><td>".$lon."</td></tr>\n";
                     echo "<tr";
-					if (get_object_latitude_from_id($object_id) != $lat)
-						echo " style=\"border: 2px solid orange\"";
-                    echo "><td>Latitude</td><td>".get_object_latitude_from_id($object_id)."</td><td>".$lat."</td></tr>\n";
+                    if ($lat_old != $lat)
+                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                    echo "><td>Latitude</td><td>".$lat_old."</td><td>".$lat."</td></tr>\n";
                     echo "<tr";
-					if (get_object_elevation_from_id($object_id) != $elev)
-						echo " style=\"border: 2px solid orange\"";
-                    echo "><td>Elevation</td><td>".get_object_elevation_from_id($object_id)."</td><td>".$elev."</td></tr>\n";
+                    if ($elev_old != $elev)
+                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                    echo "><td>Elevation</td><td>".$elev_old."</td><td>".$elev."</td></tr>\n";
                     echo "<tr";
-					if (get_object_offset_from_id($object_id) != $elevoffset)
-						echo " style=\"border: 2px solid orange\"";
-                    echo "><td>Elevation offset</td><td>".get_object_offset_from_id($object_id)."</td><td>".$elevoffset."</td></tr>\n";
+                    if ($elevoffset_old != $elevoffset)
+                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                    echo "><td>Elevation offset</td><td>".$elevoffset_old."</td><td>".$elevoffset."</td></tr>\n";
                     echo "<tr";
-					if (heading_true_to_stg(get_object_true_orientation_from_id($object_id)) != $orientation)
-						echo " style=\"border: 2px solid orange\"";
-                    echo "><td>Heading (STG)</td><td>".heading_true_to_stg(get_object_true_orientation_from_id($object_id))."</td><td>".$orientation."</td></tr>\n";
+                    if ($orientation_old != $orientation)
+                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
+                    echo "><td>Heading (STG)</td><td>".heading_true_to_stg($orientation_old)." (STG) - ".$orientation_old."(true)</td><td>".heading_true_to_stg($orientation)." (STG) - ".$orientation." (true)</td></tr>\n";
                     echo "<tr";
-					if ($object["ob_text"] != $notes)
-						echo " style=\"border: 2px solid orange\"";
+                    if ($object["ob_text"] != $notes)
+                        echo " style=\"border: 2px solid rgb(255, 200, 0)\"";
                     echo "><td>Object</td><td>".object_name($object["ob_model"])."</td><td>".object_name($model_id)."</td></tr>\n";
-                    echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".get_object_longitude_from_id($object_id)."&amp;lat=".get_object_latitude_from_id($object_id)."&amp;zoom=14\" type=\"text/html\" width=\"320\" height=\"240\"></object></td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\" type=\"text/html\" width=\"320\" height=\"240\"></object></td></tr>\n" .
+                    echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$lon_old."&amp;lat=".$lat_old."&amp;zoom=14\" type=\"text/html\" width=\"320\" height=\"240\"></object></td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$lon."&amp;lat=".$lat."&amp;zoom=14\" type=\"text/html\" width=\"320\" height=\"240\"></object></td></tr>\n" .
                          "</tr>\n";
 ?>
                     <!--<tr>
