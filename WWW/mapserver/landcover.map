@@ -9873,12 +9873,13 @@ MAP
     CONNECTIONTYPE postgis
     PROCESSING "CLOSE_CONNECTION=DEFER"
 #    PROCESSING "RESAMPLE=AVERAGE"
-    DATA "way FROM planet_osm_line USING UNIQUE osm_id USING SRID=4326"
+#    DATA "way FROM planet_osm_line USING UNIQUE osm_id USING SRID=4326"
+    DATA "wkb_geometry FROM osm_motorway USING UNIQUE osm_id USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
-    FILTER "osm_id > 0 AND highway LIKE 'motorway%' AND ST_GeometryType(way) LIKE 'ST_LineString'"
+ #   FILTER "osm_id > 0 AND highway LIKE 'motorway%' AND ST_GeometryType(way) LIKE 'ST_LineString'"
     CLASS
       NAME "osm_motorway"
       STYLE
