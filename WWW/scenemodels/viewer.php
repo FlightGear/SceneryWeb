@@ -86,12 +86,19 @@
 
     function showModel(model){
         loading.style.display = "block";
+        setTimeout('crashed();', 5000);
         viewer.show(model.file, {callback:onLoaded, texturePath:"get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="});
     };
 
     function onLoaded(){
         loading.style.display = "none";
     };
+    
+    function crashed() {
+        if (loading.style.display == "block") {
+            window.alert('Time\'s Up!');
+        }
+    }
     </script>
 
 </head>
