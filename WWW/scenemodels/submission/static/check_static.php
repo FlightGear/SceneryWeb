@@ -633,13 +633,13 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
         $au_email    = $_post["au_email"];
         $au_name     = $_post["au_name"];
         
-        if ((strlen($au_email) > 0) && ($au_email) <= 50)) {
+        if (strlen($au_email) > 0 && strlen($au_email) <= 50) {
             $safe_email = pg_escape_string(stripslashes($au_email));
         } else {
             $error += 1;
             $errormsg .= "<li>Please enter a valid email address.</li>";
         }
-        if ((strlen($au_name) > 0) && ($au_name) <= 50)) {
+        if (strlen($au_name) > 0 && strlen($au_name) <= 50) {
             $au_name = pg_escape_string(stripslashes($au_name));
         } else {
             $error += 1;
