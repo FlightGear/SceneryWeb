@@ -694,7 +694,7 @@ else {
     // Add new author to database
     if ($author = -1) {
         $au_query = "INSERT INTO fgs_authors (au_id, au_name, au_email) VALUES (DEFAULT, '".$au_name."', '".$au_email."') RETURNING au_id";
-        $result_rw_au = @pg_query ($resource_rw, $query_rw_mo);
+        $result_rw_au = @pg_query ($resource_rw, $au_query);
         $au_id = pg_fetch_row ($result_rw_au);
         $author = $au_id[0];
     }
