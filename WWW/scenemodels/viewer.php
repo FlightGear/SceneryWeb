@@ -87,7 +87,7 @@
 
     function showModel(model){
         loading.style.display = "block";
-        setTimeout('crashed();', 5000);
+        setTimeout('crashed();', 10000); // Consider model crashes after 10 seconds
         viewer.show(model.file, {callback:onLoaded, texturePath:"get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="});
     };
 
