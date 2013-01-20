@@ -630,8 +630,8 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     }
 
     if ($author = -1) { // New author, so check if the details are correct
-        $au_email    = $_post["au_email"];
-        $au_name     = $_post["au_name"];
+        $au_email    = $_POST["au_email"];
+        $au_name     = $_POST["au_name"];
         
         if (strlen($au_email) > 0 && strlen($au_email) <= 50) {
             $safe_email = pg_escape_string(stripslashes($au_email));
