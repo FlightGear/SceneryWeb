@@ -48,21 +48,6 @@ function  validateTabs()
     }
 }
 
-function checkAuthor()
-{
-    var author = document.getElementById('mo_author').value;
-    var authorTrE = document.getElementById('new_author_email');
-    var authorTrN = document.getElementById('new_author_name');
-
-    if (author == -1) {
-        authorTrE.style.display = "";
-        authorTrN.style.display = "";
-    } else {
-        authorTrE.style.display = "none";
-        authorTrN.style.display = "none";
-    }
-}
-
 $(function() {
     $( "#tabs" ).tabs({ disabled: [1, 2] });
 
@@ -258,27 +243,9 @@ $(function() {
                         <label for="mo_author">Author<em>*</em><span>This is the name of the author. If the author is not listed, choose "Other" and complete the author's information in the fields that appear. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.</span></label>
                     </td>
                     <td>
-                        <select name="mo_author" id="mo_author" onchange="checkAuthor();">
-                            <option value="-1">Other (not listed)</option>
-                            <option value="-1">------</option>
+                        <select name="mo_author" id="mo_author">
                             <?php list_authors(); ?>
                         </select>
-                    </td>
-                </tr>
-                <tr id="new_author_name" style="display: none">
-                    <td>
-                        <label for="mo_author">Author name<em>*</em><span>This is the name of the author.</span></label>
-                    </td>
-                    <td>
-                        <input type="text" name="au_name" id="au_name"/>
-                    </td>
-                </tr>
-                <tr id="new_author_email" style="display: none">
-                    <td>
-                        <label for="mo_author">Author email address<em>*</em><span>This is the (valid!) email address of the author.</span></label>
-                    </td>
-                    <td>
-                        <input type="email" name="au_email" id="au_email" maxlength="50" size="50" value="" onkeyup="checkEmail(this);"/>
                     </td>
                 </tr>
                 <tr>
