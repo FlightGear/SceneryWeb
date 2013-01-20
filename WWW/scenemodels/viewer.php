@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel="stylesheet" href="http://scenery.flightgear.org/css/style.css" type="text/css"/>
     <style type="text/css">
         #canvas {
             height: 100%;
