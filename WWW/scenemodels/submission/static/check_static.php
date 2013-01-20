@@ -629,7 +629,7 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
         }
     }
 
-    if ($author = -1) { // New author, so check if the details are correct
+    if ($author == -1) { // New author, so check if the details are correct
         $au_email    = $_POST["au_email"];
         $au_name     = $_POST["au_name"];
         
@@ -692,7 +692,7 @@ else {
     $resource_rw = connect_sphere_rw();
     
     // Add new author to database
-    if ($author = -1) {
+    if ($author == -1) {
         $au_query = "INSERT INTO fgs_authors (au_id, au_name, au_email) VALUES (DEFAULT, '".$au_name."', '".$au_email."') RETURNING au_id";
         $result_rw_au = @pg_query ($resource_rw, $au_query);
         $au_id = pg_fetch_row ($result_rw_au);
