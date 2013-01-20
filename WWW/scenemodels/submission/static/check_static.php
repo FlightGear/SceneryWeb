@@ -693,11 +693,13 @@ else {
     
     // Add new author to database
     if ($author == -1) {
-        $au_query = "INSERT INTO fgs_authors (au_id, au_name, au_email) VALUES (DEFAULT, '".$au_name."', '".$au_email."') RETURNING au_id";
+        $au_query = "INSERT INTO fgs_authors (au_id, au_name, au_email) VALUES (DEFAULT, '".$au_name."', '".$au_email."')";
         $result_rw_au = @pg_query ($resource_rw, $au_query);
-        $au_id = pg_fetch_row ($result_rw_au);
+        $au_id_query = "SELECT au_id FROM fgs_authors WHERE au_name = '".$au_name."'";
+        $result_rw_au_id = @pg_query ($resource_rw, $au_id_query);
+        $au_id = pg_fetch_row ($result_rw_au_id);
         if ($au_id) {
-            $author = $au_id[0];
+            $author = $au_id['au_id'];
         } else {
             echo "Oops, author error!";
             echo $au_query;
