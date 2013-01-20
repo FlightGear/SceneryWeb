@@ -96,7 +96,8 @@
     
     function crashed() {
         if (loading.style.display == "block") {
-            window.alert('Time\'s Up!');
+            window.alert('This model takes more than 5 seconds to load. The page will be reloaded, to prevent it from crashing.');
+            window.location.reload();
         }
     }
     </script>
