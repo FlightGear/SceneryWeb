@@ -47,6 +47,19 @@ function  validateTabs()
         return false;
     }
 }
+
+function checkAuthor()
+{
+    var author = document.getElementById('mo_author').value;
+    var authorTr = document.getElementById('new_author');
+
+    if (author == -1) {
+        authorTr.style.display = "none";
+    } else {
+        authorTr.style.display = "";
+    }
+}
+
 $(function() {
     $( "#tabs" ).tabs({ disabled: [1, 2] });
 
@@ -232,19 +245,37 @@ $(function() {
         </div>
         <div id="tabs-3">
             <ul>
-                <li>Choose the author for the model. Please contact us <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671">at the forum</a> if you're not listed here. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
+                <li>Choose the author for the model. If you are not listed, choose "Other" and complete the author's information in the fields that appear. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
                 <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
                     <td>
-                        <label for="mo_author">Author<em>*</em><span>This is the name of the author. If the author is not listed, please ask the scenery maintainers to add it. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.</span></label>
+                        <label for="mo_author">Author<em>*</em><span>This is the name of the author. If the author is not listed, choose "Other" and complete the author's information in the fields that appear. This name is the author of the true creator of the model, if you just converted a model and were granted to do so, then also use the line below.</span></label>
                     </td>
                     <td>
-                        <select name="mo_author" id="mo_author">
+                        <select name="mo_author" id="mo_author" onchange="checkAuthor();">
+                            <option value="-1">Other (not listed)</option>
+                            <option value="-1">------</option>
                             <?php list_authors(); ?>
                         </select>
+                    </td>
+                </tr>
+                <tr id="new_author" style="display: none">
+                    <td>
+                        <label for="mo_author">Author name<em>*</em><span>This is the name of the author.</span></label>
+                    </td>
+                    <td>
+                        <input type="text" name="au_name" id="au_name"/>
+                    </td>
+                </tr>
+                <tr id="new_author" style="display: none">
+                    <td>
+                        <label for="mo_author">Author email address<em>*</em><span>This is the (valid!) email address of the author.</span></label>
+                    </td>
+                    <td>
+                        <input type="email" name="au_email" id="au_email"/>
                     </td>
                 </tr>
                 <tr>
