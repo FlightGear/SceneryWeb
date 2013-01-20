@@ -51,12 +51,15 @@ function  validateTabs()
 function checkAuthor()
 {
     var author = document.getElementById('mo_author').value;
-    var authorTr = document.getElementById('new_author');
+    var authorTrE = document.getElementById('new_author_email');
+    var authorTrN = document.getElementById('new_author_name');
 
     if (author == -1) {
-        authorTr.style.display = "";
+        authorTrE.style.display = "";
+        authorTrN.style.display = "";
     } else {
-        authorTr.style.display = "none";
+        authorTrE.style.display = "none";
+        authorTrN.style.display = "none";
     }
 }
 
@@ -262,8 +265,7 @@ $(function() {
                         </select>
                     </td>
                 </tr>
-                <div id="new_author" style="display: none">
-                <tr>
+                <tr id="new_author_name" style="display: none">
                     <td>
                         <label for="mo_author">Author name<em>*</em><span>This is the name of the author.</span></label>
                     </td>
@@ -271,7 +273,7 @@ $(function() {
                         <input type="text" name="au_name" id="au_name"/>
                     </td>
                 </tr>
-                <tr>
+                <tr id="new_author_email" style="display: none">
                     <td>
                         <label for="mo_author">Author email address<em>*</em><span>This is the (valid!) email address of the author.</span></label>
                     </td>
@@ -279,7 +281,6 @@ $(function() {
                         <input type="email" name="au_email" id="au_email"/>
                     </td>
                 </tr>
-                </div>
                 <tr>
                     <td colspan="2" class="submit">
                         <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
