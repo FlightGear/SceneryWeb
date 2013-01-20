@@ -278,7 +278,7 @@ $(function() {
                         <label for="mo_author">Author email address<em>*</em><span>This is the (valid!) email address of the author.</span></label>
                     </td>
                     <td>
-                        <input type="email" name="au_email" id="au_email"/>
+                        <input type="email" name="au_email" id="au_email" maxlength="50" size="50" value="" onkeyup="checkEmail(this);"/>
                     </td>
                 </tr>
                 <tr>

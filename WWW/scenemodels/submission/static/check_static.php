@@ -629,7 +629,23 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
         }
     }
 
-    if (!preg_match('#^[0-9]{1,3}$#', $author)) {
+    if ($author = -1) { // New author, so check if the details are correct
+        $au_email    = $_post["au_email"];
+        $au_name     = $_post["au_name"];
+        
+        if ((strlen($au_email) > 0) && ($au_email) <= 50)) {
+            $safe_email = pg_escape_string(stripslashes($au_email));
+        } else {
+            $error += 1;
+            $errormsg .= "<li>Please enter a valid email address.</li>";
+        }
+        if ((strlen($au_name) > 0) && ($au_name) <= 50)) {
+            $au_name = pg_escape_string(stripslashes($au_name));
+        } else {
+            $error += 1;
+            $errormsg .= "<li>Please enter a valid author name.</li>";
+        }
+    } elseif (!preg_match('#^[0-9]{1,3}$#', $author)) {
         $error += 1;
         $errormsg .= "<li>Please check the author value.</li>";
     }
@@ -674,6 +690,14 @@ if ($fatalerror || $error > 0) {
 else {
     # Connection to DB
     $resource_rw = connect_sphere_rw();
+    
+    // Add new author to database
+    if ($author = -1) {
+        $au_query = "INSERT INTO fgs_authors (au_id, au_name, au_email) VALUES (DEFAULT, '".$au_name."', '".$au_email."') RETURNING au_id";
+        $result_rw_au = @pg_query ($resource_rw, $query_rw_mo);
+        $au_id = pg_fetch_row ($result_rw_au);
+        $author = $au_id[0];
+    }
 
     # If an XML file is used for the model, the mo_path has to point to it, or
     # FG will not render it correctly. Else the .ac file will be used as mo_path.
