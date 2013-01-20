@@ -696,7 +696,13 @@ else {
         $au_query = "INSERT INTO fgs_authors (au_id, au_name, au_email) VALUES (DEFAULT, '".$au_name."', '".$au_email."') RETURNING au_id";
         $result_rw_au = @pg_query ($resource_rw, $au_query);
         $au_id = pg_fetch_row ($result_rw_au);
-        $author = $au_id[0];
+        if ($au_id) {
+            $author = $au_id[0];
+        } else {
+            echo "Oops, author error!";
+            echo $au_query;
+            exit;
+        }
     }
 
     # If an XML file is used for the model, the mo_path has to point to it, or
