@@ -54,9 +54,9 @@ function checkAuthor()
     var authorTr = document.getElementById('new_author');
 
     if (author == -1) {
-        authorTr.style.display = "none";
-    } else {
         authorTr.style.display = "";
+    } else {
+        authorTr.style.display = "none";
     }
 }
 
@@ -262,7 +262,8 @@ $(function() {
                         </select>
                     </td>
                 </tr>
-                <tr id="new_author" style="display: none">
+                <div id="new_author" style="display: none">
+                <tr>
                     <td>
                         <label for="mo_author">Author name<em>*</em><span>This is the name of the author.</span></label>
                     </td>
@@ -270,7 +271,7 @@ $(function() {
                         <input type="text" name="au_name" id="au_name"/>
                     </td>
                 </tr>
-                <tr id="new_author" style="display: none">
+                <tr>
                     <td>
                         <label for="mo_author">Author email address<em>*</em><span>This is the (valid!) email address of the author.</span></label>
                     </td>
@@ -278,6 +279,7 @@ $(function() {
                         <input type="email" name="au_email" id="au_email"/>
                     </td>
                 </tr>
+                </div>
                 <tr>
                     <td colspan="2" class="submit">
                         <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
