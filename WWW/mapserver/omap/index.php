@@ -8,6 +8,11 @@
                 width: 100%;
                 height: 100%;
             }
+            .olControlAttribution {
+                font-family: Verdana;
+                font-size: 7px;
+                bottom: 3px;
+            }
         </style>
 
         <script type="text/javascript" src="/ol/OpenLayers.js"></script>
@@ -32,7 +37,9 @@
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
             map = new OpenLayers.Map('map', options);
 
-            var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (ODbL)");
+            var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (ODbL)",
+                {'attribution': 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>'}
+            );
             var markers = new OpenLayers.Layer.Markers( "Markers" );
 
             map.addLayers([mapnik, markers]);
