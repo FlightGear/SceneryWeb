@@ -46,6 +46,11 @@
                 display:block;
                 float:left;
             }
+            .olControlAttribution {
+                font-family: Verdana;
+                font-size: 7px;
+                bottom: 3px;
+            }
         </style>
 
         <link rel="stylesheet" href="jquery/jquery-ui-1.8.17.custom.css" type="text/css">
@@ -109,6 +114,7 @@
 
             map.addControl(new OpenLayers.Control.LayerSwitcher());
             map.addControl(new OpenLayers.Control.PanZoom());
+            map.addControl(new OpenLayers.Control.Attribution());
             map.addControl(new OpenLayers.Control.Permalink('permalink'));
             map.addControl(new OpenLayers.Control.MouseToolbar());
             map.addControl(new OpenLayers.Control.MousePosition({'numDigits': 7}));

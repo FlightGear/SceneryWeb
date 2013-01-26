@@ -98,7 +98,9 @@
 	    {wrapDateLine: true}
 	);
 
-    var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (ODbL)");
+    var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (ODbL)",
+        {'attribution': 'Data by OpenStreetMap'}
+    );
 
 //    var mapnik = new OpenLayers.Layer.TMS( "mapnik",
 //        "http://tile.openstreetmap.org/mapnik/",
