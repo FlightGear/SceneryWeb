@@ -70,7 +70,8 @@
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
-        {layers: 'v0cover', format: 'image/png'}
+        {layers: 'v0cover', format: 'image/png'},
+        {attribution: "Origin: <a href='http://www.nga.mil/'>NGA</a>"}
     );
 
     var clc00 = new OpenLayers.Layer.WMS( "CORINE CLC2000v15",
@@ -78,7 +79,8 @@
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
-        {layers: 'clc00', format: 'image/png'}
+        {layers: 'clc00', format: 'image/png'},
+        {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
     var clc06 = new OpenLayers.Layer.WMS( "CORINE CLC2006v16",
@@ -86,7 +88,8 @@
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
-        {layers: 'clc06', format: 'image/png'}
+        {layers: 'clc06', format: 'image/png'},
+        {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
     var icubed = new OpenLayers.Layer.WMS( "TelaScience i-Cubed",
@@ -119,7 +122,8 @@
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
-        {layers: 'nlcd2006r', format: 'image/png'}
+        {layers: 'nlcd2006r', format: 'image/png'},
+        {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2006.php'>MRLC</a>"}
     );
 
     var tarmac = new OpenLayers.Layer.WMS( "Airfield layouts (v8.10)",
