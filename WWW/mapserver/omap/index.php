@@ -8,10 +8,12 @@
                 width: 100%;
                 height: 100%;
             }
-            .olControlAttribution {
-                font-family: Verdana;
-                font-size: 7px;
-                bottom: 3px;
+            body {
+                font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+                font-size: 0.7em;
+            }
+            div.olControlAttribution, div.olControlScaleLine {
+                bottom: 40px;
             }
         </style>
 
@@ -38,7 +40,7 @@
             map = new OpenLayers.Map('map', options);
 
             var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (ODbL)",
-                {'attribution': 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>'}
+                {'attribution': "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"}
             );
             var markers = new OpenLayers.Layer.Markers( "Markers" );
 

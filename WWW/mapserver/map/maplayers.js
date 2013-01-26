@@ -99,7 +99,7 @@
 	);
 
     var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (ODbL)",
-        {'attribution': 'Data by OpenStreetMap'}
+        {'attribution': "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"}
     );
 
 //    var mapnik = new OpenLayers.Layer.TMS( "mapnik",

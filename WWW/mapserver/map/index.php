@@ -46,10 +46,12 @@
                 display:block;
                 float:left;
             }
-            .olControlAttribution {
-                font-family: Verdana;
-                font-size: 7px;
-                bottom: 3px;
+            body {
+                font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+                font-size: 0.8em;
+            }
+            div.olControlAttribution, div.olControlScaleLine {
+                bottom: 40px;
             }
         </style>
 
