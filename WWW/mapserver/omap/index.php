@@ -27,16 +27,20 @@
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
         var map;
 
+        projLonLat   = new OpenLayers.Projection("EPSG:4326");    // WGS84
+        projMercator = new OpenLayers.Projection("EPSG:900913");  // Google Spherical Mercator
+
         function init(){
             var options = {
-                projection: new OpenLayers.Projection("EPSG:900913"),
-                displayProjection: new OpenLayers.Projection("EPSG:4326"),
+                projection: projMercator,
+                displayProjection: projLonLat,
                 units: "m",
                 controls: [],
                 maxResolution: 156543.0339,
                 maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)
             };
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
+
             map = new OpenLayers.Map('map', options);
 
             var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (ODbL)",
@@ -49,17 +53,42 @@
             var size = new OpenLayers.Size(16,16);
             var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
             var icon = new OpenLayers.Icon('http://wiki.osgeo.org/images/5/57/Usermap_placemark_icon.png', size, offset);
-            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(lon, lat)
-                .transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"))
-                ,icon
-            ));
+
+            var lonLatMarker = new OpenLayers.LonLat(lon, lat).transform(projLonLat, projMercator);;
+            var feature = new OpenLayers.Feature(markers, lonLatMarker);
+            feature.closeBox = true;
+            feature.popupClass =  OpenLayers.Class(OpenLayers.Popup.FramedCloud, {
+                'autoSize': true,
+                'maxSize': new OpenLayers.Size(300,200)
+            });
+            feature.data.popupContentHTML = "<h1>Hello World!</h1><hr/>Hallo Welt";
+            feature.data.overflow = "auto";
+
+            var marker = new OpenLayers.Marker(lonLatMarker, icon);
+            marker.feature = feature;
+            
+
+            markerClick = function (evt) {
+                if (this.popup == null) {
+                    this.popup = this.createPopup(this.closeBox);
+                    map.addPopup(this.popup);
+                    this.popup.show();
+                } else {
+                    this.popup.toggle();
+                }
+                currentPopup = this.popup;
+                OpenLayers.Event.stop(evt);
+            };
+            marker.events.register("mousedown", feature, markerClick);
+
+            markers.addMarker(marker);
 
             map.addControl(new OpenLayers.Control.PanZoom());
             map.addControl(new OpenLayers.Control.Navigation());
             map.addControl(new OpenLayers.Control.Attribution());
             map.addControl(new OpenLayers.Control.Permalink('permalink'));
             var ll = new OpenLayers.LonLat(lon, lat), zoom;
-            ll.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+            ll.transform(projLonLat, projMercator);
             map.setCenter(ll);
 
         }
