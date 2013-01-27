@@ -15,7 +15,7 @@
             }
         </style>
 
-        <?php include("../map/suppscripts.php"); ?>
+        <?php include("../map/addons.php"); ?>
 
         <script type="text/javascript">
         <!--

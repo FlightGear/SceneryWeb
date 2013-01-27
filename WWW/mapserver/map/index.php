@@ -59,7 +59,7 @@
         <script src="jquery/jquery-1.7.1.min.js"></script>
         <script src="jquery/jquery-ui-1.8.17.custom.min.js"></script>
 
-        <?php include("../map/suppscripts.php"); ?>
+        <?php include("../map/addons.php"); ?>
 
         <script src='http://mapserver.flightgear.org/map/downloadbox.js' type='text/javascript'></script>
 
