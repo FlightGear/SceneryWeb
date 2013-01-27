@@ -83,7 +83,8 @@
                 'autoSize': true,
                 'maxSize': new OpenLayers.Size(300,200)
             });
-            feature.data.popupContentHTML = ("Name: " + name + "<br/>Location: " + place + "<br/>Coordinates: " + lon + ", " + lat);
+            popupContentHTML = ("Name: " + name + "<br/>Location: " + place + "<br/>Coordinates: " + lon + ", " + lat);
+            feature.data.popupContentHTML = popupContentHTML.replace(/ä/, "&auml;").replace(/ö/, "&ouml;").replace(/ü/, "&uuml;").replace(/ß/, "&szlig;");
             feature.data.overflow = "auto";
 
             var marker = new OpenLayers.Marker(lonLatMarker, icon);
