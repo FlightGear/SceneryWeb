@@ -22,9 +22,31 @@
 
         <script type="text/javascript">
 
-        var lon = <?php print $_REQUEST["lon"]; ?>;
-        var lat = <?php print $_REQUEST["lat"]; ?>;
-        var zoom = <?php print $_REQUEST["zoom"]; ?>;
+        var lon = <?php
+            print $_REQUEST["lon"];
+        ?>;
+        var lat = <?php
+            print $_REQUEST["lat"];
+        ?>;
+        var zoom = <?php
+            print $_REQUEST["zoom"];
+        ?>;
+        var name = <?php
+            if (isset($_REQUEST["name"])) {
+                print $_REQUEST["name"];
+            }
+            else {
+                print "\"unknown\"";
+            }
+        ?>;
+        var place = <?php
+            if (isset($_REQUEST["place"])) {
+                print $_REQUEST["place"];
+            }
+            else {
+                print "\"unknown\"";
+            }
+        ?>;
         var map;
 
         projLonLat   = new OpenLayers.Projection("EPSG:4326");    // WGS84
@@ -61,7 +83,7 @@
                 'autoSize': true,
                 'maxSize': new OpenLayers.Size(300,200)
             });
-            feature.data.popupContentHTML = "<h1>Hello World!</h1><hr/>Hallo Welt";
+            feature.data.popupContentHTML = ("Name: " + name + "<br/>Location: " + place + "<br/>Coordinates: " + lon + ", " + lat);
             feature.data.overflow = "auto";
 
             var marker = new OpenLayers.Marker(lonLatMarker, icon);
