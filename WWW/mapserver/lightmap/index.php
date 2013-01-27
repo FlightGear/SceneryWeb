@@ -15,7 +15,7 @@
             }
         </style>
 
-        <?php include("../map/addons.php"); ?>
+        <?php include("../map/basics.php"); ?>
 
         <script type="text/javascript">
         <!--

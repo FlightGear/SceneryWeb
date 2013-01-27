@@ -17,8 +17,7 @@
             }
         </style>
 
-        <script type="text/javascript" src="/ol/OpenLayers.js"></script>
-        <script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+        <?php include("../map/basics.php"); ?>
 
         <script type="text/javascript">
 
@@ -65,9 +64,6 @@
 
             map = new OpenLayers.Map('map', options);
 
-            var mapnik = new OpenLayers.Layer.OSM.Mapnik( "OSM Mapnik (ODbL)",
-                {'attribution': "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"}
-            );
             var markers = new OpenLayers.Layer.Markers( "Markers" );
 
             map.addLayers([mapnik, markers]);
