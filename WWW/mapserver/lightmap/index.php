@@ -6,6 +6,13 @@
                 width: 100%;
                 height: 100%;
             }
+            body {
+                font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+                font-size: 0.8em;
+            }
+            .olControlAttribution, .olControlScaleLine {
+                bottom: 40px;
+            }
         </style>
 
         <?php include("../map/suppscripts.php"); ?>
@@ -42,6 +49,7 @@
             map.addLayers([customscene, v0cover, icubed, tarmac, osmlines, airfield, sceneobject]);
 
             map.addControl(new OpenLayers.Control.PanZoom());
+            map.addControl(new OpenLayers.Control.Attribution());
             map.addControl(new OpenLayers.Control.Permalink('permalink'));
             map.addControl(new OpenLayers.Control.MouseDefaults());
             var ll = new OpenLayers.LonLat(lon, lat), zoom;

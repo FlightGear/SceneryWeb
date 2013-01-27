@@ -3,6 +3,13 @@
         <title>Model Position</title>
 
         <style type="text/css">
+            body {
+                font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+                font-size: 0.8em;
+            }
+            .olControlAttribution, .olControlScaleLine {
+                bottom: 40px;
+            }
             .olFramedCloudPopupContent { padding: 5px; }
             .olPopup p { margin:0px; font-size: .9em;}
             h2 { margin:0px; font-size: 1.2em;}
@@ -27,6 +34,7 @@
                 controls:[
                     new OpenLayers.Control.MouseDefaults(),
                     new OpenLayers.Control.MousePosition(),
+                    new OpenLayers.Control.Attribution(),
                     new OpenLayers.Control.Permalink(),
                     new OpenLayers.Control.LayerSwitcher(),
                     new OpenLayers.Control.PanZoom(),
