@@ -17,9 +17,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 
-<HTML>
-    <HEAD>
-        <TITLE>FlightGear Land Web Map</TITLE>
+<html>
+    <head>
+        <title>FlightGear Land Web Map</title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <meta name="robots" content="index, nofollow" />
         <meta name="keywords" content="VMap0, VMap1, GSHHS, PGS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
@@ -53,6 +53,9 @@
             .olControlAttribution, .olControlScaleLine {
                 bottom: 40px;
             }
+            .olFramedCloudPopupContent { padding: 5px; }
+            .olPopup p { margin:0px; font-size: .9em;}
+            h2 { margin:0px; font-size: 1.2em;}
         </style>
 
         <link rel="stylesheet" href="jquery/jquery-ui-1.8.17.custom.css" type="text/css">
@@ -78,6 +81,46 @@
         opacity_sliders.events.on({
             'visibilitychanged': toggleSliders
         });
+ 
+        // Needed only for interaction, not for the display.
+        function onPopupClose(evt) {
+            // 'this' is the popup.
+            selectControl.unselect(this.feature);
+        }
+
+        function onFeatureSelect(evt) {
+            feature = evt.feature;
+
+            var content = "<h2>"+feature.attributes.title + "</h2>" +
+                feature.attributes.description;
+            if(feature.attributes.type=="shared") {
+                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>"+
+                "&nbsp;<a href='http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>";
+            }
+            if(feature.attributes.type=="static") {
+                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>";
+            }
+            popup = new OpenLayers.Popup.FramedCloud("featurePopup",
+                feature.geometry.getBounds().getCenterLonLat(),
+                new OpenLayers.Size(100,100),
+                content,
+                null, true, onPopupClose
+            );
+            popup.minSize= new OpenLayers.Size(350,350);
+            feature.popup = popup;
+            popup.feature = feature;
+            map.addPopup(popup);
+        }
+
+        function onFeatureUnselect(evt) {
+            feature = evt.feature;
+            if (feature.popup) {
+                popup.feature = null;
+                map.removePopup(feature.popup);
+                feature.popup.destroy();
+                feature.popup = null;
+            }
+        }
 
         var lon = <?php print $_REQUEST["lon"]; ?>;
         var lat = <?php print $_REQUEST["lat"]; ?>;
@@ -146,9 +189,9 @@
         }
         //-->
         </script>
-    </HEAD>
+    </head>
 
-    <BODY style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
+    <body style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
         <div style=" width:100%; height:100%;" id="map"></div>
             <div id="sliders" style="position:absolute; bottom:150px;width:700px;z-index: 2001;height:30px;" align="center">
                 <div id="slider1"><span style="position:relative;top:20px;">CS Lines</span><div class="ui-slider-handle" style="background:#aaa;">
@@ -179,6 +222,6 @@
                 </tr>
             </table>
         </div>
-    </BODY>
+    </body>
 
-</HTML>
+</html>
