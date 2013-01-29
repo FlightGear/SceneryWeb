@@ -24,13 +24,20 @@
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
         var map;
 
-        function init() {
+        projLonLat   = new OpenLayers.Projection("EPSG:4326");    // WGS84
+        projMercator = new OpenLayers.Projection("EPSG:900913");  // Google Spherical Mercator
 
+        function init() {
             OpenLayers.Util.onImageLoadError = function() {
                 this.src='http://www.informationfreeway.org/images/emptysea.png'
             }
-            map = new OpenLayers.Map ("map", {
-                displayProjection: new OpenLayers.Projection("EPSG:4326"),
+            var options = {
+                projection: projMercator,
+                displayProjection: projLonLat,
+                units: "m",
+                maxResolution: 156543.0339,
+                numZoomLevels:18,
+                maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
                 controls:[
                     new OpenLayers.Control.MouseDefaults(),
                     new OpenLayers.Control.MousePosition(),
@@ -40,9 +47,9 @@
                     new OpenLayers.Control.PanZoom(),
                     new OpenLayers.Control.ScaleLine()
                 ],
-                maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
-                numZoomLevels:18, maxResolution:156543.0339, units:'m', projection: "EPSG:900913"}
-            );
+            };
+            OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
+            map = new OpenLayers.Map('map', options);
 
             map.addLayers([googlesat, mapnik, tarmac, osmlines, wmsobjects, jsonobjects, wmssigns, wfssigns]);
 

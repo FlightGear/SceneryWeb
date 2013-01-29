@@ -38,20 +38,22 @@
                 projection: new OpenLayers.Projection("EPSG:900913"),
                 displayProjection: new OpenLayers.Projection("EPSG:4326"),
                 units: "m",
-                controls: [],
                 maxResolution: 156543.0339,
-                maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)
+                maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
+                controls:[
+                    new OpenLayers.Control.PanZoom(),
+                    new OpenLayers.Control.Attribution(),
+                    new OpenLayers.Control.Permalink('permalink'),
+                    new OpenLayers.Control.MouseDefaults(),
+                ],
             };
+            OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
             map = new OpenLayers.Map('map', options);
 
             tarmac.setVisibility(false);
             sceneobject.setVisibility(false);
             map.addLayers([customscene, v0cover, icubed, tarmac, osmlines, airfield, sceneobject]);
 
-            map.addControl(new OpenLayers.Control.PanZoom());
-            map.addControl(new OpenLayers.Control.Attribution());
-            map.addControl(new OpenLayers.Control.Permalink('permalink'));
-            map.addControl(new OpenLayers.Control.MouseDefaults());
             var ll = new OpenLayers.LonLat(lon, lat), zoom;
             ll.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
             map.setCenter(ll);

@@ -127,14 +127,24 @@
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
         var map;
 
+        projLonLat   = new OpenLayers.Projection("EPSG:4326");    // WGS84
+        projMercator = new OpenLayers.Projection("EPSG:900913");  // Google Spherical Mercator
+
         function init(){
             var options = {
-                projection: new OpenLayers.Projection("EPSG:900913"),
-                displayProjection: new OpenLayers.Projection("EPSG:4326"),
+                projection: projMercator,
+                displayProjection: projLonLat,
                 units: "m",
-                controls: [],
                 maxResolution: 156543.0339,
-                maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)
+                maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
+                controls:[
+                    new OpenLayers.Control.LayerSwitcher(),
+                    new OpenLayers.Control.PanZoom(),
+                    new OpenLayers.Control.Attribution(),
+                    new OpenLayers.Control.Permalink('permalink'),
+                    new OpenLayers.Control.MouseToolbar(),
+                    new OpenLayers.Control.MousePosition({'numDigits': 7}),
+                ],
             };
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
             map = new OpenLayers.Map('map', options);
@@ -157,14 +167,8 @@
 
             map.addLayers([customscene, v0cover, yahoosat, googlesat, bingaerial, icubed, mapnik, bingroad, clc00, clc06, nlcd2006r, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, downloadbox, opacity_sliders]);
 
-            map.addControl(new OpenLayers.Control.LayerSwitcher());
-            map.addControl(new OpenLayers.Control.PanZoom());
-            map.addControl(new OpenLayers.Control.Attribution());
-            map.addControl(new OpenLayers.Control.Permalink('permalink'));
-            map.addControl(new OpenLayers.Control.MouseToolbar());
-            map.addControl(new OpenLayers.Control.MousePosition({'numDigits': 7}));
             var ll = new OpenLayers.LonLat(lon, lat), zoom;
-            ll.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+            ll.transform(projLonLat, projMercator);
             map.setCenter(ll);
 
             // click control

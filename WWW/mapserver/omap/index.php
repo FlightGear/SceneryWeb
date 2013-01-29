@@ -51,17 +51,21 @@
         projLonLat   = new OpenLayers.Projection("EPSG:4326");    // WGS84
         projMercator = new OpenLayers.Projection("EPSG:900913");  // Google Spherical Mercator
 
-        function init(){
+        function init() {
             var options = {
                 projection: projMercator,
                 displayProjection: projLonLat,
                 units: "m",
-                controls: [],
                 maxResolution: 156543.0339,
-                maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)
+                maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
+                controls:[
+                    new OpenLayers.Control.PanZoom(),
+                    new OpenLayers.Control.Navigation(),
+                    new OpenLayers.Control.Attribution(),
+                    new OpenLayers.Control.Permalink('permalink'),
+                ],
             };
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
-
             map = new OpenLayers.Map('map', options);
 
             var markers = new OpenLayers.Layer.Markers( "Markers" );
@@ -102,10 +106,6 @@
 
             markers.addMarker(marker);
 
-            map.addControl(new OpenLayers.Control.PanZoom());
-            map.addControl(new OpenLayers.Control.Navigation());
-            map.addControl(new OpenLayers.Control.Attribution());
-            map.addControl(new OpenLayers.Control.Permalink('permalink'));
             var ll = new OpenLayers.LonLat(lon, lat), zoom;
             ll.transform(projLonLat, projMercator);
             map.setCenter(ll);
