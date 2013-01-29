@@ -18,7 +18,47 @@
         <?php include("../map/addons.php"); ?>
 
         <script type="text/javascript">
-        <!--
+
+        // Needed only for interaction, not for the display.
+        function onPopupClose(evt) {
+            // 'this' is the popup.
+            selectControl.unselect(this.feature);
+        }
+
+        function onFeatureSelect(evt) {
+            feature = evt.feature;
+
+            var content = "<h2>"+feature.attributes.title + "</h2>" +
+                feature.attributes.description;
+            if(feature.attributes.type=="shared") {
+                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>"+
+                "&nbsp;<a href='http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>";
+            }
+            if(feature.attributes.type=="static") {
+                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>";
+            }
+            popup = new OpenLayers.Popup.FramedCloud("featurePopup",
+                feature.geometry.getBounds().getCenterLonLat(),
+                new OpenLayers.Size(100,100),
+                content,
+                null, true, onPopupClose
+            );
+            popup.minSize= new OpenLayers.Size(350,350);
+            feature.popup = popup;
+            popup.feature = feature;
+            map.addPopup(popup);
+        }
+
+        function onFeatureUnselect(evt) {
+            feature = evt.feature;
+            if (feature.popup) {
+                popup.feature = null;
+                map.removePopup(feature.popup);
+                feature.popup.destroy();
+                feature.popup = null;
+            }
+        }
+
         var lon = <?php print $_REQUEST["lon"]; ?>;
         var lat = <?php print $_REQUEST["lat"]; ?>;
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
@@ -77,47 +117,6 @@
             }
 
         }
-
-        // Needed only for interaction, not for the display.
-        function onPopupClose(evt) {
-            // 'this' is the popup.
-            selectControl.unselect(this.feature);
-        }
-
-        function onFeatureSelect(evt) {
-            feature = evt.feature;
-
-            var content = "<h2>"+feature.attributes.title + "</h2>" +
-                feature.attributes.description;
-            if(feature.attributes.type=="shared") {
-                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>"+
-                "&nbsp;<a href='http://scenemodels.flightgear.org/submission/shared/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>";
-            }
-            if(feature.attributes.type=="static") {
-                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/shared/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>";
-            }
-            popup = new OpenLayers.Popup.FramedCloud("featurePopup",
-                feature.geometry.getBounds().getCenterLonLat(),
-                new OpenLayers.Size(100,100),
-                content,
-                null, true, onPopupClose
-            );
-            popup.minSize= new OpenLayers.Size(350,350);
-            feature.popup = popup;
-            popup.feature = feature;
-            map.addPopup(popup);
-        }
-
-        function onFeatureUnselect(evt) {
-            feature = evt.feature;
-            if (feature.popup) {
-                popup.feature = null;
-                map.removePopup(feature.popup);
-                feature.popup.destroy();
-                feature.popup = null;
-            }
-        }
-        //-->
         </script>
     </head>
 

@@ -130,7 +130,7 @@
         projLonLat   = new OpenLayers.Projection("EPSG:4326");    // WGS84
         projMercator = new OpenLayers.Projection("EPSG:900913");  // Google Spherical Mercator
 
-        function init(){
+        function init() {
             var options = {
                 projection: projMercator,
                 displayProjection: projLonLat,

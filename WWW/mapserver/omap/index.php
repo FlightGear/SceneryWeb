@@ -1,5 +1,5 @@
-<HTML>
-    <HEAD>
+<html>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <meta name="robots" content="index, nofollow" />
 
@@ -21,15 +21,9 @@
 
         <script type="text/javascript">
 
-        var lon = <?php
-            print $_REQUEST["lon"];
-        ?>;
-        var lat = <?php
-            print $_REQUEST["lat"];
-        ?>;
-        var zoom = <?php
-            print $_REQUEST["zoom"];
-        ?>;
+        var lon = <?php print $_REQUEST["lon"]; ?>;
+        var lat = <?php print $_REQUEST["lat"]; ?>;
+        var zoom = <?php print $_REQUEST["zoom"]; ?>;
         var name = <?php
             if (isset($_REQUEST["name"])) {
                 print $_REQUEST["name"];
@@ -113,10 +107,10 @@
         }
         //-->
         </script>
-    </HEAD>
+    </head>
 
-    <BODY style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
+    <body style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
         <div style=" width:100%; height:100%;" id="map"></div>
-    </BODY>
+    </body>
 
-</HTML>
+</html>
