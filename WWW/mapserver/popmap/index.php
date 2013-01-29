@@ -1,6 +1,8 @@
 <html>
     <head>
         <title>Model Position</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <meta name="robots" content="index, nofollow" />
 
         <style type="text/css">
             body {
@@ -68,26 +70,25 @@
         projMercator = new OpenLayers.Projection("EPSG:900913");  // Google Spherical Mercator
 
         function init() {
-            OpenLayers.Util.onImageLoadError = function() {
-                this.src='http://www.informationfreeway.org/images/emptysea.png'
-            }
             var options = {
                 projection: projMercator,
                 displayProjection: projLonLat,
                 units: "m",
                 maxResolution: 156543.0339,
-                numZoomLevels:18,
-                maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+                maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
                 controls:[
-                    new OpenLayers.Control.MouseDefaults(),
-                    new OpenLayers.Control.MousePosition(),
-                    new OpenLayers.Control.Attribution(),
-                    new OpenLayers.Control.Permalink(),
                     new OpenLayers.Control.LayerSwitcher(),
                     new OpenLayers.Control.PanZoom(),
+                    new OpenLayers.Control.Attribution(),
+                    new OpenLayers.Control.Permalink('permalink'),
+                    new OpenLayers.Control.MouseDefaults(),
+                    new OpenLayers.Control.MousePosition(),
                     new OpenLayers.Control.ScaleLine()
                 ],
             };
+            OpenLayers.Util.onImageLoadError = function() {
+                this.src='http://www.informationfreeway.org/images/emptysea.png'
+            }
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
             map = new OpenLayers.Map('map', options);
 
@@ -112,10 +113,12 @@
             map.addControl(new OpenLayers.Control.LayerSwitcher());
             map.addControl(new OpenLayers.Control.KeyboardDefaults());
 
-            if (!map.getCenter()) {
-                map.setCenter (new OpenLayers.LonLat(lon, lat).transform(map.displayProjection, map.getProjectionObject()), zoom);
-            }
 
+            if (!map.getCenter()) {
+                var ll = new OpenLayers.LonLat(lon, lat), zoom;
+                ll.transform(projLonLat, projMercator);
+                map.setCenter(ll);
+            }
         }
         </script>
     </head>

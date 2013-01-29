@@ -1,5 +1,8 @@
 <html>
     <head>
+        <title>Title Map</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <meta name="robots" content="index, nofollow" />
 
         <style type="text/css">
             #map {
@@ -33,10 +36,13 @@
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
         var map;
 
+        projLonLat   = new OpenLayers.Projection("EPSG:4326");    // WGS84
+        projMercator = new OpenLayers.Projection("EPSG:900913");  // Google Spherical Mercator
+
         function init() {
             var options = {
-                projection: new OpenLayers.Projection("EPSG:900913"),
-                displayProjection: new OpenLayers.Projection("EPSG:4326"),
+                projection: projMercator,
+                displayProjection: projLonLat,
                 units: "m",
                 maxResolution: 156543.0339,
                 maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
@@ -44,7 +50,7 @@
                     new OpenLayers.Control.PanZoom(),
                     new OpenLayers.Control.Attribution(),
                     new OpenLayers.Control.Permalink('permalink'),
-                    new OpenLayers.Control.MouseDefaults(),
+                    new OpenLayers.Control.MouseDefaults()
                 ],
             };
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
@@ -54,11 +60,12 @@
             sceneobject.setVisibility(false);
             map.addLayers([customscene, v0cover, icubed, tarmac, osmlines, airfield, sceneobject]);
 
-            var ll = new OpenLayers.LonLat(lon, lat), zoom;
-            ll.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
-            map.setCenter(ll);
+            if (!map.getCenter()) {
+                var ll = new OpenLayers.LonLat(lon, lat), zoom;
+                ll.transform(projLonLat, projMercator);
+                map.setCenter(ll);
+            }
         }
-        //-->
         </script>
     </head>
 

@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>OSGeo User Map</title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <meta name="robots" content="index, nofollow" />
 
@@ -10,7 +11,7 @@
             }
             body {
                 font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
-                font-size: 0.7em;
+                font-size: 0.8em;
             }
             .olControlAttribution, .olControlScaleLine {
                 bottom: 40px;
@@ -54,9 +55,9 @@
                 maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
                 controls:[
                     new OpenLayers.Control.PanZoom(),
-                    new OpenLayers.Control.Navigation(),
                     new OpenLayers.Control.Attribution(),
                     new OpenLayers.Control.Permalink('permalink'),
+                    new OpenLayers.Control.Navigation()
                 ],
             };
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
@@ -100,12 +101,12 @@
 
             markers.addMarker(marker);
 
-            var ll = new OpenLayers.LonLat(lon, lat), zoom;
-            ll.transform(projLonLat, projMercator);
-            map.setCenter(ll);
-
+            if (!map.getCenter()) {
+                var ll = new OpenLayers.LonLat(lon, lat), zoom;
+                ll.transform(projLonLat, projMercator);
+                map.setCenter(ll);
+            }
         }
-        //-->
         </script>
     </head>
 

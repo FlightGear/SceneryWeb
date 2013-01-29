@@ -30,6 +30,13 @@
                 width: 100%;
                 height: 100%;
             }
+            body {
+                font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+                font-size: 0.8em;
+            }
+            .olControlAttribution, .olControlScaleLine {
+                bottom: 40px;
+            }
             #slider1 {
                 width: 150px;
                 position: relative;
@@ -45,13 +52,6 @@
                 z-index:2001;
                 display:block;
                 float:left;
-            }
-            body {
-                font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
-                font-size: 0.8em;
-            }
-            .olControlAttribution, .olControlScaleLine {
-                bottom: 40px;
             }
             .olFramedCloudPopupContent { padding: 5px; }
             .olPopup p { margin:0px; font-size: .9em;}
@@ -144,6 +144,7 @@
                     new OpenLayers.Control.Permalink('permalink'),
                     new OpenLayers.Control.MouseToolbar(),
                     new OpenLayers.Control.MousePosition({'numDigits': 7}),
+                    new OpenLayers.Control.ScaleLine()
                 ],
             };
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
@@ -167,10 +168,6 @@
 
             map.addLayers([customscene, v0cover, yahoosat, googlesat, bingaerial, icubed, mapnik, bingroad, clc00, clc06, nlcd2006r, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, airport850, navaid850, sceneobject, gshhs, fgbuckets, downloadbox, opacity_sliders]);
 
-            var ll = new OpenLayers.LonLat(lon, lat), zoom;
-            ll.transform(projLonLat, projMercator);
-            map.setCenter(ll);
-
             // click control
             var click = new OpenLayers.Control.Click();
             map.addControl(click);
@@ -190,8 +187,12 @@
                 }
             });
 
+            if (!map.getCenter()) {
+                var ll = new OpenLayers.LonLat(lon, lat), zoom;
+                ll.transform(projLonLat, projMercator);
+                map.setCenter(ll);
+            }
         }
-        //-->
         </script>
     </head>
 
