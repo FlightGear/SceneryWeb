@@ -60,11 +60,11 @@
             sceneobject.setVisibility(false);
             map.addLayers([customscene, v0cover, icubed, tarmac, osmlines, airfield, sceneobject]);
 
-            if (!map.getCenter()) {
+//            if (!map.getCenter()) {
                 var ll = new OpenLayers.LonLat(lon, lat), zoom;
                 ll.transform(projLonLat, projMercator);
                 map.setCenter(ll);
-            }
+//            }
         }
         </script>
     </head>
