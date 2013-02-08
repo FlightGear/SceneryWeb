@@ -253,7 +253,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_landmass USING UNIQUE ogc_fid USING SRID=4326"
@@ -287,7 +288,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_landmass USING UNIQUE ogc_fid USING SRID=4326"
@@ -321,7 +323,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM gshhs_coastline USING UNIQUE ogc_fid USING SRID=4326"
@@ -354,7 +357,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM gshhs_lakes USING UNIQUE ogc_fid USING SRID=4326"
@@ -387,7 +391,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM gshhs_islands USING UNIQUE ogc_fid USING SRID=4326"
@@ -420,7 +425,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM gshhs_ponds USING UNIQUE ogc_fid USING SRID=4326"
@@ -455,7 +461,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 35550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM swbd USING UNIQUE ogc_fid USING SRID=4326"
@@ -489,7 +496,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM mgrs USING UNIQUE ogc_fid USING SRID=4326"
@@ -523,7 +531,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_void USING UNIQUE ogc_fid USING SRID=4326"
@@ -556,7 +565,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_floodland USING UNIQUE ogc_fid USING SRID=4326"
@@ -589,7 +599,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_sand USING UNIQUE ogc_fid USING SRID=4326"
@@ -622,7 +633,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_lava USING UNIQUE ogc_fid USING SRID=4326"
@@ -655,7 +667,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_glacier USING UNIQUE ogc_fid USING SRID=4326"
@@ -688,7 +701,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_packice USING UNIQUE ogc_fid USING SRID=4326"
@@ -721,7 +735,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_polarice USING UNIQUE ogc_fid USING SRID=4326"
@@ -754,7 +769,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_floodland USING UNIQUE ogc_fid USING SRID=4326"
@@ -787,7 +803,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_lava USING UNIQUE ogc_fid USING SRID=4326"
@@ -820,7 +837,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_sand USING UNIQUE ogc_fid USING SRID=4326"
@@ -853,7 +871,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_glacier USING UNIQUE ogc_fid USING SRID=4326"
@@ -886,7 +905,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_snowfield USING UNIQUE ogc_fid USING SRID=4326"
@@ -919,7 +939,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_icefield USING UNIQUE ogc_fid USING SRID=4326"
@@ -952,7 +973,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_miscice USING UNIQUE ogc_fid USING SRID=4326"
@@ -985,7 +1007,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_packice USING UNIQUE ogc_fid USING SRID=4326"
@@ -1018,7 +1041,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_polarice USING UNIQUE ogc_fid USING SRID=4326"
@@ -1051,7 +1075,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_seaice USING UNIQUE ogc_fid USING SRID=4326"
@@ -1084,7 +1109,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_littoral USING UNIQUE ogc_fid USING SRID=4326"
@@ -1117,7 +1143,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_barrencover USING UNIQUE ogc_fid USING SRID=4326"
@@ -1150,7 +1177,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_grassland USING UNIQUE ogc_fid USING SRID=4326"
@@ -1183,7 +1211,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_scrub USING UNIQUE ogc_fid USING SRID=4326"
@@ -1216,7 +1245,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_marsh USING UNIQUE ogc_fid USING SRID=4326"
@@ -1249,7 +1279,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_openmining USING UNIQUE ogc_fid USING SRID=4326"
@@ -1282,7 +1313,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_saline USING UNIQUE ogc_fid USING SRID=4326"
@@ -1315,7 +1347,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_bog USING UNIQUE ogc_fid USING SRID=4326"
@@ -1348,7 +1381,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_boulder USING UNIQUE ogc_fid USING SRID=4326"
@@ -1381,7 +1415,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_barrencover USING UNIQUE ogc_fid USING SRID=4326"
@@ -1414,7 +1449,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_mixedcover USING UNIQUE ogc_fid USING SRID=4326"
@@ -1447,7 +1483,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_park USING UNIQUE ogc_fid USING SRID=4326"
@@ -1480,7 +1517,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_harbour USING UNIQUE ogc_fid USING SRID=4326"
@@ -1514,7 +1552,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_railyard USING UNIQUE ogc_fid USING SRID=4326"
@@ -1547,7 +1586,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_powerplant USING UNIQUE ogc_fid USING SRID=4326"
@@ -1580,7 +1620,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_grasscover USING UNIQUE ogc_fid USING SRID=4326"
@@ -1613,7 +1654,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_bog USING UNIQUE ogc_fid USING SRID=4326"
@@ -1646,7 +1688,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_marsh USING UNIQUE ogc_fid USING SRID=4326"
@@ -1679,7 +1722,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_mixedswamp USING UNIQUE ogc_fid USING SRID=4326"
@@ -1712,7 +1756,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_herbtundra USING UNIQUE ogc_fid USING SRID=4326"
@@ -1745,7 +1790,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -1778,7 +1824,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_drycrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -1811,7 +1858,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -1844,7 +1892,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_ricefield USING UNIQUE ogc_fid USING SRID=4326"
@@ -1877,7 +1926,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_cropland USING UNIQUE ogc_fid USING SRID=4326"
@@ -1910,7 +1960,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -1943,7 +1994,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_herbtundracover USING UNIQUE ogc_fid USING SRID=4326"
@@ -1976,7 +2028,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -2009,7 +2062,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -2042,7 +2096,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -2075,7 +2130,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_orchard USING UNIQUE ogc_fid USING SRID=4326"
@@ -2108,7 +2164,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_vineyard USING UNIQUE ogc_fid USING SRID=4326"
@@ -2141,7 +2198,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_mixedorchard USING UNIQUE ogc_fid USING SRID=4326"
@@ -2174,7 +2232,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_coniferous USING UNIQUE ogc_fid USING SRID=4326"
@@ -2207,7 +2266,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_nipapalm USING UNIQUE ogc_fid USING SRID=4326"
@@ -2240,7 +2300,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_palm USING UNIQUE ogc_fid USING SRID=4326"
@@ -2273,7 +2334,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_mangrove USING UNIQUE ogc_fid USING SRID=4326"
@@ -2306,7 +2368,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_deciduous USING UNIQUE ogc_fid USING SRID=4326"
@@ -2339,7 +2402,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_eucalyptus USING UNIQUE ogc_fid USING SRID=4326"
@@ -2372,7 +2436,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_cypress USING UNIQUE ogc_fid USING SRID=4326"
@@ -2405,7 +2470,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -2438,7 +2504,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_lake USING UNIQUE ogc_fid USING SRID=4326"
@@ -2471,7 +2538,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_intermittentlake USING UNIQUE ogc_fid USING SRID=4326"
@@ -2504,7 +2572,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_fishing USING UNIQUE ogc_fid USING SRID=4326"
@@ -2537,7 +2606,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_suburban USING UNIQUE ogc_fid USING SRID=4326"
@@ -2570,7 +2640,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_urban USING UNIQUE ogc_fid USING SRID=4326"
@@ -2603,7 +2674,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_drylake USING UNIQUE ogc_fid USING SRID=4326"
@@ -2636,7 +2708,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_intermittentlake USING UNIQUE ogc_fid USING SRID=4326"
@@ -2669,7 +2742,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_lake USING UNIQUE ogc_fid USING SRID=4326"
@@ -2702,7 +2776,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_misclake USING UNIQUE ogc_fid USING SRID=4326"
@@ -2735,7 +2810,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_saltlake USING UNIQUE ogc_fid USING SRID=4326"
@@ -2768,7 +2844,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_reservoir USING UNIQUE ogc_fid USING SRID=4326"
@@ -2801,7 +2878,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_watercourse USING UNIQUE ogc_fid USING SRID=4326"
@@ -2834,7 +2912,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_disposal USING UNIQUE ogc_fid USING SRID=4326"
@@ -2867,7 +2946,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_saltmine USING UNIQUE ogc_fid USING SRID=4326"
@@ -2900,7 +2980,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_openpit USING UNIQUE ogc_fid USING SRID=4326"
@@ -2933,7 +3014,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_miscextraction USING UNIQUE ogc_fid USING SRID=4326"
@@ -2966,7 +3048,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_industry USING UNIQUE ogc_fid USING SRID=4326"
@@ -2999,7 +3082,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_treatment USING UNIQUE ogc_fid USING SRID=4326"
@@ -3032,7 +3116,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_asphaltlake USING UNIQUE ogc_fid USING SRID=4326"
@@ -3065,7 +3150,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_building USING UNIQUE ogc_fid USING SRID=4326"
@@ -3099,7 +3185,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_fortification USING UNIQUE ogc_fid USING SRID=4326"
@@ -3133,7 +3220,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_urban USING UNIQUE ogc_fid USING SRID=4326"
@@ -3166,7 +3254,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_settlement USING UNIQUE ogc_fid USING SRID=4326"
@@ -3200,7 +3289,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_ruin USING UNIQUE ogc_fid USING SRID=4326"
@@ -3234,7 +3324,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM tgr_waterbodies USING UNIQUE polyid USING SRID=1"
@@ -3263,7 +3354,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM tgr_landmarks USING UNIQUE land USING SRID=1"
@@ -3292,7 +3384,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_urban USING UNIQUE ogc_fid USING SRID=4326"
@@ -3325,7 +3418,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_town USING UNIQUE ogc_fid USING SRID=4326"
@@ -3358,7 +3452,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_industrial USING UNIQUE ogc_fid USING SRID=4326"
@@ -3391,7 +3486,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_transport USING UNIQUE ogc_fid USING SRID=4326"
@@ -3424,7 +3520,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_port USING UNIQUE ogc_fid USING SRID=4326"
@@ -3457,7 +3554,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_airport USING UNIQUE ogc_fid USING SRID=4326"
@@ -3490,7 +3588,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_openmining USING UNIQUE ogc_fid USING SRID=4326"
@@ -3523,7 +3622,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_dump USING UNIQUE ogc_fid USING SRID=4326"
@@ -3556,7 +3656,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_construction USING UNIQUE ogc_fid USING SRID=4326"
@@ -3589,7 +3690,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_greenspace USING UNIQUE ogc_fid USING SRID=4326"
@@ -3622,7 +3724,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
@@ -3655,7 +3758,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_drycrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -3688,7 +3792,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -3721,7 +3826,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_rice USING UNIQUE ogc_fid USING SRID=4326"
@@ -3754,7 +3860,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_vineyard USING UNIQUE ogc_fid USING SRID=4326"
@@ -3787,7 +3894,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_orchard USING UNIQUE ogc_fid USING SRID=4326"
@@ -3820,7 +3928,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_olives USING UNIQUE ogc_fid USING SRID=4326"
@@ -3853,7 +3962,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
@@ -3886,7 +3996,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -3919,7 +4030,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -3952,7 +4064,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -3985,7 +4098,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_agroforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -4018,7 +4132,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -4051,7 +4166,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -4084,7 +4200,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -4117,7 +4234,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_grassland USING UNIQUE ogc_fid USING SRID=4326"
@@ -4150,7 +4268,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_heath USING UNIQUE ogc_fid USING SRID=4326"
@@ -4183,7 +4302,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
@@ -4216,7 +4336,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_scrub USING UNIQUE ogc_fid USING SRID=4326"
@@ -4249,7 +4370,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_sand USING UNIQUE ogc_fid USING SRID=4326"
@@ -4282,7 +4404,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_rock USING UNIQUE ogc_fid USING SRID=4326"
@@ -4315,7 +4438,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_barrencover USING UNIQUE ogc_fid USING SRID=4326"
@@ -4348,7 +4472,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_burnt USING UNIQUE ogc_fid USING SRID=4326"
@@ -4381,7 +4506,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_glacier USING UNIQUE ogc_fid USING SRID=4326"
@@ -4414,7 +4540,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_marsh USING UNIQUE ogc_fid USING SRID=4326"
@@ -4447,7 +4574,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_bog USING UNIQUE ogc_fid USING SRID=4326"
@@ -4480,7 +4608,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
@@ -4513,7 +4642,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_saline USING UNIQUE ogc_fid USING SRID=4326"
@@ -4546,7 +4676,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_littoral USING UNIQUE ogc_fid USING SRID=4326"
@@ -4579,7 +4710,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_watercourse USING UNIQUE ogc_fid USING SRID=4326"
@@ -4612,7 +4744,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_lake USING UNIQUE ogc_fid USING SRID=4326"
@@ -4645,7 +4778,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_lagoon USING UNIQUE ogc_fid USING SRID=4326"
@@ -4678,7 +4812,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc00_estuary USING UNIQUE ogc_fid USING SRID=4326"
@@ -4711,7 +4846,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_urban USING UNIQUE ogc_fid USING SRID=4326"
@@ -4744,7 +4880,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_town USING UNIQUE ogc_fid USING SRID=4326"
@@ -4777,7 +4914,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_industrial USING UNIQUE ogc_fid USING SRID=4326"
@@ -4810,7 +4948,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_transport USING UNIQUE ogc_fid USING SRID=4326"
@@ -4843,7 +4982,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_port USING UNIQUE ogc_fid USING SRID=4326"
@@ -4876,7 +5016,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_airport USING UNIQUE ogc_fid USING SRID=4326"
@@ -4909,7 +5050,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_openmining USING UNIQUE ogc_fid USING SRID=4326"
@@ -4942,7 +5084,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_dump USING UNIQUE ogc_fid USING SRID=4326"
@@ -4975,7 +5118,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_construction USING UNIQUE ogc_fid USING SRID=4326"
@@ -5008,7 +5152,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_greenspace USING UNIQUE ogc_fid USING SRID=4326"
@@ -5041,7 +5186,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
@@ -5074,7 +5220,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_drycrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -5107,7 +5254,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -5140,7 +5288,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_rice USING UNIQUE ogc_fid USING SRID=4326"
@@ -5173,7 +5322,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_vineyard USING UNIQUE ogc_fid USING SRID=4326"
@@ -5206,7 +5356,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_orchard USING UNIQUE ogc_fid USING SRID=4326"
@@ -5239,7 +5390,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_olives USING UNIQUE ogc_fid USING SRID=4326"
@@ -5272,7 +5424,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
@@ -5305,7 +5458,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -5338,7 +5492,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -5371,7 +5526,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -5404,7 +5560,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_agroforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -5437,7 +5594,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -5470,7 +5628,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -5503,7 +5662,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -5536,7 +5696,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_grassland USING UNIQUE ogc_fid USING SRID=4326"
@@ -5569,7 +5730,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_heath USING UNIQUE ogc_fid USING SRID=4326"
@@ -5602,7 +5764,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
@@ -5635,7 +5798,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_scrub USING UNIQUE ogc_fid USING SRID=4326"
@@ -5668,7 +5832,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_sand USING UNIQUE ogc_fid USING SRID=4326"
@@ -5701,7 +5866,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_rock USING UNIQUE ogc_fid USING SRID=4326"
@@ -5734,7 +5900,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_barrencover USING UNIQUE ogc_fid USING SRID=4326"
@@ -5767,7 +5934,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_burnt USING UNIQUE ogc_fid USING SRID=4326"
@@ -5800,7 +5968,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_glacier USING UNIQUE ogc_fid USING SRID=4326"
@@ -5833,7 +6002,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_marsh USING UNIQUE ogc_fid USING SRID=4326"
@@ -5866,7 +6036,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_bog USING UNIQUE ogc_fid USING SRID=4326"
@@ -5899,7 +6070,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
@@ -5932,7 +6104,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_saline USING UNIQUE ogc_fid USING SRID=4326"
@@ -5965,7 +6138,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_littoral USING UNIQUE ogc_fid USING SRID=4326"
@@ -5998,7 +6172,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_watercourse USING UNIQUE ogc_fid USING SRID=4326"
@@ -6031,7 +6206,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_lake USING UNIQUE ogc_fid USING SRID=4326"
@@ -6064,7 +6240,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_lagoon USING UNIQUE ogc_fid USING SRID=4326"
@@ -6097,7 +6274,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM clc06_estuary USING UNIQUE ogc_fid USING SRID=4326"
@@ -6130,7 +6308,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_airport USING UNIQUE ogc_fid USING SRID=4326"
@@ -6163,7 +6342,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_port USING UNIQUE ogc_fid USING SRID=4326"
@@ -6196,7 +6376,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_transport USING UNIQUE ogc_fid USING SRID=4326"
@@ -6229,7 +6410,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_rock USING UNIQUE ogc_fid USING SRID=4326"
@@ -6262,7 +6444,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_asphalt USING UNIQUE ogc_fid USING SRID=4326"
@@ -6295,7 +6478,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_industrial USING UNIQUE ogc_fid USING SRID=4326"
@@ -6328,7 +6512,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_construction USING UNIQUE ogc_fid USING SRID=4326"
@@ -6361,7 +6546,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_dump USING UNIQUE ogc_fid USING SRID=4326"
@@ -6394,7 +6580,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_burnt USING UNIQUE ogc_fid USING SRID=4326"
@@ -6427,7 +6614,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
@@ -6460,7 +6648,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_drycrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -6493,7 +6682,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -6526,7 +6716,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_rice USING UNIQUE ogc_fid USING SRID=4326"
@@ -6559,7 +6750,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -6592,7 +6784,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -6625,7 +6818,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
@@ -6658,7 +6852,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_orchard USING UNIQUE ogc_fid USING SRID=4326"
@@ -6691,7 +6886,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_olives USING UNIQUE ogc_fid USING SRID=4326"
@@ -6724,7 +6920,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_vineyard USING UNIQUE ogc_fid USING SRID=4326"
@@ -6757,7 +6954,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_dirt USING UNIQUE ogc_fid USING SRID=4326"
@@ -6790,7 +6988,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
@@ -6823,7 +7022,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_cemetery USING UNIQUE ogc_fid USING SRID=4326"
@@ -6856,7 +7056,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_grassland USING UNIQUE ogc_fid USING SRID=4326"
@@ -6889,7 +7090,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_greenspace USING UNIQUE ogc_fid USING SRID=4326"
@@ -6922,7 +7124,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_lake USING UNIQUE ogc_fid USING SRID=4326"
@@ -6955,7 +7158,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_watercourse USING UNIQUE ogc_fid USING SRID=4326"
@@ -6988,7 +7192,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_intermittentlake USING UNIQUE ogc_fid USING SRID=4326"
@@ -7021,7 +7226,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_lava USING UNIQUE ogc_fid USING SRID=4326"
@@ -7054,7 +7260,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_lagoon USING UNIQUE ogc_fid USING SRID=4326"
@@ -7087,7 +7294,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_estuary USING UNIQUE ogc_fid USING SRID=4326"
@@ -7120,7 +7328,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_littoral USING UNIQUE ogc_fid USING SRID=4326"
@@ -7153,7 +7362,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_floodland USING UNIQUE ogc_fid USING SRID=4326"
@@ -7186,7 +7396,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_bog USING UNIQUE ogc_fid USING SRID=4326"
@@ -7219,7 +7430,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_barrencover USING UNIQUE ogc_fid USING SRID=4326"
@@ -7252,7 +7464,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_marsh USING UNIQUE ogc_fid USING SRID=4326"
@@ -7285,7 +7498,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
@@ -7318,7 +7532,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_openmining USING UNIQUE ogc_fid USING SRID=4326"
@@ -7351,7 +7566,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_saline USING UNIQUE ogc_fid USING SRID=4326"
@@ -7384,7 +7600,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_agroforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -7417,7 +7634,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -7450,7 +7668,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -7483,7 +7702,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -7516,7 +7736,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_rainforest USING UNIQUE ogc_fid USING SRID=4326"
@@ -7549,7 +7770,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_sand USING UNIQUE ogc_fid USING SRID=4326"
@@ -7582,7 +7804,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_scrub USING UNIQUE ogc_fid USING SRID=4326"
@@ -7615,7 +7838,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
@@ -7648,7 +7872,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_herbtundra USING UNIQUE ogc_fid USING SRID=4326"
@@ -7681,7 +7906,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_heath USING UNIQUE ogc_fid USING SRID=4326"
@@ -7714,7 +7940,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_glacier USING UNIQUE ogc_fid USING SRID=4326"
@@ -7747,7 +7974,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_packice USING UNIQUE ogc_fid USING SRID=4326"
@@ -7780,7 +8008,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_polarice USING UNIQUE ogc_fid USING SRID=4326"
@@ -7813,7 +8042,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_town USING UNIQUE ogc_fid USING SRID=4326"
@@ -7846,7 +8076,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_suburban USING UNIQUE ogc_fid USING SRID=4326"
@@ -7879,7 +8110,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_urban USING UNIQUE ogc_fid USING SRID=4326"
@@ -7914,7 +8146,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_stream USING UNIQUE ogc_fid USING SRID=4326"
@@ -7950,7 +8183,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_intermittentstream USING UNIQUE ogc_fid USING SRID=4326"
@@ -7986,7 +8220,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_canal USING UNIQUE ogc_fid USING SRID=4326"
@@ -8021,7 +8256,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_ctr USING UNIQUE ogc_fid USING SRID=4326"
@@ -8055,7 +8291,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_tarmac USING UNIQUE ogc_fid USING SRID=4326"
@@ -8091,7 +8328,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_tarmac USING UNIQUE ogc_fid USING SRID=4326"
@@ -8126,7 +8364,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_tarmac USING UNIQUE ogc_fid USING SRID=4326"
@@ -8161,7 +8400,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_stopway USING UNIQUE ogc_fid USING SRID=4326"
@@ -8195,7 +8435,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_runway USING UNIQUE ogc_fid USING SRID=4326"
@@ -8230,7 +8471,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_runway USING UNIQUE ogc_fid USING SRID=4326"
@@ -8265,7 +8507,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_runway USING UNIQUE ogc_fid USING SRID=4326"
@@ -8300,7 +8543,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 20000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_marking USING UNIQUE ogc_fid USING SRID=4326"
@@ -8336,7 +8580,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_tarmac_v850 USING UNIQUE ogc_fid USING SRID=4326"
@@ -8370,7 +8615,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_stopway_v850 USING UNIQUE ogc_fid USING SRID=4326"
@@ -8404,7 +8650,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_runway_v850 USING UNIQUE ogc_fid USING SRID=4326"
@@ -8438,7 +8685,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 20000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_marking_v850 USING UNIQUE ogc_fid USING SRID=4326"
@@ -8475,7 +8723,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_stream USING UNIQUE ogc_fid USING SRID=4326"
@@ -8511,7 +8760,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_intermittentstream USING UNIQUE ogc_fid USING SRID=4326"
@@ -8547,7 +8797,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_canal USING UNIQUE ogc_fid USING SRID=4326"
@@ -8583,7 +8834,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_road USING UNIQUE ogc_fid USING SRID=4326"
@@ -8625,7 +8877,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_freeway USING UNIQUE ogc_fid USING SRID=4326"
@@ -8667,7 +8920,8 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_road USING UNIQUE ogc_fid USING SRID=4326"
@@ -8709,7 +8963,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_freeway USING UNIQUE ogc_fid USING SRID=4326"
@@ -8751,7 +9006,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_railroad1 USING UNIQUE ogc_fid USING SRID=4326"
@@ -8788,7 +9044,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_railroad2 USING UNIQUE ogc_fid USING SRID=4326"
@@ -8836,7 +9093,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_railroad1 USING UNIQUE ogc_fid USING SRID=4326"
@@ -8873,7 +9131,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM cs_railroad2 USING UNIQUE ogc_fid USING SRID=4326"
@@ -8919,7 +9178,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_depthcontour USING UNIQUE ogc_fid USING SRID=4326"
@@ -8952,7 +9212,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_elevcontour USING UNIQUE ogc_fid USING SRID=4326"
@@ -8985,7 +9246,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_ditch USING UNIQUE ogc_fid USING SRID=4326"
@@ -9019,7 +9281,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_intermittentstream USING UNIQUE ogc_fid USING SRID=4326"
@@ -9053,7 +9316,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_stream USING UNIQUE ogc_fid USING SRID=4326"
@@ -9087,7 +9351,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_canal USING UNIQUE ogc_fid USING SRID=4326"
@@ -9121,7 +9386,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_siderail USING UNIQUE ogc_fid USING SRID=4326"
@@ -9156,7 +9422,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_railroad1 USING UNIQUE ogc_fid USING SRID=4326"
@@ -9193,7 +9460,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_railroad2 USING UNIQUE ogc_fid USING SRID=4326"
@@ -9240,7 +9508,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_miscrailroad USING UNIQUE ogc_fid USING SRID=4326"
@@ -9276,7 +9545,8 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_road USING UNIQUE ogc_fid USING SRID=4326"
@@ -9318,7 +9588,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_freeway USING UNIQUE ogc_fid USING SRID=4326"
@@ -9360,7 +9631,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_motorway USING UNIQUE ogc_fid USING SRID=4326"
@@ -9400,7 +9672,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_firebreak USING UNIQUE ogc_fid USING SRID=4326"
@@ -9434,7 +9707,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_pipeline USING UNIQUE ogc_fid USING SRID=4326"
@@ -9468,7 +9742,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_powerline USING UNIQUE ogc_fid USING SRID=4326"
@@ -9503,7 +9778,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM pgs USING UNIQUE ogc_fid USING SRID=4326"
@@ -9536,7 +9812,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM srtm_elevation USING UNIQUE ogc_fid USING SRID=4326"
@@ -9571,7 +9848,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM tgr_roads USING UNIQUE ogc_fid USING SRID=4326"
@@ -9614,7 +9892,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM tgr_roads USING UNIQUE ogc_fid USING SRID=4326"
@@ -9657,7 +9936,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM tgr_roads USING UNIQUE ogc_fid USING SRID=4326"
@@ -9700,7 +9980,8 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM tgr_roads USING UNIQUE ogc_fid USING SRID=4326"
@@ -9743,7 +10024,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM tgr_railroads USING UNIQUE ogc_fid USING SRID=4326"
@@ -9791,7 +10073,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM tgr_waterways USING UNIQUE ogc_fid USING SRID=4326"
@@ -9827,7 +10110,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM grnf_roads USING UNIQUE ogc_fid USING SRID=4326"
@@ -9869,7 +10153,8 @@ MAP
     STATUS OFF
 #    MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
 #    PROCESSING "RESAMPLE=AVERAGE"
@@ -9914,7 +10199,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_trunk USING UNIQUE osm_id USING SRID=4326"
@@ -9956,7 +10242,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_primary USING UNIQUE osm_id USING SRID=4326"
@@ -9998,7 +10285,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_secondary USING UNIQUE osm_id USING SRID=4326"
@@ -10040,7 +10328,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_tertiary USING UNIQUE osm_id USING SRID=4326"
@@ -10124,7 +10413,8 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_track USING UNIQUE osm_id USING SRID=4326"
@@ -10166,7 +10456,8 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_residential USING UNIQUE osm_id USING SRID=4326"
@@ -10209,7 +10500,8 @@ MAP
 #    MINSCALE 1
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_service USING UNIQUE osm_id USING SRID=4326"
@@ -10252,7 +10544,8 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_bridleway USING UNIQUE osm_id USING SRID=4326"
@@ -10290,7 +10583,8 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_cycleway USING UNIQUE osm_id USING SRID=4326"
@@ -10328,7 +10622,8 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_footway USING UNIQUE osm_id USING SRID=4326"
@@ -10366,7 +10661,8 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_pedestrian USING UNIQUE osm_id USING SRID=4326"
@@ -10409,7 +10705,8 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_steps USING UNIQUE osm_id USING SRID=4326"
@@ -10458,7 +10755,8 @@ MAP
 #    MAXSCALE 25000000
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_rail USING UNIQUE osm_id USING SRID=4326"
@@ -10507,7 +10805,8 @@ MAP
 #    MAXSCALE 1000000
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_tram USING UNIQUE osm_id USING SRID=4326"
@@ -10545,7 +10844,8 @@ MAP
 #    MAXSCALE 1000000
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_light_rail USING UNIQUE osm_id USING SRID=4326"
@@ -10582,7 +10882,8 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_river USING UNIQUE osm_id USING SRID=4326"
@@ -10619,7 +10920,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_canal USING UNIQUE osm_id USING SRID=4326"
@@ -10656,7 +10958,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_stream USING UNIQUE osm_id USING SRID=4326"
@@ -10693,7 +10996,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_drain USING UNIQUE osm_id USING SRID=4326"
@@ -10730,7 +11034,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_runway USING UNIQUE osm_id USING SRID=4326"
@@ -10767,7 +11072,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_taxiway USING UNIQUE osm_id USING SRID=4326"
@@ -10804,7 +11110,8 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_apron USING UNIQUE osm_id USING SRID=4326"
@@ -10837,7 +11144,8 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_coastline USING UNIQUE osm_id USING SRID=4326"
@@ -10872,7 +11180,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM osm_roadcover USING UNIQUE ogc_fid USING SRID=4326"
@@ -10906,7 +11215,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v0_town USING UNIQUE ogc_fid USING SRID=4326"
@@ -10951,7 +11261,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_waterintake USING UNIQUE ogc_fid USING SRID=4326"
@@ -10987,7 +11298,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM v1_town USING UNIQUE ogc_fid USING SRID=4326"
@@ -11033,7 +11345,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_airfield USING UNIQUE ogc_fid USING SRID=4326"
@@ -11080,7 +11393,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_twr USING UNIQUE ogc_fid USING SRID=4326"
@@ -11127,7 +11441,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_fix USING UNIQUE ogc_fid USING SRID=4326"
@@ -11174,7 +11489,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_navaid USING UNIQUE ogc_fid USING SRID=4326"
@@ -11221,7 +11537,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM apt_ils USING UNIQUE ogc_fid USING SRID=4326"
@@ -11267,7 +11584,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM geonames USING UNIQUE geonameid USING SRID=4326"
@@ -11314,7 +11632,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM geonames USING UNIQUE geonameid USING SRID=4326"
@@ -11361,7 +11680,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM geonames USING UNIQUE geonameid USING SRID=4326"
@@ -11408,7 +11728,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM geonames USING UNIQUE geonameid USING SRID=4326"
@@ -11455,7 +11776,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM geonames USING UNIQUE geonameid USING SRID=4326"
@@ -11502,7 +11824,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM geonames USING UNIQUE geonameid USING SRID=4326"
@@ -11550,7 +11873,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA 'wkb_geometry FROM fgs_objects, fgs_models USING UNIQUE fgs_objects.ob_id USING SRID=4326'
@@ -11598,7 +11922,8 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA 'wkb_geometry FROM fgs_objects, fgs_models USING UNIQUE fgs_objects.ob_id USING SRID=4326'
@@ -11646,7 +11971,8 @@ MAP
     STATUS OFF
     MAXSCALE 30000
 #    SYMBOLSCALE 10000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM fgs_signs USING UNIQUE si_id USING SRID=4326"
@@ -11692,7 +12018,8 @@ MAP
     DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 10
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM modis_fire USING UNIQUE ogc_fid USING SRID=4326"
@@ -11739,7 +12066,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM gadm_bund USING UNIQUE ogc_fid USING SRID=4326"
@@ -11773,7 +12101,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM gadm_land USING UNIQUE ogc_fid USING SRID=4326"
@@ -11807,7 +12136,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM gadm_regbez USING UNIQUE ogc_fid USING SRID=4326"
@@ -11841,7 +12171,8 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM gadm_kreis USING UNIQUE ogc_fid USING SRID=4326"
@@ -11877,7 +12208,8 @@ MAP
     STATUS OFF
     MAXSCALE 35550000
     LABELMAXSCALE 1000000
-    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM fg_buckets USING UNIQUE ogc_fid USING SRID=4326"
