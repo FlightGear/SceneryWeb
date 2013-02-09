@@ -58,7 +58,7 @@
         {isBaseLayer: false}
     );
 
-    var osmlines = new OpenLayers.Layer.WMS( "OSM line features (121017)",
+    var osmlines = new OpenLayers.Layer.WMS( "OSM line features (130208)",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
