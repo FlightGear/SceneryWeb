@@ -1,7 +1,7 @@
 <?php
 include 'inc/header.php';
 
-$query = "SELECT mo_id, mo_path, mo_name FROM fgs_models WHERE mo_shared = 0 ORDER BY mo_id LIMIT 99;";
+$query = "SELECT mo_id, mo_path, mo_name FROM fgs_models WHERE mo_shared = 0 ORDER BY mo_id;";
 
             $result=pg_query($query);
             while ($row = pg_fetch_assoc($result)) {
