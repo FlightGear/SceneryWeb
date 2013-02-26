@@ -214,7 +214,7 @@ function email($case)
                         "Longitude:         ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
                         "Ground elevation:  ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
                         "Elevation offset:  ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
-                        "True rientation:   ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
+                        "True orientation:   ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
                         "Map (new potision): http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
                         "Comment:           ". strip_tags($comment) ."\r\n\r\n" .
                          "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=check_update&sig=". $sha_hash . "&email=" . $safe_email . "\r\n\r\n";
