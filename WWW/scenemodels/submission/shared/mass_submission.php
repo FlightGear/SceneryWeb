@@ -41,10 +41,6 @@
 
                     // Gzuncompress the query
                     $query_rw = gzuncompress($sqlz);
-
-                    // Debugging
-                    echo $query_rw;
-
                     $page_title = "Automated Objects Massive Import Requests Form";
                     include '../../inc/header.php';
                     echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n</p>\n";
@@ -158,7 +154,7 @@
                     else $to = "";
 
                 email("mass_import_request_rejected");
-
+                
                 include '../../inc/footer.php';
                 exit;
             }
@@ -290,9 +286,9 @@
 
                 if (isset($_POST['email'])) $to = $_POST["email"];
                     else $to = "";
-
+                            
                 email("mass_import_request_accepted");
-
+                
                 include '../../inc/footer.php';
                 exit;
             }
