@@ -10,15 +10,15 @@ function email($case)
 {
     // Register variables that we'd like to use inside this function
     global $author,$comment,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$pending_requests,$resultr,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
-    
+
     // Set to true when email should be sent to maintainers
     $backend = false;
-    
+
     $message = "Hi," . "\r\n\r\n";
     switch ($case) {
         case "mass_import_request_accepted":
             $subject  = "Massive object import accepted";
-            $message .= "On ".$dtg." UTC, you issued an objects massive import request." . "\r\n\r\n" .
+            $message .= "On ".$dtg." UTC, you issued a massive objects import request." . "\r\n\r\n" .
                         "We are glad to let you know that this request has been accepted!" . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request was '".substr($hsig,0,10). "'\r\n\r\n";
                         if (!empty($comment) && $comment != "Drop a comment to the submitter")
@@ -104,7 +104,7 @@ function email($case)
             break;
         case "pending_request_process_confirmation":
             $subject  = "Automatic objects pending request process confirmation";
-            $message .= "We would like to let you know that the object (addition, update, deletion) request nr :" . $sig. "has been successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table." . "\r\n\r\n" .
+            $message .= "We would like to let you know that the object (addition, update, deletion) request nr:" . $sig. "has been successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table." . "\r\n\r\n" .
                         "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list" . "\r\n\r\n";
             $backend = true;
             break;
@@ -215,7 +215,7 @@ function email($case)
                         "Ground elevation:  ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
                         "Elevation offset:  ". get_object_offset_from_id($id_to_update) . " => ".$new_offset."\r\n" .
                         "True rientation:   ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
-                        "Map (new potision): http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
+                        "Map (new posision): http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
                         "Comment:           ". strip_tags($comment) ."\r\n\r\n" .
                          "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=check_update&sig=". $sha_hash . "&email=" . $safe_email . "\r\n\r\n";
             $backend = true;
@@ -301,18 +301,18 @@ function email($case)
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14" . "\r\n\r\n";
             break;
     }
-    
+
     // Write the footer
     $message .= "Sincerely," . "\r\n\r\n" .
                 "FlightGear Scenery Team" . "\r\n\r\n" .
                 "-----------------" . "\r\n" .
                 "This process has gone through antispam measures. However, if this email is not sollicited, please excuse us and report at http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671";
-    
+
     // Wrap lines to 70 chars (PHP limit), URLs are not wrapped
     $message = wordwrap($message, 70, "\r\n");
-    
+
     $from = "\"FlightGear Scenery Database\" <no-reply@flightgear.org>";
-    
+
     $headers  = "MIME-Version: 1.0" . "\r\n";
     $headers .= "From: " . $from . "\r\n";
     if ($backend) {
@@ -321,7 +321,7 @@ function email($case)
         $headers .= $maintainers;
     }
     $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-    
+
     @mail($to, $subject, $message, $headers);
 }
 ?>

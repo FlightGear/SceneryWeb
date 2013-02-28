@@ -44,7 +44,7 @@ function update_countries(code,n)
 {
     for(var i = 1; i < n; i++)
     {
-        if (!document.getElementById("ob_country_"+i).value) { 
+        if (!document.getElementById("ob_country_"+i).value) {
             document.getElementById("ob_country_"+i).value=code;
         }
     }
@@ -93,7 +93,7 @@ if (!$_POST['submit']) {
         include '../../inc/footer.php';
         exit;
     }
-        
+
     echo "<p class=\"center ok\">The content of the STG file seems correct, now proceeding with in-depth checks...</p>";
 }
 
@@ -102,7 +102,7 @@ if (!$error) {
     $tab_lines = explode("\n", $_POST['stg']);          // Exploding lines by carriage return (\n) in submission input.
     $tab_lines = array_map('trim', $tab_lines);         // Removing blank lines.
     $tab_lines = array_filter($tab_lines);              // Removing blank lines.
-    $tab_lines = array_slice($tab_lines, 0, 100);       // Selects the 100th first elements of the tab (the 100th first lines not blank)
+    $tab_lines = array_slice($tab_lines, 0, 100);       // Selects the 100 first elements of the tab (the 100 first lines not blank)
 
     $nb_lines = count($tab_lines);
     $global_ko = 0;                                     // Validates - or no - the right to go further.
@@ -123,7 +123,7 @@ if (!$error) {
             include '../../inc/footer.php';
             exit;
         }
-    
+
         echo "Please check the table below carefully, and make sure that your submission was read correctly. We have proposed a country for each object, but this may be inccorect. You can only change the countries on this page. Please <a href='javascript:history.go(-1)'>go back and edit your lines</a> if you would like to edit other things.";
     }
 
@@ -274,7 +274,7 @@ if (!$error) {
         }
 
         echo "<td><center>".$elevoffset."</center></td> ";
-        
+
         // Country
         if (!$_POST['submit']) {
             $ob_country = compute_country_code_from_position($long, $lat);
@@ -289,7 +289,7 @@ if (!$error) {
             $ob_country = $_POST['ob_country_'.$i];
             echo "<td>".get_country_name_from_country_code($ob_country)."</td>";
         }
-        
+
         if ($ko == 0) {
             if (detect_already_existing_object($lat, $long, $gndelev, $elevoffset, $orientation, $model_id)) {
                 $ko = 1;
@@ -322,7 +322,7 @@ if (!$error) {
         echo "</select></td><td></td></tr>";
     }
     echo "</table>\n";
-    
+
     echo "<b>Your comment:</b> ".$_POST['comment']."<br/>" .
          "<b>Your email:</b> ".$_POST['email']."<br/>" .
          "<input type='hidden' name='email' id='email' value='".$_POST['email']."'/>" .
