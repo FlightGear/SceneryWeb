@@ -57,16 +57,26 @@ if (!empty($model["mo_notes"])) {
         <td>Model ID</td>
         <td><?php print $id; ?></td>
     </tr>
-    <?php
+<?php
     if ($model["mo_shared"] == 0) {
         $result = pg_query("SELECT ob_id FROM fgs_objects WHERE ob_model = '$id';");
-        $row = pg_fetch_assoc($result);
-        ?>
+        
+?>
         <tr>
             <td>Corresponding object ID</td>
-            <td><a href="objectview.php?id=<?php echo $row["ob_id"]."\">".$row["ob_id"]; ?></a></td>
+            <td>
+<?php 
+        while ($row = pg_fetch_assoc($result)) {
+?>
+                <a href="objectview.php?id=<?php echo $row["ob_id"]."\">".$row["ob_id"]; ?></a><br/>
+<?php   
+        }
+?>
+            </td>
         </tr>
-    <?php } else {
+<?php 
+        
+    } else {
         $query = "SELECT COUNT(*) AS number " .
                  "FROM fgs_objects " .
                  "WHERE ob_model=$id";
@@ -85,7 +95,7 @@ if (!empty($model["mo_notes"])) {
             }
         echo "</tr>";
     }
-    ?>
+?>
     <tr>
         <td colspan="2">
             <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download model</a>
@@ -98,7 +108,7 @@ if (!empty($model["mo_notes"])) {
             </div>
         </td>
     </tr>
-    <?php
+<?php
     if ($model["mo_shared"] == 0) {
         $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, " .
                  "ST_X(wkb_geometry) AS ob_lon " .
@@ -106,7 +116,7 @@ if (!empty($model["mo_notes"])) {
                  "WHERE ob_model=$id";
         $chunks = pg_query($query);
         $chunk = pg_fetch_assoc($chunks);
-    ?>
+?>
         <tr>
             <td align="center" colspan="3">
                 <div id="map" style="resize: vertical; overflow: auto;">
@@ -128,9 +138,9 @@ if (!empty($model["mo_notes"])) {
             map.appendChild(objectMap);
         }
         </script>
-    <?php
+<?php
     }
-    ?>
+?>
 </table>
 
 <script type="text/javascript">
