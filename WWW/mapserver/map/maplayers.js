@@ -84,7 +84,7 @@
         {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2006.php'>MRLC</a>"}
     );
 
-    var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (2013-02-14)",
+    var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (2013-02-28)",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
