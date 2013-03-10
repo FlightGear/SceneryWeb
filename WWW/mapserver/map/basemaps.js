@@ -68,7 +68,7 @@
 //        {gutter: 50}
     );
 
-    var airfield = new OpenLayers.Layer.WMS( "Airfields (point)",
+    var airfield = new OpenLayers.Layer.WMS( "Aerodrome reference points",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
