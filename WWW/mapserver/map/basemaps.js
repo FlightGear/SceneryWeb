@@ -77,6 +77,15 @@
         {isBaseLayer: false}
     );
 
+    var navaid = new OpenLayers.Layer.WMS( "Navaids",
+        [ "http://1.flightgear.telascience.org/tc?",
+          "http://2.flightgear.telascience.org/tc?",
+          "http://3.flightgear.telascience.org/tc?",
+          "http://4.flightgear.telascience.org/tc?" ],
+        {layers: 'navaid', format: 'image/png'},
+        {isBaseLayer: false}
+    );
+
     var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
         [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
           "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],

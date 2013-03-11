@@ -213,6 +213,12 @@ MAP
     IMAGE "symbols/apt.png"
   END
 
+  SYMBOL
+    NAME "Vor"
+    TYPE PIXMAP 
+    IMAGE "symbols/vor.png"
+  END
+
   #
   # Start of legend
   #
@@ -11489,7 +11495,7 @@ MAP
   END # apt_fix
 
   LAYER
-    NAME apt_navaid
+    NAME apt_vor
     TYPE POINT
     DUMP TRUE
     STATUS OFF
@@ -11504,13 +11510,14 @@ MAP
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
-    LABELITEM "navaid"
+    FILTER "navtype = 3"
+    LABELITEM "navid"
     CLASS
-      NAME "apt_navaid"
+      NAME "apt_vor"
       STYLE
         COLOR 90 255 225
         OUTLINECOLOR 0 0 0
-        SYMBOL 'marker'
+        SYMBOL 'Vor'
       END
       LABEL
         COLOR 0 0 0
@@ -11523,18 +11530,18 @@ MAP
       END
     END
     METADATA
-      "wms_title" "apt_navaid"
+      "wms_title" "apt_vor"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "apt_navaid"
+      "wfs_title" "apt_vor"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # apt_navaid
+  END # apt_vor
 
   LAYER
     NAME apt_ils
