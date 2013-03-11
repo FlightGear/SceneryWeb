@@ -10,7 +10,7 @@
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
-        {layers: 'v0cover', format: 'image/png'}
+        {layers: 'customscene', format: 'image/png'}
     );
 
     var v0cover = new OpenLayers.Layer.WMS( "Landcover-DB VMap0 Ed.5",
