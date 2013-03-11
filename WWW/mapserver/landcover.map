@@ -207,6 +207,12 @@ MAP
     END
   END
 
+  SYMBOL
+    NAME "Apt"
+    TYPE PIXMAP 
+    IMAGE "symbols/apt.png"
+  END
+
   #
   # Start of legend
   #
@@ -11360,7 +11366,7 @@ MAP
       STYLE
         COLOR 255 225 90
         OUTLINECOLOR 0 0 0
-        SYMBOL 'marker'
+        SYMBOL 'Apt'
       END
       LABEL
         COLOR 0 0 0
