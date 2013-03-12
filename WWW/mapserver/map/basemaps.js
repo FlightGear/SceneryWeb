@@ -86,6 +86,15 @@
         {isBaseLayer: false}
     );
 
+    var fix = new OpenLayers.Layer.WMS( "Fixes",
+        [ "http://1.flightgear.telascience.org/tc?",
+          "http://2.flightgear.telascience.org/tc?",
+          "http://3.flightgear.telascience.org/tc?",
+          "http://4.flightgear.telascience.org/tc?" ],
+        {layers: 'fix', format: 'image/png'},
+        {isBaseLayer: false}
+    );
+
     var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
         [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
           "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],

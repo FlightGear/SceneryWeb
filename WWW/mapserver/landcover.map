@@ -231,6 +231,12 @@ MAP
     IMAGE "symbols/dme.png"
   END
 
+  SYMBOL
+    NAME "Fix"
+    TYPE PIXMAP 
+    IMAGE "symbols/fix.png"
+  END
+
   #
   # Start of legend
   #
@@ -11480,7 +11486,7 @@ MAP
       STYLE
         COLOR 255 90 225
         OUTLINECOLOR 0 0 0
-        SYMBOL 'marker'
+        SYMBOL 'Fix'
       END
       LABEL
         COLOR 0 0 0

@@ -84,13 +84,13 @@
         {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2006.php'>MRLC</a>"}
     );
 
-    var clc06v16r = new OpenLayers.Layer.WMS( "CLC2006 100m raster",
+    var clc06v16r = new OpenLayers.Layer.WMS( "CLC2006v16 100m raster",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'clc06v16r', format: 'image/png'},
-        {attribution: "Origin: <a href='http://www.eea.europa.eu/data-and-maps/data/corine-land-cover-2006-raster-2'>EEA</a>"}
+        {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
     var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (2013-03-10)",

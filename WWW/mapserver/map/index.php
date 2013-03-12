@@ -159,13 +159,14 @@
             noaroads.setVisibility(false);
             airfield.setVisibility(true);
             navaid.setVisibility(false);
+            fix.setVisibility(false);
             sceneobject.setVisibility(false);
             gshhs.setVisibility(false);
             fgbuckets.setVisibility(false);
             downloadbox.setVisibility(false);
             opacity_sliders.setVisibility(false);
 
-            map.addLayers([customscene, v0cover, yahoosat, googlesat, bingaerial, icubed, mapnik, bingroad, clc00, clc06, nlcd2006r, clc06v16r, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, navaid, sceneobject, gshhs, fgbuckets, downloadbox, opacity_sliders]);
+            map.addLayers([customscene, v0cover, yahoosat, googlesat, bingaerial, icubed, mapnik, bingroad, clc00, clc06, nlcd2006r, clc06v16r, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, navaid, fix, sceneobject, gshhs, fgbuckets, downloadbox, opacity_sliders]);
 
             // click control
             var click = new OpenLayers.Control.Click();
