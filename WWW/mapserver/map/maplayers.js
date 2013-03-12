@@ -75,13 +75,22 @@
         {type:'png', getURL: get_osm_url, displayOutsideMaxExtent: true, 'buffer':1, transitionEffect: 'resize'}
     );
 
-    var nlcd2006r = new OpenLayers.Layer.WMS( "NLCD 2006 raster",
+    var nlcd2006r = new OpenLayers.Layer.WMS( "NLCD 2006 30m raster",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'nlcd2006r', format: 'image/png'},
         {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2006.php'>MRLC</a>"}
+    );
+
+    var clc06v16r = new OpenLayers.Layer.WMS( "CLC2006 100m raster",
+        [ "http://1.flightgear.telascience.org/tc?",
+          "http://2.flightgear.telascience.org/tc?",
+          "http://3.flightgear.telascience.org/tc?",
+          "http://4.flightgear.telascience.org/tc?" ],
+        {layers: 'clc06v16r', format: 'image/png'},
+        {attribution: "Origin: <a href='http://www.eea.europa.eu/data-and-maps/data/corine-land-cover-2006-raster-2'>EEA</a>"}
     );
 
     var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (2013-03-10)",

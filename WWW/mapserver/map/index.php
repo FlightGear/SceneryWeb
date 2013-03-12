@@ -165,7 +165,7 @@
             downloadbox.setVisibility(false);
             opacity_sliders.setVisibility(false);
 
-            map.addLayers([customscene, v0cover, yahoosat, googlesat, bingaerial, icubed, mapnik, bingroad, clc00, clc06, nlcd2006r, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, navaid, sceneobject, gshhs, fgbuckets, downloadbox, opacity_sliders]);
+            map.addLayers([customscene, v0cover, yahoosat, googlesat, bingaerial, icubed, mapnik, bingroad, clc00, clc06, nlcd2006r, clc06v16r, tarmac, tarmac850, osmtarmac, cslines, osmlines, osmlinecover, noaroads, airfield, navaid, sceneobject, gshhs, fgbuckets, downloadbox, opacity_sliders]);
 
             // click control
             var click = new OpenLayers.Control.Click();
