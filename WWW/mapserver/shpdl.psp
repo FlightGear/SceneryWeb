@@ -216,7 +216,7 @@ else:
                 <option value=''>-- AptNav:
                 <option value='apt_airfield' [apt_airfield_select]> apt_airfield
                 <option value='apt_fix' [apt_fix_select]> apt_fix
-                <option value='apt_vor' [apt_vor_select]> apt_vor
+                <option value='apt_navaid' [apt_navaid_select]> apt_navaid
                 <option value='apt_runway' [apt_runway_select]> apt_runway
                 <option value='apt_tarmac' [apt_tarmac_select]> apt_tarmac
                 <option value=''>-- GSHHS:

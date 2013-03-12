@@ -219,6 +219,18 @@ MAP
     IMAGE "symbols/vor.png"
   END
 
+  SYMBOL
+    NAME "Dme"
+    TYPE PIXMAP 
+    IMAGE "symbols/dme.png"
+  END
+
+  SYMBOL
+    NAME "Ndb"
+    TYPE PIXMAP 
+    IMAGE "symbols/dme.png"
+  END
+
   #
   # Start of legend
   #
@@ -11542,6 +11554,104 @@ MAP
       "gml_include_items" "all"
     END
   END # apt_vor
+
+  LAYER
+    NAME apt_dme
+    TYPE POINT
+    DUMP TRUE
+    STATUS OFF
+    MAXSCALE 2000000
+    LABELMAXSCALE 1000000
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_navaid USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "navtype = 3"
+    LABELITEM "navid"
+    CLASS
+      NAME "apt_dme"
+      STYLE
+        COLOR 90 255 225
+        OUTLINECOLOR 0 0 0
+        SYMBOL 'Dme'
+      END
+      LABEL
+        COLOR 0 0 0
+        SIZE MEDIUM
+        ANTIALIAS FALSE
+        POSITION UR
+        PARTIALS FALSE
+        MINDISTANCE 300
+        BUFFER 4
+      END
+    END
+    METADATA
+      "wms_title" "apt_dme"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "apt_dme"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # apt_dme
+
+  LAYER
+    NAME apt_ndb
+    TYPE POINT
+    DUMP TRUE
+    STATUS OFF
+    MAXSCALE 2000000
+    LABELMAXSCALE 1000000
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_navaid USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "navtype = 3"
+    LABELITEM "navid"
+    CLASS
+      NAME "apt_ndb"
+      STYLE
+        COLOR 90 255 225
+        OUTLINECOLOR 0 0 0
+        SYMBOL 'Ndb'
+      END
+      LABEL
+        COLOR 0 0 0
+        SIZE MEDIUM
+        ANTIALIAS FALSE
+        POSITION UR
+        PARTIALS FALSE
+        MINDISTANCE 300
+        BUFFER 4
+      END
+    END
+    METADATA
+      "wms_title" "apt_ndb"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "apt_ndb"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # apt_ndb
 
   LAYER
     NAME apt_ils

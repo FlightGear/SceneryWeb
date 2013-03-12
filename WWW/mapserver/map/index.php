@@ -158,7 +158,7 @@
             osmlinecover.setVisibility(false);
             noaroads.setVisibility(false);
             airfield.setVisibility(true);
-            navaid.setVisibility(true);
+            navaid.setVisibility(false);
             sceneobject.setVisibility(false);
             gshhs.setVisibility(false);
             fgbuckets.setVisibility(false);
