@@ -11571,7 +11571,7 @@ MAP
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
-    FILTER "navtype = 3"
+    FILTER "navtype = 12"
     LABELITEM "navid"
     CLASS
       NAME "apt_dme"
@@ -11620,7 +11620,7 @@ MAP
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
-    FILTER "navtype = 3"
+    FILTER "navtype = 2"
     LABELITEM "navid"
     CLASS
       NAME "apt_ndb"
