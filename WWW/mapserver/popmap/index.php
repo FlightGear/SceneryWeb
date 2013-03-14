@@ -92,7 +92,7 @@
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
             map = new OpenLayers.Map('map', options);
 
-            map.addLayers([googlesat, mapnik, tarmac, osmlines, wmsobjects, jsonobjects, wmssigns, wfssigns]);
+            map.addLayers([googlesat, mapnik, tarmac850, osmlines, wmsobjects, jsonobjects, wmssigns, wfssigns]);
 
             jsonobjects.events.on({
                 'featureselected': onFeatureSelect,
