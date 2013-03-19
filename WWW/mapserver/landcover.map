@@ -11708,6 +11708,41 @@ MAP
   END # apt_ils
 
   LAYER
+    NAME airspaces
+    TYPE LINE
+    DUMP TRUE
+    STATUS OFF
+    MAXSCALE 5550000
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM airspaces USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "airspaces"
+      STYLE
+        COLOR 0 0 255
+      END
+    END
+    METADATA
+      "wms_title" "airspaces"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: Soaringweb. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "airspaces"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: Soaringweb. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # airspaces
+
+  LAYER
     NAME geonam_10k
     TYPE POINT
     DUMP TRUE
