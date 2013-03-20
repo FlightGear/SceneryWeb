@@ -127,7 +127,7 @@
         {isBaseLayer: false}
     );
 
-    var airspaces = new OpenLayers.Layer.WMS( "Airspaces",
+    var airspaces = new OpenLayers.Layer.WMS( "Airspaces (experimental)",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
