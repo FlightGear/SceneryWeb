@@ -127,6 +127,15 @@
         {isBaseLayer: false}
     );
 
+    var airspaces = new OpenLayers.Layer.WMS( "Airspaces",
+        [ "http://1.flightgear.telascience.org/tc?",
+          "http://2.flightgear.telascience.org/tc?",
+          "http://3.flightgear.telascience.org/tc?",
+          "http://4.flightgear.telascience.org/tc?" ],
+        {layers: 'airspaces', format: 'image/png'},
+        {isBaseLayer: false}
+    );
+
 //    var airport850 = new OpenLayers.Layer.WMS( "v8.50 Airfields (FGx)",
 //          "http://map.fgx.ch:81/mapnik/fgxcache.py?",
 //          {layers: 'fgx_850_apt', transparent: 'true', format: 'image/png'},
