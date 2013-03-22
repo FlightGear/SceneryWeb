@@ -56,7 +56,7 @@ function chkNumeric(objName, minval, maxval)
         checkStr.style.border = "2px solid rgb(200, 0, 0)";
         return false;
     }
-    
+
     checkStr.style.border = "2px solid rgb(0, 200, 0)";
     return true;
 }
@@ -78,7 +78,7 @@ function checkComment(textfield)
 
 function chkComment(checkStr)
 {
-    var checkOK = numbers + letters + ";:!?@-_. ";
+    var checkOK = numbers + letters + ";!?@-_. ";
     var allValid = true;
     var allNum = "";
 
