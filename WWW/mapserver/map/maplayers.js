@@ -75,7 +75,7 @@
         {type:'png', getURL: get_osm_url, displayOutsideMaxExtent: true, 'buffer':1, transitionEffect: 'resize'}
     );
 
-    var nlcd2006r = new OpenLayers.Layer.WMS( "NLCD 2006 raster",
+    var nlcd2006r = new OpenLayers.Layer.WMS( "NLCD 2006 30m raster",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
@@ -84,7 +84,16 @@
         {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2006.php'>MRLC</a>"}
     );
 
-    var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (2013-02-14)",
+    var clc06v16r = new OpenLayers.Layer.WMS( "CLC2006v16 100m raster",
+        [ "http://1.flightgear.telascience.org/tc?",
+          "http://2.flightgear.telascience.org/tc?",
+          "http://3.flightgear.telascience.org/tc?",
+          "http://4.flightgear.telascience.org/tc?" ],
+        {layers: 'clc06v16r', format: 'image/png'},
+        {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
+    );
+
+    var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (2013-03-10)",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
@@ -118,35 +127,26 @@
         {isBaseLayer: false}
     );
 
-    var airport850 = new OpenLayers.Layer.WMS( "v8.50 Airfields (FGx)",
-          "http://map.fgx.ch:81/mapnik/fgxcache.py?",
-          {layers: 'fgx_850_apt', transparent: 'true', format: 'image/png'},
-          {isBaseLayer: false}
+    var airspaces = new OpenLayers.Layer.WMS( "Airspaces (experimental)",
+        [ "http://1.flightgear.telascience.org/tc?",
+          "http://2.flightgear.telascience.org/tc?",
+          "http://3.flightgear.telascience.org/tc?",
+          "http://4.flightgear.telascience.org/tc?" ],
+        {layers: 'airspaces', format: 'image/png'},
+        {isBaseLayer: false}
     );
 
 //    var airport850 = new OpenLayers.Layer.WMS( "v8.50 Airfields (FGx)",
-//        [ "http://1.flightgear.telascience.org/tc?",
-//          "http://2.flightgear.telascience.org/tc?",
-//          "http://3.flightgear.telascience.org/tc?",
-//          "http://4.flightgear.telascience.org/tc?" ],
-//        {layers: 'airport850', transparent: 'true', format: 'image/png'},
-//        {isBaseLayer: false}
+//          "http://map.fgx.ch:81/mapnik/fgxcache.py?",
+//          {layers: 'fgx_850_apt', transparent: 'true', format: 'image/png'},
+//          {isBaseLayer: false}
 //    );
-
-    var navaid850 = new OpenLayers.Layer.WMS( "v8.50 Navaids (FGx)",
-      "http://map.fgx.ch:81/mapnik/fgxcache.py?",
-      {layers: 'fgx_850_vor,fgx_850_dme,fgx_850_ndb', transparent: 'true', format: 'image/png'},
-      {isBaseLayer: false}
-);
 
 //    var navaid850 = new OpenLayers.Layer.WMS( "v8.50 Navaids (FGx)",
-//        [ "http://1.flightgear.telascience.org/tc?",
-//          "http://2.flightgear.telascience.org/tc?",
-//          "http://3.flightgear.telascience.org/tc?",
-//          "http://4.flightgear.telascience.org/tc?" ],
-//        {layers: 'navaid850', transparent: 'true', format: 'image/png'},
-//        {isBaseLayer: false}
-//    );
+//      "http://map.fgx.ch:81/mapnik/fgxcache.py?",
+//      {layers: 'fgx_850_vor,fgx_850_dme,fgx_850_ndb', transparent: 'true', format: 'image/png'},
+//      {isBaseLayer: false}
+//);
 
     var wmssigns = new OpenLayers.Layer.WMS( "WMS Taxiway Signs",
         [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
