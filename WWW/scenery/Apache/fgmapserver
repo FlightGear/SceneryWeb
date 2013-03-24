@@ -85,6 +85,14 @@
 	</Directory>
 	Alias /webalizer /home/martin/WWW/webalizer
 ########################################################################
+	# VirtualPlanetBuilder
+	Alias /earth /home/martin/VPB/out
+	<Directory "/home/martin/VPB/out">
+	  DirectoryIndex terrain.ive
+	  Options -Indexes -FollowSymlinks
+	  IndexIgnore .*
+	</Directory>
+########################################################################
 	# FGx
 	Alias /fgx /home/ysablonier/htdocs
 	<Directory "/home/ysablonier/htdocs">
