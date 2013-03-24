@@ -191,10 +191,10 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
     }
 }
 else {
-    //if (!$fatalerror) {
+    if (!$fatalerror) {
         $error += 1;
-        $errormsg .= "<li>Sorry, but size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).</li>";
-    //}
+        $errormsg .= "<li>Sorry, but the size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).</li>";
+    }
 }
 
 # STEP 3.3 : UPLOAD XML FILE IN TMP DIRECTORY
