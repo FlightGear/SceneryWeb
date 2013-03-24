@@ -99,8 +99,8 @@
 	  allow from all
 	  PythonDebug On
 	</Directory>
-	FastCgiServer /home/ysablonier/htdocs/mapnik/fgxcache.py -processes 4 -socket /tmp/fgxcache.sock
-	FastCgiServer /home/ysablonier/htdocs/mapnik/fgxwms.py -processes 4 -socket /tmp/fgxwms.sock
+#	FastCgiServer /home/ysablonier/htdocs/mapnik/fgxcache.py -processes 4 -socket /tmp/fgxcache.sock
+#	FastCgiServer /home/ysablonier/htdocs/mapnik/fgxwms.py -processes 4 -socket /tmp/fgxwms.sock
 ########################################################################
 	# Trac
 	Alias /trac /home/martin/Trac
