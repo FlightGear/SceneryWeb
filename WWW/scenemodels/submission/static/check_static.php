@@ -191,10 +191,10 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
     }
 }
 else {
-    if (!$fatalerror) {
+    //if (!$fatalerror) {
         $error += 1;
         $errormsg .= "<li>Sorry, but size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).</li>";
-    }
+    //}
 }
 
 # STEP 3.3 : UPLOAD XML FILE IN TMP DIRECTORY
@@ -766,11 +766,11 @@ else {
         $dtg = date('l jS \of F Y h:i:s A');
         $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
-        
+
         // Correctly set the object URL.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$mo_shared;
         $html_family_url = htmlspecialchars($family_url);
-        
+
         email("static_request_pending");
 
         // Mailing the submitter to tell him that his submission has been sent for validation
