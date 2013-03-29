@@ -64,6 +64,7 @@ if dlarea > 144:
 url_params['myuuid'] = uuid.uuid4()
 url_params['ll_geometry'] = ("%(xmin)s %(ymin)s" % form)
 url_params['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
+url_params['bbox'] = ("%(ll_geometry)s, %(ur_geometry)s" % url_params)
 url_params['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 
 # After everything's verified, store an entry in the 'download' table for
@@ -77,15 +78,14 @@ sql = ("INSERT INTO download (uuid, ll_geometry, " + \
     '%(mylayer)s', \
     '%(mydate)s' \
 );" % url_params)
-
 try:
     db_cur.execute(sql)
 except:
-    print "Cannot execute SQL statement."
+    print "Cannot insert download job into DB."
+db_cur.close()
 
 # Cleanup
 #
-db_cur.close()
 db_conn.commit()
 db_conn.close()
 
