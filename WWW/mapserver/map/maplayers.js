@@ -93,7 +93,7 @@
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
-    var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (2013-03-25)",
+    var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (CURRENTOSMVERSION)",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
