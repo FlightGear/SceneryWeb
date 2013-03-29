@@ -7,18 +7,19 @@
 # 'download' database table. Fire 'dlshp.sh' with a reference to the UUID
 # of the respective database entry.
 #
-import pgdb
+import os
+import psycopg2
 import uuid
 import time
-import os
 
 # Define DB connection for verification of layers to download
 #
-ldbconnect = pgdb.connect(host='geoscope.optiputer.net',
-                          database='landcover',
-                          user='webuser')
-
-cursor = ldbconnect.cursor()
+db_params = { 'host':'geoscope.optiputer.net', 'database':'landcover', 'user':'webuser' }
+try:
+    db_conn = psycopg2.connect(**db_params)
+except:
+    print "Cannot connect to database."
+db_cur = db_conn.cursor()
 
 validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'apt', 'tgr']
 
@@ -68,8 +69,8 @@ myvars['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 # After everything's verified, store an entry in the 'download' table for
 # retrieval and execution via the 'dlshp.sh' script.
 #
-sqlStatements = ("INSERT INTO download (uuid, ll_geometry, " + \
-                 "ur_geometry, pgislayer, requestdate) VALUES \
+sql = ("INSERT INTO download (uuid, ll_geometry, " + \
+       "ur_geometry, pgislayer, requestdate) VALUES \
     ('%(myuuid)s', \
     ST_GeomFromEWKT('SRID=4326;POINT(%(ll_geometry)s)'), \
     ST_GeomFromEWKT('SRID=4326;POINT(%(ur_geometry)s)'), \
@@ -78,20 +79,20 @@ sqlStatements = ("INSERT INTO download (uuid, ll_geometry, " + \
 );" % myvars)
 
 try:
-    cursor.execute(sqlStatements)
-except pgdb.DatabaseError, errText:
-    raise pgdb.DatabaseError, errText
+    db_cur.execute(sql)
+except:
+    print "Cannot execute SQL statement."
 
 # Cleanup
 #
-cursor.close()
-ldbconnect.commit()
-ldbconnect.close()
+db_cur.close()
+db_conn.commit()
+db_conn.close()
 
 # Finally call 'dlshp.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
 dumpcmd = ("/home/fgscenery/WWW/mapserver/dlshp.sh %(myuuid)s > /tmp/dlshp.log 2>&1" % myvars)
-os.system( dumpcmd )
+os.system(dumpcmd)
 psp.redirect("/download/%(myuuid)s.zip" % myvars)
 %>
