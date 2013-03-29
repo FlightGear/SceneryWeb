@@ -27,7 +27,7 @@ else:
 # end
 %>
 
-<!-- calls 'dlshp.psp'
+<!-- calls 'procshpdl.psp'
      Pythonification into a generic abstraction to download features is
      still pending ....  -->
 
@@ -357,7 +357,7 @@ else:
               within a given bounding box query.
             </h4></p>
              Bounding Box (degrees):
-            <form method="post" action="/dlshp">
+            <form method="post" action="/procshpdl">
 
                 <table style="border-style: solid; border-width: 1px;" cellpadding="1" cellspacing="1">
                     <tr>
@@ -393,7 +393,7 @@ else:
                 <INPUT TYPE="submit" value="Download" checked>
             </form>
             <p style="border:1px solid; padding: 5px; background-color: white; border-color:grey;">
-                <code>http://mapserver.flightgear.org/dlshp?layer=&lt;layername&gt;&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
+                <code>http://mapserver.flightgear.org/procshpdl?layer=&lt;layername&gt;&amp;xmin=&lt;degree&gt;&amp;xmax=&lt;degree&gt;&amp;ymin=&lt;degree&gt;&amp;ymax=&lt;degree&gt;</code>
             </p>
 
         </td>

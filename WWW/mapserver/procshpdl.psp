@@ -1,10 +1,10 @@
 <%
 #
 # called by 'shpdl.psp'
-# calls 'dlshp.sh'
+# calls 'procshpdl.sh'
 #
 # Verify input from the web form and store the necessary details in the
-# 'download' database table. Fire 'dlshp.sh' with a reference to the UUID
+# 'download' database table. Fire 'procshpdl.sh' with a reference to the UUID
 # of the respective database entry.
 #
 import os
@@ -67,7 +67,7 @@ myvars['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
 myvars['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 
 # After everything's verified, store an entry in the 'download' table for
-# retrieval and execution via the 'dlshp.sh' script.
+# retrieval and execution via the 'procshpdl.sh' script.
 #
 sql = ("INSERT INTO download (uuid, ll_geometry, " + \
        "ur_geometry, pgislayer, requestdate) VALUES \
@@ -89,10 +89,10 @@ db_cur.close()
 db_conn.commit()
 db_conn.close()
 
-# Finally call 'dlshp.sh' with the given UUID identifier as stored in the
+# Finally call 'procshpdl.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
-dumpcmd = ("/home/fgscenery/WWW/mapserver/dlshp.sh %(myuuid)s > /tmp/dlshp.log 2>&1" % myvars)
+dumpcmd = ("/home/fgscenery/WWW/mapserver/procshpdl.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % myvars)
 os.system(dumpcmd)
 psp.redirect("/download/%(myuuid)s.zip" % myvars)
 %>

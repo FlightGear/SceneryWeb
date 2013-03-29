@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# called by 'dlshp.psp'
+# called by 'procshpdl.psp'
 #
 # Supply bounding box for 'pgsql2shp' as:
 #   <xmin> <ymin>,<xmax> <ymax>

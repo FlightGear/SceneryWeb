@@ -26,7 +26,7 @@
 	RedirectPermanent /download.psp /shpdl/
 	ScriptAlias /shpdl /home/fgscenery/WWW/mapserver/shpdl.psp
 	ScriptAlias /dlaction /home/fgscenery/WWW/mapserver/dlaction.psp
-	ScriptAlias /dlshp /home/fgscenery/WWW/mapserver/dlshp.psp
+	ScriptAlias /dlshp /home/fgscenery/WWW/mapserver/procshpdl.psp
 	<Directory "/usr/local/lib/cgi-bin/">
 	  Options FollowSymLinks
 	</Directory>
