@@ -18,6 +18,8 @@ After production:
 =================
 - Will have to authorize quotes into description/comments later on, because it is frequent in the english language cf PGSQL so-called Dollar-quoting, or from the PHP side.
 - Use the PHP empty function in complement/instead of isset, where appropriate.
+- Put the static model update in production
+- Double check the path name to avoid someone to add an existing path (function nearly written at the end of functions.inc.php)
 
 Overall work:
 =============
