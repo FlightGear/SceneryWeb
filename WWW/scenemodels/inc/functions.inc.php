@@ -757,7 +757,7 @@ function detect_already_existing_object($lat, $lon, $ob_gndelev, $ob_elevoffset,
     $query = "SELECT ob_id FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$lon." ".$lat.")', 4326) AND ob_gndelev = ".$ob_gndelev." AND ";
     if ($ob_elevoffset == 0)
         $query .= "ob_elevoffset IS NULL ";
-    else 
+    else
         $query .= "ob_elevoffset = ".$ob_elevoffset." ";
     $query .= "AND ob_heading = ".heading_stg_to_true($ob_heading)." AND ob_model = ".$ob_model.";";
     $result = @pg_query($resource_r, $query);
@@ -902,4 +902,25 @@ function check_terrasync_update_passed()
     }
     return $time."Z today";
 }
+
+// Checks if the model path already exists in DB.
+// ==============================================
+
+function path_exists($proposed_path)
+{
+    // Connecting to the databse.
+    $resource = connect_sphere_r();
+
+    // Count the number of objects in the database
+    $path = @pg_query($resource,"SELECT mo_path FROM fgs_models GROUP BY mo_path
+                                 HAVING COUNT(mo_path) > 1 ORDER BY mo_path;");
+
+    while ($line = @pg_fetch_assoc($path)) {
+        return $line['mo_path'];
+    }
+
+    // Close the database resource
+    @pg_close ($resource);
+}
+
 ?>
