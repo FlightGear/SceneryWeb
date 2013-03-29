@@ -23,17 +23,17 @@ db_cur = db_conn.cursor()
 
 validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'apt', 'tgr']
 
-myvars = {}
-myvars['mylayer'] = ("%(layer)s" % form)
+url_params = {}
+url_params['mylayer'] = ("%(layer)s" % form)
 
-if myvars['mylayer'] not in validlayers:
+if url_params['mylayer'] not in validlayers:
     exit(1)
 
 # Check if the defined layer to download is a valid one
 #
 testlayercmd = ( "SELECT COUNT(*) from conf_layer \
     WHERE maplayer = '%(mylayer)s' \
-    OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % myvars )
+    OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % url_params )
 
 xmin = float("%(xmin)s" % form)
 xmax = float("%(xmax)s" % form)
@@ -61,10 +61,10 @@ if dlarea > 144:
 
 # Now, everything is ok
 #
-myvars['myuuid'] = uuid.uuid4()
-myvars['ll_geometry'] = ("%(xmin)s %(ymin)s" % form)
-myvars['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
-myvars['mydate'] = time.strftime("%Y-%m-%d %H:%M")
+url_params['myuuid'] = uuid.uuid4()
+url_params['ll_geometry'] = ("%(xmin)s %(ymin)s" % form)
+url_params['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
+url_params['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 
 # After everything's verified, store an entry in the 'download' table for
 # retrieval and execution via the 'procshpdl.sh' script.
@@ -76,7 +76,7 @@ sql = ("INSERT INTO download (uuid, ll_geometry, " + \
     ST_GeomFromEWKT('SRID=4326;POINT(%(ur_geometry)s)'), \
     '%(mylayer)s', \
     '%(mydate)s' \
-);" % myvars)
+);" % url_params)
 
 try:
     db_cur.execute(sql)
@@ -92,7 +92,7 @@ db_conn.close()
 # Finally call 'procshpdl.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
-dumpcmd = ("/home/fgscenery/WWW/mapserver/procshpdl.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % myvars)
+dumpcmd = ("/home/fgscenery/WWW/mapserver/procshpdl.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % url_params)
 os.system(dumpcmd)
-psp.redirect("/download/%(myuuid)s.zip" % myvars)
+psp.redirect("/download/%(myuuid)s.zip" % url_params)
 %>
