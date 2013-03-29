@@ -233,7 +233,7 @@ $(function() {
         </div>
         <div id="tabs-3">
             <ul>
-                <li>Choose the author for the model. If you are not listed, choose "Other" and complete the author's information in the fields that appear. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
+                <li>Choose the author for the model. If you are not listed, choose "Unknown" or ask for addition on the forums or mailing list. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
                 <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
             </ul>
