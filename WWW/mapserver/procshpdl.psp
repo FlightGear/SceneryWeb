@@ -70,9 +70,10 @@ url_params['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 # After everything's verified, store an entry in the 'download' table for
 # retrieval and execution via the 'procshpdl.sh' script.
 #
-sql = ("INSERT INTO download (uuid, ll_geometry, " + \
+sql = ("INSERT INTO download (uuid, wkb_geometry, ll_geometry, " + \
        "ur_geometry, pgislayer, requestdate) VALUES \
     ('%(myuuid)s', \
+    ST_SetSRID('BOX3D(%(ll_geometry)s, %(ur_geometry)s)'::BOX3D, 4326), \
     ST_GeomFromEWKT('SRID=4326;POINT(%(ll_geometry)s)'), \
     ST_GeomFromEWKT('SRID=4326;POINT(%(ur_geometry)s)'), \
     '%(mylayer)s', \
