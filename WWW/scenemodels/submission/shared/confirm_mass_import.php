@@ -170,7 +170,7 @@ if (!$error) {
                         $cpt_err++;
                     }
                     else if ($return_value == 2) {
-                        echo "<td><p class=\"center warning\">Object unknown!</p></td>";
+                        echo "<td><p class=\"center warning\">Model unknown!</p></td>";
                         $ko = 1;
                         $global_ko = 1;
                         $cpt_err++;
