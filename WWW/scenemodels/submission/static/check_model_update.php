@@ -27,7 +27,7 @@ $errormsg   = "";
     }
 
 $page_title = "Automated Models Submission Form";
-include '../inc/header.php';
+include '../../inc/header.php';
 
 ################################################
 ################################################
@@ -675,5 +675,5 @@ else {
         }
     }
 }
-include '../inc/footer.php';
+include '../../inc/footer.php';
 ?>

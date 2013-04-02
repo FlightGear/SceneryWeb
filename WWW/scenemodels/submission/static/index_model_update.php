@@ -83,7 +83,7 @@ $(function() {
                 <li>PNG resolution must be a power of 2 in width and height.</li>
                 <li>If you have multiple textures, name them modelname1.png, modelname2.png etc.</li>
                 <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only include XML if necessary for the model.</li>
-                <li>The thumbnail must be in JPEG and 320*240 resolution. Filename must end on _thumbnail.</li>
+                <li>The thumbnail must be in JPEG and 320*240 resolution. Filename must end with _thumbnail.</li>
             </ul>
             <table style="width: 100%;">
                 <tr>

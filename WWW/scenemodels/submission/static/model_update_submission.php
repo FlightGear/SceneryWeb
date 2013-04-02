@@ -1,8 +1,8 @@
 <?php
 if (isset($_POST["action"])) {
     // Inserting libs
-    require_once ('../inc/functions.inc.php');
-    require_once ('../inc/email.php');
+    require_once ('../../inc/functions.inc.php');
+    require_once ('../../inc/email.php');
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
@@ -43,7 +43,7 @@ if (isset($_POST["action"])) {
                     exit;
                 }
 
-                include '../inc/header.php';
+                include '../../inc/header.php';
                 echo "<p class=\"center\">Deleting corresponding pending query.</p>";
                 echo "<p class=\"center\">";
                 echo "Signature found.<br />Now deleting request with number ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
@@ -51,7 +51,7 @@ if (isset($_POST["action"])) {
                 echo "</p>";
 
                 // Closing the rw connection.
-                include '../inc/footer.php';
+                include '../../inc/footer.php';
                 pg_close($resource_rw);
 
                 // Sending mail if entry was correctly deleted.
@@ -122,7 +122,7 @@ if (isset($_POST["action"])) {
                     exit;
                 }
 
-                include '../inc/header.php';
+                include '../../inc/header.php';
                 echo "<p class=\"center\">";
                 echo "Signatures found.<br /> Now processing INSERT query of model with number ". $_POST["mo_sig"].".</p>";
                 echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
@@ -135,7 +135,7 @@ if (isset($_POST["action"])) {
                     echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
 
                     // Closing the rw connection.
-                    include '../inc/footer.php';
+                    include '../../inc/footer.php';
                     pg_close($resource_rw);
                     exit;
                 }
@@ -161,19 +161,19 @@ if (isset($_POST["action"])) {
 
                 email("model_update_request_accepted");
                 
-                include '../inc/footer.php';
+                include '../../inc/footer.php';
                 exit;
             }
         }
     }
-    include '../inc/footer.php';
+    include '../../inc/footer.php';
 }
 
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    require_once ('../inc/functions.inc.php');
-    include_once '../inc/geshi/geshi.php';
+    require_once ('../../inc/functions.inc.php');
+    include_once '../../inc/geshi/geshi.php';
 
 
     // Checking DB availability before all
@@ -182,7 +182,7 @@ if (!isset($_POST["action"])) {
     if (!$ok) {
         $page_title = "Automated Models Submission Form";
         $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include '../inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
@@ -232,7 +232,7 @@ if (!isset($_POST["action"])) {
         }
     }
 
-include '../inc/header.php';
+include '../../inc/header.php';
 
 ?>
 
@@ -326,7 +326,7 @@ include '../inc/header.php';
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
-            <object data="model/index_update.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="index_update.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
             </center>
         </td>
     </tr>
@@ -395,5 +395,5 @@ include '../inc/header.php';
 unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
 clear_dir($target_path);
 }
-include '../inc/footer.php';
+include '../../inc/footer.php';
 ?>
