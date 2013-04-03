@@ -277,6 +277,7 @@ include 'inc/header.php';
             [new Date(2012,7,25), 1106276, 2617, 2074 ],
             [new Date(2012,9,8), 1106872, 2749, 2161 ],
             [new Date(2013,0,4), 1108727, 2845, 2310 ],
+            [new Date(2013,3,3), 1114822, 3013, 2310 ],
             [new Date(<?php echo date('Y').",".(date('n')-1).",".date('j')."), ".$objects.", ".$models.", ".$signs; ?> ]
         ]);
 
