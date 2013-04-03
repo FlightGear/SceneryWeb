@@ -65,9 +65,9 @@ if (isset($_POST["action"])) {
 
                 if(isset($_POST['email'])) $to = $_POST["email"];
                     else $to = "";
- 
+
                 email("model_update_request_rejected");
-                
+
                 exit;
 
                 /*echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
@@ -108,7 +108,7 @@ if (isset($_POST["action"])) {
 
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
-                
+
                 echo $result_rw_mo; // Debug
 
                 if (!$result_rw_mo) {
@@ -160,7 +160,7 @@ if (isset($_POST["action"])) {
                     else $to = "";
 
                 email("model_update_request_accepted");
-                
+
                 include '../../inc/footer.php';
                 exit;
             }
@@ -216,7 +216,7 @@ if (!isset($_POST["action"])) {
 
             // Gzuncompress the query
             $query_rw = gzuncompress($sqlz);
-			
+
             // Retrieve data from query
             $pattern = "/UPDATE fgs_models SET mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', mo_author \= (?P<author>[0-9]+), mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', mo_shared \= (?P<shared>[0-9]+) WHERE mo_id \= (?P<modelid>[0-9]+)/";
             $error === preg_match($pattern, $query_rw, $matches);
@@ -326,7 +326,7 @@ include '../../inc/header.php';
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
-            <object data="index_update.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="model/index.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
             </center>
         </td>
     </tr>
