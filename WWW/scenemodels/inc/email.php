@@ -77,7 +77,7 @@ function email($case)
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description:      ". $name ."\r\n" .
                         "Comment:          ". strip_tags($comment) ."\r\n\r\n" .
-                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model_update_submission.php?mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
+                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/static/model_update_submission.php?mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
             $backend = true;
             break;
         case "model_update_request_rejected":
