@@ -1,9 +1,9 @@
 <?php
 
 # Inserting libs
-require_once('../inc/captcha/recaptchalib.php');
-require_once('../inc/functions.inc.php');
-require_once('../inc/email.php');
+require_once('../../inc/captcha/recaptchalib.php');
+require_once('../../inc/functions.inc.php');
+require_once('../../inc/email.php');
 
 $fatalerror = 0;
 $error      = 0;
@@ -627,7 +627,7 @@ else {
 
     $mo_query  = "UPDATE fgs_models ";
     $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$author.", mo_name = '".$name."', mo_notes = '".$comment."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared;
-	$mo_query .= " WHERE mo_id = ".$model_name;
+    $mo_query .= " WHERE mo_id = ".$model_name;
 
     // Model stuff into pending requests table.
     $mo_sha_to_compute = "<".microtime()."><".$ipaddr."><".$mo_query.">";
@@ -661,11 +661,11 @@ else {
         $dtg = date('l jS \of F Y h:i:s A');
         $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
-        
+
         // Correctly set the object URL.
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$mo_shared;
         $html_family_url = htmlspecialchars($family_url);
-        
+
         email("model_update_request_pending");
 
         // Mailing the submitter to tell him that his submission has been sent for validation
