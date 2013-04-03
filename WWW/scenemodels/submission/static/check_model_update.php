@@ -22,7 +22,7 @@ $errormsg   = "";
         $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>." .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-        include '../inc/error_page.php';
+        include '../../inc/error_page.php';
         exit;
     }
 
@@ -311,7 +311,7 @@ if ($fatalerror || $error > 0) {
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
          "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
     clear_dir($targetPath);
-    include '../inc/footer.php';
+    include '../../inc/footer.php';
     exit;
 }
 
@@ -516,7 +516,7 @@ if ($fatalerror || $error > 0) {
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
          "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
 
-    include '../inc/footer.php';
+    include '../../inc/footer.php';
     clear_dir($targetPath);
     exit;
 }
@@ -609,7 +609,7 @@ if ($fatalerror || $error > 0) {
          "<a href='javascript:history.go(-1)'>Go back and correct your mistakes</a>.<br/><br/>" .
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
          "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
-    include '../inc/footer.php';
+    include '../../inc/footer.php';
     clear_dir($targetPath);
     exit;
 }
