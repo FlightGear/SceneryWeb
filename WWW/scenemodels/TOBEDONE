@@ -21,6 +21,8 @@ After production:
 - Use the PHP empty function in complement/instead of isset, where appropriate.
 - Put the static model update in production
 - Double check the path name to avoid someone to add an existing path (function nearly written at the end of functions.inc.php)
+- Forbid the use of spaces in the texture names (.png) just as we do in the name of the model.
+- Forbid the possibility to update a model with an existing path name and give the user to add an object from an existing static model (ie, multiple static instances).
 
 Overall work:
 =============
