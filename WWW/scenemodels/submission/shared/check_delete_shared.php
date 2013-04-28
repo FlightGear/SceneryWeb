@@ -99,7 +99,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     echo "<p class=\"center\">Your object has been successfully queued into the deletion requests!<br />";
     echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
-    echo "Want to delete or submit another position ?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/\">Click here to go back to the submission page.</a></p>";
+    echo "Want to delete or submit another position ?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/\">Click here to go back to the submission page.</a></p>";
 
     // Sending mail if there is no false and SQL was correctly inserted.
     // Sets the time to UTC.
@@ -171,7 +171,7 @@ else {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {
-        $error_text .=  "Longitude mismatch!<br/>";
+        $error_text .= "Longitude mismatch!<br/>";
         $error = true;
     }
 }
