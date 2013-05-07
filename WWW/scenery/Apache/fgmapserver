@@ -142,6 +142,10 @@
 	  DirectoryIndex getstart-fr.html
 	  Options -Indexes -FollowSymlinks
 	</Directory>
+	Alias /getstartlogs /home/martin/WWW/getstartlogs
+	<Directory "/home/martin/WWW/getstart-en">
+	  Options +Indexes -FollowSymlinks
+	</Directory>
 	Alias /getstart.pdf /home/martin/WWW/getstart-en.pdf
 	Alias /getstart-fr.pdf /home/martin/WWW/getstart-fr.pdf
 	Alias /Apt.Dat.txt /home/martin/WWW/mapserver/Apt.Dat.txt
