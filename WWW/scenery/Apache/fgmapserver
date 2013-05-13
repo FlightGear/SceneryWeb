@@ -73,6 +73,10 @@
 	<Directory "/home/martin/WWW/dl">
 	  Options -Indexes -FollowSymlinks
 	</Directory>
+	Alias /TGShapes /home/martin/WWW/TGShapes
+	<Directory "/home/martin/WWW/TGShapes">
+	  Options +Indexes -FollowSymlinks
+	</Directory>
 	# Shapefile-Download
 	Alias /download /home/fgscenery/SHPdl
 	# Scenery-Download (Dummy/Real)
