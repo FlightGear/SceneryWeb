@@ -16,6 +16,7 @@ Static objects
 ==============
 After production:
 =================
+- The dos2unix has to be done before reading the files to check for input. This will avoid Windows CRLFs to make the cheking mishappen.
 - Will have to authorize quotes into description/comments later on, because it is frequent in the english language cf PGSQL so-called Dollar-quoting, or from the PHP side.
 - Code the possibility to add n times the same static model, such as statto needed in Iceland: specific models but that you can only find there. There's no need to make them shared.
 - Use the PHP empty function in complement/instead of isset, where appropriate.

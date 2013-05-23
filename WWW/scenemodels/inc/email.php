@@ -136,6 +136,7 @@ function email($case)
             $message .= "issued the following request:" . "\r\n\r\n" .
                         "Family:           " .get_object_family_from_id($id_to_delete). "\r\n" .
                         "Model:            " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
+                        "Ob. text/metadata:" .get_object_text_from_id($id_to_delete). "\r\n" .
                         "Latitude:         " .get_object_latitude_from_id($id_to_delete). "\r\n" .
                         "Longitude:        " .get_object_longitude_from_id($id_to_delete). "\r\n" .
                         "Ground elevation: " .get_object_elevation_from_id($id_to_delete). "\r\n" .
