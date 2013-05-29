@@ -69,9 +69,9 @@ if (isset($_POST["action"])) {
 
                 if(isset($_POST['email'])) $to = $_POST["email"];
                     else $to = "";
- 
+
                 email("static_request_rejected");
-                
+
                 exit;
 
                 /*echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
@@ -112,7 +112,9 @@ if (isset($_POST["action"])) {
 
                 // Gzuncompress the query
                 $query_rw_mo = gzuncompress ($sqlz_mo);
+                echo $query_rw_mo;
                 $query_rw_ob = gzuncompress ($sqlz_ob);
+                echo $query_rw_ob;
 
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
@@ -177,7 +179,7 @@ if (isset($_POST["action"])) {
                     else $to = "";
 
                 email("static_request_accepted");
-                
+
                 include '../../inc/footer.php';
                 exit;
             }
