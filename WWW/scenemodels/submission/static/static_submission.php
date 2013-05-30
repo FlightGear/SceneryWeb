@@ -112,9 +112,7 @@ if (isset($_POST["action"])) {
 
                 // Gzuncompress the query
                 $query_rw_mo = gzuncompress ($sqlz_mo);
-                echo $query_rw_mo;
                 $query_rw_ob = gzuncompress ($sqlz_ob);
-                echo $query_rw_ob;
 
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
