@@ -1,7 +1,7 @@
 <?php
 
 // Setting maintainers (will have to be moved somewhere on sphere)
-include ("/home/ojacq/.maintainers");
+include "/home/ojacq/.maintainers";
 
 // Connects Read Only to the database
 // ==================================
@@ -9,7 +9,7 @@ include ("/home/ojacq/.maintainers");
 function connect_sphere_r()
 {
     // Inserting dependencies and defining settings
-    include ("/home/ojacq/.scenemodels");
+    include "/home/ojacq/.scenemodels";
     $dbrname = $database;
     $dbrhost = $host;
     $dbruser = $ro_user;
@@ -35,7 +35,7 @@ function connect_sphere_r()
 function connect_sphere_rw()
 {
     // Inserting dependencies and defining settings
-    include ("/home/ojacq/.scenemodels");
+    include "/home/ojacq/.scenemodels";
     $dbrwname = $database;
     $dbrwhost = $host;
     $dbrwuser = $rw_user;
@@ -182,7 +182,8 @@ function compute_country_code_from_position($long, $lat)
     $headerlink_country = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT co_code FROM gadm2, fgs_countries WHERE ST_Within(ST_PointFromText('POINT($long $lat)', 4326), gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+    $query = "SELECT co_code FROM gadm2, fgs_countries " .
+             "WHERE ST_Within(ST_PointFromText('POINT($long $lat)', 4326), gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
     $result = pg_query($headerlink_country, $query);
 
     while ($row = pg_fetch_assoc($result)) {
@@ -251,7 +252,9 @@ function get_object_model_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT ob_model FROM fgs_objects WHERE ob_id = ".$ob_id.";";
+    $query = "SELECT ob_model " .
+             "FROM fgs_objects " .
+             "WHERE ob_id = ".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while($row = @pg_fetch_assoc($result)) {
@@ -274,7 +277,9 @@ function get_object_latitude_from_id($ob_id)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT ST_Y(wkb_geometry) AS ob_lat FROM fgs_objects WHERE ob_id = ".$ob_id.";";
+    $query = "SELECT ST_Y(wkb_geometry) AS ob_lat " .
+             "FROM fgs_objects " .
+             "WHERE ob_id = ".$ob_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
@@ -549,7 +554,7 @@ function model_exists($model_name)
     $queried_mo_path = $tab_path[$max_tab_path-1];  // Returns the last field value.
 
     // Checking that the label "Model" is correct
-    if (strcmp($tab_path[0],"Models")) { return(1); exit; }        // If ever dumb people try to put something else here.
+    if (strcmp($tab_path[0],"Models")) { return 1;}        // If ever dumb people try to put something else here.
 
     // Connecting to the database.
     $headerlink_family = connect_sphere_rw();
@@ -573,16 +578,14 @@ function model_exists($model_name)
         $result_family = pg_query($headerlink_family, $query_family);
 
         if (@pg_num_rows($result_family) == 1) {   // If the family & model are known, return 0.
-            return(0);
+            return 0;
         }
         else {
-            return(3);    // If the family is unknown, I say it and exit
-            exit;
+            return 3;    // If the family is unknown, I say it and exit
         }
     }
     else {
-        return(2);    // Il the object is unknown, I say it and exit
-        exit;
+        return 2;    // Il the object is unknown, I say it and exit
     }
 
     // Closing the connection.

@@ -1,21 +1,21 @@
 <?php
 
-    // Inserting libs
-    require_once('../../inc/functions.inc.php');
+// Inserting libs
+require_once '../../inc/functions.inc.php';
 
-    // Checking DB availability before all
+// Checking DB availability before all
 
-    $ok = check_availability();
+$ok = check_availability();
 
-    if (!$ok) {
-        $page_title = "Automated Objects Deletion Form";
-        $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include '../../inc/error_page.php';
-        exit;
-    }
-
+if (!$ok) {
     $page_title = "Automated Objects Deletion Form";
-    include '../../inc/header.php';
+    $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+    include '../../inc/error_page.php';
+    exit;
+}
+
+$page_title = "Automated Objects Deletion Form";
+include '../../inc/header.php';
 ?>
 
 <script src="/inc/js/check_form.js" type="text/javascript"></script>

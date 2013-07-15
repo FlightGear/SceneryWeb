@@ -21,7 +21,9 @@
         echo "<div class=\"paragraph_bloc\">\n" .
              "<div class=\"header\">\n" .
              "<div class=\"newsdate\">".$row["formdate"]."</div>\n" .
-             "<div class=\"newsnormal\">by</div><div class=\"newsauthor\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div></div>\n" .
+             "<div class=\"newsnormal\">by</div>" .
+             "<div class=\"newsauthor\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div>" .
+             "<div class=\"clear\"></div></div>\n" .
              "<div class=\"body\">".$row["ne_text"]."</div>\n" .
              "</div>\n";
     }

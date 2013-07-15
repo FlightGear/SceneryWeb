@@ -140,8 +140,8 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
             </tr>-->
             <tr>
                 <td colspan="8" class="submit">                            
-                    <?php echo "<a href=\"submission.php?action=accept&amp;sig=".$_GET[sig]."&amp;email=".$_GET[email]."\" />Accept</a> | ";?>
-                    <?php echo "<a href=\"submission.php?action=reject&amp;sig=".$_GET[sig]."&amp;email=".$_GET[email]."\" />Reject</a>";?>
+                    <?php echo "<a href=\"submission.php?action=accept&amp;sig=".$_GET["sig"]."&amp;email=".$_GET["email"]."\" />Accept</a> | ";?>
+                    <?php echo "<a href=\"submission.php?action=reject&amp;sig=".$_GET["sig"]."&amp;email=".$_GET["email"]."\" />Reject</a>";?>
                 </td>
             </tr>
             </table>
@@ -271,7 +271,7 @@ else {
                 $page_title = "Automated Objects Pending Requests Form";
                 include '../../inc/header.php';
                 echo "<p class=\"center\">\n";
-                echo "Signature found.<br /> Now deleting request with number ". $_GET[sig].".</p>";
+                echo "Signature found.<br /> Now deleting request with number ". $_GET["sig"].".</p>";
                 echo "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />\n";
 
                 // Closing the rw connection.
@@ -283,7 +283,7 @@ else {
             $page_title = "Automated Objects Pending Requests Form";
             include '../../inc/header.php';
             echo "<p class=\"center\">";
-            echo "Signature found.<br />Now deleting request with number ". $_GET[sig].".</p>";
+            echo "Signature found.<br />Now deleting request with number ". $_GET["sig"].".</p>";
             echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
             echo "</p>";
 

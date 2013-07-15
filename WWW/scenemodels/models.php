@@ -1,4 +1,4 @@
-<?php include("inc/header.php");?>
+<?php include "inc/header.php";?>
 
 <script type="text/javascript">
   function popmap(lat,lon,zoom) {
@@ -19,11 +19,11 @@
 ?>
     <tr class="bottom">
         <td colspan="2" align="center">
-            <?php 
+<?php 
             if ($offset >= 10) {
                 echo "<a href=\"models.php?offset=".($offset-10)."\">Prev</a> | ";
             }
-            ?>
+?>
             <a href="models.php?offset=<?php echo $offset+10;?>">Next</a>
         </td>
     </tr>

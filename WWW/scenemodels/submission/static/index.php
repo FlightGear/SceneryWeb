@@ -1,5 +1,5 @@
 <?php
-    require_once ('../../inc/functions.inc.php');
+    require_once '../../inc/functions.inc.php';
     $page_title = "Automated Models Submission Form";
     include '../../inc/header.php';
 ?>

@@ -9,7 +9,7 @@
 **/
 
     // Inserting libs
-    require_once ('../../../inc/functions.inc.php');
+    require_once '../../../inc/functions.inc.php';
 
     if (isset($filename) && !preg_match("/[0-9a-zA-Z_.-]/", $filename))
         exit;
@@ -24,7 +24,9 @@
         exit;
 
     // Checking the presence of sig into the database
-    $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $mo_sig ."';");
+    $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz " .
+                                      "FROM fgs_position_requests " .
+                                      "WHERE spr_hash = '". $mo_sig ."';");
     if (pg_num_rows($result) != 1)
         exit;
 
@@ -38,7 +40,9 @@
     // Gzuncompress the query
     $query_rw = gzuncompress($sqlz);
 
-    $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
+    $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) " .
+               "VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) " .
+               "RETURNING mo_id/";
     preg_match($pattern, $query_rw, $matches);
 
     $mo_modelfile = $matches['modelfile'];

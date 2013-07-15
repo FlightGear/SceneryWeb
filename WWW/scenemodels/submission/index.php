@@ -1,6 +1,6 @@
 <?php
-	$page_title = "Automated Scenery Submission Forms";
-	include '../inc/header.php';
+    $page_title = "Automated Scenery Submission Forms";
+    include '../inc/header.php';
 ?>
 
 <h1>FlightGear scenery objects and models submission</h1>

@@ -1,8 +1,8 @@
 <?php
 if (isset($_POST["action"])) {
     // Inserting libs
-    require_once ('../../inc/functions.inc.php');
-    require_once ('../../inc/email.php');
+    require_once '../../inc/functions.inc.php';
+    require_once '../../inc/email.php';
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
@@ -63,8 +63,10 @@ if (isset($_POST["action"])) {
                 $name = $_POST["mo_name"];
                 $comment = $_POST["maintainer_comment"];
 
-                if(isset($_POST['email'])) $to = $_POST["email"];
-                    else $to = "";
+                if (isset($_POST['email']))
+                    $to = $_POST["email"];
+                else
+                    $to = "";
 
                 email("model_update_request_rejected");
 
@@ -172,7 +174,7 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    require_once ('../../inc/functions.inc.php');
+    require_once '../../inc/functions.inc.php';
     include_once '../../inc/geshi/geshi.php';
 
 

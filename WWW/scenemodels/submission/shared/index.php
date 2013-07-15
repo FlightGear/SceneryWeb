@@ -9,7 +9,9 @@ $ok=check_availability();
 if(!$ok)
 {
     $page_title = "Automated Objects Submission Form";
-    $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
+    $error_text = "Sorry, but the database is currently unavailable. " .
+                  "We are doing the best to put it back up online. " .
+                  "Please come back again soon.";
     include '../../inc/error_page.php';
 }
 else {
@@ -92,7 +94,7 @@ $(function() {
                             $resource_r = connect_sphere_r();
 
                             // If connection is OK
-                            if ($resource_r!='0') {
+                            if ($resource_r != '0') {
 
                                 // Show all the families other than the static family
                                 $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
@@ -202,7 +204,7 @@ $(function() {
                     <td colspan="2" class="submit">
             <?php
                         // Google Captcha stuff
-                        require_once('../../inc/captcha/recaptchalib.php');
+                        require_once '../../inc/captcha/recaptchalib.php';
                         $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                         echo recaptcha_get_html($publickey);
             ?>

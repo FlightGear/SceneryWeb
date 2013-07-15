@@ -1,8 +1,8 @@
 <?php
 
 # Inserting libs
-require_once('../../inc/functions.inc.php');
-require_once('../../inc/captcha/recaptchalib.php');
+require_once '../../inc/functions.inc.php';
+require_once '../../inc/captcha/recaptchalib.php';
 
 $fatalerror = 0;
 $error      = 0;
@@ -18,7 +18,7 @@ $errormsg   = "";
     // What happens when the CAPTCHA was entered incorrectly
     if (!$resp->is_valid) {
         $page_title = "Automated Static Models Update Form";
-        $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://".$_SERVER['SERVER_NAME']."/submission/static/index.php'>Go back and try it again</a>" .
+        $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='http://$_SERVER['SERVER_NAME']/submission/static/index.php'>Go back and try it again</a>" .
              "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
              "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
         include '../../inc/error_page.php';

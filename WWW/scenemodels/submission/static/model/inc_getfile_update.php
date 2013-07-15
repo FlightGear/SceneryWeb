@@ -24,7 +24,9 @@
         exit;
 
     // Checking the presence of sig into the database
-    $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $mo_sig ."';");
+    $result = @pg_query($resource_rw,
+                        "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests " .
+                        "WHERE spr_hash = '". $mo_sig ."';");
     if (pg_num_rows($result) != 1)
         exit;
 
@@ -38,7 +40,15 @@
     // Gzuncompress the query
     $query_rw = gzuncompress($sqlz);
 
-    $pattern = "/UPDATE fgs_models SET mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', mo_author \= (?P<author>[0-9]+), mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', mo_shared \= (?P<shared>[0-9]+) WHERE mo_id \= (?P<modelid>[0-9]+)/";
+    $pattern = "/UPDATE fgs_models SET " .
+               "mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', " .
+               "mo_author \= (?P<author>[0-9]+), " .
+               "mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', " .
+               "mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', " .
+               "mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', " .
+               "mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', " .
+               "mo_shared \= (?P<shared>[0-9]+) " .
+               "WHERE mo_id \= (?P<modelid>[0-9]+)/";
     preg_match($pattern, $query_rw, $matches);
 
     $mo_modelfile = $matches['modelfile'];

@@ -55,7 +55,10 @@ function resize(){
 
 function showModel(model){
   loading.style.display = "block";
-  viewer.show(model.file, {callback:onLoaded, texturePath:"get_texture_by_filename_update.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>&name="});
+  viewer.show(model.file,
+              {callback:onLoaded,
+               texturePath:"get_texture_by_filename_update.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>&name="
+              });
 };
 
 function onLoaded(){

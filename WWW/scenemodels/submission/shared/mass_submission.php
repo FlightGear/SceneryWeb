@@ -1,8 +1,8 @@
 <?php
 
     // Inserting libs
-    require_once('../../inc/functions.inc.php');
-    require_once('../../inc/email.php');
+    require_once '../../inc/functions.inc.php';
+    require_once '../../inc/email.php';
 
     // Checking DB availability before all
     $ok = check_availability();
@@ -14,18 +14,24 @@
         exit;
     }
 
-    // Check the presence of "action", the presence of "signature", its length (64) and its content.
-    if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"]) && ($_GET["action"] == "check")) {
+    // Check the presence of "action", the presence of "signature", its 
+    // length (64) and its content.
+    if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) 
+            && preg_match("/[0-9a-z]/", $_GET["sig"]) && ($_GET["action"] == "check")) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
+            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz " .
+                                              "FROM fgs_position_requests " .
+                                              "WHERE spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Objects Massive Import Request Form";
-                $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
+                $error_text = "Sorry but the request you are asking for does " .
+                              "not exist into the database. Maybe it has " .
+                              "already been validated by someone else?<br/>";
                 $advise_text = "Else, please report to devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
                 @pg_close($resource_rw);
@@ -43,9 +49,10 @@
                     $query_rw = gzuncompress($sqlz);
                     $page_title = "Automated Objects Massive Import Requests Form";
                     include '../../inc/header.php';
-                    echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET[sig].".\n</p>\n";
+                    echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
 
-                    $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES (","",$query_rw); // Removing the start of the query from the data;
+                    $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) " .
+                                                    "VALUES (","",$query_rw); // Removing the start of the query from the data;
                     $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
                     echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
                     echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
@@ -84,8 +91,8 @@
                     </tr>
                     <tr>
                         <td colspan="9" class="submit">
-                            <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET[email]."\" />"; ?>
-                            <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET[sig]."\" />"; ?>
+                            <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET["email"]."\" />"; ?>
+                            <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET["sig"]."\" />"; ?>
                             <input type="submit" name="submit" value="Submit the mass import!" />
                             <input type="submit" name="cancel" value="Reject - Do not import!" />
                         </td>
@@ -99,7 +106,8 @@
     }
 
     // Managing the cancellation of a mass import by DB maintainer.
-    if (isset($_POST["cancel"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
+    if (isset($_POST["cancel"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) 
+            && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
 
          $resource_rw = connect_sphere_rw();
 
@@ -150,8 +158,10 @@
                 $comment = $_POST["maintainer_comment"];
                 $hsig = $_POST["hsig"];
 
-                if (isset($_POST["email"])) $to = $_POST["email"];
-                    else $to = "";
+                if (isset($_POST["email"]))
+                    $to = $_POST["email"];
+                else
+                    $to = "";
 
                 email("mass_import_request_rejected");
 

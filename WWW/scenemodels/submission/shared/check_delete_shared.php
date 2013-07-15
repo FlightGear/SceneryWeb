@@ -1,8 +1,8 @@
 <?php
 
 // Inserting libs
-require_once('../../inc/functions.inc.php');
-require_once('../../inc/email.php');
+require_once '../../inc/functions.inc.php';
+require_once '../../inc/email.php';
 
 
 // Checks all variables if exist
@@ -33,7 +33,7 @@ if (isset($_POST['comment']) && preg_match('/^[0-9a-z-A-Z\';:!?@-_\. ]+$/u',$_PO
 if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
     // Captacha stuff
-    require_once('../../inc/captcha/recaptchalib.php');
+    require_once '../../inc/captcha/recaptchalib.php';
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
@@ -295,7 +295,7 @@ function validateForm()
             <td colspan="4" class="submit">
 <?php
     // Google Captcha stuff
-    require_once('../../inc/captcha/recaptchalib.php');
+    require_once '../../inc/captcha/recaptchalib.php';
     $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
     echo recaptcha_get_html($publickey);
 ?>
@@ -418,7 +418,7 @@ function validateForm()
             <input name="step" type="hidden" value="3" />
 <?php
         // Google Captcha stuff
-        require_once('../../inc/captcha/recaptchalib.php');
+        require_once '../../inc/captcha/recaptchalib.php';
         $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
         echo recaptcha_get_html($publickey);
 ?>

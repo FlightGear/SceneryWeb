@@ -1,30 +1,30 @@
 <?php
 
 # Inserting libs
-require_once('../../inc/captcha/recaptchalib.php');
-require_once('../../inc/functions.inc.php');
-require_once('../../inc/email.php');
+require_once '../../inc/captcha/recaptchalib.php';
+require_once '../../inc/functions.inc.php';
+require_once '../../inc/email.php';
 
 $fatalerror = 0;
 $error      = 0;
 $errormsg   = "";
 
-    // Private key is needed for the server-to-Google auth.
-    $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-    $resp = recaptcha_check_answer ($privatekey,
-                                    $_SERVER["REMOTE_ADDR"],
-                                    $_POST["recaptcha_challenge_field"],
-                                    $_POST["recaptcha_response_field"]);
+// Private key is needed for the server-to-Google auth.
+$privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
+$resp = recaptcha_check_answer ($privatekey,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
 
-    // What happens when the CAPTCHA was entered incorrectly
-    if (!$resp->is_valid) {
-        $page_title = "Automated Models Submission Form";
-        $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>." .
-             "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
-             "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-        include '../../inc/error_page.php';
-        exit;
-    }
+// What happens when the CAPTCHA was entered incorrectly
+if (!$resp->is_valid) {
+    $page_title = "Automated Models Submission Form";
+    $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>." .
+         "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
+         "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+    include '../../inc/error_page.php';
+    exit;
+}
 
 $page_title = "Automated Models Submission Form";
 include '../../inc/header.php';

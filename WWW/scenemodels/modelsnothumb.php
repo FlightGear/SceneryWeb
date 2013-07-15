@@ -1,6 +1,6 @@
 <?php
-include("inc/header.php");
-require_once ('inc/functions.inc.php');
+include "inc/header.php";
+require_once "inc/functions.inc.php";
 ?>
 
 <script type="text/javascript">
@@ -26,7 +26,7 @@ $number= pg_fetch_assoc($result);
     if(isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
         $offset = $_REQUEST['offset'];
     } else {
-        $offset=0;
+        $offset = 0;
     }
 ?>
     <tr class="bottom">

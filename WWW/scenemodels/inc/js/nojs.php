@@ -4,7 +4,8 @@ include 'header.php';
 ?>
 <h1>FlightGear Scenery Database</h1>
 
-<p class="center">Due to safety measures, this website needs Javascript to be enabled in your Internet browser.<br/>Pleaser enable Javascript and go back to the webforms.</p>
+<p class="center">Due to safety measures, this website needs Javascript to be enabled in your Internet browser.
+<br/>Pleaser enable Javascript and go back to the webforms.</p>
 
 <p class="center">Thanks.</p>
 

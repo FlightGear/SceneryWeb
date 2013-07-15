@@ -1,8 +1,8 @@
 <?php
 
 // Inserting libs
-require_once('../../inc/functions.inc.php');
-require_once('../../inc/email.php');
+require_once '../../inc/functions.inc.php';
+require_once '../../inc/email.php';
 
 // Checking DB availability before all
 $ok = check_availability();
@@ -16,7 +16,7 @@ if (!$ok) {
 
 if (!$_POST['submit']) {
     // Captcha stuff
-    require_once('../../inc/captcha/recaptchalib.php');
+    require_once '../../inc/captcha/recaptchalib.php';
 
     // Private key is needed for the server-to-Google auth.
     $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
