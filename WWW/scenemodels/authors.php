@@ -1,5 +1,7 @@
-<?php include 'inc/header.php';?>
 <?php
+
+require 'inc/header.php';
+
 if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset'])){
     $offset = $_REQUEST['offset'];
 } else {
@@ -14,7 +16,7 @@ if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset']))
         <th>Author</th>
         <th>Comments of the author</th>
     </tr>
-    <?php
+<?php
     $query = "SELECT au_id, au_name, au_notes ";
     $query.= "FROM fgs_authors ";
     $query.= "ORDER BY au_name ";
@@ -28,16 +30,16 @@ if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset']))
                  "<td>".$row["au_notes"]."</td>\n" .
              "</tr>\n";
     }
-    ?>
+?>
     <tr class="bottom">
         <td colspan="9" align="center">
-            <?php 
+<?php 
             if ($offset >= 20) {
                 echo "<a href=\"authors.php?offset=".($offset-20)."\">Prev</a> | ";
             }
-            ?>
+?>
             <a href="authors.php?offset=<?php echo $offset+20;?>">Next</a>
         </td>
     </tr>
 </table>
-<?php include 'inc/footer.php';?>
+<?php require 'inc/footer.php';?>

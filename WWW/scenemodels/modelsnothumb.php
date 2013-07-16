@@ -1,5 +1,5 @@
 <?php
-include "inc/header.php";
+require "inc/header.php";
 require_once "inc/functions.inc.php";
 ?>
 
@@ -88,14 +88,14 @@ $number= pg_fetch_assoc($result);
             $odd = false;
         }
     }
-    ?>
+?>
     <tr class="bottom">
         <td colspan="2" align="center">
-            <?php 
+<?php 
             if ($offset >= 20) {
                 echo "<a href=\"modelsnothumb.php?offset=".($offset-20)."\">Prev</a> | ";
             }
-            ?>
+?>
             <a href="modelsnothumb.php?offset=<?php echo $offset+20;?>">Next</a>
         </td>
     </tr>

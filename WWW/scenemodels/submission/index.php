@@ -1,6 +1,6 @@
 <?php
-    $page_title = "Automated Scenery Submission Forms";
-    include '../inc/header.php';
+$page_title = "Automated Scenery Submission Forms";
+require '../inc/header.php';
 ?>
 
 <h1>FlightGear scenery objects and models submission</h1>
@@ -31,4 +31,4 @@
     </tr>
 </table>
 
-<?php include '../inc/footer.php'; ?>
+<?php require '../inc/footer.php'; ?>

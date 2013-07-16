@@ -1,19 +1,21 @@
 <?php
-    include 'inc/header.php';
+include 'inc/header.php';
 
-    // Inserting libs
-    require_once('inc/functions.inc.php');
+// Inserting libs
+require_once 'inc/functions.inc.php';
 
-    if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
-        $id = $_REQUEST['id'];
-        $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
-        $object = pg_fetch_assoc($result);
-    }
+if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
+    $id = $_REQUEST['id'];
+    $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
+    $object = pg_fetch_assoc($result);
+}
 ?>
 <h1>
 <?php
-    if (isset($object["ob_text"])) print $object["ob_text"];
-    else print "FlightGear Scenery Model Directory";
+if (isset($object["ob_text"]))
+    print $object["ob_text"];
+else
+    print "FlightGear Scenery Model Directory";
 ?>
 </h1>
 

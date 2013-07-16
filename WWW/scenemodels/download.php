@@ -1,4 +1,4 @@
-<?php include 'inc/header.php'; ?>
+<?php require 'inc/header.php'; ?>
 <h1>Scenery Downloads</h1>
 <p>
     In order to have the latest up-to-date scenery, it is <strong>RECOMMENDED</strong> to use <strong>TerraSync</strong>, included with FlightGear, to download the scenery automatically when you are flying. More information about TerraSync can be found <a href="http://wiki.flightgear.org/TerraSync">at our wiki</a>.</p>
@@ -14,4 +14,4 @@
     </ul>
 </p>
 
-<?php include 'inc/footer.php'; ?>
+<?php require 'inc/footer.php'; ?>

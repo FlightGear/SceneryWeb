@@ -2,7 +2,7 @@
 
 // Including librairies
 require_once 'inc/functions.inc.php';
-include 'inc/header.php';
+require 'inc/header.php';
 
 ?>
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
@@ -384,4 +384,4 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
 
     <div class="clear"></div>
 
-<?php include 'inc/footer.php';?>
+<?php require 'inc/footer.php';?>

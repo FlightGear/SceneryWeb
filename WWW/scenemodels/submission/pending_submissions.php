@@ -1,8 +1,8 @@
 <?php
 
 // Inserting libs
-require_once('../inc/functions.inc.php');
-require_once('../inc/email.php');
+require_once '../inc/functions.inc.php';
+require_once '../inc/email.php';
 
 // Opening database connection...
 $resource_r = connect_sphere_r();

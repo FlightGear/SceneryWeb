@@ -1,11 +1,13 @@
-<?php include 'inc/header.php';?>
 <?php
-    if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u', $_REQUEST['offset'])) {
-        $offset = $_REQUEST['offset'];
-    }
-    else {
-        $offset = 0;
-    }
+
+require 'inc/header.php';
+
+if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u', $_REQUEST['offset'])) {
+    $offset = $_REQUEST['offset'];
+}
+else {
+    $offset = 0;
+}
 ?>
 
   <h1>FlightGear Scenery Database Latest News</h1>
@@ -31,13 +33,13 @@
   <table>  
     <tr class="bottom">
         <td colspan="9" align="center">
-            <?php 
+<?php 
             if ($offset >= 10) {
                 echo "<a href=\"news.php?offset=".($offset-10)."\">&lt; Newer news</a> | ";
             }
-            ?>
+?>
             <a href="news.php?offset=<?php echo $offset+10;?>">Older news &gt;</a>
         </td>
     </tr>
   </table>
-<?php include 'inc/footer.php';?>
+<?php require 'inc/footer.php';?>

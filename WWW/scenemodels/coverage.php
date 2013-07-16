@@ -1,6 +1,8 @@
-<?php include 'inc/header.php'; ?>
+<?php require 'inc/header.php'; ?>
 <h1>FlightGear Scenery Object Global Coverage</h1>
 <div class="center">
-    <object data="http://mapserver.flightgear.org/popmap?lat=10&amp;lon=0&amp;zoom=2" type="text/html" height="450" width="100%"></object>
+    <object data="http://mapserver.flightgear.org/popmap?lat=10&amp;lon=0&amp;zoom=2"
+        type="text/html" height="450" width="100%">
+    </object>
 </div>
-<?php include 'inc/footer.php'; ?>
+<?php require 'inc/footer.php'; ?>

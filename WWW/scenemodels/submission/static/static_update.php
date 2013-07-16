@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST["action"])) {
     // Inserting libs
-    require_once ('../../inc/functions.inc.php');
+    require_once '../../inc/functions.inc.php';
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
@@ -233,7 +233,7 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    require_once ('../../inc/functions.inc.php');
+    require_once '../../inc/functions.inc.php';
     include_once '../../inc/geshi/geshi.php';
 
 

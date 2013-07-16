@@ -1,84 +1,84 @@
 <?php
-    include('inc/functions.inc.php');
+require_once 'inc/functions.inc.php';
 
-    if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))){
-        $offset = $_REQUEST['offset'];
-    } else {
-        $offset = 0;
-    }
+if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))){
+    $offset = $_REQUEST['offset'];
+} else {
+    $offset = 0;
+}
 
-    $filter = "";
+$filter = "";
 
-    if (isset($_REQUEST['model']) && (preg_match('/^[0-9]+$/u',$_GET['model'])) && $_REQUEST['model']>0){
-        $model = $_REQUEST['model'];
-        $filter.= " AND ob_model=".$_REQUEST['model'];
-    } else {
-        $model = "";
-    }
+if (isset($_REQUEST['model']) && (preg_match('/^[0-9]+$/u',$_GET['model'])) && $_REQUEST['model']>0){
+    $model = $_REQUEST['model'];
+    $filter.= " AND ob_model=".$_REQUEST['model'];
+} else {
+    $model = "";
+}
 
-    if (isset($_REQUEST['group']) && (preg_match('/^[0-9]+$/u',$_GET['group'])) && $_REQUEST['group']>0){
-        $group = $_REQUEST['group'];
-        $filter.= " AND ob_group=".$_REQUEST['group'];
-    } else {
-        $group = "";
-    }
+if (isset($_REQUEST['group']) && (preg_match('/^[0-9]+$/u',$_GET['group'])) && $_REQUEST['group']>0){
+    $group = $_REQUEST['group'];
+    $filter.= " AND ob_group=".$_REQUEST['group'];
+} else {
+    $group = "";
+}
 
-    if (isset($_REQUEST['elevation']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['elevation']))){
-        $min = $_REQUEST['elevation']-25;
-        $max = $_REQUEST['elevation']+25;
-        $elevation = $_REQUEST['elevation'];
-        $filter.= " AND ob_gndelev>".$min." and ob_gndelev<".$max;
-    } else {
-        $elevation = "";
-    }
+if (isset($_REQUEST['elevation']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['elevation']))){
+    $min = $_REQUEST['elevation']-25;
+    $max = $_REQUEST['elevation']+25;
+    $elevation = $_REQUEST['elevation'];
+    $filter.= " AND ob_gndelev>".$min." and ob_gndelev<".$max;
+} else {
+    $elevation = "";
+}
 
-    if (isset($_REQUEST['elevoffset']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['elevoffset']))){
-        $min = $_REQUEST['elevoffset']-25;
-        $max = $_REQUEST['elevoffset']+25;
-        $elevoffset = $_REQUEST['elevoffset'];
-        $filter.= " AND ob_gndelev>".$min." and ob_gndelev<".$max;
-    } else {
-        $elevoffset = "";
-    }
+if (isset($_REQUEST['elevoffset']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['elevoffset']))){
+    $min = $_REQUEST['elevoffset']-25;
+    $max = $_REQUEST['elevoffset']+25;
+    $elevoffset = $_REQUEST['elevoffset'];
+    $filter.= " AND ob_gndelev>".$min." and ob_gndelev<".$max;
+} else {
+    $elevoffset = "";
+}
 
-    if (isset($_REQUEST['heading']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['heading']))){
-        $min = $_REQUEST['heading']-5;
-        $max = $_REQUEST['heading']+5;
-        $heading = $_REQUEST['heading'];
-        $filter.= " AND ob_heading>".$min." AND ob_heading<".$max;
-    } else {
-        $heading = "";
-    }
+if (isset($_REQUEST['heading']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['heading']))){
+    $min = $_REQUEST['heading']-5;
+    $max = $_REQUEST['heading']+5;
+    $heading = $_REQUEST['heading'];
+    $filter.= " AND ob_heading>".$min." AND ob_heading<".$max;
+} else {
+    $heading = "";
+}
 
-    if (isset($_REQUEST['lat']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['lat']))){
-        $lat = $_REQUEST['lat'];
-        $filter.= " AND CAST (ST_Y(wkb_geometry) AS text) LIKE '".$_REQUEST['lat']."%'";
-    } else {
-        $lat = "";
-    }
+if (isset($_REQUEST['lat']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['lat']))){
+    $lat = $_REQUEST['lat'];
+    $filter.= " AND CAST (ST_Y(wkb_geometry) AS text) LIKE '".$_REQUEST['lat']."%'";
+} else {
+    $lat = "";
+}
 
-    if (isset($_REQUEST['lon']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['lon']))){
-        $lon = $_REQUEST['lon'];
-        $filter.= " AND CAST (ST_X(wkb_geometry) AS text) LIKE '".$_REQUEST['lon']."%'";
-    } else {
-        $lon = "";
-    }
+if (isset($_REQUEST['lon']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['lon']))){
+    $lon = $_REQUEST['lon'];
+    $filter.= " AND CAST (ST_X(wkb_geometry) AS text) LIKE '".$_REQUEST['lon']."%'";
+} else {
+    $lon = "";
+}
 
-    if (isset($_REQUEST['country']) && (preg_match('/^[a-z][a-z]$/u',$_GET['country']))){
-        $country = $_REQUEST['country'];
-        $filter.= " AND ob_country='".$_REQUEST['country']."'";
-    } else {
-        $country = "";
-    }
+if (isset($_REQUEST['country']) && (preg_match('/^[a-z][a-z]$/u',$_GET['country']))){
+    $country = $_REQUEST['country'];
+    $filter.= " AND ob_country='".$_REQUEST['country']."'";
+} else {
+    $country = "";
+}
 
-    if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_GET['description']))){
-        $description = $_REQUEST['description'];
-        $filter.= " AND (ob_text like '%".$_REQUEST['description']."\" OR ob_text LIKE \"".$_REQUEST['description']."%' OR ob_text LIKE '%".$_REQUEST['description']."%')";
-    } else {
-        $description = "";
-    }
+if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_GET['description']))){
+    $description = $_REQUEST['description'];
+    $filter.= " AND (ob_text like '%".$_REQUEST['description']."\" OR ob_text LIKE \"".$_REQUEST['description']."%' OR ob_text LIKE '%".$_REQUEST['description']."%')";
+} else {
+    $description = "";
+}
 
-    include('inc/header.php');
+require 'inc/header.php';
 ?>
 <script type="text/javascript">
   function popmap(lat,lon) {
@@ -105,7 +105,7 @@
             <th>
                 <select name="model" style="font-size: 0.7em; width: 100%">
                     <option value="0"></option>
-                    <?php
+<?php
                     $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
                     while ($row = pg_fetch_assoc($result)) {
                         $models[$row["mo_id"]] = $row["mo_path"];
@@ -113,12 +113,12 @@
                         if ($row["mo_id"] == $model) echo " selected=\"selected\"";
                         echo ">".$row["mo_path"]."</option>\n";
                     }
-                    ?>
+?>
                 </select>
                 <br/>
                 <select name="group" style="font-size: 0.7em;">
                     <option value="0"></option>
-                    <?php
+<?php
                     $result = pg_query("SELECT gp_id, gp_name FROM fgs_groups;");
                     while ($row = pg_fetch_assoc($result)){
                         $groups[$row["gp_id"]] = $row["gp_name"];
@@ -126,13 +126,13 @@
                         if ($row["gp_id"] == $group) echo " selected=\"selected\"";
                         echo ">".$row["gp_name"]."</option>\n";
                     }
-                ?>
+?>
                 </select>
             </th>
             <th>
                 <select name="country" style="font-size: 0.7em; width: 100%">
                     <option value="0"></option>
-                    <?php
+<?php
                     $result = pg_query("SELECT co_code, co_name FROM fgs_countries ORDER BY co_name;");
                     while ($row = pg_fetch_assoc($result)){
                         $countries{$row["co_code"]}=$row["co_name"];
@@ -140,7 +140,7 @@
                         if ($row["co_code"] == $country) echo " selected=\"selected\"";
                         echo ">".$row["co_name"]."</option>\n";
                     }
-                    ?>
+?>
                 </select>
             </th>
             <th><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
@@ -152,7 +152,7 @@
         </tr>
         <tr class="bottom">
             <td colspan="8" align="center">
-                <?php
+<?php
                 $prev = $offset-20;
                 $next = $offset+20;
 
@@ -170,7 +170,7 @@
                 if ($prev >= 0) {
                     echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
                 }
-                ?>
+?>
                 <a href="objects.php?filter=Filter&amp;offset=<?php echo $next . $filter_text;?>">Next</a>
             </td>
         </tr>
@@ -197,7 +197,9 @@
                  "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
             if (is_shared_or_static($row["ob_id"]) == 'shared') {
 ?>
-                <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>"><img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png"/></a>
+                <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">
+                    <img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png" alt="delete"/>
+                </a>
 <?php
             }
             echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\"/></a>" .
@@ -212,15 +214,15 @@
 ?>
         <tr class="bottom">
             <td colspan="7" align="center">
-                <?php
+<?php
                 if ($prev >= 0) {
                     echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
                 }
-                ?>
+?>
                 <a href="objects.php?filter=Filter&amp;offset=<?php echo $next . $filter_text;?>">Next</a>
             </td>
         </tr>
     </table>
 </form>
 
-<?php include 'inc/footer.php';?>
+<?php require 'inc/footer.php';?>

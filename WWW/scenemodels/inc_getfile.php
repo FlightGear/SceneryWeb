@@ -8,51 +8,51 @@
  *
 **/
 
-    // Inserting libs
-    require_once ('inc/functions.inc.php');
+// Inserting libs
+require_once 'inc/functions.inc.php';
 
-    if (isset($filename) && !preg_match("/[0-9a-zA-Z_.-]/", $filename))
-        exit;
-        
-    if (!isset($_REQUEST['id']) || !preg_match('/^[0-9]+$/u',$_REQUEST['id']))
-        exit;
-        
-    $resource_rw = connect_sphere_rw();
+if (isset($filename) && !preg_match("/[0-9a-zA-Z_.-]/", $filename))
+    exit;
     
-    // If connection is not OK
-    if ($resource_rw == '0')
-        exit;
-        
-    $id = $_REQUEST['id'];
-    $result = @pg_query("SELECT mo_modelfile FROM fgs_models WHERE mo_id=$id;");
-    $model = pg_fetch_assoc($result);
-    $mo_modelfile = $model["mo_modelfile"];
+if (!isset($_REQUEST['id']) || !preg_match('/^[0-9]+$/u',$_REQUEST['id']))
+    exit;
     
-    // Prepare the tmp directory
+$resource_rw = connect_sphere_rw();
 
-    // Managing possible concurrent accesses on the maintainer side.
-    $target_path = open_tgz($mo_modelfile);
+// If connection is not OK
+if ($resource_rw == '0')
+    exit;
+    
+$id = $_REQUEST['id'];
+$result = @pg_query("SELECT mo_modelfile FROM fgs_models WHERE mo_id=$id;");
+$model = pg_fetch_assoc($result);
+$mo_modelfile = $model["mo_modelfile"];
 
-    // Looking for the file in the tmp directory
-    $dir = opendir($target_path);
+// Prepare the tmp directory
 
-    while (false !== ($file = readdir($dir))) {
-        // If we know the extension
-        if (isset($extension) && show_file_extension($file) == $extension) {
-            $fichier = $target_path."/".$file;
-            readfile($fichier);
-            break;
-        }
+// Managing possible concurrent accesses on the maintainer side.
+$target_path = open_tgz($mo_modelfile);
 
-        // If we know the name
-        if (isset($filename) && $file == $filename) {
-            $fichier = $target_path."/".$file;
-            readfile($fichier);
-            break;
-        }
+// Looking for the file in the tmp directory
+$dir = opendir($target_path);
+
+while (false !== ($file = readdir($dir))) {
+    // If we know the extension
+    if (isset($extension) && show_file_extension($file) == $extension) {
+        $fichier = $target_path."/".$file;
+        readfile($fichier);
+        break;
     }
 
-    // Ok, now we can delete the stuff we used - at least I think so ;-)
-    // This should be done at the end of the script
-    close_tgz($target_path);
+    // If we know the name
+    if (isset($filename) && $file == $filename) {
+        $fichier = $target_path."/".$file;
+        readfile($fichier);
+        break;
+    }
+}
+
+// Ok, now we can delete the stuff we used - at least I think so ;-)
+// This should be done at the end of the script
+close_tgz($target_path);
 ?>

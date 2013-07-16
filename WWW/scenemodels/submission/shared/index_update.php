@@ -1,7 +1,7 @@
 <?php
 
 // Inserting libs
-require_once('../../inc/functions.inc.php');
+require_once '../../inc/functions.inc.php';
 
 // Checking DB availability before all
 $ok = check_availability();

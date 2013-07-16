@@ -1,17 +1,19 @@
 <?php
 
 // Inserting libs
-require_once('functions.inc.php');
+require_once 'functions.inc.php';
 
 header('Content-Type: text/xml');
 echo "<?xml version=\"1.0\" standalone=\"yes\" ?>\n";
 
-// This script is used in the positions.php file in order to retrieve objects of a specific family, using Ajax.
-// To prevent from SQL injections attempts.
+// This script is used in the positions.php file in order to retrieve objects
+// of a specific family, using Ajax.
 
+// To prevent from SQL injections attempts.
 $mg_id=pg_escape_string($_GET['mg_id']);
 
-// Connecting to the database. Doing no error checking, because it would not show off properly at this position in HTML.
+// Connecting to the database. Doing no error checking, because it would not
+// show off properly at this position in HTML.
 
 if ($mg_id!="")
 {
@@ -19,7 +21,9 @@ if ($mg_id!="")
 
     // Querying when the family is updated.
 
-    $query = "SELECT mo_id, mo_path, mo_name, mo_shared FROM fgs_models WHERE mo_shared = ".$mg_id." ORDER BY mo_path;";
+    $query = "SELECT mo_id, mo_path, mo_name, mo_shared " .
+             "FROM fgs_models " .
+             "WHERE mo_shared = ".$mg_id." ORDER BY mo_path;";
     $result = @pg_query($headerlink,$query);
 
     // Showing the results.

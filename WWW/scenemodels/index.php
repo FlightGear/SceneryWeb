@@ -1,11 +1,13 @@
-<?php include 'inc/header.php';?>
 <?php
-    if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u', $_REQUEST['offset'])) {
-        $offset = $_REQUEST['offset'];
-    }
-    else {
-        $offset = 0;
-    }
+
+require 'inc/header.php';
+
+if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u', $_REQUEST['offset'])) {
+    $offset = $_REQUEST['offset'];
+}
+else {
+    $offset = 0;
+}
 ?>
 
     <h1>FlightGear Scenery Website</h1>
@@ -86,7 +88,7 @@
                  "<div class=\"newsnormal\">by</div><div class=\"newsauthor\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div><hr/>\n" .
                  "".$row["ne_text"]."</td></tr>\n";
         }
-    ?>
+?>
         <tr class="bottom">
             <td colspan="9" align="center">
                 <a href="news.php">Older news &gt;</a>
@@ -94,4 +96,4 @@
         </tr>
     </table> 
   
-<?php include 'inc/footer.php';?>
+<?php require 'inc/footer.php';?>

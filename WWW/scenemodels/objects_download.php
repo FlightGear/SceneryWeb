@@ -1,4 +1,4 @@
-<?php include 'inc/header.php'; ?>
+<?php require 'inc/header.php'; ?>
 <h1>Scenery Object Downloads</h1>
 <p>
   Click on any of the 10x10 degree chunks in the image below to download the objects for that area.<br/>
@@ -332,4 +332,4 @@
 </p><p>
   Unpack the files from this site in the Objects directory, and the <a href="scenery_download.php">FlightGear scenery</a> files into the Terrain directory.
 </p>
-<?php include 'inc/footer.php'; ?>
+<?php require 'inc/footer.php'; ?>

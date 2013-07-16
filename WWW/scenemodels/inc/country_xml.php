@@ -6,7 +6,7 @@
 
 
 // Inserting libs
-require_once('functions.inc.php');
+require_once 'functions.inc.php';
 
 $long=pg_escape_string($_GET['lg']);
 $lat=pg_escape_string($_GET['lt']);

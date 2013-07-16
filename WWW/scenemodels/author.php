@@ -4,7 +4,7 @@ if (isset($_REQUEST['id']) && preg_match('/^[0-9]+$/u',$_REQUEST['id']))
     $id=$_REQUEST['id'];
 }
 
-include 'inc/header.php';
+require 'inc/header.php';
 
 if (isset($id))
 {
@@ -28,4 +28,4 @@ while ($row = pg_fetch_assoc($result))
 }
 ?>
 </table>
-<?php include 'inc/footer.php';?>
+<?php require 'inc/footer.php';?>

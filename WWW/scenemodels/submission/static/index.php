@@ -253,7 +253,7 @@ $(function() {
                         <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
                         <?php
                         // Google Captcha stuff
-                        require_once('../../inc/captcha/recaptchalib.php');
+                        require_once '../../inc/captcha/recaptchalib.php';
                         $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                         echo recaptcha_get_html($publickey);
                         ?>
