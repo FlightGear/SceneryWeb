@@ -14,7 +14,7 @@ if (!$ok) {
 }
 
 $page_title = "Automated Objects Massive Import Submission Form";
-include '../../inc/header.php';
+require '../../inc/header.php';
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -116,5 +116,5 @@ function validateForm()
 </table>
 </form>
 
-<?php include '../../inc/footer.php';
+<?php require '../../inc/footer.php';
 ?>

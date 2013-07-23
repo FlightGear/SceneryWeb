@@ -1,8 +1,8 @@
 <?php
 if (isset($_POST["action"])) {
     // Inserting libs
-    require_once '../../inc/functions.inc.php';
-    require_once '../../inc/email.php';
+    include_once '../../inc/functions.inc.php';
+    include_once '../../inc/email.php';
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
@@ -189,7 +189,7 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    require_once '../../inc/functions.inc.php';
+    include_once '../../inc/functions.inc.php';
     include_once '../../inc/geshi/geshi.php';
 
 
@@ -460,7 +460,8 @@ include '../../inc/header.php';
 <?php
             if ($png_file_number <= 1)
                 echo $png_file_number." texture file has been submitted:<br/>\n"; // Some eye caviar for the poor scenery maintainers.
-            else echo $png_file_number." texture files have been submitted:<br/>\n";
+            else
+                echo $png_file_number." texture files have been submitted:<br/>\n";
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
@@ -504,5 +505,5 @@ include '../../inc/header.php';
 unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
 clear_dir($target_path);
 }
-include '../../inc/footer.php';
+require '../../inc/footer.php';
 ?>

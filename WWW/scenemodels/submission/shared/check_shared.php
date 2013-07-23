@@ -36,7 +36,7 @@ if (!$resp->is_valid) {
 }
 
 $page_title = "Automated Objects Submission Form";
-include '../../inc/header.php';
+require '../../inc/header.php';
 echo "<br />";
 $error = false;
 global $error;
@@ -237,6 +237,6 @@ if (!$error) {
     }
 }
 
-include '../../inc/footer.php';
+require '../../inc/footer.php';
 
 ?>

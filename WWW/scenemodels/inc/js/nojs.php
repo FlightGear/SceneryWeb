@@ -1,6 +1,6 @@
 <?php
 $nojs_page=true;
-include 'header.php';
+require 'header.php';
 ?>
 <h1>FlightGear Scenery Database</h1>
 
@@ -11,4 +11,4 @@ include 'header.php';
 
 <p class="center">The FlightGear team.</p>
 
-<?php include 'footer.php';?>
+<?php require 'footer.php';?>

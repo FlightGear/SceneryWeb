@@ -26,7 +26,7 @@ $errormsg   = "";
     }
 
 $page_title = "Automated Models Update Form";
-include '../../inc/header.php';
+require '../../inc/header.php';
 
 ################################################
 ################################################
@@ -757,5 +757,5 @@ else {
         }
     }
 }
-include '../../inc/footer.php';
+require '../../inc/footer.php';
 ?>

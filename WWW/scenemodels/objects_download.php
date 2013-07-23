@@ -1,20 +1,25 @@
 <?php require 'inc/header.php'; ?>
 <h1>Scenery Object Downloads</h1>
 <p>
-  Click on any of the 10x10 degree chunks in the image below to download the objects for that area.<br/>
-  An area with no corresponding link means that no objects are available in that area, or if a rebuild is in progress, that chunk may not yet be  generated.
+  Click on any of the 10x10 degree chunks in the image below to download the
+  objects for that area.<br/>
+  An area with no corresponding link means that no objects are available in that
+  area, or if a rebuild is in progress, that chunk may not yet be generated.
 </p>
 <p>
   Currently a global file is also available <a href="/download/GlobalObjects.tgz">here</a>.
 </p>
 <p>
-  A collection of shared models can be downloaded <a href="/download/SharedModels.tgz">here</a>.<br/>
-  (This file is <strong>*REQUIRED*</strong> if you want to see all the objects, and should be unpacked in your FGROOT directory)
+  A collection of shared models can be downloaded
+  <a href="/download/SharedModels.tgz">here</a>.<br/>
+  (This file is <strong>*REQUIRED*</strong> if you want to see all the objects,
+  and should be unpacked in your FGROOT directory)
 </p>
 
 
 <div class="center">
-<img src="http://scenery.flightgear.org/img/download.png" width="720" height="450" usemap="#map" alt="Map"/>
+<img src="http://scenery.flightgear.org/img/download.png" width="720"
+     height="450" usemap="#map" alt="Map"/>
 <map name="map" id="map">
 <area shape="rect" coords="360,200,380,225" href="/download/GlobalObjects.tgz" alt="GlobalObjects.tgz  3.97 Mb  10/15/2005"/>
 <area shape="rect" coords="360,200,380,225" href="/download/SharedModels.tgz" alt="SharedModels.tgz  0.71 Mb  10/15/2005"/>
@@ -329,7 +334,10 @@
 </div>
 <p>
   In your scenery directory create directories called Objects and Terrain.
-</p><p>
-  Unpack the files from this site in the Objects directory, and the <a href="scenery_download.php">FlightGear scenery</a> files into the Terrain directory.
+</p>
+<p>
+  Unpack the files from this site in the Objects directory, and the 
+  <a href="scenery_download.php">FlightGear scenery</a> files into the Terrain 
+  directory.
 </p>
 <?php require 'inc/footer.php'; ?>

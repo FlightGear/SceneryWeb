@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST["action"])) {
     // Inserting libs
-    require_once '../../inc/functions.inc.php';
+    include_once '../../inc/functions.inc.php';
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
@@ -145,7 +145,7 @@ if (isset($_POST["action"])) {
                 $query_ob_text = "UPDATE fgs_objects SET ob_text = $$". object_name($mo_id[0]) ."$$ WHERE ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
                 $result_obtext_update = @pg_query ($resource_rw, $query_ob_text);
 
-                if((!$result_rw_mo) || (!$result_rw_ob)) {
+                if ((!$result_rw_mo) || (!$result_rw_ob)) {
                     $process_text = "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
                     $error_text = "Sorry, but the INSERT queries could not be processed.";
                     $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
@@ -233,7 +233,7 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    require_once '../../inc/functions.inc.php';
+    include_once '../../inc/functions.inc.php';
     include_once '../../inc/geshi/geshi.php';
 
 
@@ -410,7 +410,7 @@ include '../../inc/header.php';
         <td><?php echo $ob_gndelev; ?></td>
     </tr>
 <?php
-    if(isset($ob_elevoffset)) {
+    if (isset($ob_elevoffset)) {
 ?>
     <tr>
         <td>Elevation offset</td>
@@ -504,7 +504,8 @@ include '../../inc/header.php';
 <?php
             if ($png_file_number <= 1)
                 echo $png_file_number." texture file has been submitted:<br/>\n"; // Some eye caviar for the poor scenery maintainers.
-            else echo $png_file_number." texture files have been submitted:<br/>\n";
+            else
+                echo $png_file_number." texture files have been submitted:<br/>\n";
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
@@ -548,5 +549,5 @@ include '../../inc/header.php';
 unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
 clear_dir($target_path);
 }
-include '../../inc/footer.php';
+require '../../inc/footer.php';
 ?>

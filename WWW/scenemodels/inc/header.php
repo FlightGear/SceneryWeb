@@ -49,7 +49,7 @@
             <img src="http://scenery.flightgear.org/img/banner.jpg" alt="Flightgear logo"/>
         </div>
 
-        <?php include 'menu.php';?>
+        <?php require 'menu.php';?>
         
         <div id="content2">
         <!-- <h3 class="warning">Service temporarily unavailable due to database update.</h3> -->

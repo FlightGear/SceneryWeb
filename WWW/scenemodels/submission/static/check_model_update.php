@@ -27,7 +27,7 @@ if (!$resp->is_valid) {
 }
 
 $page_title = "Automated Models Submission Form";
-include '../../inc/header.php';
+require '../../inc/header.php';
 
 ################################################
 ################################################
@@ -675,5 +675,5 @@ else {
         }
     }
 }
-include '../../inc/footer.php';
+require '../../inc/footer.php';
 ?>

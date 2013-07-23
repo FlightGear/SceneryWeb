@@ -1,4 +1,4 @@
-<?php include '../inc/header.php'; ?>
+<?php require '../inc/header.php'; ?>
   <h1>RSS Feeds</h1>
   <table>
     <tr><th>Keeping Up To Date</th></tr>
@@ -13,4 +13,4 @@
       </td>
     </tr>
   </table>
-<?php include '../inc/footer.php'; ?>
+<?php require '../inc/footer.php'; ?>

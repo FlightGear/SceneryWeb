@@ -3,5 +3,5 @@
     $mo_sig = $_GET["mo_sig"];
     
     header("Content-type: application/octet-stream");
-    include "inc_getfile.php";
+    require "inc_getfile.php";
 ?>

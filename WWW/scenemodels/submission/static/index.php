@@ -1,7 +1,7 @@
 <?php
     require_once '../../inc/functions.inc.php';
     $page_title = "Automated Models Submission Form";
-    include '../../inc/header.php';
+    require '../../inc/header.php';
 ?>
 <script type="text/javascript" src="/inc/js/update_objects.js"></script>
 <script type="text/javascript" src="/inc/js/check_form.js"></script>
@@ -282,4 +282,4 @@ $(document).ready(function(){
     });
 });
 </script>
-<?php include '../../inc/footer.php'; ?>
+<?php require '../../inc/footer.php'; ?>

@@ -31,11 +31,11 @@ $number= pg_fetch_assoc($result);
 ?>
     <tr class="bottom">
         <td colspan="2" align="center">
-            <?php 
+<?php 
             if ($offset >= 20) {
                 echo "<a href=\"modelsnothumb.php?offset=".($offset-20)."\">Prev</a> | ";
             }
-            ?>
+?>
             <a href="modelsnothumb.php?offset=<?php echo $offset+20;?>">Next</a>
         </td>
     </tr>
@@ -100,4 +100,4 @@ $number= pg_fetch_assoc($result);
         </td>
     </tr>
   </table>
-<?php include 'inc/footer.php';?>
+<?php require 'inc/footer.php';?>

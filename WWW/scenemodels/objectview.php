@@ -1,5 +1,5 @@
 <?php
-include 'inc/header.php';
+require 'inc/header.php';
 
 // Inserting libs
 require_once 'inc/functions.inc.php';
@@ -105,4 +105,4 @@ function showMap() {
 }
 </script>
 
-<?php include 'inc/footer.php';?>
+<?php require 'inc/footer.php';?>

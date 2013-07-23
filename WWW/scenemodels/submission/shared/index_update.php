@@ -16,7 +16,7 @@ if (!$ok) {
 }
 
 $page_title = "Automated Objects Update Form";
-include '../../inc/header.php';
+require '../../inc/header.php';
 ?>
 
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -64,4 +64,4 @@ function validateForm()
 </table>
 </form>
 
-<?php include '../../inc/footer.php'; ?>
+<?php require '../../inc/footer.php'; ?>

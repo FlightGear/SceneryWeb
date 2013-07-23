@@ -210,7 +210,7 @@ if ($returned_rows == 0) {
 }
 
 $page_title = "Automated Objects Deletion Form";
-include '../../inc/header.php';
+require '../../inc/header.php';
 
 // We have only one result
 
@@ -433,5 +433,5 @@ function validateForm()
     include '../../inc/footer.php';
     exit;
 }
-include '../../inc/footer.php';
+require '../../inc/footer.php';
 ?>

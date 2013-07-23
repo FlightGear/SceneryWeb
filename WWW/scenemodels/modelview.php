@@ -1,4 +1,4 @@
-<?php include 'inc/header.php';?>
+<?php require 'inc/header.php';?>
 
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
@@ -159,4 +159,4 @@ function showWebgl() {
 }
 </script>
 
-<?php include 'inc/footer.php'; ?>
+<?php require 'inc/footer.php'; ?>

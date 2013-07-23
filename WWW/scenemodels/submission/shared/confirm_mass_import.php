@@ -37,7 +37,7 @@ if (!$_POST['submit']) {
 }
 
 $page_title = "Automated Objects Massive Import Submission Form";
-include '../../inc/header.php';
+require '../../inc/header.php';
 ?>
 <script type ="text/javascript">
 function update_countries(code,n)
@@ -410,5 +410,5 @@ if (!$_POST['submit']) {
         email("mass_import_sent_for_validation");
     }
 }
-include '../../inc/footer.php';
+require '../../inc/footer.php';
 ?>

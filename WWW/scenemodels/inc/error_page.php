@@ -9,7 +9,7 @@
  *
 **/
 
-include "header.php"; ?>
+require "header.php"; ?>
 
 
 <p class="center">
@@ -33,4 +33,4 @@ include "header.php"; ?>
 <p class="center">The FlightGear team.</p>
 
 
-<?php include "footer.php"; ?>
+<?php require "footer.php"; ?>
