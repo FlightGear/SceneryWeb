@@ -2,6 +2,7 @@
 
 <html>
 <head>
+    <meta charset="utf-8"> 
     <link rel="stylesheet" href="http://scenery.flightgear.org/css/style.css" type="text/css"/>
     <style type="text/css">
         #canvas {
@@ -102,8 +103,8 @@
     
     function crashed() {
         if (loading.style.display == "block") {
-            document.body.innerHTML = 'This model takes more than 5 seconds to load. ' .
-                                      'The script has been canceled, to prevent it from crashing.';
+            document.body.innerHTML = "This model takes more than 5 seconds to load. " +
+                                      "The script has been canceled, to prevent it from crashing.";
         }
     }
     </script>
