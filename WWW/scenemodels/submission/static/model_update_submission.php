@@ -328,7 +328,7 @@ include '../../inc/header.php';
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
-            <object data="model/index.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="model/index_update.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
             </center>
         </td>
     </tr>

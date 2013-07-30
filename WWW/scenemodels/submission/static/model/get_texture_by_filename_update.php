@@ -3,7 +3,8 @@
     
     $dir_array = preg_split("/\//", $_GET['name']);
     $filename = $dir_array[count($dir_array)-1];
+    $type_contribute = "update_model";
     
     header("Content-type: image/png");
-    require "inc_getfile_update.php";
+    require "inc_getfile.php";
 ?>
