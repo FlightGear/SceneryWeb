@@ -67,7 +67,7 @@ $tmp_dir = sys_get_temp_dir();
 
 if ($thumbName == $ac3dName."_thumbnail"
         && preg_match('/^[a-zA-Z0-9_.-]+$/u', $ac3dName)
-        && preg_match('/^[a-zA-Z0-9_.-]+$/u', $xmlName)
+        && preg_match('/^[a-zA-Z0-9_.-]*$/u', $xmlName)
         && !$fatalerror) {
     $targetPath   = $tmp_dir . "/static_".random_suffix()."/";
     while (file_exists($targetPath)) {
