@@ -65,8 +65,8 @@ else {
 
 $tmp_dir = sys_get_temp_dir();
 
-if (preg_match('/^[a-zA-Z0-9_.-]+$/u', $ac3dName)
-        || preg_match('/^[a-zA-Z0-9_.-]*$/u', $xmlName)) {
+if (!preg_match('/^[a-zA-Z0-9_.-]+$/u', $ac3dName)
+        || !preg_match('/^[a-zA-Z0-9_.-]*$/u', $xmlName)) {
     $fatalerror = 1;
     $error += 1;
     $errormsg .= "<li>Filenames must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
