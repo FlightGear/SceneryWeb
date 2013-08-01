@@ -72,8 +72,6 @@ if (isset($_POST["action"])) {
 
                 exit;
 
-                /*echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
-                exit;*/
             }
         }
     }
@@ -111,11 +109,10 @@ if (isset($_POST["action"])) {
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
 
-                echo $result_rw_mo; // Debug
 
                 if (!$result_rw_mo) {
                     $process_text = "Signatures found.<br /> Now processing query with request number ". $_POST["mo_sig"];
-                    $error_text = "Sorry, but the INSERT queries could not be processed.";
+                    $error_text = "Sorry, but the UPDATE queries could not be processed.";
                     $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     include '../inc/error_page.php';
 
@@ -126,7 +123,7 @@ if (isset($_POST["action"])) {
 
                 include '../../inc/header.php';
                 echo "<p class=\"center\">";
-                echo "Signatures found.<br /> Now processing INSERT query of model with number ". $_POST["mo_sig"].".</p>";
+                echo "Signatures found.<br /> Now processing UPDATE query of model with number ". $_POST["mo_sig"].".</p>";
                 echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
                 // Delete the entries from the pending query table.
