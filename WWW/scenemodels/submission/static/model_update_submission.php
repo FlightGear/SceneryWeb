@@ -238,8 +238,10 @@ include '../../inc/header.php';
 
 ?>
 
-<p class="center">Hi, this is the static submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/static.</p>
+<p class="center">Hi, this is the update model submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/static/index_model_update.php.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
+
+<p><strong>To see the original model</strong>, click here: <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $mo_id;?>" target="_blank"></a></p>
 
 <form id="validation" method="post" action="model_update_submission.php" onsubmit="return validateForm();">
 <table>
