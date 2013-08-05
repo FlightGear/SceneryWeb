@@ -574,11 +574,11 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 
 if (($_POST["family_name"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["model_name"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
-    && isset($_POST['comment'])) {
+    && isset($_POST['notes'])) {
 
         $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
-        $comment     = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
+        $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
         $mo_shared   = $_POST["family_name"];
         $author      = $_POST["mo_author"];
         $model_name  = $_POST["model_name"];
@@ -593,6 +593,20 @@ if (($_POST["family_name"] != "") && ($_POST["mo_author"] != "")
 else {
     $error += 1;
     $errormsg .= "<li>Please fill in all required fields.</li>";
+}
+
+// Checking that comment exists. Just a small verification as it's not going into DB.
+if (isset($_POST['comment'])
+    && (strlen($_POST['comment']) > 0)
+    && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u', $_POST['comment']))
+    && (strlen($_POST['comment'] <= 100))) {
+    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
+}
+else {
+    echo "<p class=\"center warning\">Comment mismatch!</p>";
+    $error = true;
+    include '../../inc/footer.php';
+    exit;
 }
 
 if (!isset($_POST["gpl"])) {
@@ -634,7 +648,7 @@ else {
     echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 
     $mo_query  = "UPDATE fgs_models ";
-    $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$author.", mo_name = '".$name."', mo_notes = '".$comment."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared;
+    $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$author.", mo_name = '".$name."', mo_notes = '".$notes."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared;
     $mo_query .= " WHERE mo_id = ".$model_name;
 
     // Model stuff into pending requests table.

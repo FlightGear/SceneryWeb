@@ -20,7 +20,7 @@ function validateForm()
         !checkNumeric(form["gndelev"],-10000,10000) ||
         !checkNumeric(form["offset"],-10000,10000) ||
         !checkNumeric(form["heading"],0,359.999) ||
-        !checkComment(form["comment"]))
+        !checkComment(form["notes"]))
         return false;
 }
 
@@ -129,10 +129,10 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <label for="comment">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
+                        <label for="notes">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="comment" id="comment" maxlength="500" size="40" value="" onkeyup="checkComment(this);validateTabs();" />
+                        <input type="text" name="notes" id="notes" maxlength="500" size="40" value="" onkeyup="checkComment(this);validateTabs();" />
                     </td>
                 </tr>
                 <tr>

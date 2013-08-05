@@ -9,7 +9,7 @@ $to = "";
 function email($case)
 {
     // Register variables that we'd like to use inside this function
-    global $author,$comment,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$pending_requests,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $author,$comment,$notes,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$pending_requests,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
 
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -99,8 +99,8 @@ function email($case)
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description:      ". $name ."\r\n" .
-                        "Comment:          ". strip_tags($comment) ."\r\n" .
-                        "Comment:          ". strip_tags($sent_comment) . "\r\n\r\n";
+                        "Comment:          ". strip_tags($notes) ."\r\n" .
+                        "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n";
             break;
         case "pending_request_process_confirmation":
             $subject  = "Automatic objects pending request process confirmation";
@@ -260,14 +260,14 @@ function email($case)
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description:      ". $name ."\r\n" .
-                        "Comment:          ". strip_tags($comment) ."\r\n" .
+                        "Comment:          ". strip_tags($notes) ."\r\n" .
                         "Latitude:         ". $latitude . "\r\n" .
                         "Longitude:        ". $longitude . "\r\n" .
                         "Country:          ". get_country_name_from_country_code($country) . "\r\n" .
                         "Ground elevation: ". $gndelev . "\r\n" .
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
-                        "Comment:          ". strip_tags($sent_comment) . "\r\n" .
+                        "Comment by user:  ". strip_tags($sent_comment) . "\r\n" .
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14\r\n\r\n" .
                         "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
             $backend = true;

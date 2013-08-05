@@ -20,6 +20,7 @@ function validateForm()
         !checkNumeric(form["gndelev"],-10000,10000) ||
         !checkNumeric(form["offset"],-10000,10000) ||
         !checkNumeric(form["heading"],0,359.999) ||
+        !checkComment(form["notes"]) ||
         !checkComment(form["comment"]))
         return false;
 }
@@ -147,10 +148,10 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <label for="comment">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
+                        <label for="notes">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="comment" id="comment" maxlength="500" style="width: 100%" value="" onkeyup="checkComment(this);validateTabs();" />
+                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" value="" onkeyup="checkComment(this);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
@@ -202,6 +203,12 @@ $(function() {
                         <select name="mo_author" id="mo_author">
                             <?php list_authors(); ?>
                         </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="comment">Comment<em>*</em><span>Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: 'I have placed a couple of aircraft shelters and static F16's at EHVK, please commit.' Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted.</span></label></td>
+                    <td>
+                        <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onkeyup="checkComment(this);" />
                     </td>
                 </tr>
                 <tr>

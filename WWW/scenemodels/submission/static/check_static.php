@@ -619,11 +619,11 @@ else {
 
 if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
-    && isset($_POST['comment'])) {
+    && isset($_POST['notes'])) {
 
         $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
-        $comment     = addslashes(htmlentities(strip_tags($_POST["comment"]), ENT_QUOTES));
+        $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
         $mo_shared   = $_POST["mo_shared"];
         $author      = $_POST["mo_author"];
         $country     = $_POST["ob_country"];
@@ -697,7 +697,7 @@ else {
     $mo_query .= "'".$path_to_use."', ";  // mo_path
     $mo_query .= $author.", ";            // mo_author
     $mo_query .= "'".$name."', ";         // mo_name
-    $mo_query .= "'".$comment."', ";      // mo_notes
+    $mo_query .= "'".$notes."', ";        // mo_notes
     $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
     $mo_query .= "'".$modelFile."', ";    // mo_modelfile
     $mo_query .= $mo_shared;              // mo_shared
