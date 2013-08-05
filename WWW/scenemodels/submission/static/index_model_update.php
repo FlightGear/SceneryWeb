@@ -188,7 +188,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td><label for="comment">Comment<em>*</em><span>Please add a short (max 100 letters) statement why you are updating this model. This will help the maintainers understand what you are doing. eg: 'I have improved texture and clean the meshes, please commit.' Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted.</span></label></td>
-                    <td>
+                    <td colspan="2">
                         <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onkeyup="checkComment(this);" />
                     </td>
                 </tr>
