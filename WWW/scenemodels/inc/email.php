@@ -76,7 +76,7 @@ function email($case)
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description:      ". $name ."\r\n" .
-                        "Comment:          ". strip_tags($notes) ."\r\n\r\n" .
+                        "Comment:          ". strip_tags($comment) ."\r\n\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n";
                         "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/static/model_update_submission.php?mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
             $backend = true;
@@ -100,7 +100,7 @@ function email($case)
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description:      ". $name ."\r\n" .
-                        "Comment:          ". strip_tags($comment) ."\r\n" .
+                        "Comment:          ". strip_tags($notes) ."\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n";
             break;
         case "pending_request_process_confirmation":
@@ -261,7 +261,7 @@ function email($case)
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description:      ". $name ."\r\n" .
-                        "Comment:          ". strip_tags($notes) ."\r\n" .
+                        "Comment:          ". strip_tags($comment) ."\r\n" .
                         "Latitude:         ". $latitude . "\r\n" .
                         "Longitude:        ". $longitude . "\r\n" .
                         "Country:          ". get_country_name_from_country_code($country) . "\r\n" .
@@ -292,7 +292,7 @@ function email($case)
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description:      ". $name ."\r\n" .
-                        "Comment:          ". strip_tags($comment) ."\r\n" .
+                        "Comment:          ". strip_tags($notes) ."\r\n" .
                         "Latitude:         ". $latitude . "\r\n" .
                         "Longitude:        ". $longitude . "\r\n" .
                         "Country:          ". get_country_name_from_country_code($country) . "\r\n" .
