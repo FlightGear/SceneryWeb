@@ -76,8 +76,8 @@ function email($case)
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
                         "Description:      ". $name ."\r\n" .
-                        "Comment:          ". strip_tags($notes) ."\r\n\r\n" .
-                        "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n";
+                        "Comment:          ". strip_tags($notes) ."\r\n" .
+                        "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n" .
                         "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/static/model_update_submission.php?mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
             $backend = true;
             break;
@@ -299,7 +299,7 @@ function email($case)
                         "Ground elevation: ". $gndelev . "\r\n" .
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
-                        "Comment:          ". strip_tags($sent_comment) . "\r\n" .
+                        "Comment by user:  ". strip_tags($sent_comment) . "\r\n" .
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14\r\n\r\n";
             break;
     }
