@@ -603,10 +603,8 @@ if (isset($_POST['comment'])
     $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 }
 else {
-    echo "<p class=\"center warning\">Comment mismatch!</p>";
-    $error = true;
-    include '../../inc/footer.php';
-    exit;
+    $error += 1;
+    $errormsg .= "<li>Please add a comment to the maintainer.</li>";
 }
 
 if (!isset($_POST["gpl"])) {
