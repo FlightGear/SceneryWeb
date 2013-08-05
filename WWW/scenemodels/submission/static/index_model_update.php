@@ -186,6 +186,12 @@ $(function() {
                         <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" onchange="validateTabs();" />
                     </td>
                 </tr>
+                <tr>
+                    <td><label for="comment">Comment<em>*</em><span>Please add a short (max 100 letters) statement why you are updating this model. This will help the maintainers understand what you are doing. eg: 'I have improved texture and clean the meshes, please commit.' Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted.</span></label></td>
+                    <td>
+                        <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onkeyup="checkComment(this);" />
+                    </td>
+                </tr>
             </table>
         </div>
         <div id="tabs-2">
@@ -203,12 +209,6 @@ $(function() {
                         <select name="mo_author" id="mo_author">
                             <?php list_authors(); ?>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="comment">Comment<em>*</em><span>Please add a short (max 100 letters) statement why you are inserting this data. This will help the maintainers understand what you are doing. eg: 'I have placed a couple of aircraft shelters and static F16's at EHVK, please commit.' Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted.</span></label></td>
-                    <td>
-                        <input type="text" name="comment" id="comment" maxlength="100" size="100" value="" onkeyup="checkComment(this);" />
                     </td>
                 </tr>
                 <tr>
