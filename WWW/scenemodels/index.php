@@ -13,7 +13,7 @@ else {
     <h1>FlightGear Scenery Website</h1>
 
     <p>Welcome to the <a href="http://www.flightgear.org">FlightGear</a> scenery website!</p>
-    <p>This website is used to share common tools and data for all FlightGear scenery related items. It also features webforms to help gathering all 3D models and objects positions all around the world! You can here contribute to FlightGear scenery by adding objects in your favorite place! Please don't hesitate, your help is welcomed!</p>
+    <p>This website is used to share common tools and data for all FlightGear scenery related items. It also features webforms to help gathering 3D models and objects positions all around the world. You can here contribute to FlightGear scenery by adding objects in your favorite place. Please don't hesitate, your help is welcomed!</p>
   
     <table class="left">
         <tr><th colspan="2">Recently updated objects</th></tr>
@@ -71,29 +71,5 @@ else {
             </td>
         </tr>
     </table>
-    <div class="clear"></div><br/>
-  
-    <table>
-        <tr><th colspan="2">Latest news</th></tr>
-<?php
-        $query = "SELECT *, date_trunc('seconds',ne_timestamp) AS formdate ";
-        $query.= "FROM fgs_news, fgs_authors ";
-        $query.= "WHERE au_id = ne_author ";
-        $query.= "ORDER BY ne_timestamp DESC ";
-        $query.= "LIMIT 3 OFFSET ".$offset;
-        $result = pg_query($query);
-        while ($row = pg_fetch_assoc($result)) {
-            echo "<tr><td>\n" .
-                 "<div class=\"newsdate\">".$row["formdate"]."</div>\n" .
-                 "<div class=\"newsnormal\">by</div><div class=\"newsauthor\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div><div class=\"clear\"></div><hr/>\n" .
-                 "".$row["ne_text"]."</td></tr>\n";
-        }
-?>
-        <tr class="bottom">
-            <td colspan="9" align="center">
-                <a href="news.php">Older news &gt;</a>
-            </td>
-        </tr>
-    </table> 
   
 <?php require 'inc/footer.php';?>

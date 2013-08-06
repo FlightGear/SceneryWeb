@@ -3,6 +3,9 @@
 <ul id="csstopmenu">
     <li class="mainitems" style="border-left-width: 1px">
         <div class="headerlinks"><a href="/">Home</a></div>
+        <ul class="submenus">
+            <li><a href="/news.php">News</a></li>
+        </ul>
     </li>
     <li class="mainitems">
         <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
