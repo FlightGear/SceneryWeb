@@ -47,23 +47,23 @@ if ($resultr) {
         if ((substr_count($unzipped_base64_query,"INSERT INTO fgs_objects") == 1) && (substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 0)) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             if (substr_count($unzipped_base64_query,"VALUES") == 1) {
-                $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
+                $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=check&sig=".$row->spr_hash."\n";
             }
             // Else, is a mass insertion
-            else $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=confirm&sig=".$row->spr_hash."\n";
+            else $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=".$row->spr_hash."\n";
         }
         // If the request contains a "UPDATE FROM fgs_objects"
         if (substr_count($unzipped_base64_query,"UPDATE FROM fgs_objects") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
-            $pending_requests .= "This is an object update request! Click on the following link to submit it!\n";
-            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
+            $pending_requests .= "This is an object update request! Click on the following link to check it!\n";
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=check&sig=".$row->spr_hash."\n";
         }
 
         // If the request contains a "DELETE FROM fgs_objects"
         if (substr_count($unzipped_base64_query,"DELETE FROM fgs_objects") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
-            $pending_requests .= "This is an object deletion request! Click on the following link to submit it!\n";
-            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=confirm&sig=".$row->spr_hash."\n";
+            $pending_requests .= "This is an object deletion request! Click on the following link to check it!\n";
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=check&sig=".$row->spr_hash."\n";
         }
     }
 
