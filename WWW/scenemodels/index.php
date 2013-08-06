@@ -71,5 +71,6 @@ else {
             </td>
         </tr>
     </table>
+    <div class="clear"></div>
   
 <?php require 'inc/footer.php';?>
