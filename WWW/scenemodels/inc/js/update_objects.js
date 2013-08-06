@@ -70,7 +70,7 @@ function changeModelInfo(hreq, path)
     }
 
     document.getElementById('mo_name').value = name;
-    document.getElementById('comment').value = notes;
+    document.getElementById('notes').value = notes;
 }
 
 function change_thumb()
