@@ -50,7 +50,7 @@
 //        {minZoomLevel: 1, maxZoomLevel: 16, 'type': VEMapStyle.Aerial}
 //    );
 
-    var clc00 = new OpenLayers.Layer.WMS( "CORINE CLC2000v15",
+    var clc00 = new OpenLayers.Layer.WMS( "CORINE CLC2000v16",
         [ "http://1.flightgear.telascience.org/tc?",
           "http://2.flightgear.telascience.org/tc?",
           "http://3.flightgear.telascience.org/tc?",
