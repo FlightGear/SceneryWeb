@@ -96,6 +96,7 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
 
     for ($i=0; $i<12; $i++) {
         if(isset($_FILES["png_file"]["name"][$i])) {
+            echo $_FILES["png_file"]["name"][$i]; //DEBUG
             $pngAllName[] = $_FILES["png_file"]["name"][$i];
         }
     }
@@ -388,11 +389,6 @@ if (file_exists($xmlPath)) {
             $errormsg .= "<li>Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;!</li>";
         }
     }
-}
-else {
-/*  $fatalerror = 1;
-  $error += 1;
-  $errormsg .= "<li>The XML file doesn't exist on the server. Please try to upload it again!</li>";*/
 }
 
 ###############################################

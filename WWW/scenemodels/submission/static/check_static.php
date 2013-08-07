@@ -388,11 +388,6 @@ if (file_exists($xmlPath)) {
         }
     }
 }
-else {
-/*  $fatalerror = 1;
-  $error += 1;
-  $errormsg .= "<li>The XML file doesn't exist on the server. Please try to upload it again!</li>";*/
-}
 
 ###############################################
 ###############################################
