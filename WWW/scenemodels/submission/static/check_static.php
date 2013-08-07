@@ -69,7 +69,7 @@ if (!preg_match('/^[a-zA-Z0-9_.-]+$/u', $ac3dName)
         || !preg_match('/^[a-zA-Z0-9_.-]*$/u', $xmlName)) {
     $fatalerror = 1;
     $error += 1;
-    $errormsg .= "<li>Filenames must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
+    $errormsg .= "<li>AC3D and XML name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
 }
 
 if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
@@ -95,7 +95,13 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
 
     for ($i=0; $i<12; $i++) {
         if(isset($_FILES["png_file"]["name"][$i])) {
-            $pngAllName[] = $_FILES["png_file"]["name"][$i];
+            if (!preg_match('/^[a-zA-Z0-9_.-]*$/u', $_FILES["png_file"]["name"][$i])) {
+                $fatalerror = 1;
+                $error += 1;
+                $errormsg .= "<li>Textures' name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
+            } else {
+                $pngAllName[] = $_FILES["png_file"]["name"][$i];
+            }
         }
     }
 }
@@ -108,6 +114,7 @@ else {
             $errormsg .= "<li>The thumbnail file name must end with *_thumbnail.</li>";
     }
 }
+
 
 ###############################################
 ###############################################
