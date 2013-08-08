@@ -14,6 +14,7 @@
             <li><a href="/submission/shared/index_delete.php">Delete an object position</a></li>
             <li><a href="/submission/shared/index_mass_import.php">Massive import of objects</a></li>
             <li><a href="/submission/shared/index_update.php">Update object/model geodata</a></li>
+            <li class="separator"></li>
             <li><a href="/submission/static/index.php">Add a new model</a></li>
             <li><a href="/submission/static/index_model_update.php">Update a model</a></li>
         </ul>

@@ -23,7 +23,8 @@ require '../inc/header.php';
                 </ul>
                 <li>on 3D models (models designed for a specific location, eg Eiffel Tower):</li>
                 <ul>
-                    <li><a href="static/index.php">adding a new static or shared 3D model</a> (adding a static or shared 3D model to the database).</li>
+                    <li><a href="static/index.php">adding a new static or shared 3D model</a>.</li>
+                    <li><a href="static/index_model_update.php">updating an existing static or shared 3D model</a> (improve 3D model).</li>
                 </ul>
             </ul>
             Comments or contributions propositions are always welcome through the usual channels (<a href="http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel">devel list</a>, <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&amp;t=14671">forum</a>).

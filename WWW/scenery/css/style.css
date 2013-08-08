@@ -302,6 +302,13 @@ html>body .submenus li a{ /* non IE browsers */
     color: #880000;
 }
 
+.submenus li.separator {
+    background-color: #E5E5E5;
+    height: 1px;
+    margin: 9px 0px;
+    overflow: hidden;
+}
+
 #csstopmenu li>ul {/* non IE browsers */
     top: auto;
     left: auto;
