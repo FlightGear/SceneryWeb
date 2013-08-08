@@ -303,7 +303,7 @@ html>body .submenus li a{ /* non IE browsers */
 }
 
 .submenus li.separator {
-    background-color: #E5E5E5;
+    background-color: #A5A5A5;
     height: 1px;
     margin: 9px 0px;
     overflow: hidden;
