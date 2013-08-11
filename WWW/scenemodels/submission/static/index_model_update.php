@@ -256,8 +256,8 @@ $(document).ready(function(){
     <?php
     // Pre-set model dropdown
     if ($model['mo_path']) {
-        echo 'update_objects(\''.$model['mo_path'].'\')';
-        echo 'update_model_info(\''.$model['mo_path'].'\')';
+        echo 'update_objects(\''.$model['mo_path'].'\');';
+        echo 'update_model_info(\''.$model['mo_path'].'\');';
     }
     ?>
 });
