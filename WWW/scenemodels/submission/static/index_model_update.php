@@ -8,7 +8,7 @@
         && $_REQUEST['update_choice']>'0'
         && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice'])) {
         $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
-        $result = pg_query("SELECT mo_id, mo_path, mo_shared FROM fgs_models WHERE mo_id=$id_to_update;");
+        $result = pg_query("SELECT mo_id, mo_name, mo_notes, mo_path, mo_shared FROM fgs_models WHERE mo_id=$id_to_update;");
         $model = pg_fetch_assoc($result);
     }
 ?>
@@ -152,7 +152,7 @@ $(function() {
                         <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo $model['mo_name']?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -160,7 +160,7 @@ $(function() {
                         <label for="notes">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" value="" onkeyup="checkComment(this);validateTabs();" />
+                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" value="" onkeyup="checkComment(this);validateTabs();" value="<?php echo $model['mo_notes']?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -255,10 +255,8 @@ $(document).ready(function(){
     
     <?php
     // Pre-set model dropdown
-    if ($model['mo_path']) {
+    if ($model['mo_path'])
         echo 'update_objects(\''.$model['mo_path'].'\');';
-        echo 'update_model_info(\''.$model['mo_path'].'\');';
-    }
     ?>
 });
 </script>
