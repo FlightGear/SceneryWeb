@@ -109,6 +109,7 @@ if (isset($_POST["action"])) {
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
 
+                $mo_id = pg_fetch_row ($result_rw_mo);
 
                 if (!$result_rw_mo) {
                     $process_text = "Signatures found.<br /> Now processing query with request number ". $_POST["mo_sig"];
@@ -151,7 +152,7 @@ if (isset($_POST["action"])) {
                 $mo_sha_hash = $_POST["mo_sig"];
                 $name = $_POST["mo_name"];
                 $comment = $_POST["maintainer_comment"];
-                $model_id = $mo_id;
+                $model_id = $mo_id[0];
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
