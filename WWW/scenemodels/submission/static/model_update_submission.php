@@ -109,7 +109,10 @@ if (isset($_POST["action"])) {
                 // Sending the requests...
                 $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
 
-                $mo_id = pg_fetch_row ($result_rw_mo);
+                $pattern = "/UPDATE fgs_models SET mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', mo_author \= (?P<author>[0-9]+), mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', mo_shared \= (?P<shared>[0-9]+) WHERE mo_id \= (?P<modelid>[0-9]+)/";
+                $error === preg_match($pattern, $query_rw_mo, $matches);
+
+                $mo_id = $matches['modelid'];
 
                 if (!$result_rw_mo) {
                     $process_text = "Signatures found.<br /> Now processing query with request number ". $_POST["mo_sig"];
@@ -152,7 +155,7 @@ if (isset($_POST["action"])) {
                 $mo_sha_hash = $_POST["mo_sig"];
                 $name = $_POST["mo_name"];
                 $comment = $_POST["maintainer_comment"];
-                $model_id = $mo_id[0];
+                $model_id = $mo_id;
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
