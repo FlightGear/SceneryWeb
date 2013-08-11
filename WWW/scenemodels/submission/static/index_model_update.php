@@ -2,6 +2,15 @@
     require_once '../../inc/functions.inc.php';
     $page_title = "Automated Models Submission Form";
     require '../../inc/header.php';
+    
+    // Populate fields when a model id is given in the url
+    if (isset($_REQUEST['update_choice'])
+        && $_REQUEST['update_choice']>'0'
+        && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice'])) {
+        $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
+        $result = pg_query("SELECT mo_id, mo_name, mo_notes, mo_path, mo_shared FROM fgs_models WHERE mo_id=$id_to_update;");
+        $model = pg_fetch_assoc($result);
+    }
 ?>
 <script type="text/javascript" src="../../inc/js/update_objects.js"></script>
 <script type="text/javascript" src="../../inc/js/check_form.js"></script>
@@ -91,39 +100,39 @@ $(function() {
                     <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object.</span></label></td>
                     <td>
             <?php
-                            $resource_r = connect_sphere_r();
+                        $resource_r = connect_sphere_r();
 
-                            // If connection is OK
-                            if ($resource_r!='0') {
+                        // If connection is OK
+                        if ($resource_r!='0') {
 
-                                // Show all the families other than the static family
-                                $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups ORDER BY mg_name;");
+                            // Show all the families other than the static family
+                            $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups ORDER BY mg_name;");
 
-                                // Start the select form
-                                echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
-                                     "<option ";
-                                if (empty($_GET['mg_id']))
-                                    echo "selected=\"selected\" ";
-                                echo "value=\"0\">Please select a family</option>\n" .
-                                     "<option value=\"0\">----</option>\n";
-                                while ($row = @pg_fetch_assoc($result)) {
-                                    $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
-                                    $name=preg_replace('/ /',"&nbsp;",$name);
-                                    echo "<option value=\"".$row["mg_id"]."\"";
-                                    if ($row["mg_id"] == $_GET['mg_id'])
-                                        echo " selected=\"selected\"";
-                                    echo ">".$name."</option>\n";
-                                }
-                                echo "</select>";
-
-                                // Close the database resource
-                                @pg_close($resource_r);
+                            // Start the select form
+                            echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
+                                 "<option ";
+                            if (empty($_GET['mg_id']) && !$model['mo_shared'])
+                                echo "selected=\"selected\" ";
+                            echo "value=\"0\">Please select a family</option>\n" .
+                                 "<option value=\"0\">----</option>\n";
+                            while ($row = @pg_fetch_assoc($result)) {
+                                $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
+                                $name=preg_replace('/ /',"&nbsp;",$name);
+                                echo "<option value=\"".$row["mg_id"]."\"";
+                                if ($row["mg_id"] == $_GET['mg_id'] || $row["mg_id"] == $model['mo_shared'])
+                                    echo " selected=\"selected\"";
+                                echo ">".$name."</option>\n";
                             }
+                            echo "</select>";
 
-                            // Else, write message.
-                            else {
-                                echo "<br /><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
-                            }
+                            // Close the database resource
+                            @pg_close($resource_r);
+                        }
+
+                        // Else, write message.
+                        else {
+                            echo "<br /><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
+                        }
             ?>
                     </td>
                     <td rowspan="4" style="width: 200px">
@@ -143,7 +152,7 @@ $(function() {
                         <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo $model['mo_name']?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -151,7 +160,7 @@ $(function() {
                         <label for="notes">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" value="" onkeyup="checkComment(this);validateTabs();" />
+                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo $model['mo_notes']?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -243,6 +252,12 @@ $(document).ready(function(){
             $('input[type="submit"]').attr('disabled','disabled');
         }
     });
+    
+    <?php
+    // Pre-set model dropdown
+    if ($model['mo_path'])
+        echo 'update_objects(\''.$model['mo_path'].'\');';
+    ?>
 });
 </script>
 <?php require '../../inc/footer.php'; ?>

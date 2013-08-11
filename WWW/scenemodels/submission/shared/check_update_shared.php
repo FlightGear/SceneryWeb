@@ -94,7 +94,7 @@ if (isset($model_name)
 
     // Preparing the update request: the quotes around NULL put above were tested OK.
     $query_update="UPDATE fgs_objects ".
-                  "SET ob_text=$$".object_name($model_name)."$$, wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=".$new_gndelev.", ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
+                  "SET ob_text=$$".$safe_new_ob_text."$$, wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=".$new_gndelev.", ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
                   "WHERE ob_id=".$id_to_update.";";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
