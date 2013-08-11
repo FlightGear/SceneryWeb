@@ -253,8 +253,11 @@ $(document).ready(function(){
         }
     });
     
+    <?php
     // Pre-set model dropdown
-    update_objects('<?php echo $model['mo_path'] ?>');
+    if ($model['mo_path'])
+        echo 'update_objects(\''.$model['mo_path'].'\')';
+    ?>
 });
 </script>
 <?php require '../../inc/footer.php'; ?>

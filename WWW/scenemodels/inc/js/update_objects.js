@@ -40,6 +40,7 @@ function changeObjectsList(hreq, path)
 
     document.getElementById('form_objects').innerHTML = text;
     change_thumb();
+    update_model_info();
 }
 
 function update_model_info(path)
