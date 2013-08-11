@@ -8,7 +8,7 @@
         && $_REQUEST['update_choice']>'0'
         && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice'])) {
         $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
-        $result = pg_query("SELECT mo_id, mo_path, mo_shared FROM fgs_models WHERE mo_id=id_to_update;");
+        $result = pg_query("SELECT mo_id, mo_path, mo_shared FROM fgs_models WHERE mo_id=$id_to_update;");
         $model = pg_fetch_assoc($result);
     }
 ?>
