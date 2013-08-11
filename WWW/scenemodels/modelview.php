@@ -98,7 +98,7 @@ if (!empty($model["mo_notes"])) {
 ?>
     <tr>
         <td colspan="2">
-            <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download model</a>
+            <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download model</a> | <a href="submission/static/index_model_update.php?update_choice=<?php echo $id; ?>">Update model/info</a>
         </td>
     </tr>
     <tr>
