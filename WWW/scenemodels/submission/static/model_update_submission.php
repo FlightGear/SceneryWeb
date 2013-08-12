@@ -204,7 +204,7 @@ if (!isset($_POST["action"])) {
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../inc/error_page.php';
+                include '../../inc/error_page.php';
                 @pg_close($resource_rw);
                 exit;
             }
