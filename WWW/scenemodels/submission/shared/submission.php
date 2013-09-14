@@ -31,7 +31,7 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
             @pg_close($resource_rw);
             exit;
         }
-        
+
         // Show results
         while ($row = pg_fetch_row($result)) {
             $sqlzbase64 = $row[1];
@@ -41,17 +41,18 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
 
             // Gzuncompress the query
             $query_rw = gzuncompress($sqlz);
+            echo $query_rw;
             $page_title = "Automated Objects Massive Import Requests Form";
             include '../../inc/header.php';
             echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
-            
+
             if ($_GET["action"] == "check") {
                 $trigged_query_rw = strstr($query_rw, 'ST_PointFromText'); // Removing the start of the query from the data;
-                
+
                 echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
-                
+
                 $pattern = "/ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
-                
+
                 $error === preg_match($pattern, $trigged_query_rw, $matches);
 
                 $long = $matches['long'];
@@ -75,13 +76,13 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
             } elseif ($_GET["action"] == "check_update") {
                 $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
                 $trigged_query_rw = str_replace('$','',$trigged_query_rw);
-                
+
                 echo "<table>\n<tr>\n<th></th>\n<th>Old/current</th>\n<th>New</th>\n</tr>\n";
-                
+
                 $pattern = "/SET ob_text\=(?P<notes>[a-zA-Z0-9 ,!_.\(\)\/-]*), wkb_geometry\=ST_PointFromText\('POINT\((?P<lon>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/";
-                
+
                 $error === preg_match($pattern, $trigged_query_rw, $matches);
-                
+
                 $notes = $matches['notes'];
                 $lon = $matches['lon'];
                 $lat = $matches['lat'];
@@ -91,11 +92,11 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
                 // $country = $matches['country'];
                 $model_id = $matches['model_id'];
                 $object_id = $matches['object_id'];
-                
+
                 // Obtain old/current values
                 $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$object_id;");
                 $object = pg_fetch_assoc($result);
-                
+
                 $lon_old = get_object_longitude_from_id($object_id);
                 $lat_old = get_object_latitude_from_id($object_id);
                 $elev_old = get_object_elevation_from_id($object_id);
@@ -139,7 +140,7 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
                 <td colspan="5"><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" onfocus="emptyDefaultValue(this, 'Drop a comment to the submitter');"/></td>
             </tr>-->
             <tr>
-                <td colspan="8" class="submit">                            
+                <td colspan="8" class="submit">
                     <?php echo "<a href=\"submission.php?action=accept&amp;sig=".$_GET["sig"]."&amp;email=".$_GET["email"]."\" />Accept</a> | ";?>
                     <?php echo "<a href=\"submission.php?action=reject&amp;sig=".$_GET["sig"]."&amp;email=".$_GET["email"]."\" />Reject</a>";?>
                 </td>
@@ -229,7 +230,7 @@ if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]
                 if (isset($_GET['email'])) $to .= $_GET["email"];
                 else $to = "";
                 $sig = $_GET['sig'];
-                
+
                 email("pending_request_process_confirmation");
 
                 exit;
@@ -305,7 +306,7 @@ else {
             $sig = $_GET['sig'];
 
             email("reject_and_deletion_confirmation");
-            
+
             exit;
         }
     }
