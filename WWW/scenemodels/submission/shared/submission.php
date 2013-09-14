@@ -41,7 +41,6 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
 
             // Gzuncompress the query
             $query_rw = gzuncompress($sqlz);
-            echo "Query_rw: ".$query_rw;
             $page_title = "Automated Objects Massive Import Requests Form";
             include '../../inc/header.php';
             echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
@@ -75,7 +74,6 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
             } elseif ($_GET["action"] == "check_update") {
                 $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
                 $trigged_query_rw = str_replace('$','',$trigged_query_rw);
-                                echo "\nTrigged query: ".$trigged_query_rw;
 
                 echo "<table>\n<tr>\n<th></th>\n<th>Old/current</th>\n<th>New</th>\n</tr>\n";
 
