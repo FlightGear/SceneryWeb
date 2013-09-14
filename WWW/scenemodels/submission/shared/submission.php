@@ -48,7 +48,7 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
 
             if ($_GET["action"] == "check") {
                 $trigged_query_rw = strstr($query_rw, 'ST_PointFromText'); // Removing the start of the query from the data;
-
+                echo $trigged_query_rw;
                 echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
 
                 $pattern = "/ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
