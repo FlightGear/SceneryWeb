@@ -296,9 +296,9 @@ if (!$error) {
                 $global_ko = 1;
                 $cpt_err++;
                 echo "<td style='background-color: rgb(200, 0, 0);'>Exists already</td>"; // Fatal error
-            // DISABLED FOR NOW detection itself is ok, but it breaks the backend
-            //} elseif (detect_nearby_object($lat, $long, $model_id)) {
-            //    echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>"; // Just a warning, not fatal
+            // this used to break the backend, testing if it still does
+            } elseif (detect_nearby_object($lat, $long, $model_id)) {
+                echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>"; // Just a warning, not fatal
             } else {
                 echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
                 if ($ob_country == "")
