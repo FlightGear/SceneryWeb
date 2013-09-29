@@ -51,18 +51,14 @@
 //    );
 
     var clc00 = new OpenLayers.Layer.WMS( "CORINE CLC2000v16",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'clc00', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
     var clc06 = new OpenLayers.Layer.WMS( "CORINE CLC2006v16",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'clc06', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
@@ -76,36 +72,28 @@
     );
 
     var nlcd2006r = new OpenLayers.Layer.WMS( "NLCD 2006 30m raster",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'nlcd2006r', format: 'image/png'},
         {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2006.php'>MRLC</a>"}
     );
 
     var clc06v16r = new OpenLayers.Layer.WMS( "CLC2006v16 100m raster",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'clc06v16r', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
     var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (#CURRENTOSMVERSION#)",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'osmtarmac', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var cslines = new OpenLayers.Layer.WMS( "VMap0/CS line features",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'cslines', format: 'image/png'},
         {isBaseLayer: false}
@@ -119,18 +107,14 @@
 //    );
 
     var noaroads = new OpenLayers.Layer.WMS( "StatsCan/TIGER roads (2006se)",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'noaroads', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var airspaces = new OpenLayers.Layer.WMS( "Airspaces (experimental)",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'airspaces', format: 'image/png'},
         {isBaseLayer: false}
@@ -198,27 +182,21 @@
     );
 
     var gshhs = new OpenLayers.Layer.WMS( "GSHHS coastline (1.6)",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'gshhs', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var swbd = new OpenLayers.Layer.WMS( "SWBD coastline (polygon)",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'swbd', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var fgbuckets = new OpenLayers.Layer.WMS( "FG Scenery buckets",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'fgbuckets', format: 'image/png'},
         {isBaseLayer: false}

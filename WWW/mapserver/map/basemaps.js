@@ -6,26 +6,20 @@
 //    );
 
     var customscene = new OpenLayers.Layer.WMS( "Landcover-DB CS Test",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'customscene', format: 'image/png'}
     );
 
     var v0cover = new OpenLayers.Layer.WMS( "Landcover-DB VMap0 Ed.5",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'v0cover', format: 'image/png'},
         {attribution: "Origin: <a href='http://www.nga.mil/'>NGA</a>"}
     );
 
     var icubed = new OpenLayers.Layer.WMS( "TelaScience i-Cubed",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'icubed', format: 'image/png'},
         {wrapDateLine: true}
@@ -41,27 +35,21 @@
 //    );
 
     var tarmac = new OpenLayers.Layer.WMS( "Airfield layouts (v8.10)",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'tarmac', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var tarmac850 = new OpenLayers.Layer.WMS( "Airfield layouts (v9.00, 2013.04B)",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'tarmac850', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var osmlines = new OpenLayers.Layer.WMS( "OSM line features (#CURRENTOSMVERSION#)",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'osmlines', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
@@ -69,27 +57,21 @@
     );
 
     var airfield = new OpenLayers.Layer.WMS( "Aerodrome reference points",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'airfield', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var navaid = new OpenLayers.Layer.WMS( "Navaids",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'navaid', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var fix = new OpenLayers.Layer.WMS( "Fixes",
-        [ "http://1.flightgear.telascience.org/tc?",
-          "http://2.flightgear.telascience.org/tc?",
-          "http://3.flightgear.telascience.org/tc?",
+        [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'fix', format: 'image/png'},
         {isBaseLayer: false}
@@ -103,9 +85,7 @@
     );
 
 //    var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
-//        [ "http://1.flightgear.telascience.org/tc?",
-//          "http://2.flightgear.telascience.org/tc?",
-//          "http://3.flightgear.telascience.org/tc?",
+//        [ "http://2.flightgear.telascience.org/tc?",
 //          "http://4.flightgear.telascience.org/tc?" ],
 //        {layers: 'sceneobject', transparent: 'true', format: 'image/png'},
 //        {isBaseLayer: false}
