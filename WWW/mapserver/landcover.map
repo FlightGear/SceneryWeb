@@ -6538,6 +6538,40 @@ MAP
   END # cs_industrial
 
   LAYER
+    NAME cs_fishing
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM cs_fishing USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "cs_fishing"
+      STYLE
+        COLOR 85 155 239
+      END
+    END
+    METADATA
+      "wms_title" "cs_fishing"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "wfs_title" "cs_fishing"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "gml_include_items" "all"
+    END
+  END # cs_fishing
+
+  LAYER
     NAME cs_construction
     TYPE POLYGON
     DUMP TRUE
@@ -8168,6 +8202,40 @@ MAP
       "gml_include_items" "all"
     END
   END # cs_urban
+
+  LAYER
+    NAME cs_void
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM cs_void USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "cs_void"
+      STYLE
+        COLOR 255 255 176
+      END
+    END
+    METADATA
+      "wms_title" "cs_void"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
+      "wfs_title" "cs_void"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/wiki/LandcoverDB_VMap0_Detail for more information."
+      "gml_include_items" "all"
+    END
+  END # cs_void
 
   LAYER
     NAME cs_stream
