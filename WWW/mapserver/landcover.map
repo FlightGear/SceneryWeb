@@ -283,7 +283,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -318,7 +317,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -353,7 +351,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -387,7 +384,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -421,7 +417,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -455,7 +450,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -491,7 +485,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 35550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -526,7 +519,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -561,7 +553,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -595,7 +586,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -629,7 +619,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -663,7 +652,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -697,7 +685,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -731,7 +718,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -765,7 +751,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -799,7 +784,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -833,7 +817,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -867,7 +850,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -901,7 +883,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -935,7 +916,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -969,7 +949,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1003,7 +982,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1037,7 +1015,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1071,7 +1048,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1105,7 +1081,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1139,7 +1114,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1173,7 +1147,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1207,7 +1180,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1241,7 +1213,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1275,7 +1246,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1309,7 +1279,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1343,7 +1312,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1377,7 +1345,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1411,7 +1378,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1445,7 +1411,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1479,7 +1444,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1513,7 +1477,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1547,7 +1510,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1582,7 +1544,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1616,7 +1577,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1650,7 +1610,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1684,7 +1643,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1718,7 +1676,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1752,7 +1709,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1786,7 +1742,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1820,7 +1775,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1854,7 +1808,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1888,7 +1841,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1922,7 +1874,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1956,7 +1907,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1990,7 +1940,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2024,7 +1973,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2058,7 +2006,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2092,7 +2039,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2126,7 +2072,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2160,7 +2105,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2194,7 +2138,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2228,7 +2171,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2262,7 +2204,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2296,7 +2237,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2330,7 +2270,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2364,7 +2303,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2398,7 +2336,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2432,7 +2369,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2466,7 +2402,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2500,7 +2435,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2534,7 +2468,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2568,7 +2501,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2602,7 +2534,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2636,7 +2567,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2670,7 +2600,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2704,7 +2633,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2738,7 +2666,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2772,7 +2699,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2806,7 +2732,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2840,7 +2765,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2874,7 +2798,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2908,7 +2831,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2942,7 +2864,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2976,7 +2897,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3010,7 +2930,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3044,7 +2963,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3078,7 +2996,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3112,7 +3029,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3146,7 +3062,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3180,7 +3095,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3215,7 +3129,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3250,7 +3163,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3284,7 +3196,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3319,7 +3230,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3354,7 +3264,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3384,7 +3293,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3414,7 +3322,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3448,7 +3355,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3482,7 +3388,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3516,7 +3421,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3550,7 +3454,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3584,7 +3487,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3618,7 +3520,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3652,7 +3553,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3686,7 +3586,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3720,7 +3619,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3754,7 +3652,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3788,7 +3685,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3822,7 +3718,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3856,7 +3751,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3890,7 +3784,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3924,7 +3817,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3958,7 +3850,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -3992,7 +3883,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4026,7 +3916,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4060,7 +3949,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4094,7 +3982,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4128,7 +4015,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4162,7 +4048,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4196,7 +4081,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4230,7 +4114,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4264,7 +4147,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4298,7 +4180,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4332,7 +4213,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4366,7 +4246,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4400,7 +4279,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4434,7 +4312,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4468,7 +4345,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4502,7 +4378,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4536,7 +4411,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4570,7 +4444,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4604,7 +4477,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4638,7 +4510,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4672,7 +4543,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4706,7 +4576,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4740,7 +4609,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4774,7 +4642,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4808,7 +4675,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4842,7 +4708,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4876,7 +4741,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4910,7 +4774,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4944,7 +4807,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -4978,7 +4840,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5012,7 +4873,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5046,7 +4906,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5080,7 +4939,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5114,7 +4972,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5148,7 +5005,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5182,7 +5038,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5216,7 +5071,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5250,7 +5104,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5284,7 +5137,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5318,7 +5170,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5352,7 +5203,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5386,7 +5236,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5420,7 +5269,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5454,7 +5302,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5488,7 +5335,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5522,7 +5368,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5556,7 +5401,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5590,7 +5434,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5624,7 +5467,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5658,7 +5500,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5692,7 +5533,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5726,7 +5566,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5760,7 +5599,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5794,7 +5632,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5828,7 +5665,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5862,7 +5698,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5896,7 +5731,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5930,7 +5764,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5964,7 +5797,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -5998,7 +5830,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6032,7 +5863,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6066,7 +5896,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6100,7 +5929,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6134,7 +5962,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6168,7 +5995,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6202,7 +6028,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6236,7 +6061,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6270,7 +6094,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6304,7 +6127,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6338,7 +6160,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6372,7 +6193,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6406,7 +6226,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6440,7 +6259,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6474,7 +6292,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6508,7 +6325,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6542,7 +6358,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6576,7 +6391,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6610,7 +6424,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6644,7 +6457,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6678,7 +6490,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6712,7 +6523,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6746,7 +6556,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6780,7 +6589,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6814,7 +6622,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6848,7 +6655,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6882,7 +6688,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6916,7 +6721,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6950,7 +6754,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -6984,7 +6787,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7018,7 +6820,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7052,7 +6853,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7086,7 +6886,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7120,7 +6919,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7154,7 +6952,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7188,7 +6985,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7222,7 +7018,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7256,7 +7051,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7290,7 +7084,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7324,7 +7117,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7358,7 +7150,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7392,7 +7183,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7426,7 +7216,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7460,7 +7249,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7494,7 +7282,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7528,7 +7315,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7562,7 +7348,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7596,7 +7381,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7630,7 +7414,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7664,7 +7447,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7698,7 +7480,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7732,7 +7513,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7766,7 +7546,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7800,7 +7579,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7834,7 +7612,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7868,7 +7645,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7902,7 +7678,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7936,7 +7711,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -7970,7 +7744,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8004,7 +7777,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8038,7 +7810,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8072,7 +7843,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8106,7 +7876,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8140,7 +7909,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8174,7 +7942,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8208,7 +7975,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8244,7 +8010,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8281,7 +8046,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8318,7 +8082,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8354,7 +8117,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8389,7 +8151,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8426,7 +8187,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8462,7 +8222,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8498,7 +8257,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8533,7 +8291,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8569,7 +8326,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8605,7 +8361,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8641,7 +8396,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 20000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8678,7 +8432,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8713,7 +8466,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8748,7 +8500,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8783,7 +8534,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 20000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8821,7 +8571,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8858,7 +8607,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8895,7 +8643,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8932,7 +8679,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -8975,7 +8721,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9018,7 +8763,6 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9061,7 +8805,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9104,7 +8847,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9142,7 +8884,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9191,7 +8932,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9229,7 +8969,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9276,7 +9015,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9310,7 +9048,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9344,7 +9081,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9379,7 +9115,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9414,7 +9149,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9449,7 +9183,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9484,7 +9217,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9520,7 +9252,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9558,7 +9289,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9606,7 +9336,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9643,7 +9372,6 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9686,7 +9414,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9729,7 +9456,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9770,7 +9496,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9805,7 +9530,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9840,7 +9564,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9876,7 +9599,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9910,7 +9632,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9946,7 +9667,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -9990,7 +9710,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10034,7 +9753,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10078,7 +9796,6 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10122,7 +9839,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10171,7 +9887,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10208,7 +9923,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10251,7 +9965,6 @@ MAP
     STATUS OFF
 #    MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10297,7 +10010,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10340,7 +10052,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10383,7 +10094,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10426,7 +10136,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10511,7 +10220,6 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10554,7 +10262,6 @@ MAP
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10598,7 +10305,6 @@ MAP
 #    MINSCALE 1
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10642,7 +10348,6 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10681,7 +10386,6 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10720,7 +10424,6 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10759,7 +10462,6 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10803,7 +10505,6 @@ MAP
 #    MAXSCALE 100000
     MAXSCALE 30000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10853,7 +10554,6 @@ MAP
 #    MAXSCALE 25000000
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10903,7 +10603,6 @@ MAP
 #    MAXSCALE 1000000
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10942,7 +10641,6 @@ MAP
 #    MAXSCALE 1000000
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -10980,7 +10678,6 @@ MAP
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11018,7 +10715,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11056,7 +10752,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11094,7 +10789,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11132,7 +10826,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11170,7 +10863,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11208,7 +10900,6 @@ MAP
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11242,7 +10933,6 @@ MAP
     TYPE LINE
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11278,7 +10968,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11313,7 +11002,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11359,7 +11047,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11396,7 +11083,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11443,7 +11129,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11491,7 +11176,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11539,7 +11223,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11587,7 +11270,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11636,7 +11318,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11685,7 +11366,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11734,7 +11414,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11781,7 +11460,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11816,7 +11494,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11864,7 +11541,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11912,7 +11588,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -11960,7 +11635,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12008,7 +11682,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12056,7 +11729,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12105,7 +11777,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12154,7 +11825,6 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12203,7 +11873,6 @@ MAP
     STATUS OFF
     MAXSCALE 30000
 #    SYMBOLSCALE 10000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12250,7 +11919,6 @@ MAP
     DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 10
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12298,7 +11966,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12333,7 +12000,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12368,7 +12034,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12403,7 +12068,6 @@ MAP
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -12440,7 +12104,6 @@ MAP
     STATUS OFF
     MAXSCALE 35550000
     LABELMAXSCALE 1000000
-#    CONNECTION "host=localhost port=5432 dbname=landcover user=webuser"
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
