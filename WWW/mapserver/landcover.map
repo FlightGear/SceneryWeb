@@ -8160,7 +8160,6 @@ MAP
     END
     EXTENT -180 -90 180 90
     FILTER "((surface NOT LIKE 'Turf/grass%' AND surface NOT LIKE 'Water%') OR surface LIKE '' OR surface IS NULL)"
-#    FILTER "surface NOT LIKE 'Turf/grass%' AND surface NOT LIKE 'Water%'"
     CLASS
       NAME "apt_tarmac_misc"
       STYLE
@@ -8427,7 +8426,7 @@ MAP
   END # apt_marking
 
   LAYER
-    NAME apt_tarmac_v850
+    NAME apt_tarmac_v850misc
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
@@ -8435,30 +8434,101 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_tarmac_v850 USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM apt_tarmac_v850misc USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
+    FILTER "((surface NOT LIKE 'Turf/grass%' AND surface NOT LIKE 'Water%') OR surface LIKE '' OR surface IS NULL)"
     CLASS
-      NAME "apt_tarmac_v850"
+      NAME "apt_tarmac_v850misc"
       STYLE
         COLOR 184 184 184
       END
     END
     METADATA
-      "wms_title" "apt_tarmac_v850"
+      "wms_title" "apt_tarmac_v850misc"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "apt_tarmac_v850"
+      "wfs_title" "apt_tarmac_v850misc"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # apt_tarmac_v850
+  END # apt_tarmac_v850misc
+
+  LAYER
+    NAME apt_tarmac_v850grass
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    MAXSCALE 1000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_tarmac_v850grass USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "surface LIKE 'Turf/grass%'"
+    CLASS
+      NAME "apt_tarmac_v850grass"
+      STYLE
+        COLOR 184 184 184
+      END
+    END
+    METADATA
+      "wms_title" "apt_tarmac_v850grass"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "apt_tarmac_v850grass"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # apt_tarmac_v850grass
+
+  LAYER
+    NAME apt_tarmac_v850water
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    MAXSCALE 1000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_tarmac_v850water USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "surface LIKE 'Water%'"
+    CLASS
+      NAME "apt_tarmac_v850water"
+      STYLE
+        COLOR 184 184 184
+      END
+    END
+    METADATA
+      "wms_title" "apt_tarmac_v850water"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "apt_tarmac_v850water"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # apt_tarmac_v850water
 
   LAYER
     NAME apt_stopway_v850
@@ -8495,7 +8565,7 @@ MAP
   END # apt_stopway_v850
 
   LAYER
-    NAME apt_runway_v850
+    NAME apt_runway_v850misc
     TYPE POLYGON
     DUMP TRUE
     STATUS OFF
@@ -8503,30 +8573,101 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_runway_v850 USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM apt_runway_v850misc USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
+    FILTER "((surface NOT LIKE 'Turf/grass%' AND surface NOT LIKE 'Water%') OR surface LIKE '' OR surface IS NULL)"
     CLASS
-      NAME "apt_runway_v850"
+      NAME "apt_runway_v850misc"
       STYLE
         COLOR 64 64 64
       END
     END
     METADATA
-      "wms_title" "apt_runway_v850"
+      "wms_title" "apt_runway_v850misc"
       "wms_extent" "-180 -90 180 90"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "wfs_title" "apt_runway_v850"
+      "wfs_title" "apt_runway_v850misc"
       "wfs_extent" "-180 -90 180 90"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "gml_include_items" "all"
     END
-  END # apt_runway_v850
+  END # apt_runway_v850misc
+
+  LAYER
+    NAME apt_runway_v850grass
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    MAXSCALE 2000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_runway_v850grass USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "surface LIKE 'Turf/grass%'"
+    CLASS
+      NAME "apt_runway_v850grass"
+      STYLE
+        COLOR 64 64 64
+      END
+    END
+    METADATA
+      "wms_title" "apt_runway_v850grass"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "apt_runway_v850grass"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # apt_runway_v850grass
+
+  LAYER
+    NAME apt_runway_v850water
+    TYPE POLYGON
+    DUMP TRUE
+    STATUS OFF
+    MAXSCALE 2000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_runway_v850water USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "surface LIKE 'Water%'"
+    CLASS
+      NAME "apt_runway_v850water"
+      STYLE
+        COLOR 64 64 64
+      END
+    END
+    METADATA
+      "wms_title" "apt_runway_v850water"
+      "wms_extent" "-180 -90 180 90"
+      "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "wfs_title" "apt_runway_v850water"
+      "wfs_extent" "-180 -90 180 90"
+      "wfs_srs" "EPSG:4326 EPSG:900913"
+      "wfs_featureid" "ID"
+      "wfs_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "gml_include_items" "all"
+    END
+  END # apt_runway_v850water
 
   LAYER
     NAME apt_marking_v850
