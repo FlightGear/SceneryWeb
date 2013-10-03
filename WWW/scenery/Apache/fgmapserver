@@ -27,6 +27,11 @@
 	ScriptAlias /shpdl /home/fgscenery/WWW/mapserver/shpdl.psp
 	ScriptAlias /dlaction /home/fgscenery/WWW/mapserver/dlaction.psp
 	ScriptAlias /dlshp /home/fgscenery/WWW/mapserver/procshpdl.psp
+	<Location /dlshp>
+	  Order allow,deny
+	  Deny from 89.159.24.138
+	  Allow from all
+	</Location>
 	<Directory "/usr/local/lib/cgi-bin/">
 	  Options FollowSymLinks
 	</Directory>
