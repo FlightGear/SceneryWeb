@@ -8434,7 +8434,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_tarmac_v850misc USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM apt_tarmac_v850 USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -8469,7 +8469,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_tarmac_v850grass USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM apt_tarmac_v850 USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -8478,7 +8478,7 @@ MAP
     CLASS
       NAME "apt_tarmac_v850grass"
       STYLE
-        COLOR 184 184 184
+        COLOR 90 255 90
       END
     END
     METADATA
@@ -8504,7 +8504,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_tarmac_v850water USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM apt_tarmac_v850 USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -8513,7 +8513,7 @@ MAP
     CLASS
       NAME "apt_tarmac_v850water"
       STYLE
-        COLOR 184 184 184
+        COLOR 90 90 255
       END
     END
     METADATA
@@ -8573,7 +8573,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_runway_v850misc USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM apt_runway_v850 USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -8608,7 +8608,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_runway_v850grass USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM apt_runway_v850 USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -8617,7 +8617,7 @@ MAP
     CLASS
       NAME "apt_runway_v850grass"
       STYLE
-        COLOR 64 64 64
+        COLOR 0 255 0
       END
     END
     METADATA
@@ -8643,7 +8643,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_runway_v850water USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM apt_runway_v850 USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -8652,7 +8652,7 @@ MAP
     CLASS
       NAME "apt_runway_v850water"
       STYLE
-        COLOR 64 64 64
+        COLOR 0 0 255
       END
     END
     METADATA
