@@ -24,7 +24,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
   </div>
   <div id="content2">
 
-    <h3 class="warning">Service unavailable on 2013-10-12 due to database update.</h3>
+<!--    <h3 class="warning">Service unavailable on 2013-10-12 due to database update.</h3> -->
 
     <h3>TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h3>
 
