@@ -387,7 +387,7 @@ else:
                     <option value='clc00' [clc00_select]> CLC2000v16 (layer=clc00)
                     <option value='clc06' [clc06_select]> CLC2006v16 (layer=clc06)
                     <option value='osm' [osm_select]> OSM (#CURRENTOSMVERSION#, layer=osm)
-                    <option value='apt' [apt_select]> Apt Dat (2013.03, layer=apt)
+                    <option value='apt' [apt_select]> Apt Dat (2013.10, layer=apt)
                     <option value='tgr' [tgr_select]> TIGER 2006 SE (layer=tgr)
                 </select>
                 <INPUT TYPE="submit" value="Download" checked>
