@@ -37,7 +37,7 @@ def fn_pgexec(sql):
     return db_cur
 
 def fn_tower_twr(icao, dir):
-    sql = "SELECT ST_X(wkb_geometry), ST_X(wkb_geometry), hgt_tower_m FROM apt_twr WHERE icao LIKE '%s'" % icao
+    sql = "SELECT ST_X(wkb_geometry), ST_Y(wkb_geometry), hgt_tower_m FROM apt_twr WHERE icao LIKE '%s'" % icao
 
     fn_pgexec(sql)
     if db_cur.rowcount > 0:
@@ -57,54 +57,84 @@ def fn_tower_twr(icao, dir):
         tree.write(file, pretty_print=True, xml_declaration=True, encoding="ISO-8859-1")
 
 def fn_runway_threshold(icao, dir):
-    sql = "SELECT ST_X(wkb_geometry), ST_Y(wkb_geometry), rwy_num, true_heading_deg, displaced_threshold_m, stopway_length_m FROM apt_threshold WHERE icao LIKE '%s' ORDER BY rwy_num" % icao
-
+    sql = "SELECT DISTINCT ogc_fid, rwy_num1 \
+        FROM apt_runway \
+        WHERE icao LIKE '%s' \
+        AND (rwy_num1 IS NOT NULL OR rwy_num2 IS NOT NULL) \
+        ORDER BY rwy_num1" % icao
     fn_pgexec(sql)
     if db_cur.rowcount > 0:
         file = open(dir + icao + ".threshold.xml", "w")
         db_result = db_cur.fetchall()
         PropertyList = etree.Element("PropertyList")
-        runway = etree.SubElement(PropertyList, "runway")
-        for row in db_result:
-            threshold = etree.SubElement(runway, "threshold")
-            lon = etree.SubElement(threshold, "lon")
-            lon.text = str(row[0])
-            lat = etree.SubElement(threshold, "lat")
-            lat.text = str(row[1])
-            elev = etree.SubElement(threshold, "rwy")
-            elev.text = str(row[2])
-            hdg = etree.SubElement(threshold, "hdg-deg")
-            hdg.text = str(row[3])
-            displ = etree.SubElement(threshold, "displ-m")
-            displ.text = str(row[4])
-            stopw = etree.SubElement(threshold, "stopw-m")
-            stopw.text = str(row[5])
+        for id in db_result:
+            sql = "SELECT ST_X(t.wkb_geometry), ST_Y(t.wkb_geometry), t.rwy_num, t.true_heading_deg, t.displaced_threshold_m, t.stopway_length_m \
+                FROM apt_threshold AS t, apt_runway AS r \
+                WHERE t.icao LIKE '%s' \
+                AND is_displaced IS FALSE \
+                AND r.ogc_fid = %d \
+                AND (t.rwy_num LIKE r.rwy_num1 OR t.rwy_num LIKE r.rwy_num2) \
+                ORDER BY t.rwy_num" % (icao, id[0])
+            fn_pgexec(sql)
+            if db_cur.rowcount > 0:
+                db_result = db_cur.fetchall()
+                runway = etree.SubElement(PropertyList, "runway")
+                for row in db_result:
+                    threshold = etree.SubElement(runway, "threshold")
+                    lon = etree.SubElement(threshold, "lon")
+                    lon.text = str(row[0])
+                    lat = etree.SubElement(threshold, "lat")
+                    lat.text = str(row[1])
+                    elev = etree.SubElement(threshold, "rwy")
+                    elev.text = str(row[2])
+                    hdg = etree.SubElement(threshold, "hdg-deg")
+                    hdg.text = str(row[3])
+                    displ = etree.SubElement(threshold, "displ-m")
+                    displ.text = str(row[4])
+                    stopw = etree.SubElement(threshold, "stopw-m")
+                    stopw.text = str(row[5])
         tree = etree.ElementTree(PropertyList)
         tree.write(file, pretty_print=True, xml_declaration=True, encoding="ISO-8859-1")
 
 def fn_runway_ils(icao, dir):
-    sql = "SELECT ST_X(wkb_geometry), ST_Y(wkb_geometry), rwy_num, true_heading_deg, elevation_m, navaid_id FROM apt_ils WHERE icao LIKE '%s' ORDER BY rwy_num" % icao
-
+    sql = "SELECT DISTINCT r.ogc_fid, r.rwy_num1 \
+        FROM apt_runway AS r, apt_ils AS i \
+        WHERE r.icao LIKE '%s' \
+        AND (r.rwy_num1 IS NOT NULL OR r.rwy_num2 IS NOT NULL) \
+        AND r.icao LIKE i.icao \
+        GROUP BY r.ogc_fid \
+        HAVING COUNT(i.icao) > 0 \
+        ORDER BY r.rwy_num1" % icao
     fn_pgexec(sql)
     if db_cur.rowcount > 0:
         file = open(dir + icao + ".ils.xml", "w")
         db_result = db_cur.fetchall()
         PropertyList = etree.Element("PropertyList")
-        runway = etree.SubElement(PropertyList, "runway")
-        for row in db_result:
-            ils = etree.SubElement(runway, "ils")
-            lon = etree.SubElement(ils, "lon")
-            lon.text = str(row[0])
-            lat = etree.SubElement(ils, "lat")
-            lat.text = str(row[1])
-            rwy = etree.SubElement(ils, "rwy")
-            rwy.text = str(row[2])
-            hdg = etree.SubElement(ils, "hdg-deg")
-            hdg.text = str(row[3])
-            elev = etree.SubElement(ils, "elev-m")
-            elev.text = str(row[4])
-            navid = etree.SubElement(ils, "nav-id")
-            navid.text = str(row[5])
+        for id in db_result:
+            sql = "SELECT ST_X(i.wkb_geometry), ST_Y(i.wkb_geometry), i.rwy_num, i.true_heading_deg, i.elevation_m, i.navaid_id \
+                FROM apt_ils AS i, apt_runway AS r \
+                WHERE i.icao LIKE '%s' \
+                AND r.ogc_fid = %d \
+                AND (i.rwy_num LIKE r.rwy_num1 OR i.rwy_num LIKE r.rwy_num2) \
+                ORDER BY i.rwy_num" % (icao, id[0])
+            fn_pgexec(sql)
+            if db_cur.rowcount > 0:
+                db_result = db_cur.fetchall()
+                runway = etree.SubElement(PropertyList, "runway")
+                for row in db_result:
+                    ils = etree.SubElement(runway, "ils")
+                    lon = etree.SubElement(ils, "lon")
+                    lon.text = str(row[0])
+                    lat = etree.SubElement(ils, "lat")
+                    lat.text = str(row[1])
+                    rwy = etree.SubElement(ils, "rwy")
+                    rwy.text = str(row[2])
+                    hdg = etree.SubElement(ils, "hdg-deg")
+                    hdg.text = str(row[3])
+                    elev = etree.SubElement(ils, "elev-m")
+                    elev.text = str(row[4])
+                    navid = etree.SubElement(ils, "nav-id")
+                    navid.text = str(row[5])
         tree = etree.ElementTree(PropertyList)
         tree.write(file, pretty_print=True, xml_declaration=True, encoding="ISO-8859-1")
 
