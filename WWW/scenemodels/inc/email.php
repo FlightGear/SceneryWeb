@@ -105,7 +105,7 @@ function email($case)
             break;
         case "pending_request_process_confirmation":
             $subject  = "Automatic objects pending request process confirmation";
-            $message .= "We would like to let you know that the object (addition, update, deletion) request nr:" . $sig. "has been successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n" .
+            $message .= "We would like to let you know that the object (addition, update, deletion) request nr:'".substr($sig,0,10). "'was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n" .
                         "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n";
             $backend = true;
             break;
@@ -123,7 +123,7 @@ function email($case)
             break;
         case "reject_and_deletion_confirmation":
             $subject  = "Automatic objects reject and deletion confirmation";
-            $message .= "We are sorry to let you know that the object request nr: " . $sig . " has been rejected.\r\n\r\n";
+            $message .= "We are sorry to let you know that the object request nr: '".substr($sig,0,10). "' was rejected.\r\n\r\n";
             if (!empty($comment) && $comment != "Drop a comment to the submitter")
                 $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
             $backend = true;
@@ -152,7 +152,7 @@ function email($case)
         case "shared_delete_request_sent_for_validation":
             $subject  = "Object deletion";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared deletion request.\r\n\r\n" .
-                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
+                        "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'\r\n\r\n" .
                         "Family:           " .get_object_family_from_id($id_to_delete). "\r\n" .
                         "Model:            " .object_name(get_object_model_from_id($id_to_delete)). "\r\n" .
@@ -187,7 +187,7 @@ function email($case)
         case "shared_request_sent_for_validation":
             $subject  = "Object submission";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared submission request.\r\n\r\n" .
-                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
+                        "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'\r\n\r\n" .
                         "Family:           ". $family_real_name . "\r\n" .
                         "Model:            ". $model_real_name . "\r\n" .
@@ -225,7 +225,7 @@ function email($case)
         case "shared_update_request_sent_for_validation":
             $subject  = "Object update";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared update request." . "\r\n\r\n" .
-                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
+                        "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'\r\n\r\n" .
                         "Object #:          ".$id_to_update."\r\n" .
                         "Family:            ". get_object_family_from_id($id_to_update) ." => ".family_name($family_name)."\r\n" .
@@ -242,7 +242,7 @@ function email($case)
         case "static_request_accepted":
             $subject  = "3D model import accepted";
             $message .= "On ".$dtg." UTC, you issued a 3D model import request.\r\n\r\n" .
-                        "We are glad to let you know that this request has been accepted!\r\n\r\n" .
+                        "We are glad to let you know that this request was accepted!\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request are '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it is named '". $name ."'.\r\n\r\n";
                         if (!empty($comment) && $comment != "Drop a comment to the submitter")
                             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
@@ -276,7 +276,7 @@ function email($case)
         case "static_request_rejected":
             $subject  = "3D model import rejected";
             $message .= "On ".$dtg." UTC, you issued a 3D model import request.\r\n\r\n" .
-                        "We are sorry to let you know that this request has been rejected.\r\n\r\n" .
+                        "We are sorry to let you know that this request was rejected.\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request were '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model) and it was named '". $name ."'.\r\n\r\n";
                         if (!empty($comment) && $comment != "Drop a comment to the submitter")
                             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
@@ -286,7 +286,7 @@ function email($case)
         case "static_request_sent_for_validation":
             $subject  = "3D model import";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request.\r\n\r\n" .
-                        "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
+                        "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                         "For reference, the first part of the unique IDs of this request are '".substr($ob_sha_hash,0,10). "' (object) and '".substr($mo_sha_hash,0,10). "' (model)\r\n\r\n" .
                         "Family:           ". family_name($mo_shared) . "\r\n" . "[ ".$html_family_url." ]" . "\r\n" .
                         "Path:             ". $path_to_use . "\r\n" .
