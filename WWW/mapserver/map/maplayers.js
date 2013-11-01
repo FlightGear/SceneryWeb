@@ -24,7 +24,7 @@
     var BingKey = "Ajtevu0iL__zuuZp7ot9Uwu-j470VZfLsZKAV6NWkIDU4_dRAq51rr7rzBquQtKs"
 
     var googlesat = new OpenLayers.Layer.Google( "Google Satellite (License!!)",
-        {type: G_SATELLITE_MAP, 'sphericalMercator': true, numZoomLevels: 20}
+        {type: google.maps.MapTypeId.SATELLITE, 'sphericalMercator': true, numZoomLevels: 22}
     );
 
     var yahoosat = new OpenLayers.Layer.Yahoo( "Yahoo Satellite (License!?)",
