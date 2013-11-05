@@ -82,6 +82,9 @@
 	<Directory "/home/martin/WWW/TGShapes">
 	  Options +Indexes -FollowSymlinks
 	</Directory>
+	<Directory "/home/martin/WWW/TGShapes">
+	  Options +Indexes -FollowSymlinks
+	</Directory>
 	# Shapefile-Download
 	Alias /download /home/fgscenery/SHPdl
 	# Scenery-Download (Dummy/Real)
@@ -105,6 +108,15 @@
 	  Options -Indexes -FollowSymlinks
 	  IndexIgnore .*
 	</Directory>
+########################################################################
+	# Terrascenery SVN
+	<Location /terrascenery>
+	  DAV svn
+	  SVNPath /home/martin/SVN/terrascenery
+	  Order deny,allow
+	  Deny from all
+	  Allow from a.b.c.d
+	</Location>
 ########################################################################
 	# FGx
 	Alias /fgx /home/ysablonier/htdocs
