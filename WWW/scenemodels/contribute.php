@@ -161,6 +161,9 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         <li>
         For those wondering, the offset is applied on export by Terrasync, which computes the (easy) operation ELEV+OFFSET (whether offset is positive or negative) and puts the result into the STG file.
         </li>
+        <li>
+        You can let FG compute the terrain elevation automagically, enter -9999 in the elevation field. FG will then compute the elevation with the current official terrain before pushing the result to the STG files pushed by Terrasync.
+        </li>
     </ul>
     </p>
 </div>
