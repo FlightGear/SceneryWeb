@@ -38,7 +38,7 @@ function validateForm()
 <h1>Objects Automated Update Form</h1>
 
 <p>
-    Through this form you can update a shared object (eg. windturbine, power pylon) at a given location. You can alternatively look for the object on <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/coverage.php">the map</a> if you are unsure of the exact coordinates of the object.
+    Through this form you can update a shared or static object (eg. windturbine, power pylon, Eiffel Tower) at a given location. You can alternatively look for the object on <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/coverage.php">the map</a> if you are unsure of the exact coordinates of the object.
 </p>
 
 <form id="edition" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
