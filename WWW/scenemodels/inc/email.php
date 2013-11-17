@@ -35,7 +35,7 @@ function email($case)
                 $message .= "and with email address ".$safe_email." ";
             $message .= "issued an objects massive import request.\r\n\r\n" .
                         "Comment by user: ".strip_tags($sent_comment)."\r\n\r\n" .
-                        "Now please click the following link to check and confirm or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/shared/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
+                        "Now please click the following link to check and confirm or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
             $backend = true;
             break;
         case "mass_import_request_rejected":
@@ -78,7 +78,7 @@ function email($case)
                         "Model name:       ". $name ."\r\n" .
                         "Description:      ". strip_tags($notes) ."\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n" .
-                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/static/model_update_submission.php?mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
+                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
             $backend = true;
             break;
         case "model_update_request_rejected":
@@ -145,8 +145,8 @@ function email($case)
                         "True orientation: " .get_object_true_orientation_from_id($id_to_delete). "\r\n" .
                         "Comment:          " .strip_tags($comment) . "\r\n" .
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". get_object_longitude_from_id($id_to_delete) ."&lat=". get_object_latitude_from_id($id_to_delete) ."&zoom=14\r\n\r\n" .
-                        "Accept: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=accept&sig=". $sha_hash ."&email=". $safe_email . "\r\n" .
-                        "Reject: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
+                        "Accept: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=accept&sig=". $sha_hash ."&email=". $safe_email . "\r\n" .
+                        "Reject: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=reject&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";
             $backend = true;
             break;
         case "shared_delete_request_sent_for_validation":
@@ -181,7 +181,7 @@ function email($case)
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment:          ". strip_tags($sent_comment) . "\r\n" .
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". $long ."&lat=". $lat ."&zoom=14\r\n\r\n" .
-                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email."\r\n\r\n";
+                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email."\r\n\r\n";
             $backend = true;
             break;
         case "shared_request_sent_for_validation":
@@ -198,7 +198,7 @@ function email($case)
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment:          ". strip_tags($sent_comment) ."\r\n\r\n" .
-                        "Please remember to use the massive insertion script should you have many objects to add: http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php\r\n\r\n";
+                        "Please remember to use the massive insertion script should you have many objects to add: http://".$_SERVER['SERVER_NAME']."/submission/object/index_mass_import.php\r\n\r\n";
             break;
         case "shared_update_request_pending":
             $subject  = "Object update needs validation";
@@ -219,7 +219,7 @@ function email($case)
                         "True orientation:  ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
                         "Map (new position): http://mapserver.flightgear.org/popmap/?lon=". $new_long ."&lat=". $new_lat ."&zoom=14" . "\r\n" .
                         "Comment:           ". strip_tags($comment) ."\r\n\r\n" .
-                        "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/shared/submission.php?action=check_update&sig=". $sha_hash . "&email=" . $safe_email . "\r\n\r\n";
+                        "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check_update&sig=". $sha_hash . "&email=" . $safe_email . "\r\n\r\n";
             $backend = true;
             break;
         case "shared_update_request_sent_for_validation":
@@ -270,7 +270,7 @@ function email($case)
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n" .
                         "Map:              http://mapserver.flightgear.org/popmap/?lon=". $longitude ."&lat=". $latitude ."&zoom=14\r\n\r\n" .
-                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/static/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
+                        "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/static_submission.php?ob_sig=". $ob_sha_hash ."&mo_sig=". $mo_sha_hash ."&email=". $safe_au_email . "\r\n\r\n";
             $backend = true;
             break;
         case "static_request_rejected":

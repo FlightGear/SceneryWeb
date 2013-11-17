@@ -208,8 +208,8 @@ if (!$error) {
         echo "<br />Your object request has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
-        echo "Want to submit another object?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/\">Click here to go back to the submission page.</a>";
-        echo "Please remember to use the <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/shared/index_mass_import.php\">massive insertion script</a> should you have many objects to add.";
+        echo "Want to submit another object?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/object/\">Click here to go back to the submission page.</a>";
+        echo "Please remember to use the <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/object/index_mass_import.php\">massive insertion script</a> should you have many objects to add.";
         echo "</center>";
 
         // Sending mail if there is no false and SQL was correctly inserted.

@@ -30,8 +30,8 @@ Directories:
 => "ajax" => Containing all the work relative to Ajax (XML/PHP+JS).
 => "captcha" => Relative to Google's Recaptcha.
 => "inc" => Relative to the librairies used in this process (to make things easy, clean and "short").
-=> "shared" => Contains all the files (2) relative to the shared position insertions.
-=> "static" => The same, but for static models.
+=> "object" => Contains all the files (2) relative to the object position insertions.
+=> "model" => The same, but for models.
 
 Files
 -----

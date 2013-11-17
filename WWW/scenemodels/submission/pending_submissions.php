@@ -39,7 +39,7 @@ if ($resultr) {
         if (substr_count($unzipped_base64_query,"INSERT INTO fgs_models") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is a 3D model query!\n";
-            $pending_requests .= "http://scenemodels.flightgear.org/submission/static/static_submission.php?ob_sig=".$current_ob_id."&mo_sig=".$row->spr_hash."\n";
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/model/static_submission.php?ob_sig=".$current_ob_id."&mo_sig=".$row->spr_hash."\n";
         }
 
         // If the request contains a "INSERT INTO fgs_objects" but does NOT contain a formoid
@@ -47,23 +47,23 @@ if ($resultr) {
         if ((substr_count($unzipped_base64_query,"INSERT INTO fgs_objects") == 1) && (substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 0)) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             if (substr_count($unzipped_base64_query,"VALUES") == 1) {
-                $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=check&sig=".$row->spr_hash."\n";
+                $pending_requests .= "http://scenemodels.flightgear.org/submission/object/submission.php?action=check&sig=".$row->spr_hash."\n";
             }
             // Else, is a mass insertion
-            else $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/mass_submission.php?action=check&sig=".$row->spr_hash."\n";
+            else $pending_requests .= "http://scenemodels.flightgear.org/submission/object/mass_submission.php?action=check&sig=".$row->spr_hash."\n";
         }
         // If the request contains a "UPDATE FROM fgs_objects"
         if (substr_count($unzipped_base64_query,"UPDATE FROM fgs_objects") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is an object update request! Click on the following link to check it!\n";
-            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=check&sig=".$row->spr_hash."\n";
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/object/submission.php?action=check&sig=".$row->spr_hash."\n";
         }
 
         // If the request contains a "DELETE FROM fgs_objects"
         if (substr_count($unzipped_base64_query,"DELETE FROM fgs_objects") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is an object deletion request! Click on the following link to check it!\n";
-            $pending_requests .= "http://scenemodels.flightgear.org/submission/shared/submission.php?action=check&sig=".$row->spr_hash."\n";
+            $pending_requests .= "http://scenemodels.flightgear.org/submission/object/submission.php?action=check&sig=".$row->spr_hash."\n";
         }
     }
 

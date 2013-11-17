@@ -311,7 +311,7 @@ else {
 
     // Sending the visitor elsewhere if he has no idea what he's doing here.
     else {
-        header("Location: /submission/shared/");
+        header("Location: /submission/object/");
     }
 }
 ?>

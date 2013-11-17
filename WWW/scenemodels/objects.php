@@ -194,10 +194,10 @@ require 'inc/header.php';
                  "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n" .
                  "  <td>".$row["ob_heading"]."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
-                 "  <a href=\"submission/shared/check_update_shared.php?update_choice=".$row["ob_id"]."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
+                 "  <a href=\"submission/object/check_update_shared.php?update_choice=".$row["ob_id"]."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
             if (is_shared_or_static($row["ob_id"]) == 'shared') {
 ?>
-                <a href="submission/shared/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">
+                <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">
                     <img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png" alt="delete"/>
                 </a>
 <?php

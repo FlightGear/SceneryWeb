@@ -85,7 +85,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
             <li><strong>A 320x240 thumbnail</strong> containing an advantageous view on the model/object as (JPEG) image - this is preferred for a nice representation of your artwork.</li>
             <li><strong>Country</strong> in which the model is located (if known to the author).</li>
             <li>Additional <strong>short comment on the author</strong>.</li>
-            <li>Details are available <a href="http://scenemodels.flightgear.org/submission/static/index.php">here</a>.</li>
+            <li>Details are available <a href="http://scenemodels.flightgear.org/submission/model/index.php">here</a>.</li>
         </ul>
 
         <h3><a name="tips"><font color="red">Models best practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
@@ -113,7 +113,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 
         <h3><a name="contact"><font color="blue">Upload facilities</font></a></h3>
         <ul>
-            <li>Our dedicated webform <a href="http://scenemodels.flightgear.org/submission/static/index.php">here.</a></li>
+            <li>Our dedicated webform <a href="http://scenemodels.flightgear.org/submission/model/index.php">here.</a></li>
         </ul>
     </div>
 </div>
