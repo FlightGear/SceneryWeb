@@ -11077,17 +11077,15 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM osm_coastline USING UNIQUE osm_id USING SRID=4326"
+    DATA "wkb_geometry FROM osm_coastline USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
-    FILTER "waykey = 99"
     CLASS
       NAME "osm_coastline"
       STYLE
         COLOR 90 160 160
-        SIZE 3
       END
     END
     METADATA
