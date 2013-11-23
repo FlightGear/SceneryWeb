@@ -37,11 +37,11 @@ for LAYER in apt_runway apt_tarmac v0_lake v0_landmass; do
             "SELECT * FROM ${LAYER} \
                 WHERE wkb_geometry && \
                 ST_Buffer((SELECT wkb_geometry FROM apt_airfield WHERE icao LIKE 'EHAM'), 2)"
-        cp -a ${BASEDIR}/landcover/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
+        cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
     fi
 done
 
-cp -a ${BASEDIR}/landcover/COPYING.gplv2 ${DUMPDIR}/COPYING
+cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
 
 zip ${DLDIR}/${UUID}\.zip *
 cd ${DUMPDIR}/.. && rm -rf ${UUID}

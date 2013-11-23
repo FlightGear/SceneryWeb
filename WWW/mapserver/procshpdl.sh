@@ -47,11 +47,11 @@ for LAYER in `${PSQL} "SELECT f_table_name FROM geometry_columns \
             "SELECT * FROM ${LAYER} \
                 WHERE wkb_geometry && \
                 ST_GeomFromText('${WKB_GEOMETRY}', 4326)"
-        cp -a ${BASEDIR}/landcover/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
+        cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
     fi
 done
 
-cp -a ${BASEDIR}/landcover/COPYING.gplv2 ${DUMPDIR}/COPYING
+cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
 
 zip ${DLDIR}/${UUID}\.zip *
 cd ${DUMPDIR}/.. && rm -rf ${UUID}

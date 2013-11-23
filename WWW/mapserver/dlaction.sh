@@ -67,9 +67,9 @@ ${PGSQL2SHP} -f ${DUMPDIR}/${LAYER}.shp \
         WHERE wkb_geometry && \
         ST_SetSRID('BOX3D(${BBOX})'::BOX3D, 4326 ) ${SQLFILTER}"
 
-cp -a ${BASEDIR}/landcover/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
+cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
 
-cp -a ${BASEDIR}/landcover/COPYING.gplv2 ${DUMPDIR}/COPYING
+cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
 
 zip ${DLDIR}/`FileName`-${UUID}\.zip `FileName`*
 cd ${DUMPDIR}/.. && rm -rf ${UUID}
