@@ -196,14 +196,6 @@
 
     <body style='margin: 0px;' onload="init()" bgcolor=#FFFFFF>
         <div style=" width:100%; height:100%;" id="map"></div>
-            <div id="sliders" style="position:absolute; bottom:150px;width:700px;z-index: 2001;height:30px;" align="center">
-                <div id="slider1"><span style="position:relative;top:20px;">CS Lines</span><div class="ui-slider-handle" style="background:#aaa;">
-                </div>
-            </div>
-            <div id="slider2"><span style="position:relative;top:20px;">OSM lines</span>
-                <div class="ui-slider-handle" style="background:#aaa;">
-                </div>
-            </div>
         </div>
         <div style="position:absolute; bottom:10px;width:700px;z-index: 2001;" align="center">
             <table>
