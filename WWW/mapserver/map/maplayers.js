@@ -92,20 +92,6 @@
         {isBaseLayer: false}
     );
 
-    var cslines = new OpenLayers.Layer.WMS( "VMap0/CS line features",
-        [ "http://2.flightgear.telascience.org/tc?",
-          "http://4.flightgear.telascience.org/tc?" ],
-        {layers: 'cslines', format: 'image/png'},
-        {isBaseLayer: false}
-    );
-
-//    var cslines = new OpenLayers.Layer.WMS( "VMap0/CS line features",
-//        [ "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-//          "http://4.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
-//        {layers: 'cs_freeway,cs_road,cs_railroad2,cs_railroad1,cs_canal,cs_intermittentstream,cs_stream', format: 'image/png'},
-//        {isBaseLayer: false}
-//    );
-
     var airspaces = new OpenLayers.Layer.WMS( "Airspaces (experimental)",
         [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
