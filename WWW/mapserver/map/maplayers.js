@@ -174,7 +174,7 @@
         minScale: 12500 }
     );
 
-    var osmcoast = new OpenLayers.Layer.WMS( "OSM coastline (#CURRENTOSMVERSION#)",
+    var osmcoast = new OpenLayers.Layer.WMS( "OSM coastline",
         [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],
         {layers: 'osmcoast', format: 'image/png'},
