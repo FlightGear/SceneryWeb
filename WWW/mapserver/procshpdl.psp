@@ -21,7 +21,7 @@ except:
     print "Cannot connect to database."
 db_cur = db_conn.cursor()
 
-validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'apt', 'tgr']
+validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'apt']
 
 url_params = {}
 url_params['mylayer'] = ("%(layer)s" % form)

@@ -106,13 +106,6 @@
 //        {isBaseLayer: false}
 //    );
 
-    var noaroads = new OpenLayers.Layer.WMS( "StatsCan/TIGER roads (2006se)",
-        [ "http://2.flightgear.telascience.org/tc?",
-          "http://4.flightgear.telascience.org/tc?" ],
-        {layers: 'noaroads', format: 'image/png'},
-        {isBaseLayer: false}
-    );
-
     var airspaces = new OpenLayers.Layer.WMS( "Airspaces (experimental)",
         [ "http://2.flightgear.telascience.org/tc?",
           "http://4.flightgear.telascience.org/tc?" ],

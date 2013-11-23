@@ -75,7 +75,7 @@ else:
     <h4>
     Be aware that downloading large areas of highly detailed layers might
     saturate your network connection for a looong period of time. For
-    example just a tiny little 2x2 degree area of TIGER data might end up at
+    example just a tiny little 2x2 degree area of OSM data might end up at
     downloading more than 20 MByte (compressed!!) - thus resulting in
     approx. &#189; GByte of compressed data for a simple 10x10 degree
     chunk.</h4>
@@ -230,17 +230,6 @@ else:
                 <option value='swbd' [swbd_select]> swbd
                 <option value=''>-- MGRS:
                 <option value='mgrs' [mgrs_select]> mgrs
-                <option value=''>-- TIGER:
-                <option value='tgr_landmarks' [tgr_landmarks_select]> tgr_landmarks
-                <option value='tgr_waterbodies' [tgr_waterbodies_select]> tgr_waterbodies
-                <option value='tgr_motorway' [tgr_motorway_select]> tgr_motorway
-                <option value='tgr_primary' [tgr_primary_select]> tgr_primary
-                <option value='tgr_secondary' [tgr_secondary_select]> tgr_secondary
-                <option value='tgr_minor_roads' [tgr_minor_roads_select]> tgr_minor_roads
-                <option value='tgr_railroads' [tgr_railroads_select]> tgr_railroads
-                <option value='tgr_waterways' [tgr_waterways_select]> tgr_waterways
-                <option value=''>-- StatsCan:
-                <option value='grnf_roads' [grnf_roads_select]> grnf_roads
                 <option value=''>-- OSM:
                 <option value='osm_motorway' [osm_motorway_select]> osm_motorway
                 <option value='osm_trunk' [osm_trunk_select]> osm_trunk
@@ -388,7 +377,6 @@ else:
                     <option value='clc06' [clc06_select]> CLC2006v16 (layer=clc06)
                     <option value='osm' [osm_select]> OSM (#CURRENTOSMVERSION#, layer=osm)
                     <option value='apt' [apt_select]> Apt Dat (2013.10, layer=apt)
-                    <option value='tgr' [tgr_select]> TIGER 2006 SE (layer=tgr)
                 </select>
                 <INPUT TYPE="submit" value="Download" checked>
             </form>
