@@ -71,8 +71,6 @@ UL.table LI {
     background: #e0e0ff;
     padding: 1px;
     padding: 0px 20px 0px 20px;
-    padding-left:auto;
-    padding-right:auto;
     border-bottom:1px solid #999;
 }
 
@@ -96,7 +94,6 @@ UL.table LI {
 
 HR {
     width: 70%;
-    size:1px;
     color: #bbb;
 }
 
@@ -147,14 +144,12 @@ HR {
 
 TD {
     border:1px solid #999;
-    vertical-align: center;
+    vertical-align: middle;
 }
 
 TD.submit {
     text-align: center;
     padding-top:10px;
-    padding-left:auto;
-    padding-right:auto;
 }
 
 TD.submit * {
@@ -259,7 +254,7 @@ FORM {
 }
 
 .mainitems{
-<!--border: 1px solid black;-->
+    /*border: 1px solid black;*/
     border-left-width: 0;
     background-color: #e0e0ff;
 }
