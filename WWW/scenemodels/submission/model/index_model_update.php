@@ -31,7 +31,7 @@ function validateForm()
         !checkNumeric(form["heading"],0,359.999) ||
         !checkComment(form["notes"]) ||
         !checkComment(form["comment"]) ||
-        !chkEmail(form["email"]))
+        !checkEmail(form["email"]))
         return false;
 }
 
@@ -226,7 +226,7 @@ $(function() {
                         <label for="email">Your email<em>*</em><span>Your email which can be different from the author's.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="email" id="email" maxlength="50" size="30" value="" onkeyup="chkEmail(this);" />
+                        <input type="text" name="email" id="email" maxlength="50" size="30" value="" onkeyup="checkEmail(this);" />
                     </td>
                 </tr>
                 <tr>

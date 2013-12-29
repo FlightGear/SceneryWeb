@@ -100,7 +100,7 @@ function chkComment(checkStr)
 
 function checkEmail(emailfield)
 {
-    if (!chkEmail(emailfield))
+    if (!chkEmail(emailfield.value))
     {
         emailfield.style.border = "2px solid rgb(200, 0, 0)";
         return false;
@@ -111,10 +111,9 @@ function checkEmail(emailfield)
     return true;
 }
 
-function chkEmail(emailfield)
+function chkEmail(checkStr)
 {
     var checkOK = numbers + letters + "@_-.";
-    var checkStr = emailfield.value;
     var allValid = true;
     var allNum = "";
 
