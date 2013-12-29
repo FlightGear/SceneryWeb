@@ -75,6 +75,7 @@ function email($case)
                         "Family:           ". family_name($mo_shared) . "\r\n[ ".$html_family_url." ]\r\n" .
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
+                        "Contributor email ". $safe_contr_email ."\r\n" .
                         "Model name:       ". $name ."\r\n" .
                         "Description:      ". strip_tags($notes) ."\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n" .
