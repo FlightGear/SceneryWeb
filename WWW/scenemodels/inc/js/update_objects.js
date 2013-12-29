@@ -67,10 +67,12 @@ function changeModelInfo(hreq, path)
         var object=objects[0];
         var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
         var notes=object.getElementsByTagName("notes")[0].childNodes[0].nodeValue;
+        var au_id=object.getElementsByTagName("author")[0].childNodes[0].nodeValue;
     }
 
     document.getElementById('mo_name').value = name;
     document.getElementById('notes').value = notes;
+    document.getElementById('mo_author').value = au_id;
 }
 
 function change_thumb()

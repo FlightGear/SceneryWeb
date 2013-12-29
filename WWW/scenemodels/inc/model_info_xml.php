@@ -21,7 +21,7 @@ if ($mo_id!="")
 
     // Querying when the family is updated.
 
-    $query = "SELECT mo_name, mo_notes " .
+    $query = "SELECT mo_name, mo_notes, mo_author " .
              "FROM fgs_models WHERE mo_id = ".$mo_id.";";
     $result = @pg_query($headerlink,$query);
 
@@ -30,11 +30,12 @@ if ($mo_id!="")
     echo "<objects>\n";
     while($row = @pg_fetch_assoc($result))
     {
-        $name=$row["mo_name"];
-        $notes=$row["mo_notes"];
+        $name   = $row["mo_name"];
+        $notes  = $row["mo_notes"];
+        $author = $row["mo_author"];
         if ($notes == "")
             $notes = "-";
-        echo "<object>\n<name>$name</name>\n<notes>$notes</notes>\n</object>\n";
+        echo "<object>\n<name>$name</name>\n<notes>$notes</notes>\n<author>$author</author>\n</object>\n";
     }
     echo "</objects>\n";
 
