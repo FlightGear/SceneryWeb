@@ -9,7 +9,7 @@ $to = "";
 function email($case)
 {
     // Register variables that we'd like to use inside this function
-    global $author,$comment,$notes,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$pending_requests,$safe_au_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
+    global $author,$comment,$notes,$country,$dtg,$family_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$pending_requests,$safe_au_email,$safe_contr_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
 
     // Set to true when email should be sent to maintainers
     $backend = false;
@@ -99,6 +99,7 @@ function email($case)
                         "Family:           ". family_name($mo_shared) . "\r\n" . "[ ".$html_family_url." ]\r\n" .
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
+                        "Contributor email ". $safe_contr_email ."\r\n" .
                         "Model name:       ". $name ."\r\n" .
                         "Description:      ". strip_tags($notes) ."\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n";
@@ -111,6 +112,7 @@ function email($case)
                         "Family:           ". family_name($mo_shared) . "\r\n" . "[ ".$html_family_url." ]\r\n" .
                         "Path:             ". $path_to_use . "\r\n" .
                         "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
+                        "Contributor email ". $safe_contr_email ."\r\n" .
                         "Model name:       ". $name ."\r\n" .
                         "Description:      ". strip_tags($notes) ."\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n";
