@@ -8,7 +8,7 @@
         && $_REQUEST['update_choice']>'0'
         && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice'])) {
         $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
-        $result = pg_query("SELECT mo_id, mo_name, mo_notes, mo_path, mo_shared FROM fgs_models WHERE mo_id=$id_to_update;");
+        $result = pg_query("SELECT mo_id, mo_name, mo_notes, mo_path, mo_shared, mo_author FROM fgs_models WHERE mo_id=$id_to_update;");
         $model = pg_fetch_assoc($result);
     }
 ?>
@@ -30,11 +30,12 @@ function validateForm()
         !checkNumeric(form["offset"],-10000,10000) ||
         !checkNumeric(form["heading"],0,359.999) ||
         !checkComment(form["notes"]) ||
-        !checkComment(form["comment"]))
+        !checkComment(form["comment"]) ||
+        !chkEmail(form["email"]))
         return false;
 }
 
-function  validateTabs()
+function validateTabs()
 {
     var form = document.getElementById("positions");
     $( "#tabs" ).tabs({ disabled: false });
@@ -205,7 +206,7 @@ $(function() {
         </div>
         <div id="tabs-2">
             <ul>
-                <li>Choose the author for the model.</li>
+                <li>Choose the author for the model. <em>If you've just made some fixes to the model, please keep the original author.</em></li>
                 <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
             </ul>
@@ -216,8 +217,16 @@ $(function() {
                     </td>
                     <td>
                         <select name="mo_author" id="mo_author">
-                            <?php list_authors(); ?>
+                            <?php list_authors($model["mo_author"]); ?>
                         </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="email">Your email<em>*</em><span>Your email which can be different from the author's.</span></label>
+                    </td>
+                    <td>
+                        <input type="text" name="email" id="email" maxlength="50" size="30" value="" onkeyup="chkEmail(this);" />
                     </td>
                 </tr>
                 <tr>

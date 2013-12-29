@@ -577,11 +577,12 @@ if (($_POST["family_name"] != "") && ($_POST["mo_author"] != "")
     && ($_POST["model_name"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
     && isset($_POST['notes'])) {
 
-        $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
+        $path        = remove_file_extension ($ac3dName);
         $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
         $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
         $mo_shared   = $_POST["family_name"];
         $author      = $_POST["mo_author"];
+        $contr_email = $_POST["email"];
         $model_name  = $_POST["model_name"];
         $ipaddr      = $_POST["IPAddr"];
 
@@ -672,6 +673,14 @@ else {
         else {
             $failed_mail = 1;
         }
+        
+        if (($contr_email != '') && (strlen($contr_email) > 0)) {
+            $safe_contr_email = pg_escape_string(stripslashes($contr_email));
+        }
+        else {
+            $failed_mail = 1;
+        }
+        
         echo "has been successfully queued into the FG scenery database model update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
@@ -689,11 +698,19 @@ else {
 
         email("model_update_request_pending");
 
-        // Mailing the submitter to tell him that his submission has been sent for validation
+        
         if($failed_mail != 1) {
-            $to = $safe_au_email;
+            // Mailing the submitter to tell him that his submission has been sent for validation
+            $to = $safe_contr_email;
             email("model_update_request_sent_for_validation");
+        
+            // If the author's email is different from the subbmitter's, an email is also sent to the author
+            if ($safe_au_email != $safe_contr_email) {
+                $to = $safe_au_email;
+                email("model_update_request_sent_for_validation_author");
+            }
         }
+        
     }
 }
 require '../../inc/footer.php';

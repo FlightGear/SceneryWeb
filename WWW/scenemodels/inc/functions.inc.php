@@ -623,7 +623,7 @@ function ob_model_from_name($model_name)
 // Lists the authors of models in FlightGear.
 // ==========================================
 
-function list_authors()
+function list_authors($default_au=null)
 {
     // Connecting to the database.
     $headerlink_authors = connect_sphere_r();
@@ -633,8 +633,11 @@ function list_authors()
     $result = @pg_query($headerlink_authors, $query);
 
     while ($row = @pg_fetch_assoc($result)) {
-        if ($row["au_id"] == 1) echo "<option value=\"".$row["au_id"]."\" selected=\"selected\">".$row["au_name"]."</option>\n";
-        else echo "<option value=\"".$row["au_id"]."\">".$row["au_name"]."</option>\n";
+        if (($row["au_id"] == 1 && !isset($default_au))
+                || (isset($default_au) && $default_au==$row["au_id"]))
+            echo "<option value=\"".$row["au_id"]."\" selected=\"selected\">".$row["au_name"]."</option>\n";
+        else
+            echo "<option value=\"".$row["au_id"]."\">".$row["au_name"]."</option>\n";
     }
 
     // Closing the connection.

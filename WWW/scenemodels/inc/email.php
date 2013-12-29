@@ -103,6 +103,18 @@ function email($case)
                         "Description:      ". strip_tags($notes) ."\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n";
             break;
+        case "model_update_request_sent_for_validation_author":
+            $subject  = "3D model update request";
+            $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), issued a 3D model update request for your model.\r\n\r\n" .
+                        "We would like to let you know that this request has been sent for validation.\r\n\r\n" .
+                        "For reference, the first part of the unique ID of this request is '".substr($mo_sha_hash,0,10). "'\r\n\r\n" .
+                        "Family:           ". family_name($mo_shared) . "\r\n" . "[ ".$html_family_url." ]\r\n" .
+                        "Path:             ". $path_to_use . "\r\n" .
+                        "Author:           ". get_authors_name_from_authors_id($author) ."\r\n" .
+                        "Model name:       ". $name ."\r\n" .
+                        "Description:      ". strip_tags($notes) ."\r\n" .
+                        "Comment by user:  ". strip_tags($sent_comment) . "\r\n\r\n";
+            break;
         case "pending_request_process_confirmation":
             $subject  = "Automatic objects pending request process confirmation";
             $message .= "We would like to let you know that the object (addition, update, deletion) request nr:'".substr($sig,0,10). "'was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n" .
