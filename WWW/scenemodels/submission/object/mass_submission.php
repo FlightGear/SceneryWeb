@@ -87,7 +87,7 @@
 ?>
                     <tr>
                         <td colspan="3">Leave a comment to the submitter</td>
-                        <td colspan="6"><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" onfocus="emptyDefaultValue(this, 'Drop a comment to the submitter');"/></td>
+                        <td colspan="6"><input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter"/></td>
                     </tr>
                     <tr>
                         <td colspan="9" class="submit">

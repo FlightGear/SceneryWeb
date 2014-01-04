@@ -38,7 +38,7 @@ function validateForm()
         return false;
 }
 
-function  validateTabs()
+function validateTabs()
 {
     var form = document.getElementById("positions");
     $( "#tabs" ).tabs({ disabled: false });
