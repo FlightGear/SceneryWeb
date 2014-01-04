@@ -1,40 +1,43 @@
 <VirtualHost *:80>
-	ServerName scenery.flightgear.org
-	DocumentRoot /home/fgscenery/WWW/scenery
-	php_value auto_prepend_file /home/jstockill/etc/config.php
-	ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
-	Alias /geodata/fgx /home/ysablonier/fgx_geodata
-	ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
-	CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
+    ServerName scenery.flightgear.org
+    DocumentRoot /home/fgscenery/WWW/scenery
+    php_value auto_prepend_file /home/jstockill/etc/config.php
+    ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
+    Alias /geodata/fgx /home/ysablonier/fgx_geodata
+    <Directory "/geoip">
+        GeoIPEnable On
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
+    CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
 </VirtualHost>
 
 <IfModule mod_ssl.c>
-<VirtualHost *:443>
-	ServerName scenery.flightgear.org
+    <VirtualHost *:443>
+        ServerName scenery.flightgear.org
 ########################################################################
-	# Jenkins
-	ProxyRequests     Off
-	ProxyPreserveHost On
-	<Proxy http://localhost:8081/jenkins*>
-	  Order deny,allow
-	  Allow from all
-	</Proxy>
-	ProxyPass         /jenkins  http://localhost:8081/jenkins
-	ProxyPassReverse  /jenkins  http://localhost:8081/jenkins
-	ProxyPassReverse  /jenkins  http://scenery.flightgear.org/jenkins
+        # Jenkins
+        ProxyRequests     Off
+        ProxyPreserveHost On
+        <Proxy http://localhost:8081/jenkins*>
+            Order deny,allow
+            Allow from all
+        </Proxy>
+        ProxyPass         /jenkins  http://localhost:8081/jenkins
+        ProxyPassReverse  /jenkins  http://localhost:8081/jenkins
+        ProxyPassReverse  /jenkins  http://scenery.flightgear.org/jenkins
 
-	SSLEngine on
-	SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
-	SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-	<FilesMatch "\.(cgi|shtml|phtml|php)$">
-		SSLOptions +StdEnvVars
-	</FilesMatch>
-	BrowserMatch "MSIE [2-6]" \
-		nokeepalive ssl-unclean-shutdown \
-		downgrade-1.0 force-response-1.0
-	BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+        SSLEngine on
+        SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+        <FilesMatch "\.(cgi|shtml|phtml|php)$">
+            SSLOptions +StdEnvVars
+        </FilesMatch>
+        BrowserMatch "MSIE [2-6]" \
+            nokeepalive ssl-unclean-shutdown \
+            downgrade-1.0 force-response-1.0
+        BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
 ########################################################################
-	ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
-	CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
-</VirtualHost>
+        ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
+        CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
+    </VirtualHost>
 </IfModule>
