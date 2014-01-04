@@ -348,7 +348,7 @@ include '../../inc/header.php';
         <td>Corresponding AC3D File</td>
         <td colspan="2">
             Original model<br/>
-            <object data="viewer.php?id=<?php echo $mo_id; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="../../viewer.php?id=<?php echo $mo_id; ?>" type="text/html" width="720px" height="620px"></object>
             <br/>
         
 <?php
