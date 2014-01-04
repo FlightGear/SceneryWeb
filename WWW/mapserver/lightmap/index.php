@@ -22,17 +22,19 @@
 
         <script type="text/javascript">
         <!--
-        <?php
-            include_once("geoipcity.inc");
-            $gi = geoip_open("/home/fgscenery/GeoIP/GeoLiteCity.dat",GEOIP_STANDARD);
-            $girecord = geoip_record_by_addr($gi,$_SERVER['REMOTE_ADDR']);
-            geoip_close($gi);
-        ?>
+//        <?php
+//            include_once("geoipcity.inc");
+//            $gi = geoip_open("/home/fgscenery/GeoIP/GeoLiteCity.dat",GEOIP_STANDARD);
+//            $girecord = geoip_record_by_addr($gi,$_SERVER['REMOTE_ADDR']);
+//            geoip_close($gi);
+//        ?>
 
 //        var lon = <?php print $_REQUEST["lon"]; ?>;
 //        var lat = <?php print $_REQUEST["lat"]; ?>;
-        var lon = <?php print $girecord->longitude; ?>;
-        var lat = <?php print $girecord->latitude; ?>;
+//        var lon = <?php print $girecord->longitude; ?>;
+//        var lat = <?php print $girecord->latitude; ?>;
+        var lon = <?php print apache_note("GEOIP_LONGITUDE"); ?>;
+        var lat = <?php print apache_note("GEOIP_LATITUDE"); ?>;
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
         var map;
 
