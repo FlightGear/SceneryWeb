@@ -4,8 +4,10 @@
     php_value auto_prepend_file /home/jstockill/etc/config.php
     ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
     Alias /geodata/fgx /home/ysablonier/fgx_geodata
-    <Directory "/geoip">
-        GeoIPEnable On
+    <Directory "/home/fgscenery/WWW/scenery/">
+        AddHandler mod_python .psp
+        PythonHandler mod_python.psp
+        PythonDebug Off
     </Directory>
     ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
     CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
