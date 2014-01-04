@@ -1,0 +1,13 @@
+<%
+co = req.subprocess_env["GEOIP_COUNTRY_CODE"]
+lon = req.subprocess_env["GEOIP_LONGITUDE"]
+lat = req.subprocess_env["GEOIP_LATITUDE"]
+%>
+<html>
+    <head>
+        <title>Python Server Pages</title>
+    </head>
+    <body>
+        <%=("%s, %s, %s") % (co, lon, lat)%>
+    </body>
+</html>
