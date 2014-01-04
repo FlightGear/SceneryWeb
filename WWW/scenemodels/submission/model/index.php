@@ -104,7 +104,6 @@ $(function() {
                     <td colspan="2">
                         <select name="mo_shared" id="mo_shared">
                             <?php
-                            $resource_r = connect_sphere_r();
                             $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups ORDER BY mg_name;");
 
                             while ($row = pg_fetch_assoc($result)) {
@@ -114,7 +113,6 @@ $(function() {
                                     echo "<option value=\"".$row["mg_id"]."\" selected=\"selected\">".$name."</option>\n";
                                 else echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                             }
-                            pg_close ($resource_r);
                             ?>
                         </select>
                     </td>
