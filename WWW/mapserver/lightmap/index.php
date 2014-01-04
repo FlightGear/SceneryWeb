@@ -22,17 +22,9 @@
 
         <script type="text/javascript">
         <!--
-//        <?php
-//            include_once("geoipcity.inc");
-//            $gi = geoip_open("/home/fgscenery/GeoIP/GeoLiteCity.dat",GEOIP_STANDARD);
-//            $girecord = geoip_record_by_addr($gi,$_SERVER['REMOTE_ADDR']);
-//            geoip_close($gi);
-//        ?>
 
 //        var lon = <?php print $_REQUEST["lon"]; ?>;
 //        var lat = <?php print $_REQUEST["lat"]; ?>;
-//        var lon = <?php print $girecord->longitude; ?>;
-//        var lat = <?php print $girecord->latitude; ?>;
         var lon = <?php print apache_note("GEOIP_LONGITUDE"); ?>;
         var lat = <?php print apache_note("GEOIP_LATITUDE"); ?>;
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
@@ -62,11 +54,9 @@
             sceneobject.setVisibility(false);
             map.addLayers([customscene, v0cover, icubed, tarmac, osmlines, airfield, sceneobject]);
 
-//            if (!map.getCenter()) {
-                var ll = new OpenLayers.LonLat(lon, lat), zoom;
-                ll.transform(projLonLat, projMercator);
-                map.setCenter(ll);
-//            }
+            var ll = new OpenLayers.LonLat(lon, lat), zoom;
+            ll.transform(projLonLat, projMercator);
+            map.setCenter(ll);
         }
         </script>
     </head>
@@ -74,5 +64,4 @@
     <body style='margin: 0px;' onload="init()" bgcolor="#FFFFFF">
         <div style=" width:100%; heigth:100%;" id="map"></div>
     </body>
-
 </html>
