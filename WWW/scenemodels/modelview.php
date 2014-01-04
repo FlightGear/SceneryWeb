@@ -58,43 +58,24 @@ if (!empty($model["mo_notes"])) {
         <td><?php print $id; ?></td>
     </tr>
 <?php
-    if ($model["mo_shared"] == 0) {
-        $result = pg_query("SELECT ob_id FROM fgs_objects WHERE ob_model = '$id';");
-        
-?>
-        <tr>
-            <td>Corresponding object ID</td>
-            <td>
-<?php 
-        while ($row = pg_fetch_assoc($result)) {
-?>
-                <a href="objectview.php?id=<?php echo $row["ob_id"]."\">".$row["ob_id"]; ?></a><br/>
-<?php   
+
+    $query = "SELECT COUNT(*) AS number " .
+             "FROM fgs_objects " .
+             "WHERE ob_model=$id";
+    $numbers = pg_query($query);
+    $number = pg_fetch_assoc($numbers);
+    $occurences = $number["number"];
+    echo "<tr>" .
+            "<td>Occurrences</td>" .
+            "<td>";
+        if ($occurences > 0) {
+            echo "<a href=\"objects.php?model=".$id."\">".$occurences;
+            echo $occurences > 1 ? " objects" : " object";
+            echo "</a>";
+        } else {
+            echo "0 object";
         }
-?>
-            </td>
-        </tr>
-<?php 
-        
-    } else {
-        $query = "SELECT COUNT(*) AS number " .
-                 "FROM fgs_objects " .
-                 "WHERE ob_model=$id";
-        $numbers = pg_query($query);
-        $number = pg_fetch_assoc($numbers);
-        $occurences = $number["number"];
-        echo "<tr>" .
-                "<td>Occurrences</td>" .
-                "<td>";
-            if ($occurences > 0) {
-                echo "<a href=\"objects.php?model=".$id."\">".$occurences;
-                echo $occurences > 1 ? " objects" : " object";
-                echo "</a>";
-            } else {
-                echo "0 object";
-            }
-        echo "</tr>";
-    }
+    echo "</tr>";
 ?>
     <tr>
         <td colspan="2">
@@ -108,39 +89,6 @@ if (!empty($model["mo_notes"])) {
             </div>
         </td>
     </tr>
-<?php
-    if ($model["mo_shared"] == 0) {
-        $query = "SELECT ST_Y(wkb_geometry) AS ob_lat, " .
-                 "ST_X(wkb_geometry) AS ob_lon " .
-                 "FROM fgs_objects " .
-                 "WHERE ob_model=$id";
-        $chunks = pg_query($query);
-        $chunk = pg_fetch_assoc($chunks);
-?>
-        <tr>
-            <td align="center" colspan="3">
-                <div id="map" style="resize: vertical; overflow: auto;">
-                    <a onclick="showMap()">Show location on map</a>
-                </div>
-            </td>
-        </tr>
-        <script type="text/javascript">
-        function showMap() {
-            var objectMap = document.createElement("object");
-            objectMap.width = "100%";
-            objectMap.height = "99%";
-            objectMap.data = "http://mapserver.flightgear.org/popmap/?lat=<?php echo $chunk["ob_lat"]; ?>&lon=<?php echo $chunk["ob_lon"]; ?>&zoom=14&layers=B0TFTTTTT";
-            objectMap.type = "text/html";
-            var map = document.getElementById("map");
-            map.innerHTML = "";
-            map.style.height = "500px";
-            map.style.textAlign = "center";
-            map.appendChild(objectMap);
-        }
-        </script>
-<?php
-    }
-?>
 </table>
 
 <script type="text/javascript">
