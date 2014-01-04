@@ -133,10 +133,7 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
                      "</tr>\n";
             }
 ?>
-            <!--<tr>
-                <td colspan="3">Leave a comment to the submitter</td>
-                <td colspan="5"><input type="text" name="maintainer_comment" size="85" value="Drop a comment to the submitter" onfocus="emptyDefaultValue(this, 'Drop a comment to the submitter');"/></td>
-            </tr>-->
+
             <tr>
                 <td colspan="8" class="submit">
                     <?php echo "<a href=\"submission.php?action=accept&amp;sig=".$_GET["sig"]."&amp;email=".$_GET["email"]."\" />Accept</a> | ";?>
