@@ -91,10 +91,8 @@ $(function() {
                     <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object you want to add.</span></label></td>
                     <td colspan="2">
             <?php
-                            $resource_r = connect_sphere_r();
-
                             // If connection is OK
-                            if ($resource_r != '0') {
+                            if ($link != '0') {
 
                                 // Show all the families other than the static family
                                 $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
@@ -110,14 +108,11 @@ $(function() {
                                     echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
                                 }
                                 echo "</select>";
-
-                                // Close the database resource
-                                @pg_close($resource_r);
                             }
 
                             // Else, write message.
                             else {
-                                echo "<br /><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
+                                echo "<br/><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
                             }
             ?>
                     </td>
