@@ -257,7 +257,13 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Author (Email)</td>
-        <td><?php echo $old_model["mo_author"]."()"; ?></td>
+        <td>
+            <?php
+            $result = pg_query("SELECT au_id, au_name FROM fgs_authors WHERE au_id = '$old_model[mo_author]';");
+            $row = pg_fetch_assoc($result);
+            echo $row["au_name"];
+            ?>
+        </td>
         <td>
             <?php echo $mo_author."(".$_GET["email"].")"; ?>
             <input type="hidden" name="email" value="<?php echo htmlentities($_GET["email"]); ?>" />
@@ -292,7 +298,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><img src="modelthumb.php?id=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></td>
+        <td><img src="modelthumb.php?id=<?php echo $mo_id ?>" alt="Thumbnail"/></td>
         <td><img src="get_thumbnail_from_mo_sig_update.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></td>
     </tr>
 <?php
