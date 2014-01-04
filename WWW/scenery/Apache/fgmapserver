@@ -2,192 +2,202 @@
 #
 
 <VirtualHost *:80>
-	ServerName mapserver.flightgear.org
-	ServerAlias flightgear.telascience.org
-	ServerAlias 1.flightgear.telascience.org
-	ServerAlias 2.flightgear.telascience.org
-	ServerAlias 3.flightgear.telascience.org
-	ServerAlias 4.flightgear.telascience.org
+    ServerName mapserver.flightgear.org
+    ServerAlias flightgear.telascience.org
+    ServerAlias 1.flightgear.telascience.org
+    ServerAlias 2.flightgear.telascience.org
+    ServerAlias 3.flightgear.telascience.org
+    ServerAlias 4.flightgear.telascience.org
 # See if this works - locking out fakes bots ....
-	SetEnvIfNoCase User-Agent "^MJ12bot(.*)1\.0\.8" stay_out
-	<Location />
-	  AddOutputFilterByType SUBSTITUTE text/html application/javascript
-	  Substitute s/#CURRENTOSMVERSION#/2013-05-04/nq
-	  Order Allow,Deny
-	  Deny from env=stay_out
-	  Allow from all
-	</Location>
+    SetEnvIfNoCase User-Agent "^MJ12bot(.*)1\.0\.8" stay_out
+    <Location />
+        AddOutputFilterByType SUBSTITUTE text/html application/javascript
+        Substitute s/#CURRENTOSMVERSION#/2013-05-04/nq
+        Order Allow,Deny
+        Deny from env=stay_out
+        Allow from all
+    </Location>
 ########################################################################
-	DocumentRoot /home/fgscenery/WWW/mapserver
+    DocumentRoot /home/fgscenery/WWW/mapserver
         php_value auto_prepend_file /home/jstockill/etc/config.php
-	# Support the old-style "landcover" notation:
-	ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
-	ScriptAlias /ils /usr/local/lib/cgi-bin/ils
-	RedirectPermanent /download.psp /shpdl/
-	ScriptAlias /shpdl /home/fgscenery/WWW/mapserver/shpdl.psp
-	ScriptAlias /dlaction /home/fgscenery/WWW/mapserver/dlaction.psp
-	ScriptAlias /dlshp /home/fgscenery/WWW/mapserver/procshpdl.psp
-	<Location /dlshp>
-	  Order allow,deny
-	  Deny from 89.159.24.138
-	  Allow from all
-	</Location>
-	<Directory "/usr/local/lib/cgi-bin/">
-	  Options FollowSymLinks
-	</Directory>
-	# Test setup for minimalistic template
-	ScriptAlias /atlas /usr/local/lib/cgi-bin/atlas
-	<Directory "/usr/local/lib/cgi-bin/">
-	  Options FollowSymLinks
-	</Directory>
-	# Regular Web-Service:
-	<Directory "/home/fgscenery/WWW/mapserver/">
-	  AddHandler mod_python .psp
-	  PythonHandler mod_python.psp
-	  PythonDebug Off
-	</Directory>
-	# TileCache
-#	WSGIDaemonProcess tilecache processes=20 threads=25 maximum-requests=750 display-name=tc_wsgi
-#	WSGIProcessGroup tilecache
-	ScriptAlias /tc /home/martin/WWW/tilecache-2.11/tilecache.py
-	<Directory "/home/martin/WWW/tilecache-2.11/">
-	  SetHandler python-program
-	  PythonHandler TileCache.Service
-	  PythonOption TileCacheConfig /home/fgscenery/WWW/mapserver/tilecache.cfg
-#	  PythonDebug On
-#	  ExpiresActive on
-#	  ExpiresDefault "now plus 6 days"
-	</Directory>
-	# MS template view
-	Alias /tmp /home/fgscenery/MStmp
-	# OpenLayers
-	Alias /ol /home/martin/WWW/OpenLayers-2.11
-	<Directory "/home/martin/WWW/OpenLayers-2.11">
-	  SetEnv PYTHON_EGG_CACHE /tmp
-	</Directory>
-	# FeatureServer
-	ScriptAlias /fs /home/martin/WWW/featureserver-1.12/featureserver.cgi
-	<Directory "/home/martin/WWW/featureserver-1.12">
-	  SetEnv PYTHON_EGG_CACHE /tmp
-	</Directory>
+    # Support the old-style "landcover" notation:
+    ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
+    ScriptAlias /ils /usr/local/lib/cgi-bin/ils
+    RedirectPermanent /download.psp /shpdl/
+    ScriptAlias /shpdl /home/fgscenery/WWW/mapserver/shpdl.psp
+    ScriptAlias /dlaction /home/fgscenery/WWW/mapserver/dlaction.psp
+    ScriptAlias /dlshp /home/fgscenery/WWW/mapserver/procshpdl.psp
+    <Location /dlshp>
+        Order allow,deny
+        Deny from 89.159.24.138
+        Allow from all
+    </Location>
+    <Directory "/usr/local/lib/cgi-bin/">
+        Options FollowSymLinks
+    </Directory>
+    # Test setup for minimalistic template
+    ScriptAlias /atlas /usr/local/lib/cgi-bin/atlas
+    <Directory "/usr/local/lib/cgi-bin/">
+        Options FollowSymLinks
+    </Directory>
+    # Regular Web-Service:
+    <Directory "/home/fgscenery/WWW/mapserver/">
+        AddHandler mod_python .psp
+        PythonHandler mod_python.psp
+        PythonDebug Off
+    </Directory>
+    # TileCache
+#    WSGIDaemonProcess tilecache processes=20 threads=25 maximum-requests=750 display-name=tc_wsgi
+#    WSGIProcessGroup tilecache
+    ScriptAlias /tc /home/martin/WWW/tilecache-2.11/tilecache.py
+    <Directory "/home/martin/WWW/tilecache-2.11/">
+        SetHandler python-program
+        PythonHandler TileCache.Service
+        PythonOption TileCacheConfig /home/fgscenery/WWW/mapserver/tilecache.cfg
+#        PythonDebug On
+#        ExpiresActive on
+#        ExpiresDefault "now plus 6 days"
+    </Directory>
+    # MS template view
+    Alias /tmp /home/fgscenery/MStmp
+    # OpenLayers
+    Alias /ol /home/martin/WWW/OpenLayers-2.11
+    <Directory "/home/martin/WWW/OpenLayers-2.11">
+        SetEnv PYTHON_EGG_CACHE /tmp
+    </Directory>
+    # FeatureServer
+    ScriptAlias /fs /home/martin/WWW/featureserver-1.12/featureserver.cgi
+    <Directory "/home/martin/WWW/featureserver-1.12">
+        SetEnv PYTHON_EGG_CACHE /tmp
+    </Directory>
         # Landcover database structure
         Alias /landcover-db.html /home/martin/WWW/mapserver/landcover-db.html
         Alias /struct /home/martin/WWW/mapserver/struct
-	# Bulk Download
-	Alias /dl /home/martin/WWW/dl
-	<Directory "/home/martin/WWW/dl">
-	  Options -Indexes -FollowSymlinks
-	</Directory>
-	Alias /TGShapes /home/martin/WWW/TGShapes
-	<Directory "/home/martin/WWW/TGShapes">
-	  Options +Indexes -FollowSymlinks
-	</Directory>
-	<Directory "/home/martin/WWW/TGShapes">
-	  Options +Indexes -FollowSymlinks
-	</Directory>
-	# Shapefile-Download
-	Alias /download /home/fgscenery/SHPdl
-	# Scenery-Download (Dummy/Real)
-	Alias /Scenery /home/martin/WWW/DummySceneryDownload
-	<Directory "/home/martin/WWW/DummySceneryDownload">
-	  Options +Indexes -FollowSymlinks
-	  IndexIgnore .*
-	  # Disallow download robots; Martin, 2008-12-03
-	  Order allow,deny
-	  Deny from 89.250.20.7
-	  Allow from all
-	</Directory>
-	Alias /webalizer /home/martin/WWW/webalizer
-	# Historic
-	Alias /CrashTheDB_2.sql.gz /home/martin/landcover/CrashTheDB_full.sql.gz
+    # Bulk Download
+    Alias /dl /home/martin/WWW/dl
+    <Directory "/home/martin/WWW/dl">
+        Options -Indexes -FollowSymlinks
+    </Directory>
+    Alias /TGShapes /home/martin/WWW/TGShapes
+    <Directory "/home/martin/WWW/TGShapes">
+        Options +Indexes -FollowSymlinks
+    </Directory>
+    <Directory "/home/martin/WWW/TGShapes">
+        Options +Indexes -FollowSymlinks
+    </Directory>
+    # Shapefile-Download
+    Alias /download /home/fgscenery/SHPdl
+    # Scenery-Download (Dummy/Real)
+    Alias /Scenery /home/martin/WWW/DummySceneryDownload
+    <Directory "/home/martin/WWW/DummySceneryDownload">
+        Options +Indexes -FollowSymlinks
+        IndexIgnore .*
+        # Disallow download robots; Martin, 2008-12-03
+        Order allow,deny
+        Deny from 89.250.20.7
+        Allow from all
+    </Directory>
+    Alias /webalizer /home/martin/WWW/webalizer
+    # Historic
+    Alias /CrashTheDB_2.sql.gz /home/martin/landcover/CrashTheDB_full.sql.gz
 ########################################################################
-	# VirtualPlanetBuilder
-	Alias /earth /home/martin/VPB/out
-	<Directory "/home/martin/VPB/out">
-	  DirectoryIndex terrain.ive
-	  Options -Indexes -FollowSymlinks
-	  IndexIgnore .*
-	</Directory>
+    # VirtualPlanetBuilder
+    Alias /earth /home/martin/VPB/out
+    <Directory "/home/martin/VPB/out">
+        DirectoryIndex terrain.ive
+        Options -Indexes -FollowSymlinks
+        IndexIgnore .*
+    </Directory>
 ########################################################################
-	# Terrascenery SVN
-	<Location /terrascenery>
-	  DAV svn
-	  SVNPath /home/martin/SVN/terrascenery
-	  Order deny,allow
-	  Deny from all
-	  Allow from a.b.c.d
-	</Location>
+    # ViewFinderPanoramas mirror
+    Alias /VFP /home/martin/archive/GIS/GISData/SRTM/www.viewfinderpanoramas.org
+    <Directory "/home/martin/archive/GIS/GISData/SRTM/www.viewfinderpanoramas.org">
+        Options -Indexes -FollowSymlinks
+        IndexIgnore .*
+    </Directory>
 ########################################################################
-	# FGx
-	Alias /fgx /home/ysablonier/htdocs
-	<Directory "/home/ysablonier/htdocs">
-	  DirectoryIndex index.html
-#	  Options +Indexes -FollowSymlinks
-#	  IndexIgnore .*
-	</Directory>
-	<Directory /home/ysablonier/htdocs/mapnik/>
-	  Options FollowSymLinks +ExecCGI
-	  AllowOverride None
-	  Order allow,deny
-	  allow from all
-	  PythonDebug On
-	</Directory>
-#	FastCgiServer /home/ysablonier/htdocs/mapnik/fgxcache.py -processes 4 -socket /tmp/fgxcache.sock
-#	FastCgiServer /home/ysablonier/htdocs/mapnik/fgxwms.py -processes 4 -socket /tmp/fgxwms.sock
+    # Terrascenery SVN
+    <Location /terrascenery>
+        DAV svn
+        SVNPath /home/martin/SVN/terrascenery
+        Order deny,allow
+        <LimitExcept GET PROPFIND OPTIONS REPORT>
+            Require valid-user
+        </LimitExcept>
+        Deny from all
+        Allow from 137.110.116.31
+    </Location>
 ########################################################################
-	# Trac
-	Alias /trac /home/martin/Trac
-	<Directory "/home/martin/Trac">
-	  SetHandler python-program
-	  PythonInterpreter main_interpreter
-	  PythonHandler trac.web.modpython_frontend
-#	  PythonPath "sys.path + ['/home/martin/Trac/lib64/python2.5/site-packages']"
-#	  PythonPath "['/home/martin/Trac/lib64/python2.5/site-packages'] + sys.path"
-	  PythonOption TracEnvParentDir /home/martin/TracProjects
-	  PythonOption TracUriRoot /trac/
-	  SetEnv PYTHON_EGG_CACHE /tmp
-	  Order deny,allow
-	  Deny from all
-	  AuthType Basic
-	  AuthName "Trac"
-	  AuthUserFile /home/martin/TracProjects/.htpasswd
-	  Require valid-user
-	  PythonDebug Off
-	</Directory>
+    # FGx
+    Alias /fgx /home/ysablonier/htdocs
+    <Directory "/home/ysablonier/htdocs">
+        DirectoryIndex index.html
+#        Options +Indexes -FollowSymlinks
+#        IndexIgnore .*
+    </Directory>
+    <Directory /home/ysablonier/htdocs/mapnik/>
+        Options FollowSymLinks +ExecCGI
+        AllowOverride None
+        Order allow,deny
+        allow from all
+        PythonDebug On
+    </Directory>
+#    FastCgiServer /home/ysablonier/htdocs/mapnik/fgxcache.py -processes 4 -socket /tmp/fgxcache.sock
+#    FastCgiServer /home/ysablonier/htdocs/mapnik/fgxwms.py -processes 4 -socket /tmp/fgxwms.sock
 ########################################################################
-	Alias /getstart /home/martin/WWW/getstart-en
-	<Directory "/home/martin/WWW/getstart-en">
-	  DirectoryIndex getstart-en.html
-	  Options -Indexes -FollowSymlinks
-	</Directory>
-	Alias /getstart-fr /home/martin/WWW/getstart-fr
-	<Directory "/home/martin/WWW/getstart-fr">
-	  DirectoryIndex getstart-fr.html
-	  Options -Indexes -FollowSymlinks
-	</Directory>
-	Alias /getstartlogs /home/martin/WWW/getstartlogs
-	<Directory "/home/martin/WWW/getstart-en">
-	  Options +Indexes -FollowSymlinks
-	</Directory>
-	Alias /getstart.pdf /home/martin/WWW/getstart-en.pdf
-	Alias /getstart-fr.pdf /home/martin/WWW/getstart-fr.pdf
-	Alias /Apt.Dat.txt /home/martin/WWW/mapserver/Apt.Dat.txt
-	Alias /Apt.Dat_2.txt /home/martin/WWW/mapserver/Apt.Dat_2.txt
-	Alias /apt.dat.gz /home/martin/WWW/mapserver/apt.dat.gz
+    # Trac
+    Alias /trac /home/martin/Trac
+    <Directory "/home/martin/Trac">
+        SetHandler python-program
+        PythonInterpreter main_interpreter
+        PythonHandler trac.web.modpython_frontend
+#        PythonPath "sys.path + ['/home/martin/Trac/lib64/python2.5/site-packages']"
+#        PythonPath "['/home/martin/Trac/lib64/python2.5/site-packages'] + sys.path"
+        PythonOption TracEnvParentDir /home/martin/TracProjects
+        PythonOption TracUriRoot /trac/
+        SetEnv PYTHON_EGG_CACHE /tmp
+        Order deny,allow
+        Deny from all
+        AuthType Basic
+        AuthName "Trac"
+        AuthUserFile /home/martin/TracProjects/.htpasswd
+        Require valid-user
+        PythonDebug Off
+    </Directory>
 ########################################################################
-	# FlightGear - GIT
-	Alias /git /home/martin/git
-	<Directory "/home/martin/git">
-	  AddHandler perl-script .pl
-	  PerlResponseHandler ModPerl::Registry
-	  PerlOptions +ParseHeaders
-	  Options FollowSymlinks +ExecCGI
-	  DirectoryIndex gitweb.pl
-	  AllowOverride None
-	  Order allow,deny
-	  Allow from all
-	</Directory>
+    Alias /getstart /home/martin/WWW/getstart-en
+    <Directory "/home/martin/WWW/getstart-en">
+        DirectoryIndex getstart-en.html
+        Options -Indexes -FollowSymlinks
+    </Directory>
+    Alias /getstart-fr /home/martin/WWW/getstart-fr
+    <Directory "/home/martin/WWW/getstart-fr">
+        DirectoryIndex getstart-fr.html
+        Options -Indexes -FollowSymlinks
+    </Directory>
+    Alias /getstartlogs /home/martin/WWW/getstartlogs
+    <Directory "/home/martin/WWW/getstart-en">
+        Options +Indexes -FollowSymlinks
+    </Directory>
+    Alias /getstart.pdf /home/martin/WWW/getstart-en.pdf
+    Alias /getstart-fr.pdf /home/martin/WWW/getstart-fr.pdf
+    Alias /Apt.Dat.txt /home/martin/WWW/mapserver/Apt.Dat.txt
+    Alias /Apt.Dat_2.txt /home/martin/WWW/mapserver/Apt.Dat_2.txt
+    Alias /apt.dat.gz /home/martin/WWW/mapserver/apt.dat.gz
 ########################################################################
-	ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
-	CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
+    # FlightGear - GIT
+    Alias /git /home/martin/git
+    <Directory "/home/martin/git">
+        AddHandler perl-script .pl
+        PerlResponseHandler ModPerl::Registry
+        PerlOptions +ParseHeaders
+        Options FollowSymlinks +ExecCGI
+        DirectoryIndex gitweb.pl
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+########################################################################
+    ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
+    CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
 </VirtualHost>
