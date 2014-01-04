@@ -232,6 +232,10 @@ if (!isset($_POST["action"])) {
             $mo_thumbfile = $matches['thumbfile'];
             $mo_modelfile = $matches['modelfile'];
             $mo_shared    = $matches['shared'];
+            
+            // Retrieve old model
+            $result = pg_query("SELECT mo_author, mo_id, mo_modified, mo_name, mo_notes, mo_path, mo_shared, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay FROM fgs_models WHERE mo_id=$mo_id;");
+            $old_model = pg_fetch_assoc($result);
         }
     }
 
@@ -248,37 +252,48 @@ include '../../inc/header.php';
 <table>
     <tr>
         <th>Data</th>
-        <th>Value</th>
+        <th>Old Value</th>
+        <th>New Value</th>
     </tr>
     <tr>
-        <td>Author</td>
-        <td><?php echo $mo_author; ?></td>
-    </tr>
-    <tr>
-        <td>Email</td>
-        <td><?php echo $_GET["email"]; ?></td>
-        <input type="hidden" name="email" value="<?php echo htmlentities($_GET["email"]); ?>" />
+        <td>Author (Email)</td>
+        <td><?php echo $old_model["mo_author"]."()"; ?></td>
+        <td>
+            <?php echo $mo_author."(".$_GET["email"].")"; ?>
+            <input type="hidden" name="email" value="<?php echo htmlentities($_GET["email"]); ?>" />
+        </td>
     </tr>
     <tr>
         <td>Family</td>
+        <td>
+        <?php
+            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id = '$old_model[mo_shared]';");
+            $row = pg_fetch_assoc($result);
+            print $row["mg_name"];
+        ?>
+        </td>
         <td><?php echo family_name($mo_shared); ?></td>
     </tr>
     <tr>
         <td>Proposed Path Name</td>
+        <td><?php echo $old_model["mo_path"]; ?></td>
         <td><?php echo $mo_path; ?></td>
     </tr>
     <tr>
         <td>Full Name</td>
+        <td><?php echo $old_model["mo_name"]; ?></td>
         <td><?php echo $mo_name; ?></td>
         <input type="hidden" name="mo_name" value="<?php echo $mo_name; ?>" />
     </tr>
     <tr>
         <td>Notes</td>
+        <td><?php echo $old_model["mo_notes"]; ?></td>
         <td><?php echo $mo_notes; ?></td>
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><center><img src="get_thumbnail_from_mo_sig_update.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></center></td>
+        <td><img src="modelthumb.php?id=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></td>
+        <td><img src="get_thumbnail_from_mo_sig_update.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></td>
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
@@ -321,23 +336,21 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the submission as .tar.gz for external viewing.</a></center></td>
+        <td colspan="2"><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the submission as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
-        <td>
-            <center>
+        <td colspan="2">
 <?php
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
             <object data="model/index_update.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
-            </center>
         </td>
     </tr>
     <tr>
         <td>Corresponding XML File</td>
-        <td>
+        <td colspan="2">
 <?php
             // Geshi stuff
             $file = $target_path.'/'.$xml_file;
@@ -352,7 +365,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
-        <td>
+        <td colspan="2">
             <center>
 <?php
             if ($png_file_number <= 1)
@@ -383,11 +396,11 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Leave a comment to the submitter</td>
-        <td><input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter" /></td>
+        <td colspan="2"><input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter" /></td>
     </tr>
     <tr>
         <td>Action</td>
-        <td class="submit">
+        <td colspan="2" class="submit">
             <input type="hidden" name="mo_sig" value="<?php echo $_GET["mo_sig"]; ?>" />
             <input type="submit" name="action" value="Submit model" />
             <input type="submit" name="action" value="Reject model" />
