@@ -246,8 +246,6 @@ include '../../inc/header.php';
 <p class="center">Hi, this is the update model submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/model/index_model_update.php.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
-<p><strong>To see the original model</strong>, click here: <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $mo_id;?>" target="_blank">http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $mo_id;?></a></p>
-
 <form id="validation" method="post" action="model_update_submission.php" onsubmit="return validateForm();">
 <table>
     <tr>
@@ -347,15 +345,14 @@ include '../../inc/header.php';
     <tr>
         <td>Corresponding AC3D File</td>
         <td colspan="2">
-            Original model<br/>
+            <h3>Original model:</h3>
             <object data="../../viewer.php?id=<?php echo $mo_id; ?>" type="text/html" width="720px" height="620px"></object>
             <br/>
-        
 <?php
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
-            New model<br/>
+            <h3>New model:</h3>
             <object data="model/index_update.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
         </td>
     </tr>
