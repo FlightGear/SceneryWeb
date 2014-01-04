@@ -91,7 +91,7 @@ if (!empty($model["mo_notes"])) {
                 echo $occurences > 1 ? " objects" : " object";
                 echo "</a>";
             } else {
-                echo "0 objects";
+                echo "0 object";
             }
         echo "</tr>";
     }

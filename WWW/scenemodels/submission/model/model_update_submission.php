@@ -298,7 +298,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><img src="modelthumb.php?id=<?php echo $mo_id ?>" alt="Thumbnail"/></td>
+        <td><img src="../../modelthumb.php?id=<?php echo $mo_id ?>" alt="Thumbnail"/></td>
         <td><img src="get_thumbnail_from_mo_sig_update.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></td>
     </tr>
 <?php
@@ -342,15 +342,20 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td colspan="2"><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the submission as .tar.gz for external viewing.</a></center></td>
+        <td colspan="2"><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
         <td colspan="2">
+            Original model<br/>
+            <object data="viewer.php?id=<?php echo $mo_id; ?>" type="text/html" width="720px" height="620px"></object>
+            <br/>
+        
 <?php
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
+            New model<br/>
             <object data="model/index_update.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
         </td>
     </tr>
