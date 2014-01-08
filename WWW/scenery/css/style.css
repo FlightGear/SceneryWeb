@@ -388,3 +388,8 @@ label:hover span {
     margin-left: 0; width: 250px;
     color: black;
 }
+
+input[readonly="readonly"]
+{
+    background-color:#dddddd;
+}

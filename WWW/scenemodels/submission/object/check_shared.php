@@ -103,18 +103,6 @@ else {
     $error = true;
 }
 
-// Checking that ground elevation exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
-if (isset($_POST['gndelev']) &&
-    ((strlen($_POST['gndelev']))<=20) && (preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['gndelev'])) &&
-    ($_POST['gndelev']<='10000') &&
-    ($_POST['gndelev']>='-10000')) {
-    $gndelev = number_format(pg_escape_string(stripslashes($_POST['gndelev'])),2,'.','');
-    echo "<p class=\"ok\">Ground Elevation: ".$gndelev."</p>";
-}
-else {
-    echo "<p class=\"warning\">Ground Elevation mismatch!</p>";
-    $error = true;
-}
 
 // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
 if (isset($_POST['offset']) && (strlen($_POST['offset'])<=20) && (preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
@@ -166,7 +154,7 @@ if (!$error) {
     echo "<br /><p class=\"ok\">Data seems to be OK to be inserted in the database</p>";
 
     // Detect if the object is already in the database
-    if (detect_already_existing_object($lat, $long, $gndelev, 0, $heading, $model_id)) {
+    if (detect_already_existing_object($lat, $long, $offset, $heading, $model_id)) {
         echo "<p class=\"warning\">The object already exists in the database!</p>";
         include '../../inc/footer.php';
     }
@@ -174,10 +162,10 @@ if (!$error) {
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
     if (($offset == 0) || ($offset == '')) {
-        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", NULL, ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, NULL, ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
     }
     else {
-        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$offset.", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".$offset.", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
     }
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)

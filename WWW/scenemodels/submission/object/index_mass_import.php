@@ -68,7 +68,7 @@ function validateForm()
     <li>
         Line without offset, pitch and roll: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03<br />
         Line with offset: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03 -20.0<br />
-        Line with pitch and roll (ignored), but without offset: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03 0.0 0.0
+        Line with pitch and roll (both ignored), but without offset: OBJECT_SHARED Models/Airport/localizer.xml 121.337467 31.179872 2.47 267.03 0.0 0.0
     </li>
     <li>Finally, add 100 lines maximum per submission!</li>
     <li>
@@ -76,9 +76,7 @@ function validateForm()
       it's not necessary to do as many submissions as STG files you're working on.
     </li>
     <li>
-      Don't forget to feed the Captcha, it's a mandatory item as well. Don't
-      know what a Captcha is or what its goal is? Learn more
-      <a href="http://en.wikipedia.org/wiki/Captcha">here</a>.
+      <strong>Elevation is now ignored and only offset elevation is used. Total elevation will be computed after insertion.</strong>
     </li>
 </ul>
 

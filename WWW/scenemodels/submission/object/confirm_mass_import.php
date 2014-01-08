@@ -221,7 +221,7 @@ if (!$error) {
                 }
                 break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
-            case 5:  // Checking Elevation, must contain only figures and, be max 20 characters
+            case 5:  // Checking Elevation, must contain only figures and, be max 20 characters (TODO: not used anymore!!)
                 if ((strlen($value_tag) <= 20)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
@@ -291,7 +291,7 @@ if (!$error) {
         }
 
         if ($ko == 0) {
-            if (detect_already_existing_object($lat, $long, $gndelev, $elevoffset, $orientation, $model_id)) {
+            if (detect_already_existing_object($lat, $long, $elevoffset, $orientation, $model_id)) {
                 $ko = 1;
                 $global_ko = 1;
                 $cpt_err++;
@@ -305,7 +305,7 @@ if (!$error) {
                     $ob_country_db = "unknown";
                 else
                     $ob_country_db = $ob_country;
-                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$gndelev.", ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country_db."', 1)";
+                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country_db."', 1)";
             }
         }
         else {
@@ -346,7 +346,7 @@ if (!$error) {
 }
 if (!$_POST['submit']) {
     // Else, allow submitter to proceed
-    echo "<p class=\"center ok\">No errors have been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br/>Press to button below to finish your submission.<br /><br/><input name='submit' type='submit' value='Submit objects' /></p></form>";
+    echo "<p class=\"center ok\">No errors have been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br/>Press to button below to finish your submission.<br/><br/><input name='submit' type='submit' value='Submit objects' /></p></form>";
 } else {
     // Proceed on with the request generation
     $data_query_rw = "";
