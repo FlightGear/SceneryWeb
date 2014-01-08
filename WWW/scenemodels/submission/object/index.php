@@ -30,7 +30,6 @@ function validateForm()
     if (!checkStringNotDefault(form["family_name"], 0) ||
         !checkStringNotDefault(form["longitude"], "") || !checkNumeric(form["longitude"],-180,180) ||
         !checkStringNotDefault(form["latitude"], "") || !checkNumeric(form["latitude"],-90,90) ||
-        !checkStringNotDefault(form["gndelev"], "") || !checkNumeric(form['gndelev'],-10000,10000) ||
         !checkNumeric(form['offset'],-10000,10000) ||
         !checkStringNotDefault(form["heading"], "") || !checkNumeric(form['heading'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
@@ -168,7 +167,7 @@ $(function() {
                 <tr>
                     <td><label for="gndelev">Ground elevation (NOT USED ANYMORE!!)<span> This is the ground elevation (in meters) of the position where the object you want to add is located.</span></label></td>
                     <td>
-                        <input type="text" name="gndelev" id="gndelev" maxlength="15" value="Use elevation offset instead." readonly/>
+                        <input type="text" name="gndelev" id="gndelev" maxlength="15" value="Use elevation offset instead." readonly="readonly"/>
                     </td>
                 </tr>
                 <tr>
