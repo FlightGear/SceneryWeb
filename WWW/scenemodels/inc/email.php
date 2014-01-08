@@ -209,7 +209,6 @@ function email($case)
                         "Latitude:         ". $lat . "\r\n" .
                         "Longitude:        ". $long . "\r\n" .
                         "Country:          ". get_country_name_from_country_code($ob_country) . "\r\n" .
-                        "Ground elevation: ". $gndelev . "\r\n" .
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment:          ". strip_tags($sent_comment) ."\r\n\r\n" .
