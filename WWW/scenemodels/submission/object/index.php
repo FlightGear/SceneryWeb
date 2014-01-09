@@ -50,8 +50,8 @@ function validateTabs()
     // Tab 2
     if (form["longitude"].value == "" || !checkNumeric(form["longitude"],-180,180) ||
         form["latitude"].value == "" || !checkNumeric(form["latitude"],-90,90) ||
-        !checkNumeric(form['offset'],-10000,10000) ||
-        form["heading"].value == "" ||  !checkNumeric(form['heading'],0,359.999)) {
+        form["offset"].value == "" || !checkNumeric(form["offset"],-10000,10000) ||
+        form["heading"].value == "" ||  !checkNumeric(form["heading"],0,359.999)) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }

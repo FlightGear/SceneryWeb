@@ -573,10 +573,9 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndelev"] != "") && ($_POST["heading"] != "")) {
+if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["offset"] != "") && ($_POST["heading"] != "")) {
     $longitude = strip_tags($_POST["longitude"]);
     $latitude  = strip_tags($_POST["latitude"]);
-    $gndelev   = strip_tags($_POST["gndelev"]);
     $offset    = strip_tags($_POST["offset"]);
     $heading   = strip_tags($_POST["heading"]);
 
@@ -590,13 +589,9 @@ if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["gndele
         $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
     }
 
-    if (preg_match('#[a-zA-Z ]#', $gndelev) || ($gndelev < -10000 || $gndelev > 10000)) {
-        $error += 1;
-        $errormsg .= "<li>Please check the ground elevation value (-10000 < ground elevation < 10000).</li>";
-    }
-
-    if ($offset == '' || $offset == '0') $offset = "NULL";
-        else if (preg_match('#[a-zA-Z ]#', $offset) || ($offset < -10000 || $offset > 10000)) {
+    if ($offset == '' || $offset == '0')
+        $offset = "NULL";
+    else if (preg_match('#[a-zA-Z ]#', $offset) || ($offset < -10000 || $offset > 10000)) {
         $error += 1;
         $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
     }
@@ -714,7 +709,7 @@ else {
         $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ";
         $ob_query .= "VALUES (";
         $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
+        $ob_query .= "-9999, ";                                                                // ob_gndelev
         $ob_query .= $offset.", ";                                                             // ob_elevoffset
         $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
         $ob_query .= "'".$country."', ";                                                       // ob_country
@@ -727,7 +722,7 @@ else {
         $ob_query .= "(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group) ";
         $ob_query .= "VALUES (";
         $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-        $ob_query .= $gndelev.", ";                                                            // ob_gndelev
+        $ob_query .= "-9999, ";                                                                // ob_gndelev
         $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
         $ob_query .= "'".$country."', ";                                                       // ob_country
         $ob_query .= $ob_model." ,";                                                           // ob_model
@@ -780,12 +775,12 @@ else {
         $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$mo_shared;
         $html_family_url = htmlspecialchars($family_url);
 
-        email("static_request_pending");
+        email("add_model_request_pending");
 
         // Mailing the submitter to tell him that his submission has been sent for validation
-        if($failed_mail != 1) {
+        if ($failed_mail != 1) {
             $to = $safe_au_email;
-            email("static_request_sent_for_validation");
+            email("add_model_request_sent_for_validation");
         }
     }
 }

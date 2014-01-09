@@ -264,7 +264,7 @@ function email($case)
                         "Thanks for your help in making FlightGear better!\r\n\r\n";
             $backend = true;
             break;
-        case "static_request_pending":
+        case "add_model_request_pending":
             $subject  = "3D model import needs validation.";
             $message .= "We would like to let you know that a new 3D model request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
@@ -279,7 +279,6 @@ function email($case)
                         "Latitude:         ". $latitude . "\r\n" .
                         "Longitude:        ". $longitude . "\r\n" .
                         "Country:          ". get_country_name_from_country_code($country) . "\r\n" .
-                        "Ground elevation: ". $gndelev . "\r\n" .
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment by user:  ". strip_tags($sent_comment) . "\r\n" .
@@ -297,7 +296,7 @@ function email($case)
             $message .=  "Please do not let this stop you from sending us an improved version of this model or other models." . "\r\n\r\n";
             $backend = true;
             break;
-        case "static_request_sent_for_validation":
+        case "add_model_request_sent_for_validation":
             $subject  = "3D model import";
             $message .= "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request.\r\n\r\n" .
                         "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .

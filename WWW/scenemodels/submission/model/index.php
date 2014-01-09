@@ -17,7 +17,6 @@ function validateForm()
         !checkNumeric(form["latitude"],-90,90) ||
         form["mo_name"].value == "" ||
         !checkComment(form["mo_name"]) ||
-        !checkNumeric(form["gndelev"],-10000,10000) ||
         !checkNumeric(form["offset"],-10000,10000) ||
         !checkNumeric(form["heading"],0,359.999) ||
         !checkComment(form["notes"]))
@@ -40,8 +39,7 @@ function validateTabs()
     // Tab 2
     if (form["longitude"].value == "" || !checkNumeric(form["longitude"],-180,180) ||
         form["latitude"].value == "" || !checkNumeric(form["latitude"],-90,90) ||
-        form["gndelev"].value == "" || !checkNumeric(form['gndelev'],-10000,10000) ||
-        !checkNumeric(form['offset'],-10000,10000) ||
+        form["offset"].value == "" || !checkNumeric(form['offset'],-10000,10000) ||
         form["heading"].value == "" ||  !checkNumeric(form['heading'],0,359.999)) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
@@ -205,18 +203,18 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <label for="gndelev">Elevation<em>*</em><span>This is the ground elevation (in meters) of the position where the object you want to add is located. Put -9999 if you want the elevation to be automatically computed. Warning: if your object is sunk into the ground, use the elevation offset field below.</span></label>
+                        <label for="offset">Elevation offset<em>*</em><span>This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset.</span></label> (see <a href="../../contribute.php#offset">here</a> for more help)
                     </td>
                     <td>
-                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="" onkeyup="checkNumeric(this,-10000,10000);validateTabs();" />
+                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onkeyup="checkNumeric(this,-10000,10000);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="offset">Elevation offset<span>This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset.</span></label> (see <a href="../../contribute.php#offset">here</a> for more help)
+                        <label for="gndelev">Elevation (NOT USED ANYMORE!!)<span>This is the ground elevation (in meters) of the position where the object you want to add is located.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onkeyup="checkNumeric(this,-10000,10000);validateTabs();" />
+                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="Use elevation offset instead" readonly="readonly" />
                     </td>
                 </tr>
                 <tr>
