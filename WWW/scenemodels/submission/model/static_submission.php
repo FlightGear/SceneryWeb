@@ -176,7 +176,7 @@ if (isset($_POST["action"])) {
                 if (isset($_POST["email"])) $to = $_POST["email"];
                     else $to = "";
 
-                email("static_request_accepted");
+                email("add_model_request_accepted");
 
                 include '../../inc/footer.php';
                 exit;

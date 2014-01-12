@@ -253,7 +253,7 @@ function email($case)
                         "True rientation:   ". get_object_true_orientation_from_id($id_to_update) . " => ".heading_stg_to_true($new_orientation)."\r\n" .
                         "Comment:           ". strip_tags($comment) ."\r\n\r\n";
             break;
-        case "static_request_accepted":
+        case "add_model_request_accepted":
             $subject  = "3D model import accepted";
             $message .= "On ".$dtg." UTC, you issued a 3D model import request.\r\n\r\n" .
                         "We are glad to let you know that this request was accepted!\r\n\r\n" .
