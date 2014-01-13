@@ -63,8 +63,8 @@ if (isset($_POST["action"])) {
                 $name = $_POST["mo_name"];
                 $comment = $_POST["maintainer_comment"];
 
-                if (isset($_POST['email']))
-                    $to = $_POST["email"];
+                if (isset($_POST['contrib_email']))
+                    $to = $_POST["contrib_email"];
                 else
                     $to = "";
 
@@ -160,8 +160,10 @@ if (isset($_POST["action"])) {
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
-                if (isset($_POST["email"])) $to = $_POST["email"];
-                    else $to = "";
+                if (isset($_POST["contrib_email"]))
+                    $to = $_POST["contrib_email"];
+                else
+                    $to = "";
 
                 // Email to contributor
                 email("model_update_request_accepted");
@@ -238,6 +240,10 @@ if (!isset($_POST["action"])) {
             // Retrieve old model
             $result = pg_query("SELECT mo_author, mo_id, mo_modified, mo_name, mo_notes, mo_path, mo_shared, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay FROM fgs_models WHERE mo_id=$mo_id;");
             $old_model = pg_fetch_assoc($result);
+            
+            $mo_author_email = get_authors_email_from_authors_id($matches['author']);
+            $mo_contri_email = htmlentities($_GET["email"]);
+            $old_mo_author_email = get_authors_email_from_authors_id($old_model['author']);
         }
     }
 
@@ -261,12 +267,20 @@ include '../../inc/header.php';
             <?php
             $result = pg_query("SELECT au_id, au_name FROM fgs_authors WHERE au_id = '$old_model[mo_author]';");
             $row = pg_fetch_assoc($result);
-            echo $row["au_name"];
+            echo $row["au_name"] . "(".$old_mo_author_email.")";
             ?>
         </td>
         <td>
-            <?php echo $mo_author."(".$_GET["email"].")"; ?>
-            <input type="hidden" name="email" value="<?php echo htmlentities($_GET["email"]); ?>" />
+            <?php echo $mo_author."(".$mo_author_email.")"; ?>
+            <input type="hidden" name="email" value="<?php echo $mo_author_email; ?>" />
+        </td>
+    </tr>
+    <tr>
+        <td>Contributor's email</td>
+        <td></td>
+        <td>
+            <?php echo $mo_contri_email; ?>
+            <input type="hidden" name="contrib_email" value="<?php echo $mo_contri_email; ?>" />    
         </td>
     </tr>
     <tr>
