@@ -265,7 +265,7 @@ include '../../inc/header.php';
         <td>Author (Email)</td>
         <td>
             <?php
-            $result = pg_query("SELECT au_id, au_name FROM fgs_authors WHERE au_id = '$old_model[mo_author]';");
+            $result = pg_query("SELECT au_name FROM fgs_authors WHERE au_id = '$old_model[mo_author]';");
             $row = pg_fetch_assoc($result);
             echo $row["au_name"] . "(".$old_mo_author_email.")";
             ?>

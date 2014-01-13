@@ -11,9 +11,6 @@ if (isset($_POST['new_long']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
 if (isset($_POST['new_lat']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_lat']))
     $new_lat = pg_escape_string($_POST['new_lat']);
 
-if (isset($_POST['new_gndelev']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_gndelev']))
-    $new_gndelev = pg_escape_string($_POST['new_gndelev']);
-
 if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
     // Have to put quotes around NULL, else we're gonna have problems with the SQL query.
@@ -50,7 +47,6 @@ if (isset($_POST['new_ob_text'])
 if (isset($model_name)
     && isset($new_long)
     && isset($new_lat)
-    && isset($new_gndelev)
     // Have to keep the NULL between quotes else we'll have a parse error of the SQL INSERT request
     && (isset($new_offset) || $new_offset == 'NULL')
     && isset($new_orientation)
@@ -94,7 +90,7 @@ if (isset($model_name)
 
     // Preparing the update request: the quotes around NULL put above were tested OK.
     $query_update="UPDATE fgs_objects ".
-                  "SET ob_text=$$".$safe_new_ob_text."$$, wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=".$new_gndelev.", ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
+                  "SET ob_text=$$".$safe_new_ob_text."$$, wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=-9999, ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
                   "WHERE ob_id=".$id_to_update.";";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
@@ -180,7 +176,6 @@ function validateForm()
 
     if (!checkStringNotDefault(form["new_long"], "") || !checkNumeric(form["new_long"],-180,180) ||
         !checkStringNotDefault(form["new_lat"], "") || !checkNumeric(form["new_lat"],-90,90) ||
-        !checkStringNotDefault(form["new_gndelev"], "") || !checkNumeric(form['new_gndelev'],-10000,10000) ||
         !checkNumeric(form['new_offset'],-10000,10000) ||
         !checkStringNotDefault(form["new_heading"], "") || !checkNumeric(form['new_heading'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
@@ -339,13 +334,13 @@ function validateForm()
         <tr>
           <td>
             <span title="This is the ground elevation (in meters) where the object you want to update is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below.">
-            <label for="new_gndelev">Elevation<em>*</em></label></span>
+            <label for="new_gndelev">Ground elevation</label></span>
           </td>
           <td>
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
           </td>
           <td>
-            <input type="text" name="new_gndelev" id="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" onkeyup="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="new_gndelev" id="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" readonly="readonly" />
           </td>
         </tr>
         <tr>
