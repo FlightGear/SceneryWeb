@@ -8,14 +8,9 @@ db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"we
 db_conn = psycopg2.connect(**db_params)
 db_cur = db_conn.cursor()
 
-sql = ("SELECT url, \
-              ST_Distance( \
-                  (ST_GeomFromText('POINT(%s %s)', 4326)), \
-                  wkb_geometry) \
-                  AS dist \
-              FROM ts_proxies \
-              ORDER BY dist ASC \
-              LIMIT 1;") % (lon, lat)
+sql = ("SELECT url FROM ts_proxies \
+        ORDER BY wkb_geometry <-> ST_SetSRID(ST_MakePoint(%s, %s), 4326) ASC \
+        LIMIT 1;") % (lon, lat)
 
 db_cur.execute(sql)
 db_result = db_cur.fetchall()
