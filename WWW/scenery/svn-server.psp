@@ -9,6 +9,7 @@ db_conn = psycopg2.connect(**db_params)
 db_cur = db_conn.cursor()
 
 sql = ("SELECT url FROM ts_proxies \
+        WHERE valid IS TRUE \
         ORDER BY wkb_geometry <-> ST_SetSRID(ST_MakePoint(%s, %s), 4326) ASC \
         LIMIT 1;") % (lon, lat)
 
