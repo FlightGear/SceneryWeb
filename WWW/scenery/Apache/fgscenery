@@ -3,6 +3,7 @@
     DocumentRoot /home/fgscenery/WWW/scenery
     php_value auto_prepend_file /home/jstockill/etc/config.php
     ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
+    ScriptAlias /svn-server /home/fgscenery/WWW/scenery/svn-server.psp
     Alias /geodata/fgx /home/ysablonier/fgx_geodata
     <Directory "/home/fgscenery/WWW/scenery/">
         AddHandler mod_python .psp
