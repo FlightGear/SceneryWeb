@@ -26,7 +26,7 @@
       while ($row = pg_fetch_assoc($result)){
     ?>
     <item>
-      <link>http://<?php echo $_SERVER['SERVER_NAME'];?>/modeledit.php?id=<?php echo urlencode($row["mo_id"])?></link>
+      <link>http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo urlencode($row["mo_id"])?></link>
       <title><![CDATA[<?php echo $row["mo_name"]?> ]]></title> 
       <description><![CDATA[<?php echo $row["mo_name"]?> ]]></description> 
       <pubDate><?php echo $row["timestamp"]?> +0000</pubDate>
