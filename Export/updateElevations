@@ -17,13 +17,14 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 MARTIN=~martin
+FGSCENERY=~fgscenery
 FG_HOME=${MARTIN}/terragear
 FG_ROOT=${MARTIN}/SCM/FlightGear/fgdata
-FG_SCENERY=${MARTIN}/SCM/terrascenery
+FG_SCENERY=${FGSCENERY}/Terrascenery
 export FG_HOME FG_ROOT FG_SCENERY
 
 PSQL="psql -tA -c"
-WORLDSCENERY=${MARTIN}/SCM/terrascenery/Terrain
+WORLDSCENERY=${FGSCENERY}/Terrascenery/Terrain
 #
 FGELEV=${MARTIN}/bin/fgelev
 
