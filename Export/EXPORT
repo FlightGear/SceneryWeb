@@ -65,8 +65,8 @@ if [ ${OBJECTRETURN} = 0 -a ${MODELRETURN} = 0 ]; then
     echo "successful" > ${STATUSFILE}
 
     # Ensure perms are correct
-    find ${BASEDIR}/Objects/ ${BASEDIR}/Models/ -type d -not -perm 755 -exec chmod 755 {} \;
-    find ${BASEDIR}/Objects/ ${BASEDIR}/Models/ -type f -not -perm 644 -exec chmod 644 {} \;
+    find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;
+    find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;
 
     # Disabled during World Scenery build preparations; Martin, 2010-01-22
     echo "### Packing Global Objects ...."
