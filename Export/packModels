@@ -17,10 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 export WORKDIR=`pwd`
-#
-destdir=${WORKDIR}/../Download
-
-cd ${WORKDIR}
-tar cfz ${destdir}/SharedModels.tgz --owner=root --group=root Models
+DESTDIR=${WORKDIR}/../Download
+tar cfz ${DESTDIR}/SharedModels.tgz --owner=root --group=root Models
 
 # EOF
