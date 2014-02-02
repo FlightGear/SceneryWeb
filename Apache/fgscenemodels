@@ -2,7 +2,8 @@
     ServerName scenemodels.flightgear.org
     ServerAlias fgsodb.telascience.org
     ServerAlias fgfsdb.stockill.org
-    DocumentRoot /home/fgscenery/WWW/scenemodels
+    DocumentRoot /home/fgscenery/GIT/WWW/scenemodels
+    Alias /fgs_import /home/freverdin/fgs_import
     php_value auto_prepend_file /home/jstockill/etc/config.php
     ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
     Alias /update /home/jstockill/scenemodels/update

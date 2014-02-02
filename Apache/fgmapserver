@@ -19,15 +19,15 @@
         Allow from all
     </Location>
 ########################################################################
-    DocumentRoot /home/fgscenery/WWW/mapserver
+    DocumentRoot /home/fgscenery/GIT/WWW/mapserver
         php_value auto_prepend_file /home/jstockill/etc/config.php
     # Support the old-style "landcover" notation:
     ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
     ScriptAlias /ils /usr/local/lib/cgi-bin/ils
     RedirectPermanent /download.psp /shpdl/
-    ScriptAlias /shpdl /home/fgscenery/WWW/mapserver/shpdl.psp
-    ScriptAlias /dlaction /home/fgscenery/WWW/mapserver/dlaction.psp
-    ScriptAlias /dlshp /home/fgscenery/WWW/mapserver/procshpdl.psp
+    ScriptAlias /shpdl /home/fgscenery/GIT/WWW/mapserver/shpdl.psp
+    ScriptAlias /dlaction /home/fgscenery/GIT/WWW/mapserver/dlaction.psp
+    ScriptAlias /dlshp /home/fgscenery/GIT/WWW/mapserver/procshpdl.psp
     <Location /dlshp>
         Order allow,deny
         Deny from 89.159.24.138
@@ -42,7 +42,7 @@
         Options FollowSymLinks
     </Directory>
     # Regular Web-Service:
-    <Directory "/home/fgscenery/WWW/mapserver/">
+    <Directory "/home/fgscenery/GIT/WWW/mapserver/">
         AddHandler mod_python .psp
         PythonHandler mod_python.psp
         PythonDebug Off
@@ -54,7 +54,7 @@
     <Directory "/home/martin/WWW/tilecache-2.11/">
         SetHandler python-program
         PythonHandler TileCache.Service
-        PythonOption TileCacheConfig /home/fgscenery/WWW/mapserver/tilecache.cfg
+        PythonOption TileCacheConfig /home/fgscenery/GIT/WWW/mapserver/tilecache.cfg
 #        PythonDebug On
 #        ExpiresActive on
 #        ExpiresDefault "now plus 6 days"

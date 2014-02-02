@@ -1,11 +1,11 @@
 <VirtualHost *:80>
     ServerName scenery.flightgear.org
-    DocumentRoot /home/fgscenery/WWW/scenery
+    DocumentRoot /home/fgscenery/GIT/WWW/scenery
     php_value auto_prepend_file /home/jstockill/etc/config.php
     ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
-    ScriptAlias /svn-server /home/fgscenery/WWW/scenery/svn-server.psp
+    ScriptAlias /svn-server /home/fgscenery/GIT/WWW/scenery/svn-server.psp
     Alias /geodata/fgx /home/ysablonier/fgx_geodata
-    <Directory "/home/fgscenery/WWW/scenery/">
+    <Directory "/home/fgscenery/GIT/WWW/scenery/">
         AddHandler mod_python .psp
         PythonHandler mod_python.psp
         PythonDebug Off
