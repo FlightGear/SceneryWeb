@@ -35,28 +35,25 @@ psql -tA -c "SELECT DISTINCT fn_SceneDir(wkb_geometry) AS dir
                  ORDER BY dir;"
 
 # Objects without valid tile numbers are ignored upon export
-cd ${BASEDIR}/../utils/ || exit 1
 echo "### Updating tile numbers ...."
-#/usr/bin/time ./updateTiles
 psql -c "UPDATE fgs_objects SET ob_tile = fn_GetTileNumber(wkb_geometry)
              WHERE ob_tile < 1 OR ob_tile IS NULL;"
 psql -c "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry)
              WHERE si_tile < 1 OR si_tile IS NULL;"
 echo "### Updating ground elevations ...."
-/usr/bin/time ./updateElevations
+/usr/bin/time ${BASEDIR}/updateElevations
 
 # Cleanup Objects and Models
-cd ${BASEDIR} || exit 1
 find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;
 
 # Export the Objects directory
 echo "### Exporting Objects tree ...."
-/usr/bin/time ./exportObjects
+/usr/bin/time ${BASEDIR}/exportObjects
 OBJECTRETURN=${?}
 
 # Export the Models directory
 echo "### Exporting Models tree ...."
-/usr/bin/time ./exportModels
+/usr/bin/time ${BASEDIR}/exportModels
 MODELRETURN=${?}
 
 echo "### Export of Objects/Models returned ${OBJECTRETURN}/${MODELRETURN}"
@@ -70,11 +67,11 @@ if [ ${OBJECTRETURN} = 0 -a ${MODELRETURN} = 0 ]; then
 
     # Disabled during World Scenery build preparations; Martin, 2010-01-22
     echo "### Packing Global Objects ...."
-    /usr/bin/time ./packObjects
+    /usr/bin/time ${BASEDIR}/packObjects
 
     # Disabled during World Scenery build preparations; Martin, 2010-01-22
     echo "### Packing Global Models ...."
-    /usr/bin/time ./packModels
+    /usr/bin/time ${BASEDIR}/packModels
 
     # Requires major fixing before use !
     #./download-map.pl
