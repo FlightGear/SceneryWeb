@@ -1,0 +1,52 @@
+#!/bin/bash
+#
+# Copyright (C) 2004 - 2014  Jon Stockill, Martin Spott
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+MARTIN=~martin
+FG_HOME=${MARTIN}/terragear
+FG_ROOT=${MARTIN}/SCM/FlightGear/fgdata
+FG_SCENERY=${MARTIN}/SCM/terrascenery
+export FG_HOME FG_ROOT FG_SCENERY
+
+PSQL="psql -tA -c"
+WORLDSCENERY=${MARTIN}/SCM/terrascenery/Terrain
+#
+FGELEV=${MARTIN}/bin/fgelev
+
+${PSQL} "UPDATE fgs_objects SET ob_elevoffset = NULL where ob_elevoffset = 0"
+
+Remaining () {
+    ${PSQL} "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999"
+}
+
+REMAINING=`Remaining`
+OLDREMAINING="0"
+while [ ${REMAINING} -gt 0 ]; do
+    echo "${REMAINING} objects remaining"
+    #
+    ${PSQL} "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects WHERE ob_valid IS true AND ob_gndelev = -9999 ORDER BY ob_tile, ob_id LIMIT 10000" -F\  | \
+    ${FGELEV} | awk -F\: '{print "UPDATE fgs_objects SET ob_gndelev =" $2 " WHERE ob_id = " $1 " AND ob_gndelev = -9999;"}' | psql
+    #
+    VERYOLDREMAINING=${OLDREMAINING}
+    OLDREMAINING=${REMAINING}
+    REMAINING=`Remaining`
+    if [ ${REMAINING} -eq ${OLDREMAINING} -a ${OLDREMAINING} -eq ${VERYOLDREMAINING} ]; then
+        echo "Finished updating ground elevations"; exit 0
+    fi
+done
+
+# EOF

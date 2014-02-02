@@ -1,0 +1,95 @@
+#!/bin/bash
+#
+# Copyright (C) 2004 - 2014  Jon Stockill, Martin Spott
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+STATUSFILE=${HOME}/.exportstatus
+echo "running" > ${STATUSFILE}
+#
+cd `dirname ${0}` && export BASEDIR=`pwd`
+
+# Pick up DB connection string
+. ${HOME}/.profile
+
+# End of update period for current export
+psql -c "INSERT INTO fgs_timestamp (id, stamp) VALUES (1, now());" || exit 1
+
+# Dirs to export
+psql -tA -c "SELECT DISTINCT fn_SceneDir(wkb_geometry) AS dir
+                 FROM fgs_objects
+                 WHERE fgs_objects.ob_modified > (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 0)
+                 AND fgs_objects.ob_modified < (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 1)
+                 ORDER BY dir;"
+
+# Objects without valid tile numbers are ignored upon export
+cd ${BASEDIR}/../utils/ || exit 1
+echo "### Updating tile numbers ...."
+#/usr/bin/time ./updateTiles
+psql -c "UPDATE fgs_objects SET ob_tile = fn_GetTileNumber(wkb_geometry)
+             WHERE ob_tile < 1 OR ob_tile IS NULL;"
+psql -c "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry)
+             WHERE si_tile < 1 OR si_tile IS NULL;"
+echo "### Updating ground elevations ...."
+/usr/bin/time ./updateElevations
+
+# Cleanup Objects and Models
+cd ${BASEDIR} || exit 1
+find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;
+
+# Export the Objects directory
+echo "### Exporting Objects tree ...."
+/usr/bin/time ./exportObjects
+OBJECTRETURN=${?}
+
+# Export the Models directory
+echo "### Exporting Models tree ...."
+/usr/bin/time ./exportModels
+MODELRETURN=${?}
+
+echo "### Export of Objects/Models returned ${OBJECTRETURN}/${MODELRETURN}"
+
+if [ ${OBJECTRETURN} = 0 -a ${MODELRETURN} = 0 ]; then
+    echo "successful" > ${STATUSFILE}
+
+    # Ensure perms are correct
+    find ${BASEDIR}/Objects/ ${BASEDIR}/Models/ -type d -not -perm 755 -exec chmod 755 {} \;
+    find ${BASEDIR}/Objects/ ${BASEDIR}/Models/ -type f -not -perm 644 -exec chmod 644 {} \;
+
+    # Disabled during World Scenery build preparations; Martin, 2010-01-22
+    echo "### Packing Global Objects ...."
+    /usr/bin/time ./packObjects
+
+    # Disabled during World Scenery build preparations; Martin, 2010-01-22
+    echo "### Packing Global Models ...."
+    /usr/bin/time ./packModels
+
+    # Requires major fixing before use !
+    #./download-map.pl
+
+    # Start of new update period
+    psql -c "DELETE FROM fgs_timestamp WHERE id = 0;"
+    psql -c "UPDATE fgs_timestamp SET id = 0 WHERE id = 1;"
+
+    # Cleaning up after interrupted export:
+    #  psql -c "DELETE FROM fgs_timestamp WHERE id = 1;"
+
+    # Trigger TerraSync-upload/sync; Martin, 2011-06-20
+    echo "Export Finished" | mailx -s "Export Finished" martin@localhost
+else
+    echo "failed" > ${STATUSFILE}
+fi
+
+# EOF
