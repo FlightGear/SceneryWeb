@@ -19,7 +19,10 @@
 STATUSFILE=${HOME}/.exportstatus
 echo "running" > ${STATUSFILE}
 #
+export WORKDIR=/home/fgscenery/Dump
+#
 cd `dirname ${0}` && export BASEDIR=`pwd`
+cd ${WORKDIR} || exit 1
 
 # Pick up DB connection string
 . ${HOME}/.profile

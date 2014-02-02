@@ -16,12 +16,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-cd `dirname ${0}` && export BASEDIR=`pwd`
+export WORKDIR=`pwd`
 #
-sourcedir=${BASEDIR}
-destdir=${HOME}/scenemodels/download
+destdir=${WORKDIR}/../Download
 
-cd ${sourcedir}
+cd ${WORKDIR}
 tar cfz ${destdir}/SharedModels.tgz --owner=root --group=root Models
 
 # EOF
