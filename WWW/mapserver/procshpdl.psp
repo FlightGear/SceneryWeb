@@ -93,7 +93,7 @@ db_conn.close()
 # Finally call 'procshpdl.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
-dumpcmd = ("/home/fgscenery/WWW/mapserver/procshpdl.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % url_params)
+dumpcmd = ("/home/fgscenery/GIT/WWW/mapserver/procshpdl.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % url_params)
 os.system(dumpcmd)
 psp.redirect("/download/%(myuuid)s.zip" % url_params)
 %>

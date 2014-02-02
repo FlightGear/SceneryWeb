@@ -96,7 +96,7 @@ ldbconnect.close()
 # Finally call 'dlaction.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
-dumpcmd = ("/home/fgscenery/WWW/mapserver/dlaction.sh %(myuuid)s > /tmp/dlaction.log 2>&1" % myvars )
+dumpcmd = ("/home/fgscenery/GIT/WWW/mapserver/dlaction.sh %(myuuid)s > /tmp/dlaction.log 2>&1" % myvars )
 os.system( dumpcmd )
 psp.redirect( "/download/%(mylayer)s-%(myuuid)s.zip" % myvars )
 %>

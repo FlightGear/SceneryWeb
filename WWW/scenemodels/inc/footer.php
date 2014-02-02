@@ -4,7 +4,7 @@
 <?php
         // What's the last GIT version of the website and when was it last
         // updated?
-        $filename = '/home/fgscenery/WWW/.git/refs/heads/master';
+        $filename = '/home/fgscenery/GIT/.git/refs/heads/master';
         if (file_exists($filename))
         {
             $result = file_get_contents($filename);
