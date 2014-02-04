@@ -334,7 +334,7 @@ function validateForm()
         <tr>
           <td>
             <span title="This is the ground elevation (in meters) where the object you want to update is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below.">
-            <label for="new_gndelev">Ground elevation</label></span>
+            <label for="new_gndelev">Ground elevation (will be recalculated)</label></span>
           </td>
           <td>
             <?php $actual_elevation = get_object_elevation_from_id($id_to_update); echo $actual_elevation; ?>
