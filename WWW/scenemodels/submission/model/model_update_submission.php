@@ -231,6 +231,7 @@ if (!isset($_POST["action"])) {
             $mo_id        = $matches['modelid'];
             $mo_path      = $matches['path'];
             $mo_author    = get_authors_name_from_authors_id($matches['author']);
+            $mo_author_email = get_authors_email_from_authors_id($matches['author']);
             $mo_name      = $matches['name'];
             $mo_notes     = $matches['notes'];
             $mo_thumbfile = $matches['thumbfile'];
@@ -241,9 +242,8 @@ if (!isset($_POST["action"])) {
             $result = pg_query("SELECT mo_author, mo_id, mo_modified, mo_name, mo_notes, mo_path, mo_shared, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay FROM fgs_models WHERE mo_id=$mo_id;");
             $old_model = pg_fetch_assoc($result);
             
-            $mo_author_email = get_authors_email_from_authors_id($matches['author']);
             $mo_contri_email = htmlentities($_GET["email"]);
-            $old_mo_author_email = get_authors_email_from_authors_id($old_model['author']);
+            $old_mo_author_email = get_authors_email_from_authors_id($old_model['mo_author']);
         }
     }
 
