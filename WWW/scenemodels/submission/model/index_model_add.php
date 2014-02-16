@@ -83,7 +83,7 @@ $(function() {
         <li><a href="#tabs-3">3: Submit</a></li>
     </ul>
 
-    <form id="positions" method="post" action="check_static.php" enctype="multipart/form-data" onsubmit="return validateForm();">
+    <form id="positions" method="post" action="check_model_add.php" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div id="tabs-1">
             <ul>
                 <li>Files have to share a common name, for instance: modelname.ac, modelname.xml, modelname.png and modelname_thumbnail.jpg (the _thumbnail extension is required).</li>
