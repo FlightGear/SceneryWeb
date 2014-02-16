@@ -391,7 +391,7 @@ if (!$_POST['submit']) {
     echo "<p class=\"center\">Your submission has been successfully queued into the FlightGear scenery database update requests!<br />";
     echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
-    echo "Want to submit another position ?<br /> <a href=\"index.php\">Click here to go back to the submission page.</a></p>";
+    echo "Want to submit another position ?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/\">Click here to go back to the submission page.</a></p>";
 
     // Sending mail if there is no false and SQL was correctly inserted.
     // Sets the time to UTC.
