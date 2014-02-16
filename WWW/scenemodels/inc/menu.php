@@ -15,7 +15,7 @@
             <li><a href="/submission/object/index_mass_import.php">Massive import of objects</a></li>
             <li><a href="/submission/object/index_update.php">Update object geodata</a></li>
             <li class="separator"></li>
-            <li><a href="/submission/model/index.php">Add a new model</a></li>
+            <li><a href="/submission/model/index_model_add.php">Add a new model</a></li>
             <li><a href="/submission/model/index_model_update.php">Update a model</a></li>
         </ul>
     </li>
