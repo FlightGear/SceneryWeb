@@ -181,6 +181,7 @@ if (!isset($_POST["action"])) {
 
     // Inserting libs
     include_once '../../inc/functions.inc.php';
+    include_once '../../inc/form_checks.php';
     include_once '../../inc/geshi/geshi.php';
 
 
@@ -228,8 +229,6 @@ if (!isset($_POST["action"])) {
             // Retrieve data from query
             $pattern = "/UPDATE fgs_models SET mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', mo_author \= (?P<author>[0-9]+), mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', mo_shared \= (?P<shared>[0-9]+) WHERE mo_id \= (?P<modelid>[0-9]+)/";
             $error === preg_match($pattern, $query_rw, $matches);
-            
-            echo $query_rw;
 
             $mo_id        = $matches['modelid'];
             $mo_path      = $matches['path'];
