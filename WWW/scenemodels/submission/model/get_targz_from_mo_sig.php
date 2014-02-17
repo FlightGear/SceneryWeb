@@ -5,11 +5,12 @@
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 header("Content-type: application/x-gtar");
 header("Content-Disposition: inline; filename=get_targz_from_mo_sig.tgz");
 
 if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64)
-        && preg_match("/[0-9a-z]/", $_GET["mo_sig"])) {
+        && preg_match($regex['sig'], $_GET["mo_sig"])) {
     $resource_rw = connect_sphere_rw();
 
      // If connection is OK

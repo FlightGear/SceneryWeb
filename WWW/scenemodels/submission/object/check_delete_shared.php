@@ -2,30 +2,31 @@
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 
 // Checks all variables if exist
-if (isset($_POST['step']) && preg_match('/^[0-9]+$/u',$_POST['step'])) {
+if (isset($_POST['step']) && preg_match('/^[0-9]+$/u', $_POST['step'])) {
     $step = $_POST['step'];
 }
 
-if (isset($_REQUEST['delete_choice']) && preg_match('/^[0-9]+$/u',$_REQUEST['delete_choice'])) {
+if (isset($_REQUEST['delete_choice']) && preg_match($regex['objectid'], $_REQUEST['delete_choice'])) {
     $id_to_delete = pg_escape_string(stripslashes($_REQUEST['delete_choice']));
 }
 
-if (isset($_POST['delete_choice']) && preg_match('/^[0-9]+$/u',$_POST['delete_choice'])) {
+if (isset($_POST['delete_choice']) && preg_match($regex['objectid'], $_POST['delete_choice'])) {
     $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
 }
 
 if (isset($_POST['email'])
     && (strlen($_POST['email']) > 0)
     && (strlen($_POST['email']) <= 50)
-    && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email']) ) {
+    && preg_match($regex['email'], $_POST['email']) ) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
 }
 
-if (isset($_POST['comment']) && preg_match('/^[0-9a-z-A-Z\';:!?@-_\. ]+$/u',$_POST['comment'])) {
+if (isset($_POST['comment']) && preg_match($regex['comment'], $_POST['comment'])) {
     $comment = strip_tags($_POST['comment']);
 }
 
@@ -135,12 +136,12 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-if (isset($_POST['delete_choice']) && preg_match('/^[0-9]+$/u',$_POST['delete_choice']))
+if (isset($_POST['delete_choice']) && preg_match($regex['objectid'], $_POST['delete_choice']))
     $id_to_delete = pg_escape_string($_POST['delete_choice']);
 
 if (isset($_REQUEST['delete_choice'])
     && $_REQUEST['delete_choice']>'0'
-    && preg_match('/^[0-9]+$/u',$_REQUEST['delete_choice']))
+    && preg_match($regex['objectid'], $_REQUEST['delete_choice']))
     $id_to_delete = pg_escape_string(stripslashes($_REQUEST['delete_choice']));
 
 if (isset($id_to_delete)) {
@@ -154,7 +155,7 @@ else {
         && strlen($_POST['latitude']) <= 20
         && $_POST['latitude'] <= 90
         && $_POST['latitude'] >= -90
-        && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['latitude'])) {
+        && preg_match($regex['long_lat'], $_POST['latitude'])) {
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
@@ -167,7 +168,7 @@ else {
         && strlen($_POST['longitude']) <= 20
         && $_POST['longitude'] <= 180
         && $_POST['longitude'] >= -180
-        && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['longitude'])) {
+        && preg_match($regex['long_lat'], $_POST['longitude'])) {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {

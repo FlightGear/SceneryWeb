@@ -1,12 +1,13 @@
 <?php
     require_once '../../inc/functions.inc.php';
+    require_once '../../inc/form_checks.php';
     $page_title = "Automated Models Submission Form";
     require '../../inc/header.php';
     
     // Populate fields when a model id is given in the url
     if (isset($_REQUEST['update_choice'])
         && $_REQUEST['update_choice']>'0'
-        && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice'])) {
+        && preg_match($regex['modelid'], $_REQUEST['update_choice'])) {
         $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
         $result = pg_query("SELECT mo_id, mo_name, mo_notes, mo_path, mo_shared, mo_author FROM fgs_models WHERE mo_id=$id_to_update;");
         $model = pg_fetch_assoc($result);

@@ -10,11 +10,12 @@
 
 // Inserting libs
 require_once 'inc/functions.inc.php';
+require_once 'inc/form_checks.php';
 
-if (isset($filename) && !preg_match("/[0-9a-zA-Z_.-]/", $filename))
+if (isset($filename) && !preg_match($regex['filename'], $filename))
     exit;
     
-if (!isset($_REQUEST['id']) || !preg_match('/^[0-9]+$/u',$_REQUEST['id']))
+if (!isset($_REQUEST['id']) || !preg_match($regex['modelid'], $_REQUEST['id']))
     exit;
     
 $resource_rw = connect_sphere_rw();

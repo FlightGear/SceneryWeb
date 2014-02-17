@@ -2,6 +2,7 @@
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 // Checking DB availability before all
@@ -60,7 +61,8 @@ $error = false;
 $failed_mail = false;
 if (isset($_POST['email'])
     && (strlen($_POST['email']) > 0)
-    && (strlen($_POST['email']) <= 50)) {
+    && (strlen($_POST['email']) <= 50)
+    && (preg_match($regex['email'], $_POST['email']))) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
     if (!$_POST['submit'])
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
@@ -74,7 +76,7 @@ else {
 // Checking that comment exists. Just a small verification as it's not going into DB.
 if (isset($_POST['comment'])
     && (strlen($_POST['comment']) > 0)
-    && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u', $_POST['comment']))
+    && (preg_match($regex['comment'], $_POST['comment']))
     && (strlen($_POST['comment'] <= 100))) {
     $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 }
@@ -87,7 +89,7 @@ else {
 
 if (!$_POST['submit']) {
     // Checking that stg exists and is containing only letters or figures.
-    if (isset($_POST['stg']) && preg_match('/^[a-zA-Z0-9\_\.\-\,\/]+$/u', $_POST['stg'])) {
+    if (isset($_POST['stg']) && preg_match($regex['stg'], $_POST['stg'])) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
         $error = true;
         include '../../inc/footer.php';
@@ -157,7 +159,7 @@ if (!$error) {
                 }
                 break;
             case 2:  // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
-                if (!preg_match("/^[a-z0-9_\/.-]$/i",$value_tag)) {
+                if (!preg_match($regex['model_filepath'], $value_tag)) {
                     $return_value = model_exists($value_tag);
                     if ($return_value == 0) {
                         echo "<td><center>".$value_tag."</center></td>";
@@ -194,7 +196,7 @@ if (!$error) {
                 if ((strlen($value_tag) <= 20)
                     && ($value_tag <= 180)
                     && ($value_tag >= -180)
-                    && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
+                    && preg_match($regex['long_lat'], $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $long = $value_tag;
                 }
@@ -209,7 +211,7 @@ if (!$error) {
                 if ((strlen($value_tag) <= 20)
                     && ($value_tag <= 90)
                     && ($value_tag >= -90)
-                    && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
+                    && preg_match($regex['long_lat'], $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $lat = $value_tag;
                 }
@@ -237,7 +239,7 @@ if (!$error) {
             case 6:  // Checking Orientation, must contain only figures, be >0, be 20 characters max.
                 if ((strlen($value_tag) <= 20)
                     && ($value_tag >= 0)
-                    && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
+                    && preg_match($regex['heading'], $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td> ";
                     $orientation = $value_tag;
                 }
@@ -252,7 +254,7 @@ if (!$error) {
             case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
                 if (count($tab_tags)==7) {
                     if ((strlen($value_tag) <= 20)
-                        && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
+                        && preg_match($regex['offset'], $value_tag)) {
                         //echo "<td><center>".$value_tag."</center></td>";
                         $elevoffset = $value_tag;
                     }

@@ -5,8 +5,9 @@
 
 header("Content-type: image/jpg");
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 
-if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match("/[0-9a-z]/", $_GET["mo_sig"])) {
+if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match($regex['sig'], $_GET["mo_sig"])) {
     $resource_rw = connect_sphere_rw();
 
     // If connection is OK

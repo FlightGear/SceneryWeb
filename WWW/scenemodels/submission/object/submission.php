@@ -2,6 +2,7 @@
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 // Checking DB availability before all
@@ -15,7 +16,7 @@ if (!$ok) {
 }
 
 // Common code, to be performed for both types of checks
-if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/", $_GET["sig"]) && ($_GET["action"] == "check" || $_GET["action"] == "check_update")) {
+if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['sig'], $_GET["sig"]) && ($_GET["action"] == "check" || $_GET["action"] == "check_update")) {
     $resource_rw = connect_sphere_rw();
 
     // If connection is OK
@@ -148,7 +149,7 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
 }
 
 // Check the presence of "action", the presence of "signature", its length (64) and its content.
-if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && $_GET["action"] == 'accept') {
+if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['sig'], $_GET["sig"]) && $_GET["action"] == 'accept') {
     $resource_rw = connect_sphere_rw();
 
     // If connection is OK
@@ -236,7 +237,7 @@ if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]
 
 // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
 else {
-    if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match("/[0-9a-z]/",$_GET["sig"]) && $_GET["action"] == "reject") {
+    if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['sig'], $_GET["sig"]) && $_GET["action"] == "reject") {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK

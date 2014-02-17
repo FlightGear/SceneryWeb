@@ -2,6 +2,7 @@
 
     // Inserting libs
     require_once '../../inc/functions.inc.php';
+	require_once '../../inc/form_checks.php';
     require_once '../../inc/email.php';
 
     // Checking DB availability before all
@@ -17,7 +18,7 @@
     // Check the presence of "action", the presence of "signature", its 
     // length (64) and its content.
     if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) 
-            && preg_match("/[0-9a-z]/", $_GET["sig"]) && ($_GET["action"] == "check")) {
+            && preg_match($regex['sig'], $_GET["sig"]) && ($_GET["action"] == "check")) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -107,7 +108,7 @@
 
     // Managing the cancellation of a mass import by DB maintainer.
     if (isset($_POST["cancel"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) 
-            && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
+            && preg_match($regex['sig'], $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
 
          $resource_rw = connect_sphere_rw();
 
@@ -172,7 +173,7 @@
     }
 
     // Now managing the insertion
-    if (isset($_POST["submit"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) && preg_match("/[0-9a-z]/", $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
+    if (isset($_POST["submit"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) && preg_match($regex['sig'], $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
 
         $resource_rw = connect_sphere_rw();
 
@@ -294,8 +295,8 @@
                 $dtg = date('l jS \of F Y h:i:s A');
                 $hsig = $_POST['hsig'];
 
-                if (isset($_POST['email'])) $to = $_POST["email"];
-                    else $to = "";
+                // email destination
+                $to = (isset($_POST['email'])) ? $_POST["email"] : '';
 
                 email("mass_import_request_accepted");
 

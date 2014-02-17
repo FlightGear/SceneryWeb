@@ -2,45 +2,46 @@
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 // Checking all variables
-if (isset($_POST['new_long']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_long']))
+if (isset($_POST['new_long']) && preg_match($regex['long_lat'], $_POST['new_long']))
     $new_long = pg_escape_string($_POST['new_long']);
 
-if (isset($_POST['new_lat']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_lat']))
+if (isset($_POST['new_lat']) && preg_match($regex['long_lat'], $_POST['new_lat']))
     $new_lat = pg_escape_string($_POST['new_lat']);
 
-if (isset($_POST['new_offset']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_offset'])) {
+if (isset($_POST['new_offset']) && preg_match($regex['offset'], $_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
     // Have to put quotes around NULL, else we're gonna have problems with the SQL query.
     if ($new_offset == '' || $new_offset == 0) $new_offset = 'NULL';
 }
 
-if (isset($_POST['new_heading']) && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['new_heading']))
+if (isset($_POST['new_heading']) && preg_match($regex['heading'], $_POST['new_heading']))
     $new_orientation = pg_escape_string($_POST['new_heading']);
 
-if (isset($_POST['id_to_update']) && preg_match('/^[0-9]+$/u',$_POST['id_to_update']))
+if (isset($_POST['id_to_update']) && preg_match($regex['objectid'], $_POST['id_to_update']))
     $id_to_update = pg_escape_string($_POST['id_to_update']);
 
 if (isset($_REQUEST['update_choice'])
     && $_REQUEST['update_choice']>'0'
-    && preg_match('/^[0-9]+$/u',$_REQUEST['update_choice']))
+    && preg_match($regex['objectid'], $_REQUEST['update_choice']))
     $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
 
-if (isset($_POST['model_name']) && preg_match('/^[0-9]+$/u',$_POST['model_name']))
+if (isset($_POST['model_name']) && preg_match($regex['modelid'], $_POST['model_name']))
     $model_name = pg_escape_string($_POST['model_name']);
 
 if (isset($_POST['email'])
     && (strlen($_POST['email']) > 0)
     && (strlen($_POST['email']) <= 50)
-    && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email']) )
+    && preg_match($regex['email'], $_POST['email']) )
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
 
 if (isset($_POST['new_ob_text'])
     && (strlen($_POST['new_ob_text']) > 0)
     && (strlen($_POST['new_ob_text']) <= 100))
-    // && preg_match('/^[0-9a-zA-Z_\-.\[\]]+$/u',$_POST['new_ob_text']) )
+    // && preg_match($regex['obtext'], $_POST['new_ob_text']) )
     $safe_new_ob_text = pg_escape_string(stripslashes($_POST['new_ob_text']));
 
 // Final step to edition

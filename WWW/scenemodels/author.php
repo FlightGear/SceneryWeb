@@ -1,10 +1,11 @@
 <?php
-if (isset($_REQUEST['id']) && preg_match('/^[0-9]+$/u',$_REQUEST['id']))
+require 'inc/header.php';
+require 'inc/form_checks.php';
+
+if (isset($_REQUEST['id']) && preg_match($regex['authorid'], $_REQUEST['id']))
 {
     $id=$_REQUEST['id'];
 }
-
-require 'inc/header.php';
 
 if (isset($id))
 {

@@ -3,6 +3,7 @@
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 $fatalerror = 0;
@@ -65,8 +66,8 @@ else {
 
 $tmp_dir = sys_get_temp_dir();
 
-if (!preg_match('/^[a-zA-Z0-9_.-]+$/u', $ac3dName)
-        || !preg_match('/^[a-zA-Z0-9_.-]*$/u', $xmlName)) {
+if (!preg_match($regex['ac3d_filename'], $ac3dName)
+        || !preg_match($regex['xml_filename'], $xmlName)) {
     $fatalerror = 1;
     $error += 1;
     $errormsg .= "<li>AC3D and XML name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
@@ -95,7 +96,7 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
 
     for ($i=0; $i<12; $i++) {
         if(isset($_FILES["png_file"]["name"][$i])) {
-            if (!preg_match('/^[a-zA-Z0-9_.-]*$/u', $_FILES["png_file"]["name"][$i])) {
+            if (!preg_match($regex['png_filename'], $_FILES["png_file"]["name"][$i])) {
                 $fatalerror = 1;
                 $error += 1;
                 $errormsg .= "<li>Textures' name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
@@ -579,30 +580,30 @@ if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["offset
     $offset    = strip_tags($_POST["offset"]);
     $heading   = strip_tags($_POST["heading"]);
 
-    if (preg_match('#[a-zA-Z ]#', $longitude) || ($longitude < -180 || $longitude > 180) || $longitude == 0) {
-        $error += 1;
+    if (!preg_match($regex['long_lat'], $longitude) || ($longitude < -180 || $longitude > 180) || $longitude == 0) {
+        $error++;
         $errormsg .= "<li>Please check the longitude value (-180 < longitude < 180) and not null.</li>";
     }
 
-    if (preg_match('#[a-zA-Z ]#', $latitude) || ($latitude < -90 || $latitude > 90) || $latitude == 0) {
-        $error += 1;
+    if (!preg_match($regex['long_lat'], $latitude) || ($latitude < -90 || $latitude > 90) || $latitude == 0) {
+        $error++;
         $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
     }
 
     if ($offset == '' || $offset == '0')
         $offset = "NULL";
-    else if (preg_match('#[a-zA-Z ]#', $offset) || ($offset < -10000 || $offset > 10000)) {
-        $error += 1;
+    else if (!preg_match($regex['offset'], $offset) || ($offset < -10000 || $offset > 10000)) {
+        $error++;
         $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
     }
 
-    if (preg_match('#[a-zA-Z ]#', $heading) || ($heading < 0 || $heading > 359.999)) {
-        $error += 1;
+    if (!preg_match($regex['heading'], $heading) || ($heading < 0 || $heading > 359.999)) {
+        $error++;
         $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
     }
 }
 else {
-    $error += 1;
+    $error++;
     $errormsg .= "<li>Please fill in all required fields.</li>";
 }
 
@@ -628,29 +629,29 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
 
     if ($mo_shared != 0) { // This is only used for shared objects.
         if (model_exists('Models/'.family_name($mo_shared).'/'.$path) != 2) { // Reconstructing the parameters the model_exists function is waiting for, based on the path.
-            $error += 1;
+            $error++;
             $errormsg .= "<li>It seems that your model already exists in our database. If you want to update it, please use our lovely update script for 3D models (to come).</li>";
         }
     }
 
-    if (!preg_match('#^[0-9]{1,3}$#', $author)) {
-        $error += 1;
+    if (!preg_match($regex['authorid'], $author)) {
+        $error++;
         $errormsg .= "<li>Please check the author value.</li>";
     }
 
-    if (!preg_match('#^[a-zA-Z]{1,3}$#', $country)) {
-        $error += 1;
+    if (!preg_match($regex['countryid'], $country)) {
+        $error++;
         $errormsg .= "<li>Please check the country value.</li>";
     }
 
 }
 else {
-    $error += 1;
+    $error++;
     $errormsg .= "<li>Please fill in all required fields.</li>";
 }
 
 if (!isset($_POST["gpl"])) {
-    $error += 1;
+    $error++;
     $errormsg .= "<li>You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FlightGear must wear this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.</li>";
 }
 

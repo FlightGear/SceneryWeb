@@ -2,6 +2,7 @@
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 // Checking DB availability before all
@@ -44,7 +45,7 @@ global $error;
 echo "<center>";
 
 // Checking that family_id exists and is containing only figures.
-if (isset($_POST['family_name']) && preg_match('/^[0-9]+$/',$_POST['family_name']) && ($_POST['family_name']>'0')) {
+if (isset($_POST['family_name']) && preg_match($regex['familyid'], $_POST['family_name']) && ($_POST['family_name']>'0')) {
     $family_id = pg_escape_string(stripslashes($_POST['family_name']));
     $family_real_name = family_name($family_id);
     echo "<p class=\"ok\">Family Name: ".$family_real_name."</p>";
@@ -55,7 +56,7 @@ else {
 }
 
 // Checking that model_id exists and is containing only figures and with correct decimal format.
-if (isset($_POST['model_name']) && preg_match('/^[0-9]+$/',$_POST['model_name']) && ($_POST['model_name']>'0')) {
+if (isset($_POST['model_name']) && preg_match($regex['modelid'], $_POST['model_name']) && ($_POST['model_name']>'0')) {
     $model_id = pg_escape_string(stripslashes($_POST['model_name']));
     $model_real_name = object_name($model_id);
     echo "<p class=\"ok\">Model Name: ".$model_real_name."</p>";
@@ -70,7 +71,7 @@ if (isset($_POST['latitude'])
    && strlen($_POST['latitude'])<=20
    && $_POST['latitude']<='90'
    && $_POST['latitude']>='-90'
-   && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['latitude'])) {
+   && preg_match($regex['long_lat'], $_POST['latitude'])) {
     $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     echo "<p class=\"ok\">Latitude: ".$lat."</p>";
 }
@@ -84,7 +85,7 @@ if (isset($_POST['longitude'])
    && (strlen($_POST['longitude'])<=20)
    && ($_POST['longitude']<='180')
    && ($_POST['longitude']>='-180')
-   && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['longitude'])) {
+   && preg_match($regex['long_lat'], $_POST['longitude'])) {
     $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     echo "<p class=\"ok\">Longitude: ".$long."</p>";
 }
@@ -94,7 +95,7 @@ else {
 }
 
 // Country.
-if ($_POST['ob_country'] != "") {
+if ($_POST['ob_country'] != "" && preg_match($regex['countryid'], $_POST['ob_country'])) {
     $ob_country = $_POST["ob_country"];
     echo "<p class=\"ok\">Country: ".get_country_name_from_country_code($ob_country)."</p>";
 }
@@ -105,7 +106,7 @@ else {
 
 
 // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
-if (isset($_POST['offset']) && (strlen($_POST['offset'])<=20) && (preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
+if (isset($_POST['offset']) && (strlen($_POST['offset'])<=20) && (preg_match($regex['offset'], $_POST['offset'])) && ($_POST['offset']<='10000') && ($_POST['offset']>='-10000')) {
     $offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
     echo "<p class=\"ok\">Offset: ".$offset."</p>";
 }
@@ -116,7 +117,7 @@ else {
 
 // Checking that orientation exists and is containing only digits, and is >=0 and <=359
 // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
-if(isset($_POST['heading']) && (strlen($_POST['heading'])<=20) && (preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',$_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0')) {
+if(isset($_POST['heading']) && (strlen($_POST['heading'])<=20) && (preg_match($regex['heading'], $_POST['heading'])) && ($_POST['heading']<='359.999') && ($_POST['heading']>='0')) {
     $heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
     echo "<p class=\"ok\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</p>";
 }
@@ -126,8 +127,8 @@ else {
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
-// (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_POST['comment']))
-if (isset($_POST['comment']) && (strlen($_POST['comment'])>0) && (strlen($_POST['comment'])<=100)) {
+if (isset($_POST['comment']) && (strlen($_POST['comment'])>0) && (strlen($_POST['comment'])<=100)
+   && preg_match($regex['comment'], $_POST['comment'])) {
     $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
     echo "<p class=\"ok\">Comment: ".$sent_comment."</p>";
 }
@@ -140,7 +141,7 @@ else {
 //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 $failed_mail = false;
 if (isset($_POST['email']) && (strlen($_POST['email'])>0) && (strlen($_POST['email'])<=50)
-   && preg_match('/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',$_POST['email'])) {
+   && preg_match($regex['email'], $_POST['email'])) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
     echo "<p class=\"ok\">Email: ".$safe_email."</p>";
 }

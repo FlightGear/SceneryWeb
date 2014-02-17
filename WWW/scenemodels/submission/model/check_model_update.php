@@ -3,6 +3,7 @@
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 $fatalerror = 0;
@@ -65,10 +66,10 @@ else {
 
 $tmp_dir = sys_get_temp_dir();
 
-if (!preg_match('/^[a-zA-Z0-9_.-]+$/u', $ac3dName)
-        || !preg_match('/^[a-zA-Z0-9_.-]*$/u', $xmlName)) {
+if (!preg_match($regex['ac3d_filename'], $ac3dName)
+        || !preg_match($regex['xml_filename'], $xmlName)) {
     $fatalerror = 1;
-    $error += 1;
+    $error++;
     $errormsg .= "<li>AC3D and XML name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
 }
 
@@ -80,7 +81,7 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
 
     if (!mkdir($targetPath)) {
         $fatalerror = 1;
-        $error += 1;
+        $error++;
         $errormsg .= "<li>Impossible to create temporary directory $targetPath</li>";
     }
 
@@ -95,7 +96,7 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
 
     for ($i=0; $i<12; $i++) {
         if(isset($_FILES["png_file"]["name"][$i])) {
-            if (!preg_match('/^[a-zA-Z0-9_.-]*$/u', $_FILES["png_file"]["name"][$i])) {
+            if (!preg_match($regex['png_filename'], $_FILES["png_file"]["name"][$i])) {
                 $fatalerror = 1;
                 $error += 1;
                 $errormsg .= "<li>Textures' name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
@@ -586,7 +587,7 @@ if (($_POST["family_name"] != "") && ($_POST["mo_author"] != "")
         $model_name  = $_POST["model_name"];
         $ipaddr      = $_POST["IPAddr"];
 
-    if (!preg_match('#^[0-9]{1,3}$#', $author)) {
+    if (!preg_match($regex['authorid'], $author)) {
         $error += 1;
         $errormsg .= "<li>Please check the author value.</li>";
     }
@@ -600,7 +601,7 @@ else {
 // Checking that comment exists. Just a small verification as it's not going into DB.
 if (isset($_POST['comment'])
     && (strlen($_POST['comment']) > 0)
-    && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u', $_POST['comment']))
+    && (preg_match($regex['comment'], $_POST['comment']))
     && (strlen($_POST['comment'] <= 100))) {
     $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 }

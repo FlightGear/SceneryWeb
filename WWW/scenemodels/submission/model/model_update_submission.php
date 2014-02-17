@@ -2,6 +2,7 @@
 if (isset($_POST["action"])) {
     // Inserting libs
     include_once '../../inc/functions.inc.php';
+    include_once '../../inc/form_checks.php';
     include_once '../../inc/email.php';
     $page_title = "Automated Models Submission Form";
 
@@ -197,7 +198,7 @@ if (!isset($_POST["action"])) {
 
     // Working on the model, now
     // Check the presence of "mo_sig", its length (64) and its content.
-    if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match("/[0-9a-z]/", $_GET["mo_sig"])) {
+    if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match($regex['sig'], $_GET["mo_sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -356,7 +357,7 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td colspan="2"><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
+        <td colspan="2"><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET['mo_sig']; ?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
@@ -369,7 +370,7 @@ include '../../inc/header.php';
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
             <h3>New model:</h3>
-            <object data="model/index_update.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="model/index_update.php?mo_sig=<?php echo $_GET['mo_sig']; ?>" type="text/html" width="720px" height="620px"></object>
         </td>
     </tr>
     <tr>

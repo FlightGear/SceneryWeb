@@ -190,6 +190,7 @@ if (!isset($_POST["action"])) {
 
     // Inserting libs
     include_once '../../inc/functions.inc.php';
+	include_once '../../inc/form_checks.php';
     include_once '../../inc/geshi/geshi.php';
 
 
@@ -207,7 +208,7 @@ if (!isset($_POST["action"])) {
 
     // Working on the object, first
     // Check the presence of "ob_sig", its length (64) and its content.
-    if (isset($_GET["ob_sig"]) && strlen($_GET["ob_sig"]) == 64 && preg_match("/[0-9a-z]/", $_GET["ob_sig"])) {
+    if (isset($_GET["ob_sig"]) && strlen($_GET["ob_sig"]) == 64 && preg_match($regex['sig'], $_GET["ob_sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -261,7 +262,7 @@ if (!isset($_POST["action"])) {
 
     // Working on the model, now
     // Check the presence of "mo_sig", its length (64) and its content.
-    if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match("/[0-9a-z]/", $_GET["mo_sig"])) {
+    if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match($regex['sig'], $_GET["mo_sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -381,7 +382,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></center></td>
+        <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET['mo_sig'] ?>" alt="Thumbnail"/></center></td>
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff

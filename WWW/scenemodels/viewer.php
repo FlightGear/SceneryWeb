@@ -29,7 +29,8 @@
     <script type="text/javascript" src="inc/hangar/viewer.js"></script>
 
     <?php
-    if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
+    require_once 'inc/form_checks.php';
+    if (isset($_REQUEST['id']) && (preg_match($regex['modelid'], $_GET['id']))) {
         $id = $_REQUEST['id'];
     }
     ?>
