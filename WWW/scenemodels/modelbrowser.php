@@ -1,5 +1,6 @@
 <?php
 require 'inc/header.php';
+require 'inc/form_checks.php';
 
 if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))) {
   $offset = $_REQUEST['offset'];
@@ -9,7 +10,7 @@ else {
   $offset = 0;
 }
 
-if (isset($_REQUEST['shared']) && (preg_match('/^[0-9]+$/u',$_GET['shared']))) {
+if (isset($_REQUEST['shared']) && (preg_match($regex['familyid'], $_GET['shared']))) {
     if ($_REQUEST['shared']>0) {
         $groupquery = "SELECT mg_name FROM fgs_modelgroups WHERE mg_id =".$_REQUEST['shared'].";";
         $gpresult = pg_query($groupquery);

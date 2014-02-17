@@ -1,4 +1,7 @@
-<?php require 'inc/header.php';?>
+<?php
+require 'inc/header.php';
+require 'inc/form_checks.php';
+?>
 
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
@@ -8,7 +11,7 @@ function popmap(lat,lon,zoom) {
 </script>
 
 <?php
-if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u',$_GET['id']))) {
+if (isset($_REQUEST['id']) && (preg_match($regex['modelid'], $_GET['id']))) {
     $id = $_REQUEST['id'];
     $result = pg_query("SELECT mo_author, mo_id, mo_modified, mo_name, mo_notes, mo_path, mo_shared, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay FROM fgs_models WHERE mo_id=$id;");
     $model = pg_fetch_assoc($result);

@@ -3,8 +3,9 @@ require 'inc/header.php';
 
 // Inserting libs
 require_once 'inc/functions.inc.php';
+require_once 'inc/form_checks.php';
 
-if (isset($_REQUEST['id']) && (preg_match('/^[0-9]+$/u', $_GET['id']))) {
+if (isset($_REQUEST['id']) && (preg_match($regex['objectid'], $_GET['id']))) {
     $id = $_REQUEST['id'];
     $result = pg_query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon FROM fgs_objects WHERE ob_id=$id;");
     $object = pg_fetch_assoc($result);
