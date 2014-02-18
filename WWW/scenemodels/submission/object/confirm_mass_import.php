@@ -299,14 +299,14 @@ if (!$error) {
                 $cpt_err++;
                 echo "<td style='background-color: rgb(200, 0, 0);'>Exists already</td>"; // Fatal error
             // this used to break the backend, testing if it still does
-            } elseif (detect_nearby_object($lat, $long, $model_id)) {
-                echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>"; // Just a warning, not fatal
             } else {
-                echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
-                if ($ob_country == "")
-                    $ob_country_db = "unknown";
-                else
-                    $ob_country_db = $ob_country;
+                if (detect_nearby_object($lat, $long, $model_id)) {
+                    echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>"; // Just a warning, not fatal
+                } else {
+                    echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
+                }
+                
+                $ob_country_db = ($ob_country == "") ? "unknown":$ob_country;
                 $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country_db."', 1)";
             }
         }
@@ -353,14 +353,13 @@ if (!$_POST['submit']) {
     // Proceed on with the request generation
     $data_query_rw = "";
     $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
-    for ($j = 1; $j<=$nb_lines; $j++) { // For each line, add the data content to the request
-        if ($j == $nb_lines) {
-            $data_query_rw = $data_query_rw.$data_rw[$j].";";
-        }
-        else {
-            $data_query_rw = $data_query_rw.$data_rw[$j].", ";
-        }
+   
+    // For each line, add the data content to the request
+    for ($j = 1; $j<$nb_lines; $j++) {
+        $data_query_rw = $data_query_rw.$data_rw[$j].", ";
     }
+    $data_query_rw = $data_query_rw.$data_rw[$nb_lines].";";
+    
     $mass_rw_query = $query_rw.$data_query_rw;
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
