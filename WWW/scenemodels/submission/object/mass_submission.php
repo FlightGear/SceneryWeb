@@ -62,6 +62,8 @@
                         $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
 
                         $error === preg_match($pattern, $value_tag, $matches);
+                        
+                        echo $value_tag;
 
                         $long = $matches['long'];
                         $lat = $matches['lat'];
