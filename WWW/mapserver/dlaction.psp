@@ -7,37 +7,41 @@
 # 'download' database table. Fire 'dlaction.sh' with a reference to the UUID
 # of the respective database entry.
 #
-import pgdb
-from pgdb import escape_string
+import os, time
 import uuid
-import time
-import os
+import psycopg2
 
-# Define DB connection for verification of layers to download
-#
-ldbconnect = pgdb.connect(host='geoscope.optiputer.net',
-                          database='landcover',
-                          user='webuser')
+db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"webuser"}
+try:
+    db_conn = psycopg2.connect(**db_params)
+except:
+    print "Cannot connect to database."
+db_cur = db_conn.cursor()
 
-cursor = ldbconnect.cursor()
+def fn_pgexec(sql):
+    try:
+        db_cur.execute(sql)
+    except:
+        print "Cannot execute SQL statement."
+    return db_cur
 
 myvars = {}
 myvars['mylayer'] = ("%(layer)s" % form)
 
 # Check if the defined layer to download is a valid one
 #
-testlayercmd = ( "SELECT COUNT(*) from conf_layer \
-  WHERE maplayer = '%(mylayer)s' \
-  OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % myvars )
+sql = "SELECT COUNT(*) from conf_layer \
+    WHERE maplayer = '%(mylayer)s' \
+    OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % myvars
 
-cursor.execute ( testlayercmd )
-layervalid = cursor.fetchone()
+fn_pgexec(sql)
+layervalid = db_cur.fetchone()
 
 # Layer not present in 'conf_layer' table
 #
 if layervalid[0] != 1:
-  print "Please select a valid layer!"
-  exit(1)
+    print "Please select a valid layer!"
+    exit(1)
 
 xmin = float("%(xmin)s" % form)
 xmax = float("%(xmax)s" % form)
@@ -48,20 +52,20 @@ dlarea = ((xmax - xmin) * (ymax - ymin))
 # West/East swapped
 #
 if xmin > xmax:
-  print "Please use reasonable coordinates!"
-  exit(1)
+    print "Please use reasonable coordinates!"
+    exit(1)
 
 # Nort/South swapped
 #
 if ymin > ymax:
-  print "Please use reasonable coordinates!"
-  exit(1)
+    print "Please use reasonable coordinates!"
+    exit(1)
 
 # Area too large
 #
 if dlarea > 144:
-  print "Please don't exceed maximum area!"
-  exit(1)
+    print "Please don't exceed maximum area!"
+    exit(1)
 
 # Now, everything is ok
 #
@@ -73,25 +77,18 @@ myvars['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 # After everything's verified, store an entry in the 'download' table for
 # retrieval and execution via the 'dlaction.sh' script.
 #
-sqlStatements = ("INSERT INTO download (uuid, ll_geometry, " + \
-                 "ur_geometry, pgislayer, requestdate) VALUES \
-  ('%(myuuid)s', \
-  ST_GeomFromEWKT('SRID=4326;POINT(%(ll_geometry)s)'), \
-  ST_GeomFromEWKT('SRID=4326;POINT(%(ur_geometry)s)'), \
-  '%(mylayer)s', \
-  '%(mydate)s' \
-);" % myvars)
+sql = "INSERT INTO download (uuid, ll_geometry, ur_geometry, pgislayer, requestdate) VALUES \
+    ('%(myuuid)s', \
+    ST_GeomFromEWKT('SRID=4326;POINT(%(ll_geometry)s)'), \
+    ST_GeomFromEWKT('SRID=4326;POINT(%(ur_geometry)s)'), \
+    '%(mylayer)s', \
+    '%(mydate)s');" % myvars
 
-try:
-    cursor.execute(sqlStatements)
-except pgdb.DatabaseError, errText:
-    raise pgdb.DatabaseError, errText
+db_cur.execute(sql)
+db_conn.commit()
 
-# Cleanup
-#
-cursor.close()
-ldbconnect.commit()
-ldbconnect.close()
+db_cur.close
+db_conn.close
 
 # Finally call 'dlaction.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
