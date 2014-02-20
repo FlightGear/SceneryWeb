@@ -1,39 +1,35 @@
 <%
 #
 # called by 'shpdl.psp'
-# calls 'procshpdl.sh'
+# calls '<basename>.sh'
 #
 # Verify input from the web form and store the necessary details in the
-# 'download' database table. Fire 'procshpdl.sh' with a reference to the UUID
+# 'download' database table. Fire '<basename>.sh' with a reference to the UUID
 # of the respective database entry.
 #
-import os
-import psycopg2
+import os, time
 import uuid
-import time
+import psycopg2
 
-# Define DB connection for verification of layers to download
-#
-db_params = { 'host':'geoscope.optiputer.net', 'database':'landcover', 'user':'webuser' }
+db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"webuser"}
 try:
     db_conn = psycopg2.connect(**db_params)
 except:
     print "Cannot connect to database."
 db_cur = db_conn.cursor()
 
-validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'apt']
-
 url_params = {}
 url_params['mylayer'] = ("%(layer)s" % form)
 
+validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'apt']
 if url_params['mylayer'] not in validlayers:
     exit(1)
 
 # Check if the defined layer to download is a valid one
 #
-testlayercmd = ( "SELECT COUNT(*) from conf_layer \
+sql = "SELECT COUNT(*) from conf_layer \
     WHERE maplayer = '%(mylayer)s' \
-    OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % url_params )
+    OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % url_params
 
 xmin = float("%(xmin)s" % form)
 xmax = float("%(xmax)s" % form)
@@ -68,29 +64,26 @@ url_params['bbox'] = ("%(ll_geometry)s, %(ur_geometry)s" % url_params)
 url_params['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 
 # After everything's verified, store an entry in the 'download' table for
-# retrieval and execution via the 'procshpdl.sh' script.
+# retrieval and execution via the '<basename>.sh' script.
 #
-sql = ("INSERT INTO download (uuid, wkb_geometry, ll_geometry, " + \
-       "ur_geometry, pgislayer, requestdate) VALUES \
+sql = "INSERT INTO download (uuid, wkb_geometry, ll_geometry, ur_geometry, pgislayer, requestdate) VALUES \
     ('%(myuuid)s', \
     ST_SetSRID('BOX3D(%(ll_geometry)s, %(ur_geometry)s)'::BOX3D, 4326), \
     ST_GeomFromEWKT('SRID=4326;POINT(%(ll_geometry)s)'), \
     ST_GeomFromEWKT('SRID=4326;POINT(%(ur_geometry)s)'), \
     '%(mylayer)s', \
-    '%(mydate)s' \
-);" % url_params)
+    '%(mydate)s');" % url_params
+
 try:
     db_cur.execute(sql)
+    db_conn.commit()
 except:
     print "Cannot insert download job into DB."
-db_cur.close()
 
-# Cleanup
-#
-db_conn.commit()
-db_conn.close()
+db_cur.close
+db_conn.close
 
-# Finally call 'procshpdl.sh' with the given UUID identifier as stored in the
+# Finally call '<basename>.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
 dumpcmd = ("/home/fgscenery/GIT/WWW/mapserver/procshpdl.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % url_params)
