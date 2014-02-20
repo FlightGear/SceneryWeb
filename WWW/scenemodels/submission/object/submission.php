@@ -65,7 +65,7 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
                 echo "<tr>\n" .
                      "<td><center>".$long."</center></td>\n" .
                      "<td><center>".$lat."</center></td>\n" .
-                     "<td><center>".$country."</center></td>\n" .
+                     "<td><center>".get_country_name_from_country_code($country)."</center></td>\n" .
                      "<td><center>".$elev."</center></td>\n" .
                      "<td><center>".$elevoffset."</center></td>\n" .
                      "<td><center>".$orientation."</center></td>\n" .
