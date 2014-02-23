@@ -10,11 +10,12 @@
 
 // Inserting libs
 require_once '../../../inc/functions.inc.php';
+require_once '../../../inc/form_checks.php';
 
-if (isset($filename) && !preg_match("/[0-9a-zA-Z_.-]/", $filename))
+if (isset($filename) && !preg_match($regex['filename'], $filename))
     exit;
 
-if (!isset($mo_sig) || (strlen($mo_sig) != 64) || !preg_match("/[0-9a-z]/", $mo_sig))
+if (!isset($mo_sig) || (strlen($mo_sig) != 64) || !preg_match($regex['sig'], $mo_sig))
     exit;
     
 if (!isset($type_contribute))
