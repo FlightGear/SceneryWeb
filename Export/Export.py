@@ -152,7 +152,7 @@ db_result = fn_pgexec(sql, "w")
 statusfile.write("successful\n")
 statusfile.flush()
 
-Notice = "Export Finished"
+Notice = "Subject: Export Finished"
 Recipient = "martin@localhost"
 
 mailPipe = Popen(["/usr/sbin/sendmail", "-bm", "-oi", Recipient], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
