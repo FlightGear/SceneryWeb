@@ -24,10 +24,21 @@ import subprocess
 import psycopg2
 from subprocess import Popen, PIPE, STDOUT
 
-db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"jstockill"}
+sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
+
+pghost = "geoscope.optiputer.net"
+pgdatabase = "landcover"
+pguser = "jstockill"
+
+db_params = {"host":pghost, "database":pgdatabase, "user":pguser}
+
+pgenv = dict(os.environ)
+pgenv["PGHOST"] = pghost
+pgenv["PGDATABASE"] = pgdatabase
+pgenv["PGUSER"] = pguser
 
 homedir = os.path.expanduser("~")
-statusfile = open(os.path.join(homedir, ".exportstatus"), 'w')
+statusfile = open(os.path.join(homedir, ".exportstatus"), "w")
 basedir = os.path.dirname(os.path.realpath(__file__))
 workdir = "/home/fgscenery/Dump"
 statusfile.write("running\n")
@@ -46,7 +57,7 @@ db_cur = db_conn.cursor()
 
 
 def fn_pgexec(sql, mode):
-    if mode == 'r':
+    if mode == "r":
         try:
             db_cur.execute(sql)
             db_result = db_cur.fetchall()
@@ -56,7 +67,7 @@ def fn_pgexec(sql, mode):
                 return db_result
         except:
             print("Cannot execute SQL statement.")
-    if mode == 'w':
+    if mode == "w":
         try:
             db_cur.execute(sql)
             db_conn.commit()
@@ -65,7 +76,7 @@ def fn_pgexec(sql, mode):
 
 # End of update period for current export
 sql = "INSERT INTO fgs_timestamp (id, stamp) VALUES (1, now());"
-db_result = fn_pgexec(sql, 'w')
+db_result = fn_pgexec(sql, "w")
 
 # Dirs to export
 sql = "SELECT DISTINCT fn_SceneDir(wkb_geometry) AS dir \
@@ -73,19 +84,19 @@ sql = "SELECT DISTINCT fn_SceneDir(wkb_geometry) AS dir \
     WHERE fgs_objects.ob_modified > (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 0) \
     AND fgs_objects.ob_modified < (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 1) \
     ORDER BY dir;"
-db_result = fn_pgexec(sql, 'r')
+db_result = fn_pgexec(sql, "r")
 
 # Objects without valid tile numbers are ignored upon export
 print("### Updating tile numbers ....")
 sql = "UPDATE fgs_objects SET ob_tile = fn_GetTileNumber(wkb_geometry) \
     WHERE ob_tile < 1 OR ob_tile IS NULL;"
-db_result = fn_pgexec(sql, 'w')
+db_result = fn_pgexec(sql, "w")
 sql = "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry) \
     WHERE si_tile < 1 OR si_tile IS NULL;"
-db_result = fn_pgexec(sql, 'w')
+db_result = fn_pgexec(sql, "w")
 print("### Updating ground elevations ....")
 updateElevations = os.path.join(basedir, "updateElevations")
-subprocess.check_call(updateElevations, shell=True)
+subprocess.check_call(updateElevations, env=pgenv, shell=True)
 
 try:
     # Cleanup Objects and Models
@@ -97,7 +108,7 @@ try:
     # Export the Objects directory
     print("### Exporting Objects tree ....")
     exportObjects = os.path.join(basedir, "exportObjects")
-    subprocess.check_call(exportObjects, shell=True)
+    subprocess.check_call(exportObjects, env=pgenv, shell=True)
 except:
     sys.exit("Objects export failed.")
 
@@ -105,7 +116,7 @@ try:
     # Export the Models directory
     print("### Exporting Models tree ....")
     exportModels = os.path.join(basedir, "exportModels")
-    subprocess.check_call(exportModels, shell=True)
+    subprocess.check_call(exportModels, env=pgenv, shell=True)
 except:
     sys.exit("Models export failed.")
 
@@ -131,9 +142,9 @@ subprocess.check_call(packModels, shell=True)
 
 # Start of new update period
 sql = "DELETE FROM fgs_timestamp WHERE id = 0;"
-db_result = fn_pgexec(sql, 'w')
+db_result = fn_pgexec(sql, "w")
 sql = "UPDATE fgs_timestamp SET id = 0 WHERE id = 1;"
-db_result = fn_pgexec(sql, 'w')
+db_result = fn_pgexec(sql, "w")
 
 # Cleaning up after interrupted export:
 #  psql -c "DELETE FROM fgs_timestamp WHERE id = 1;"
