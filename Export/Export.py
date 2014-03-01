@@ -2,18 +2,22 @@
 # -*- coding: utf-8 -*-
 
 import os
-import psycopg2
 import subprocess
 
-db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"webuser"}
+import psycopg2
+import smtplib
+from email.mime.text import MIMEText
+
+db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"jstockill"}
 
 homedir = os.path.expanduser("~")
 statusfile = open(os.path.join(homedir, ".exportstatus"), 'w')
 basedir = os.path.dirname(os.path.realpath(__file__))
+workdir = "/home/fgscenery/Dump"
 statusfile.write("running\n")
 
 try:
-    os.chdir(basedir)
+    os.chdir(workdir)
 except:
     sys.exit()
 
@@ -30,12 +34,12 @@ def fn_pgexec(sql, mode):
             db_cur.execute(sql)
             db_result = db_cur.fetchall()
             if db_result is None:
-                print("DB query result is empty!"
+                print("DB query result is empty!")
             else:
                 return db_result
         except:
             print("Cannot execute SQL statement.")
-    if a_option == 'w':
+    if mode == 'w':
         try:
             db_cur.execute(sql)
             db_conn.commit()
@@ -64,7 +68,7 @@ sql = "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry) \
 db_result = fn_pgexec(sql, 'w')
 print("### Updating ground elevations ....")
 updateElevations = os.path.join(basedir, "updateElevations")
-subprocess.check_call(["perl", updateElevations], shell=True)
+subprocess.check_call(updateElevations, shell=True)
 
 # Cleanup Objects and Models
 subprocess.check_call("find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;", shell=True)
@@ -72,12 +76,12 @@ subprocess.check_call("find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -r
 # Export the Objects directory
 print("### Exporting Objects tree ....")
 exportObjects = os.path.join(basedir, "exportObjects")
-subprocess.check_call(["perl", exportObjects], shell=True)
+subprocess.check_call(exportObjects, shell=True)
 
 # Export the Models directory
 print("### Exporting Models tree ....")
 exportModels = os.path.join(basedir, "exportModels")
-subprocess.check_call(["perl", exportModels], shell=True)
+subprocess.check_call(exportModels, shell=True)
 
 # Ensure perms are correct
 subprocess.check_call("find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;", shell=True)
@@ -86,12 +90,12 @@ subprocess.check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 
 # Disabled during World Scenery build preparations; Martin, 2010-01-22
 print("### Packing Global Objects ....")
 packObjects = os.path.join(basedir, "packObjects")
-subprocess.check_call(["perl", packObjects], shell=True)
+subprocess.check_call(packObjects, shell=True)
 
 # Disabled during World Scenery build preparations; Martin, 2010-01-22
 print("### Packing Global Models ....")
 packModels = os.path.join(basedir, "packModels")
-subprocess.check_call(["perl", packModels], shell=True)
+subprocess.check_call(packModels, shell=True)
 
 # Requires major fixing before use !
 #./download-map.pl
