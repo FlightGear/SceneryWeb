@@ -1,7 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+# Copyright (C) 2004 - 2014  Jon Stockill, Martin Spott
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
 
-import os
+import os, sys
 import subprocess
 
 import psycopg2
@@ -76,6 +93,7 @@ try:
 except:
     sys.exit("Cleanup failed")
 
+try:
     # Export the Objects directory
     print("### Exporting Objects tree ....")
     exportObjects = os.path.join(basedir, "exportObjects")
@@ -83,6 +101,7 @@ except:
 except:
     sys.exit("Objects export failed.")
 
+try:
     # Export the Models directory
     print("### Exporting Models tree ....")
     exportModels = os.path.join(basedir, "exportModels")
@@ -90,6 +109,7 @@ except:
 except:
     sys.exit("Models export failed.")
 
+try:
     # Ensure perms are correct
     subprocess.check_call("find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;", shell=True)
     subprocess.check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;", shell=True)
