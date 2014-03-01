@@ -19,12 +19,12 @@ statusfile.flush()
 try:
     os.chdir(workdir)
 except:
-    sys.exit()
+    sys.exit("Cannot change into work dir.")
 
 try:
     db_conn = psycopg2.connect(**db_params)
 except:
-    print "Cannot connect to database."
+    sys.exit("Cannot connect to database.")
 db_cur = db_conn.cursor()
 
 
@@ -70,22 +70,31 @@ print("### Updating ground elevations ....")
 updateElevations = os.path.join(basedir, "updateElevations")
 subprocess.check_call(updateElevations, shell=True)
 
-# Cleanup Objects and Models
-subprocess.check_call("find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;", shell=True)
+try:
+    # Cleanup Objects and Models
+    subprocess.check_call("find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;", shell=True)
+except:
+    sys.exit("Cleanup failed")
 
-# Export the Objects directory
-print("### Exporting Objects tree ....")
-exportObjects = os.path.join(basedir, "exportObjects")
-subprocess.check_call(exportObjects, shell=True)
+    # Export the Objects directory
+    print("### Exporting Objects tree ....")
+    exportObjects = os.path.join(basedir, "exportObjects")
+    subprocess.check_call(exportObjects, shell=True)
+except:
+    sys.exit("Objects export failed.")
 
-# Export the Models directory
-print("### Exporting Models tree ....")
-exportModels = os.path.join(basedir, "exportModels")
-subprocess.check_call(exportModels, shell=True)
+    # Export the Models directory
+    print("### Exporting Models tree ....")
+    exportModels = os.path.join(basedir, "exportModels")
+    subprocess.check_call(exportModels, shell=True)
+except:
+    sys.exit("Models export failed.")
 
-# Ensure perms are correct
-subprocess.check_call("find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;", shell=True)
-subprocess.check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;", shell=True)
+    # Ensure perms are correct
+    subprocess.check_call("find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;", shell=True)
+    subprocess.check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;", shell=True)
+except:
+    sys.exit("Set permissions failed.")
 
 # Disabled during World Scenery build preparations; Martin, 2010-01-22
 print("### Packing Global Objects ....")
