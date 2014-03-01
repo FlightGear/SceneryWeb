@@ -5,8 +5,7 @@ import os
 import subprocess
 
 import psycopg2
-import smtplib
-from email.mime.text import MIMEText
+from subprocess import Popen, PIPE, STDOUT
 
 db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"jstockill"}
 
@@ -15,6 +14,7 @@ statusfile = open(os.path.join(homedir, ".exportstatus"), 'w')
 basedir = os.path.dirname(os.path.realpath(__file__))
 workdir = "/home/fgscenery/Dump"
 statusfile.write("running\n")
+statusfile.flush()
 
 try:
     os.chdir(workdir)
@@ -109,15 +109,14 @@ db_result = fn_pgexec(sql, 'w')
 # Cleaning up after interrupted export:
 #  psql -c "DELETE FROM fgs_timestamp WHERE id = 1;"
 
-Notice = MIMEText("Export Finished")
-SMTPHandle = smtplib.SMTP('localhost')
-Notice["Subject"] = "Export Finished"
-Sender = "fgscenery@sphere"
-Recipients = ["martin@localhost"]
-Notice["From"] = Sender
-Notice["To"] = Recipients[0]
-SMTPHandle.sendmail(Sender, Recipients, Notice.as_string())
-SMTPHandle.quit()
+statusfile.write("successful\n")
+statusfile.flush()
+
+Notice = "Export Finished"
+Recipient = "martin@localhost"
+
+mailPipe = Popen(["/usr/sbin/sendmail", "-bm", "-oi", Recipient], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+mailStdout = mailPipe.communicate(input=str(Notice))[0]
 
 db_cur.close
 db_conn.close
