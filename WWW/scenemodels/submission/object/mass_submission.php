@@ -17,15 +17,14 @@
 
     // Check the presence of "action", the presence of "signature", its 
     // length (64) and its content.
-    if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) 
-            && preg_match($regex['sig'], $_GET["sig"]) && ($_GET["action"] == "check")) {
+    if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check")) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz " .
+            $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz " .
                                               "FROM fgs_position_requests " .
                                               "WHERE spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
@@ -41,7 +40,7 @@
 
             if ($_GET["action"] == "check") {  // If action comes from the mass submission script
                 while ($row = pg_fetch_row($result)) {
-                    $sqlzbase64 = $row[1];
+                    $sqlzbase64 = $row[0];
 
                     // Base64 decode the query
                     $sqlz = base64_decode($sqlzbase64);
@@ -107,8 +106,7 @@
     }
 
     // Managing the cancellation of a mass import by DB maintainer.
-    if (isset($_POST["cancel"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) 
-            && preg_match($regex['sig'], $_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
+    if (isset($_POST["cancel"]) && is_sig($_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
 
          $resource_rw = connect_sphere_rw();
 
@@ -116,7 +114,7 @@
         if ($resource_rw != 0) {
 
             // Checking the presence of sig into the database
-            $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
+            $delete_query = "SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
             $result = @pg_query($delete_query);
 
             // If not ok...
@@ -159,10 +157,8 @@
                 $comment = $_POST["maintainer_comment"];
                 $hsig = $_POST["hsig"];
 
-                if (isset($_POST["email"]))
-                    $to = $_POST["email"];
-                else
-                    $to = "";
+                // email destination
+                $to = (isset($_POST['email'])) ? $_POST["email"] : '';
 
                 email("mass_import_request_rejected");
 
@@ -173,7 +169,7 @@
     }
 
     // Now managing the insertion
-    if (isset($_POST["submit"]) && isset($_POST["hsig"]) && (strlen($_POST["hsig"]) == 64) && preg_match($regex['sig'], $_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
+    if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
 
         $resource_rw = connect_sphere_rw();
 
@@ -181,7 +177,7 @@
         if ($resource_rw != 0) {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw,"SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';");
+            $result = @pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Objects Massive Import Request Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
@@ -192,7 +188,7 @@
             }
 
             while ($row = pg_fetch_row($result)) {
-                $sqlzbase64 = $row[1];
+                $sqlzbase64 = $row[0];
 
                 // Base64 decode the query
                 $sqlz = base64_decode($sqlzbase64);

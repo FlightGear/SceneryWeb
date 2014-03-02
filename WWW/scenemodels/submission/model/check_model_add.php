@@ -580,24 +580,24 @@ if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["offset
     $offset    = strip_tags($_POST["offset"]);
     $heading   = strip_tags($_POST["heading"]);
 
-    if (!preg_match($regex['long_lat'], $longitude) || ($longitude < -180 || $longitude > 180) || $longitude == 0) {
+    if (!is_longitude($longitude)) {
         $error++;
         $errormsg .= "<li>Please check the longitude value (-180 < longitude < 180) and not null.</li>";
     }
 
-    if (!preg_match($regex['long_lat'], $latitude) || ($latitude < -90 || $latitude > 90) || $latitude == 0) {
+    if (!is_latitude($latitude)) {
         $error++;
         $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
     }
 
     if ($offset == '' || $offset == '0')
         $offset = "NULL";
-    else if (!preg_match($regex['offset'], $offset) || ($offset < -10000 || $offset > 10000)) {
+    else if (!is_offset($offset)) {
         $error++;
         $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
     }
 
-    if (!preg_match($regex['heading'], $heading) || ($heading < 0 || $heading > 359.999)) {
+    if (!is_heading($heading)) {
         $error++;
         $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
     }

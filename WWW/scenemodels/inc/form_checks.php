@@ -20,4 +20,97 @@ $regex = array(
  'sig' => '/[0-9a-z]/'
 );
 
+// Checks if the id is a family id
+// ================================================
+function is_family_id($id_to_check) {
+    return isset($id_to_check)
+           && preg_match($regex['familyid'], $id_to_check)
+           && $id_to_check > 0;
+}
+
+// Checks if the id is a model id
+// ================================================
+function is_model_id($id_to_check) {
+    return isset($id_to_check)
+           && preg_match($regex['modelid'], $id_to_check)
+           && $id_to_check > 0;
+}
+
+// Checks if the id is an object id
+// ================================================
+function is_object_id($id_to_check) {
+    return isset($id_to_check)
+           && $id_to_check > 0
+           && preg_match($regex['objectid'], $id_to_check);
+}
+   
+// Checks if the given variable is a latitude
+// ================================================
+function is_latitude($value) {
+    return isset($value)
+           && strlen($value) <= 20
+           && $value <= 90
+           && $value >= -90
+           && preg_match($regex['long_lat'], $value);
+}
+
+// Checks if the given variable is a longitude
+// ================================================
+function is_longitude($value) {
+    return isset($value)
+           && strlen($value) <= 20
+           && $value <= 180
+           && $value >= -180
+           && preg_match($regex['long_lat'], $value);
+}
+
+// Checks if the given variable is a country id
+// ================================================
+function is_country_id($value) {
+    return isset($value)
+           && $value != ""
+           && preg_match($regex['countryid'], $value);
+}
+
+// Checks if the given variable is an offset
+// ================================================
+function is_offset($value) {
+    return isset($value)
+           && strlen($value) <= 20
+           && preg_match($regex['offset'], $value)
+           && $value <= 10000;
+}
+
+// Checks if the given variable is a heading
+// ================================================
+function is_heading($value) {
+    return isset($value)
+           && strlen($value) <= 20
+           && preg_match($regex['heading'], $value)
+           && $value < 360
+           && $value >= 0;
+}
+
+// Checks if the given variable is a comment
+// ================================================
+function is_comment($value) {
+    return isset($value)
+           && strlen($value) <= 100
+           && preg_match($regex['comment'], $value);
+}
+
+// Checks if the given variable is an email
+// ================================================
+function is_email($value) {
+    return isset($value)
+           && strlen($value) <= 50
+           && preg_match($regex['email'], $value);
+}
+
+function is_sig($value) {
+    return isset($value)
+           && strlen($value) == 64
+           && preg_match($regex['sig'], $value);
+}
+
 ?>

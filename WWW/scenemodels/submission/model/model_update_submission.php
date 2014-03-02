@@ -20,7 +20,7 @@ if (isset($_POST["action"])) {
             if ($resource_rw != '0') {
 
                 // Checking the presence of sig into the database
-                $mo_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+                $mo_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
                 if (pg_num_rows($mo_result) != 1) {
                     $process_text = "Deleting corresponding pending query.";
                     $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -89,7 +89,7 @@ if (isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sigs into the database
-            $mo_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+            $mo_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
 
             if (pg_num_rows($mo_result) != 1) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -100,7 +100,7 @@ if (isset($_POST["action"])) {
             }
 
             while ($row_mo = pg_fetch_row ($mo_result)) {
-                $sqlzbase64_mo = $row_mo[1];
+                $sqlzbase64_mo = $row_mo[0];
 
                 // Base64 decode the query
                 $sqlz_mo = base64_decode ($sqlzbase64_mo);
@@ -199,14 +199,14 @@ if (!isset($_POST["action"])) {
 
     // Working on the model, now
     // Check the presence of "mo_sig", its length (64) and its content.
-    if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match($regex['sig'], $_GET["mo_sig"])) {
+    if (is_sig($_GET["mo_sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
+            $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
@@ -218,7 +218,7 @@ if (!isset($_POST["action"])) {
             // We are sure there is only 1 row
             $row = pg_fetch_row($result);
 
-            $sqlzbase64 = $row[1];
+            $sqlzbase64 = $row[0];
 
             // Base64 decode the query
             $sqlz = base64_decode($sqlzbase64);
@@ -427,7 +427,7 @@ include '../../inc/header.php';
     <tr>
         <td>Action</td>
         <td colspan="2" class="submit">
-            <input type="hidden" name="mo_sig" value="<?php echo $_GET["mo_sig"]; ?>" />
+            <input type="hidden" name="mo_sig" value="<?php echo $_GET['mo_sig']; ?>" />
             <input type="submit" name="action" value="Submit model" />
             <input type="submit" name="action" value="Reject model" />
         </td>

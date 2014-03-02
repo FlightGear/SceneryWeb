@@ -16,14 +16,14 @@ if (!$ok) {
 }
 
 // Common code, to be performed for both types of checks
-if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['sig'], $_GET["sig"]) && ($_GET["action"] == "check" || $_GET["action"] == "check_update")) {
+if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check" || $_GET["action"] == "check_update")) {
     $resource_rw = connect_sphere_rw();
 
     // If connection is OK
     if ($resource_rw != '0') {
 
         // Checking the presence of sig into the database
-        $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
+        $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
         if (pg_num_rows($result) != 1) {
             $page_title = "Automated Objects Massive Import Request Form";
             $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
@@ -35,7 +35,7 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
 
         // Show results
         while ($row = pg_fetch_row($result)) {
-            $sqlzbase64 = $row[1];
+            $sqlzbase64 = $row[0];
 
             // Base64 decode the query
             $sqlz = base64_decode($sqlzbase64);
@@ -149,14 +149,14 @@ if (isset($_GET["action"]) && isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64
 }
 
 // Check the presence of "action", the presence of "signature", its length (64) and its content.
-if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['sig'], $_GET["sig"]) && $_GET["action"] == 'accept') {
+if (is_sig($_GET["sig"]) && $_GET["action"] == 'accept') {
     $resource_rw = connect_sphere_rw();
 
     // If connection is OK
     if ($resource_rw != '0') {
 
     // Checking the presence of sig into the database
-        $result = @pg_query($resource_rw,"SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
+        $result = @pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
         if (pg_num_rows($result) != 1) {
             $page_title = "Automated Objects Pending Requests Form";
             $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
@@ -168,7 +168,7 @@ if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['si
 
         if ($_GET["action"] == 'accept') {   // If action comes from the unitary insertion script
             while ($row = pg_fetch_row($result)) {
-                $sqlzbase64 = $row[1];
+                $sqlzbase64 = $row[0];
 
                 // Base64 decode the query
                 $sqlz = base64_decode($sqlzbase64);
@@ -221,10 +221,9 @@ if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['si
                 $dtg = date('l jS \of F Y h:i:s A');
                 $comment = $_GET['maintainer_comment'];
 
-                // OK, let's start with the mail redaction.
-                // Who will receive it ?
-                if (isset($_GET['email'])) $to .= $_GET["email"];
-                else $to = "";
+                // email destination
+                $to = (isset($_GET['email'])) ? $_GET['email'] : '';
+ 
                 $sig = $_GET['sig'];
 
                 email("pending_request_process_confirmation");
@@ -237,14 +236,14 @@ if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['si
 
 // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
 else {
-    if (isset($_GET["sig"]) && (strlen($_GET["sig"]) == 64) && preg_match($regex['sig'], $_GET["sig"]) && $_GET["action"] == "reject") {
+    if (is_sig($_GET["sig"]) && $_GET["action"] == "reject") {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $delete_query = "SELECT spr_hash FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
+            $delete_query = "SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
             $result = @pg_query($delete_query);
 
             // If not ok...
@@ -295,10 +294,9 @@ else {
             $dtg = date('l jS \of F Y h:i:s A');
             $comment = $_GET['maintainer_comment'];
 
-            // OK, let's start with the mail redaction.
-            // Who will receive it ?
-            if(isset($_GET['email'])) $to = $_GET["email"];
-                else $to = "";
+            // email destination
+            $to = (isset($_GET['email'])) ? $_GET['email'] : '';
+
             $sig = $_GET['sig'];
 
             email("reject_and_deletion_confirmation");

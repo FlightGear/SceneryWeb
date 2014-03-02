@@ -5,11 +5,12 @@ $filename = $dir_array[count($dir_array)-1];
 
 // Inserting libs
 require_once '../../../inc/functions.inc.php';
+require_once '../../../inc/form_checks.php';
 
-if (!isset($filename) || !preg_match("/[0-9a-zA-Z_.-]/", $filename))
+if (!isset($filename) || !preg_match($regex['filename'], $filename))
     exit;
 
-if (!isset($mo_sig) || (strlen($mo_sig) != 64) || !preg_match("/[0-9a-z]/", $mo_sig))
+if (!is_sig($mo_sig))
     exit;
 
 $resource_rw = connect_sphere_rw();
@@ -19,7 +20,7 @@ if ($resource_rw == '0')
     exit;
 
 // Checking the presence of sig into the database
-$result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz " .
+$result = @pg_query($resource_rw, "SELECT spr_base64_sqlz " .
                                   "FROM fgs_position_requests " .
                                   "WHERE spr_hash = '". $mo_sig ."';");
 if (pg_num_rows($result) != 1)
@@ -27,7 +28,7 @@ if (pg_num_rows($result) != 1)
 
 // Now we are sure there is only 1 row
 $row = pg_fetch_row($result);
-$sqlzbase64 = $row[1];
+$sqlzbase64 = $row[0];
 
 // Base64 decode the query
 $sqlz = base64_decode($sqlzbase64);

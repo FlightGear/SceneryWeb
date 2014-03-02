@@ -6,36 +6,31 @@ require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 // Checking all variables
-if (isset($_POST['new_long']) && preg_match($regex['long_lat'], $_POST['new_long']))
+if (is_longitude($_POST['new_long']))
     $new_long = pg_escape_string($_POST['new_long']);
 
-if (isset($_POST['new_lat']) && preg_match($regex['long_lat'], $_POST['new_lat']))
+if (is_latitude($_POST['new_lat']))
     $new_lat = pg_escape_string($_POST['new_lat']);
 
-if (isset($_POST['new_offset']) && preg_match($regex['offset'], $_POST['new_offset'])) {
+if (is_offset($_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
     // Have to put quotes around NULL, else we're gonna have problems with the SQL query.
     if ($new_offset == '' || $new_offset == 0) $new_offset = 'NULL';
 }
 
-if (isset($_POST['new_heading']) && preg_match($regex['heading'], $_POST['new_heading']))
+if (is_heading($_POST['new_heading']))
     $new_orientation = pg_escape_string($_POST['new_heading']);
 
-if (isset($_POST['id_to_update']) && preg_match($regex['objectid'], $_POST['id_to_update']))
+if (is_object_id($_POST['id_to_update']))
     $id_to_update = pg_escape_string($_POST['id_to_update']);
 
-if (isset($_REQUEST['update_choice'])
-    && $_REQUEST['update_choice']>'0'
-    && preg_match($regex['objectid'], $_REQUEST['update_choice']))
+if (is_object_id($_REQUEST['update_choice']))
     $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
 
-if (isset($_POST['model_name']) && preg_match($regex['modelid'], $_POST['model_name']))
+if (is_model_id($_POST['model_name']))
     $model_name = pg_escape_string($_POST['model_name']);
 
-if (isset($_POST['email'])
-    && (strlen($_POST['email']) > 0)
-    && (strlen($_POST['email']) <= 50)
-    && preg_match($regex['email'], $_POST['email']) )
+if (is_email($_POST['email']))
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
 
 if (isset($_POST['new_ob_text'])
@@ -438,11 +433,7 @@ else {
 
     // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
     $error_text = "";
-    if (isset($_POST['latitude'])
-        && strlen($_POST['latitude']) <= 20
-        && $_POST['latitude'] <= 90
-        && $_POST['latitude'] >= -90) {
-
+    if (is_latitude($_POST['latitude'])) {
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
@@ -451,11 +442,7 @@ else {
     }
 
     // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-    if (isset($_POST['longitude'])
-        && strlen($_POST['longitude']) <= 20
-        && $_POST['longitude'] >= -180
-        && $_POST['longitude'] <= 180) {
-
+    if (is_longitude($_POST['longitude'])) {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {

@@ -1,7 +1,8 @@
 <?php
+require_once '../../inc/functions.inc.php';
+
 if (isset($_POST["action"])) {
     // Inserting libs
-    include_once '../../inc/functions.inc.php';
     include_once '../../inc/email.php';
     $page_title = "Automated Models Submission Form";
 
@@ -19,8 +20,8 @@ if (isset($_POST["action"])) {
             if ($resource_rw != '0') {
 
                 // Checking the presence of sig into the database
-                $ob_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
-                $mo_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+                $ob_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
+                $mo_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
                 if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                     $process_text = "Deleting corresponding pending query.";
                     $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -91,8 +92,8 @@ if (isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sigs into the database
-            $mo_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
-            $ob_result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
+            $mo_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+            $ob_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
 
             if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -189,7 +190,6 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    include_once '../../inc/functions.inc.php';
 	include_once '../../inc/form_checks.php';
     include_once '../../inc/geshi/geshi.php';
 
@@ -208,14 +208,14 @@ if (!isset($_POST["action"])) {
 
     // Working on the object, first
     // Check the presence of "ob_sig", its length (64) and its content.
-    if (isset($_GET["ob_sig"]) && strlen($_GET["ob_sig"]) == 64 && preg_match($regex['sig'], $_GET["ob_sig"])) {
+    if (is_sig($_GET["ob_sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if ($resource_rw != '0') {
 
             // Checking the presence of ob_sig into the database
-            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["ob_sig"] ."';");
+            $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["ob_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
@@ -225,7 +225,7 @@ if (!isset($_POST["action"])) {
             }
 
             while ($row = pg_fetch_row($result)) {
-                $sqlzbase64 = $row[1];
+                $sqlzbase64 = $row[0];
 
                 // Base64 decode query
                 $sqlz = base64_decode($sqlzbase64);
@@ -262,14 +262,14 @@ if (!isset($_POST["action"])) {
 
     // Working on the model, now
     // Check the presence of "mo_sig", its length (64) and its content.
-    if (isset($_GET["mo_sig"]) && (strlen($_GET["mo_sig"]) == 64) && preg_match($regex['sig'], $_GET["mo_sig"])) {
+    if (is_sig($_GET["mo_sig"])) {
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
+            $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
@@ -281,7 +281,7 @@ if (!isset($_POST["action"])) {
             // We are sure there is only 1 row
             $row = pg_fetch_row($result);
 
-            $sqlzbase64 = $row[1];
+            $sqlzbase64 = $row[0];
 
             // Base64 decode the query
             $sqlz = base64_decode($sqlzbase64);

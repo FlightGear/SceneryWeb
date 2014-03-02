@@ -59,10 +59,7 @@ $error = false;
 // Checking that email is valid (if it exists).
 //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 $failed_mail = false;
-if (isset($_POST['email'])
-    && (strlen($_POST['email']) > 0)
-    && (strlen($_POST['email']) <= 50)
-    && (preg_match($regex['email'], $_POST['email']))) {
+if (is_email($_POST['email'])) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
     if (!$_POST['submit'])
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
@@ -74,10 +71,7 @@ else {
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
-if (isset($_POST['comment'])
-    && (strlen($_POST['comment']) > 0)
-    && (preg_match($regex['comment'], $_POST['comment']))
-    && (strlen($_POST['comment'] <= 100))) {
+if (is_comment($_POST['comment'])) {
     $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 }
 else {
@@ -193,10 +187,7 @@ if (!$error) {
 
                 break;
             case 3:  // Checking Longitude, must contain only figures and ., be >-180 and <180, be 20 characters max.
-                if ((strlen($value_tag) <= 20)
-                    && ($value_tag <= 180)
-                    && ($value_tag >= -180)
-                    && preg_match($regex['long_lat'], $value_tag)) {
+                if (is_longitude($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $long = $value_tag;
                 }
@@ -208,10 +199,7 @@ if (!$error) {
                 }
                 break;
             case 4:  // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 20 characters max.
-                if ((strlen($value_tag) <= 20)
-                    && ($value_tag <= 90)
-                    && ($value_tag >= -90)
-                    && preg_match($regex['long_lat'], $value_tag)) {
+                if (is_latitude($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $lat = $value_tag;
                 }
@@ -223,7 +211,7 @@ if (!$error) {
                 }
                 break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
-            case 5:  // Checking Elevation, must contain only figures and, be max 20 characters (TODO: not used anymore!!)
+            case 5:  // Checking Elevation, must contain only figures and, be max 20 characters (TODO: can be used to automatically compute offset!!)
                 if ((strlen($value_tag) <= 20)
                     && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
@@ -237,9 +225,7 @@ if (!$error) {
                 }
                 break;
             case 6:  // Checking Orientation, must contain only figures, be >0, be 20 characters max.
-                if ((strlen($value_tag) <= 20)
-                    && ($value_tag >= 0)
-                    && preg_match($regex['heading'], $value_tag)) {
+                if (is_heading($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td> ";
                     $orientation = $value_tag;
                 }
@@ -253,8 +239,7 @@ if (!$error) {
 
             case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
                 if (count($tab_tags)==7) {
-                    if ((strlen($value_tag) <= 20)
-                        && preg_match($regex['offset'], $value_tag)) {
+                    if (is_offset($value_tag)) {
                         //echo "<td><center>".$value_tag."</center></td>";
                         $elevoffset = $value_tag;
                     }

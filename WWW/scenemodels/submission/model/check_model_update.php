@@ -599,10 +599,7 @@ else {
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
-if (isset($_POST['comment'])
-    && (strlen($_POST['comment']) > 0)
-    && (preg_match($regex['comment'], $_POST['comment']))
-    && (strlen($_POST['comment'] <= 100))) {
+if (is_comment($_POST['comment'])) {
     $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
 }
 else {
@@ -675,7 +672,7 @@ else {
             $failed_mail = 1;
         }
         
-        if (($contr_email != '') && (strlen($contr_email) > 0)) {
+        if (is_email($contr_email)) {
             $safe_contr_email = pg_escape_string(stripslashes($contr_email));
         }
         else {

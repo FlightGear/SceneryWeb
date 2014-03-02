@@ -11,22 +11,15 @@ if (isset($_POST['step']) && preg_match('/^[0-9]+$/u', $_POST['step'])) {
     $step = $_POST['step'];
 }
 
-if (isset($_REQUEST['delete_choice']) && preg_match($regex['objectid'], $_REQUEST['delete_choice'])) {
+if (is_object_id($_REQUEST['delete_choice'])) {
     $id_to_delete = pg_escape_string(stripslashes($_REQUEST['delete_choice']));
 }
 
-if (isset($_POST['delete_choice']) && preg_match($regex['objectid'], $_POST['delete_choice'])) {
-    $id_to_delete = pg_escape_string(stripslashes($_POST['delete_choice']));
-}
-
-if (isset($_POST['email'])
-    && (strlen($_POST['email']) > 0)
-    && (strlen($_POST['email']) <= 50)
-    && preg_match($regex['email'], $_POST['email']) ) {
+if (is_email($_POST['email'])) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
 }
 
-if (isset($_POST['comment']) && preg_match($regex['comment'], $_POST['comment'])) {
+if ($_POST['comment'] != '' && is_comment($_POST['comment'])) {
     $comment = strip_tags($_POST['comment']);
 }
 
@@ -136,26 +129,15 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-if (isset($_POST['delete_choice']) && preg_match($regex['objectid'], $_POST['delete_choice']))
-    $id_to_delete = pg_escape_string($_POST['delete_choice']);
-
-if (isset($_REQUEST['delete_choice'])
-    && $_REQUEST['delete_choice']>'0'
-    && preg_match($regex['objectid'], $_REQUEST['delete_choice']))
+if (is_object_id($_REQUEST['delete_choice'])) {
     $id_to_delete = pg_escape_string(stripslashes($_REQUEST['delete_choice']));
-
-if (isset($id_to_delete)) {
-    $error = false;
 }
-else {
+
+if (!isset($id_to_delete)) {
     $error_text = "";
 
     // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-    if (isset($_POST['latitude'])
-        && strlen($_POST['latitude']) <= 20
-        && $_POST['latitude'] <= 90
-        && $_POST['latitude'] >= -90
-        && preg_match($regex['long_lat'], $_POST['latitude'])) {
+    if (is_latitude($_POST['latitude'])) {
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
@@ -164,11 +146,7 @@ else {
     }
 
     // Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-    if (isset($_POST['longitude'])
-        && strlen($_POST['longitude']) <= 20
-        && $_POST['longitude'] <= 180
-        && $_POST['longitude'] >= -180
-        && preg_match($regex['long_lat'], $_POST['longitude'])) {
+    if (is_longitude($_POST['longitude'])) {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {
