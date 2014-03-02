@@ -72,7 +72,7 @@ else
     </tr>
     <tr>
         <td colspan="3" align="center">
-            <a href="submission/object/check_update_shared.php?update_choice=<?php echo $id;?>">Update this object</a>
+            <a href="submission/object/check_update.php?update_choice=<?php echo $id;?>">Update this object</a>
 <?php
     // If the object is static, let not user fix it with a shared script...
     if (is_shared_or_static($id) == 'shared') {

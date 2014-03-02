@@ -33,11 +33,11 @@
             var content = "<h2>"+feature.attributes.title + "</h2>" +
                 feature.attributes.description;
             if(feature.attributes.type=="shared") {
-                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/object/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>"+
+                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/object/check_update.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>"+
                 "&nbsp;<a href='http://scenemodels.flightgear.org/submission/object/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>";
             }
             if(feature.attributes.type=="static") {
-                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/object/check_update_shared.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>";
+                content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/object/check_update.php?update_choice="+feature.attributes.id+"' target='_blank'>Update</a>";
             }
             popup = new OpenLayers.Popup.FramedCloud("featurePopup",
                 feature.geometry.getBounds().getCenterLonLat(),

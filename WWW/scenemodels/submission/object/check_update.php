@@ -188,7 +188,7 @@ function validateForm()
 </script>
     <p class="center">You have asked to update object <?php echo "<a href=\"/objectview.php?id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
 
-    <form id="update" method="post" action="check_update_shared.php" onsubmit="return validateForm();">
+    <form id="update" method="post" action="check_update.php" onsubmit="return validateForm();">
       <table>
         <tr>
           <th></th>
@@ -496,7 +496,7 @@ else {
         while ($row = pg_fetch_row($result)) {
             echo "<p class=\"center\">One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</p>";
 ?>
-            <form id="update_position" method="post" action="check_update_shared.php">
+            <form id="update_position" method="post" action="check_update.php">
             <table>
                 <tr>
                     <td><span title="This is the family name of the object you want to update."><label>Object's family</label></span></td>
@@ -558,7 +558,7 @@ else {
         echo "<p class=\"center\">".$returned_rows." objects with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." were found in the database.<br />Please select with the left radio button the one you want to update.</p>";
 
         // Starting multi-solutions form
-        echo "<form id=\"update_position\" method=\"post\" action=\"check_update_shared.php\">";
+        echo "<form id=\"update_position\" method=\"post\" action=\"check_update.php\">";
         echo "<table>";
 
         $i = 1; // Just used to put the selected button on the first entry
