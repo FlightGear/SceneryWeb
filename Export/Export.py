@@ -97,7 +97,7 @@ def fn_updateElevations():
             # 512280 -179.880556 -16.688333
             # "fgelev" output:
             # 512280: 19.479
-            sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects WHERE ob_valid IS true AND ob_gndelev > -9999 ORDER BY ob_tile, ob_id LIMIT 3"
+            sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects WHERE ob_valid IS true AND ob_gndelev = -9999 ORDER BY ob_tile, ob_id LIMIT 10000"
             db_result = fn_pgexec(sql, "r")
             num_rows = len(db_result)
             ePipe = Popen(fgelev, env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
@@ -132,6 +132,7 @@ db_result = fn_pgexec(sql, "w")
 sql = "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry) \
     WHERE si_tile < 1 OR si_tile IS NULL;"
 db_result = fn_pgexec(sql, "w")
+
 print("### Updating ground elevations ....")
 updateElevations = os.path.join(basedir, "updateElevations")
 subprocess.check_call(updateElevations, env=pgenv, shell=True)
