@@ -114,19 +114,27 @@ def fn_updateElevations():
             print("No elevations pending update")
             break
 
-def fn_packObjects():
+def fn_pack():
     objects = os.path.join(workdir, "Objects")
+    models = os.path.join(workdir, "Models")
     download = os.path.join(fgscenery, "Download")
     suffix = ".tgz"
+    # 10x10 degree tile Objects
     for packtile in os.listdir(objects):
         if fnmatch.fnmatch(packtile, "[ew][0-9][0-9]0[ns][0-9]0"):
             destfile = os.path.join(download, packtile + suffix)
             packfile = tarfile.open(destfile, "w:gz")
             packfile.add("Objects/" + packtile)
             packfile.close()
+    # GlobalObjects
     destfile = os.path.join(download, "GlobalObjects" + suffix)        
     packfile = tarfile.open(destfile, "w:gz")
     packfile.add("Objects")
+    packfile.close()
+    # SharedModels
+    destfile = os.path.join(download, "SharedModels" + suffix)        
+    packfile = tarfile.open(destfile, "w:gz")
+    packfile.add("Models")
     packfile.close()
 
 # End of update period for current export
@@ -184,15 +192,17 @@ except:
     sys.exit("Set permissions failed.")
 
 # Disabled during World Scenery build preparations; Martin, 2010-01-22
-print("### Packing Global Objects ....")
+#print("### Packing Global Objects ....")
 #packObjects = os.path.join(basedir, "packObjects")
 #subprocess.check_call(packObjects, shell=True)
-fn_packObjects()
 
 # Disabled during World Scenery build preparations; Martin, 2010-01-22
-print("### Packing Global Models ....")
-packModels = os.path.join(basedir, "packModels")
-subprocess.check_call(packModels, shell=True)
+#print("### Packing Global Models ....")
+#packModels = os.path.join(basedir, "packModels")
+#subprocess.check_call(packModels, shell=True)
+#
+print("### Packing Global Objects and Models ....")
+fn_pack()
 
 # Requires major fixing before use !
 #./download-map.pl
