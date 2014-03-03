@@ -191,16 +191,6 @@ try:
 except:
     sys.exit("Set permissions failed.")
 
-# Disabled during World Scenery build preparations; Martin, 2010-01-22
-#print("### Packing Global Objects ....")
-#packObjects = os.path.join(basedir, "packObjects")
-#subprocess.check_call(packObjects, shell=True)
-
-# Disabled during World Scenery build preparations; Martin, 2010-01-22
-#print("### Packing Global Models ....")
-#packModels = os.path.join(basedir, "packModels")
-#subprocess.check_call(packModels, shell=True)
-#
 print("### Packing Global Objects and Models ....")
 fn_pack()
 
