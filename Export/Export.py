@@ -183,8 +183,9 @@ except:
 
 # Disabled during World Scenery build preparations; Martin, 2010-01-22
 print("### Packing Global Objects ....")
-packObjects = os.path.join(basedir, "packObjects")
-subprocess.check_call(packObjects, shell=True)
+#packObjects = os.path.join(basedir, "packObjects")
+#subprocess.check_call(packObjects, shell=True)
+fn_packObjects()
 
 # Disabled during World Scenery build preparations; Martin, 2010-01-22
 print("### Packing Global Models ....")
