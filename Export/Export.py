@@ -23,6 +23,7 @@ import subprocess
 
 import psycopg2
 from subprocess import Popen, PIPE, STDOUT
+import tarfile
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
 
@@ -38,9 +39,10 @@ pgenv["PGDATABASE"] = pgdatabase
 pgenv["PGUSER"] = pguser
 
 homedir = os.path.expanduser("~")
+fgscenery = os.path.expanduser("~fgscenery")
 statusfile = open(os.path.join(homedir, ".exportstatus"), "w")
 basedir = os.path.dirname(os.path.realpath(__file__))
-workdir = "/home/fgscenery/Dump"
+workdir = os.path.join(fgscenery, "Dump")
 statusfile.write("running\n")
 statusfile.flush()
 
@@ -74,8 +76,7 @@ def fn_pgexec(sql, mode):
             print("Cannot write to DB.")
 
 def fn_updateElevations():
-    martin = os.path.expanduser("/home/martin")
-    fgscenery = os.path.expanduser("/home/fgscenery")
+    martin = os.path.expanduser("~martin")
     fg_home = os.path.join(martin, "terragear")
     fg_root = os.path.join(martin, "SCM", "FlightGear", "fgdata")
     fg_scenery = os.path.join(fgscenery, "Terrascenery")
@@ -111,6 +112,20 @@ def fn_updateElevations():
         else:
             print("No elevations pending update")
             break
+
+def fn_packObjects():
+    objects = os.path.join(workdir, "Objects")
+    download = os.path.join(fgscenery, "Download")
+    suffix = ".tgz"
+    for packtile in os.listdir(objects):
+        destfile = os.path.join(download, packtile + suffix)
+        packfile = tarfile.open(destfile, "w:gz")
+        packfile.add("Objects/" + packtile)
+        packfile.close()
+    destfile = os.path.join(download, "GlobalObjects" + suffix)        
+    packfile = tarfile.open(destfile, "w:gz")
+    packfile.add("Objects")
+    packfile.close()
 
 # End of update period for current export
 sql = "INSERT INTO fgs_timestamp (id, stamp) VALUES (1, now());"
