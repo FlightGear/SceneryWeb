@@ -23,6 +23,7 @@ import subprocess
 
 import psycopg2
 from subprocess import Popen, PIPE, STDOUT
+import fnmatch
 import tarfile
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
@@ -118,10 +119,11 @@ def fn_packObjects():
     download = os.path.join(fgscenery, "Download")
     suffix = ".tgz"
     for packtile in os.listdir(objects):
-        destfile = os.path.join(download, packtile + suffix)
-        packfile = tarfile.open(destfile, "w:gz")
-        packfile.add("Objects/" + packtile)
-        packfile.close()
+        if fnmatch.fnmatch(packtile, "[ew][0-9][0-9]0[ns][0-9]0"):
+            destfile = os.path.join(download, packtile + suffix)
+            packfile = tarfile.open(destfile, "w:gz")
+            packfile.add("Objects/" + packtile)
+            packfile.close()
     destfile = os.path.join(download, "GlobalObjects" + suffix)        
     packfile = tarfile.open(destfile, "w:gz")
     packfile.add("Objects")
