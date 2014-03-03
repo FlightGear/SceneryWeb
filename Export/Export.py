@@ -55,7 +55,6 @@ except:
     sys.exit("Cannot connect to database.")
 db_cur = db_conn.cursor()
 
-
 def fn_pgexec(sql, mode):
     if mode == "r":
         try:
@@ -73,6 +72,45 @@ def fn_pgexec(sql, mode):
             db_conn.commit()
         except:
             print("Cannot write to DB.")
+
+def fn_updateElevations():
+    martin = os.path.expanduser("/home/martin")
+    fgscenery = os.path.expanduser("/home/fgscenery")
+    fg_home = os.path.join(martin, "terragear")
+    fg_root = os.path.join(martin, "SCM", "FlightGear", "fgdata")
+    fg_scenery = os.path.join(fgscenery, "Terrascenery")
+    fgelev = os.path.join(martin, "bin", "fgelev")
+
+    fgenv = dict(os.environ)
+    fgenv["FG_HOME"] = fg_home
+    fgenv["FG_ROOT"] = fg_root
+    fgenv["FG_SCENERY"] = fg_scenery
+
+    sql = "UPDATE fgs_objects SET ob_elevoffset = NULL where ob_elevoffset = 0;"
+    db_result = fn_pgexec(sql, "w")
+
+    while 1:
+        checksql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999"
+        db_result = fn_pgexec(checksql, "r")[0]
+        if db_result > 0:
+            # "fgelev" input:
+            # 512280 -179.880556 -16.688333
+            # "fgelev" output:
+            # 512280: 19.479
+            sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects WHERE ob_valid IS true AND ob_gndelev > -9999 ORDER BY ob_tile, ob_id LIMIT 3"
+            db_result = fn_pgexec(sql, "r")
+            num_rows = len(db_result)
+            ePipe = Popen(fgelev, env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+            for i in xrange(0, num_rows, 1):
+                row = "%s %s %s\n" % (db_result[i][0],db_result[i][1],db_result[i][2])
+                ePipe.stdin.write(row)
+                eResult = ePipe.stdout.readline()
+                eList = eResult.translate(None, ":").split()
+                sql = "UPDATE fgs_objects SET ob_gndelev = %s WHERE ob_id = %s AND ob_gndelev = -9999;" % (eList[1], eList[0])  # (ob_gndelev, ob_id)
+                db_result = fn_pgexec(sql, "w")
+        else:
+            print("No elevations pending update")
+            break
 
 # End of update period for current export
 sql = "INSERT INTO fgs_timestamp (id, stamp) VALUES (1, now());"
