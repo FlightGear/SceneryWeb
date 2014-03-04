@@ -62,10 +62,11 @@ def fn_pgexec(sql, mode):
     if mode == "r":
         try:
             db_cur.execute(sql)
-            db_result = db_cur.fetchall()
-            if db_result is None:
+            if db_cur.rowcount == 0:
                 print("DB query result is empty!")
+                return None
             else:
+                db_result = db_cur.fetchall()
                 return db_result
         except:
             print("Cannot execute SQL statement.")
@@ -94,7 +95,7 @@ def fn_updateElevations():
     while 1:
         checksql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999"
         db_result = fn_pgexec(checksql, "r")[0]
-        if db_result > 0:
+        if db_result[0] > 0:
             # "fgelev" input:
             # 512280 -179.880556 -16.688333
             # "fgelev" output:
@@ -102,6 +103,7 @@ def fn_updateElevations():
             sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects WHERE ob_valid IS true AND ob_gndelev = -9999 ORDER BY ob_tile, ob_id LIMIT 10000"
             db_result = fn_pgexec(sql, "r")
             num_rows = len(db_result)
+            print("Updating %s object(s)" % num_rows)
             ePipe = Popen(fgelev, env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
             for i in xrange(0, num_rows, 1):
                 row = "%s %s %s\n" % (db_result[i][0],db_result[i][1],db_result[i][2])
@@ -164,8 +166,9 @@ sql = "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry) \
 db_result = fn_pgexec(sql, "w")
 
 print("### Updating ground elevations ....")
-updateElevations = os.path.join(basedir, "updateElevations")
-subprocess.check_call(updateElevations, env=pgenv, shell=True)
+#updateElevations = os.path.join(basedir, "updateElevations")
+#subprocess.check_call(updateElevations, env=pgenv, shell=True)
+fn_updateElevations()
 
 try:
     # Cleanup Objects and Models
