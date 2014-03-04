@@ -114,6 +114,11 @@ def fn_updateElevations():
             print("No elevations pending update")
             break
 
+def fn_tfreset(tarinfo):
+    tarinfo.uid = tarinfo.gid = 0
+    tarinfo.uname = tarinfo.gname = "root"
+    return tarinfo
+
 def fn_pack():
     objects = os.path.join(workdir, "Objects")
     models = os.path.join(workdir, "Models")
@@ -123,18 +128,18 @@ def fn_pack():
     for packtile in os.listdir(objects):
         if fnmatch.fnmatch(packtile, "[ew][0-9][0-9]0[ns][0-9]0"):
             destfile = os.path.join(download, packtile + suffix)
-            packfile = tarfile.open(destfile, "w:gz")
-            packfile.add("Objects/" + packtile)
+            packfile = tarfile.open(destfile, "w:gz", format=tarfile.USTAR_FORMAT)
+            packfile.add("Objects/" + packtile, filter=fn_tfreset)
             packfile.close()
     # GlobalObjects
     destfile = os.path.join(download, "GlobalObjects" + suffix)        
-    packfile = tarfile.open(destfile, "w:gz")
-    packfile.add("Objects")
+    packfile = tarfile.open(destfile, "w:gz", format=tarfile.USTAR_FORMAT)
+    packfile.add("Objects", filter=fn_tfreset)
     packfile.close()
     # SharedModels
     destfile = os.path.join(download, "SharedModels" + suffix)        
-    packfile = tarfile.open(destfile, "w:gz")
-    packfile.add("Models")
+    packfile = tarfile.open(destfile, "w:gz", format=tarfile.USTAR_FORMAT)
+    packfile.add("Models", filter=fn_tfreset)
     packfile.close()
 
 # End of update period for current export
