@@ -104,8 +104,8 @@ if (isset($_POST["action"])) {
             }
 
             while (($row_mo = pg_fetch_row ($mo_result)) && ($row_ob = pg_fetch_row ($ob_result))) {
-                $sqlzbase64_mo = $row_mo[1];
-                $sqlzbase64_ob = $row_ob[1];
+                $sqlzbase64_mo = $row_mo[0];
+                $sqlzbase64_ob = $row_ob[0];
 
                 // Base64 decode the query
                 $sqlz_mo = base64_decode ($sqlzbase64_mo);
