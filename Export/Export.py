@@ -90,7 +90,7 @@ def fn_updateElevations():
     fgenv["FG_SCENERY"] = fg_scenery
 
     sql = "UPDATE fgs_objects SET ob_elevoffset = NULL where ob_elevoffset = 0;"
-    db_result = fn_pgexec(sql, "w")
+    fn_pgexec(sql, "w")
 
     while 1:
         checksql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999"
@@ -111,7 +111,7 @@ def fn_updateElevations():
                 eResult = ePipe.stdout.readline()
                 eList = eResult.translate(None, ":").split()
                 sql = "UPDATE fgs_objects SET ob_gndelev = %s WHERE ob_id = %s AND ob_gndelev = -9999;" % (eList[1], eList[0])  # (ob_gndelev, ob_id)
-                db_result = fn_pgexec(sql, "w")
+                fn_pgexec(sql, "w")
         else:
             print("No elevations pending update")
             break
@@ -146,7 +146,7 @@ def fn_pack():
 
 # End of update period for current export
 sql = "INSERT INTO fgs_timestamp (id, stamp) VALUES (1, now());"
-db_result = fn_pgexec(sql, "w")
+fn_pgexec(sql, "w")
 
 # Dirs to export
 sql = "SELECT DISTINCT fn_SceneDir(wkb_geometry) AS dir \
@@ -160,10 +160,10 @@ db_result = fn_pgexec(sql, "r")
 print("### Updating tile numbers ....")
 sql = "UPDATE fgs_objects SET ob_tile = fn_GetTileNumber(wkb_geometry) \
     WHERE ob_tile < 1 OR ob_tile IS NULL;"
-db_result = fn_pgexec(sql, "w")
+fn_pgexec(sql, "w")
 sql = "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry) \
     WHERE si_tile < 1 OR si_tile IS NULL;"
-db_result = fn_pgexec(sql, "w")
+fn_pgexec(sql, "w")
 
 print("### Updating ground elevations ....")
 #updateElevations = os.path.join(basedir, "updateElevations")
@@ -207,9 +207,9 @@ fn_pack()
 
 # Start of new update period
 sql = "DELETE FROM fgs_timestamp WHERE id = 0;"
-db_result = fn_pgexec(sql, "w")
+fn_pgexec(sql, "w")
 sql = "UPDATE fgs_timestamp SET id = 0 WHERE id = 1;"
-db_result = fn_pgexec(sql, "w")
+fn_pgexec(sql, "w")
 
 # Cleaning up after interrupted export:
 #  psql -c "DELETE FROM fgs_timestamp WHERE id = 1;"
