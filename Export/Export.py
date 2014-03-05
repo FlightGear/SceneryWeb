@@ -94,7 +94,7 @@ def fn_updateElevations():
 
     while 1:
         sql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999;"
-        db_result = fn_pgexec(sql, "r")
+        db_result = fn_pgexec(sql, "r")[0]
         if db_result[0] > 0:
             # "fgelev" input:
             # 512280 -179.880556 -16.688333
