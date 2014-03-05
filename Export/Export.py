@@ -166,8 +166,6 @@ sql = "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry) \
 fn_pgexec(sql, "w")
 
 print("### Updating ground elevations ....")
-#updateElevations = os.path.join(basedir, "updateElevations")
-#subprocess.check_call(updateElevations, env=pgenv, shell=True)
 fn_updateElevations()
 
 try:
