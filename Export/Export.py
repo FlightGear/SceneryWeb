@@ -93,14 +93,14 @@ def fn_updateElevations():
     fn_pgexec(sql, "w")
 
     while 1:
-        checksql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999"
-        db_result = fn_pgexec(checksql, "r")[0]
+        sql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999;"
+        db_result = fn_pgexec(sql, "r")
         if db_result[0] > 0:
             # "fgelev" input:
             # 512280 -179.880556 -16.688333
             # "fgelev" output:
             # 512280: 19.479
-            sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects WHERE ob_valid IS true AND ob_gndelev = -9999 ORDER BY ob_tile, ob_id LIMIT 10000"
+            sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects WHERE ob_valid IS true AND ob_gndelev = -9999 ORDER BY ob_tile, ob_id LIMIT 10000;"
             db_result = fn_pgexec(sql, "r")
             num_rows = len(db_result)
             print("Updating %s object(s)" % num_rows)
@@ -115,6 +115,20 @@ def fn_updateElevations():
         else:
             print("No elevations pending update")
             break
+
+def fn_exportObjects():
+    sql = "SELECT DISTINCT fn_BoundingBox(wkb_geometry) AS bbox \
+         FROM fgs_objects \
+         WHERE fgs_objects.ob_modified > (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 0) \
+         AND fgs_objects.ob_modified < (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 1) \
+         ORDER BY bbox;"
+    db_result = fn_pgexec(sql, "r")
+    if db_result != None:
+        num_rows = len(db_result)
+        # Need to identify "bbox" column
+        for i in xrange(0, num_rows, 1):
+            row = "SELECT ST_AsText(wkb_geometry) as geom FROM fgs_objects WHERE fgs_objects.wkb_geometry && %s ORDER BY geom;" % db_result[i][0]
+            print(row)
 
 def fn_tfreset(tarinfo):
     tarinfo.uid = tarinfo.gid = 0
@@ -177,6 +191,7 @@ except:
 try:
     # Export the Objects directory
     print("### Exporting Objects tree ....")
+    fn_exportObjects()
     exportObjects = os.path.join(basedir, "exportObjects")
     subprocess.check_call(exportObjects, env=pgenv, shell=True)
 except:
