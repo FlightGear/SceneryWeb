@@ -21,7 +21,7 @@
 import os, sys
 import subprocess
 
-import psycopg2
+import psycopg2, psycopg2.extras
 from subprocess import Popen, PIPE, STDOUT
 import fnmatch
 import tarfile
@@ -56,7 +56,7 @@ try:
     db_conn = psycopg2.connect(**db_params)
 except:
     sys.exit("Cannot connect to database.")
-db_cur = db_conn.cursor()
+db_cur = db_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 def fn_pgexec(sql, mode):
     if mode == "r":
@@ -94,8 +94,8 @@ def fn_updateElevations():
 
     while 1:
         sql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999;"
-        db_result = fn_pgexec(sql, "r")[0]
-        if db_result[0] > 0:
+        db_result = fn_pgexec(sql, "r")
+        if db_result[0][0] > 0:
             # "fgelev" input:
             # 512280 -179.880556 -16.688333
             # "fgelev" output:
@@ -106,7 +106,7 @@ def fn_updateElevations():
             print("Updating %s object(s)" % num_rows)
             ePipe = Popen(fgelev, env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
             for i in xrange(0, num_rows, 1):
-                row = "%s %s %s\n" % (db_result[i][0],db_result[i][1],db_result[i][2])
+                row = "%s %s %s\n" % (db_result[i]['ob_id'],db_result[i]['st_x'],db_result[i]['st_y'])
                 ePipe.stdin.write(row)
                 eResult = ePipe.stdout.readline()
                 eList = eResult.translate(None, ":").split()
