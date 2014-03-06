@@ -129,6 +129,22 @@ def fn_exportObjects():
         for i in xrange(0, num_rows, 1):
             row = "SELECT ST_AsText(wkb_geometry) as geom FROM fgs_objects WHERE fgs_objects.wkb_geometry && %s ORDER BY geom;" % db_result[i][0]
             print(row)
+    sql = "SELECT DISTINCT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath FROM fgs_objects \
+           UNION \
+           SELECT DISTINCT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath FROM fgs_signs \
+           GROUP BY obpath \
+           ORDER BY obpath;"
+    db_result = fn_pgexec(sql, "r")
+    for row in db_result:
+        os.makedirs(row['obpath'])
+    print("Objects directories done")
+
+def fn_exportModels():
+    sql = "SELECT DISTINCT concat('Models/', mg_path) AS mgpath FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY mgpath;"
+    db_result = fn_pgexec(sql, "r")
+    for row in db_result:
+        os.makedirs(row['mgpath'])
+    print("Models directories done")
 
 def fn_tfreset(tarinfo):
     tarinfo.uid = tarinfo.gid = 0
@@ -200,6 +216,7 @@ except:
 try:
     # Export the Models directory
     print("### Exporting Models tree ....")
+    fn_exportModels()
     exportModels = os.path.join(basedir, "exportModels")
     subprocess.check_call(exportModels, env=pgenv, shell=True)
 except:

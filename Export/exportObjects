@@ -37,25 +37,6 @@ select((select(STDOUT), $|=1)[0]);
 
 $dbh = (DBI->connect("DBI:Pg:host=$pghost;dbname=$pgdatabase", "webuser", ""));
 
-$SQLObjectPath = "DISTINCT concat('/Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS path";
-$dbh = get_dbh() unless $dbh;
-$sth = $dbh->prepare("SELECT $SQLObjectPath FROM fgs_objects ORDER BY path;");
-$sth->execute() or die $dbh->errstr;
-$sth->bind_columns( \( @row{ @{$sth->{NAME_lc} } } ));
-while ($sth->fetchrow_arrayref) {
-    $ObjectPath = $basedir . $row{path};
-    mkpath($ObjectPath);
-};
-$dbh = get_dbh() unless $dbh;
-$sth = $dbh->prepare("SELECT $SQLObjectPath FROM fgs_signs ORDER BY path;");
-$sth->execute() or die $dbh->errstr;
-$sth->bind_columns( \( @row{ @{$sth->{NAME_lc} } } ));
-while ($sth->fetchrow_arrayref) {
-    $ObjectPath = $basedir . $row{path};
-    mkpath($ObjectPath);
-};
-print STDOUT "Objects directories done\n";
-
 $Lasttile = -1;
 
 $SQLPosition = "concat('/Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS path, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
