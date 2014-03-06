@@ -37,39 +37,28 @@ select((select(STDOUT), $|=1)[0]);
 
 $dbh = (DBI->connect("DBI:Pg:host=$pghost;dbname=$pgdatabase", "webuser", ""));
 
-$sth = $dbh->prepare("SELECT DISTINCT fn_BoundingBox(wkb_geometry) AS bbox
-                        FROM fgs_objects
-                        WHERE fgs_objects.ob_modified > (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 0)
-                        AND fgs_objects.ob_modified < (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 1)
-                        ORDER BY bbox");
-$sth->execute() or die $dbh->errstr;
-while (my $box = $sth->fetchrow_hashref) {
-    my $bbox = "SELECT ST_AsText(wkb_geometry) as geom FROM fgs_objects WHERE fgs_objects.wkb_geometry && " . $box->{bbox} . " ORDER BY geom;";
-    print STDOUT $bbox . "\n";
-}
-
-$SQLObjectPath = "DISTINCT fn_SceneDir(wkb_geometry) AS dir, fn_SceneSubDir(wkb_geometry) AS subdir";
+$SQLObjectPath = "DISTINCT concat('/Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS path";
 $dbh = get_dbh() unless $dbh;
-$sth = $dbh->prepare("SELECT $SQLObjectPath FROM fgs_objects;");
+$sth = $dbh->prepare("SELECT $SQLObjectPath FROM fgs_objects ORDER BY path;");
 $sth->execute() or die $dbh->errstr;
 $sth->bind_columns( \( @row{ @{$sth->{NAME_lc} } } ));
 while ($sth->fetchrow_arrayref) {
-    $ObjectPath = $basedir . "/Objects/" . $row{dir} . "/" . $row{subdir} . "/";
+    $ObjectPath = $basedir . $row{path};
     mkpath($ObjectPath);
 };
 $dbh = get_dbh() unless $dbh;
-$sth = $dbh->prepare("SELECT $SQLObjectPath FROM fgs_signs;");
+$sth = $dbh->prepare("SELECT $SQLObjectPath FROM fgs_signs ORDER BY path;");
 $sth->execute() or die $dbh->errstr;
 $sth->bind_columns( \( @row{ @{$sth->{NAME_lc} } } ));
 while ($sth->fetchrow_arrayref) {
-    $ObjectPath = $basedir . "/Objects/" . $row{dir} . "/" . $row{subdir} . "/";
+    $ObjectPath = $basedir . $row{path};
     mkpath($ObjectPath);
 };
 print STDOUT "Objects directories done\n";
 
 $Lasttile = -1;
 
-$SQLPosition = "fn_SceneDir(wkb_geometry) AS dir, fn_SceneSubdir(wkb_geometry) AS subdir, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
+$SQLPosition = "concat('/Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS path, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
 $SQLMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
 $SQLWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
 $SQLOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
@@ -89,7 +78,7 @@ while ($sth->fetchrow_arrayref) {
     {
 #        print STDOUT "\nOpening new file $row{tile}.stg\n" if $DEBUG == 1;
         close OUTFILE;
-        $ObjectPath = $basedir . "/Objects/" . $row{dir} . "/" . $row{subdir} . "/";
+        $ObjectPath = $basedir . $row{path};
         open OUTFILE, ">>" . $ObjectPath . "/" . $row{tile} . ".stg";
         $Lasttile = $row{tile};
     };
@@ -111,7 +100,7 @@ $sth->bind_columns( \( @row{ @{$sth->{NAME_lc} } } ));
 while ($sth->fetchrow_arrayref) {
 #    print STDOUT "Exported " . $Count++ . " objects\r" if $DEBUG == 1;
 
-    $ObjectPath = $basedir . "/Objects/" . $row{dir} . "/" . $row{subdir} . "/";
+    $ObjectPath = $basedir . $row{path};
 
     if ($row{tile} != $Lasttile)
     {
@@ -159,7 +148,7 @@ while ($sth->fetchrow_arrayref) {
     {
 #        print STDOUT "\nOpening new file $row{tile}.stg\n" if $DEBUG == 1;
         close OUTFILE;
-        $ObjectPath = $basedir . "/Objects/" . $row{dir} . "/" . $row{subdir} . "/";
+        $ObjectPath = $basedir . $row{path};
         open OUTFILE, ">>" . $ObjectPath . "/" . $row{tile} . ".stg";
         $Lasttile = $row{tile};
     };

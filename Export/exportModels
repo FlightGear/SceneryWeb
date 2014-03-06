@@ -36,18 +36,18 @@ select((select(STDOUT), $|=1)[0]);
 
 $dbh = (DBI->connect("DBI:Pg:host=$pghost;dbname=$pgdatabase", "webuser", ""));
 
-$sth = $dbh->prepare("SELECT DISTINCT mg_path FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id;");
+$sth = $dbh->prepare("SELECT DISTINCT concat('/Models/', mg_path) AS path FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id;");
 $sth->execute() or die $dbh->errstr;
 $sth->bind_columns( \( @row{ @{$sth->{NAME_lc} } } ));
 while ($sth->fetchrow_arrayref) {
-    my $mgpath = $basedir . "/Models/" . $row{mg_path};
+    my $mgpath = $basedir . $row{path};
     mkpath($mgpath);
 };
 print STDOUT "Models directories done\n";
 
 #print STDOUT "Executing query to export shared models...\n" if $DEBUG == 1;
 $dbh = get_dbh() unless $dbh;
-$sth = $dbh->prepare("SELECT mo_id, mo_path, LENGTH(mo_modelfile) AS mo_size, mo_modelfile, mg_path FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY fgs_modelgroups.mg_id, fgs_models.mo_id;");
+$sth = $dbh->prepare("SELECT mo_id, concat('/Models/', mg_path) AS path, LENGTH(mo_modelfile) AS mo_size, mo_modelfile, mg_path FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY fgs_modelgroups.mg_id, fgs_models.mo_id;");
 $sth->execute() or die $dbh->errstr;
 
 #print STDOUT "done\n" if $DEBUG == 1;
@@ -59,15 +59,15 @@ while ($sth->fetchrow_arrayref) {
     if ($row{mo_size} > 15)
     {	
         my $modeldata = decode_base64($row{mo_modelfile});
-#        print STDOUT $row{mo_id} . " " . $row{mo_path} . "\n" if $DEBUG == 1;
-        my $mgpath = $basedir . "/Models/" . $row{mg_path};
+#        print STDOUT $row{mo_id} . " " . $row{path} . "\n" if $DEBUG == 1;
+        my $mgpath = $basedir . $row{path};
         chdir $mgpath;
         open(BUFF, "| tar xfz -");
         print BUFF $modeldata;
     }
     else
     {
-        print STDOUT "WARNING: " . $row{mo_path} . " is not in the database\n";
+        print STDOUT "WARNING: " . $row{path} . " is not in the database\n";
     };
 };
 print STDOUT "Models done\n";
