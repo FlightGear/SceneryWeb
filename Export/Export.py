@@ -29,24 +29,26 @@ import tarfile
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
 
+homedir = os.path.expanduser("~")
+fgscenery = os.path.expanduser("~fgscenery")
+statusfile = open(os.path.join(homedir, ".exportstatus"), "w")
+workdir = os.path.join(fgscenery, "Dump")
+statusfile.write("running\n")
+statusfile.flush()
+
 pghost = "geoscope.optiputer.net"
 pgdatabase = "landcover"
 pguser = "jstockill"
-
 db_params = {"host":pghost, "database":pgdatabase, "user":pguser}
 
+# Save this for later use by subprocesses like:
+#    mySubproc = os.path.join(basedir, "mySubproc")
+#    subprocess.check_call(mySubproc, env=pgenv, shell=True)
+basedir = os.path.dirname(os.path.realpath(__file__))
 pgenv = dict(os.environ)
 pgenv["PGHOST"] = pghost
 pgenv["PGDATABASE"] = pgdatabase
 pgenv["PGUSER"] = pguser
-
-homedir = os.path.expanduser("~")
-fgscenery = os.path.expanduser("~fgscenery")
-statusfile = open(os.path.join(homedir, ".exportstatus"), "w")
-basedir = os.path.dirname(os.path.realpath(__file__))
-workdir = os.path.join(fgscenery, "Dump")
-statusfile.write("running\n")
-statusfile.flush()
 
 try:
     os.chdir(workdir)
@@ -130,15 +132,40 @@ def fn_exportObjects():
         for row in db_result:
             bbox = "SELECT ST_AsText(wkb_geometry) as geom FROM fgs_objects WHERE fgs_objects.wkb_geometry && %s ORDER BY geom;" % row['bbox']
             print(bbox)
-    pathsel = "SELECT DISTINCT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
+    sqlPath = "SELECT DISTINCT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
     sql = "%s FROM fgs_objects \
            UNION \
            %s FROM fgs_signs \
-           ORDER BY obpath;" % (pathsel, pathsel)
+           ORDER BY obpath;" % (sqlPath, sqlPath)
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
         os.makedirs(row['obpath'])
     print("Objects directories done")
+
+    if False:
+        sqlPosition = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
+        sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
+        sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
+        sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
+        sql = "SELECT %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s LIMIT 10;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+#        print(sql)
+        db_result = fn_pgexec(sql, "r")
+        suffix = ".stg"
+        prevtile = -1;
+        stgobj = None
+        for row in db_result:
+#            print(db_result)
+            obpath = os.path.join(workdir, row['obpath'])
+            obtile = row['tile']  # integer !
+            mopath = "SHARED Models/%s%s" % (row['mg_path'], row['mo_path'])
+            stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, row['lon'], row['lat'], row['stgelev'], row['stgheading'])
+            if obtile != prevtile:
+                if prevtile > 0:
+                    stgobj.close()
+                stgfile = os.path.join(obpath, str(obtile) + suffix)
+                stgobj = open(stgfile, "a")
+            stgobj.write(stgrow)
+        stgobj.close()
 
 def fn_exportModels():
     sql = "SELECT DISTINCT concat('Models/', mg_path) AS mgpath FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY mgpath;"
@@ -146,6 +173,7 @@ def fn_exportModels():
     for row in db_result:
         os.makedirs(row['mgpath'])
     print("Models directories done")
+
     sql = "SELECT mo_id, concat('Models/', mg_path) AS mgpath, LENGTH(mo_modelfile) AS mo_size, mo_modelfile, mg_path FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY fgs_modelgroups.mg_id, fgs_models.mo_id;"
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
