@@ -145,6 +145,15 @@ def fn_exportModels():
     for row in db_result:
         os.makedirs(row['mgpath'])
     print("Models directories done")
+    sql = "SELECT mo_id, concat('Models/', mg_path) AS mgpath, LENGTH(mo_modelfile) AS mo_size, mo_modelfile, mg_path FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY fgs_modelgroups.mg_id, fgs_models.mo_id;"
+    db_result = fn_pgexec(sql, "r")
+    for row in db_result:
+        modeldata = base64.b64decode(row['mo_modelfile'])
+        mgpath = os.path.join(workdir, row['mgpath'])
+        tarobject = io.BytesIO(modeldata)
+        modeltar = tarfile.open(fileobj=tarobject, mode='r')
+        modeltar.extractall(path=mgpath)
+    print("Models done")
 
 def fn_tfreset(tarinfo):
     tarinfo.uid = tarinfo.gid = 0
@@ -217,8 +226,8 @@ try:
     # Export the Models directory
     print("### Exporting Models tree ....")
     fn_exportModels()
-    exportModels = os.path.join(basedir, "exportModels")
-    subprocess.check_call(exportModels, env=pgenv, shell=True)
+#    exportModels = os.path.join(basedir, "exportModels")
+#    subprocess.check_call(exportModels, env=pgenv, shell=True)
 except:
     sys.exit("Models export failed.")
 
