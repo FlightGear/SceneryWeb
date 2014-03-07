@@ -105,9 +105,9 @@ def fn_updateElevations():
             num_rows = len(db_result)
             print("Updating %s object(s)" % num_rows)
             ePipe = Popen(fgelev, env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-            for i in xrange(0, num_rows, 1):
-                row = "%s %s %s\n" % (db_result[i]['ob_id'],db_result[i]['st_x'],db_result[i]['st_y'])
-                ePipe.stdin.write(row)
+            for row in db_result:
+                obj = "%s %s %s\n" % (row['ob_id'],row['st_x'],row['st_y'])
+                ePipe.stdin.write(obj)
                 eResult = ePipe.stdout.readline()
                 eList = eResult.translate(None, ":").split()
                 sql = "UPDATE fgs_objects SET ob_gndelev = %s WHERE ob_id = %s AND ob_gndelev = -9999;" % (eList[1], eList[0])  # (ob_gndelev, ob_id)
@@ -126,14 +126,14 @@ def fn_exportObjects():
     if db_result != None:
         num_rows = len(db_result)
         # Need to identify "bbox" column
-        for i in xrange(0, num_rows, 1):
-            row = "SELECT ST_AsText(wkb_geometry) as geom FROM fgs_objects WHERE fgs_objects.wkb_geometry && %s ORDER BY geom;" % db_result[i][0]
-            print(row)
-    sql = "SELECT DISTINCT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath FROM fgs_objects \
+        for row in db_result:
+            bbox = "SELECT ST_AsText(wkb_geometry) as geom FROM fgs_objects WHERE fgs_objects.wkb_geometry && %s ORDER BY geom;" % row['bbox']
+            print(bbox)
+    pathsel = "SELECT DISTINCT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
+    sql = "%s FROM fgs_objects \
            UNION \
-           SELECT DISTINCT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath FROM fgs_signs \
-           GROUP BY obpath \
-           ORDER BY obpath;"
+           %s FROM fgs_signs \
+           ORDER BY obpath;" % (pathsel, pathsel)
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
         os.makedirs(row['obpath'])
