@@ -18,11 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-import os, sys
+import os, sys, io
 import subprocess
 
 import psycopg2, psycopg2.extras
 from subprocess import Popen, PIPE, STDOUT
+import base64
 import fnmatch
 import tarfile
 
@@ -173,12 +174,12 @@ def fn_pack():
             packfile.add("Objects/" + packtile, filter=fn_tfreset)
             packfile.close()
     # GlobalObjects
-    destfile = os.path.join(download, "GlobalObjects" + suffix)        
+    destfile = os.path.join(download, "GlobalObjects" + suffix)
     packfile = tarfile.open(destfile, "w:gz", format=tarfile.USTAR_FORMAT)
     packfile.add("Objects", filter=fn_tfreset)
     packfile.close()
     # SharedModels
-    destfile = os.path.join(download, "SharedModels" + suffix)        
+    destfile = os.path.join(download, "SharedModels" + suffix)
     packfile = tarfile.open(destfile, "w:gz", format=tarfile.USTAR_FORMAT)
     packfile.add("Models", filter=fn_tfreset)
     packfile.close()
