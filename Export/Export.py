@@ -227,8 +227,6 @@ try:
     # Export the Models directory
     print("### Exporting Models tree ....")
     fn_exportModels()
-#    exportModels = os.path.join(basedir, "exportModels")
-#    subprocess.check_call(exportModels, env=pgenv, shell=True)
 except:
     sys.exit("Models export failed.")
 
