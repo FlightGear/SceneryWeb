@@ -86,7 +86,9 @@ require 'inc/header.php';
             $query_static = "SELECT COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name " .
                             "FROM fgs_objects, fgs_countries, fgs_models " .
                             "WHERE ob_country = co_code AND ob_model = mo_id AND mo_shared = 0 " .
-                            "GROUP BY co_code ";
+                            "GROUP BY co_code " .
+                            "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
+                            "ORDER BY density DESC ";
             $result_static = pg_query($resource_r, $query_static);
             $list = "";
             while ($row_static = pg_fetch_assoc($result_static)) {
