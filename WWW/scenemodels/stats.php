@@ -124,6 +124,7 @@ require 'inc/header.php';
             map.draw(data_static, options);
         }
         if (worldmap === "static_dens") {
+            options['colorAxis']['maxValue'] = 100;
             map.draw(data_static_dens, options);
         }
     };
