@@ -80,6 +80,23 @@ require 'inc/header.php';
             echo $list;
             ?>
         ]);
+        var data_static_dens = google.visualization.arrayToDataTable([
+            ['Country', 'Unique models density'],
+            <?php
+            $query_static = "SELECT COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name " .
+                            "FROM fgs_objects, fgs_countries, fgs_models " .
+                            "WHERE ob_country = co_code AND ob_model = mo_id AND mo_shared = 0 " .
+                            "GROUP BY co_code ";
+            $result_static = pg_query($resource_r, $query_static);
+            $list = "";
+            while ($row_static = pg_fetch_assoc($result_static)) {
+                $country = rtrim($row_static['co_name']);
+                if ($country == "Iran (Islamic Republic of)") $country = "Iran";
+                $list .= "[\"".$country."\", ".$row_static['density']."],\n";
+            }
+            echo $list;
+            ?>
+        ]);
 
         var options = {
             backgroundColor: '#ADCDFF',
@@ -103,6 +120,9 @@ require 'inc/header.php';
         }
         if (worldmap === "static") {
             map.draw(data_static, options);
+        }
+        if (worldmap === "static_dens") {
+            map.draw(data_static_dens, options);
         }
     };
 
@@ -338,6 +358,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
                     <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 10,000 sq. km)</li>
                     <li><a onclick="drawRegionsMap('auto','data2')">Absolute object count</a></li>
                     <li><a onclick="drawRegionsMap('auto','static')">Unique (static) model count</a></li>
+                    <li><a onclick="drawRegionsMap('auto','static_dens')">Unique (static) model density</a></li>
                 </ul>
                 <b>Zoom in to:</b>
                 <ul>
