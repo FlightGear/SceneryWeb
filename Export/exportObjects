@@ -37,36 +37,10 @@ select((select(STDOUT), $|=1)[0]);
 
 $dbh = (DBI->connect("DBI:Pg:host=$pghost;dbname=$pgdatabase", "webuser", ""));
 
-$Lasttile = -1;
-
 $SQLPosition = "concat('/Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS path, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
 $SQLMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
 $SQLWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
 $SQLOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
-
-#print STDOUT "Executing query to export shared objects...\n" if $DEBUG == 1;
-$dbh = get_dbh() unless $dbh;
-$sth = $dbh->prepare("SELECT $SQLPosition, $SQLMeta, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups $SQLWhere > 0 AND mo_shared = mg_id $SQLOrder;");
-$sth->execute() or die $dbh->errstr;
-
-#print STDOUT "done\n" if $DEBUG == 1;
-$sth->bind_columns( \( @row{ @{$sth->{NAME_lc} } } ));
-
-while ($sth->fetchrow_arrayref) {
-#    print STDOUT "Exported " . $Count++ . " objects\r" if $DEBUG == 1;
-
-    if ($row{tile} != $Lasttile)
-    {
-#        print STDOUT "\nOpening new file $row{tile}.stg\n" if $DEBUG == 1;
-        close OUTFILE;
-        $ObjectPath = $basedir . $row{path};
-        open OUTFILE, ">>" . $ObjectPath . "/" . $row{tile} . ".stg";
-        $Lasttile = $row{tile};
-    };
-    $obtype = "SHARED Models/" . $row{mg_path} . $row{mo_path};
-    print OUTFILE "OBJECT_" . $obtype . " " . $row{lon} . " " . $row{lat} . " " . $row{stgelev} . " " . $row{stgheading} . "\n";
-};
-print STDOUT "Shared Objects done\n";
 
 $Lasttile = -1;
 

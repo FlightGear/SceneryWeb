@@ -150,7 +150,7 @@ def fn_exportObjects():
         os.makedirs(row['obpath'])
     print("Objects directories done")
 
-    if False:
+    if True:
         sqlPosition = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
         sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
         sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
@@ -172,6 +172,7 @@ def fn_exportObjects():
                 stgobj = open(stgfile, "a")
             stgobj.write(stgrow)
         stgobj.close()
+        print("Shared Objects done")
 
 def fn_exportModels():
     sql = "SELECT DISTINCT concat('Models/', mg_path) AS mgpath FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY mgpath;"
