@@ -80,14 +80,6 @@ def fn_pgexec(sql, mode):
         except:
             print("Cannot write to DB.")
 
-def flform(field, val, ob_id):
-    """Strip trailing zeroes/dots from floats,
-    used primarily in .stg-export"""
-    try:
-        return ('%.9f' % val).rstrip('0').rstrip('.')
-    except:
-        print("ERROR in Object: %s, field: %s, value: %s" % (ob_id, field, val))
-
 def fn_updateElevations():
     martin = os.path.expanduser("~martin")
     fg_home = os.path.join(martin, "terragear")
@@ -127,6 +119,13 @@ def fn_updateElevations():
             print("No elevations pending update")
             break
 
+def flform(field, val, ob_id):
+    """Strip trailing zeroes/dots from floats, used in .stg-export"""
+    try:
+        return ('%.9f' % val).rstrip('0').rstrip('.')
+    except:
+        print("ERROR in Object: %s, field: %s, value: %s" % (ob_id, field, val))
+
 def fn_exportObjects():
     sql = "SELECT DISTINCT fn_BoundingBox(wkb_geometry) AS bbox \
          FROM fgs_objects \
@@ -150,29 +149,28 @@ def fn_exportObjects():
         os.makedirs(row['obpath'])
     print("Objects directories done")
 
-    if True:
-        sqlPosition = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
-        sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
-        sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
-        sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
-        sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
-        db_result = fn_pgexec(sql, "r")
-        suffix = ".stg"
-        prevtile = -1;
-        stgobj = None
-        for row in db_result:
-            obpath = os.path.join(workdir, row['obpath'])
-            obtile = row['tile']  # integer !
-            mopath = "SHARED Models/%s%s" % (row['mg_path'], row['mo_path'])
-            stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['ob_id']), flform("lat", row['lat'], row['ob_id']), flform("stgelev", row['stgelev'], row['ob_id']), flform("stgheading", row['stgheading'], row['ob_id']))
-            if obtile != prevtile:
-                if prevtile > 0:
-                    stgobj.close()
-                stgfile = os.path.join(obpath, str(obtile) + suffix)
-                stgobj = open(stgfile, "a")
-            stgobj.write(stgrow)
-        stgobj.close()
-        print("Shared Objects done")
+    sqlPosition = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
+    sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
+    sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
+    sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
+    sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+    db_result = fn_pgexec(sql, "r")
+    suffix = ".stg"
+    prevtile = -1;
+    stgobj = None
+    for row in db_result:
+        obpath = os.path.join(workdir, row['obpath'])
+        obtile = row['tile']  # integer !
+        mopath = "SHARED Models/%s%s" % (row['mg_path'], row['mo_path'])
+        stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['ob_id']), flform("lat", row['lat'], row['ob_id']), flform("stgelev", row['stgelev'], row['ob_id']), flform("stgheading", row['stgheading'], row['ob_id']))
+        if obtile != prevtile:
+            if prevtile > 0:
+                stgobj.close()
+            stgfile = os.path.join(obpath, str(obtile) + suffix)
+            stgobj = open(stgfile, "a")
+        stgobj.write(stgrow)
+    stgobj.close()
+    print("Shared Objects done")
 
 def fn_exportModels():
     sql = "SELECT DISTINCT concat('Models/', mg_path) AS mgpath FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY mgpath;"
