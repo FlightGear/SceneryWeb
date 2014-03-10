@@ -80,10 +80,13 @@ def fn_pgexec(sql, mode):
         except:
             print("Cannot write to DB.")
 
-def flform(x):
+def flform(field, val, ob_id):
     """Strip trailing zeroes/dots from floats,
     used primarily in .stg-export"""
-    return ('%.9f' % x).rstrip('0').rstrip('.')
+    try:
+        return ('%.9f' % val).rstrip('0').rstrip('.')
+    except:
+        print("ERROR in Object: %s, field: %s, value: %s" % (ob_id, field, val))
 
 def fn_updateElevations():
     martin = os.path.expanduser("~martin")
@@ -152,7 +155,7 @@ def fn_exportObjects():
         sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
         sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
         sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
-        sql = "SELECT %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+        sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
         db_result = fn_pgexec(sql, "r")
         suffix = ".stg"
         prevtile = -1;
@@ -161,7 +164,7 @@ def fn_exportObjects():
             obpath = os.path.join(workdir, row['obpath'])
             obtile = row['tile']  # integer !
             mopath = "SHARED Models/%s%s" % (row['mg_path'], row['mo_path'])
-            stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform(row['lon']), flform(row['lat']), flform(row['stgelev']), flform(row['stgheading']))
+            stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['ob_id']), flform("lat", row['lat'], row['ob_id']), flform("stgelev", row['stgelev'], row['ob_id']), flform("stgheading", row['stgheading'], row['ob_id']))
             if obtile != prevtile:
                 if prevtile > 0:
                     stgobj.close()
