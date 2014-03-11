@@ -197,6 +197,28 @@ def fn_exportObjects():
         stgobj.close()
         print("Static Objects done")
 
+    sqlMeta = "si_tile AS tile, si_gndelev::float AS stgelev, fn_StgHeading(si_heading)::float AS stgheading";
+    sqlWhere = "WHERE si_valid IS TRUE";
+    sqlOrder = "ORDER BY tile, lon, lat, stgelev, stgheading";
+    if False:
+        sql = "SELECT si_id, %s, %s, si_definition FROM fgs_signs %s %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+        db_result = fn_pgexec(sql, "r")
+        suffix = ".stg"
+        prevtile = -1;
+        for row in db_result:
+            sipath = os.path.join(workdir, row['obpath'])
+            sitile = row['tile']  # integer !
+            mopath = "SIGN %s" % row['si_definition']
+            stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['si_id']), flform("lat", row['lat'], row['si_id']), flform("stgelev", row['stgelev'], row['si_id']), flform("stgheading", row['stgheading'], row['si_id']))
+            if sitile != prevtile:
+                if prevtile > 0:
+                    stgobj.close()
+                stgfile = os.path.join(sipath, str(sitile) + suffix)
+                stgobj = open(stgfile, "a")
+            stgobj.write(stgrow)
+        stgobj.close()
+        print("Signs done")
+
 def fn_exportModels():
     sql = "SELECT DISTINCT concat('Models/', mg_path) AS mgpath FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY mgpath;"
     db_result = fn_pgexec(sql, "r")
