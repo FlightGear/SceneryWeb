@@ -153,7 +153,7 @@ def fn_exportObjects():
     sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
     sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
     sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
-    sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+    sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
     db_result = fn_pgexec(sql, "r")
     suffix = ".stg"
     prevtile = -1;
@@ -171,6 +171,31 @@ def fn_exportObjects():
         stgobj.write(stgrow)
     stgobj.close()
     print("Shared Objects done")
+
+    if False:
+        sql = "SELECT ob_id, %s, %s, LENGTH(mo_modelfile) AS mo_size, mo_modelfile FROM fgs_objects, fgs_models %s = 0 %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+        db_result = fn_pgexec(sql, "r")
+        suffix = ".stg"
+        prevtile = -1;
+        stgobj = None
+        for row in db_result:
+            obpath = os.path.join(workdir, row['obpath'])
+            obtile = row['tile']  # integer !
+            mopath = "STATIC %s" % row['mo_path']
+            stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['ob_id']), flform("lat", row['lat'], row['ob_id']), flform("stgelev", row['stgelev'], row['ob_id']), flform("stgheading", row['stgheading'], row['ob_id']))
+            if obtile != prevtile:
+                if prevtile > 0:
+                    stgobj.close()
+                stgfile = os.path.join(obpath, str(obtile) + suffix)
+                stgobj = open(stgfile, "a")
+            stgobj.write(stgrow)
+            if row['mo_size'] > 15:
+                modeldata = base64.b64decode(row['mo_modelfile'])
+                tarobject = io.BytesIO(modeldata)
+                modeltar = tarfile.open(fileobj=tarobject, mode='r')
+                modeltar.extractall(path=obpath)
+        stgobj.close()
+        print("Static Objects done")
 
 def fn_exportModels():
     sql = "SELECT DISTINCT concat('Models/', mg_path) AS mgpath FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY mgpath;"
