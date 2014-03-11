@@ -22,7 +22,7 @@
     <Directory "/home/jstockill/scenemodels/authtest">
         AllowOverride AuthConfig
     </Directory>
-    Alias /download /home/jstockill/scenemodels/download
+    Alias /download /home/fgscenery/Download
     ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
     CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
 </VirtualHost>
