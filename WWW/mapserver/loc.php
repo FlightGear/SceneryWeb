@@ -2,7 +2,7 @@
   $icao = $_GET["icao"];
   include 'include/icaocheck.php';
 
-  $dbhost = "geoscope.optiputer.net";
+  $dbhost = "localhost";
   $dbname = "landcover";
   $dbuser = "webuser";
   $connection = pg_connect ("host=$dbhost dbname=$dbname user=$dbuser");
