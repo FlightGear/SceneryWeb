@@ -11,7 +11,7 @@ import os, time
 import uuid
 import psycopg2
 
-db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"webuser"}
+db_params = {"host":"localhost", "database":"landcover", "user":"webuser"}
 try:
     db_conn = psycopg2.connect(**db_params)
 except:

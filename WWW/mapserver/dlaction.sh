@@ -6,7 +6,7 @@
 #   <xmin> <ymin>,<xmax> <ymax>
 
 UUID=${1}
-PGHOST=geoscope.optiputer.net
+PGHOST=localhost
 PGUSER=webuser
 PGDATABASE=landcover
 PSQL="psql -h ${PGHOST} -d ${PGDATABASE} -U webuser -tA"
