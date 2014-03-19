@@ -22,7 +22,7 @@ import os, sys
 import psycopg2
 from lxml import etree
 
-db_params = {"host":"geoscope.optiputer.net", "database":"landcover", "user":"webuser"}
+db_params = {"host":"localhost", "database":"landcover", "user":"webuser"}
 try:
     db_conn = psycopg2.connect(**db_params)
 except:
@@ -142,7 +142,7 @@ def fn_runway_ils(icao, dir):
             file.close()
 
 def fn_walk():
-    sql = "SELECT DISTINCT icao FROM apt_airfield WHERE icao LIKE 'ED%' ORDER BY icao"
+    sql = "SELECT DISTINCT icao FROM apt_airfield ORDER BY icao"
 
     fn_pgexec(sql)
     if db_cur.rowcount < 1:
