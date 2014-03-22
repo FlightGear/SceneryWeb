@@ -36,7 +36,7 @@ workdir = os.path.join(fgscenery, "Dump")
 statusfile.write("running\n")
 statusfile.flush()
 
-pghost = "geoscope.optiputer.net"
+pghost = "localhost"
 pgdatabase = "landcover"
 pguser = "jstockill"
 db_params = {"host":pghost, "database":pgdatabase, "user":pguser}
@@ -172,7 +172,7 @@ def fn_exportObjects():
     stgobj.close()
     print("Shared Objects done")
 
-    if False:
+    if True:
         sql = "SELECT ob_id, %s, %s, LENGTH(mo_modelfile) AS mo_size, mo_modelfile FROM fgs_objects, fgs_models %s = 0 %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
         db_result = fn_pgexec(sql, "r")
         suffix = ".stg"
@@ -200,7 +200,7 @@ def fn_exportObjects():
     sqlMeta = "si_tile AS tile, si_gndelev::float AS stgelev, fn_StgHeading(si_heading)::float AS stgheading";
     sqlWhere = "WHERE si_valid IS TRUE";
     sqlOrder = "ORDER BY tile, lon, lat, stgelev, stgheading";
-    if False:
+    if True:
         sql = "SELECT si_id, %s, %s, si_definition FROM fgs_signs %s %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
         db_result = fn_pgexec(sql, "r")
         suffix = ".stg"
@@ -298,8 +298,8 @@ try:
     # Export the Objects directory
     print("### Exporting Objects tree ....")
     fn_exportObjects()
-    exportObjects = os.path.join(basedir, "exportObjects")
-    subprocess.check_call(exportObjects, env=pgenv, shell=True)
+#    exportObjects = os.path.join(basedir, "exportObjects")
+#    subprocess.check_call(exportObjects, env=pgenv, shell=True)
 except:
     sys.exit("Objects export failed.")
 
