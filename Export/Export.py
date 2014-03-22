@@ -50,6 +50,11 @@ pgenv["PGHOST"] = pghost
 pgenv["PGDATABASE"] = pgdatabase
 pgenv["PGUSER"] = pguser
 
+sqlPosition = ""
+sqlMeta = ""
+sqlWhere = ""
+sqlOrder = ""
+
 try:
     os.chdir(workdir)
 except:
@@ -126,7 +131,8 @@ def flform(field, val, ob_id):
     except:
         print("ERROR in Object: %s, field: %s, value: %s" % (ob_id, field, val))
 
-def fn_exportObjects():
+def fn_exportCommon():
+    global sqlPosition, sqlMeta, sqlWhere, sqlOrder
     sql = "SELECT DISTINCT fn_BoundingBox(wkb_geometry) AS bbox \
          FROM fgs_objects \
          WHERE fgs_objects.ob_modified > (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 0) \
@@ -153,6 +159,8 @@ def fn_exportObjects():
     sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
     sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
     sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
+
+def fn_exportShared():
     sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
     db_result = fn_pgexec(sql, "r")
     suffix = ".stg"
@@ -172,52 +180,52 @@ def fn_exportObjects():
     stgobj.close()
     print("Shared Objects done")
 
-    if True:
-        sql = "SELECT ob_id, %s, %s, LENGTH(mo_modelfile) AS mo_size, mo_modelfile FROM fgs_objects, fgs_models %s = 0 %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
-        db_result = fn_pgexec(sql, "r")
-        suffix = ".stg"
-        prevtile = -1;
-        stgobj = None
-        for row in db_result:
-            obpath = os.path.join(workdir, row['obpath'])
-            obtile = row['tile']  # integer !
-            mopath = "STATIC %s" % row['mo_path']
-            stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['ob_id']), flform("lat", row['lat'], row['ob_id']), flform("stgelev", row['stgelev'], row['ob_id']), flform("stgheading", row['stgheading'], row['ob_id']))
-            if obtile != prevtile:
-                if prevtile > 0:
-                    stgobj.close()
-                stgfile = os.path.join(obpath, str(obtile) + suffix)
-                stgobj = open(stgfile, "a")
-            stgobj.write(stgrow)
-            if row['mo_size'] > 15:
-                modeldata = base64.b64decode(row['mo_modelfile'])
-                tarobject = io.BytesIO(modeldata)
-                modeltar = tarfile.open(fileobj=tarobject, mode='r')
-                modeltar.extractall(path=obpath)
-        stgobj.close()
-        print("Static Objects done")
+def fn_exportStatic():
+    sql = "SELECT ob_id, %s, %s, LENGTH(mo_modelfile) AS mo_size, mo_modelfile FROM fgs_objects, fgs_models %s = 0 %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+    db_result = fn_pgexec(sql, "r")
+    suffix = ".stg"
+    prevtile = -1;
+    stgobj = None
+    for row in db_result:
+        obpath = os.path.join(workdir, row['obpath'])
+        obtile = row['tile']  # integer !
+        mopath = "STATIC %s" % row['mo_path']
+        stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['ob_id']), flform("lat", row['lat'], row['ob_id']), flform("stgelev", row['stgelev'], row['ob_id']), flform("stgheading", row['stgheading'], row['ob_id']))
+        if obtile != prevtile:
+            if prevtile > 0:
+                stgobj.close()
+            stgfile = os.path.join(obpath, str(obtile) + suffix)
+            stgobj = open(stgfile, "a")
+        stgobj.write(stgrow)
+        if row['mo_size'] > 15:
+            modeldata = base64.b64decode(row['mo_modelfile'])
+            tarobject = io.BytesIO(modeldata)
+            modeltar = tarfile.open(fileobj=tarobject, mode='r')
+            modeltar.extractall(path=obpath)
+    stgobj.close()
+    print("Static Objects done")
 
+def fn_exportSigns():
     sqlMeta = "si_tile AS tile, si_gndelev::float AS stgelev, fn_StgHeading(si_heading)::float AS stgheading";
     sqlWhere = "WHERE si_valid IS TRUE";
     sqlOrder = "ORDER BY tile, lon, lat, stgelev, stgheading";
-    if True:
-        sql = "SELECT si_id, %s, %s, si_definition FROM fgs_signs %s %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
-        db_result = fn_pgexec(sql, "r")
-        suffix = ".stg"
-        prevtile = -1;
-        for row in db_result:
-            sipath = os.path.join(workdir, row['obpath'])
-            sitile = row['tile']  # integer !
-            mopath = "SIGN %s" % row['si_definition']
-            stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['si_id']), flform("lat", row['lat'], row['si_id']), flform("stgelev", row['stgelev'], row['si_id']), flform("stgheading", row['stgheading'], row['si_id']))
-            if sitile != prevtile:
-                if prevtile > 0:
-                    stgobj.close()
-                stgfile = os.path.join(sipath, str(sitile) + suffix)
-                stgobj = open(stgfile, "a")
-            stgobj.write(stgrow)
-        stgobj.close()
-        print("Signs done")
+    sql = "SELECT si_id, %s, %s, si_definition FROM fgs_signs %s %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+    db_result = fn_pgexec(sql, "r")
+    suffix = ".stg"
+    prevtile = -1;
+    for row in db_result:
+        sipath = os.path.join(workdir, row['obpath'])
+        sitile = row['tile']  # integer !
+        mopath = "SIGN %s" % row['si_definition']
+        stgrow = "%s%s %s %s %s %s\n" % ("OBJECT_", mopath, flform("lon", row['lon'], row['si_id']), flform("lat", row['lat'], row['si_id']), flform("stgelev", row['stgelev'], row['si_id']), flform("stgheading", row['stgheading'], row['si_id']))
+        if sitile != prevtile:
+            if prevtile > 0:
+                stgobj.close()
+            stgfile = os.path.join(sipath, str(sitile) + suffix)
+            stgobj = open(stgfile, "a")
+        stgobj.write(stgrow)
+    stgobj.close()
+    print("Signs done")
 
 def fn_exportModels():
     sql = "SELECT DISTINCT concat('Models/', mg_path) AS mgpath FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY mgpath;"
@@ -297,7 +305,10 @@ except:
 try:
     # Export the Objects directory
     print("### Exporting Objects tree ....")
-    fn_exportObjects()
+    fn_exportCommon()
+    fn_exportShared()
+    fn_exportStatic()
+    fn_exportSigns()
 #    exportObjects = os.path.join(basedir, "exportObjects")
 #    subprocess.check_call(exportObjects, env=pgenv, shell=True)
 except:
