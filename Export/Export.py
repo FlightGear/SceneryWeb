@@ -50,10 +50,10 @@ pgenv["PGHOST"] = pghost
 pgenv["PGDATABASE"] = pgdatabase
 pgenv["PGUSER"] = pguser
 
-sqlPosition = ""
-sqlMeta = ""
-sqlWhere = ""
-sqlOrder = ""
+gl_sqlPosition = ""
+gl_sqlMeta = ""
+gl_sqlWhere = ""
+gl_sqlOrder = ""
 
 try:
     os.chdir(workdir)
@@ -132,7 +132,7 @@ def flform(field, val, ob_id):
         print("ERROR in Object: %s, field: %s, value: %s" % (ob_id, field, val))
 
 def fn_exportCommon():
-    global sqlPosition, sqlMeta, sqlWhere, sqlOrder
+    global gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder
     sql = "SELECT DISTINCT fn_BoundingBox(wkb_geometry) AS bbox \
          FROM fgs_objects \
          WHERE fgs_objects.ob_modified > (SELECT stamp FROM fgs_timestamp WHERE fgs_timestamp.id = 0) \
@@ -155,13 +155,13 @@ def fn_exportCommon():
         os.makedirs(row['obpath'])
     print("Objects directories done")
 
-    sqlPosition = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
-    sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
-    sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
-    sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
+    gl_sqlPosition = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
+    gl_sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
+    gl_sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
+    gl_sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
 
 def fn_exportShared():
-    sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+    sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
     db_result = fn_pgexec(sql, "r")
     suffix = ".stg"
     prevtile = -1;
@@ -181,7 +181,7 @@ def fn_exportShared():
     print("Shared Objects done")
 
 def fn_exportStatic():
-    sql = "SELECT ob_id, %s, %s, LENGTH(mo_modelfile) AS mo_size, mo_modelfile FROM fgs_objects, fgs_models %s = 0 %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+    sql = "SELECT ob_id, %s, %s, LENGTH(mo_modelfile) AS mo_size, mo_modelfile FROM fgs_objects, fgs_models %s = 0 %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
     db_result = fn_pgexec(sql, "r")
     suffix = ".stg"
     prevtile = -1;
@@ -206,10 +206,10 @@ def fn_exportStatic():
     print("Static Objects done")
 
 def fn_exportSigns():
-    sqlMeta = "si_tile AS tile, si_gndelev::float AS stgelev, fn_StgHeading(si_heading)::float AS stgheading";
-    sqlWhere = "WHERE si_valid IS TRUE";
-    sqlOrder = "ORDER BY tile, lon, lat, stgelev, stgheading";
-    sql = "SELECT si_id, %s, %s, si_definition FROM fgs_signs %s %s;" % (sqlPosition, sqlMeta, sqlWhere, sqlOrder)
+    gl_sqlMeta = "si_tile AS tile, si_gndelev::float AS stgelev, fn_StgHeading(si_heading)::float AS stgheading";
+    gl_sqlWhere = "WHERE si_valid IS TRUE";
+    gl_sqlOrder = "ORDER BY tile, lon, lat, stgelev, stgheading";
+    sql = "SELECT si_id, %s, %s, si_definition FROM fgs_signs %s %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
     db_result = fn_pgexec(sql, "r")
     suffix = ".stg"
     prevtile = -1;
