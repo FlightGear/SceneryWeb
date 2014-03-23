@@ -314,27 +314,31 @@ fn_pgexec(sql, "w")
 print("### Updating ground elevations ....")
 fn_updateElevations()
 
+# Cleanup Objects and Models
 try:
-    # Cleanup Objects and Models
     subprocess.check_call("find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;", shell=True)
 except:
     sys.exit("Cleanup failed")
 
+# Export the Objects directory
+print("### Exporting Objects tree ....")
+fn_exportCommon()
 try:
-    # Export the Objects directory
-    print("### Exporting Objects tree ....")
-    fn_exportCommon()
     fn_exportShared()
-    fn_exportStatic()
-    fn_exportSigns()
-#    exportObjects = os.path.join(basedir, "exportObjects")
-#    subprocess.check_call(exportObjects, env=pgenv, shell=True)
 except:
-    sys.exit("Objects export failed.")
-
+    sys.exit("Shared Objects export failed.")
 try:
-    # Export the Models directory
-    print("### Exporting Models tree ....")
+    fn_exportStatic()
+except:
+    sys.exit("Static Objects export failed.")
+try:
+    fn_exportSigns()
+except:
+    sys.exit("Signs export failed.")
+
+# Export the Models directory
+print("### Exporting Models tree ....")
+try:
     fn_exportModels()
 except:
     sys.exit("Models export failed.")
