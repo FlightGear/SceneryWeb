@@ -108,7 +108,11 @@ def fn_updateElevations():
             # 512280 -179.880556 -16.688333
             # "fgelev" output:
             # 512280: 19.479
-            sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) FROM fgs_objects WHERE ob_valid IS true AND ob_gndelev = -9999 ORDER BY ob_tile, ob_id LIMIT 10000;"
+            sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) \
+                FROM fgs_objects \
+                WHERE ob_valid IS true AND ob_gndelev = -9999 \
+                ORDER BY ob_tile, ob_id \
+                LIMIT 10000;"
             db_result = fn_pgexec(sql, "r")
             num_rows = len(db_result)
             print("Updating %s object(s)" % num_rows)
@@ -118,7 +122,9 @@ def fn_updateElevations():
                 ePipe.stdin.write(obj)
                 eResult = ePipe.stdout.readline()
                 eList = eResult.translate(None, ":").split()
-                sql = "UPDATE fgs_objects SET ob_gndelev = %s WHERE ob_id = %s AND ob_gndelev = -9999;" % (eList[1], eList[0])  # (ob_gndelev, ob_id)
+                sql = "UPDATE fgs_objects \
+                    SET ob_gndelev = %s \
+                    WHERE ob_id = %s AND ob_gndelev = -9999;" % (eList[1], eList[0])  # (ob_gndelev, ob_id)
                 fn_pgexec(sql, "w")
         else:
             print("No elevations pending update")
@@ -143,7 +149,10 @@ def fn_exportCommon():
         num_rows = len(db_result)
         # Need to identify "bbox" column
         for row in db_result:
-            bbox = "SELECT ST_AsText(wkb_geometry) as geom FROM fgs_objects WHERE fgs_objects.wkb_geometry && %s ORDER BY geom;" % row['bbox']
+            bbox = "SELECT ST_AsText(wkb_geometry) as geom \
+                FROM fgs_objects \
+                WHERE fgs_objects.wkb_geometry && %s \
+                ORDER BY geom;" % row['bbox']
             print(bbox)
     sqlPath = "SELECT DISTINCT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
     sql = "%s FROM fgs_objects \
@@ -161,7 +170,8 @@ def fn_exportCommon():
     gl_sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
 
 def fn_exportShared():
-    sql = "SELECT ob_id, %s, %s, mg_path FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
+    sql = "SELECT ob_id, %s, %s, mg_path \
+        FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
     db_result = fn_pgexec(sql, "r")
     suffix = ".stg"
     prevtile = -1;
@@ -181,7 +191,8 @@ def fn_exportShared():
     print("Shared Objects done")
 
 def fn_exportStatic():
-    sql = "SELECT ob_id, %s, %s, LENGTH(mo_modelfile) AS mo_size, mo_modelfile FROM fgs_objects, fgs_models %s = 0 %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
+    sql = "SELECT ob_id, %s, %s, LENGTH(mo_modelfile) AS mo_size, mo_modelfile \
+        FROM fgs_objects, fgs_models %s = 0 %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
     db_result = fn_pgexec(sql, "r")
     suffix = ".stg"
     prevtile = -1;
@@ -209,7 +220,8 @@ def fn_exportSigns():
     gl_sqlMeta = "si_tile AS tile, si_gndelev::float AS stgelev, fn_StgHeading(si_heading)::float AS stgheading";
     gl_sqlWhere = "WHERE si_valid IS TRUE";
     gl_sqlOrder = "ORDER BY tile, lon, lat, stgelev, stgheading";
-    sql = "SELECT si_id, %s, %s, si_definition FROM fgs_signs %s %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
+    sql = "SELECT si_id, %s, %s, si_definition \
+        FROM fgs_signs %s %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
     db_result = fn_pgexec(sql, "r")
     suffix = ".stg"
     prevtile = -1;
@@ -228,13 +240,19 @@ def fn_exportSigns():
     print("Signs done")
 
 def fn_exportModels():
-    sql = "SELECT DISTINCT concat('Models/', mg_path) AS mgpath FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY mgpath;"
+    sql = "SELECT DISTINCT concat('Models/', g.mg_path) AS mgpath \
+        FROM fgs_models AS m, fgs_modelgroups AS g \
+        WHERE m.mo_shared > 0 AND m.mo_shared = g.mg_id \
+        ORDER BY mgpath;"
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
         os.makedirs(row['mgpath'])
     print("Models directories done")
 
-    sql = "SELECT mo_id, concat('Models/', mg_path) AS mgpath, LENGTH(mo_modelfile) AS mo_size, mo_modelfile, mg_path FROM fgs_models, fgs_modelgroups WHERE mo_shared > 0 AND mo_shared = mg_id ORDER BY fgs_modelgroups.mg_id, fgs_models.mo_id;"
+    sql = "SELECT m.mo_id, concat('Models/', g.mg_path) AS mgpath, LENGTH(m.mo_modelfile) AS mo_size, m.mo_modelfile, g.mg_path \
+        FROM fgs_models AS m, fgs_modelgroups AS g \
+        WHERE m.mo_shared > 0 AND m.mo_shared = g.mg_id \
+        ORDER BY g.mg_id, m.mo_id;"
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
         modeldata = base64.b64decode(row['mo_modelfile'])
