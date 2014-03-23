@@ -128,9 +128,7 @@ if (isset($_POST["action"])) {
 
                 if (!$result_rw_mo || !$result_rw_ob) {
                     $process_text = "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
-                    $error_text = "Sorry, but the INSERT queries could not be processed.<br/>" .
-                                  "Model request :". $query_rw_mo." (".$result_rw_mo.")<br/>".
-                                  "Object request :". $query_rw_ob_with_mo_id." (".$result_rw_ob.".)<br/>";
+                    $error_text = "Sorry, but the INSERT queries could not be processed.";
                     $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     include '../../inc/error_page.php';
 
