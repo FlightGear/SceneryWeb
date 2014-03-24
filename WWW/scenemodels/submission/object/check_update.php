@@ -172,7 +172,7 @@ function validateForm()
 
     if (!checkStringNotDefault(form["new_long"], "") || !checkNumeric(form["new_long"],-180,180) ||
         !checkStringNotDefault(form["new_lat"], "") || !checkNumeric(form["new_lat"],-90,90) ||
-        !checkNumeric(form['new_offset'],-10000,10000) ||
+        !checkNumeric(form['new_offset'],-999,999) ||
         !checkStringNotDefault(form["new_heading"], "") || !checkNumeric(form['new_heading'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
         (form['email'].value!="" && !checkEmail(form['email'])))

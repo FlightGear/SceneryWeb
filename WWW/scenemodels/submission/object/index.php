@@ -30,7 +30,7 @@ function validateForm()
     if (!checkStringNotDefault(form["family_name"], 0) ||
         !checkStringNotDefault(form["longitude"], "") || !checkNumeric(form["longitude"],-180,180) ||
         !checkStringNotDefault(form["latitude"], "") || !checkNumeric(form["latitude"],-90,90) ||
-        !checkNumeric(form['offset'],-10000,10000) ||
+        !checkNumeric(form['offset'],-999,999) ||
         !checkStringNotDefault(form["heading"], "") || !checkNumeric(form['heading'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
         (form['email'].value!="" && !checkEmail(form['email'])))

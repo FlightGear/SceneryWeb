@@ -85,7 +85,8 @@ function is_offset($value) {
     return isset($value)
            && strlen($value) <= 20
            && preg_match($regex['offset'], $value)
-           && $value <= 10000;
+           && $value < 1000
+           && $value > -1000;
 }
 
 // Checks if the given variable is a heading
