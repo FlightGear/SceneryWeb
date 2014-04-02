@@ -112,7 +112,7 @@ def fn_updateElevations():
                 FROM fgs_objects \
                 WHERE ob_valid IS true AND ob_gndelev = -9999 \
                 ORDER BY ob_tile, ob_id \
-                LIMIT 10000;"
+                LIMIT 1000;"
             db_result = fn_pgexec(sql, "r")
             num_rows = len(db_result)
             print("Updating %s object(s)" % num_rows)
