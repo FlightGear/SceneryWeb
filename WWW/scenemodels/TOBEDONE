@@ -32,7 +32,7 @@ Overall work:
 =============
 - Logging options
 - Position with a preceeding 0 are sometimes causing troubles. Should be accepted and squashed.
-- http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution
+- http://webdesignledger.com/tips/why-you-should-stop-using-captchas => try to find a more user-friendly solution. Removing captcha if authenticated might sound a good idea.
 - Add a tcp/or so socket link between FG core and this script to import data directly into the DB!
   => Using HTTP API we could think of an export between ufo and fgs_objects scripts and between Blender and fgs_models scripts.
   => cf for instance the shapefiles download on the mapserver.
@@ -45,4 +45,3 @@ Overall work:
 Terragear
 =========
 - Create a webtool "a la Terragear GUI" to generate scenery based on user inputs.
-- Participate to the worldwide scenery generation, whether 810, 850, Corine...
