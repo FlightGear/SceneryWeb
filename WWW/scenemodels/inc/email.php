@@ -121,7 +121,8 @@ function email($case)
         case "pending_request_process_confirmation":
             $subject  = "Automatic objects pending request process confirmation";
             $message .= "We would like to let you know that the object (addition, update, deletion) request nr:'".substr($sig,0,10). "'was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n" .
-                        "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n";
+                        "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
+                        "Please don't forget to use the massive import form rather than the single one if you have many objects to add!\r\n\r\n";
             $backend = true;
             break;
         case "pending_requests":
@@ -191,7 +192,7 @@ function email($case)
                         "Latitude:         ". $lat . "\r\n" .
                         "Longitude:        ". $long . "\r\n" .
                         "Country:          ". get_country_name_from_country_code($ob_country) . "\r\n" .
-                        "Ground elevation: ". $gndelev . "\r\n" .
+                        "Ground elevation will be automagically computed\r\n" .
                         "Elevation offset: ". $offset . "\r\n" .
                         "True orientation: ". heading_stg_to_true($heading) . "\r\n" .
                         "Comment:          ". strip_tags($sent_comment) . "\r\n" .
