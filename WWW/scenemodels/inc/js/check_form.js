@@ -72,7 +72,7 @@ function checkComment(textfield)
 
 function chkComment(checkStr)
 {
-    var checkOK = numbers + letters + ";!?@-_. ";
+    var checkOK = numbers + letters + ";!?@-_.()[] ";
     var allValid = true;
     var allNum = "";
 
