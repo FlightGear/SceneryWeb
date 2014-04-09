@@ -69,7 +69,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
                      "<td><center>".$elev."</center></td>\n" .
                      "<td><center>".$elevoffset."</center></td>\n" .
                      "<td><center>".$orientation."</center></td>\n" .
-                     "<td><center>".object_name($model_id)."</center></td>\n" .
+                     "<td><center><a href=\"http://scenemodels.flightgear.org/modelview.php?id=".$model_id."\">".object_name($model_id)."</a></center></td>\n" .
                      "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
                      "</tr>\n";
             } elseif ($_GET["action"] == "check_update") {
