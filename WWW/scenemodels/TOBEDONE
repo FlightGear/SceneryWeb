@@ -4,7 +4,6 @@ Features updates (by priority):
 -------------------------------
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Add pitch/roll so they can be, for instance, mass imported [can be added now, but they are not taken into account].
-- The massive insertion script must use dollar quoting ($$) for ob_text, else ob_texts with , (such as square helipad) are not getting inserted.
 - When checking massive imports, have to check the number of tab_tags returned to make sure user didn't forget or misformed one (line 146 of
   confirm_mass_import.php).
 - Add ob_text (edition, because in addition we would need Ajax), ob_country, add/update possibilities.
@@ -12,7 +11,6 @@ Features updates (by priority):
    it contains (including interesting obstruction information) by the name of the object.
    Can also serve as a comment (better than in a STG file).
 - Add a possibility to switch from STG heading to true and inversely.
-- Regionalise the maintainers : if lat/lon between x and y, send the validation mail to Jon, Martin or... else
 
 Static objects
 ==============
