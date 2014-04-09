@@ -25,7 +25,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
         // Checking the presence of sig into the database
         $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
         if (pg_num_rows($result) != 1) {
-            $page_title = "Automated Objects Massive Import Request Form";
+            $page_title = "Automated Objects Pending Requests Form";
             $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
             $advise_text = "Else, please report to devel ML or FG Scenery forum.";
             include '../../inc/error_page.php';
@@ -42,7 +42,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
 
             // Gzuncompress the query
             $query_rw = gzuncompress($sqlz);
-            $page_title = "Automated Objects Massive Import Requests Form";
+            $page_title = "Automated Objects Pending Requests Form";
             include '../../inc/header.php';
             echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
 
@@ -75,6 +75,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
             } elseif ($_GET["action"] == "check_update") {
                 $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
                 $trigged_query_rw = str_replace('$','',$trigged_query_rw);
+                echo $trigged_query_rw;
 
                 echo "<table>\n<tr>\n<th></th>\n<th>Old/current</th>\n<th>New</th>\n</tr>\n";
 
