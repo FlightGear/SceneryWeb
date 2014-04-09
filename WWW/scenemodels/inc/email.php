@@ -224,9 +224,9 @@ function email($case)
             $message .= "issued the following request:\r\n\r\n" .
                         "Object #:          ".$id_to_update."\r\n" .
                         "Family:            ". get_object_family_from_id($id_to_update) ." => ".family_name($family_name)."\r\n" .
-                        "[ ".$html_family_url." ]" . "\r\n" .
+                        "[ ".$html_family_url."".$family_name." ]" . "\r\n" .
                         "Model:             ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
-                        "[ ".$html_object_url." ]" . "\r\n" .
+                        "[ ".$html_object_url."".$model_name." ]" . "\r\n" .
                         "Latitude:          ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
                         "Longitude:         ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
                         "Ground elevation:  ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
