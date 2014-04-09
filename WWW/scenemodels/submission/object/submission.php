@@ -42,6 +42,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
 
             // Gzuncompress the query
             $query_rw = gzuncompress($sqlz);
+			echo $query_rw;
             $page_title = "Automated Objects Pending Requests Form";
             include '../../inc/header.php';
             echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
