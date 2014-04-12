@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # called by '<basename>.psp'
 #
@@ -20,23 +20,27 @@ LayerSelect() {
     WHERE uuid = '${UUID}'"
 }
 
-PGISLAYER=`LayerSelect`
+DumpSingleLayer() {
+    ${PGSQL2SHP} -f ${DUMPDIR}/${1}.shp \
+        -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
+        "SELECT * FROM ${1} \
+            WHERE wkb_geometry && \
+            (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}') ${SQLFILTER}"
+}
 
 mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
+
+PGISLAYER=`LayerSelect`
 
 for LAYER in `${PSQL} "SELECT f_table_name FROM geometry_columns \
         WHERE f_table_name LIKE '${PGISLAYER}\_%' \
         ORDER BY f_table_name"`; do
     COUNT=`${PSQL} "SELECT COUNT(wkb_geometry) FROM ${LAYER} \
               WHERE wkb_geometry && \
-              (SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid = '${UUID}')"`
+              (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}')"`
     if [ ${COUNT} -gt 0 ]; then
-        ${PGSQL2SHP} -f ${DUMPDIR}/${LAYER}.shp \
-            -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
-            "SELECT * FROM ${LAYER} \
-                WHERE wkb_geometry && \
-                (SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid = '${UUID}')"
+        DumpSingleLayer ${LAYER}
         cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
     fi
 done

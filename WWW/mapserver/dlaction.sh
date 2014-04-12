@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # called by '<basename>.psp'
 #
@@ -37,32 +37,31 @@ else
   SQLFILTER=""
 fi
 
-FileName() {
+DumpSingleLayer() {
+    ${PGSQL2SHP} -f ${DUMPDIR}/${1}.shp \
+        -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
+        "SELECT * FROM ${1} \
+            WHERE wkb_geometry && \
+            (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}') ${SQLFILTER}"
+}
+
+Prefix() {
   ${PSQL} "SELECT pgislayer FROM download \
     WHERE uuid = '${UUID}'"
 }
 
-PGISLAYER=`LayerSelect`
-
-echo ${PGISLAYER}
-HasMapLayer
-echo ${SQLFILTER}
-FileName
-
 mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
 
-${PGSQL2SHP} -f ${DUMPDIR}/${PGISLAYER}.shp \
-    -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
-    "SELECT * FROM ${PGISLAYER} \
-        WHERE wkb_geometry && \
-        (SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid = '${UUID}') ${SQLFILTER}"
+PGISLAYER=`LayerSelect`
+
+DumpSingleLayer ${PGISLAYER}
 
 cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${PGISLAYER}\.prj
 
 cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
 
-zip ${DLDIR}/`FileName`-${UUID}\.zip `FileName`*
+zip ${DLDIR}/`Prefix`-${UUID}\.zip `Prefix`.*
 cd ${DUMPDIR}/.. && rm -rf ${UUID}
 
 # EOF
