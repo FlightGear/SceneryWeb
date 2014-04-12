@@ -16,7 +16,7 @@ DUMPDIR=${BASEDIR}/SHPdump/${UUID}
 DLDIR=${BASEDIR}/SHPdl
 
 LayerSelect() {
-    ${PSQL} "SELECT pgislayer FROM download \
+    ${PSQL} "SELECT selection FROM download \
         WHERE uuid = '${UUID}'"
 }
 

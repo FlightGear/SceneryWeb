@@ -17,22 +17,22 @@ DLDIR=${BASEDIR}/SHPdl
 
 HasMapLayer() {
     ${PSQL} "SELECT count(conf_layer.pgislayer) FROM conf_layer, download \
-        WHERE download.uuid = '${UUID}' and download.pgislayer = conf_layer.maplayer"
+        WHERE download.uuid = '${UUID}' and download.selection = conf_layer.maplayer"
 }
 
 LayerSelect() {
     if [ `HasMapLayer` = 0 ]; then
         ${PSQL} "SELECT conf_layer.pgislayer FROM conf_layer, download \
-            WHERE download.uuid = '${UUID}' and download.pgislayer = conf_layer.pgislayer"
+            WHERE download.uuid = '${UUID}' and download.selection = conf_layer.pgislayer"
     elif [ `HasMapLayer` = 1 ]; then
         ${PSQL} "SELECT conf_layer.pgislayer FROM conf_layer, download \
-            WHERE download.uuid = '${UUID}' and download.pgislayer = conf_layer.maplayer"
+            WHERE download.uuid = '${UUID}' and download.selection = conf_layer.maplayer"
   fi
 }
 
 if [ `HasMapLayer` = 1 ]; then
     SQLFILTER="AND `${PSQL} "SELECT conf_layer.sqlfilter FROM conf_layer, download \
-        WHERE download.uuid = '${UUID}' and download.pgislayer = conf_layer.maplayer"`"
+        WHERE download.uuid = '${UUID}' and download.selection = conf_layer.maplayer"`"
 else
     SQLFILTER=""
 fi
@@ -46,7 +46,7 @@ DumpSingleLayer() {
 }
 
 Prefix() {
-    ${PSQL} "SELECT pgislayer FROM download \
+    ${PSQL} "SELECT selection FROM download \
         WHERE uuid = '${UUID}'"
 }
 
