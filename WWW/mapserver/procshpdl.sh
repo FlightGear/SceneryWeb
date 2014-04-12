@@ -17,19 +17,19 @@ DLDIR=${BASEDIR}/SHPdl
 
 LayerSelect() {
   ${PSQL} "SELECT pgislayer FROM download \
-    WHERE uuid LIKE '${UUID}'"
+    WHERE uuid = '${UUID}'"
 }
 
 PGISLAYER=`LayerSelect`
 
 GeomSelect() {
   ${PSQL} "SELECT ST_AsText(${1}_geometry) FROM download \
-    WHERE uuid LIKE '${UUID}'" | cut -f 2 -d \( | cut -f 1 -d \)
+    WHERE uuid = '${UUID}'" | cut -f 2 -d \( | cut -f 1 -d \)
 }
 
 LL_GEOMETRY=`GeomSelect ll`
 UR_GEOMETRY=`GeomSelect ur`
-WKB_GEOMETRY=`${PSQL} "SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid LIKE '${UUID}'"`
+WKB_GEOMETRY=`${PSQL} "SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid = '${UUID}'"`
 BBOX="${LL_GEOMETRY}, ${UR_GEOMETRY}"
 
 mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1

@@ -17,34 +17,34 @@ DLDIR=${BASEDIR}/SHPdl
 
 GeomSelect() {
   ${PSQL} -c "SELECT ST_AsText(${1}_geometry) FROM download \
-    WHERE uuid LIKE '${UUID}'" | cut -f 2 -d \( | cut -f 1 -d \)
+    WHERE uuid = '${UUID}'" | cut -f 2 -d \( | cut -f 1 -d \)
 }
 
 HasMapLayer() {
   ${PSQL} -c "SELECT count(conf_layer.pgislayer) FROM conf_layer, download \
-    WHERE download.uuid LIKE '${UUID}' and download.pgislayer = conf_layer.maplayer"
+    WHERE download.uuid = '${UUID}' and download.pgislayer = conf_layer.maplayer"
 }
 
 LayerSelect() {
   if [ `HasMapLayer` = 0 ]; then
     ${PSQL} -c "SELECT conf_layer.pgislayer FROM conf_layer, download \
-      WHERE download.uuid LIKE '${UUID}' and download.pgislayer = conf_layer.pgislayer"
+      WHERE download.uuid = '${UUID}' and download.pgislayer = conf_layer.pgislayer"
   elif [ `HasMapLayer` = 1 ]; then
     ${PSQL} -c "SELECT conf_layer.pgislayer FROM conf_layer, download \
-      WHERE download.uuid LIKE '${UUID}' and download.pgislayer = conf_layer.maplayer"
+      WHERE download.uuid = '${UUID}' and download.pgislayer = conf_layer.maplayer"
   fi
 }
 
 if [ `HasMapLayer` = 1 ]; then
   SQLFILTER="AND `${PSQL} -c "SELECT conf_layer.sqlfilter FROM conf_layer, download \
-    WHERE download.uuid LIKE '${UUID}' and download.pgislayer = conf_layer.maplayer"`"
+    WHERE download.uuid = '${UUID}' and download.pgislayer = conf_layer.maplayer"`"
 else
   SQLFILTER=""
 fi
 
 FileName() {
   ${PSQL} -c "SELECT pgislayer FROM download \
-    WHERE uuid LIKE '${UUID}'"
+    WHERE uuid = '${UUID}'"
 }
 
 LL_GEOMETRY=`GeomSelect ll`
