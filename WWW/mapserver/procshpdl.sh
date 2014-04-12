@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# called by 'procshpdl.psp'
+# called by '<basename>.psp'
 #
 # Supply bounding box for 'pgsql2shp' as:
 #   <xmin> <ymin>,<xmax> <ymax>
@@ -22,16 +22,6 @@ LayerSelect() {
 
 PGISLAYER=`LayerSelect`
 
-GeomSelect() {
-  ${PSQL} "SELECT ST_AsText(${1}_geometry) FROM download \
-    WHERE uuid = '${UUID}'" | cut -f 2 -d \( | cut -f 1 -d \)
-}
-
-LL_GEOMETRY=`GeomSelect ll`
-UR_GEOMETRY=`GeomSelect ur`
-WKB_GEOMETRY=`${PSQL} "SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid = '${UUID}'"`
-BBOX="${LL_GEOMETRY}, ${UR_GEOMETRY}"
-
 mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
 
@@ -40,13 +30,13 @@ for LAYER in `${PSQL} "SELECT f_table_name FROM geometry_columns \
         ORDER BY f_table_name"`; do
     COUNT=`${PSQL} "SELECT COUNT(wkb_geometry) FROM ${LAYER} \
               WHERE wkb_geometry && \
-              ST_GeomFromText('${WKB_GEOMETRY}', 4326)"`
+              (SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid = '${UUID}')"`
     if [ ${COUNT} -gt 0 ]; then
         ${PGSQL2SHP} -f ${DUMPDIR}/${LAYER}.shp \
             -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
             "SELECT * FROM ${LAYER} \
                 WHERE wkb_geometry && \
-                ST_GeomFromText('${WKB_GEOMETRY}', 4326)"
+                (SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid = '${UUID}')"
         cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
     fi
 done
