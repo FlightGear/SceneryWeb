@@ -17,7 +17,7 @@ DLDIR=${BASEDIR}/SHPdl
 
 #GeomSelect() {
 #  ${PSQL} "SELECT ST_AsText(${1}_geometry) FROM download \
-#    WHERE uuid LIKE '${UUID}'" | cut -f 2 -d \( | cut -f 1 -d \)
+#    WHERE uuid = '${UUID}'" | cut -f 2 -d \( | cut -f 1 -d \)
 #}
 
 #LL_GEOMETRY=`GeomSelect ll`

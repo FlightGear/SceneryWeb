@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 #
-# called by 'procshpdl.psp'
+# called by '<basename>.psp'
 #
 # Supply bounding box for 'pgsql2shp' as:
 #   <xmin> <ymin>,<xmax> <ymax>
@@ -16,37 +16,31 @@ DUMPDIR=${BASEDIR}/SHPdump/${UUID}
 DLDIR=${BASEDIR}/SHPdl
 
 LayerSelect() {
-  ${PSQL} "SELECT pgislayer FROM download \
-    WHERE uuid LIKE '${UUID}'"
+    ${PSQL} "SELECT selection FROM download \
+        WHERE uuid = '${UUID}'"
 }
 
-PGISLAYER=`LayerSelect`
-
-GeomSelect() {
-  ${PSQL} "SELECT ST_AsText(${1}_geometry) FROM download \
-    WHERE uuid LIKE '${UUID}'" | cut -f 2 -d \( | cut -f 1 -d \)
+DumpSingleLayer() {
+    ${PGSQL2SHP} -f ${DUMPDIR}/${1}.shp \
+        -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
+        "SELECT * FROM ${1} \
+            WHERE wkb_geometry && \
+            (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}') ${SQLFILTER}"
 }
-
-LL_GEOMETRY=`GeomSelect ll`
-UR_GEOMETRY=`GeomSelect ur`
-WKB_GEOMETRY=`${PSQL} "SELECT ST_AsText(wkb_geometry) FROM download WHERE uuid LIKE '${UUID}'"`
-BBOX="${LL_GEOMETRY}, ${UR_GEOMETRY}"
 
 mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
 
+PGISLAYER=`LayerSelect`
+
 for LAYER in `${PSQL} "SELECT f_table_name FROM geometry_columns \
-        WHERE f_table_name LIKE '${PGISLAYER}\_%' \
-        ORDER BY f_table_name"`; do
+    WHERE f_table_name LIKE '${PGISLAYER}\_%' \
+    ORDER BY f_table_name"`; do
     COUNT=`${PSQL} "SELECT COUNT(wkb_geometry) FROM ${LAYER} \
-              WHERE wkb_geometry && \
-              ST_GeomFromText('${WKB_GEOMETRY}', 4326)"`
+        WHERE wkb_geometry && \
+        (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}')"`
     if [ ${COUNT} -gt 0 ]; then
-        ${PGSQL2SHP} -f ${DUMPDIR}/${LAYER}.shp \
-            -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
-            "SELECT * FROM ${LAYER} \
-                WHERE wkb_geometry && \
-                ST_GeomFromText('${WKB_GEOMETRY}', 4326)"
+        DumpSingleLayer ${LAYER}
         cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
     fi
 done

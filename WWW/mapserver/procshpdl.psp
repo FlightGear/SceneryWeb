@@ -8,7 +8,6 @@
 # of the respective database entry.
 #
 import os, time
-import uuid
 import psycopg2
 
 db_params = {"host":"localhost", "database":"landcover", "user":"webuser"}
@@ -57,26 +56,23 @@ if dlarea > 144:
 
 # Now, everything is ok
 #
-url_params['myuuid'] = uuid.uuid4()
 url_params['ll_geometry'] = ("%(xmin)s %(ymin)s" % form)
 url_params['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
 url_params['bbox'] = ("%(ll_geometry)s, %(ur_geometry)s" % url_params)
-url_params['mydate'] = time.strftime("%Y-%m-%d %H:%M")
 
 # After everything's verified, store an entry in the 'download' table for
 # retrieval and execution via the '<basename>.sh' script.
 #
-sql = "INSERT INTO download (uuid, wkb_geometry, ll_geometry, ur_geometry, pgislayer, requestdate) VALUES \
-    ('%(myuuid)s', \
-    ST_SetSRID('BOX3D(%(ll_geometry)s, %(ur_geometry)s)'::BOX3D, 4326), \
-    ST_GeomFromEWKT('SRID=4326;POINT(%(ll_geometry)s)'), \
-    ST_GeomFromEWKT('SRID=4326;POINT(%(ur_geometry)s)'), \
-    '%(mylayer)s', \
-    '%(mydate)s');" % url_params
+sql = "INSERT INTO download (wkb_geometry, selection, requestdate, single) VALUES \
+    (ST_SetSRID('BOX3D(%(ll_geometry)s, %(ur_geometry)s)'::BOX3D, 4326), \
+    '%(mylayer)s', now(), FALSE) \
+    RETURNING uuid;" % url_params
 
 try:
     db_cur.execute(sql)
     db_conn.commit()
+    result = db_cur.fetchone()
+    url_params['myuuid'] = result[0]
 except:
     print "Cannot insert download job into DB."
 
