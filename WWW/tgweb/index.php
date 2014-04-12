@@ -3,7 +3,7 @@ session_start();
 $TG_BIN = '/home/clement/terragear';
 $WWW_ROOT = '/var/www/tggui';
 $TMP_ROOT = '/tmp';
-$URL = 'http://fgcom.flightgear.org/tggui';
+$URL = 'http://scenemodels.flightgear.org/tgweb';
 
 if(isset($_GET['action'])) {
   $WORKSPACE = $_SESSION['workspace'];
