@@ -12,8 +12,8 @@ PGDATABASE=landcover
 PSQL="psql -h ${PGHOST} -d ${PGDATABASE} -U webuser -tA -c"
 BASEDIR=/home/fgscenery/GIT
 PGSQL2SHP=/home/martin/bin/pgsql2shp
-DUMPDIR=${BASEDIR}/SHPdump/${UUID}
-DLDIR=${BASEDIR}/SHPdl
+DUMPDIR=${BASEDIR}/../SHPdump/${UUID}
+DLDIR=${BASEDIR}/../SHPdl
 
 Feature() {
     ${PSQL} "SELECT selection FROM download \
