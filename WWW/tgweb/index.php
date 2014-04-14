@@ -49,7 +49,7 @@ if(isset($_GET['action'])) {
         $aptFile[count($aptFile)-1] == 99 ){
 
       foreach($aptFile as $line){
-        if( preg_match("/^1 .* ([A-Z].*) /", $line, $match)){
+        if( preg_match("/^1\s+-?\d+\s+[01]\s+[01]\s+([A-Z0-9]+)\s+(.+)\s*$/", $line, $match)){
           $_SESSION['icao'] = $match[1];
         }
       }
