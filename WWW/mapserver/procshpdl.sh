@@ -10,12 +10,12 @@ PGHOST=localhost
 PGUSER=webuser
 PGDATABASE=landcover
 PSQL="psql -h ${PGHOST} -d ${PGDATABASE} -U webuser -tA -c"
-BASEDIR=/home/fgscenery
+BASEDIR=/home/fgscenery/GIT
 PGSQL2SHP=/home/martin/bin/pgsql2shp
-DUMPDIR=${BASEDIR}/SHPdump/${UUID}
-DLDIR=${BASEDIR}/SHPdl
+DUMPDIR=${BASEDIR}/../SHPdump/${UUID}
+DLDIR=${BASEDIR}/../SHPdl
 
-LayerSelect() {
+Feature() {
     ${PSQL} "SELECT selection FROM download \
         WHERE uuid = '${UUID}'"
 }
@@ -31,10 +31,10 @@ DumpSingleLayer() {
 mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
 
-PGISLAYER=`LayerSelect`
+FEATURE=`Feature`
 
 for LAYER in `${PSQL} "SELECT f_table_name FROM geometry_columns \
-    WHERE f_table_name LIKE '${PGISLAYER}\_%' \
+    WHERE f_table_name LIKE '${FEATURE}\_%' \
     ORDER BY f_table_name"`; do
     COUNT=`${PSQL} "SELECT COUNT(wkb_geometry) FROM ${LAYER} \
         WHERE wkb_geometry && \
@@ -47,7 +47,7 @@ done
 
 cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
 
-zip ${DLDIR}/${UUID}\.zip *
+zip ${DLDIR}/`Feature`-${UUID}\.zip `Feature`_*.*
 cd ${DUMPDIR}/.. && rm -rf ${UUID}
 
 # EOF

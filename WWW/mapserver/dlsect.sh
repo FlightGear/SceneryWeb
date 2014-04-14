@@ -10,10 +10,10 @@ PGHOST=localhost
 PGUSER=webuser
 PGDATABASE=landcover
 PSQL="psql -h ${PGHOST} -d ${PGDATABASE} -U webuser -tA -c"
-BASEDIR=/home/fgscenery
+BASEDIR=/home/fgscenery/GIT
 PGSQL2SHP=/home/martin/bin/pgsql2shp
-DUMPDIR=${BASEDIR}/SHPdump/${UUID}
-DLDIR=${BASEDIR}/SHPdl
+DUMPDIR=${BASEDIR}/../SHPdump/${UUID}
+DLDIR=${BASEDIR}/../SHPdl
 
 #GeomSelect() {
 #  ${PSQL} "SELECT ST_AsText(${1}_geometry) FROM download \

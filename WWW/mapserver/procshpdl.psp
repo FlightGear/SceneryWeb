@@ -84,5 +84,5 @@ db_conn.close
 #
 dumpcmd = ("/home/fgscenery/GIT/WWW/mapserver/procshpdl.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % url_params)
 os.system(dumpcmd)
-psp.redirect("/download/%(myuuid)s.zip" % url_params)
+psp.redirect("/download/%(mylayer)s-%(myuuid)s.zip" % url_params)
 %>
