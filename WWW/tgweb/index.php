@@ -1,9 +1,9 @@
 <?php
 session_start();
-$TG_BIN = '/home/clement/terragear';
-$WWW_ROOT = '/var/www/tggui';
+$TG_BIN = '/home/martin/terragear/bin';
+$WWW_ROOT = '/home/fgscenery/GIT/WWW/tgweb';
 $TMP_ROOT = '/tmp';
-$URL = 'http://scenemodels.flightgear.org/tgweb';
+$URL = 'http://scenery.flightgear.org/tgweb';
 
 if(isset($_GET['action'])) {
   $WORKSPACE = $_SESSION['workspace'];
@@ -94,7 +94,7 @@ shell_exec('echo "<b><span style=\"color:#33CC33;\">guest@terragear</span> <span
   <meta name="robots" content="index">
   <meta http-equiv="Content-Language" content="en">
   <meta http-equiv="Pragma" content="no-cache">
-  <title>Web Airport Generator</title>
+  <title>Airport Web Generator</title>
   <style>
     body{ margin: 0; padding: 0; background: #EEE; }
     hr{ margin: 0; padding: 0; }
@@ -138,7 +138,7 @@ shell_exec('echo "<b><span style=\"color:#33CC33;\">guest@terragear</span> <span
 <body>
 
 <header>
-  <h1>. . : Web Airport Generator : . .</h1>
+  <h1>. . : Airport Web Generator : . .</h1>
   <hr/>
 </header>
 
