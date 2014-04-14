@@ -22,12 +22,12 @@ CREATE OR REPLACE FUNCTION fn_DlTable(uuid)
 AS $BODY$
     DECLARE
         tab record;
-        feature varchar;
+        item varchar;
         selectsql varchar;
         countsql varchar;
     BEGIN
-        feature := feature FROM download WHERE uuid = $1;
-        selectsql := concat('SELECT * FROM geometry_columns WHERE f_table_name LIKE $$', feature, '_%$$;');
+        item := feature FROM download WHERE uuid = $1;
+        selectsql := concat('SELECT * FROM geometry_columns WHERE f_table_name LIKE $$', item, '_%$$;');
         FOR tab IN
             EXECUTE selectsql
         LOOP
