@@ -33,16 +33,9 @@ rm -f *
 
 FEATURE=`Feature`
 
-for LAYER in `${PSQL} "SELECT f_table_name FROM geometry_columns \
-    WHERE f_table_name LIKE '${FEATURE}\_%' \
-    ORDER BY f_table_name"`; do
-    COUNT=`${PSQL} "SELECT COUNT(wkb_geometry) FROM ${LAYER} \
-        WHERE wkb_geometry && \
-        (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}')"`
-    if [ ${COUNT} -gt 0 ]; then
-        DumpSingleLayer ${LAYER}
-        cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
-    fi
+for LAYER in `${PSQL} "SELECT fn_DlTable('${UUID}')"`; do
+    DumpSingleLayer ${LAYER}
+    cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
 done
 
 cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
