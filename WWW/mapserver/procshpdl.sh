@@ -16,22 +16,24 @@ DUMPDIR=${BASEDIR}/../SHPdump/${UUID}
 DLDIR=${BASEDIR}/../SHPdl
 
 Feature() {
-    ${PSQL} "SELECT selection FROM download \
-        WHERE uuid = '${UUID}'"
+    ${PSQL} "SELECT feature FROM download WHERE uuid = '${UUID}'"
 }
 
 DumpSingleLayer() {
+    if [ -z ${2} ]; then
+        TABLE=${1}
+    else
+        TABLE=${2}
+    fi
     ${PGSQL2SHP} -f ${DUMPDIR}/${1}.shp \
         -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
-        "SELECT * FROM ${1} \
+        "SELECT * FROM ${TABLE} \
             WHERE wkb_geometry && \
-            (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}') ${SQLFILTER}"
+            (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}') ${3}"
 }
 
 mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
-
-FEATURE=`Feature`
 
 for LAYER in `${PSQL} "SELECT fn_DlTable('${UUID}')"`; do
     DumpSingleLayer ${LAYER}
@@ -40,7 +42,9 @@ done
 
 cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
 
-zip ${DLDIR}/`Feature`-${UUID}\.zip `Feature`_*.*
+FEATURE=`Feature`
+
+zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}_*.*
 cd ${DUMPDIR}/.. && rm -rf ${UUID}
 
 # EOF

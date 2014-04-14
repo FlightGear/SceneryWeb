@@ -16,15 +16,14 @@ DUMPDIR=${BASEDIR}/../SHPdump/${UUID}
 DLDIR=${BASEDIR}/../SHPdl
 
 Feature() {
-    ${PSQL} "SELECT selection FROM download \
-        WHERE uuid = '${UUID}'"
+    ${PSQL} "SELECT feature FROM download WHERE uuid = '${UUID}'"
 }
 
 DumpTable() {
     ${PSQL} "SELECT COALESCE( \
         (SELECT c.pgislayer FROM download AS d, conf_layer AS c \
-            WHERE c.maplayer = d.selection AND d.uuid = '${UUID}'), \
-        (SELECT selection FROM download \
+            WHERE c.maplayer = d.feature AND d.uuid = '${UUID}'), \
+        (SELECT feature FROM download \
             WHERE uuid = '${UUID}'));"
 }
 
@@ -33,15 +32,20 @@ SQLFilter () {
         WHEN count(c.pgislayer) = 1 THEN concat('AND ', c.sqlfilter) \
         ELSE NULL END \
         FROM conf_layer AS c, download AS d \
-        WHERE d.selection = c.maplayer \
+        WHERE d.feature = c.maplayer \
         AND d.uuid = '${UUID}' \
         GROUP BY c.sqlfilter;"
 }
 
 DumpSingleLayer() {
+    if [ -z ${2} ]; then
+        TABLE=${1}
+    else
+        TABLE=${2}
+    fi
     ${PGSQL2SHP} -f ${DUMPDIR}/${1}.shp \
         -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
-        "SELECT * FROM ${2} \
+        "SELECT * FROM ${TABLE} \
             WHERE wkb_geometry && \
             (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}') ${3}"
 }
@@ -59,7 +63,7 @@ cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${FEATURE}\.prj
 
 cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
 
-zip ${DLDIR}/`Feature`-${UUID}\.zip `Feature`.*
+zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}.*
 cd ${DUMPDIR}/.. && rm -rf ${UUID}
 
 # EOF

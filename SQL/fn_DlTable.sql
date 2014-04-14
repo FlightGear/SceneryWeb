@@ -26,7 +26,7 @@ AS $BODY$
         selectsql varchar;
         countsql varchar;
     BEGIN
-        feature := selection FROM download WHERE uuid = $1;
+        feature := feature FROM download WHERE uuid = $1;
         selectsql := concat('SELECT * FROM geometry_columns WHERE f_table_name LIKE $$', feature, '_%$$;');
         FOR tab IN
             EXECUTE selectsql
