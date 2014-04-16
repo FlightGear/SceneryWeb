@@ -15,9 +15,9 @@ PGSQL2SHP=/home/martin/bin/pgsql2shp
 DUMPDIR=${BASEDIR}/../SHPdump/${UUID}
 DLDIR=${BASEDIR}/../SHPdl
 
-Feature() {
-    ${PSQL} "SELECT feature FROM download WHERE uuid = '${UUID}'"
-}
+SINGLE=`${PSQL} "SELECT single FROM download WHERE uuid = '${UUID}'" | cut -c 1 | tr A-Z a-z`
+
+FEATURE=`${PSQL} "SELECT feature FROM download WHERE uuid = '${UUID}'"`
 
 DumpTable() {
     ${PSQL} "SELECT COALESCE( \
@@ -26,6 +26,7 @@ DumpTable() {
         (SELECT feature FROM download \
             WHERE uuid = '${UUID}'));"
 }
+DUMPTABLE=`DumpTable`
 
 SQLFilter () {
     ${PSQL} "SELECT CASE \
@@ -36,6 +37,7 @@ SQLFilter () {
         AND d.uuid = '${UUID}' \
         GROUP BY c.sqlfilter;"
 }
+SQLFILTER=`SQLFilter`
 
 DumpSingleLayer() {
     if [ -z ${2} ]; then
@@ -52,18 +54,21 @@ DumpSingleLayer() {
 
 mkdir -p ${DUMPDIR} && cd ${DUMPDIR}/ || exit 1
 rm -f *
-
-FEATURE=`Feature`
-DUMPTABLE=`DumpTable`
-SQLFILTER=`SQLFilter`
-
-DumpSingleLayer ${FEATURE} ${DUMPTABLE} "${SQLFILTER}"
-
-cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${FEATURE}\.prj
-
 cp -a ${BASEDIR}/WWW/mapserver/COPYING.gplv2 ${DUMPDIR}/COPYING
 
-zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}.*
+if [ ${SINGLE} = "f" ]; then
+    SELECTION=`${PSQL} "SELECT fn_DlTable('${UUID}')"`
+    for LAYER in ${SELECTION} ; do
+        DumpSingleLayer ${LAYER}
+        cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
+    done
+    zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}_*.*
+elif [ ${SINGLE} = "t" ]; then
+    DumpSingleLayer ${FEATURE} ${DUMPTABLE} "${SQLFILTER}"
+    cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${FEATURE}\.prj
+    zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}.*
+fi
+
 cd ${DUMPDIR}/.. && rm -rf ${UUID}
 
 # EOF

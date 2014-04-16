@@ -82,7 +82,7 @@ db_conn.close
 # Finally call '<basename>.sh' with the given UUID identifier as stored in the
 # 'download' table and redirect to the downloadable file.
 #
-dumpcmd = ("/home/fgscenery/GIT/WWW/mapserver/procshpdl.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % url_params)
+dumpcmd = ("/home/fgscenery/GIT/WWW/mapserver/dlaction.sh %(myuuid)s > /tmp/procshpdl.log 2>&1" % url_params)
 os.system(dumpcmd)
 psp.redirect("/download/%(mylayer)s-%(myuuid)s.zip" % url_params)
 %>
