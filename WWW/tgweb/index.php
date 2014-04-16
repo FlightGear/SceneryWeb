@@ -60,7 +60,7 @@ if(isset($_GET['action'])) {
   }
 
   if($action == "cpt-apt"){
-    $cmd  = "cd ".$TG_BIN." && ./run_genapts850.sh ";
+    $cmd  = "cd ".$TG_BIN." && ./genapts850 ";
     $cmd .= "--input=".$WORKSPACE."/apt.dat"." ";
     $cmd .= "--work=".$WORKSPACE."/work ";
     $cmd .= "--airport=".$_SESSION['icao']." --threads";
@@ -161,7 +161,7 @@ shell_exec('echo "<b><span style=\"color:#33CC33;\">guest@terragear</span> <span
         <div class="custom">
           <p>
             You have to provide airport file in a .dat file.<br/>
-            Your .dat file must start with "I", contains only one airport then end with "99".
+            Your .dat file must start with "I", contain only one airport and end with "99".
           </p>
           <div id="ul-apt-box">Select a file</div>
         </div>
@@ -174,7 +174,7 @@ shell_exec('echo "<b><span style=\"color:#33CC33;\">guest@terragear</span> <span
         <h3>Compute airport</h3>
         <div class="compute">
           <p>
-            Here you just need to press Process in order to run genapts850<br/><br/>
+            Here you just need to click on the Process button in order to run genapts850.<br/><br/>
           </p>
           <input type="submit" value="Process"/>
         </div>
@@ -186,7 +186,7 @@ shell_exec('echo "<b><span style=\"color:#33CC33;\">guest@terragear</span> <span
       <div class="step-content">
         <h3>Finish</h3>
         <div class="compute">
-          <p>Congratulation ! You have generated your airport file, now you can download it:</p>
+          <p>Congratulations! You have generated your airport file, now you can download it:</p>
           <a href="index.php?action=dl-btggz" class="dl-btggz">Download</a>
         </div>
       </div>
