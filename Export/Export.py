@@ -345,6 +345,7 @@ except:
 
 try:
     # Ensure perms are correct
+    subprocess.check_call("find Objects/ Models/ -type d -empty -exec rmdir -p --ignore-fail-on-non-empty {} \;", shell=True)
     subprocess.check_call("find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;", shell=True)
     subprocess.check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;", shell=True)
 except:
