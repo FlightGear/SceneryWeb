@@ -345,7 +345,7 @@ except:
 
 try:
     # Remove empty dirs
-    subprocess.check_call("find Objects/ Models/ -type d -empty -exec rmdir -p --ignore-fail-on-non-empty {} \;", shell=True)
+    subprocess.check_call("find Objects/ Models/ -depth -type d -empty -exec rmdir --ignore-fail-on-non-empty {} \;", shell=True)
 except:
     sys.exit("Removing empy directories failed.")
 try:
