@@ -116,7 +116,7 @@ def fn_updateElevations():
             db_result = fn_pgexec(sql, "r")
             num_rows = len(db_result)
             print("Updating %s object(s)" % num_rows)
-            ePipe = Popen(fgelev, env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+            ePipe = Popen(["nice", "-n", "19", fgelev], env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
             for row in db_result:
                 obj = "%s %s %s\n" % (row['ob_id'],row['st_x'],row['st_y'])
                 ePipe.stdin.write(obj)
