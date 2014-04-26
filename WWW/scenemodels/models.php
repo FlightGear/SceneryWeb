@@ -47,9 +47,9 @@ $pagesize = 10;
              "<ul class=\"table\">" .
              "<li><b>Name:</b> ".$modelMetadata->getName()."</li>\n" .
              "<li><b>Path:</b> ".$modelMetadata->getFilename()."</li>\n";
-        if (isset($modelMetadata->getDescription()) && !empty($modelMetadata->getDescription())) {
+        //if (isset($modelMetadata->getDescription()) && !empty($modelMetadata->getDescription())) {
             echo "<li><b>Notes:</b> ".$modelMetadata->getDescription()."</li>\n";
-        }
+        //}
         echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>\n" .
              "<li><b>Last Updated: </b>".$modelMetadata->getLastUpdated()->format("Y-m-d (H:i)")."</li>\n" .
              "<li><b>Type: </b><a href=\"modelbrowser.php?shared=".$modelMetadata->getModelGroup()->getId()."\">".$modelMetadata->getModelGroup()->getName()."</a></li>\n";
