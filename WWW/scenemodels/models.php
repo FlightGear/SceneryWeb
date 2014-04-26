@@ -35,7 +35,14 @@ $pagesize = 10;
             <a href="models.php?offset=<?php echo $offset+$pagesize;?>">Next</a>
         </td>
     </tr>
-
+<?php
+    $modelMetadatas = $modelDaoRO->getModelMetadatas($offset, $pagesize);
+    
+    foreach ($modelMetadatas as $modelMetadata) {
+        
+        echo "</tr>\n";
+    }
+?>
     <tr class="bottom">
         <td colspan="2" align="center">
             <?php 
