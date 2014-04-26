@@ -47,15 +47,7 @@ $pagesize = 10;
              "<ul class=\"table\">" .
              "<li><b>Name:</b> ".$modelMetadata->getName()."</li>\n" .
              "<li><b>Path:</b> ".$modelMetadata->getFilename()."</li>\n";
-        if (!empty($modelMetadata->getDescription())) {
-            echo "<li><b>Notes:</b> ".$modelMetadata->getDescription()."</li>\n";
-        }
         
-
-        echo "<li><a href=\"modelview.php?id=".$modelMetadata->getId()."\">View more about this model.</a></li>\n";
-        echo "</ul>";
-        echo "</td>\n";
-        echo "</tr>\n";
     }
 ?>
     <tr class="bottom">
