@@ -6,8 +6,9 @@ header('Content-type: application/rss+xml');
 
 $newsPosts = $newsPostDaoRO->getNewsPosts(0, 10);
 
+echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>";
 ?>
-<?xml version="1.0" encoding="iso-8859-1"?>
+
 
 <rss version="2.0">
   <channel>
