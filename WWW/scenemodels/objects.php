@@ -12,7 +12,7 @@ $filter_text="";
 $criteria = array();
 $pagesize = 20;
 
-if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
+if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset'])){
     $offset = $_REQUEST['offset'];
 } else {
     $offset = 0;
