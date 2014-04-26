@@ -39,7 +39,7 @@ $query_rw = gzuncompress($sqlz);
 $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
 preg_match($pattern, $query_rw, $matches);
 
-$mo_modelfile = $matches['modelfile'];
+$mo_modelfile = base64_decode($matches['modelfile']);
 
 // Prepare the tmp directory
 
@@ -49,15 +49,15 @@ $target_path = open_tgz($mo_modelfile);
 // Looking for the file in the tmp directory
 $dir = opendir($target_path);
 
-while (false !== ($file = readdir($dir))) {
+while (false !== ($filename = readdir($dir))) {
     // If we know the extension
-    if (show_file_extension($file) == "png" && $file == $filename) {
-        $fichier = $target_path."/".$file;
+    if (show_file_extension($filename) == "png" && $filename == $filename) {
+        $filepath = $target_path."/".$filename;
         break;
     }
 }
 
-$img = imagecreatefrompng( $fichier );
+$img = imagecreatefrompng( $filepath );
 $width = imagesx( $img );
 $height = imagesy( $img );
 
@@ -80,7 +80,7 @@ if ($width>256) {
     imagedestroy($tmp_img);
 }
 else {
-    readfile($fichier);
+    readfile($filepath);
 }
 
 // Ok, now we can delete the stuff we used - at least I think so ;-)
