@@ -24,5 +24,27 @@ $pagesize = 10;
 
 <h1>FlightGear Scenery Model Directory</h1>
 
+  <table>
+    <tr class="bottom">
+        <td colspan="2" align="center">
+<?php 
+            if ($offset >= $pagesize) {
+                echo "<a href=\"models.php?offset=".($offset-$pagesize)."\">Prev</a> | ";
+            }
+?>
+            <a href="models.php?offset=<?php echo $offset+$pagesize;?>">Next</a>
+        </td>
+    </tr>
 
+    <tr class="bottom">
+        <td colspan="2" align="center">
+            <?php 
+            if ($offset >= $pagesize) {
+                echo "<a href=\"models.php?offset=".($offset-$pagesize)."\">Prev</a> | ";
+            }
+            ?>
+            <a href="models.php?offset=<?php echo $offset+$pagesize;?>">Next</a>
+        </td>
+    </tr>
+  </table>
 <?php require 'inc/footer.php';?>
