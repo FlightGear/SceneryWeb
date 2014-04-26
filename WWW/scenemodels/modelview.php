@@ -23,7 +23,7 @@ if (is_model_id($_REQUEST['id'])) {
     $modelMetadata = $modelDaoRO->getModelMetadata($id);
     
     echo "<h1>".$modelMetadata->getName()."</h1>";
-    if (!empty($modelMetadata->getDescription())) {
+    if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescription())>0) {
         echo "<p>".$modelMetadata->getDescription()."</p>";
     }
 ?>
