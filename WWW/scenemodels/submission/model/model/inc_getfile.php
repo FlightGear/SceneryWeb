@@ -64,7 +64,7 @@ if ($type_contribute == "update_model") {
                
 preg_match($pattern, $query_rw, $matches);
 
-$mo_modelfile = $matches['modelfile'];
+$mo_modelfile = base64_decode($matches['modelfile']);
 
 // Prepare the tmp directory
 $target_path = open_tgz($mo_modelfile);
