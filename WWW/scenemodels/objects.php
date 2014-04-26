@@ -170,6 +170,7 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
                         if ($row["co_code"] == $country) echo " selected=\"selected\"";
                         echo ">".$row["co_name"]."</option>\n";
                     }
+                    $countries[""]="";
 ?>
                 </select>
             </th>
@@ -203,7 +204,7 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
             echo "  <td><a href='objectview.php?id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
                  "  <td>".$row["ob_text"]."</td>\n" .
                  "  <td><a href=\"modelview.php?id=".$object->getModelId()."\">".$models[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
-                 //"  <td>".($object->getCountry() !== NULL && strlen($object->getCountry())>0)?$countries[$object->getCountry()]:"") ."</td>\n" .
+                 "  <td>".$countries[$object->getCountry()] ."</td>\n" .
                  "  <td>".$object->getLatitude()."<br/>".$object->getLongitude()."</td>\n" .
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$object->getOrientation()."</td>\n" .
