@@ -53,7 +53,7 @@ $pagesize = 20;
              "<ul class=\"table\">" .
              "<li><b>Name:</b> ".$modelMetadata->getName()."</li>\n" .
              "<li><b>Path:</b> ".$modelMetadata->getFilename()."</li>\n";
-        if (!empty($modelMetadata->getDescription())) {
+        if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescription())>0) {
             echo "<li><b>Notes:</b> ".$modelMetadata->getDescription()."</li>\n";
         }
         echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>\n" .
