@@ -208,7 +208,12 @@ $(function() {
                     </td>
                     <td>
                         <select name="mo_author" id="mo_author">
-                            <?php list_authors($model->getMetadata()->getAuthor()->getId()); ?>
+                            <?php 
+                            if (isset($model)) {
+                                list_authors($model->getMetadata()->getAuthor()->getId());
+                            } else {
+                                list_authors();
+                            }?>
                         </select>
                     </td>
                 </tr>
