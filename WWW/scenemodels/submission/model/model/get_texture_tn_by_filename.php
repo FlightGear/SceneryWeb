@@ -85,5 +85,5 @@ else {
 
 // Ok, now we can delete the stuff we used - at least I think so ;-)
 // This should be done at the end of the script
-close_tgz()
+close_tgz($target_path);
 ?>
