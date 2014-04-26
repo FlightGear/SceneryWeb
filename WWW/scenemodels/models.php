@@ -48,6 +48,20 @@ $pagesize = 10;
              "<li><b>Name:</b> ".$modelMetadata->getName()."</li>\n" .
              "<li><b>Path:</b> ".$modelMetadata->getFilename()."</li>\n";
         
+
+        if ($modelMetadata->getModelGroup()->isStatic()) {
+            $objects = $objectDaoRO->getObjectsByModel($modelMetadata->getId());
+
+            foreach ($objects as $object) {             
+                echo "<li>(<a href=\"download/".$object->getDir().".tgz\">".$object->getDir()."</a>) ";
+                echo "<a href=\"javascript:popmap(".$object->getLatitude().",".$object->getLongitude().",13)\">Map</a></li>\n";
+            }
+        }
+
+        echo "<li><a href=\"modelview.php?id=".$modelMetadata->getId()."\">View more about this model.</a></li>\n";
+        echo "</ul>";
+        echo "</td>\n";
+        echo "</tr>\n";
     }
 ?>
     <tr class="bottom">
