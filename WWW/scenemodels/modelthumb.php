@@ -1,15 +1,19 @@
 <?php
 header("Content-type: image/jpg");
 require 'inc/form_checks.php';
+require 'classes/DAOFactory.php';
 
-$link = pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass. 'sslmode=disable');
-if (isset($_REQUEST['id']) && preg_match($regex['modelid'], $_REQUEST['id']))
-{   
-    $id = $_REQUEST['id'];
-    $result = pg_query("SELECT mo_thumbfile FROM fgs_models WHERE mo_id=$id;");
-    $model = pg_fetch_assoc($result);
-    if (strlen($model["mo_thumbfile"])>1024)
-        echo base64_decode($model["mo_thumbfile"]);
+$id = $_REQUEST['id'];
+
+if (is_model_id($id))
+{
+    $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+    $modelMetadata = $modelDaoRO->getModelMetadata($id);
+    
+    header("Content-Disposition: inline; filename=".$id.".jpg");
+    
+    if (strlen($modelMetadata->getThumbnail())>1024)
+        echo base64_decode($modelMetadata->getThumbnail());
     else
         readfile("http://scenery.flightgear.org/img/nothumb.jpg");
 }

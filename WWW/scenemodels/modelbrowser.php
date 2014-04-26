@@ -1,30 +1,38 @@
 <?php
-require 'inc/header.php';
 require 'inc/form_checks.php';
+require_once 'classes/DAOFactory.php';
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
-if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))) {
-  $offset = $_REQUEST['offset'];
-  if ($offset<0) $offset=0;
-}
-else {
-  $offset = 0;
+require 'inc/header.php';
+
+if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset'])) {
+    $offset = $_REQUEST['offset'];
+} else {
+    $offset = 0;
 }
 
-if (isset($_REQUEST['shared']) && (preg_match($regex['familyid'], $_GET['shared']))) {
-    if ($_REQUEST['shared']>0) {
-        $groupquery = "SELECT mg_name FROM fgs_modelgroups WHERE mg_id =".$_REQUEST['shared'].";";
+$pagesize = 99;
+
+
+if (isset($_REQUEST['shared']) && is_modelgroup_id($_REQUEST['shared'])) {
+    $modelGroupId = $_REQUEST['shared'];
+}
+
+if (isset($modelGroupId)) {
+    if ($modelGroupId>0) {
+        $groupquery = "SELECT mg_name FROM fgs_modelgroups WHERE mg_id =".$modelGroupId.";";
         $gpresult = pg_query($groupquery);
         $row = pg_fetch_assoc($gpresult);
         $title = "Model Browser: ".$row['mg_name'];
-        $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models WHERE mo_shared = ".$_REQUEST['shared']." ORDER BY mo_id LIMIT 99 OFFSET $offset;";
+        $modelMetadatas = $modelDaoRO->getModelMetadatasByGroup($modelGroupId, $offset, $pagesize);
     }
     else {
-    $title = "FlightGear Scenery Static Model Browser";
-    $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models WHERE mo_shared = 0 ORDER BY mo_id LIMIT 99 OFFSET $offset;";
+        $title = "FlightGear Scenery Static Model Browser";
+        $modelMetadatas = $modelDaoRO->getModelMetadatasByGroup(0, $offset, $pagesize);
     }
 }
 else {
-    $query = "SELECT mo_id, mo_path, mo_name FROM fgs_models ORDER BY mo_id LIMIT 99 OFFSET $offset;";
+    $modelMetadatas = $modelDaoRO->getModelMetadatas($offset, $pagesize);
     $title = "FlightGear Scenery Model Browser";
 }
 ?>
@@ -33,8 +41,8 @@ else {
 <table>
     <tr class="bottom">
         <td colspan="9" align="center">
-        <a href="modelbrowser.php?offset=<?php echo $offset-99;if (isset($_REQUEST['shared'])) {echo "&amp;shared=".$_REQUEST['shared'];};?>">Prev</a>
-        <a href="modelbrowser.php?offset=<?php echo $offset+99;if (isset($_REQUEST['shared'])) {echo "&amp;shared=".$_REQUEST['shared'];};?>">Next</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset-$pagesize;if (isset($modelGroupId)) {echo "&amp;shared=".$modelGroupId;};?>">Prev</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset+$pagesize;if (isset($modelGroupId)) {echo "&amp;shared=".$modelGroupId;};?>">Next</a>
         </td>
     </tr>
     <tr>
@@ -42,26 +50,25 @@ else {
         <script type="text/javascript">var noPicture = false</script>
         <script src="inc/js/image_trail.js" type="text/javascript"></script>
         <div id="trailimageid" style="position:absolute;z-index:10000;overflow:visible"></div>
-        <?php
-            $result=pg_query($query);
-            while ($row = pg_fetch_assoc($result)) {
-        ?>
-            <a href="/modelview.php?id=<?php echo $row['mo_id'];?>">
-            <img title="<?php echo $row['mo_name'].' ['.$row['mo_path'].']';?>"
-                src="modelthumb.php?id=<?php echo $row['mo_id'];?>" width="100" height="75"
-                onmouseover="showtrail('modelthumb.php?id=<?php echo $row['mo_id'];?>','','','1',5,322);"
+<?php
+        foreach ($modelMetadatas as $modelMetadata) {
+?>
+            <a href="/modelview.php?id=<?php echo $modelMetadata->getId();?>">
+            <img title="<?php echo $modelMetadata->getName().' ['.$modelMetadata->getFilename().']';?>"
+                src="modelthumb.php?id=<?php echo $modelMetadata->getId();?>" width="100" height="75"
+                onmouseover="showtrail('modelthumb.php?id=<?php echo $modelMetadata->getId();?>','','','1',5,322);"
                 onmouseout="hidetrail();"
                 alt="" />
         </a>
-        <?php
+<?php
         }
-        ?>
+?>
         </td>
     </tr>
     <tr class="bottom">
         <td colspan="9" align="center">
-        <a href="modelbrowser.php?offset=<?php echo $offset-99;if (isset($_REQUEST['shared'])) {echo "&amp;shared=".$_REQUEST['shared'];};?>">Prev</a>
-        <a href="modelbrowser.php?offset=<?php echo $offset+99;if (isset($_REQUEST['shared'])) {echo "&amp;shared=".$_REQUEST['shared'];};?>">Next</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset-$pagesize;if (isset($modelGroupId)) {echo "&amp;shared=".$modelGroupId;};?>">Prev</a>
+        <a href="modelbrowser.php?offset=<?php echo $offset+$pagesize;if (isset($modelGroupId)) {echo "&amp;shared=".$modelGroupId;};?>">Next</a>
         </td>
     </tr>
 </table>

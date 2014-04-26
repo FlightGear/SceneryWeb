@@ -1,4 +1,6 @@
 <?php
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -6,31 +8,31 @@ require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
 // Checking all variables
-if (is_longitude($_POST['new_long']))
+if (isset($_POST['new_long']) && is_longitude($_POST['new_long']))
     $new_long = pg_escape_string($_POST['new_long']);
 
-if (is_latitude($_POST['new_lat']))
+if (isset($_POST['new_lat']) && is_latitude($_POST['new_lat']))
     $new_lat = pg_escape_string($_POST['new_lat']);
 
-if (is_offset($_POST['new_offset'])) {
+if (isset($_POST['new_offset']) && is_offset($_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
     // Have to put quotes around NULL, else we're gonna have problems with the SQL query.
     if ($new_offset == '' || $new_offset == 0) $new_offset = 'NULL';
 }
 
-if (is_heading($_POST['new_heading']))
+if (isset($_POST['new_heading']) && is_heading($_POST['new_heading']))
     $new_orientation = pg_escape_string($_POST['new_heading']);
 
-if (is_object_id($_POST['id_to_update']))
+if (isset($_POST['id_to_update']) && is_object_id($_POST['id_to_update']))
     $id_to_update = pg_escape_string($_POST['id_to_update']);
 
-if (is_object_id($_REQUEST['update_choice']))
+if (isset($_REQUEST['update_choice']) && is_object_id($_REQUEST['update_choice']))
     $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
 
-if (is_model_id($_POST['model_name']))
+if (isset($_POST['model_name']) && is_model_id($_POST['model_name']))
     $model_name = pg_escape_string($_POST['model_name']);
 
-if (is_email($_POST['email']))
+if (isset($_POST['email']) && is_email($_POST['email']))
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
 
 if (isset($_POST['new_ob_text'])
@@ -479,7 +481,7 @@ else {
     $page_title = "Automated Objects Update Form";
     include '../../inc/header.php';
 
-    if ($returned_rows == 1) { // If we have just an answer...
+    if ($returned_rows == 1) { // If we have just one answer...
         while ($row = pg_fetch_row($result)) {
             echo "<p class=\"center\">One object (#".$row[0].") with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." has been found in the database.</p>";
 ?>

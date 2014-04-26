@@ -1,4 +1,7 @@
 <?php
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+
 require_once '../../inc/functions.inc.php';
 
 if (isset($_POST["action"])) {

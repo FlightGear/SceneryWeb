@@ -1,17 +1,18 @@
 <?php
-    require_once '../../inc/functions.inc.php';
-    require_once '../../inc/form_checks.php';
-    $page_title = "Automated Models Submission Form";
-    require '../../inc/header.php';
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+
+require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
+$page_title = "Automated Models Submission Form";
+require '../../inc/header.php';
     
-    // Populate fields when a model id is given in the url
-    if (isset($_REQUEST['update_choice'])
-        && $_REQUEST['update_choice']>'0'
+// Populate fields when a model id is given in the url
+if (isset($_REQUEST['update_choice'])
         && preg_match($regex['modelid'], $_REQUEST['update_choice'])) {
-        $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
-        $result = pg_query("SELECT mo_id, mo_name, mo_notes, mo_path, mo_shared, mo_author FROM fgs_models WHERE mo_id=$id_to_update;");
-        $model = pg_fetch_assoc($result);
-    }
+    $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
+    $model = $modelDaoRO->getModel($id_to_update);
+}
 ?>
 <script type="text/javascript" src="../../inc/js/update_objects.js"></script>
 <script type="text/javascript" src="../../inc/js/check_form.js"></script>
@@ -102,36 +103,28 @@ $(function() {
                     <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object.</span></label></td>
                     <td>
             <?php
-                        // If connection is OK
-                        if ($link!='0') {
 
-                            // Show all the families other than the static family
-                            $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups ORDER BY mg_name;");
+                        // Show all the families other than the static family
+                        $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups ORDER BY mg_name;");
 
-                            // Start the select form
-                            echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
-                                 "<option ";
-                            if (empty($_GET['mg_id']) && (isset($model) && !$model['mo_shared'])) {
-                                echo "selected=\"selected\" ";
-                            }
-                            echo "value=\"0\">Please select a family</option>\n" .
-                                 "<option value=\"0\">----</option>\n";
-                                 
-                            while ($row = @pg_fetch_assoc($result)) {
-                                $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
-                                $name=preg_replace('/ /',"&nbsp;",$name);
-                                echo "<option value=\"".$row["mg_id"]."\"";
-                                if ($row["mg_id"] == $_GET['mg_id'] || (isset($model) && $row["mg_id"] == $model['mo_shared']))
-                                    echo " selected=\"selected\"";
-                                echo ">".$name."</option>\n";
-                            }
-                            echo "</select>";
+                        // Start the select form
+                        echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
+                             "<option ";
+                        if (isset($model) && $model->getMetadata()->getModelGroup()->isStatic()) {
+                            echo "selected=\"selected\" ";
                         }
-
-                        // Else, write message.
-                        else {
-                            echo "<br/><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
+                        echo "value=\"0\">Please select a family</option>\n" .
+                             "<option value=\"0\">----</option>\n";
+                             
+                        while ($row = @pg_fetch_assoc($result)) {
+                            $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
+                            $name=preg_replace('/ /',"&nbsp;",$name);
+                            echo "<option value=\"".$row["mg_id"]."\"";
+                            if (isset($model) && $row["mg_id"] == $model->getMetadata()->getModelGroup()->getId())
+                                echo " selected=\"selected\"";
+                            echo ">".$name."</option>\n";
                         }
+                        echo "</select>";
             ?>
                     </td>
                     <td rowspan="4" style="width: 200px">
@@ -151,7 +144,7 @@ $(function() {
                         <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($model))?$model['mo_name']:'';?>"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($model))?$model->getMetadata()->getName():'';?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -159,7 +152,7 @@ $(function() {
                         <label for="notes">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($model))?$model['mo_notes']:'';?>"/>
+                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($model))?$model->getMetadata()->getDescription():'';?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -215,7 +208,7 @@ $(function() {
                     </td>
                     <td>
                         <select name="mo_author" id="mo_author">
-                            <?php list_authors($model["mo_author"]); ?>
+                            <?php list_authors($model->getMetadata()->getAuthor()->getId()); ?>
                         </select>
                     </td>
                 </tr>
@@ -262,8 +255,8 @@ $(document).ready(function(){
     
     <?php
     // Pre-set model dropdown
-    if ($model['mo_path'])
-        echo 'update_objects(\''.$model['mo_path'].'\');';
+    if ($model->getMetadata()->getFilename())
+        echo 'update_objects(\''.$model->getMetadata()->getFilename().'\');';
     ?>
 });
 </script>

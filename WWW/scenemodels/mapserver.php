@@ -1,4 +1,7 @@
 <?php
+require_once "classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+
 $page_title = "TelaScience / OSGeo / FlightGear Landcover Database Mapserver";
 $body_onload = "init()";
 require 'inc/header.php';

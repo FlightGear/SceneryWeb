@@ -1,4 +1,7 @@
 <?php
+require_once "classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$newsPostDaoRO = DAOFactory::getInstance()->getNewsPostDaoRO();
 
 require 'inc/header.php';
 
@@ -13,20 +16,18 @@ else {
   <h1>FlightGear Scenery Database Latest News</h1>
   
 <?php
-    $query = "SELECT *, date_trunc('seconds',ne_timestamp) AS formdate ";
-    $query.= "FROM fgs_news, fgs_authors ";
-    $query.= "WHERE au_id = ne_author ";
-    $query.= "ORDER BY ne_timestamp DESC ";
-    $query.= "LIMIT 10 OFFSET ".$offset;
-    $result = pg_query($query);
-    while ($row = pg_fetch_assoc($result)) {
+    $pagesize = 10;
+
+    $newsPosts = $newsPostDaoRO->getNewsPosts($offset, $pagesize);
+
+    foreach ($newsPosts as $newsPost) {
         echo "<div class=\"paragraph_bloc\">\n" .
              "<div class=\"header\">\n" .
-             "<div class=\"newsdate\">".$row["formdate"]."</div>\n" .
+             "<div class=\"newsdate\">".$newsPost->getDate()->format("Y-m-d (H:i)")."</div>\n" .
              "<div class=\"newsnormal\">by</div>" .
-             "<div class=\"newsauthor\"><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a></div>" .
+             "<div class=\"newsauthor\"><a href=\"author.php?id=".$newsPost->getAuthor()->getId()."\">".$newsPost->getAuthor()->getName()."</a></div>" .
              "<div class=\"clear\"></div></div>\n" .
-             "<div class=\"body\">".$row["ne_text"]."</div>\n" .
+             "<div class=\"body\">".$newsPost->getText()."</div>\n" .
              "</div>\n";
     }
 ?>

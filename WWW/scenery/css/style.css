@@ -337,10 +337,11 @@ img.icon {
     width: 16px;
 }
 
-tr.objectlight {
-    background-color: rgb(244, 255, 244);
-}
-tr.object td, tr.objectlight td {
+
+tr.object:nth-child(even) {background-color: rgb(244, 255, 244);}
+tr.object:nth-child(odd) {background: #FFF}
+
+tr.object td{
     border: 0;
     border-bottom: 1px solid #999;
 }

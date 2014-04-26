@@ -66,7 +66,7 @@ function family_name($id_family)
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id = ".$mg_id.";";
+    $query = "SELECT mg_name FROM fgs_modelgroups WHERE mg_id = ".$mg_id.";";
     $result = @pg_query($headerlink_family, $query);
 
     while ($row = @pg_fetch_assoc($result))    {
@@ -90,7 +90,7 @@ function object_name($id_object)
     $headerlink_object = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT mo_id, mo_name FROM fgs_models WHERE mo_id = ".$mg_id.";";
+    $query = "SELECT mo_name FROM fgs_models WHERE mo_id = ".$mg_id.";";
     $result = @pg_query($headerlink_object, $query);
 
     // Showing the results.
@@ -862,7 +862,7 @@ function random_suffix()
 // This function extracts a tgz file into a temporary directory and returns its path.
 // ==================================================================================
 
-function open_tgz($file)
+function open_tgz($archive)
 {
     // Managing possible concurrent accesses on the maintainer side.
     $target_path = sys_get_temp_dir() .'/submission_'.random_suffix();
@@ -871,18 +871,17 @@ function open_tgz($file)
         usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
     }
 
-    if (!mkdir($target_path)) {
-        echo "Impossible to create ".$target_path." directory!";
-    }
+    if (mkdir($target_path)) {
+        if (file_exists($target_path) && is_dir($target_path)) {
+            $file = $target_path.'/submitted_files.tar.gz';     // Defines the destination file
+            file_put_contents ($file, $archive);                // Writes the content of $file into submitted_files.tar.gz
 
-    if (file_exists($target_path) && is_dir($target_path)) {
-        $archive = base64_decode ($file);           // DeBase64 file
-        $file = $target_path.'/submitted_files.tar.gz';     // Defines the destination file
-        file_put_contents ($file, $archive);                // Writes the content of $file into submitted_files.tar.gz
+            $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path. '> /dev/null';
+            system($detar_command);
+        }
+    } else {
+        error_log("Impossible to create ".$target_path." directory!");
     }
-
-    $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path. '> /dev/null';
-    system($detar_command);
 
     return $target_path;
 }

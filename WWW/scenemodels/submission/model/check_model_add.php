@@ -1,4 +1,6 @@
 <?php
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';

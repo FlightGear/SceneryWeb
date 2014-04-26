@@ -1,4 +1,7 @@
 <?php
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+
 if (isset($_POST["action"])) {
     // Inserting libs
     include_once '../../inc/functions.inc.php';

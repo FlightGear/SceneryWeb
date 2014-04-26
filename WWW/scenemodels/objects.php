@@ -1,84 +1,114 @@
 <?php
 require_once 'inc/functions.inc.php';
+require_once 'inc/form_checks.php';
+require_once 'classes/DAOFactory.php';
+require_once 'classes/Criterion.php';
 
-if (isset($_REQUEST['offset']) && (preg_match('/^[0-9]+$/u',$_GET['offset']))){
+$objectDAO = DAOFactory::getInstance()->getObjectDaoRO();
+
+require 'inc/header.php';
+
+$filter_text="";
+$criteria = array();
+$pagesize = 20;
+
+if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_GET['offset'])){
     $offset = $_REQUEST['offset'];
 } else {
     $offset = 0;
 }
 
-$filter = "";
 
-if (isset($_REQUEST['model']) && (preg_match('/^[0-9]+$/u',$_GET['model'])) && $_REQUEST['model']>0){
+if (isset($_REQUEST['model']) && is_model_id($_REQUEST['model'])){
     $model = $_REQUEST['model'];
-    $filter.= " AND ob_model=".$_REQUEST['model'];
+    $filter_text .= "&amp;model=".$model;
+    
+    $criteria[] = new Criterion("ob_model", Criterion::OPERATION_EQ, $model);
 } else {
     $model = "";
 }
 
-if (isset($_REQUEST['group']) && (preg_match('/^[0-9]+$/u',$_GET['group'])) && $_REQUEST['group']>0){
-    $group = $_REQUEST['group'];
-    $filter.= " AND ob_group=".$_REQUEST['group'];
+if (isset($_REQUEST['groupid']) && (preg_match('/^[0-9]+$/u',$_REQUEST['groupid'])) && $_REQUEST['groupid']>0){
+    $groupid = $_REQUEST['groupid'];
+    $filter_text .= "&amp;groupid=".$groupid;
+    
+    $criteria[] = new Criterion("ob_group", "=", $groupid);
 } else {
-    $group = "";
+    $groupid = "";
 }
 
-if (isset($_REQUEST['elevation']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['elevation']))){
+if (isset($_REQUEST['elevation']) && is_gndelevation($_REQUEST['elevation'])){
     $min = $_REQUEST['elevation']-25;
     $max = $_REQUEST['elevation']+25;
     $elevation = $_REQUEST['elevation'];
-    $filter.= " AND ob_gndelev>".$min." and ob_gndelev<".$max;
+    $filter_text .= "&amp;elevation=".$elevation;
+    
+    $criteria[] = new Criterion("ob_gndelev", Criterion::OPERATION_GT, $min);
+    $criteria[] = new Criterion("ob_gndelev", Criterion::OPERATION_LT, $max);
 } else {
     $elevation = "";
 }
 
-if (isset($_REQUEST['elevoffset']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['elevoffset']))){
+if (isset($_REQUEST['elevoffset']) && is_offset($_REQUEST['elevoffset'])){
     $min = $_REQUEST['elevoffset']-25;
     $max = $_REQUEST['elevoffset']+25;
     $elevoffset = $_REQUEST['elevoffset'];
-    $filter.= " AND ob_gndelev>".$min." and ob_gndelev<".$max;
+    $filter_text .= "&amp;elevoffset=".$elevoffset;
+    
+    $criteria[] = new Criterion("ob_elevoffset", Criterion::OPERATION_GT, $min);
+    $criteria[] = new Criterion("ob_elevoffset", Criterion::OPERATION_LT, $max);
 } else {
     $elevoffset = "";
 }
 
-if (isset($_REQUEST['heading']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['heading']))){
+if (isset($_REQUEST['heading']) && is_heading($_REQUEST['heading'])){
     $min = $_REQUEST['heading']-5;
     $max = $_REQUEST['heading']+5;
     $heading = $_REQUEST['heading'];
-    $filter.= " AND ob_heading>".$min." AND ob_heading<".$max;
+    $filter_text .= "&amp;heading=".$heading;
+    
+    $criteria[] = new Criterion("ob_heading", Criterion::OPERATION_GT, $min);
+    $criteria[] = new Criterion("ob_heading", Criterion::OPERATION_LT, $max);
 } else {
     $heading = "";
 }
 
-if (isset($_REQUEST['lat']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['lat']))){
+if (isset($_REQUEST['lat']) && is_latitude($_REQUEST['lat'])){
     $lat = $_REQUEST['lat'];
-    $filter.= " AND CAST (ST_Y(wkb_geometry) AS text) LIKE '".$_REQUEST['lat']."%'";
+    $filter_text .= "&amp;lat=".$lat;
+    
+    $criteria[] = new Criterion("CAST (ST_Y(wkb_geometry) AS text)", Criterion::OPERATION_LIKE, "'".$lat."%'");
 } else {
     $lat = "";
 }
 
-if (isset($_REQUEST['lon']) && (preg_match('/^[0-9\.\-]+$/u',$_GET['lon']))){
+if (isset($_REQUEST['lon']) && is_longitude($_REQUEST['lon'])){
     $lon = $_REQUEST['lon'];
-    $filter.= " AND CAST (ST_X(wkb_geometry) AS text) LIKE '".$_REQUEST['lon']."%'";
+    $filter_text .= "&amp;lon=".$lon;
+    
+    $criteria[] = new Criterion("CAST (ST_X(wkb_geometry) AS text)", Criterion::OPERATION_LIKE, "'".$lon."%'");
 } else {
     $lon = "";
 }
 
-if (isset($_REQUEST['country']) && (preg_match('/^[a-z][a-z]$/u',$_GET['country']))){
+if (isset($_REQUEST['country']) && is_country_id($_REQUEST['country'])){
     $country = $_REQUEST['country'];
-    $filter.= " AND ob_country='".$_REQUEST['country']."'";
+    $filter_text .= "&amp;country=".$country;
+    
+    $criteria[] = new Criterion("ob_country", Criterion::OPERATION_EQ, $country);
 } else {
     $country = "";
 }
 
-if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_GET['description']))){
+if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_REQUEST['description']))){
     $description = $_REQUEST['description'];
-    $filter.= " AND (ob_text like '%".$_REQUEST['description']."\" OR ob_text LIKE \"".$_REQUEST['description']."%' OR ob_text LIKE '%".$_REQUEST['description']."%')";
+    $filter_text .= "&amp;description=".$description;
+    
+    $criteria[] = new Criterion("ob_text", Criterion::OPERATION_LIKE, "'%".$_REQUEST['description']."%'");
 } else {
     $description = "";
 }
 
-require 'inc/header.php';
 ?>
 <script type="text/javascript">
   function popmap(lat,lon) {
@@ -116,14 +146,14 @@ require 'inc/header.php';
 ?>
                 </select>
                 <br/>
-                <select name="group" style="font-size: 0.7em;">
+                <select name="groupid" style="font-size: 0.7em;">
                     <option value="0"></option>
 <?php
                     $result = pg_query("SELECT gp_id, gp_name FROM fgs_groups;");
                     while ($row = pg_fetch_assoc($result)){
                         $groups[$row["gp_id"]] = $row["gp_name"];
                         echo "<option value=\"".$row["gp_id"]."\"";
-                        if ($row["gp_id"] == $group) echo " selected=\"selected\"";
+                        if ($row["gp_id"] == $groupid) echo " selected=\"selected\"";
                         echo ">".$row["gp_name"]."</option>\n";
                     }
 ?>
@@ -153,19 +183,8 @@ require 'inc/header.php';
         <tr class="bottom">
             <td colspan="8" align="center">
 <?php
-                $prev = $offset-20;
-                $next = $offset+20;
-
-                $filter_text="";
-                if($lat != "") $filter_text .= "&amp;lat=".$lat;
-                if($lon != "") $filter_text .= "&amp;lon=".$lon;
-                if($elevation != "") $filter_text .= "&amp;elevation=".$elevation;
-                if($elevoffset != "") $filter_text .= "&amp;elevoffset=".$elevoffset;
-                if($description != "") $filter_text .= "&amp;description=".$description;
-                if($heading != "") $filter_text .= "&amp;heading=".$heading;
-                if($model != 0) $filter_text .= "&amp;model=".$model;
-                if($group != 0) $filter_text .= "&amp;group=".$group;
-                if($country != "") $filter_text .= "&amp;country=".$country;
+                $prev = $offset-$pagesize;
+                $next = $offset+$pagesize;
 
                 if ($prev >= 0) {
                     echo "<a href=\"objects.php?filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
@@ -175,41 +194,31 @@ require 'inc/header.php';
             </td>
         </tr>
 <?php
-        $query = "SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon " .
-                 "FROM fgs_objects " .
-                 "WHERE ob_id IS NOT NULL ".$filter." " .
-                 "ORDER BY ob_modified DESC " .
-                 "LIMIT 20 OFFSET ".$offset;
-
-        $result = pg_query($query);
-        $rowclass = "";
-        while ($result && $row = pg_fetch_assoc($result)) {
-            $offset = ($row["ob_elevoffset"] == "")?"0":$row["ob_elevoffset"];
-            echo "<tr class=\"object".$rowclass."\">\n";
-            echo "  <td><a href='objectview.php?id=".$row["ob_id"]."'>#".$row["ob_id"]."</a></td>\n" .
+        
+        $objects = $objectDAO->getObjects($pagesize, $offset, $criteria);
+        
+        foreach ($objects as $object) {
+            $offset = $object->getElevationOffset();
+            echo "<tr class=\"object\">\n";
+            echo "  <td><a href='objectview.php?id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
                  "  <td>".$row["ob_text"]."</td>\n" .
-                 "  <td><a href=\"modelview.php?id=".$row["ob_model"]."\">".$models[$row["ob_model"]]."</a><br/>".$groups[$row["ob_group"]]."</td>\n" .
-                 "  <td>".$countries[$row["ob_country"]]."</td>\n" .
-                 "  <td>".$row["ob_lat"]."<br/>".$row["ob_lon"]."</td>\n" .
-                 "  <td>".$row["ob_gndelev"]."<br/>".$offset."</td>\n" .
-                 "  <td>".$row["ob_heading"]."</td>\n" .
+                 "  <td><a href=\"modelview.php?id=".$object->getModelId()."\">".$models[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
+                 "  <td>".(!empty($object->getCountry())?$countries[$object->getCountry()]:"") ."</td>\n" .
+                 "  <td>".$object->getLatitude()."<br/>".$object->getLongitude()."</td>\n" .
+                 "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
+                 "  <td>".$object->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
-                 "  <a href=\"submission/object/check_update.php?update_choice=".$row["ob_id"]."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
-            if (is_shared_or_static($row["ob_id"]) == 'shared') {
+                 "  <a href=\"submission/object/check_update.php?update_choice=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
+            if (is_shared_or_static($object->getId()) == 'shared') {
 ?>
-                <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $row["ob_id"]; ?>">
+                <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $object->getId(); ?>">
                     <img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png" alt="delete"/>
                 </a>
 <?php
             }
-            echo "    <a href=\"javascript:popmap(".$row["ob_lat"].",".$row["ob_lon"].")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\"/></a>" .
+            echo "    <a href=\"javascript:popmap(".$object->getLatitude().",".$object->getLongitude().")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\"/></a>" .
                  "  </td>\n" .
                  "</tr>\n";
-            if ($rowclass == "") {
-                $rowclass = "light";
-            } else {
-                $rowclass = "";
-            }
         }
 ?>
         <tr class="bottom">

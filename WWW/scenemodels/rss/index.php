@@ -1,4 +1,9 @@
-<?php require '../inc/header.php'; ?>
+<?php
+require_once "../classes/DAOFactory.php";
+
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+require '../inc/header.php';
+?>
   <h1>RSS Feeds</h1>
   <table>
     <tr><th>Keeping Up To Date</th></tr>

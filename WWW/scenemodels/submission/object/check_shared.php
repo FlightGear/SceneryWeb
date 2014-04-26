@@ -1,4 +1,6 @@
 <?php
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -45,7 +47,7 @@ global $error;
 echo "<center>";
 
 // Checking that family_id exists and is containing only figures.
-if (is_family_id($_POST['family_name'])) {
+if (is_modelgroup_id($_POST['family_name'])) {
     $family_id = pg_escape_string(stripslashes($_POST['family_name']));
     $family_real_name = family_name($family_id);
     echo "<p class=\"ok\">Family Name: ".$family_real_name."</p>";

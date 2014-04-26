@@ -1,4 +1,8 @@
-<?php require 'inc/header.php';?>
+<?php
+require_once 'classes/DAOFactory.php';
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+require 'inc/header.php';
+?>
 <h1>How to contribute</h1>
 
 <p>

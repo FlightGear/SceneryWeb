@@ -30,7 +30,7 @@
 
     <?php
     require_once 'inc/form_checks.php';
-    if (isset($_REQUEST['id']) && (preg_match($regex['modelid'], $_GET['id']))) {
+    if (is_model_id($_REQUEST['id'])) {
         $id = $_REQUEST['id'];
     }
     ?>
@@ -41,7 +41,7 @@
     }
 
     var Models = [
-        { file: "get_ac3d_from_dir.php?id=<?php echo rawurlencode($id); ?>"}
+        { file: "get_model_files.php?type=ac&id=<?php echo rawurlencode($id); ?>"}
     ];
 
     var canvas, details, loading, viewer, current, gl;
@@ -94,7 +94,7 @@
         setTimeout('crashed();', 10000); // Consider model crashes after 10 seconds
         viewer.show(model.file,
                     {callback:onLoaded,
-                     texturePath:"get_texture_by_filename.php?id=<?php echo rawurlencode($id); ?>&name="
+                     texturePath:"get_model_files.php?type=texture&id=<?php echo rawurlencode($id); ?>&name="
                     });
     };
 

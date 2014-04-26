@@ -1,4 +1,7 @@
 <?php
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -6,15 +9,13 @@ require_once '../../inc/functions.inc.php';
 // Checking DB availability before all
 $ok=check_availability();
 
-if(!$ok)
-{
+if(!$ok) {
     $page_title = "Automated Objects Submission Form";
     $error_text = "Sorry, but the database is currently unavailable. " .
                   "We are doing the best to put it back up online. " .
                   "Please come back again soon.";
     include '../../inc/error_page.php';
-}
-else {
+} else {
     $page_title = "Automated Objects Submission Form";
     $body_onload = "update_objects();";
     include '../../inc/header.php';
@@ -67,7 +68,7 @@ $(function() {
 <h1>Automated Objects Submission Form</h1>
 
 <p>
-    This automated form's goal is to ease the submission of objects into the FlightGear Scenery database. There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database. Help us to make it more!<br/>
+    This automated form's goal is to ease the submission of objects into the FlightGear Scenery database. There are currently <?php $objects = $objectDaoRO->countObjects(); echo number_format($objects, '0', '', ' ');?> objects in the database. Help us to make it more!<br/>
     Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what recommandations this script is looking for.<br />
     If you need some more help, just place your mouse over the left column (eg "Elevation Offset").
 </p>
@@ -89,29 +90,26 @@ $(function() {
                     <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object you want to add.</span></label></td>
                     <td colspan="2">
             <?php
-                            // If connection is OK
-                            if ($link != '0') {
+                        // Show all the families other than the static family
+                        $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
+                        $modelsGroups = $modelDaoRO->getModelsGroups();
 
-                                // Show all the families other than the static family
-                                $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
-
-                                // Start the select form
-                                echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
-                                     "<option selected=\"selected\" value=\"0\">Please select a family</option>\n" .
-                                     "<option value=\"0\">----</option>\n";
-                                while ($row = @pg_fetch_assoc($result)) {
-                                    $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
-                                    $name=preg_replace('/ /',"&nbsp;",$name);
-                                    $name=str_replace('Shared&nbsp;-&nbsp;',"",$name);
-                                    echo "<option value=\"".$row["mg_id"]."\">".$name."</option>\n";
-                                }
-                                echo "</select>";
+                        // Start the select form
+                        echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
+                             "<option selected=\"selected\" value=\"\">Please select a family</option>\n" .
+                             "<option value=\"\">----</option>\n";
+                        foreach ($modelsGroups as $modelsGroup) {
+                            if ($modelsGroup->isStatic()) {
+                                continue;
                             }
+                        
+                            $name=preg_replace('/&/',"&amp;",$modelsGroup->getName());
+                            $name=preg_replace('/ /',"&nbsp;",$name);
+                            $name=str_replace('Shared&nbsp;-&nbsp;',"",$name);
+                            echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>\n";
+                        }
+                        echo "</select>";
 
-                            // Else, write message.
-                            else {
-                                echo "<br/><p class='warning'>Sorry but the database is currently unavailable, please come again soon.</p>";
-                            }
             ?>
                     </td>
                 </tr>

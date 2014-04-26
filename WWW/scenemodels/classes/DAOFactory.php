@@ -14,11 +14,7 @@ class DAOFactory {
  
 
     private function __construct() {
-        //include "/home/ojacq/.scenemodels";
-        $dbname = "landcover";
-        $dbhost = "localhost";
-        $dbuser = "webuser";
-        $dbpass = "";
+        include "/home/ojacq/.scenemodels";
         $this->db_readonly = new PGDatabase($dbname, $dbhost, $dbuser, $dbpass);
         
         //$db_readwrite = new PGDatabase();

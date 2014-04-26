@@ -1,13 +1,15 @@
 <?php
-
-require 'inc/header.php';
+require_once "classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u', $_REQUEST['offset'])) {
     $offset = $_REQUEST['offset'];
-}
-else {
+} else {
     $offset = 0;
 }
+
+require 'inc/header.php';
 ?>
 
     <h1>FlightGear Scenery Website</h1>
@@ -18,19 +20,16 @@ else {
     <table class="left">
         <tr><th colspan="2">Recently updated objects</th></tr>
 <?php
-        $query = "SELECT ob_id, ob_text, ob_model, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay " .
-                 "FROM fgs_objects " .
-                 "ORDER BY ob_modified DESC " .
-                 "LIMIT 5";
-        $result = pg_query($query);
-        while ($row = pg_fetch_assoc($result)) {
+        $objects = $objectDaoRO->getObjects(5, 0);
+        
+        foreach ($objects as $object) {
             echo "<tr>\n" .
-                    "<td><a href=\"objectview.php?id=".$row["ob_id"]."\">".$row["ob_text"]."</a><br/>" .
-                    $row["ob_datedisplay"]."</td>\n" .
+                    "<td><a href=\"objectview.php?id=".$object->getId()."\">".$object->getDescription()."</a><br/>" .
+                    $object->getLastUpdated()->format("Y-m-d (H:i)")."</td>\n" .
                     "<td style=\"width: 100px; padding: 0px;\">".
-                    "<a href=\"/objectview.php?id=". $row['ob_id'] . "\">" .
-                    "    <img title=\"". $row['ob_text']."\"" .
-                    "    src=\"modelthumb.php?id=". $row['ob_model'] . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
+                    "<a href=\"/objectview.php?id=". $object->getId() . "\">" .
+                    "    <img title=\"". $object->getDescription()."\"" .
+                    "    src=\"modelthumb.php?id=". $object->getModelId() . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
                     "</td>\n" .
@@ -46,19 +45,16 @@ else {
     <table class="right">
         <tr><th colspan="2">Recently updated models</th></tr>
 <?php
-        $query = "SELECT mo_id, mo_name, mo_path, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay " .
-                 "FROM fgs_models " .
-                 "ORDER BY mo_modified DESC " .
-                 "LIMIT 5";
-        $result = pg_query($query);
-        while ($row = pg_fetch_assoc($result)){
+        $models = $modelDaoRO->getModelMetadatas(0, 5);
+
+        foreach ($models as $model) {
             echo "<tr>\n" .
-                    "<td><a href=\"modelview.php?id=".$row["mo_id"]."\">".$row["mo_name"]."</a><br/>" .
-                    $row["mo_datedisplay"]. "</td>\n" .
+                    "<td><a href=\"modelview.php?id=".$model->getId()."\">".$model->getName()."</a><br/>" .
+                    $model->getLastUpdated()->format("Y-m-d (H:i)"). "</td>\n" .
                     "<td style=\"width: 100px; padding: 0px;\">".
-                    "<a href=\"/modelview.php?id=". $row['mo_id'] ."\">" .
-                    "    <img title=\"". $row['mo_name'].' ['.$row['mo_path'].']'."\"" .
-                    "    src=\"modelthumb.php?id=". $row['mo_id'] ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
+                    "<a href=\"/modelview.php?id=". $model->getId() ."\">" .
+                    "    <img title=\"". $model->getName().' ['.$model->getFilename().']'."\"" .
+                    "    src=\"modelthumb.php?id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
                     "</td>\n" .

@@ -1,4 +1,6 @@
 <?php
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -11,15 +13,15 @@ if (isset($_POST['step']) && preg_match('/^[0-9]+$/u', $_POST['step'])) {
     $step = $_POST['step'];
 }
 
-if (is_object_id($_REQUEST['delete_choice'])) {
+if (isset($_REQUEST['delete_choice']) && is_object_id($_REQUEST['delete_choice'])) {
     $id_to_delete = pg_escape_string(stripslashes($_REQUEST['delete_choice']));
 }
 
-if (is_email($_POST['email'])) {
+if (isset($_POST['email']) && is_email($_POST['email'])) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
 }
 
-if ($_POST['comment'] != '' && is_comment($_POST['comment'])) {
+if (!empty($_POST['comment']) && is_comment($_POST['comment'])) {
     $comment = strip_tags($_POST['comment']);
 }
 
@@ -129,7 +131,7 @@ $error = false;
 global $error;
 
 // We can directly retrieve the object ID through the other forms, therefore no test is needed.
-if (is_object_id($_REQUEST['delete_choice'])) {
+if (isset($_REQUEST['delete_choice']) && is_object_id($_REQUEST['delete_choice'])) {
     $id_to_delete = pg_escape_string(stripslashes($_REQUEST['delete_choice']));
 }
 

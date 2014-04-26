@@ -1,4 +1,6 @@
 <?php
+require_once 'classes/DAOFactory.php';
+$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require 'inc/header.php';
 
@@ -7,6 +9,10 @@ if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset']))
 } else {
     $offset = 0;
 }
+
+$pagesize = 20;
+
+
 ?>
 
 <h1>FlightGear Scenery Authors Directory</h1>
@@ -17,28 +23,25 @@ if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset']))
         <th>Comments of the author</th>
     </tr>
 <?php
-    $query = "SELECT au_id, au_name, au_notes ";
-    $query.= "FROM fgs_authors ";
-    $query.= "ORDER BY au_name ";
-    $query.= "LIMIT 20 OFFSET ".$offset;
-    $result=pg_query($query);
-    while ($row = pg_fetch_assoc($result)){
+    $authors = $authorDaoRO->getAllAuthors($offset, $pagesize);
+    
+    foreach ($authors as $author){
         echo "<tr>\n" .
                  "<td style=\"width: 25%\">\n" .
-                     "<b><a href=\"author.php?id=".$row["au_id"]."\">".$row["au_name"]."</a><b/>\n" .
+                     "<b><a href=\"author.php?id=".$author->getId()."\">".$author->getName()."</a><b/>\n" .
                  "</td>\n" .
-                 "<td>".$row["au_notes"]."</td>\n" .
+                 "<td>".$author->getDescription()."</td>\n" .
              "</tr>\n";
     }
 ?>
     <tr class="bottom">
         <td colspan="9" align="center">
 <?php 
-            if ($offset >= 20) {
-                echo "<a href=\"authors.php?offset=".($offset-20)."\">Prev</a> | ";
+            if ($offset >= $pagesize) {
+                echo "<a href=\"authors.php?offset=".($offset-$pagesize)."\">Prev</a> | ";
             }
 ?>
-            <a href="authors.php?offset=<?php echo $offset+20;?>">Next</a>
+            <a href="authors.php?offset=<?php echo $offset+$pagesize;?>">Next</a>
         </td>
     </tr>
 </table>

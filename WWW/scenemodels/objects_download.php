@@ -1,4 +1,9 @@
-<?php require 'inc/header.php'; ?>
+<?php
+require_once "classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+
+require 'inc/header.php';
+?>
 <h1>Scenery Object Downloads</h1>
 <p>
   Click on any of the 10x10 degree chunks in the image below to download the

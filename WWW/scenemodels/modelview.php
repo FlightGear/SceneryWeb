@@ -1,6 +1,11 @@
 <?php
+require_once 'inc/form_checks.php';
+require_once 'classes/DAOFactory.php';
+
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+
 require 'inc/header.php';
-require 'inc/form_checks.php';
 ?>
 
 <script type="text/javascript">
@@ -11,50 +16,46 @@ function popmap(lat,lon,zoom) {
 </script>
 
 <?php
-if (isset($_REQUEST['id']) && (preg_match($regex['modelid'], $_GET['id']))) {
-    $id = $_REQUEST['id'];
-    $result = pg_query("SELECT mo_author, mo_id, mo_modified, mo_name, mo_notes, mo_path, mo_shared, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay FROM fgs_models WHERE mo_id=$id;");
-    $model = pg_fetch_assoc($result);
-}
 
-echo "<h1>".$model["mo_name"]."</h1>";
-if (!empty($model["mo_notes"])) {
-    echo "<p>".$model["mo_notes"]."</p>";
-}
+if (is_model_id($_REQUEST['id'])) {
+    $id = $_REQUEST['id'];
+    
+    $modelMetadata = $modelDaoRO->getModelMetadata($id);
+    
+    echo "<h1>".$modelMetadata->getName()."</h1>";
+    if (!empty($modelMetadata->getDescription())) {
+        echo "<p>".$modelMetadata->getDescription()."</p>";
+    }
 ?>
 <table>
     <tr>
-        <td style="width: 320px" rowspan="7"><img src="modelthumb.php?id=<?php if (isset($model["mo_id"])) print $model["mo_id"]; ?>" alt=""/></td>
+        <td style="width: 320px" rowspan="7"><img src="modelthumb.php?id=<?php print $modelMetadata->getId(); ?>" alt=""/></td>
         <td>File name</td>
         <td>
 <?php
-            print $model["mo_path"];
-        print "</td>";
+            print $modelMetadata->getFilename();
 ?>
+        </td>
     </tr>
     <tr>
         <td>Type</td>
         <td>
 <?php
-            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id = '$model[mo_shared]';");
-            $row = pg_fetch_assoc($result);
-            print "<a href=\"modelbrowser.php?shared=".$model["mo_shared"]."\">".$row["mg_name"]."</a>";
+            print "<a href=\"modelbrowser.php?shared=".$modelMetadata->getModelGroup()->getId()."\">".$modelMetadata->getModelGroup()->getName()."</a>";
 ?>
         </td>
     </tr>
     <tr>
         <td>Author</td>
         <td>
-            <?php
-                $result = pg_query("SELECT au_id, au_name FROM fgs_authors WHERE au_id = '$model[mo_author]';");
-                $row = pg_fetch_assoc($result);
-                print "<a href=\"author.php?id=".$model["mo_author"]."\">".$row["au_name"]."</a>";
-            ?>
+<?php
+            print "<a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a>";
+?>
         </td>
     </tr>
     <tr>
         <td>Last updated</td>
-        <td><?php print $model["mo_datedisplay"]; ?></td>
+        <td><?php print $modelMetadata->getLastUpdated()->format("Y-m-d (H:i)"); ?></td>
     </tr>
     <tr>
         <td>Model ID</td>
@@ -62,12 +63,8 @@ if (!empty($model["mo_notes"])) {
     </tr>
 <?php
 
-    $query = "SELECT COUNT(*) AS number " .
-             "FROM fgs_objects " .
-             "WHERE ob_model=$id";
-    $numbers = pg_query($query);
-    $number = pg_fetch_assoc($numbers);
-    $occurences = $number["number"];
+    $occurences = $objectDaoRO->countObjectsByModel($id);
+
     echo "<tr>" .
             "<td>Occurrences</td>" .
             "<td>";
@@ -82,7 +79,7 @@ if (!empty($model["mo_notes"])) {
 ?>
     <tr>
         <td colspan="2">
-            <a href="modelfile.php<?php if (isset($id)) print "?id=".$id; ?>">Download model</a> | <a href="submission/model/index_model_update.php?update_choice=<?php echo $id; ?>">Update model/info</a>
+            <a href="get_model_files.php?type=pack&id=<?php echo $id; ?>">Download model</a> | <a href="submission/model/index_model_update.php?update_choice=<?php echo $id; ?>">Update model/info</a>
         </td>
     </tr>
     <tr>
@@ -110,4 +107,9 @@ function showWebgl() {
 }
 </script>
 
-<?php require 'inc/footer.php'; ?>
+<?php
+}
+
+require 'inc/footer.php';
+
+?>

@@ -4,7 +4,7 @@ $regex = array(
  'stg' => '/^[a-zA-Z0-9\_\.\-\,\/]+$/u',
  'model_filepath' => '/^[a-z0-9_\/.-]$/i',
  'modelid' => '/^[0-9]+$/u',
- 'familyid' => '/^[0-9]+$/',
+ 'modelgroupid' => '/^[0-9]+$/',
  'filename' => '/^[a-zA-Z0-9_.-]*$/u',
  'png_filename' => '/^[a-zA-Z0-9_.-]*$/u',
  'ac3d_filename' => '/^[a-zA-Z0-9_.-]*$/u',
@@ -14,27 +14,25 @@ $regex = array(
  'objectid' => '/^[0-9]+$/u',
  'countryid' => '#^[a-zA-Z]{1,3}$#',
  'long_lat' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
+ 'gndelevation' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
  'offset' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
  'heading' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
  'obtext' => '/^[0-9a-zA-Z_\-.\[\]()]+$/u',
  'sig' => '/[0-9a-z]/'
 );
 
-// Checks if the id is a family id
+// Checks if the id is a model group id
 // ================================================
-function is_family_id($id_to_check) {
+function is_modelgroup_id($id_to_check) {
     global $regex;
-    return isset($id_to_check)
-           && preg_match($regex['familyid'], $id_to_check)
-           && $id_to_check > 0;
+    return preg_match($regex['modelgroupid'], $id_to_check);
 }
 
 // Checks if the id is a model id
 // ================================================
 function is_model_id($id_to_check) {
     global $regex;
-    return isset($id_to_check)
-           && preg_match($regex['modelid'], $id_to_check)
+    return preg_match($regex['modelid'], $id_to_check)
            && $id_to_check > 0;
 }
 
@@ -42,17 +40,23 @@ function is_model_id($id_to_check) {
 // ================================================
 function is_object_id($id_to_check) {
     global $regex;
-    return isset($id_to_check)
-           && $id_to_check > 0
+    return $id_to_check > 0
            && preg_match($regex['objectid'], $id_to_check);
 }
-   
+
+// Checks if the id is an author id
+// ================================================
+function is_author_id($id_to_check) {
+    global $regex;
+    return $id_to_check > 0
+           && preg_match($regex['authorid'], $id_to_check);
+}
+
 // Checks if the given variable is a latitude
 // ================================================
 function is_latitude($value) {
     global $regex;
-    return isset($value)
-           && strlen($value) <= 20
+    return strlen($value) <= 20
            && $value <= 90
            && $value >= -90
            && preg_match($regex['long_lat'], $value);
@@ -62,8 +66,7 @@ function is_latitude($value) {
 // ================================================
 function is_longitude($value) {
     global $regex;
-    return isset($value)
-           && strlen($value) <= 20
+    return strlen($value) <= 20
            && $value <= 180
            && $value >= -180
            && preg_match($regex['long_lat'], $value);
@@ -73,17 +76,23 @@ function is_longitude($value) {
 // ================================================
 function is_country_id($value) {
     global $regex;
-    return isset($value)
-           && $value != ""
+    return $value != ""
            && preg_match($regex['countryid'], $value);
+}
+
+// Checks if the given variable is a ground elevation
+// ================================================
+function is_gndelevation($value) {
+    global $regex;
+    return strlen($value) <= 20
+           && preg_match($regex['gndelevation'], $value);
 }
 
 // Checks if the given variable is an offset
 // ================================================
 function is_offset($value) {
     global $regex;
-    return isset($value)
-           && strlen($value) <= 20
+    return strlen($value) <= 20
            && preg_match($regex['offset'], $value)
            && $value < 1000
            && $value > -1000;
@@ -93,8 +102,7 @@ function is_offset($value) {
 // ================================================
 function is_heading($value) {
     global $regex;
-    return isset($value)
-           && strlen($value) <= 20
+    return strlen($value) <= 20
            && preg_match($regex['heading'], $value)
            && $value < 360
            && $value >= 0;
@@ -104,8 +112,7 @@ function is_heading($value) {
 // ================================================
 function is_comment($value) {
     global $regex;
-    return isset($value)
-           && strlen($value) <= 100
+    return strlen($value) <= 100
            && preg_match($regex['comment'], $value);
 }
 
@@ -113,15 +120,15 @@ function is_comment($value) {
 // ================================================
 function is_email($value) {
     global $regex;
-    return isset($value)
-           && strlen($value) <= 50
+    return strlen($value) <= 50
            && preg_match($regex['email'], $value);
 }
 
+// Checks if the given variable is an sig id
+// ================================================
 function is_sig($value) {
     global $regex;
-    return isset($value)
-           && strlen($value) == 64
+    return strlen($value) == 64
            && preg_match($regex['sig'], $value);
 }
 

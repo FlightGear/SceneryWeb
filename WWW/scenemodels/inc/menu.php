@@ -23,17 +23,16 @@
         <div class="headerlinks"><a href="/models.php">Models</a></div>
         <ul class="submenus">
             <li><a href="/modelbrowser.php">Browse all</a></li>
-            <?php
-            $query = "SELECT mg_id,mg_name ";
-            $query.= "FROM fgs_modelgroups ";
-            $query.= "ORDER BY mg_name";
-            $result_menu = pg_query($query);
-            while ($row = pg_fetch_assoc($result_menu)) {
-                $name = preg_replace('/&/',"&amp;", $row["mg_name"]);
+<?php
+            $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+            $groups = $modelDaoRO->getModelsGroups();          
+            
+            foreach ($groups as $group) {
+                $name = preg_replace('/&/',"&amp;", $group->getName());
                 $name = preg_replace('/ /',"&nbsp;", $name);
-                echo "<li><a href=\"/modelbrowser.php?shared=".$row["mg_id"]."\">".$name."</a></li>\n";
+                echo "<li><a href=\"/modelbrowser.php?shared=".$group->getId()."\">".$name."</a></li>\n";
             }
-            ?>
+?>
         </ul>
     </li>
     <li class="mainitems">

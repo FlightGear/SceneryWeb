@@ -1,7 +1,10 @@
 <?php
-    require_once '../../inc/functions.inc.php';
-    $page_title = "Automated Models Submission Form";
-    require '../../inc/header.php';
+require_once "../../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+
+require_once '../../inc/functions.inc.php';
+$page_title = "Automated Models Submission Form";
+require '../../inc/header.php';
 ?>
 <script type="text/javascript" src="/inc/js/update_objects.js"></script>
 <script type="text/javascript" src="/inc/js/check_form.js"></script>
