@@ -39,7 +39,7 @@ $query_rw = gzuncompress($sqlz);
 $pattern = "/UPDATE fgs_models SET mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', mo_author \= (?P<author>[0-9]+), mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', mo_shared \= (?P<shared>[0-9]+) WHERE mo_id \= (?P<modelid>[0-9]+)/";
 preg_match($pattern, $query_rw, $matches);
 
-$mo_modelfile = $matches['modelfile'];
+$mo_modelfile = base64_decode($matches['modelfile']);
 
 // Prepare the tmp directory
 
@@ -52,12 +52,12 @@ $dir = opendir($target_path);
 while (false !== ($file = readdir($dir))) {
     // If we know the extension
     if (show_file_extension($file) == "png" && $file == $filename) {
-        $fichier = $target_path."/".$file;
+        $filepath = $target_path."/".$file;
         break;
     }
 }
 
-$img = imagecreatefrompng( $fichier );
+$img = imagecreatefrompng( $filepath );
 $width = imagesx( $img );
 $height = imagesy( $img );
 
@@ -80,10 +80,10 @@ if ($width>256) {
     imagedestroy($tmp_img);
 }
 else {
-    readfile($fichier);
+    readfile($filepath);
 }
 
 // Ok, now we can delete the stuff we used - at least I think so ;-)
 // This should be done at the end of the script
-close_tgz()
+close_tgz($target_path);
 ?>
