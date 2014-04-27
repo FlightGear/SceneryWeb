@@ -54,7 +54,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
 
                 $pattern = "/ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
 
-                $error === preg_match($pattern, $trigged_query_rw, $matches);
+                preg_match($pattern, $trigged_query_rw, $matches);
 
                 $long = $matches['long'];
                 $lat = $matches['lat'];
@@ -77,13 +77,12 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
             } elseif ($_GET["action"] == "check_update") {
                 $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
                 $trigged_query_rw = str_replace('$','',$trigged_query_rw);
-                echo $trigged_query_rw;
 
                 echo "<table>\n<tr>\n<th></th>\n<th>Old/current</th>\n<th>New</th>\n</tr>\n";
 
                 $pattern = "/SET ob_text\=(?P<notes>[a-zA-Z0-9 +,!_.;\(\)\[\]\/-]*), wkb_geometry\=ST_PointFromText\('POINT\((?P<lon>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/";
 
-                $error === preg_match($pattern, $trigged_query_rw, $matches);
+                preg_match($pattern, $trigged_query_rw, $matches);
 
                 $notes = $matches['notes'];
                 $lon = $matches['lon'];
