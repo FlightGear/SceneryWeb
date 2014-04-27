@@ -13,7 +13,7 @@ if (is_author_id($_REQUEST['id']))
     $author=$authorDaoRO->getAuthor($id);
 
     echo "<h1>Scenery models by ".$author->getName()."</h1>";
-    if (!empty($author->getDescription())) {
+    if ($author->getDescription() !== NULL && strlen($author->getDescription())>0) {
         echo "<p>".$author->getDescription()."</p>";
     }
 ?>
