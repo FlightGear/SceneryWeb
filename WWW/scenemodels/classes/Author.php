@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Model's author
+ * Author (for models and news)
  *
  * @author     Julien Nguyen <julien.nguyen3@gmail.com>
  * @copyright  2014 - FlightGear Team

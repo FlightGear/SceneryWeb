@@ -3,6 +3,14 @@
 require_once dirname(__FILE__) . '/../inc/functions.inc.php';
 require_once 'IModelFiles.php';
 
+/**
+ * Model files in a TAR format
+ *
+ * @author     Julien Nguyen <julien.nguyen3@gmail.com>
+ * @copyright  2014 - FlightGear Team
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
+ */
+
 class ModelFilesTar implements IModelFiles {
 
     private $modelfile;

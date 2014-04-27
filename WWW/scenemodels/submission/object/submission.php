@@ -268,9 +268,9 @@ else {
             if (!resultdel) {
                 $page_title = "Automated Objects Pending Requests Form";
                 include '../../inc/header.php';
-                echo "<p class=\"center\">\n";
-                echo "Signature found.<br /> Now deleting request with number ". $_GET["sig"].".</p>";
-                echo "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />\n";
+                echo "<p class=\"center\">\n".
+                     "Signature found.<br /> Now deleting request with number ". $_GET["sig"].".</p>".
+                     "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>\n";
 
                 // Closing the rw connection.
                 include '../../inc/footer.php';
