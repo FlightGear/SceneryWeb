@@ -38,7 +38,7 @@ else {
 <h1><?php echo $title;?></h1>
 <table>
     <tr class="bottom">
-        <td colspan="9" align="center">
+        <td align="center">
         <a href="modelbrowser.php?offset=<?php echo $offset-$pagesize;if (isset($modelGroupId)) {echo "&amp;shared=".$modelGroupId;};?>">Prev</a>
         <a href="modelbrowser.php?offset=<?php echo $offset+$pagesize;if (isset($modelGroupId)) {echo "&amp;shared=".$modelGroupId;};?>">Next</a>
         </td>
@@ -64,7 +64,7 @@ else {
         </td>
     </tr>
     <tr class="bottom">
-        <td colspan="9" align="center">
+        <td align="center">
         <a href="modelbrowser.php?offset=<?php echo $offset-$pagesize;if (isset($modelGroupId)) {echo "&amp;shared=".$modelGroupId;};?>">Prev</a>
         <a href="modelbrowser.php?offset=<?php echo $offset+$pagesize;if (isset($modelGroupId)) {echo "&amp;shared=".$modelGroupId;};?>">Next</a>
         </td>
