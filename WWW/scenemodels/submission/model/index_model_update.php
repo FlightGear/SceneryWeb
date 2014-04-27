@@ -260,8 +260,9 @@ $(document).ready(function(){
     
     <?php
     // Pre-set model dropdown
-    if ($model->getMetadata()->getFilename())
+    if (isset($model) && $model->getMetadata()->getFilename()) {
         echo 'update_objects(\''.$model->getMetadata()->getFilename().'\');';
+    }
     ?>
 });
 </script>
