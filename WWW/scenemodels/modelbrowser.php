@@ -20,10 +20,8 @@ if (isset($_REQUEST['shared']) && is_modelgroup_id($_REQUEST['shared'])) {
 
 if (isset($modelGroupId)) {
     if ($modelGroupId>0) {
-        $groupquery = "SELECT mg_name FROM fgs_modelgroups WHERE mg_id =".$modelGroupId.";";
-        $gpresult = pg_query($groupquery);
-        $row = pg_fetch_assoc($gpresult);
-        $title = "Model Browser: ".$row['mg_name'];
+        $group = $modelDaoRO->getModelsGroup($modelGroupId);
+        $title = "Model Browser: ".$group->getName();
         $modelMetadatas = $modelDaoRO->getModelMetadatasByGroup($modelGroupId, $offset, $pagesize);
     }
     else {

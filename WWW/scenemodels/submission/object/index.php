@@ -91,7 +91,6 @@ $(function() {
                     <td colspan="2">
             <?php
                         // Show all the families other than the static family
-                        $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
                         $modelsGroups = $modelDaoRO->getModelsGroups();
 
                         // Start the select form

@@ -34,6 +34,8 @@ interface IModelDAO {
     
     public function getModelMetadatasNoThumb($offset, $pagesize);
     
+    public function getModelsGroup($groupId);
+    
     public function getModelsGroups();
     
     public function getModelFiles($modelId);

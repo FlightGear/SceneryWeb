@@ -105,7 +105,7 @@ $(function() {
             <?php
 
                         // Show all the families other than the static family
-                        $result = @pg_query("SELECT mg_id,mg_name FROM fgs_modelgroups ORDER BY mg_name;");
+                        $modelsGroups = $modelDaoRO->getModelsGroups();
 
                         // Start the select form
                         echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
@@ -116,11 +116,11 @@ $(function() {
                         echo "value=\"0\">Please select a family</option>\n" .
                              "<option value=\"0\">----</option>\n";
                              
-                        while ($row = @pg_fetch_assoc($result)) {
-                            $name=preg_replace('/&/',"&amp;",$row["mg_name"]);
+                        foreach ($modelsGroups as $modelsGroup) {
+                            $name=preg_replace('/&/',"&amp;",$modelsGroup->getName());
                             $name=preg_replace('/ /',"&nbsp;",$name);
-                            echo "<option value=\"".$row["mg_id"]."\"";
-                            if (isset($model) && $row["mg_id"] == $model->getMetadata()->getModelGroup()->getId())
+                            echo "<option value=\"".$modelsGroup->getId()."\"";
+                            if (isset($model) && $modelsGroup->getId() == $model->getMetadata()->getModelGroup()->getId())
                                 echo " selected=\"selected\"";
                             echo ">".$name."</option>\n";
                         }

@@ -110,7 +110,7 @@ $(function() {
                             foreach ($modelsGroups as $modelsGroup) {
                                 $name = preg_replace('/ /',"&nbsp;", $modelsGroup->getName());
                                 // Selecting static family by default
-                                if($row["mg_id"] == 0) {
+                                if($modelsGroup->isStatic()) {
                                     echo "<option value=\"".$modelsGroup->getId()."\" selected=\"selected\">".$name."</option>\n";
                                 } else {
                                     echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>\n";

@@ -177,6 +177,17 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         return $result_array;
     }
     
+    public function getModelsGroup($groupId) {
+        $result = $this->database->query("SELECT mg_id, mg_name, mg_path ".
+                                         "FROM fgs_modelgroups ".
+                                         "WHERE mg_id = $groupId;");
+                           
+        $row = pg_fetch_assoc($result);
+        $modelsGroup = $this->getModelGroupFromRow($row);
+
+        return $modelsGroup;
+    }
+    
     public function getModelsGroups() {
         $result = $this->database->query("SELECT mg_id, mg_name, mg_path ".
                                          "FROM fgs_modelgroups ".
@@ -185,7 +196,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $result_array = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $modelGroup = $this->getModelGroupFromRow($row);
+            $result_array[] = $this->getModelGroupFromRow($row);
         }
         
         return $result_array;
