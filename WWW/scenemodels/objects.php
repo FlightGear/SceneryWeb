@@ -92,12 +92,12 @@ if (isset($_REQUEST['lon']) && is_longitude($_REQUEST['lon'])){
 }
 
 if (isset($_REQUEST['country']) && is_country_id($_REQUEST['country'])){
-    $country = $_REQUEST['country'];
-    $filter_text .= "&amp;country=".$country;
+    $countryId = $_REQUEST['country'];
+    $filter_text .= "&amp;country=".$countryId;
     
-    $criteria[] = new Criterion("ob_country", Criterion::OPERATION_EQ, $country);
+    $criteria[] = new Criterion("ob_country", Criterion::OPERATION_EQ, $countryId);
 } else {
-    $country = "";
+    $countryId = "";
 }
 
 if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_REQUEST['description']))){
@@ -163,14 +163,13 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
                 <select name="country" style="font-size: 0.7em; width: 100%">
                     <option value="0"></option>
 <?php
-                    $result = pg_query("SELECT co_code, co_name FROM fgs_countries ORDER BY co_name;");
-                    while ($row = pg_fetch_assoc($result)){
-                        $countries{$row["co_code"]}=$row["co_name"];
-                        echo "<option value=\"".$row["co_code"]."\"";
-                        if ($row["co_code"] == $country) echo " selected=\"selected\"";
-                        echo ">".$row["co_name"]."</option>\n";
+                    $countries = $objectDAO->getCountries();
+                    
+                    foreach ($countries as $country){
+                        echo "<option value=\"".$country->getCode()."\"";
+                        if ($country->getCode() == $countryId) echo " selected=\"selected\"";
+                        echo ">".$country->getName()."</option>\n";
                     }
-                    $countries[""]="";
 ?>
                 </select>
             </th>
@@ -204,7 +203,7 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
             echo "  <td><a href='objectview.php?id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
                  "  <td>".$row["ob_text"]."</td>\n" .
                  "  <td><a href=\"modelview.php?id=".$object->getModelId()."\">".$models[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
-                 "  <td>".$countries[$object->getCountry()] ."</td>\n" .
+                 "  <td>".$object->getCountry()->getName() ."</td>\n" .
                  "  <td>".$object->getLatitude()."<br/>".$object->getLongitude()."</td>\n" .
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$object->getOrientation()."</td>\n" .

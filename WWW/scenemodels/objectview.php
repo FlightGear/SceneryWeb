@@ -41,11 +41,11 @@ if ($object->getDescription() != null) {
     <tr>
         <td>Country</td>
         <td><?php
-            $country = get_country_name_from_country_code($object->getCountry());
-            if ($object->getCountry() != "zz" and ""!=$object->getCountry()) {
-                echo ("<a href=\"objects.php?country=".$object->getCountry()."\">".$country."</a>");
+            $country = $object->getCountry();
+            if ($country->getCode() != "zz" && ""!=$country->getCode()) {
+                echo ("<a href=\"objects.php?country=".$country->getCode()."\">".$country->getName()."</a>");
             } else {
-                echo $country;
+                echo $country->getName();
             }
         ?></td>
     </tr>

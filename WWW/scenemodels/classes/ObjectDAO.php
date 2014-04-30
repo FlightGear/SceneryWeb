@@ -2,6 +2,7 @@
 require_once 'PgSqlDAO.php';
 require_once "IObjectDAO.php";
 require_once "Object.php";
+require_once "Country.php";
 
 /**
  * Object Data Access Object implementation for PostgreSQL
@@ -25,7 +26,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
     public function getObject($objectId) {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects WHERE ob_id=$objectId;");
+                                         "FROM fgs_objects, fgs_countries WHERE ob_id=$objectId AND ob_country = co_code;");
         $objectRow = pg_fetch_assoc($result);
         $object = $this->getObjectFromRow($objectRow);
         
@@ -36,7 +37,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         // Generating WHERE clause from criteria
         $whereClause = "";
         if (isset($criteria) && count($criteria)>0) {
-            $whereClause = "WHERE ";
+            $whereClause = "";
             $and = '';
             foreach ($criteria as $criterion) {
                 $whereClause .= $and . $criterion->getVarName() . $criterion->getOperation() . $criterion->getValue();
@@ -45,7 +46,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         }
     
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects $whereClause ".
+                                         "FROM fgs_objects, fgs_countries WHERE ob_country = co_code $whereClause ".
                                          "ORDER BY ob_modified DESC LIMIT $pagesize OFFSET $offset;");
         $result_array = array();
                            
@@ -58,12 +59,28 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
     public function getObjectsByModel($modelId) {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects WHERE ob_model=$modelId ".
+                                         "FROM fgs_objects, fgs_countries WHERE ob_model=$modelId AND ob_country = co_code ".
                                          "ORDER BY ob_modified DESC;");
         $result_array = array();
                            
         while ($row = pg_fetch_assoc($result)) {
             $result_array[] = $this->getObjectFromRow($row);
+        }
+        
+        return $result_array;
+    }
+    
+    public function getObjectsGroups() {
+    
+    }
+    
+    public function getCountries() {
+        $result = $this->database->query("SELECT * FROM fgs_countries ORDER BY co_name;");
+        
+        $result_array = array();
+                           
+        while ($row = pg_fetch_assoc($result)) {
+            $result_array[] = $this->getCountryFromRow($row);
         }
         
         return $result_array;
@@ -86,13 +103,15 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     private function getObjectFromRow($objectRow) {
+        $country = $this->getCountryFromRow($objectRow);
+        
         $object = new Object();
         $object->setId($objectRow["ob_id"]);
         $object->setModelId($objectRow["ob_model"]);
         $object->setLongitude($objectRow["ob_lon"]);
         $object->setLatitude($objectRow["ob_lat"]);
         $object->setDir($objectRow["ob_dir"]);
-        $object->setCountry($objectRow["ob_country"]);
+        $object->setCountry($country);
         $object->setGroundElevation($objectRow["ob_gndelev"]);
         $object->setElevationOffset($objectRow["ob_elevoffset"]);
         $object->setOrientation($objectRow["ob_heading"]);
@@ -101,6 +120,15 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $object->setLastUpdated(new DateTime($objectRow["ob_modified"]));
         
         return $object;
+    }
+    
+    private function getCountryFromRow($countryRow) {
+        $country = new Country();
+        $country->setCode($countryRow["co_code"]);
+        $country->setName($countryRow["co_name"]);
+        $country->setCodeThree($countryRow["co_three"]);
+        
+        return $country;
     }
 
 }
