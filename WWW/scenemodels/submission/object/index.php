@@ -34,7 +34,7 @@ function validateForm()
         !checkNumeric(form['offset'],-999,999) ||
         !checkStringNotDefault(form["heading"], "") || !checkNumeric(form['heading'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!="" && !checkEmail(form['email'])))
+        (form['email'].value!=="" && !checkEmail(form['email'])))
         return false;
 }
 
@@ -44,15 +44,15 @@ function validateTabs()
     $( "#tabs" ).tabs({ disabled: false });
 
     // Tab 1
-    if (form["family_name"].value == 0) {
+    if (form["family_name"].value === 0) {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
     // Tab 2
-    if (form["longitude"].value == "" || !checkNumeric(form["longitude"],-180,180) ||
-        form["latitude"].value == "" || !checkNumeric(form["latitude"],-90,90) ||
-        form["offset"].value == "" || !checkNumeric(form["offset"],-10000,10000) ||
-        form["heading"].value == "" ||  !checkNumeric(form["heading"],0,359.999)) {
+    if (form["longitude"].value === "" || !checkNumeric(form["longitude"],-180,180) ||
+        form["latitude"].value === "" || !checkNumeric(form["latitude"],-90,90) ||
+        form["offset"].value === "" || !checkNumeric(form["offset"],-10000,10000) ||
+        form["heading"].value === "" ||  !checkNumeric(form["heading"],0,359.999)) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }

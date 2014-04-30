@@ -81,10 +81,10 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
 
     // Sending the request...
     $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_delete_query."');";
-    $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
+    $resultrw = pg_query($resource_rw, $query_rw_pending_request);
 
     // Closing the connection.
-    @pg_close($resource_rw);
+    pg_close($resource_rw);
 
     // Talking back to submitter.
     if (!$resultrw) {
@@ -207,7 +207,7 @@ function validateForm()
     var form = document.getElementById("delete_position");
 
     if (!checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!="" && !checkEmail(form['email'])))
+        (form['email'].value!=="" && !checkEmail(form['email'])))
         return false;
 
 }
@@ -309,7 +309,7 @@ function validateForm()
     var form = document.getElementById("delete_position");
 
     if (!checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!="" && !checkEmail(form['email'])))
+        (form['email'].value!=="" && !checkEmail(form['email'])))
         return false;
 
 }

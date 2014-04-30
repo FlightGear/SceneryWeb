@@ -62,7 +62,7 @@
         try { gl = canvas.getContext("webgl"); }
         catch (x) { gl = null; }
 
-        if (gl == null) {
+        if (gl === null) {
             try { gl = canvas.getContext("experimental-webgl"); experimental = true; }
             catch (x) { gl = null; }
         }
@@ -103,7 +103,7 @@
     };
     
     function crashed() {
-        if (loading.style.display == "block") {
+        if (loading.style.display === "block") {
             document.body.innerHTML = "This model takes more than 5 seconds to load. " +
                                       "The script has been canceled, to prevent it from crashing.";
         }

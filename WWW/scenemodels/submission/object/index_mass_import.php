@@ -26,7 +26,7 @@ function validateForm()
     var form = document.getElementById("positions");
 
     if (!checkStringNotDefault(form["stg"], "") || !checkSTG(form["stg"]) ||
-        (form['email'].value!="" && !checkEmail(form['email'])) ||
+        (form['email'].value!=="" && !checkEmail(form['email'])) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form["comment"]))
         return false;
 }

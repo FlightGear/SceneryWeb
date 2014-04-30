@@ -9,7 +9,7 @@ $resource_r = connect_sphere_r();
 
 // Querying pending requests
 $pending_queries = "SELECT spr_hash, spr_base64_sqlz FROM fgs_position_requests ORDER BY spr_id ASC;";
-$resultr = @pg_query ($resource_r, $pending_queries);
+$resultr = pg_query ($resource_r, $pending_queries);
 
 // Talking back to submitter.
 
@@ -19,7 +19,7 @@ if ($resultr) {
     $pending_requests = "";
 
     // Retrieving information
-    while ($row = @pg_fetch_object($resultr)) {
+    while ($row = pg_fetch_object($resultr)) {
         $i++;
 
         // Decoding in Base64.
@@ -50,7 +50,9 @@ if ($resultr) {
                 $pending_requests .= "http://scenemodels.flightgear.org/submission/object/submission.php?action=check&sig=".$row->spr_hash."\n";
             }
             // Else, is a mass insertion
-            else $pending_requests .= "http://scenemodels.flightgear.org/submission/object/mass_submission.php?action=check&sig=".$row->spr_hash."\n";
+            else {
+                $pending_requests .= "http://scenemodels.flightgear.org/submission/object/mass_submission.php?action=check&sig=".$row->spr_hash."\n";
+            }
         }
         // If the request contains a "UPDATE FROM fgs_objects"
         if (substr_count($unzipped_base64_query,"UPDATE FROM fgs_objects") == 1) {
@@ -79,5 +81,5 @@ if ($resultr) {
 }
 
 // Closing the connection.
-@pg_close($resource_rw);
+pg_close($resource_rw);
 ?>

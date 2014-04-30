@@ -176,10 +176,10 @@ if (!$error) {
 
     // Sending the request...
     $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
+    $resultrw = pg_query($resource_rw, $query_rw_pending_request);
 
     // Closing the connection.
-    @pg_close($resource_rw);
+    pg_close($resource_rw);
 
     // Talking back to submitter.
     if(!$resultrw) {

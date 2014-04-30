@@ -37,9 +37,10 @@ if (isset($_POST['email']) && is_email($_POST['email']))
 
 if (isset($_POST['new_ob_text'])
     && (strlen($_POST['new_ob_text']) > 0)
-    && (strlen($_POST['new_ob_text']) <= 100))
+    && (strlen($_POST['new_ob_text']) <= 100)) {
     // && preg_match($regex['obtext'], $_POST['new_ob_text']) )
     $safe_new_ob_text = pg_escape_string(stripslashes($_POST['new_ob_text']));
+}
 
 // Final step to edition
 if (isset($model_name)
@@ -106,10 +107,10 @@ if (isset($model_name)
 
     // Sending the request...
     $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_update_query."');";
-    $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
+    $resultrw = pg_query($resource_rw, $query_rw_pending_request);
 
     // Closing the connection.
-    @pg_close($resource_rw);
+    pg_close($resource_rw);
 
     if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></p>";
@@ -177,7 +178,7 @@ function validateForm()
         !checkNumeric(form['new_offset'],-999,999) ||
         !checkStringNotDefault(form["new_heading"], "") || !checkNumeric(form['new_heading'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!="" && !checkEmail(form['email'])))
+        (form['email'].value!=="" && !checkEmail(form['email'])))
         return false;
 
 }
@@ -210,11 +211,11 @@ function validateForm()
         $id_family = 0;
         if ($resource_r != '0') {
             // Show all the families other than the static family
-            $result = @pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
+            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id!='0' ORDER BY mg_name;");
 
             // Start the select form
             echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
-            while ($row = @pg_fetch_assoc($result)) {
+            while ($row = pg_fetch_assoc($result)) {
                 $name = preg_replace('/ /',"&nbsp;",$row["mg_name"]);
                 if ($actual_family == $row["mg_name"]) {
                     $id_family = $row["mg_id"];
@@ -227,7 +228,7 @@ function validateForm()
             echo "</select>";
 
             // Close the database resource
-            @pg_close($resource_r);
+            pg_close($resource_r);
         }
 
         // Else, write message.
@@ -267,21 +268,22 @@ function validateForm()
 
         if ($resource_r != '0') {
             $query = "SELECT mo_id, mo_path, mo_name, mo_shared FROM fgs_models WHERE mo_shared=".$id_family." ORDER BY mo_path;";
-            $result = @pg_query($query);
+            $result = pg_query($query);
 
             // Showing the results.
-            while ($row = @pg_fetch_assoc($result)) {
+            while ($row = pg_fetch_assoc($result)) {
                 $id   = $row["mo_id"];
                 $name = preg_replace('/ /',"&nbsp;",$row["mo_path"]);
 
-                if ($actual_model_name == $row["mo_name"])
+                if ($actual_model_name == $row["mo_name"]) {
                     echo "<option selected=\"selected\" value='".$id."'>".$name."</option>\n";
-                else
+                } else {
                     echo "<option value='".$id."'>".$name."</option>\n";
+                }
             }
 
             // Close the database resource
-            @pg_close($resource_r);
+            pg_close($resource_r);
             echo "</select>\n";
             echo "</div>\n";
         }
@@ -325,7 +327,7 @@ function validateForm()
             <td colspan="2">
 <?php
         $country = get_country_name_from_country_code(get_object_country_from_id($id_to_update));
-        if ($country == '') echo "Unknown!"; else echo $country;
+        echo ($country == '')?"Unknown!":$country;
 ?>
             </td>
         </tr>
@@ -467,7 +469,7 @@ else {
 
     // Let's see in the database if something exists at this position
     $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay, ob_gndelev, ob_elevoffset, ob_heading, ob_model FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
-    $result = @pg_query ($resource_r_update, $query_pos);
+    $result = pg_query ($resource_r_update, $query_pos);
     $returned_rows = pg_num_rows ($result);
 
     if ($returned_rows == 0) {

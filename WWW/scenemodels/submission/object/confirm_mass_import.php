@@ -267,12 +267,13 @@ if (!$error) {
         // Country
         if (!$_POST['submit']) {
             $ob_country = compute_country_code_from_position($long, $lat);
-            if ($ob_country == "")
+            if ($ob_country == "") {
                 $unknown_country = true;
+            }
             echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>" .
                  "<option value=\"\">Unknown</option>" .
                  "<option value=\"\">----</option>";
-                 list_countries_select($ob_country);
+            list_countries_select($ob_country);
             echo "</select></td>";
         } else {
             $ob_country = $_POST['ob_country_'.$i];
@@ -364,10 +365,10 @@ if (!$_POST['submit']) {
 
     // Sending the request...
     $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $query_rw_pending_request);
+    $resultrw = pg_query($resource_rw, $query_rw_pending_request);
 
     // Closing the connection.
-    @pg_close($resource_rw);
+    pg_close($resource_rw);
 
     // Talking back to submitter.
     if (!$resultrw) {

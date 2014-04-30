@@ -14,14 +14,15 @@ if (is_object_id($_REQUEST['id'])) {
 ?>
 <h1>
 <?php
-if ($object->getDescription() != null)
+if ($object->getDescription() != null) {
     print $object->getDescription();
-else
+} else {
     print "FlightGear Scenery Model Directory";
+}
 ?>
 </h1>
 
-<input type="hidden" name="id" value="<?php if (isset($id)) print $id; ?>" />
+<input type="hidden" name="id" value="<?php echo (isset($id))?$id:""; ?>" />
 
 <table>
     <tr>
@@ -41,8 +42,11 @@ else
         <td>Country</td>
         <td><?php
             $country = get_country_name_from_country_code($object->getCountry());
-            if ($object->getCountry() != "zz" and ""!=$object->getCountry()) echo ("<a href=\"objects.php?country=".$object->getCountry()."\">".$country."</a>");
-            else echo $country;
+            if ($object->getCountry() != "zz" and ""!=$object->getCountry()) {
+                echo ("<a href=\"objects.php?country=".$object->getCountry()."\">".$country."</a>");
+            } else {
+                echo $country;
+            }
         ?></td>
     </tr>
     <tr>

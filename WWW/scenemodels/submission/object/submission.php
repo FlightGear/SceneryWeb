@@ -25,13 +25,13 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
     if ($resource_rw != '0') {
 
         // Checking the presence of sig into the database
-        $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
+        $result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
         if (pg_num_rows($result) != 1) {
             $page_title = "Automated Objects Pending Requests Form";
             $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
             $advise_text = "Else, please report to devel ML or FG Scenery forum.";
             include '../../inc/error_page.php';
-            @pg_close($resource_rw);
+            pg_close($resource_rw);
             exit;
         }
 
@@ -105,32 +105,39 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
                 $orientation_old = get_object_true_orientation_from_id($object_id);
 
                 echo "<tr";
-                if ($object["ob_text"] != $notes)
+                if ($object["ob_text"] != $notes) {
                     echo " style=\"background-color: rgb(255, 200, 0)\"";
+                }
                 echo "><td>Description</td><td>".$object["ob_text"]."</td><td>".$notes."</td></tr>\n";
                 echo "<tr";
-                if ($lon_old != $lon)
+                if ($lon_old != $lon) {
                     echo " style=\"background-color: rgb(255, 200, 0)\"";
+                }
                 echo "><td>Longitude</td><td>".$lon_old."</td><td>".$lon."</td></tr>\n";
                 echo "<tr";
-                if ($lat_old != $lat)
+                if ($lat_old != $lat) {
                     echo " style=\"background-color: rgb(255, 200, 0)\"";
+                }
                 echo "><td>Latitude</td><td>".$lat_old."</td><td>".$lat."</td></tr>\n";
                 echo "<tr";
-                if ($elev_old != $elev)
+                if ($elev_old != $elev) {
                     echo " style=\"background-color: rgb(255, 200, 0)\"";
+                }
                 echo "><td>Elevation</td><td>".$elev_old."</td><td>".$elev."</td></tr>\n";
                 echo "<tr";
-                if ($elevoffset_old != $elevoffset)
+                if ($elevoffset_old != $elevoffset) {
                     echo " style=\"background-color: rgb(255, 200, 0)\"";
+                }
                 echo "><td>Elevation offset</td><td>".$elevoffset_old."</td><td>".$elevoffset."</td></tr>\n";
                 echo "<tr";
-                if ($orientation_old != $orientation)
+                if ($orientation_old != $orientation) {
                     echo " style=\"background-color: rgb(255, 200, 0)\"";
+                }
                 echo "><td>Heading (STG)</td><td>".heading_true_to_stg($orientation_old)." (STG) - ".$orientation_old."(true)</td><td>".heading_true_to_stg($orientation)." (STG) - ".$orientation." (true)</td></tr>\n";
                 echo "<tr";
-                if ($object["ob_text"] != $notes)
+                if ($object["ob_text"] != $notes) {
                     echo " style=\"background-color: rgb(255, 200, 0)\"";
+                }
                 echo "><td>Object</td><td>".object_name($object["ob_model"])."</td><td>".object_name($model_id)."</td></tr>\n";
                 echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$lon_old."&amp;lat=".$lat_old."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$lon."&amp;lat=".$lat."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>\n" .
                      "</tr>\n";

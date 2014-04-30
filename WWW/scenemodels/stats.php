@@ -16,10 +16,10 @@ require 'inc/header.php';
     var worldmap = 'data1';
 
     function drawRegionsMap() {
-        if (arguments[0]!= 'auto' && arguments[0]) {
+        if (arguments[0]!== 'auto' && arguments[0]) {
             regionId = arguments[0];
         }
-        if (arguments[1] != 'auto' && arguments[1]) {
+        if (arguments[1] !== 'auto' && arguments[1]) {
             worldmap = arguments[1];
         }
         var data1 = google.visualization.arrayToDataTable([
@@ -107,7 +107,7 @@ require 'inc/header.php';
             keepAspectRatio: false,
             colorAxis: { }
         };
-        if (regionId != '[object Event]') {
+        if (regionId !== '[object Event]') {
             options['region'] = regionId;
         }
         var map = new google.visualization.GeoChart(document.getElementById('map_div'));
@@ -260,7 +260,7 @@ require 'inc/header.php';
         var chartBarCountry = new google.visualization.ColumnChart(document.getElementById('chart_bar_country_div'));
         chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
         
-        if (sorting != "[object Event]") {
+        if (sorting !== "[object Event]") {
             if (sorting) {
                 chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
             } else {

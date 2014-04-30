@@ -26,7 +26,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz " .
+            $result = pg_query($resource_rw, "SELECT spr_base64_sqlz " .
                                               "FROM fgs_position_requests " .
                                               "WHERE spr_hash = '". $_GET["sig"] ."';");
             if (pg_num_rows($result) != 1) {
@@ -36,7 +36,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
                               "already been validated by someone else?<br/>";
                 $advise_text = "Else, please report to devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
-                @pg_close($resource_rw);
+                pg_close($resource_rw);
                 exit;
             }
 
@@ -62,7 +62,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
                     foreach ($tab_tags as $value_tag) {
                         $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
 
-                        $error === preg_match($pattern, $value_tag, $matches);
+                        preg_match($pattern, $value_tag, $matches);
 
                         $long = $matches['long'];
                         $lat = $matches['lat'];
@@ -117,7 +117,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
             // Checking the presence of sig into the database
             $delete_query = "SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
-            $result = @pg_query($delete_query);
+            $result = pg_query($delete_query);
 
             // If not ok...
             if (pg_num_rows($result) != 1) {
@@ -125,13 +125,13 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?<br/>";
                 $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
                 include '../../inc/error_page.php';
-                @pg_close($resource_rw);
+                pg_close($resource_rw);
                 exit;
             }
             else {
                 // Delete the entry from the pending query table.
                 $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
-                $resultdel = @pg_query($resource_rw,$delete_request);
+                $resultdel = pg_query($resource_rw,$delete_request);
 
                 if(!$resultdel) {
                     $page_title = "Automated Objects Massive Import Request Form";
@@ -179,13 +179,13 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
         if ($resource_rw != 0) {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';");
+            $result = pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $page_title = "Automated Objects Massive Import Request Form";
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to devel ML or FG Scenery forum";
                 include '../../inc/error_page.php';
-                @pg_close($resource_rw);
+                pg_close($resource_rw);
                 exit;
             }
 
@@ -210,7 +210,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
                 foreach ($tab_tags as $value_tag) {
                     $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
 
-                    $error === preg_match($pattern, $value_tag, $matches);
+                    preg_match($pattern, $value_tag, $matches);
 
                     $long = $matches['long'];
                     $lat = $matches['lat'];
@@ -223,13 +223,10 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
                     // Avoiding "0" data to be inserted for ob_elevoffset. Should be NULL. This avoids later computation delays on exports
                     $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
-                    if ($elevoffset == 0) $data_rw[$i] .= "NULL";
-                        else $data_rw[$i] .= $elevoffset;
+                    
+                    $data_rw[$i] .= ($elevoffset == 0)?"NULL":$elevoffset;
                     $data_rw[$i] .= ", ".$orientation.", ".$model.", ";
-                    if ($country == "unknown")
-                        $data_rw[$i] .= "NULL";
-                    else
-                        $data_rw[$i] .= "'".$country."'";
+                    $data_rw[$i] .= ($country == "unknown")?"NULL":"'".$country."'";
                     $data_rw[$i] .= ", 1)";
 
                     $i++;
@@ -249,7 +246,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
                 // ###########################################################################################################################
 
                 // Sending the request...
-                $result_rw = @pg_query($resource_rw, $mass_rw_query);
+                $result_rw = pg_query($resource_rw, $mass_rw_query);
 
                 if (!$result_rw) {
                     $page_title = "Automated Objects Massive Insertion Request Form";
@@ -271,7 +268,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
                 // Delete the entry from the pending query table.
                 $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
-                $resultdel = @pg_query($resource_rw, $delete_request);
+                $resultdel = pg_query($resource_rw, $delete_request);
 
                 if (!$resultdel) {
                     echo "<p class=\"warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
