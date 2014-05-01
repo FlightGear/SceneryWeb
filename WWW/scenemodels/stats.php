@@ -28,7 +28,7 @@ require 'inc/header.php';
             $resource_r = connect_sphere_r();
 
             // Preprocessing signs and models and objects, as they are used later on.
-            $models = count_models();
+            $models = $modelDaoRO->countTotalModels();
             $objects = count_objects();
 
             $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");

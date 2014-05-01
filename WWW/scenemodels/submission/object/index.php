@@ -151,7 +151,13 @@ $(function() {
                     <td><label for="ob_country">Country<em>*</em><span>This is the country where the model is located.</span></label></td>
                     <td>
                         <select name="ob_country" id="ob_country">
-                            <?php list_countries(); ?>
+                            <?php
+                                $countries = $objectDaoRO->getCountries();
+                                
+                                foreach($countries as $country) {
+                                    echo "<option value=\"".$country->getCode()."\">".rtrim($country->getName())."</option>\n";
+                                }
+                            ?>
                         </select>
                     </td>
                 </tr>

@@ -16,16 +16,15 @@ function connect_sphere_r()
     $dbrpass = $ro_pass;
 
     // Connecting silently
-    $resource_r = @pg_connect('dbname='.$dbrname.' host='.$dbrhost.' user='.$dbruser.' password='.$dbrpass.' sslmode=disable');
+    $resource_r = pg_connect('dbname='.$dbrname.' host='.$dbrhost.' user='.$dbruser.' password='.$dbrpass.' sslmode=disable');
 
     // If could not connect to the database
     if ($resource_r == '0') {
         $error_text = "We're sorry, but an error has occurred while connecting to the database.";
         include "error_page.php";
         exit;
-    }
-    else {
-        return ($resource_r); // Returning resource_r
+    } else {
+        return $resource_r; // Returning resource_r
     }
 }
 
@@ -49,9 +48,8 @@ function connect_sphere_rw()
         $error_text = "We're sorry, but an error has occurred while connecting to the database.";
         include "error_page.php";
         exit;
-    }
-    else {
-        return ($resource_rw); // Returning resource_rw
+    } else {
+        return $resource_rw; // Returning resource_rw
     }
 }
 
@@ -75,7 +73,7 @@ function family_name($id_family)
 
     // Closing the connection.
     pg_close ($headerlink_family);
-    return ($name_family);
+    return $name_family;
 }
 
 
@@ -122,7 +120,7 @@ function get_object_family_from_id($ob_id)
 
         while ($row2 = pg_fetch_assoc($result2)) {
             $mg_family = $row2["mo_shared"];
-            return (family_name($mg_family));
+            return family_name($mg_family);
         }
     }
 
@@ -238,7 +236,7 @@ function get_group_name_from_id($ob_group)
     $result = pg_query($headerlink, $query);
 
     while ($row = pg_fetch_assoc($result)) {
-        return ($row["gp_name"]);
+        return $row["gp_name"];
     }
 
     // Closing the connection.
@@ -288,7 +286,7 @@ function get_object_latitude_from_id($ob_id)
 
     // Closing the connection.
     pg_close ($headerlink_family);
-    return ($ob_lat);
+    return $ob_lat;
 }
 
 // Returns the object longitude from an ob_id sent as parameter
@@ -309,7 +307,7 @@ function get_object_longitude_from_id($ob_id)
 
     // Closing the connection.
     pg_close ($headerlink_family);
-    return ($ob_long);
+    return $ob_long;
 }
 
 // Get the object elevation from an ob_id sent as parameter
@@ -325,7 +323,7 @@ function get_object_elevation_from_id($ob_id)
     $result = pg_query($headerlink_family, $query);
 
     while ($row = pg_fetch_assoc($result)) {
-        return ($row["ob_gndelev"]);
+        return $row["ob_gndelev"];
     }
 
     // Closing the connection.
@@ -346,9 +344,10 @@ function get_object_offset_from_id($ob_id)
 
     while ($row = pg_fetch_assoc($result)) {
         if ($row["ob_elevoffset"] == "") {
-            return (0);
+            return 0;
+        } else {
+            return $row["ob_elevoffset"];
         }
-        else return ($row["ob_elevoffset"]);
     }
 
     // Closing the connection.
@@ -368,7 +367,7 @@ function get_object_true_orientation_from_id($ob_id)
     $result = pg_query($headerlink_family, $query);
 
     while ($row = pg_fetch_assoc($result))    {
-        return ($row["ob_heading"]);
+        return $row["ob_heading"];
     }
 
     // Closing the connection.
@@ -393,7 +392,7 @@ function get_object_text_from_id($ob_id)
     $result = pg_query($headerlink_family, $query);
 
     while ($row = pg_fetch_assoc($result))    {
-        return ($row["ob_text"]);
+        return $row["ob_text"];
     }
 
     // Closing the connection.
@@ -415,7 +414,7 @@ function get_authors_name_from_authors_id($au_id)
     $result = pg_query($headerlink, $query);
 
     while ($row = pg_fetch_assoc($result)) {
-        return ($row["au_name"]);
+        return $row["au_name"];
     }
 
     // Closing the connection.
@@ -438,7 +437,7 @@ function get_authors_email_from_authors_id($au_id)
 
     while ($row = pg_fetch_assoc($result)) {
         if ($row["au_email"] != '') {
-            return ($row["au_email"]);
+            return $row["au_email"];
         }
     }
 
@@ -467,26 +466,6 @@ function count_objects()
     pg_close ($resource);
 }
 
-// Returns the number of models in the database.
-// =============================================
-
-function count_models()
-{
-    // Connecting to the databse.
-    $resource = connect_sphere_r();
-
-    // Count the number of objects in the database
-    $counter = pg_query($resource,"SELECT count(*) AS rows FROM fgs_models;");
-
-    while ($line = pg_fetch_assoc($counter)) {
-        // So the stats are happy
-        // return number_format($line['rows'], '0', '', ' ');
-        return $line['rows'];
-    }
-
-    // Close the database resource
-    pg_close ($resource);
-}
 
 // Checks the availability of the database.
 // ========================================
@@ -517,7 +496,7 @@ function heading_stg_to_true($stg_heading)
     else {
         $true_heading = 180 - $stg_heading;
     }
-    return ($true_heading);
+    return $true_heading;
 }
 
 // Computes the true heading into a STG heading (for edition purposes).
@@ -531,7 +510,7 @@ function heading_true_to_stg($true_heading)
     else {
         $stg_heading = 180 - $true_heading;
     }
-    return ($stg_heading);
+    return $stg_heading;
 }
 
 // Checks if models exists in DB from a model name sent in parameter.
@@ -638,26 +617,6 @@ function list_authors($default_au=null)
 
     // Closing the connection.
     pg_close ($headerlink_family);
-}
-
-// Lists the countries in FlightGear.
-// ==================================
-
-function list_countries()
-{
-    // Connecting to the database.
-    $headerlink_countries = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT * FROM fgs_countries ORDER BY 2 ASC;";
-    $result = pg_query($headerlink_countries, $query);
-
-    while($row = pg_fetch_assoc($result)) {
-        echo "<option value=\"".$row["co_code"]."\">".rtrim($row["co_name"])."</option>\n";
-    }
-
-    // Closing the connection.
-    pg_close ($headerlink_countries);
 }
 
 // List the countries and select a specific country (for the mass import script)
@@ -903,7 +862,7 @@ function open_tgz($archive)
 function close_tgz($target_path)
 {
     unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
-    clear_dir($target_path);                          // Deletes temporary submission directory
+    clear_dir($target_path);                         // Deletes temporary submission directory
 }
 
 // Return true if the next TerraSync update is tomorrow
@@ -927,15 +886,13 @@ function path_exists($proposed_path)
     $resource = connect_sphere_r();
 
     // Count the number of objects in the database
-    $path = pg_query($resource,"SELECT mo_path FROM fgs_models GROUP BY mo_path
-                                 HAVING COUNT(mo_path) > 1 ORDER BY mo_path;");
-
-    while ($line = pg_fetch_assoc($path)) {
-        return $line['mo_path'];
-    }
-
+    $path = pg_query($resource,"SELECT COUNT(*) as count FROM fgs_models WHERE mo_path='$proposed_path;");
+    $line = pg_fetch_assoc($path);
+    
     // Close the database resource
     pg_close ($resource);
+    
+    return $line['count']>0;
 }
 
 ?>

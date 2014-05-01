@@ -1,6 +1,7 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -103,7 +104,7 @@ if (!$error) {
     $tab_lines = array_slice($tab_lines, 0, 100);       // Selects the 100 first elements of the tab (the 100 first lines not blank)
 
     $nb_lines = count($tab_lines);
-    $global_ko = 0;                                     // Validates - or no - the right to go further.
+    $global_ko = false;                                     // Validates - or no - the right to go further.
     $cpt_err = 0;                                       // Counts the number of errors.
 
     if (!$_POST['submit']) {
@@ -126,7 +127,7 @@ if (!$error) {
     }
 
     $i = 1;
-    $ko = 0;
+    $ko = false;
     $unknown_country = false;
     ?>
     <form id="positions" method="post" action="confirm_mass_import.php" onsubmit="return validateForm();">
@@ -149,8 +150,8 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"center warning\">Object type Error!</p></td>";
-                    $ko = 1;
-                    $global_ko = 1;
+                    $ko = true;
+                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -163,27 +164,27 @@ if (!$error) {
                     }
                     else if ($return_value == 1) {
                         echo "<td><p class=\"center warning\">Bad model label!</p></td>";
-                        $ko = 1;
-                        $global_ko = 1;
+                        $ko = true;
+                        $global_ko = true;
                         $cpt_err++;
                     }
                     else if ($return_value == 2) {
                         echo "<td><p class=\"center warning\">Model unknown!</p></td>";
-                        $ko = 1;
-                        $global_ko = 1;
+                        $ko = true;
+                        $global_ko = true;
                         $cpt_err++;
                     }
                     else if ($return_value == 3) {
                         echo "<td><p class=\"center warning\">Family unknown!</p></td>";
-                        $ko = 1;
-                        $global_ko = 1;
+                        $ko = true;
+                        $global_ko = true;
                         $cpt_err++;
                     }
                 }
                 else {
                     echo "<td><p class=\"center warning\">Object Error!</p></td>";
-                    $ko = 1;
-                    $global_ko = 1;
+                    $ko = true;
+                    $global_ko = true;
                     $cpt_err++;
                 }
 
@@ -195,8 +196,8 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"center warning\">Longitude Error!</p></td>";
-                    $ko = 1;
-                    $global_ko = 1;
+                    $ko = true;
+                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -207,8 +208,8 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"center warning\">Latitude Error!</p></td>";
-                    $ko = 1;
-                    $global_ko = 1;
+                    $ko = true;
+                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -221,8 +222,8 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"center warning\">Elevation Error!</p></td>";
-                    $ko = 1;
-                    $global_ko = 1;
+                    $ko = true;
+                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -233,8 +234,8 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"center warning\">Orientation Error!</p></td>";
-                    $ko = 1;
-                    $global_ko = 1;
+                    $ko = true;
+                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -247,8 +248,8 @@ if (!$error) {
                     }
                     else {
                         //echo "<td><p class=\"center warning\">Offset Error!</p></td>";
-                        $ko = 1;
-                        $global_ko = 1;
+                        $ko = true;
+                        $global_ko = true;
                         $cpt_err++;
                     }
                 }
@@ -280,10 +281,10 @@ if (!$error) {
             echo "<td>".get_country_name_from_country_code($ob_country)."</td>";
         }
 
-        if ($ko == 0) {
+        if (!$ko) {
             if (detect_already_existing_object($lat, $long, $elevoffset, $orientation, $model_id)) {
-                $ko = 1;
-                $global_ko = 1;
+                $ko = true;
+                $global_ko = true;
                 $cpt_err++;
                 echo "<td style='background-color: rgb(200, 0, 0);'>Exists already</td>"; // Fatal error
             // this used to break the backend, testing if it still does
@@ -303,13 +304,17 @@ if (!$error) {
         }
         echo "</tr>\n";      // Finishes the line.
         $i++;                // Increments the line number.
-        $ko = 0;             // Resets the local KO to "0".
+        $ko = false;             // Resets the local KO to "0".
     }
     if ($unknown_country) {
         echo "<tr><td colspan=\"8\" align=\"right\">Set all 'unknown' countries to:</td><td>" .
              "<select name='global_country' id='global_country' style='width: 100%;' onchange='update_countries(this.value,".$i.")'>" .
              "<option value=\"\">----</option>";
-             list_countries();
+        $countries = $objectDaoRO->getCountries();
+
+        foreach($countries as $country) {
+            echo "<option value=\"".$country->getCode()."\">".rtrim($country->getName())."</option>\n";
+        }
         echo "</select></td><td></td></tr>";
     }
     echo "</table>\n";
@@ -321,7 +326,7 @@ if (!$error) {
          "<input name='IPAddr' type='hidden' value='".$_SERVER['REMOTE_ADDR']."'/>" .
          "<input name='stg' type='hidden' value='".$_POST['stg']."'/>";
 
-    if ($global_ko == 1) { // If errors have been found...
+    if ($global_ko) { // If errors have been found...
         if ($cpt_err == 1) {
             echo "<p class=\"center warning\">".$cpt_err." error has been found in your submission. Please <a href='javascript:history.go(-1)'>go back</a> and correct or delete the corresponding line from your submission before submitting again.</p>";
             include '../../inc/footer.php';

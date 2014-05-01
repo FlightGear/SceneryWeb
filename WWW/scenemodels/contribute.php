@@ -67,7 +67,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     <div class="body">
         <p>If you wish to help populate the world with interesting static objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:</p>
 
-        <h3><a name="items">Submission items</a></h3>
+        <h3 id="items"><a>Submission items</a></h3>
         <h4>Mandantory submission items</h4>
         <ul>
             <li><strong>Model placement</strong>:
@@ -92,7 +92,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
             <li>Details are available <a href="http://scenemodels.flightgear.org/submission/model/index_model_add.php">here</a>.</li>
         </ul>
 
-        <h3><a name="tips"><font color="red">Models best practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
+        <h3 id="tips"><a><font color="red">Models best practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
         <ul>
             <li>Never group different, detached buildings into a single geometry file.</li>
             <li>Never put surface materials (tarmac, grass, roads, parkings, ...) or trees into Scenery Model geometries.</li>
@@ -115,7 +115,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         <b> -> </b> The better your submission complies with these recommendations, the quicker we'll have it imported into the repository.
 
 
-        <h3><a name="contact"><font color="blue">Upload facilities</font></a></h3>
+        <h3 id="contact"><a><font color="blue">Upload facilities</font></a></h3>
         <ul>
             <li>Our dedicated webform <a href="http://scenemodels.flightgear.org/submission/model/index_model_add.php">here.</a></li>
         </ul>

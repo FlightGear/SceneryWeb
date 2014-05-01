@@ -1,6 +1,7 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 require_once '../../inc/functions.inc.php';
 $page_title = "Automated Models Submission Form";
@@ -40,10 +41,10 @@ function validateTabs()
         return false;
     }
     // Tab 2
-    if (form["longitude"].value == "" || !checkNumeric(form["longitude"],-180,180) ||
-        form["latitude"].value == "" || !checkNumeric(form["latitude"],-90,90) ||
-        form["offset"].value == "" || !checkNumeric(form['offset'],-10000,10000) ||
-        form["heading"].value == "" ||  !checkNumeric(form['heading'],0,359.999)) {
+    if (form["longitude"].value === "" || !checkNumeric(form["longitude"],-180,180) ||
+        form["latitude"].value === "" || !checkNumeric(form["latitude"],-90,90) ||
+        form["offset"].value === "" || !checkNumeric(form['offset'],-10000,10000) ||
+        form["heading"].value === "" ||  !checkNumeric(form['heading'],0,359.999)) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }
@@ -73,7 +74,7 @@ $(function() {
 
 <p>
     This automated form goal is to ease the submission of static and shared 3D models into the FlightGear scenery database.
-    There are currently <?php $models = count_models(); echo number_format($models, '0', '', ' '); ?> unique models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>. Help us to make it more!
+    There are currently <?php $models = $modelDaoRO->countTotalModels(); echo number_format($models, '0', '', ' '); ?> unique models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>. Help us to make it more!
 </p>
 <p>
     Hover your mouse over the various field titles (left column) to view some information about what to do with that particular field. Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> for a better understanding of the various requirements.
@@ -202,7 +203,13 @@ $(function() {
                     </td>
                     <td>
                         <select name="ob_country" id="ob_country">
-                            <?php list_countries(); ?>
+                            <?php
+                            $countries = $objectDaoRO->getCountries();
+
+                            foreach($countries as $country) {
+                                echo "<option value=\"".$country->getCode()."\">".rtrim($country->getName())."</option>\n";
+                            }
+                            ?>
                         </select>
                     </td>
                 </tr>
