@@ -20,6 +20,10 @@ interface IObjectDAO {
     
     public function getObjectsByModel($modelId);
     
+    public function getObjectsGroups();
+    
+    public function getCountries();
+    
     public function countObjects();
     
     public function countObjectsByModel($modelId);

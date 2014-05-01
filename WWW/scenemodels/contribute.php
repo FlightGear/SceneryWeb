@@ -38,8 +38,8 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 </script>
 </td></tr>-->
 
-<div class="paragraph_bloc">
-    <h2><a name="positions">Contributing positions</a></h2>
+<div class="paragraph_bloc" id="positions">
+    <h2><a>Contributing positions</a></h2>
 
     <div class="body">
         If you wish to contribute positions for the many shared models that are
@@ -59,12 +59,12 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
           <li>#submitter: - your name</li>
           <li>#desc: - description to be used for the following objects</li>
         </ul>
-        </div>
-        </div>
+    </div>
+</div>
 
-        <div class="paragraph_bloc">
-        <h2><a name="models">Contributing models</a></h2>
-        <div class="body">
+<div class="paragraph_bloc" id="models">
+    <h2><a>Contributing models</a></h2>
+    <div class="body">
         <p>If you wish to help populate the world with interesting static objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:</p>
 
         <h3><a name="items">Submission items</a></h3>
@@ -122,8 +122,8 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     </div>
 </div>
 
-<div class="paragraph_bloc">
-    <h2><a name="thumbnails">Contributing thumbnails</a></h2>
+<div class="paragraph_bloc" id="thumbnails">
+    <h2><a>Contributing thumbnails</a></h2>
 
     <p class="body">
     A noticeable amount of model submissions are missing a thumbnail. If you
@@ -136,8 +136,8 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     </p>
 </div>
 
-<div class="paragraph_bloc">
-    <h2><a name="offset">Understanding offset</a></h2>
+<div class="paragraph_bloc" id="offset">
+    <h2><a>Understanding offset</a></h2>
 
     <p class="body">
     Quite a lot of people are not using the offset parameter, or don't understand why it

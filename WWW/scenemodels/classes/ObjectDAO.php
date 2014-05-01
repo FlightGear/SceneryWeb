@@ -71,7 +71,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     public function getObjectsGroups() {
-    
+        $result = $this->database->query("SELECT gp_id, gp_name FROM fgs_groups;");
     }
     
     public function getCountries() {
