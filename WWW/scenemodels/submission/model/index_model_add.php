@@ -2,6 +2,7 @@
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require_once '../../inc/functions.inc.php';
 $page_title = "Automated Models Submission Form";
@@ -19,7 +20,7 @@ function validateForm()
 
     if (!checkNumeric(form["longitude"],-180,180) ||
         !checkNumeric(form["latitude"],-90,90) ||
-        form["mo_name"].value == "" ||
+        form["mo_name"].value === "" ||
         !checkComment(form["mo_name"]) ||
         !checkNumeric(form["offset"],-999,999) ||
         !checkNumeric(form["heading"],0,359.999) ||
@@ -34,9 +35,9 @@ function validateTabs()
 
     // Tab 1
     if (!checkComment(form["mo_name"]) ||
-        form["mo_name"].value == "" ||
-        form["ac3d_file"].value == "" ||
-        form["mo_thumbfile"].value == "") {
+        form["mo_name"].value === "" ||
+        form["ac3d_file"].value === "" ||
+        form["mo_thumbfile"].value === "") {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
@@ -252,7 +253,16 @@ $(function() {
                     </td>
                     <td>
                         <select name="mo_author" id="mo_author">
-                            <?php list_authors(); ?>
+                            <?php
+                            $authors = $authorDaoRO->getAllAuthors(0, "ALL");
+                            foreach($authors as $author) {
+                                if ($author->getId() == 1) {
+                                    echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>\n";
+                                } else {
+                                    echo "<option value=\"".$author->getId()."\">".$author->getName()."</option>\n";
+                                }
+                            }
+                            ?>
                         </select>
                     </td>
                 </tr>

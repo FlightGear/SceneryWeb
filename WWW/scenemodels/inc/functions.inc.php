@@ -595,31 +595,6 @@ function ob_model_from_name($model_name)
     pg_close ($headerlink);
 }
 
-// Lists the authors of models in FlightGear.
-// ==========================================
-
-function list_authors($default_au=null)
-{
-    // Connecting to the database.
-    $headerlink_authors = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT au_id, au_name FROM fgs_authors ORDER BY 2 ASC;";
-    $result = pg_query($headerlink_authors, $query);
-
-    while ($row = pg_fetch_assoc($result)) {
-        if (($row["au_id"] == 1 && !isset($default_au))
-                || (isset($default_au) && $default_au==$row["au_id"])) {
-            echo "<option value=\"".$row["au_id"]."\" selected=\"selected\">".$row["au_name"]."</option>\n";
-        } else {
-            echo "<option value=\"".$row["au_id"]."\">".$row["au_name"]."</option>\n";
-        }
-    }
-
-    // Closing the connection.
-    pg_close ($headerlink_authors);
-}
-
 // List the countries and select a specific country (for the mass import script)
 // ==================================
 function list_countries_select($country_code)

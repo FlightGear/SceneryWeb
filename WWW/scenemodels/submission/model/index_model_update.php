@@ -1,6 +1,7 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
@@ -208,12 +209,17 @@ $(function() {
                     </td>
                     <td>
                         <select name="mo_author" id="mo_author">
-                            <?php 
-                            if (isset($model)) {
-                                list_authors($model->getMetadata()->getAuthor()->getId());
-                            } else {
-                                list_authors();
-                            }?>
+                            <?php
+                            $authors = $authorDaoRO->getAllAuthors(0, "ALL");
+                            foreach($authors as $author) {
+                                if ((isset($model) && $author->getId() == $model->getMetadata()->getAuthor()->getId())
+                                        || (!isset($model) && $author->getId() == 1)) {
+                                    echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>\n";
+                                } else {
+                                    echo "<option value=\"".$author->getId()."\">".$author->getName()."</option>\n";
+                                }
+                            }
+                            ?>
                         </select>
                     </td>
                 </tr>
