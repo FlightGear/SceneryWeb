@@ -793,7 +793,7 @@ function remove_file_extension($file)
 // This function returns 'shared' if an object is shared, or 'static' if an object is static, based on its id.
 // ===========================================================================================================
 
-function is_shared_or_static($ob_id)
+function is_shared($ob_id)
 {
     // Connecting to the database.
     $resource_r = connect_sphere_r();
@@ -802,16 +802,15 @@ function is_shared_or_static($ob_id)
     $query = "SELECT mo_id, mo_shared FROM fgs_models WHERE mo_id =(SELECT ob_model FROM fgs_objects WHERE ob_id = ".$ob_id.");";
     $result = pg_query($resource_r, $query);
 
-    while ($row = pg_fetch_row($result)) {
-        if ($row[1] == 0) {
-            return 'static';
-        } else {
-            return 'shared';
-        }
-    }
-
     // Closing the connection.
     pg_close ($resource_r);
+    
+    $row = pg_fetch_row($result);
+    if ($row[1] == 0) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 // This function returns a random string which is used to be suffixed to a directory name to (try) to make it unique.

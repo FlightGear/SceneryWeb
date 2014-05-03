@@ -204,7 +204,7 @@ function validateForm()
           <td>
 <?php
 
-    if (is_shared_or_static($id_to_update) != 'static') {
+    if (is_shared($id_to_update)) {
         $resource_r = connect_sphere_r();
 
         // If connection is OK
@@ -258,7 +258,7 @@ function validateForm()
           <td>
 <?php
 
-    if (is_shared_or_static($id_to_update) != 'static') {
+    if (is_shared($id_to_update)) {
 
         echo "<div id=\"form_objects\">";
         echo "    <select name='model_name' id='model_name' onchange='change_thumb()'>";

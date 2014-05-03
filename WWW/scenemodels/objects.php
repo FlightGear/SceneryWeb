@@ -4,6 +4,7 @@ require_once 'inc/form_checks.php';
 require_once 'classes/DAOFactory.php';
 require_once 'classes/Criterion.php';
 
+$modelDAO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDAO = DAOFactory::getInstance()->getObjectDaoRO();
 
 require 'inc/header.php';
@@ -135,13 +136,14 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
             <th>
                 <select name="model" style="font-size: 0.7em; width: 100%">
                     <option value="0"></option>
-<?php
-                    $result = pg_query("SELECT mo_id, mo_path FROM fgs_models ORDER BY mo_path;");
-                    while ($row = pg_fetch_assoc($result)) {
-                        $models[$row["mo_id"]] = $row["mo_path"];
-                        echo "<option value=\"".$row["mo_id"]."\"";
-                        if ($row["mo_id"] == $model) echo " selected=\"selected\"";
-                        echo ">".$row["mo_path"]."</option>\n";
+<?php                    
+                    $modelPaths = $modelDAO->getPaths();
+                    foreach ($paths as $mo_id => $path) {
+                        echo "<option value=\"".$mo_id."\"";
+                        if ($mo_id == $model) {
+                            echo " selected=\"selected\"";
+                        }
+                        echo ">".$path."</option>\n";
                     }
 ?>
                 </select>
@@ -149,12 +151,14 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
                 <select name="groupid" style="font-size: 0.7em;">
                     <option value="0"></option>
 <?php
-                    $result = pg_query("SELECT gp_id, gp_name FROM fgs_groups;");
-                    while ($row = pg_fetch_assoc($result)){
-                        $groups[$row["gp_id"]] = $row["gp_name"];
-                        echo "<option value=\"".$row["gp_id"]."\"";
-                        if ($row["gp_id"] == $groupid) echo " selected=\"selected\"";
-                        echo ">".$row["gp_name"]."</option>\n";
+                    $objectsGroups = $objectDAO->getObjectsGroups();
+                    foreach ($objectsGroups as $objectsGroup){
+                        $groups[$objectsGroup->getId()] = $objectsGroup->getName();
+                        echo "<option value=\"".$objectsGroup->getId()."\"";
+                        if ($objectsGroup->getId() == $groupid) {
+                            echo " selected=\"selected\"";
+                        }
+                        echo ">".$objectsGroup->getName()."</option>\n";
                     }
 ?>
                 </select>
@@ -201,15 +205,15 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
             $offset = $object->getElevationOffset();
             echo "<tr class=\"object\">\n";
             echo "  <td><a href='objectview.php?id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
-                 "  <td>".$row["ob_text"]."</td>\n" .
-                 "  <td><a href=\"modelview.php?id=".$object->getModelId()."\">".$models[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
+                 "  <td>".$object->getDescription()."</td>\n" .
+                 "  <td><a href=\"modelview.php?id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
                  "  <td>".$object->getCountry()->getName() ."</td>\n" .
                  "  <td>".$object->getLatitude()."<br/>".$object->getLongitude()."</td>\n" .
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$object->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
                  "  <a href=\"submission/object/check_update.php?update_choice=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
-            if (is_shared_or_static($object->getId()) == 'shared') {
+            if (is_shared($object->getId())) {
 ?>
                 <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $object->getId(); ?>">
                     <img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png" alt="delete"/>

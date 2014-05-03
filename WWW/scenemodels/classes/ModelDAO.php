@@ -177,6 +177,20 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         return $result_array;
     }
     
+    public function getPaths() {
+        $result = $this->database->query("SELECT mo_id, mo_path ".
+                                         "FROM fgs_models ".
+                                         "ORDER BY mo_path ASC;");
+        
+        $result_array = array();
+                           
+        while ($row = pg_fetch_assoc($result)) {
+            $result_array[$row["mo_id"]] = $row["mo_path"];
+        }
+        
+        return $result_array;
+    }
+    
     public function getModelsGroup($groupId) {
         $result = $this->database->query("SELECT mg_id, mg_name, mg_path ".
                                          "FROM fgs_modelgroups ".
