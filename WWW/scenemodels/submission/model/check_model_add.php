@@ -415,11 +415,9 @@ if (file_exists($ac3dPath)) {
             $line = rtrim($line, "\r\n") . PHP_EOL;
 
             // Check if the file begins with the string "AC3D"
-            if ($i == 0) {
-                if (substr($line,0,4) != "AC3D") {
-                    $error += 1;
-                    $errormsg .= "<li>The AC file does not seem to be a valid AC3D file. The first line must show \"AC3Dx\" with x = version</li>";
-                }
+            if ($i == 0 && substr($line,0,4) != "AC3D") {
+                $error += 1;
+                $errormsg .= "<li>The AC file does not seem to be a valid AC3D file. The first line must show \"AC3Dx\" with x = version</li>";
             }
 
             // Check if the texture reference matches $pngName

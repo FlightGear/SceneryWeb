@@ -587,9 +587,8 @@ function ob_model_from_name($model_name)
 
     // Checking the number of results. Should be 1.
     if (pg_num_rows($result) == 1) { // If object is known, returning the mo_id.
-        while ($row = pg_fetch_row($result)) {
-            return($row[0]);
-        }
+        $row = pg_fetch_row($result);
+        return $row[0];
     }
 
     // Closing the connection.
@@ -618,7 +617,7 @@ function list_authors($default_au=null)
     }
 
     // Closing the connection.
-    pg_close ($headerlink_family);
+    pg_close ($headerlink_authors);
 }
 
 // List the countries and select a specific country (for the mass import script)
