@@ -27,7 +27,7 @@ class ModelFilesTar implements IModelFiles {
         $target_path = open_tgz($this->modelfile);
         $dir = opendir($target_path);
 
-        while (false !== ($file = readdir($dir))) {
+        while ($file = readdir($dir)) {
             if (show_file_extension($file) == "ac") {
                 $filepath = $target_path."/".$file;
                 $content = file_get_contents($filepath);
@@ -44,7 +44,7 @@ class ModelFilesTar implements IModelFiles {
         $target_path = open_tgz($this->modelfile);
         $dir = opendir($target_path);
         
-        while (false !== ($file = readdir($dir))) {
+        while ($file = readdir($dir)) {
             if (show_file_extension($file) == "xml") {
                 $filepath = $target_path."/".$file;
                 $content = file_get_contents($filepath);
@@ -63,7 +63,7 @@ class ModelFilesTar implements IModelFiles {
         
         $names = array();
         
-        while (false !== ($filename = readdir($dir))) {
+        while ($filename = readdir($dir)) {
             $extension = show_file_extension($filename);
             if ($extension == "png" || $extension == "rgb") {
                 $names[] = $filename;
@@ -78,7 +78,7 @@ class ModelFilesTar implements IModelFiles {
         $target_path = open_tgz($this->modelfile);
         $dir = opendir($target_path);
 
-        while (false !== ($file = readdir($dir))) {
+        while ($file = readdir($dir)) {
             if ($file == $filename) {
                 $filepath = $target_path."/".$file;
                 $content = file_get_contents($filepath);

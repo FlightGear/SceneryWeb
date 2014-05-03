@@ -6,8 +6,7 @@
 // Defaults
 $to = "";
 
-function email($case)
-{
+function email($case) {
     // Register variables that we'd like to use inside this function
     global $author,$comment,$notes,$country,$dtg,$family_name,$model_name,$family_real_name,$gndelev,$heading,$host,$html_family_url,$html_object_url,$hsig,$id_to_delete,$id_to_update,$ipaddr,$lat,$latitude,$long,$longitude,$model_id,$model_real_name,$mo_shared,$mo_sha_hash,$name,$new_gndelev,$new_lat,$new_long,$new_offset,$new_orientation,$ob_country,$ob_sha_hash,$offset,$path_to_use,$pending_requests,$safe_au_email,$safe_contr_email,$safe_email,$sent_comment,$sha_hash,$sig,$to;
 
@@ -21,8 +20,9 @@ function email($case)
             $message .= "On $dtg UTC, you issued a massive objects import request.\r\n\r\n" .
                         "We are glad to let you know that this request has been accepted!\r\n\r\n" .
                         "For reference, the first part of the unique ID of this request was '".substr($hsig,0,10). "'\r\n\r\n";
-                        if (!empty($comment))
-                            $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
+            if (!empty($comment)) {
+                $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
+            }
             $message .= "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
                         "Thanks for your help in making FlightGear better!\r\n\r\n";
             $backend = true;
@@ -31,8 +31,9 @@ function email($case)
             $subject  = "Massive object import needs validation";
             $message .= "We would like to let you know that a new objects massive import request is pending. " .
                         "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
-            if (!empty($to))
+            if (!empty($to)) {
                 $message .= "and with email address ".$safe_email." ";
+            }
             $message .= "issued an objects massive import request.\r\n\r\n" .
                         "Comment by user: ".strip_tags($sent_comment)."\r\n\r\n" .
                         "Now please click the following link to check and confirm or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $sha_hash ."&email=". $safe_email . "\r\n\r\n";

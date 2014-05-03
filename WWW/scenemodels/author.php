@@ -7,8 +7,7 @@ $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require 'inc/header.php';
 
-if (is_author_id($_REQUEST['id']))
-{
+if (is_author_id($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
     $author=$authorDaoRO->getAuthor($id);
 

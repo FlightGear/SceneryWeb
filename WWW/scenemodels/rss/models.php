@@ -13,17 +13,27 @@ echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>";
     <link>http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php</link>
     <language>en-GB</language>
     <copyright>Jon Stockill 2006-2008.</copyright>
-    <description>FlightGear scenery object database model additions.</description>
+    <description>
+        FlightGear scenery object database model additions.
+    </description>
     <ttl>720</ttl>
-    <lastBuildDate><?php echo $modelMetadatas[0]->getLastUpdated()->format(DateTime::RSS);?></lastBuildDate>
+    <lastBuildDate>
+        <?php echo $modelMetadatas[0]->getLastUpdated()->format(DateTime::RSS);?>
+    </lastBuildDate>
     <?php
       foreach ($modelMetadatas as $modelMetadata){
     ?>
     <item>
-      <link>http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $modelMetadata->getId();?></link>
+      <link>
+          http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $modelMetadata->getId();?>
+      </link>
       <title><![CDATA[<?php echo $modelMetadata->getName()?> ]]></title> 
-      <description><![CDATA[<?php echo $modelMetadata->getName()?> ]]></description> 
-      <pubDate><?php echo $modelMetadata->getLastUpdated()->format(DateTime::RSS)?></pubDate>
+      <description>
+          <![CDATA[<?php echo $modelMetadata->getName()?> ]]>
+      </description> 
+      <pubDate>
+          <?php echo $modelMetadata->getLastUpdated()->format(DateTime::RSS)?>
+      </pubDate>
     </item>
     <?php
       }

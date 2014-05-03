@@ -23,22 +23,22 @@ if (isset($_POST["action"])) {
             if ($resource_rw != '0') {
 
                 // Checking the presence of sig into the database
-                $ob_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
-                $mo_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+                $ob_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
+                $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
                 if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                     $process_text = "Deleting corresponding pending query.";
                     $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
                     $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
                     include '../../inc/error_page.php';
-                    @pg_close($resource_rw);
+                    pg_close($resource_rw);
                     exit;
                 }
 
                 // Delete the entry from the pending query table.
                 $ob_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
                 $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
-                $ob_resultdel = @pg_query($resource_rw, $ob_delete_request);
-                $mo_resultdel = @pg_query($resource_rw, $mo_delete_request);
+                $ob_resultdel = pg_query($resource_rw, $ob_delete_request);
+                $mo_resultdel = pg_query($resource_rw, $mo_delete_request);
 
                 if ((!$ob_resultdel) || (!$mo_resultdel)) {
                     $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
@@ -95,14 +95,14 @@ if (isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sigs into the database
-            $mo_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
-            $ob_result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
+            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+            $ob_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
 
             if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
-                @pg_close($resource_rw);
+                pg_close($resource_rw);
                 exit;
             }
 
@@ -119,15 +119,15 @@ if (isset($_POST["action"])) {
                 $query_rw_ob = gzuncompress ($sqlz_ob);
 
                 // Sending the requests...
-                $result_rw_mo = @pg_query ($resource_rw, $query_rw_mo);
+                $result_rw_mo = pg_query ($resource_rw, $query_rw_mo);
                 $mo_id = pg_fetch_row ($result_rw_mo);
                 $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
                 $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
 
-                $result_rw_ob = @pg_query ($resource_rw, $query_rw_ob_with_mo_id);
+                $result_rw_ob = pg_query ($resource_rw, $query_rw_ob_with_mo_id);
                 $ret_ob_id = pg_fetch_row ($result_rw_ob);
                 $query_ob_text = "UPDATE fgs_objects SET ob_text = $$". object_name($mo_id[0]) ."$$ WHERE ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
-                $result_obtext_update = @pg_query ($resource_rw, $query_ob_text);
+                $result_obtext_update = pg_query ($resource_rw, $query_ob_text);
 
                 if (!$result_rw_mo || !$result_rw_ob) {
                     $process_text = "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
@@ -148,8 +148,8 @@ if (isset($_POST["action"])) {
                 // Delete the entries from the pending query table.
                 $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
                 $delete_request_ob = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
-                $resultdel_mo = @pg_query ($resource_rw, $delete_request_mo);
-                $resultdel_ob = @pg_query ($resource_rw, $delete_request_ob);
+                $resultdel_mo = pg_query ($resource_rw, $delete_request_mo);
+                $resultdel_ob = pg_query ($resource_rw, $delete_request_ob);
 
                 if (!$resultdel_mo || !$resultdel_ob) {
                     echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
@@ -193,7 +193,7 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-	include_once '../../inc/form_checks.php';
+    include_once '../../inc/form_checks.php';
     include_once '../../inc/geshi/geshi.php';
 
 
@@ -218,12 +218,12 @@ if (!isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of ob_sig into the database
-            $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["ob_sig"] ."';");
+            $result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["ob_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
-                @pg_close($resource_rw);
+                pg_close($resource_rw);
                 exit;
             }
 
@@ -272,12 +272,12 @@ if (!isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $result = @pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
+            $result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
             if (pg_num_rows($result) != 1) {
                 $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
-                @pg_close($resource_rw);
+                pg_close($resource_rw);
                 exit;
             }
 
@@ -462,10 +462,11 @@ include '../../inc/header.php';
         <td>
             <center>
 <?php
-            if ($png_file_number <= 1)
+            if ($png_file_number <= 1) {
                 echo $png_file_number." texture file has been submitted:<br/>\n"; // Some eye caviar for the poor scenery maintainers.
-            else
+            } else {
                 echo $png_file_number." texture files have been submitted:<br/>\n";
+            }
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);

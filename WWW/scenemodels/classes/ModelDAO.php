@@ -17,8 +17,7 @@ require_once 'ModelFilesTar.php';
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 
-class ModelDAO extends PgSqlDAO implements IModelDAO {
-    
+class ModelDAO extends PgSqlDAO implements IModelDAO {    
     public function addModel($model) {
         //TODO
     }
@@ -68,13 +67,13 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "WHERE mo_thumbfile is NULL AND au_id = mo_author AND mg_id = mo_shared ".
                                          "ORDER BY mo_modified DESC LIMIT $pagesize OFFSET $offset;");
         
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getModelMetadataFromRow($row);
+            $resultArray[] = $this->getModelMetadataFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function countModelsNoThumb() {
@@ -136,13 +135,13 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "WHERE au_id = mo_author AND mg_id = mo_shared ".
                                          "ORDER BY mo_modified DESC LIMIT $pagesize OFFSET $offset;");
         
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getModelMetadataFromRow($row);
+            $resultArray[] = $this->getModelMetadataFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function getModelMetadatasByAuthor($authorId) {
@@ -152,13 +151,13 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "WHERE mo_author = $authorId AND au_id = mo_author AND mg_id = mo_shared ".
                                          "ORDER BY mo_modified DESC;");
         
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getModelMetadataFromRow($row);
+            $resultArray[] = $this->getModelMetadataFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function getModelMetadatasByGroup($modelId, $offset, $pagesize) {
@@ -168,13 +167,13 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "WHERE mo_shared = $modelId AND au_id = mo_author AND mg_id = mo_shared ".
                                          "ORDER BY mo_modified DESC LIMIT $pagesize OFFSET $offset;");
         
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getModelMetadataFromRow($row);
+            $resultArray[] = $this->getModelMetadataFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function getPaths() {
@@ -182,13 +181,13 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "FROM fgs_models ".
                                          "ORDER BY mo_path ASC;");
         
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[$row["mo_id"]] = $row["mo_path"];
+            $resultArray[$row["mo_id"]] = $row["mo_path"];
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function getModelsGroup($groupId) {
@@ -197,9 +196,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "WHERE mg_id = $groupId;");
                            
         $row = pg_fetch_assoc($result);
-        $modelsGroup = $this->getModelGroupFromRow($row);
-
-        return $modelsGroup;
+        return $this->getModelGroupFromRow($row);
     }
     
     public function getModelsGroups() {
@@ -207,13 +204,13 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "FROM fgs_modelgroups ".
                                          "ORDER BY mg_name;");
         
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getModelGroupFromRow($row);
+            $resultArray[] = $this->getModelGroupFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function getModelFiles($modelId) {

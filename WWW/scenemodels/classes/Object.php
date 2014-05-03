@@ -134,7 +134,6 @@ class Object {
     public function setLastUpdated($lastUpdated) {
         $this->lastUpdated = $lastUpdated;
     }
-    
 }
 
 ?>

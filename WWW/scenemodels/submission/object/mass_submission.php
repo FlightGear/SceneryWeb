@@ -4,7 +4,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
     // Inserting libs
     require_once '../../inc/functions.inc.php';
-	require_once '../../inc/form_checks.php';
+    require_once '../../inc/form_checks.php';
     require_once '../../inc/email.php';
 
     // Checking DB availability before all

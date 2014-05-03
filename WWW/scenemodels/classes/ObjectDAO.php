@@ -3,6 +3,7 @@ require_once 'PgSqlDAO.php';
 require_once "IObjectDAO.php";
 require_once "Object.php";
 require_once "Country.php";
+require_once "ObjectsGroup.php";
 
 /**
  * Object Data Access Object implementation for PostgreSQL
@@ -14,8 +15,7 @@ require_once "Country.php";
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 
-class ObjectDAO extends PgSqlDAO implements IObjectDAO {
-    
+class ObjectDAO extends PgSqlDAO implements IObjectDAO {    
     public function addObject($object) {
         //TODO
     }
@@ -28,9 +28,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
                                          "FROM fgs_objects, fgs_countries WHERE ob_id=$objectId AND ob_country = co_code;");
         $objectRow = pg_fetch_assoc($result);
-        $object = $this->getObjectFromRow($objectRow);
-        
-        return $object;
+        return $this->getObjectFromRow($objectRow);
     }
     
     public function getObjects($pagesize, $offset, $criteria=null) {
@@ -48,42 +46,50 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
                                          "FROM fgs_objects, fgs_countries WHERE ob_country = co_code $whereClause ".
                                          "ORDER BY ob_modified DESC LIMIT $pagesize OFFSET $offset;");
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getObjectFromRow($row);
+            $resultArray[] = $this->getObjectFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function getObjectsByModel($modelId) {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
                                          "FROM fgs_objects, fgs_countries WHERE ob_model=$modelId AND ob_country = co_code ".
                                          "ORDER BY ob_modified DESC;");
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getObjectFromRow($row);
+            $resultArray[] = $this->getObjectFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function getObjectsGroups() {
         $result = $this->database->query("SELECT gp_id, gp_name FROM fgs_groups;");
+        
+        $resultArray = array();
+        
+        while ($row = pg_fetch_assoc($result)) {
+            $resultArray[] = $this->getObjectGroupFromRow($row);
+        }
+        
+        return $resultArray;
     }
     
     public function getCountries() {
         $result = $this->database->query("SELECT * FROM fgs_countries ORDER BY co_name;");
         
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getCountryFromRow($row);
+            $resultArray[] = $this->getCountryFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     public function countObjects() {
@@ -129,6 +135,14 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $country->setCodeThree($countryRow["co_three"]);
         
         return $country;
+    }
+    
+    private function getObjectGroupFromRow($objGroupRow) {
+        $objectsGroup = new ObjectsGroup();
+        $objectsGroup->setId($objGroupRow["gp_id"]);
+        $objectsGroup->setName($objGroupRow["gp_name"]);
+        
+        return $objectsGroup;
     }
 
 }

@@ -40,13 +40,13 @@ class NewsPostDAO extends PgSqlDAO implements INewsPostDAO {
                                          "ORDER BY ne_timestamp DESC ".
                                          "LIMIT $pagesize OFFSET ".$offset);
         
-        $result_array = array();
+        $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $result_array[] = $this->getNewsPostFromRow($row);
+            $resultArray[] = $this->getNewsPostFromRow($row);
         }
         
-        return $result_array;
+        return $resultArray;
     }
     
     private function getNewsPostFromRow($row) {

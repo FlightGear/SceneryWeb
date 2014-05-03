@@ -517,7 +517,7 @@ function heading_true_to_stg($true_heading)
 // ==================================================================
 // Model's name is composed of: OBJECT_SHARED Models/
 // a mg_path from fgs_modelgroups;
-// a mo_path from fgs_objects;
+// a mo_path from fgs_models;
 // ie : Models/Power/windturbine.xml
 // So we have to check that the couple Power/windturbine.xml exists: if both concatenated values are ok, then we're fine.
 
@@ -531,7 +531,9 @@ function model_exists($model_name)
     $queried_mo_path = $tab_path[$max_tab_path-1];  // Returns the last field value.
 
     // Checking that the label "Model" is correct
-    if (strcmp($tab_path[0],"Models")) { return 1;}        // If ever dumb people try to put something else here.
+    if (strcmp($tab_path[0],"Models")) {
+        return 1;
+    }
 
     // Connecting to the database.
     $headerlink_family = connect_sphere_rw();
@@ -739,11 +741,7 @@ function detect_already_existing_object($lat, $lon, $ob_elevoffset, $ob_heading,
     // Closing the connection.
     pg_close ($resource_r);
     
-    if ($returned_rows > 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return $returned_rows > 0;
 }
 
 // Detects if an object exists in the database that is located (suspiciously) close to the submitted position
@@ -806,11 +804,7 @@ function is_shared($ob_id)
     pg_close ($resource_r);
     
     $row = pg_fetch_row($result);
-    if ($row[1] == 0) {
-        return false;
-    } else {
-        return true;
-    }
+    return $row[1] > 0;
 }
 
 // This function returns a random string which is used to be suffixed to a directory name to (try) to make it unique.

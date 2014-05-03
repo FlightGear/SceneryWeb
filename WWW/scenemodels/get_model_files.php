@@ -6,8 +6,9 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $id = $_REQUEST['id'];
 $type = $_REQUEST['type'];
 
-if (!is_model_id($id))
+if (!is_model_id($id)) {
     exit;
+}
     
 $modelfiles = $modelDaoRO->getModelFiles($id);
 
