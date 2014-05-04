@@ -117,15 +117,6 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     exit;
 }
 
-// Checking DB availability before all
-$ok = check_availability();
-
-if (!$ok) {
-    $page_title = "Automated Objects Deletion Form";
-    $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-    include '../../inc/error_page.php';
-    exit;
-}
 
 $error = false;
 global $error;

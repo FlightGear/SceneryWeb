@@ -7,16 +7,6 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
     require_once '../../inc/form_checks.php';
     require_once '../../inc/email.php';
 
-    // Checking DB availability before all
-    $ok = check_availability();
-
-    if (!$ok) {
-        $page_title = "Automated Objects Massive Import Request Form";
-        $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-        include '../../inc/error_page.php';
-        exit;
-    }
-
     // Check the presence of "action", the presence of "signature", its 
     // length (64) and its content.
     if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check")) {

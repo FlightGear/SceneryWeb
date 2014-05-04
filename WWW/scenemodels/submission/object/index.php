@@ -6,19 +6,9 @@ $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 // Inserting libs
 require_once '../../inc/functions.inc.php';
 
-// Checking DB availability before all
-$ok=check_availability();
-
-if(!$ok) {
-    $page_title = "Automated Objects Submission Form";
-    $error_text = "Sorry, but the database is currently unavailable. " .
-                  "We are doing the best to put it back up online. " .
-                  "Please come back again soon.";
-    include '../../inc/error_page.php';
-} else {
-    $page_title = "Automated Objects Submission Form";
-    $body_onload = "update_objects();";
-    include '../../inc/header.php';
+$page_title = "Automated Objects Submission Form";
+$body_onload = "update_objects();";
+include '../../inc/header.php';
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -211,5 +201,4 @@ $(function() {
 </div>
 
 <?php include '../../inc/footer.php';
-}
 ?>

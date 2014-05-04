@@ -420,23 +420,6 @@ function get_authors_email_from_authors_id($au_id) {
 }
 
 
-// Checks the availability of the database.
-// ========================================
-
-function check_availability() {
-    // Connecting to the database.
-    $resource = connect_sphere_r();
-
-    if ($resource != '0') {
-        pg_close ($resource);      // Close the database resource
-        return 1;                  // Say everything is OK
-    }
-    else {
-        pg_close ($resource);      // Close the database resource
-        return 0;                  // Apologies
-    }
-}
-
 // Computes the STG heading into a true heading before submission to the database.
 // ===============================================================================
 

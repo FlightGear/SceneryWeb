@@ -7,15 +7,6 @@ require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
-// Checking DB availability before all
-$ok = check_availability();
-
-if(!$ok) {
-    $page_title = "Automated Objects Submission Form";
-    $error_text = "Sorry, but the database is currently unavailable. We are doing the best to put it back up online. Please come back again soon.";
-    include '../../inc/error_page.php';
-    exit;
-}
 
 // Captcha stuff
 require_once '../../inc/captcha/recaptchalib.php';
