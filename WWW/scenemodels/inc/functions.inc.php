@@ -419,26 +419,6 @@ function get_authors_email_from_authors_id($au_id) {
     pg_close ($headerlink);
 }
 
-// Returns the number of objects in the database.
-// ==============================================
-
-function count_objects() {
-    // Connecting to the database.
-    $resource = connect_sphere_r();
-
-    // Count the number of objects in the database
-    $counter = pg_query($resource, "SELECT count(*) AS rows FROM fgs_objects;");
-
-    while ($line = pg_fetch_assoc($counter)) {
-        // So the stats are happy
-        // return number_format($line['rows'], '0', '', ' ');
-        return $line['rows'];
-    }
-
-    // Close the database resource
-    pg_close ($resource);
-}
-
 
 // Checks the availability of the database.
 // ========================================
