@@ -8,7 +8,7 @@ require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
-$step = $_POST['post'];
+$step = $_POST['step'];
 
 if ($step == 1) {
     // Captcha stuff
