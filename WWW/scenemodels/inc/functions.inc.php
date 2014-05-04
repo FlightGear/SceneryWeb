@@ -56,13 +56,11 @@ function family_name($id_family) {
     $query = "SELECT mg_name FROM fgs_modelgroups WHERE mg_id = ".$mg_id.";";
     $result = pg_query($headerlink_family, $query);
 
-    while ($row = pg_fetch_assoc($result))    {
-        $name_family = $row["mg_name"];
-    }
-
+    $row = pg_fetch_assoc($result);
+    
     // Closing the connection.
     pg_close ($headerlink_family);
-    return $name_family;
+    return $row["mg_name"];
 }
 
 
@@ -97,22 +95,15 @@ function get_object_family_from_id($ob_id) {
     $headerlink_family = connect_sphere_r();
 
     // Querying...
-    $query1 = "SELECT ob_model FROM fgs_objects WHERE ob_id = ".$ob_id.";";
-    $result = pg_query($headerlink_family, $query1);
-
-    while ($row = pg_fetch_assoc($result)) {
-        $mo_id = $row["ob_model"];
-        $query2 = "SELECT mo_shared FROM fgs_models WHERE mo_id = ".$mo_id.";";
-        $result2 = pg_query($headerlink_family, $query2);
-
-        while ($row2 = pg_fetch_assoc($result2)) {
-            $mg_family = $row2["mo_shared"];
-            return family_name($mg_family);
-        }
-    }
-
+    $query = "SELECT mo_shared FROM fgs_objects, fgs_models ".
+             "WHERE ob_id = ".$ob_id." AND ob_model=mo_id;";
+    $result = pg_query($headerlink_family, $query);
+    $row = pg_fetch_assoc($result);
+    
     // Closing the connection.
     pg_close ($headerlink_family);
+    
+    return family_name($row["mo_shared"]);
 }
 
 // Computes the country id of an ob_id sent as parameter
@@ -126,7 +117,8 @@ function compute_object_country_from_id($ob_id) {
     $headerlink_country = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT co_code FROM gadm2, fgs_countries, fgs_objects WHERE fgs_objects.ob_id = ".$mg_id." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+    $query = "SELECT co_code FROM gadm2, fgs_countries, fgs_objects ".
+             "WHERE fgs_objects.ob_id = ".$mg_id." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
     $result = pg_query($headerlink_country, $query);
 
     while ($row = pg_fetch_assoc($result)) {

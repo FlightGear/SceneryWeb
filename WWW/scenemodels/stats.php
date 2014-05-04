@@ -100,7 +100,9 @@ require 'inc/header.php';
             $list = "";
             while ($row_static = pg_fetch_assoc($result_static)) {
                 $country = rtrim($row_static['co_name']);
-                if ($country == "Iran (Islamic Republic of)") $country = "Iran";
+                if ($country == "Iran (Islamic Republic of)") {
+                    $country = "Iran";
+                }
                 $list .= "[\"".$country."\", ".$row_static['density']."],\n";
             }
             echo $list;

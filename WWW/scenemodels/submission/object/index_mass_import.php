@@ -101,6 +101,7 @@ function validateForm()
             echo recaptcha_get_html($publickey);
 ?>
             <br />
+            <input type="hidden" name="step" value="1"/>
             <input type="submit" value="Submit mass import" />
         </td>
     </tr>

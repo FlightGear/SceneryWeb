@@ -8,8 +8,9 @@ require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
 require_once '../../inc/email.php';
 
+$step = $_POST['post'];
 
-if (!$_POST['submit']) {
+if ($step == 1) {
     // Captcha stuff
     require_once '../../inc/captcha/recaptchalib.php';
 
@@ -55,11 +56,11 @@ $error = false;
 $failed_mail = false;
 if (is_email($_POST['email'])) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
-    if (!$_POST['submit'])
+    if ($step == 1)
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
 }
 else {
-    if (!$_POST['submit'])
+    if ($step == 1)
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
     $failed_mail = true;
 }
@@ -75,7 +76,7 @@ else {
     exit;
 }
 
-if (!$_POST['submit']) {
+if ($step == 1) {
     // Checking that stg exists and is containing only letters or figures.
     if (isset($_POST['stg']) && preg_match($regex['stg'], $_POST['stg'])) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
@@ -98,7 +99,7 @@ if (!$error) {
     $global_ko = false;                                     // Validates - or no - the right to go further.
     $cpt_err = 0;                                       // Counts the number of errors.
 
-    if (!$_POST['submit']) {
+    if ($step == 1) {
         echo '<p class=\"center\">Counted a number of '.$nb_lines.' lines submitted.</p>';
 
         // Limit the line numbers to
@@ -257,7 +258,7 @@ if (!$error) {
         echo "<td><center>".$elevoffset."</center></td> ";
 
         // Country
-        if (!$_POST['submit']) {
+        if ($step == 1) {
             $ob_country = compute_country_code_from_position($long, $lat);
             if ($ob_country == "") {
                 $unknown_country = true;
@@ -330,9 +331,11 @@ if (!$error) {
         }
     }
 }
-if (!$_POST['submit']) {
+if ($step == 1) {
     // Else, allow submitter to proceed
-    echo "<p class=\"center ok\">No errors have been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br/>Press to button below to finish your submission.<br/><br/><input name='submit' type='submit' value='Submit objects' /></p></form>";
+    echo "<p class=\"center ok\">No errors have been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br/>".
+         "Press to button below to finish your submission.<br/><br/>".
+         "<input type='hidden' name='step' value='2'/><input name='submit' type='submit' value='Submit objects' /></p></form>";
 } else {
     // Proceed on with the request generation
     $data_query_rw = "";
