@@ -518,27 +518,6 @@ function ob_model_from_name($model_name) {
     pg_close ($headerlink);
 }
 
-// List the countries and select a specific country (for the mass import script)
-// ==================================
-function list_countries_select($country_code) {
-    // Connecting to the database.
-    $headerlink_countries = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT * FROM fgs_countries ORDER BY 2 ASC;";
-    $result = pg_query($headerlink_countries, $query);
-
-    while($row = pg_fetch_assoc($result)) {
-        echo "<option value=\"".$row["co_code"]."\"";
-        if ($row["co_code"] == $country_code) {
-            echo " selected";
-        }
-        echo ">".rtrim($row["co_name"])."</option>\n";
-    }
-
-    // Closing the connection.
-    pg_close ($headerlink_countries);
-}
 
 // Returning the full name of the country depending on the country code submitted
 // ==============================================================================

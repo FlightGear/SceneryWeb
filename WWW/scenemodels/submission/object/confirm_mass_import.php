@@ -119,7 +119,6 @@ if (!$error) {
     }
 
     $i = 1;
-    $ko = false;
     $unknown_country = false;
     ?>
     <form id="positions" method="post" action="confirm_mass_import.php" onsubmit="return validateForm();">
@@ -127,10 +126,14 @@ if (!$error) {
     echo "<table>\n";
     echo "<tr>\n<th>Line</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Elev. offset</th><th>Country</th>\n\n<th>Result</th>\n</tr>\n";
 
+    $countries = $objectDaoRO->getCountries();
+    
     foreach ($tab_lines as $value) { // Now printing the lines...
+        $ko = false;
+        
         $elevoffset = 0;
         echo "<tr>";
-        echo "<td><center>".($i)."</center></td>";
+        echo "<td><center>".$i."</center></td>";
         $tab_tags = explode(" ",$value);
         $j = 1;
 
@@ -143,7 +146,6 @@ if (!$error) {
                 else {
                     echo "<td><p class=\"center warning\">Object type Error!</p></td>";
                     $ko = true;
-                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -157,26 +159,22 @@ if (!$error) {
                     else if ($return_value == 1) {
                         echo "<td><p class=\"center warning\">Bad model label!</p></td>";
                         $ko = true;
-                        $global_ko = true;
                         $cpt_err++;
                     }
                     else if ($return_value == 2) {
                         echo "<td><p class=\"center warning\">Model unknown!</p></td>";
                         $ko = true;
-                        $global_ko = true;
                         $cpt_err++;
                     }
                     else if ($return_value == 3) {
                         echo "<td><p class=\"center warning\">Family unknown!</p></td>";
                         $ko = true;
-                        $global_ko = true;
                         $cpt_err++;
                     }
                 }
                 else {
                     echo "<td><p class=\"center warning\">Object Error!</p></td>";
                     $ko = true;
-                    $global_ko = true;
                     $cpt_err++;
                 }
 
@@ -189,7 +187,6 @@ if (!$error) {
                 else {
                     echo "<td><p class=\"center warning\">Longitude Error!</p></td>";
                     $ko = true;
-                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -201,7 +198,6 @@ if (!$error) {
                 else {
                     echo "<td><p class=\"center warning\">Latitude Error!</p></td>";
                     $ko = true;
-                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -215,7 +211,6 @@ if (!$error) {
                 else {
                     echo "<td><p class=\"center warning\">Elevation Error!</p></td>";
                     $ko = true;
-                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -227,7 +222,6 @@ if (!$error) {
                 else {
                     echo "<td><p class=\"center warning\">Orientation Error!</p></td>";
                     $ko = true;
-                    $global_ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -241,7 +235,6 @@ if (!$error) {
                     else {
                         //echo "<td><p class=\"center warning\">Offset Error!</p></td>";
                         $ko = true;
-                        $global_ko = true;
                         $cpt_err++;
                     }
                 }
@@ -266,7 +259,15 @@ if (!$error) {
             echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>" .
                  "<option value=\"\">Unknown</option>" .
                  "<option value=\"\">----</option>";
-            list_countries_select($ob_country);
+            
+            foreach($countries as $country) {
+                echo "<option value=\"".$country->getCode()."\"";
+                if ($country->getCode() == $ob_country) {
+                    echo " selected";
+                }
+                echo ">".$country->getName()."</option>\n";
+            }
+
             echo "</select></td>";
         } else {
             $ob_country = $_POST['ob_country_'.$i];
@@ -292,20 +293,19 @@ if (!$error) {
             }
         }
         else {
+            $global_ko = true;
             echo "<td style='background-color: rgb(200, 0, 0); text-align: center;'>KO</td>"; // Good or not ?
         }
         echo "</tr>\n";      // Finishes the line.
         $i++;                // Increments the line number.
-        $ko = false;             // Resets the local KO to "0".
     }
     if ($unknown_country) {
         echo "<tr><td colspan=\"8\" align=\"right\">Set all 'unknown' countries to:</td><td>" .
              "<select name='global_country' id='global_country' style='width: 100%;' onchange='update_countries(this.value,".$i.")'>" .
              "<option value=\"\">----</option>";
-        $countries = $objectDaoRO->getCountries();
 
         foreach($countries as $country) {
-            echo "<option value=\"".$country->getCode()."\">".rtrim($country->getName())."</option>\n";
+            echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>\n";
         }
         echo "</select></td><td></td></tr>";
     }
