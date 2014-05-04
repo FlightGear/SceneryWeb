@@ -1,4 +1,7 @@
 <?php
+require_once "../classes/DAOFactory.php";
+$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+
 $page_title = "Automated Scenery Submission Forms";
 require '../inc/header.php';
 ?>
