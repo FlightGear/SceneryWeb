@@ -24,7 +24,8 @@ class AuthorDAO extends PgSqlDAO implements IAuthorDAO {
     }
     
     public function getAuthor($authorId) {
-        $result = $this->database->query("SELECT au_id, au_name, au_email, au_notes FROM fgs_authors WHERE au_id=$authorId;");
+        $result = $this->database->query("SELECT au_id, au_name, au_email, au_notes ".
+                                         "FROM fgs_authors WHERE au_id=".$authorId.";");
         $authorRow = pg_fetch_assoc($result);
         
         return $this->getAuthorFromRow($authorRow);
@@ -32,7 +33,7 @@ class AuthorDAO extends PgSqlDAO implements IAuthorDAO {
     
     public function getAllAuthors($offset, $pagesize) {
         $result = $this->database->query("SELECT au_id, au_name, au_email, au_notes FROM fgs_authors ".
-                                         "ORDER BY au_name LIMIT $pagesize OFFSET ".$offset);
+                                         "ORDER BY au_name LIMIT ".$pagesize." OFFSET ".$offset);
         
         $resultArray = array();
                            

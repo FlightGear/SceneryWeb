@@ -27,7 +27,7 @@ class NewsPostDAO extends PgSqlDAO implements INewsPostDAO {
     
     public function getNewsPost($newsPostId) {
         $result = $this->database->query("SELECT *, date_trunc('seconds',ne_timestamp) AS formdate ".
-                                         "FROM fgs_news, fgs_authors WHERE ne_id=$newsPostId;");
+                                         "FROM fgs_news, fgs_authors WHERE ne_id=".$newsPostId.";");
         $row = pg_fetch_assoc($result);
         
         return $this->getNewsPostFromRow($row);
@@ -38,7 +38,7 @@ class NewsPostDAO extends PgSqlDAO implements INewsPostDAO {
                                          "FROM fgs_news, fgs_authors ".
                                          "WHERE au_id = ne_author ".
                                          "ORDER BY ne_timestamp DESC ".
-                                         "LIMIT $pagesize OFFSET ".$offset);
+                                         "LIMIT ".$pagesize." OFFSET ".$offset);
         
         $resultArray = array();
                            

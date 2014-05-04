@@ -11,7 +11,7 @@ class PGDatabase implements Database {
     }
     
     public function __destruct() {
-        @pg_close($this->connection);
+        pg_close($this->connection);
     }
     
     public function query($query) {

@@ -6,17 +6,12 @@ require "/home/ojacq/.maintainers";
 // Connects Read Only to the database
 // ==================================
 
-function connect_sphere_r()
-{
+function connect_sphere_r() {
     // Inserting dependencies and defining settings
     include "/home/ojacq/.scenemodels";
-    $dbrname = $database;
-    $dbrhost = $host;
-    $dbruser = $ro_user;
-    $dbrpass = $ro_pass;
 
     // Connecting silently
-    $resource_r = pg_connect('dbname='.$dbrname.' host='.$dbrhost.' user='.$dbruser.' password='.$dbrpass.' sslmode=disable');
+    $resource_r = pg_connect('dbname='.$database.' host='.$host.' user='.$ro_user.' password='.$ro_pass.' sslmode=disable');
 
     // If could not connect to the database
     if ($resource_r == '0') {
@@ -31,17 +26,12 @@ function connect_sphere_r()
 // Connects Read-Write to the database
 // ===================================
 
-function connect_sphere_rw()
-{
+function connect_sphere_rw() {
     // Inserting dependencies and defining settings
     include "/home/ojacq/.scenemodels";
-    $dbrwname = $database;
-    $dbrwhost = $host;
-    $dbrwuser = $rw_user;
-    $dbrwpass = $rw_pass;
 
     // Connecting silently
-    $resource_rw = pg_connect('dbname='.$dbrwname.' host='.$dbrwhost.' user='.$dbrwuser.' password='.$dbrwpass.' sslmode=disable');
+    $resource_rw = pg_connect('dbname='.$database.' host='.$host.' user='.$rw_user.' password='.$rw_pass.' sslmode=disable');
 
     // If could not connect to the database
     if ($resource_rw == '0') {
@@ -56,8 +46,7 @@ function connect_sphere_rw()
 // Returns the name of the family sent as parameter
 // ================================================
 
-function family_name($id_family)
-{
+function family_name($id_family) {
     $mg_id = pg_escape_string($id_family);
 
     // Connecting to the database.
@@ -80,8 +69,7 @@ function family_name($id_family)
 // Returns the name of the object sent as parameter
 // ================================================
 
-function object_name($id_object)
-{
+function object_name($id_object) {
     $mg_id = pg_escape_string($id_object);
 
     // Connecting to the databse.
@@ -104,8 +92,7 @@ function object_name($id_object)
 // Returns the name of the family of an ob_id sent as parameter
 // ============================================================
 
-function get_object_family_from_id($ob_id)
-{
+function get_object_family_from_id($ob_id) {
     // Connecting to the database.
     $headerlink_family = connect_sphere_r();
 
@@ -132,8 +119,7 @@ function get_object_family_from_id($ob_id)
 // (ie, this is not the data in the database)
 // =====================================================
 
-function compute_object_country_from_id($ob_id)
-{
+function compute_object_country_from_id($ob_id) {
     $mg_id = pg_escape_string($ob_id);
 
     // Connecting to the database.
@@ -158,8 +144,7 @@ function compute_object_country_from_id($ob_id)
 // Update the object's country using its location
 // ==============================================
 
-function update_object_country_from_id($ob_id)
-{
+function update_object_country_from_id($ob_id) {
     $mg_id = pg_escape_string($ob_id);
 
     $country_code = compute_object_country_from_id($mg_id);
@@ -175,26 +160,25 @@ function update_object_country_from_id($ob_id)
 // Computes the country id of position specified by longitude and latitude
 // =======================================================================
 
-function compute_country_code_from_position($long, $lat)
-{
+function compute_country_code_from_position($long, $lat) {
     // Connecting to the database.
     $headerlink_country = connect_sphere_r();
 
     // Querying...
     $query = "SELECT co_code FROM gadm2, fgs_countries " .
-             "WHERE ST_Within(ST_PointFromText('POINT($long $lat)', 4326), gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+             "WHERE ST_Within(ST_PointFromText('POINT(".$long." ".$lat.")', 4326), gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
     $result = pg_query($headerlink_country, $query);
 
-    while ($row = pg_fetch_assoc($result)) {
-        if ($row["co_code"] == '') {
-            return '';
-        } else {
-            return $row["co_code"];
-        }
-    }
-
+    $row = pg_fetch_assoc($result);
+    
     // Closing the connection.
     pg_close ($headerlink_country);
+    
+    if ($row["co_code"] == '') {
+        return '';
+    } else {
+        return $row["co_code"];
+    }
 }
 
 // Returns the country of an ob_id sent as parameter
@@ -224,8 +208,7 @@ function get_object_country_from_id($ob_id)
 // Returns the group name (LANDMARK, NAVAID...) from an ob_group sent as parameter
 // ===============================================================================
 
-function get_group_name_from_id($ob_group)
-{
+function get_group_name_from_id($ob_group) {
     $group_id = pg_escape_string($ob_group);
 
     // Connecting to the database.
@@ -246,8 +229,7 @@ function get_group_name_from_id($ob_group)
 // Returns the object model id from an ob_id sent as parameter
 // ===========================================================
 
-function get_object_model_from_id($ob_id)
-{
+function get_object_model_from_id($ob_id) {
     // Connecting to the database.
     $headerlink_family = connect_sphere_r();
 
@@ -269,8 +251,7 @@ function get_object_model_from_id($ob_id)
 // Returns the object latitude from an ob_id sent as parameter
 // ===========================================================
 
-function get_object_latitude_from_id($ob_id)
-{
+function get_object_latitude_from_id($ob_id) {
     // Connecting to the database.
     $headerlink_family = connect_sphere_r();
 
@@ -292,8 +273,7 @@ function get_object_latitude_from_id($ob_id)
 // Returns the object longitude from an ob_id sent as parameter
 // ============================================================
 
-function get_object_longitude_from_id($ob_id)
-{
+function get_object_longitude_from_id($ob_id) {
     // Connecting to the database.
     $headerlink_family = connect_sphere_r();
 
@@ -313,8 +293,7 @@ function get_object_longitude_from_id($ob_id)
 // Get the object elevation from an ob_id sent as parameter
 // ========================================================
 
-function get_object_elevation_from_id($ob_id)
-{
+function get_object_elevation_from_id($ob_id) {
     // Connecting to the database.
     $headerlink_family = connect_sphere_r();
 
@@ -333,8 +312,7 @@ function get_object_elevation_from_id($ob_id)
 // Get the object offset from an ob_id sent as parameter
 // =====================================================
 
-function get_object_offset_from_id($ob_id)
-{
+function get_object_offset_from_id($ob_id) {
     // Connecting to the database.
     $headerlink_family = connect_sphere_r();
 
@@ -357,8 +335,7 @@ function get_object_offset_from_id($ob_id)
 // Get the true object orientation from an ob_id sent as parameter
 // ===============================================================
 
-function get_object_true_orientation_from_id($ob_id)
-{
+function get_object_true_orientation_from_id($ob_id) {
     // Connecting to the database.
     $headerlink_family = connect_sphere_r();
 
@@ -382,8 +359,7 @@ function get_object_true_orientation_from_id($ob_id)
 // the relevant data.
 // ===============================================================
 
-function get_object_text_from_id($ob_id)
-{
+function get_object_text_from_id($ob_id) {
     // Connecting to the database.
     $headerlink_family = connect_sphere_r();
 
@@ -402,8 +378,7 @@ function get_object_text_from_id($ob_id)
 // Returns the author's name from an author's id sent as parameter
 // ===============================================================
 
-function get_authors_name_from_authors_id($au_id)
-{
+function get_authors_name_from_authors_id($au_id) {
     $au_id = pg_escape_string($au_id);
 
     // Connecting to the database.
@@ -424,8 +399,7 @@ function get_authors_name_from_authors_id($au_id)
 // Returns the author's email from an author's id sent as parameter
 // ================================================================
 
-function get_authors_email_from_authors_id($au_id)
-{
+function get_authors_email_from_authors_id($au_id) {
     $au_id = pg_escape_string($au_id);
 
     // Connecting to the database.
@@ -448,8 +422,7 @@ function get_authors_email_from_authors_id($au_id)
 // Returns the number of objects in the database.
 // ==============================================
 
-function count_objects()
-{
+function count_objects() {
     // Connecting to the database.
     $resource = connect_sphere_r();
 
@@ -470,8 +443,7 @@ function count_objects()
 // Checks the availability of the database.
 // ========================================
 
-function check_availability()
-{
+function check_availability() {
     // Connecting to the database.
     $resource = connect_sphere_r();
 
@@ -488,8 +460,7 @@ function check_availability()
 // Computes the STG heading into a true heading before submission to the database.
 // ===============================================================================
 
-function heading_stg_to_true($stg_heading)
-{
+function heading_stg_to_true($stg_heading) {
     if ($stg_heading > 180) {
         $true_heading = 540 - $stg_heading;
     }
@@ -502,8 +473,7 @@ function heading_stg_to_true($stg_heading)
 // Computes the true heading into a STG heading (for edition purposes).
 //=====================================================================
 
-function heading_true_to_stg($true_heading)
-{
+function heading_true_to_stg($true_heading) {
     if ($true_heading > 180) {
         $stg_heading = 540 - $true_heading;
     }
@@ -521,8 +491,7 @@ function heading_true_to_stg($true_heading)
 // ie : Models/Power/windturbine.xml
 // So we have to check that the couple Power/windturbine.xml exists: if both concatenated values are ok, then we're fine.
 
-function model_exists($model_name)
-{
+function model_exists($model_name) {
     // Starting by checking the existence of the object
 
     $mg_id = pg_escape_string($model_name);
@@ -571,8 +540,7 @@ function model_exists($model_name)
 // Returns an ob_model id from a model name sent in parameter.
 // ===========================================================
 
-function ob_model_from_name($model_name)
-{
+function ob_model_from_name($model_name) {
     $mg_id = pg_escape_string($model_name);
     $tab_path = explode("/",$mg_id);                         // Explodes the fields of the string separated by /
     $max_tab_path = count($tab_path);                        // Counts the number of fields.
@@ -597,8 +565,7 @@ function ob_model_from_name($model_name)
 
 // List the countries and select a specific country (for the mass import script)
 // ==================================
-function list_countries_select($country_code)
-{
+function list_countries_select($country_code) {
     // Connecting to the database.
     $headerlink_countries = connect_sphere_r();
 
@@ -621,8 +588,7 @@ function list_countries_select($country_code)
 // Returning the full name of the country depending on the country code submitted
 // ==============================================================================
 
-function get_country_name_from_country_code($country_code)
-{
+function get_country_name_from_country_code($country_code) {
     // Connecting to the database.
     $headerlink_countries = connect_sphere_r();
 
@@ -646,8 +612,7 @@ function get_country_name_from_country_code($country_code)
 // Returns the extension of a file sent in parameter
 // =================================================
 
-function show_file_extension($filepath)
-{
+function show_file_extension($filepath) {
     preg_match('/[^?]*/', $filepath, $matches);
     $string = $matches[0];
     $pattern = preg_split('/\./', $string, -1, PREG_SPLIT_OFFSET_CAPTURE);
@@ -662,8 +627,7 @@ function show_file_extension($filepath)
 // Deletes a directory sent in parameter
 // =====================================
 
-function clear_dir($folder)
-{
+function clear_dir($folder) {
     $opened_dir = opendir($folder);
     if (!$opened_dir) {
         return;
@@ -686,18 +650,13 @@ function clear_dir($folder)
     }
 
     closedir($opened_dir);
-    $r = rmdir($folder);
-    if (!$r) {
-        return false;
-    }
-    return true;
+    return rmdir($folder);
 }
 
 // Detects if a submitted object already exists in the database f(lat, lon, ob_gndelev, ob_heading, ob_model).
 // ===========================================================================================================
 
-function detect_already_existing_object($lat, $lon, $ob_elevoffset, $ob_heading, $ob_model)
-{
+function detect_already_existing_object($lat, $lon, $ob_elevoffset, $ob_heading, $ob_model) {
     // Connecting to the database.
     $resource_r = connect_sphere_r();
 
@@ -722,8 +681,7 @@ function detect_already_existing_object($lat, $lon, $ob_elevoffset, $ob_heading,
 // Nearby means (at the moment) within 15 meters
 // ===========================================================================================================
 
-function detect_nearby_object($lat, $lon, $ob_model)
-{
+function detect_nearby_object($lat, $lon, $ob_model) {
     // Connecting to the database.
     $resource_r = connect_sphere_r();
 
@@ -753,8 +711,7 @@ function detect_nearby_object($lat, $lon, $ob_model)
 // This function returns the core filename of a file, ie without its native extension.
 // ===================================================================================
 
-function remove_file_extension($file)
-{
+function remove_file_extension($file) {
     if (strrpos ($file, ".") == false) {
         return $file;
     } else {
@@ -765,8 +722,7 @@ function remove_file_extension($file)
 // This function returns 'shared' if an object is shared, or 'static' if an object is static, based on its id.
 // ===========================================================================================================
 
-function is_shared($ob_id)
-{
+function is_shared($ob_id) {
     // Connecting to the database.
     $resource_r = connect_sphere_r();
 
@@ -784,8 +740,7 @@ function is_shared($ob_id)
 // This function returns a random string which is used to be suffixed to a directory name to (try) to make it unique.
 // ==================================================================================================================
 
-function random_suffix()
-{
+function random_suffix() {
     // Feeding the beast
     $ipaddr = $_SERVER['REMOTE_ADDR'];
     $suffix_data = microtime().$ipaddr;
@@ -798,8 +753,7 @@ function random_suffix()
 // This function extracts a tgz file into a temporary directory and returns its path.
 // ==================================================================================
 
-function open_tgz($archive)
-{
+function open_tgz($archive) {
     // Managing possible concurrent accesses on the maintainer side.
     $target_path = sys_get_temp_dir() .'/submission_'.random_suffix();
 
@@ -826,8 +780,7 @@ function open_tgz($archive)
 // This function close a temporary directory opened for a tgz file.
 // ================================================================
 
-function close_tgz($target_path)
-{
+function close_tgz($target_path) {
     unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
     clear_dir($target_path);                         // Deletes temporary submission directory
 }
@@ -835,8 +788,7 @@ function close_tgz($target_path)
 // Return true if the next TerraSync update is tomorrow
 // ================================================================
 
-function check_terrasync_update_passed()
-{
+function check_terrasync_update_passed() {
     $time = "12:30";
     if (strtotime(gmdate("H:i", time())) > strtotime($time)) {
         return $time."Z tomorrow";
@@ -847,13 +799,12 @@ function check_terrasync_update_passed()
 // Checks if the model path already exists in DB.
 // ==============================================
 
-function path_exists($proposed_path)
-{
+function path_exists($proposed_path) {
     // Connecting to the databse.
     $resource = connect_sphere_r();
 
     // Count the number of objects in the database
-    $path = pg_query($resource,"SELECT COUNT(*) as count FROM fgs_models WHERE mo_path='$proposed_path;");
+    $path = pg_query($resource,"SELECT COUNT(*) as count FROM fgs_models WHERE mo_path='".$proposed_path.";");
     $line = pg_fetch_assoc($path);
     
     // Close the database resource

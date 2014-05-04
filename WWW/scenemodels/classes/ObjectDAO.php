@@ -26,7 +26,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
     public function getObject($objectId) {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects, fgs_countries WHERE ob_id=$objectId AND ob_country = co_code;");
+                                         "FROM fgs_objects, fgs_countries WHERE ob_id=".$objectId." AND ob_country = co_code;");
         $objectRow = pg_fetch_assoc($result);
         return $this->getObjectFromRow($objectRow);
     }
@@ -38,14 +38,16 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
             $whereClause = "";
             $and = '';
             foreach ($criteria as $criterion) {
-                $whereClause .= $and . $criterion->getVarName() . $criterion->getOperation() . $criterion->getValue();
+                $whereClause .= $and . $criterion->getVarName() 
+                                . $criterion->getOperation()
+                                . $criterion->getValue();
                 $and = ' AND ';
             }
         }
     
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
                                          "FROM fgs_objects, fgs_countries WHERE ob_country = co_code $whereClause ".
-                                         "ORDER BY ob_modified DESC LIMIT $pagesize OFFSET $offset;");
+                                         "ORDER BY ob_modified DESC LIMIT ".$pagesize." OFFSET ".$offset.";");
         $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
