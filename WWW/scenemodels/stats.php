@@ -3,6 +3,7 @@
 require_once 'inc/functions.inc.php';
 require_once "classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 require 'inc/header.php';
 
@@ -29,7 +30,7 @@ require 'inc/header.php';
 
             // Preprocessing signs and models and objects, as they are used later on.
             $models = $modelDaoRO->countTotalModels();
-            $objects = count_objects();
+            $objects = $objectDaoRO->countObjects();
 
             $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
             $row    = pg_fetch_assoc($result);
@@ -46,7 +47,9 @@ require 'inc/header.php';
             $list = "";
             while ($row = pg_fetch_assoc($result)) {
                 $country = rtrim($row['co_name']);
-                if ($country == "Iran (Islamic Republic of)") $country = "Iran";
+                if ($country == "Iran (Islamic Republic of)") {
+                    $country = "Iran";
+                }
                 $list .= "[\"".$country."\", ".round($row['density'])."],\n ";
             }
             echo $list;
@@ -59,7 +62,9 @@ require 'inc/header.php';
             $list = "";
             while ($row = pg_fetch_assoc($result)) {
                 $country = rtrim($row['co_name']);
-                if ($country == "Iran (Islamic Republic of)") $country = "Iran";
+                if ($country == "Iran (Islamic Republic of)") {
+                    $country = "Iran";
+                }
                 $list .= "[\"".$country."\", ".$row['count']."],\n";
             }
             echo $list;

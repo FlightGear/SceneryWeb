@@ -1,6 +1,7 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -38,7 +39,7 @@ function validateForm()
 <p>
   <b>Foreword:</b> This automated massive import form goal is to ease the submission
   when submitter wants to add a lot of objects positions into FG Scenery database.
-  <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
+  <br />There are currently <?php echo number_format($objectDaoRO->countObjects(), '0', '', ' ');?> objects in the database.
   Help us to make it more! Simply copy/paste the NEW content of your STG files below.
 </p>
 <p>

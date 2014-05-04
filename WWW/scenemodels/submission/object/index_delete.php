@@ -1,6 +1,7 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -38,7 +39,7 @@ function validateForm()
 
 <p class="center">
   <b>Foreword:</b> This automated form goal is to ease the deletion of objects within FG Scenery database.
-  <br />There are currently <?php $objects = count_objects(); echo number_format($objects, '0', '', ' ');?> objects in the database.
+  <br />There are currently <?php echo number_format($objectDaoRO->countObjects(), '0', '', ' ');?> objects in the database.
 </p>
 
 <form id="deletion" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
