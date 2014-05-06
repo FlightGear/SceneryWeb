@@ -87,7 +87,7 @@
         Options +Indexes -FollowSymlinks
     </Directory>
     # Shapefile-Download
-    Alias /download /home/fgscenery/SHPdl
+    Alias /SHPdl /home/fgscenery/SHPdl
     # Scenery-Download (Dummy/Real)
     Alias /Scenery /home/martin/WWW/DummySceneryDownload
     <Directory "/home/martin/WWW/DummySceneryDownload">
