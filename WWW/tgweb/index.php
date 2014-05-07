@@ -5,6 +5,11 @@ $WWW_ROOT = '/home/fgscenery/TGBuild';
 $TMP_ROOT = '/home/fgscenery/TGBuild';
 $URL = 'http://scenery.flightgear.org/TGBuild';
 
+// Cleaning directories first
+shell_exec("find ".$WWW_ROOT." -name *.zip -type f -mmin +15 -delete");
+shell_exec("find ".$WWW_ROOT." -name 'aptgen_*' -type d -mmin +15 -delete");
+
+
 if(isset($_GET['action'])) {
   $WORKSPACE = $_SESSION['workspace'];
   $LOGFILE = $WORKSPACE.'/log.txt';
@@ -14,6 +19,8 @@ if(isset($_GET['action'])) {
     if(is_readable($WORKSPACE."/log.txt"))
       echo file_get_contents($WORKSPACE."/log.txt");
   }
+
+// Action = download the generated .btg.gz
 
   if($action == "dl-btggz"){
     $listOfAptFile = array();
@@ -39,6 +46,8 @@ if(isset($_GET['action'])) {
     shell_exec('mv -f '.$WORKSPACE.'/'.$_SESSION['token'].'.zip '.$WWW_ROOT);
     header('Location: '.$URL.'/'.$_SESSION['token'].'.zip');
   }
+
+// Action = upload the apt.dat
 
   if($action == "ul-apt"){
     $error =$_FILES["myfile"]["error"];
@@ -72,6 +81,8 @@ if(isset($_GET['action'])) {
   exit();
 }
 
+// Generate the log content
+
 function logMe($text, $file){
   file_put_contents($file, "<b><span style=\"color:#33CC33;\">guest@terragear</span> <span style=\"color:#0066FF;\">~ $</span></b> ".$text."\n", FILE_APPEND);
 }
@@ -82,9 +93,6 @@ shell_exec("mkdir -p ".$_SESSION['workspace']." && touch ".$_SESSION['workspace'
 chmod($_SESSION['workspace']."/log.txt", 0777);
 shell_exec('echo "<b><span style=\"color:#33CC33;\">guest@terragear</span> <span style=\"color:#0066FF;\">~ $</span></b>" > '.$_SESSION['workspace'].'/log.txt');
 ?>
-
-
-
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
@@ -186,7 +194,7 @@ shell_exec('echo "<b><span style=\"color:#33CC33;\">guest@terragear</span> <span
       <div class="step-content">
         <h3>Finish</h3>
         <div class="compute">
-          <p>Congratulations! You have generated your airport file, now you can download it:</p>
+          <p>Congratulations! You have generated your airport file, you can now download it:</p>
           <a href="index.php?action=dl-btggz" class="dl-btggz">Download</a>
         </div>
       </div>
@@ -266,7 +274,7 @@ var uploadApt = $("#ul-apt-box").uploadFile({
       $("div[step=dl-apt] button.next").removeAttr("disabled");
       $("div[step=dl-apt] div.mapserver :submit").attr("disabled", "disabled");
     }else{
-      alert("There is a problem with the your file.\nPlease check that the top of your file start with \"I\" then \"1000 Version\" and the last line is \"99\"");
+      alert("There is a problem with your file.\nPlease check that the top of your file starts with \"I\" then \"1000 Version\" and that the last line is \"99\"");
     }
   }
 });
