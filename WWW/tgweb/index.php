@@ -3,7 +3,7 @@ session_start();
 $TG_BIN = '/home/martin/terragear/bin';
 $WWW_ROOT = '/home/fgscenery/TGBuild';
 $TMP_ROOT = '/home/fgscenery/TGBuild';
-$URL = 'http://scenery.flightgear.org/tgweb';
+$URL = 'http://scenery.flightgear.org/TGBuild';
 
 if(isset($_GET['action'])) {
   $WORKSPACE = $_SESSION['workspace'];
