@@ -8,6 +8,7 @@
     <Directory "/home/fgscenery/GIT/WWW/tgweb">
         Options +Indexes -FollowSymlinks
     </Directory>
+    Alias /TGBuild /home/fgscenery/TGBuild
     Alias /geodata/fgx /home/ysablonier/fgx_geodata
     <Directory "/home/fgscenery/GIT/WWW/scenery/">
         AddHandler mod_python .psp
