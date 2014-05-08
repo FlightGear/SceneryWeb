@@ -49,12 +49,11 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $whereClause = "";
         if (isset($criteria) && count($criteria)>0) {
             $whereClause = "";
-            $and = '';
+            $and = ' AND ';
             foreach ($criteria as $criterion) {
                 $whereClause .= $and . $criterion->getVarName() 
                                 . $criterion->getOperation()
                                 . $criterion->getValue();
-                $and = ' AND ';
             }
         }
     
