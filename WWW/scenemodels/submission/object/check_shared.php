@@ -145,12 +145,8 @@ if (!$error) {
 
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
-    if ($offset == 0 || $offset == '') {
-        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, NULL, ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
-    }
-    else {
-        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".$offset.", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
-    }
+    $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
+                "VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".(($offset == 0 || $offset == '')?"NULL":"$offset") .", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_rw.">";

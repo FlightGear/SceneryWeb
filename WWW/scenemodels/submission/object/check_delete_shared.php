@@ -1,6 +1,7 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -57,8 +58,7 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     $failed_mail = false;
     if (isset($safe_email)) {
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
-    }
-    else {
+    } else {
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
         $failed_mail = true;
     }
@@ -162,23 +162,28 @@ $resource_r_deletion = connect_sphere_r();
 // If the delete_choice is sent directly to us from a webform "outside" the submission world
 if (isset($id_to_delete)) {
     // Let's grab the information about this object from the database
-    $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay, ob_group FROM fgs_objects WHERE ob_id = ".$id_to_delete.";";
-    $result = @pg_query ($resource_r_deletion, $query_pos);
-    $returned_rows = pg_num_rows ($result);
+    try {
+        $objectToDel = $objectDaoRO->getObject($id_to_delete);
+    } catch (Exception $e) {
+        $page_title = "Automated Objects Deletion Form";
+        $error_text = "Sorry, but no object with id $id_to_delete was found.";
+        include '../../inc/error_page.php';
+        exit;
+    }
 }
 else {
     // Let's see in the database if something exists at this position
-    $query_pos = "SELECT ob_id, to_char(ob_modified,'YYYY-mm-dd (HH24:MI)') AS ob_datedisplay, ob_group FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326);";
-    $result = @pg_query ($resource_r_deletion, $query_pos);
-    $returned_rows = pg_num_rows ($result);
-}
-
-// We have no result
-if ($returned_rows == 0) {
-    $page_title = "Automated Objects Deletion Form";
-    $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
-    include '../../inc/error_page.php';
-    exit;
+    $candidateObjects = $objectDaoRO->getObjectsAt($long, $lat);
+    
+    // We have no result
+    if (count($candidateObjects) == 0) {
+        $page_title = "Automated Objects Deletion Form";
+        $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
+        include '../../inc/error_page.php';
+        exit;
+    } else if (count($candidateObjects) == 1) {
+        $objectToDel = $candidateObjects[0];
+    }
 }
 
 $page_title = "Automated Objects Deletion Form";
@@ -186,9 +191,9 @@ require '../../inc/header.php';
 
 // We have only one result
 
-if ($returned_rows == 1) {
-    $row = pg_fetch_row($result);
-    echo "<p class=\"center\">You have asked to delete object <a href=\"/objectview.php?id=".$row[0]."\">#".$row[0]."</a>.</p>";
+if (isset($objectToDel)) {
+    $modelMDToDel = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
+    echo "<p class=\"center\">You have asked to delete object <a href=\"/objectview.php?id=".$objectToDel->getId()."\">#".$objectToDel->getId()."</a>.</p>";
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -198,7 +203,7 @@ function validateForm()
     var form = document.getElementById("delete_position");
 
     if (!checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!=="" && !checkEmail(form['email'])))
+            (form['email'].value!=="" && !checkEmail(form['email'])))
         return false;
 
 }
@@ -210,50 +215,50 @@ function validateForm()
     <form id="delete_position" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
     <table>
         <tr>
-            <td><span title="This is the family name of the object you want to delete."><label>Object's family</label></span></td>
-            <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
+            <td><span title="This is the family name of the model's object you want to delete."><label>Object's model family</label></span></td>
+            <td colspan="4"><?php echo $modelMDToDel->getModelGroup()->getName(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the model name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
-            <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo $model_name; ?></td>
+            <td colspan="4"><?php echo $modelMDToDel->getName(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><label>Longitude</label></span></td>
-            <td colspan="4"><?php $longitude = get_object_longitude_from_id($row[0]); echo $longitude; ?></td>
+            <td colspan="4"><?php echo $objectToDel->getLongitude(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><label>Latitude</label></span></td>
-            <td colspan="4"><?php $latitude = get_object_latitude_from_id($row[0]); echo $latitude; ?></td>
+            <td colspan="4"><?php echo $objectToDel->getLatitude(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><label>Date/Time of last update</label></span></td>
-            <td colspan="4"><?php echo $row[1]; ?></td>
+            <td colspan="4"><?php echo $objectToDel->getLastUpdated()->format("Y-m-d (H:i)"); ?></td>
         </tr>
         <tr>
             <td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><label>Elevation</label></span></td>
-            <td colspan="4"><?php $elevation = get_object_elevation_from_id($row[0]); echo $elevation; ?></td>
+            <td colspan="4"><?php echo $objectToDel->getGroundElevation(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><label>Elevation Offset</label></span></td>
-            <td colspan="4"><?php $offset = get_object_offset_from_id($row[0]); echo $offset; ?></td>
+            <td colspan="4"><?php echo $objectToDel->getElevationOffset(); ?></td>
         </tr>
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
-            <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
+            <td colspan="4"><?php echo heading_true_to_stg($objectToDel->getOrientation()); ?></td>
         </tr>
         <tr>
             <td><span title="Object's family (obstruction, ...)."><label>Object's family</label></span></td>
-            <td colspan="4"><?php $ob_text = get_group_name_from_id($row[2]); echo $ob_text; ?></td>
+            <td colspan="4"><?php echo $objectDaoRO->getObjectsGroup($objectToDel->getGroupId())->getName(); ?></td>
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
-            <td colspan="4"><?php $ob_text = get_object_text_from_id($row[0]); echo $ob_text; ?></td>
+            <td colspan="4"><?php echo $objectToDel->getDescription(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
-            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = $objectToDel->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
-            <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
+            <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $objectToDel->getLongitude(); ?>&amp;lat=<?php echo $objectToDel->getLatitude(); ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
         <tr>
             <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: 'I added a static model in replacement, so please delete it'. Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted."><label for="comment">Comment<em>*</em></label></span></td>
@@ -289,7 +294,7 @@ function validateForm()
 }
 
 // If we have more than one solution
-else if ($returned_rows > 1) {
+else if (count($candidateObjects) > 1) {
 
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -307,7 +312,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-    <p class="center"><?php echo $returned_rows;?> objects with WGS84 coordinates longitude: <?php echo $long;?>, latitude: <?php echo $lat;?> have been found in the database.<br />Please select with the left radio button the one you want to delete.</p>
+    <p class="center"><?php echo count($candidateObjects);?> objects with WGS84 coordinates longitude: <?php echo $long;?>, latitude: <?php echo $lat;?> have been found in the database.<br />Please select with the left radio button the one you want to delete.</p>
 
     <ul class="warning">If you want to replace an object which is set as an "OBSTRUCTION" (see the object's family hereunder) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
 
@@ -318,57 +323,58 @@ function validateForm()
 
     // Starting multi-solutions form
     $is_first = true; // Just used to put the selected button on the first entry
-    while ($row = pg_fetch_row($result)) {
+    foreach ($candidateObjects as $candidateObj) {
+        $candidateModelMD = $modelDaoRO->getModelMetadata($candidateObj->getModelId());
 ?>
         <tr>
-            <th colspan="5">Object number #<?php echo $row[0]; ?></th>
+            <th colspan="5">Object number #<?php echo $candidateObj->getId(); ?></th>
         </tr>
         <tr>
             <th rowspan="10">
-                <input type="radio" name="delete_choice" value="<?php echo $row[0];?>" <?php echo ($is_first)?"checked=\"checked\"":"";?> />
+                <input type="radio" name="delete_choice" value="<?php echo $candidateObj->getId();?>" <?php echo ($is_first)?"checked=\"checked\"":"";?> />
             </th>
             <td><span title="This is the family name of the object you want to delete."><label>Object's family</label></span></td>
-            <td colspan="4"><?php $family_name = get_object_family_from_id($row[0]); echo $family_name; ?></td>
+            <td colspan="4"><?php echo $candidateModelMD->getModelGroup()->getName(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the model name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
-            <td colspan="4"><?php $model_name = object_name(get_object_model_from_id($row[0]));  echo $model_name; ?></td>
+            <td colspan="4"><?php echo $candidateModelMD->getName(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><label>Longitude</label></span></td>
-            <td colspan="4"><?php $longitude = get_object_longitude_from_id($row[0]); echo $longitude; ?></td>
+            <td colspan="4"><?php $longitude = $candidateObj->getLongitude(); echo $longitude; ?></td>
         </tr>
         <tr>
             <td><span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><label>Latitude</label></span></td>
-            <td colspan="4"><?php $latitude = get_object_latitude_from_id($row[0]); echo $latitude; ?></td>
+            <td colspan="4"><?php $latitude = $candidateObj->getLatitude(); echo $latitude; ?></td>
         </tr>
         <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><label>Date/Time of last update</label></span></td>
-            <td colspan="4"><?php echo $row[1]; ?></td>
+            <td colspan="4"><?php echo $candidateObj->getLastUpdated()->format("Y-m-d (H:i)"); ?></td>
         </tr>
         <tr>
             <td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><label>Elevation</label></span></td>
-            <td colspan="4"><?php $elevation = get_object_elevation_from_id($row[0]); echo $elevation; ?></td>
+            <td colspan="4"><?php echo $candidateObj->getGroundElevation(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><label>Elevation Offset</label></span></td>
-            <td colspan="4"><?php $offset = get_object_offset_from_id($row[0]); echo $offset; ?></td>
+            <td colspan="4"><?php echo $candidateObj->getElevationOffset(); ?></td>
         </tr>
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
-            <td colspan="4"><?php $orientation = heading_true_to_stg(get_object_true_orientation_from_id($row[0])); echo $orientation; ?></td>
+            <td colspan="4"><?php echo heading_true_to_stg($candidateObj->getOrientation()); ?></td>
         </tr>
         <tr>
             <td><span title="Object's family (OBSTRUCTION, LANDMARK, ...)."><label>Object's family</label></span></td>
-            <td colspan="4"><?php $ob_text = get_group_name_from_id($row[2]); echo $ob_text; ?></td>
+            <td colspan="4"><?php echo $objectDaoRO->getObjectsGroup($candidateObj->getGroupId())->getName(); ?></td>
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
-            <td colspan="4"><?php $ob_text = get_object_text_from_id($row[0]); echo $ob_text; ?></td>
+            <td colspan="4"><?php echo $candidateObj->getDescription(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
-            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = get_object_model_from_id($row[0]); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = $candidateObj->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
             <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>

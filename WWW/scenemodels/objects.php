@@ -29,7 +29,7 @@ if (isset($_REQUEST['model']) && is_model_id($_REQUEST['model'])){
     $model = "";
 }
 
-if (isset($_REQUEST['groupid']) && (preg_match('/^[0-9]+$/u',$_REQUEST['groupid'])) && $_REQUEST['groupid']>0){
+if (isset($_REQUEST['groupid']) && preg_match('/^[0-9]+$/u',$_REQUEST['groupid']) && $_REQUEST['groupid']>0){
     $groupid = $_REQUEST['groupid'];
     $filter_text .= "&amp;groupid=".$groupid;
     

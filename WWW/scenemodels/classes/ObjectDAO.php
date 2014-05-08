@@ -27,6 +27,10 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     public function getObject($objectId) {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
                                          "FROM fgs_objects, fgs_countries WHERE ob_id=".$objectId." AND ob_country = co_code;");
+        if (pg_num_rows($result) == 0) {
+            throw new Exception('No object with id '. $objectId. ' was found!');
+        }
+        
         $objectRow = pg_fetch_assoc($result);
         return $this->getObjectFromRow($objectRow);
     }
@@ -80,6 +84,14 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         }
         
         return $resultArray;
+    }
+    
+    public function getObjectsGroup($objectGroupId) {
+        $result = $this->database->query("SELECT gp_id, gp_name FROM fgs_groups ".
+                                         "WHERE gp_id=".$objectGroupId.";");
+        
+        $row = pg_fetch_assoc($result);
+        return $this->getObjectGroupFromRow($row);
     }
     
     public function getObjectsGroups() {

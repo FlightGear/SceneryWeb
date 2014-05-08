@@ -22,6 +22,8 @@ interface IObjectDAO {
     
     public function getObjectsByModel($modelId);
     
+    public function getObjectsGroup($objectGroupId);
+    
     public function getObjectsGroups();
     
     public function getCountries();
