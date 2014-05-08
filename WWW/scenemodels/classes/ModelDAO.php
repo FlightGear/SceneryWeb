@@ -160,11 +160,11 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         return $resultArray;
     }
     
-    public function getModelMetadatasByGroup($modelId, $offset, $pagesize) {
+    public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize) {
         $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, mo_thumbfile, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_shared = ".$modelId." AND au_id = mo_author AND mg_id = mo_shared ".
+                                         "WHERE mo_shared = ".$modelGroupId." AND au_id = mo_author AND mg_id = mo_shared ".
                                          "ORDER BY mo_modified DESC LIMIT ".$pagesize." OFFSET ".$offset.";");
         
         $resultArray = array();

@@ -31,6 +31,19 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         return $this->getObjectFromRow($objectRow);
     }
     
+    public function getObjectsAt($long, $lat) {
+        $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
+                                         "FROM fgs_objects, fgs_countries WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326) AND ob_country = co_code;");
+    
+        $resultArray = array();
+                           
+        while ($row = pg_fetch_assoc($result)) {
+            $resultArray[] = $this->getObjectFromRow($row);
+        }
+        
+        return $resultArray;
+    }
+    
     public function getObjects($pagesize, $offset, $criteria=null) {
         // Generating WHERE clause from criteria
         $whereClause = "";

@@ -171,7 +171,9 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
                     
                     foreach ($countries as $country){
                         echo "<option value=\"".$country->getCode()."\"";
-                        if ($country->getCode() == $countryId) echo " selected=\"selected\"";
+                        if ($country->getCode() == $countryId) {
+                            echo " selected=\"selected\"";
+                        }
                         echo ">".$country->getName()."</option>\n";
                     }
 ?>

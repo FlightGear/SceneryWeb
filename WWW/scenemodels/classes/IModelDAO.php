@@ -30,7 +30,7 @@ interface IModelDAO {
 
     public function getModelMetadatasByAuthor($authorId);
     
-    public function getModelMetadatasByGroup($modelId, $offset, $pagesize);
+    public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize);
     
     public function getModelMetadatasNoThumb($offset, $pagesize);
     
