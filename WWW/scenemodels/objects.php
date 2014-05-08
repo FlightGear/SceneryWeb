@@ -138,7 +138,7 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
                     <option value="0"></option>
 <?php                    
                     $modelPaths = $modelDAO->getPaths();
-                    foreach ($paths as $mo_id => $path) {
+                    foreach ($modelPaths as $mo_id => $path) {
                         echo "<option value=\"".$mo_id."\"";
                         if ($mo_id == $model) {
                             echo " selected=\"selected\"";
