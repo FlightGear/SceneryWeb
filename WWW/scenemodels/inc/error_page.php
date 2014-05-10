@@ -14,8 +14,9 @@ require "header.php"; ?>
 
 <p class="center">
 <?php 
-    if(isset($process_text))
+    if(isset($process_text)) {
         echo $process_text;
+    }
 ?>
 </p>
 
@@ -25,8 +26,9 @@ require "header.php"; ?>
 
 <p class="center">
 <?php 
-    if(isset($advise_text))
+    if(isset($advise_text)) {
         echo $advise_text;
+    }
 ?>
 </p>
 

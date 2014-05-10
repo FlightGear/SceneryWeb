@@ -341,23 +341,25 @@ if ($fatalerror || $error > 0) {
 ###############################################
 
 if (file_exists($xmlPath)) {
-    $use_xml_for_mo_path = 0;
+    $use_xml_for_mo_path = false;
     $depth = array();
     $xml_parser = xml_parser_create();
 
     function startElement($parser, $name, $attrs) {
         global $depth;
         $parserInt = intval($parser);
-        if(!isset($depth[$parserInt]))
-            $depth[$parserInt]=0;
+        if(!isset($depth[$parserInt])) {
+            $depth[$parserInt] = 0;
+        }
         $depth[$parserInt]++;
     }
 
     function endElement($parser, $name) {
         global $depth;
         $parserInt = intval($parser);
-        if(!isset($depth[$parserInt]))
-            $depth[$parserInt]=0;
+        if(!isset($depth[$parserInt])) {
+            $depth[$parserInt] = 0;
+        }
         $depth[$parserInt]--;
     }
 
@@ -377,7 +379,7 @@ if (file_exists($xmlPath)) {
                 $errormsg .= "<li>XML error : ".xml_error_string(xml_get_error_code($xml_parser))." at line ".xml_get_current_line_number($xml_parser)."</li>";
             }
         }
-        $use_xml_for_mo_path = 1;
+        $use_xml_for_mo_path = true;
         xml_parser_free($xml_parser);
     }
 
@@ -408,7 +410,8 @@ if (file_exists($xmlPath)) {
 ###############################################
 
 if (file_exists($ac3dPath)) {
-    if ($handle = fopen($ac3dPath, 'r')) {
+    $handle = fopen($ac3dPath, 'r');
+    if ($handle) {
         $i = 0;
         while (!feof($handle)) {
             $line = fgets($handle);
@@ -453,7 +456,7 @@ for ($i=0; $i<12; $i++) {
         $pngPath  = $targetPath.$_FILES["png_file"]["name"][$i];
         $pngName  = $_FILES["png_file"]["name"][$i];
 
-        if (file_exists($pngPath)){
+        if (file_exists($pngPath)) {
             $tmp    = getimagesize($pngPath);
             $width  = $tmp[0];
             $height = $tmp[1];
@@ -590,9 +593,9 @@ if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["offset
         $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
     }
 
-    if ($offset == '' || $offset == '0')
+    if ($offset == '' || $offset == '0') {
         $offset = "NULL";
-    else if (!is_offset($offset)) {
+    } else if (!is_offset($offset)) {
         $error++;
         $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
     }
@@ -627,11 +630,11 @@ if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
         $country     = $_POST["ob_country"];
         $ipaddr      = $_POST["IPAddr"];
 
-    if ($mo_shared != 0) { // This is only used for shared objects.
-        if (model_exists('Models/'.family_name($mo_shared).'/'.$path) != 2) { // Reconstructing the parameters the model_exists function is waiting for, based on the path.
-            $error++;
-            $errormsg .= "<li>It seems that your model already exists in our database. If you want to update it, please use our lovely update script for 3D models (to come).</li>";
-        }
+    // This is only used for shared objects.
+    // Reconstructing the parameters the model_exists function is waiting for, based on the path.
+    if ($mo_shared != 0 && model_exists('Models/'.family_name($mo_shared).'/'.$path) != 2) {
+        $error++;
+        $errormsg .= "<li>It seems that your model already exists in our database. If you want to update it, please use our lovely update script for 3D models (to come).</li>";
     }
 
     if (!preg_match($regex['authorid'], $author)) {
@@ -682,10 +685,11 @@ else {
 
     # If an XML file is used for the model, the mo_path has to point to it, or
     # FG will not render it correctly. Else the .ac file will be used as mo_path.
-    if ($use_xml_for_mo_path == 1) {
+    if ($use_xml_for_mo_path) {
         $path_to_use = $xmlName;
+    } else {
+        $path_to_use = $ac3dName;
     }
-    else $path_to_use = $ac3dName;
     echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 
     $mo_query  = "INSERT INTO fgs_models ";
@@ -737,7 +741,7 @@ else {
     $ob_zipped_base64_rw_query = gzcompress($ob_query, 8);                         // Zipping the Base64'd request.
     $ob_base64_rw_query = base64_encode($ob_zipped_base64_rw_query);               // Coding in Base64.
     $ob_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$ob_sha_hash."', '".$ob_base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $ob_query_rw_pending_request);             // Sending the request...
+    $resultrw = pg_query($resource_rw, $ob_query_rw_pending_request);             // Sending the request...
 
     // Model stuff into pending requests table.
     $mo_sha_to_compute = "<".microtime()."><".$ipaddr."><".$mo_query.">";
@@ -745,9 +749,9 @@ else {
     $mo_zipped_base64_rw_query = gzcompress($mo_query, 8);                         // Zipping the Base64'd request.
     $mo_base64_rw_query = base64_encode($mo_zipped_base64_rw_query);               // Coding in Base64.
     $mo_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$mo_sha_hash."', '".$mo_base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $mo_query_rw_pending_request);             // Sending the request...
+    $resultrw = pg_query($resource_rw, $mo_query_rw_pending_request);             // Sending the request...
 
-    @pg_close($resource_rw);                                                       // Closing the connection.
+    pg_close($resource_rw);                                                       // Closing the connection.
 
     if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
