@@ -24,7 +24,7 @@ if ($mo_id != "") {
     echo "<model><name>"
          .$modelMD->getName()
          ."</name><notes>"
-         .$modelMD->getDescription()
+         .htmlspecialchars($modelMD->getDescription())
          ."</notes><author>"
          .$modelMD->getAuthor()->getId()
          ."</author></model>";

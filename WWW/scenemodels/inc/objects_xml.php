@@ -23,7 +23,7 @@ if ($mg_id != "") {
     // Showing the results.
     echo "<models>";
     foreach($modelMDs as $modelMD) {
-        echo "<model><id>".$modelMD->getId()."</id><name>".$modelMD->getName()."</name></model>";
+        echo "<model><id>".$modelMD->getId()."</id><name>".htmlspecialchars($modelMD->getName())."</name></model>";
     }
     echo "</models>";
 }
