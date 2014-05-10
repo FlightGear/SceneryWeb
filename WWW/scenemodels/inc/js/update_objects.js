@@ -81,13 +81,11 @@ function changeModelInfo(hreq, path)
     }
 }
 
-function change_thumb()
-{
+function change_thumb() {
     document.getElementById('form_objects_thumb').src = "../../modelthumb.php?id="+document.getElementById('model_name').value;  
 }
 
-function update_map(long_id, lat_id)
-{
+function update_map(long_id, lat_id) {
     var longitude = document.getElementById(long_id).value;
     var latitude = document.getElementById(lat_id).value;
 
@@ -96,13 +94,11 @@ function update_map(long_id, lat_id)
 }
 
 
-function update_country()
-{
+function update_country() {
     var longitude = document.getElementById('longitude').value;
     var latitude = document.getElementById('latitude').value;
     
-    if (longitude!=="" && latitude!=="")
-    {
+    if (longitude!=="" && latitude!=="") {
         //retrieves information from a php-generated xml
         var url = '/inc/country_xml.php?lg='+longitude+"&lt="+latitude;
 

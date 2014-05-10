@@ -7,12 +7,12 @@ $id = $_REQUEST['id'];
 
 if (is_model_id($id)) {
     $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-    $modelMetadata = $modelDaoRO->getModelMetadata($id);
+    $thumbnail = $modelDaoRO->getThumbnail($id);
     
     header("Content-Disposition: inline; filename=".$id.".jpg");
     
-    if (strlen($modelMetadata->getThumbnail())>1024) {
-        echo base64_decode($modelMetadata->getThumbnail());
+    if ($thumbnail != "") {
+        echo $thumbnail;
     } else {
         readfile("http://scenery.flightgear.org/img/nothumb.jpg");
     }

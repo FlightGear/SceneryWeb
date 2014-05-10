@@ -13,6 +13,7 @@
 class Model {
     private $modelMetadata;
     private $modelFiles;
+    private $thumbnail;
     
     function __construct() {
     }
@@ -33,6 +34,13 @@ class Model {
         $this->modelMetadata = $modelMetadata;
     }
     
+    public function getThumbnail() {
+        return $this->thumbnail;
+    }
+    
+    public function setThumbnail($thumbnail) {
+        $this->thumbnail = $thumbnail;
+    }
 }
 
 ?>

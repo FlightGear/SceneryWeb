@@ -43,7 +43,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function getModelMetadata($modelId){
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, mo_thumbfile, ".
+        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
                                          "WHERE mo_id = $modelId AND au_id = mo_author AND mg_id = mo_shared");
@@ -61,7 +61,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function getModelMetadatasNoThumb($offset, $pagesize) {
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, mo_thumbfile, ".
+        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
                                          "WHERE mo_thumbfile is NULL AND au_id = mo_author AND mg_id = mo_shared ".
@@ -92,6 +92,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $model = new Model();
         $model->setMetadata($modelMetadata);
         $model->setModelFiles(new ModelFilesTar(base64_decode($row["mo_modelfile"])));
+        $model->setThumbnail(base64_decode($row["mo_thumbfile"]));
         
         return $model;
     }
@@ -113,7 +114,6 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $modelMetadata->setDescription($row["mo_notes"]);
         $modelMetadata->setModelGroup($modelGroup);
         $modelMetadata->setLastUpdated(new DateTime($row['mo_modified']));
-        $modelMetadata->setThumbnail($row["mo_thumbfile"]);
 
         return $modelMetadata;
     }
@@ -129,7 +129,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     
     
     public function getModelMetadatas($offset, $pagesize) {
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, mo_thumbfile, ".
+        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
                                          "WHERE au_id = mo_author AND mg_id = mo_shared ".
@@ -145,7 +145,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function getModelMetadatasByAuthor($authorId) {
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, mo_thumbfile, ".
+        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
                                          "WHERE mo_author = ".$authorId." AND au_id = mo_author AND mg_id = mo_shared ".
@@ -161,7 +161,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize) {
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, mo_thumbfile, ".
+        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
                                          "WHERE mo_shared = ".$modelGroupId." AND au_id = mo_author AND mg_id = mo_shared ".
@@ -220,6 +220,12 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         return new ModelFilesTar(base64_decode($row["mo_modelfile"]));
     }
 
+    public function getThumbnail($modelId) {
+        $result = $this->database->query("SELECT mo_thumbfile FROM fgs_models WHERE mo_id=".$modelId.";");
+        $row = pg_fetch_assoc($result);
+        
+        return base64_decode($row["mo_thumbfile"]);
+    }
 }
 
 ?>

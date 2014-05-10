@@ -18,7 +18,6 @@ class ModelMetadata {
     private $author;
     private $modelGroup;
     private $lastUpdated;
-    private $thumbnail;
     
     public function getAuthor() {
         return $this->author;
@@ -74,14 +73,6 @@ class ModelMetadata {
     
     public function setLastUpdated($lastUpdated) {
         $this->lastUpdated = $lastUpdated;
-    }
-    
-    public function getThumbnail() {
-        return $this->thumbnail;
-    }
-    
-    public function setThumbnail($thumbnail) {
-        $this->thumbnail = $thumbnail;
     }
 }
 

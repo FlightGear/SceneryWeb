@@ -41,6 +41,8 @@ interface IModelDAO {
     public function getModelsGroups();
     
     public function getModelFiles($modelId);
+    
+    public function getThumbnail($modelId);
 }
 
 ?>
