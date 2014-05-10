@@ -38,8 +38,7 @@ require '../../inc/header.php';
 <script type ="text/javascript">
 function update_countries(code,n)
 {
-    for(var i = 1; i < n; i++)
-    {
+    for(var i = 1; i < n; i++) {
         if (!document.getElementById("ob_country_"+i).value) {
             document.getElementById("ob_country_"+i).value=code;
         }
@@ -56,12 +55,14 @@ $error = false;
 $failed_mail = false;
 if (is_email($_POST['email'])) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
-    if ($step == 1)
+    if ($step == 1) {
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
+    }
 }
 else {
-    if ($step == 1)
+    if ($step == 1) {
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
+    }
     $failed_mail = true;
 }
 

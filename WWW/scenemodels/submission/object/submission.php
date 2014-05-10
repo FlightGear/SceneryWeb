@@ -39,7 +39,9 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
             echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
 
             if ($_GET["action"] == "check") {
-                $trigged_query_rw = strstr($query_rw, 'ST_PointFromText'); // Removing the start of the query from the data;
+                // Removing the start of the query from the data
+                $trigged_query_rw = strstr($query_rw, 'ST_PointFromText');
+                
                 echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
 
                 $pattern = "/ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
@@ -65,7 +67,8 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
                      "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
                      "</tr>\n";
             } elseif ($_GET["action"] == "check_update") {
-                $trigged_query_rw = strstr($query_rw, 'SET'); // Removing the start of the query from the data;
+                // Removing the start of the query from the data
+                $trigged_query_rw = strstr($query_rw, 'SET');
                 $trigged_query_rw = str_replace('$','',$trigged_query_rw);
 
                 echo "<table>\n<tr>\n<th></th>\n<th>Old/current</th>\n<th>New</th>\n</tr>\n";

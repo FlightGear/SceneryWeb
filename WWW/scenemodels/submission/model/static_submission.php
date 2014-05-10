@@ -14,73 +14,71 @@ if (isset($_POST["action"])) {
         // - Drop fgs_position_requests;
         // - Send 2 mails
 
-    if ($_POST["action"] == "Reject model") {
+    if ($_POST["action"] == "Reject model"
+            && isset($_POST["ob_sig"]) && isset($_POST["mo_sig"])) {
 
-        if (isset($_POST["ob_sig"]) && isset($_POST["mo_sig"])) {
-            $resource_rw = connect_sphere_rw();
+        $resource_rw = connect_sphere_rw();
 
-            // If connection is OK
-            if ($resource_rw != '0') {
+        // If connection is OK
+        if ($resource_rw != '0') {
 
-                // Checking the presence of sig into the database
-                $ob_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
-                $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
-                if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
-                    $process_text = "Deleting corresponding pending query.";
-                    $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-                    $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
-                    include '../../inc/error_page.php';
-                    pg_close($resource_rw);
-                    exit;
-                }
+            // Checking the presence of sig into the database
+            $ob_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
+            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+            if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
+                $process_text = "Deleting corresponding pending query.";
+                $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+                $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
+                include '../../inc/error_page.php';
+                pg_close($resource_rw);
+                exit;
+            }
 
-                // Delete the entry from the pending query table.
-                $ob_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
-                $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
-                $ob_resultdel = pg_query($resource_rw, $ob_delete_request);
-                $mo_resultdel = pg_query($resource_rw, $mo_delete_request);
+            // Delete the entry from the pending query table.
+            $ob_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
+            $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
+            $ob_resultdel = pg_query($resource_rw, $ob_delete_request);
+            $mo_resultdel = pg_query($resource_rw, $mo_delete_request);
 
-                if ((!$ob_resultdel) || (!$mo_resultdel)) {
-                    $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
-                    $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                    include '../../inc/error_page.php';
-
-                    // Closing the rw connection.
-                    pg_close($resource_rw);
-                    exit;
-                }
-
-                include '../../inc/header.php';
-                echo "<p class=\"center\">Deleting corresponding pending query.</p>";
-                echo "<p class=\"center\">";
-                echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
-                echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
-                echo "</p>";
+            if ((!$ob_resultdel) || (!$mo_resultdel)) {
+                $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
+                $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+                include '../../inc/error_page.php';
 
                 // Closing the rw connection.
-                include '../../inc/footer.php';
                 pg_close($resource_rw);
-
-                // Sending mail if entry was correctly deleted.
-                // Sets the time to UTC.
-
-                date_default_timezone_set('UTC');
-                $dtg = date('l jS \of F Y h:i:s A');
-                $mo_sha_hash = $_POST["mo_sig"];
-                $ob_sha_hash = $_POST["ob_sig"];
-                $name = $_POST["mo_name"];
-                $comment = $_POST["maintainer_comment"];
-
-                if (isset($_POST['email'])) $to = $_POST["email"];
-                    else $to = "";
-
-                email("static_request_rejected");
-
                 exit;
-
-                /*echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
-                exit;*/
             }
+
+            include '../../inc/header.php';
+            echo "<p class=\"center\">Deleting corresponding pending query.</p>";
+            echo "<p class=\"center\">";
+            echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
+            echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
+            echo "</p>";
+
+            // Closing the rw connection.
+            include '../../inc/footer.php';
+            pg_close($resource_rw);
+
+            // Sending mail if entry was correctly deleted.
+            // Sets the time to UTC.
+
+            date_default_timezone_set('UTC');
+            $dtg = date('l jS \of F Y h:i:s A');
+            $mo_sha_hash = $_POST["mo_sig"];
+            $ob_sha_hash = $_POST["ob_sig"];
+            $name = $_POST["mo_name"];
+            $comment = $_POST["maintainer_comment"];
+
+            $to = (isset($_POST['email']))?$_POST["email"]:"";
+
+            email("static_request_rejected");
+
+            exit;
+
+            /*echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
+            exit;*/
         }
     }
 
@@ -177,8 +175,7 @@ if (isset($_POST["action"])) {
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
-                if (isset($_POST["email"])) $to = $_POST["email"];
-                    else $to = "";
+                $to = (isset($_POST["email"]))?$_POST["email"]:"";
 
                 email("add_model_request_accepted");
 
@@ -229,7 +226,7 @@ if (!isset($_POST["action"])) {
                 $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
                 $pos = strpos($query_rw, $search);
 
-                if ($pos === false) { // No offset is present
+                if (!$pos) { // No offset is present
                     $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
                     preg_match($pattern, $query_rw, $matches);
                     $ob_long       = $matches['longitude'];

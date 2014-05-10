@@ -166,19 +166,14 @@ function compute_country_code_from_position($long, $lat) {
     // Closing the connection.
     pg_close ($headerlink_country);
     
-    if ($row["co_code"] == '') {
-        return '';
-    } else {
-        return $row["co_code"];
-    }
+    return $row["co_code"];
 }
 
 // Returns the country of an ob_id sent as parameter
 // (ie, this is what's in the database)
 // =================================================
 
-function get_object_country_from_id($ob_id)
-{
+function get_object_country_from_id($ob_id) {
     $ob_id = pg_escape_string($ob_id);
 
     // Connecting to the database.
@@ -680,8 +675,7 @@ function random_suffix() {
     $suffix_data = microtime().$ipaddr;
 
     // Generating 16 random values from a hash. Should be enough as we also have a concurrent access management on dirs.
-    $dir_random_suffix = substr(hash('sha256', $suffix_data), 0, 16);
-    return $dir_random_suffix;
+    return substr(hash('sha256', $suffix_data), 0, 16);
 }
 
 // This function extracts a tgz file into a temporary directory and returns its path.

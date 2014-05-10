@@ -28,7 +28,7 @@ if ($resource_rw == '0')
     exit;
 
 // Checking the presence of sig into the database
-$result = @pg_query($resource_rw, "SELECT spr_base64_sqlz " .
+$result = pg_query($resource_rw, "SELECT spr_base64_sqlz " .
                                   "FROM fgs_position_requests " .
                                   "WHERE spr_hash = '". $mo_sig ."';");
 if (pg_num_rows($result) != 1)
@@ -72,7 +72,7 @@ $target_path = open_tgz($mo_modelfile);
 // Looking for the file in the tmp directory
 $dir = opendir($target_path);
 
-while (false !== ($file = readdir($dir))) {
+while ($file = readdir($dir)) {
     // If we know the extension
     if (isset($extension) && show_file_extension($file) == $extension) {
         $fichier = $target_path."/".$file;
