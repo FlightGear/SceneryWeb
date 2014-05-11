@@ -18,7 +18,7 @@ interface IObjectDAO {
     
     public function getObjectsAt($long, $lat);
     
-    public function getObjects($pagesize, $offset, $criteria=null);
+    public function getObjects($pagesize, $offset, $criteria, $orderby, $order);
     
     public function getObjectsByModel($modelId);
     

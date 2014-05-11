@@ -26,11 +26,11 @@ interface IModelDAO {
     
     public function getModelMetadata($modelId);
     
-    public function getModelMetadatas($offset, $pagesize);
+    public function getModelMetadatas($offset, $pagesize, $criteria, $orderby);
 
     public function getModelMetadatasByAuthor($authorId);
     
-    public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize);
+    public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize, $orderby);
     
     public function getModelMetadatasNoThumb($offset, $pagesize);
     

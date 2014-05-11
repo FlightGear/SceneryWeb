@@ -19,6 +19,7 @@ class Criterion {
     const OPERATION_GT = ">";
     const OPERATION_LT = "<";
     const OPERATION_LIKE = " LIKE ";
+    const OPERATION_IS = " is ";
     
     public function __construct($varName, $operation, $value) {
         $this->varName = $varName;

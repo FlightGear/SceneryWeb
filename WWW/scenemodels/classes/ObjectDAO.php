@@ -50,22 +50,15 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         return $resultArray;
     }
     
-    public function getObjects($pagesize, $offset, $criteria=null) {
-        // Generating WHERE clause from criteria
-        $whereClause = "";
-        if (isset($criteria) && count($criteria)>0) {
-            $whereClause = "";
-            $and = ' AND ';
-            foreach ($criteria as $criterion) {
-                $whereClause .= $and . $criterion->getVarName() 
-                                . $criterion->getOperation()
-                                . $criterion->getValue();
-            }
+    public function getObjects($pagesize, $offset, $criteria=null, $orderby="ob_modified", $order="DESC") {
+        $whereClause = $this->generateWhereClauseCriteria($criteria);
+        if ($whereClause != "") {
+            $whereClause .= " AND"; 
         }
     
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects, fgs_countries WHERE ob_country = co_code $whereClause ".
-                                         "ORDER BY ob_modified DESC LIMIT ".$pagesize." OFFSET ".$offset.";");
+                                         "FROM fgs_objects, fgs_countries WHERE $whereClause ob_country = co_code ".
+                                         "ORDER BY ".$orderby." $order LIMIT ".$pagesize." OFFSET ".$offset.";");
         $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {

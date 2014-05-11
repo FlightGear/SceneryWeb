@@ -6,6 +6,7 @@ require_once 'Author.php';
 require_once 'ModelMetadata.php';
 require_once 'ModelGroup.php';
 require_once 'ModelFilesTar.php';
+require_once 'Criterion.php';
 
 /**
  * Model Data Access Object implementation for PostgreSQL
@@ -60,22 +61,6 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         return $row["number"];
     }
     
-    public function getModelMetadatasNoThumb($offset, $pagesize) {
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
-                                         "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
-                                         "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_thumbfile is NULL AND au_id = mo_author AND mg_id = mo_shared ".
-                                         "ORDER BY mo_modified DESC LIMIT $pagesize OFFSET $offset;");
-        
-        $resultArray = array();
-                           
-        while ($row = pg_fetch_assoc($result)) {
-            $resultArray[] = $this->getModelMetadataFromRow($row);
-        }
-        
-        return $resultArray;
-    }
-    
     public function countModelsNoThumb() {
         $result = $this->database->query("SELECT COUNT(*) AS number " .
                                          "FROM fgs_models " .
@@ -128,12 +113,18 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     
-    public function getModelMetadatas($offset, $pagesize) {
+    public function getModelMetadatas($offset, $pagesize, $criteria=null, $orderby="mo_modified", $order="ASC") {
+        // Generating WHERE clause from criteria
+        $whereClause = $this->generateWhereClauseCriteria($criteria);
+        if ($whereClause != "") {
+            $whereClause .= " AND"; 
+        }
+        
         $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE au_id = mo_author AND mg_id = mo_shared ".
-                                         "ORDER BY mo_modified DESC LIMIT ".$pagesize." OFFSET ".$offset.";");
+                                         "WHERE $whereClause au_id = mo_author AND mg_id = mo_shared ".
+                                         "ORDER BY ".$orderby." ".$order." LIMIT ".$pagesize." OFFSET ".$offset.";");
         
         $resultArray = array();
                            
@@ -142,38 +133,24 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         }
         
         return $resultArray;
+    }
+    
+    public function getModelMetadatasNoThumb($offset, $pagesize) {
+        $criteria = array();
+        $criteria[] = new Criterion("mo_thumbfile", Criterion::OPERATION_IS, "NULL");
+        return $this->getModelMetadatas($offset, $pagesize, $criteria);
     }
     
     public function getModelMetadatasByAuthor($authorId) {
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
-                                         "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
-                                         "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_author = ".$authorId." AND au_id = mo_author AND mg_id = mo_shared ".
-                                         "ORDER BY mo_modified DESC;");
-        
-        $resultArray = array();
-                           
-        while ($row = pg_fetch_assoc($result)) {
-            $resultArray[] = $this->getModelMetadataFromRow($row);
-        }
-        
-        return $resultArray;
+        $criteria = array();
+        $criteria[] = new Criterion("mo_author", Criterion::OPERATION_EQ, $authorId);
+        return $this->getModelMetadatas(0, "ALL", $criteria);
     }
     
-    public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize) {
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
-                                         "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
-                                         "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_shared = ".$modelGroupId." AND au_id = mo_author AND mg_id = mo_shared ".
-                                         "ORDER BY mo_modified DESC LIMIT ".$pagesize." OFFSET ".$offset.";");
-        
-        $resultArray = array();
-                           
-        while ($row = pg_fetch_assoc($result)) {
-            $resultArray[] = $this->getModelMetadataFromRow($row);
-        }
-        
-        return $resultArray;
+    public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize, $orderby="mo_modified", $order="ASC") {
+        $criteria = array();
+        $criteria[] = new Criterion("mo_shared", Criterion::OPERATION_EQ, $modelGroupId);
+        return $this->getModelMetadatas($offset, $pagesize, $criteria, $orderby, $order);
     }
     
     public function getPaths() {

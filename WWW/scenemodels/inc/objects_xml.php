@@ -18,12 +18,12 @@ $mg_id = pg_escape_string($_GET['mg_id']);
 
 if ($mg_id != "") {
     // Querying when the family is updated.
-    $modelMDs = $modelDaoRO->getModelMetadatasByGroup($mg_id, 0, "ALL");
+    $modelMDs = $modelDaoRO->getModelMetadatasByGroup($mg_id, 0, "ALL", "mo_path", "ASC");
 
     // Showing the results.
     echo "<models>";
     foreach($modelMDs as $modelMD) {
-        echo "<model><id>".$modelMD->getId()."</id><name>".htmlspecialchars($modelMD->getName())."</name></model>";
+        echo "<model><id>".$modelMD->getId()."</id><name>".htmlspecialchars($modelMD->getFilename())."</name></model>";
     }
     echo "</models>";
 }
