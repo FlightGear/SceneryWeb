@@ -113,7 +113,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     
-    public function getModelMetadatas($offset, $pagesize, $criteria=null, $orderby="mo_modified", $order="ASC") {
+    public function getModelMetadatas($offset, $pagesize, $criteria=null, $orderby="mo_modified", $order="DESC") {
         // Generating WHERE clause from criteria
         $whereClause = $this->generateWhereClauseCriteria($criteria);
         if ($whereClause != "") {
