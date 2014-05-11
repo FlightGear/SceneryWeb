@@ -36,7 +36,7 @@ CREATE OR REPLACE FUNCTION fn_CSMerge(varchar)
     RETURNS void
 AS $BODY$
     DECLARE
-        getcslayers varchar;
+        getcslayers CURSOR FOR SELECT f_table_name FROM geometry_columns WHERE f_table_name LIKE 'cs_%' AND type LIKE 'POLYGON' ORDER BY f_table_name;
         bboxtest varchar;
         xstest varchar;
         intest varchar;
@@ -51,36 +51,35 @@ AS $BODY$
         ogcfid record;
         multifid record;
     BEGIN
-       getcslayers := 'SELECT f_table_name FROM geometry_columns WHERE f_table_name LIKE $$cs_%$$ AND type LIKE $$POLYGON$$ ORDER BY f_table_name';
         FOR cslayer IN
-            EXECUTE getcslayers
+            getcslayers
         LOOP  -- through layers
-            bboxtest := 'SELECT ogc_fid FROM quote_ident(cslayer.f_table_name) WHERE wkb_geometry && (SELECT wkb_geometry FROM cshole) ORDER BY ogc_fid';
+            bboxtest := concat('SELECT ogc_fid FROM ', quote_ident(cslayer.f_table_name), ' WHERE wkb_geometry && (SELECT wkb_geometry FROM cshole) ORDER BY ogc_fid');
             FOR ogcfid IN
                 EXECUTE bboxtest
             LOOP  -- through candidate objects
-                xstest := 'SELECT ST_Intersects((SELECT wkb_geometry FROM cshole), (SELECT wkb_geometry FROM quote_ident(cslayer.f_table_name) WHERE ogc_fid = ogcfid.ogc_fid))';
+                xstest := concat('SELECT ST_Intersects((SELECT wkb_geometry FROM cshole), (SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '))');
                 CASE WHEN EXECUTE xstest THEN
-                    intest := 'SELECT ST_Within((SELECT wkb_geometry FROM quote_ident(cslayer.f_table_name) WHERE ogc_fid = ogcfid.ogc_fid), (SELECT wkb_geometry FROM cshole))';
-                    delobj := 'DELETE FROM quote_ident(cslayer.f_table_name) WHERE ogc_fid = ogcfid.ogc_fid';
+                    intest := concat('SELECT ST_Within((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole))');
+                    delobj := concat('DELETE FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid);
                     CASE WHEN EXECUTE intest THEN
                         RAISE NOTICE '%', delobj;
                     ELSE
-                        diffobj := 'CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM quote_ident(cslayer.f_table_name) WHERE ogc_fid = ogcfid.ogc_fid), (SELECT wkb_geometry FROM cshole))';
+                        diffobj := concat('CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole))');
                         RAISE NOTICE '%', diffobj;
                         EXECUTE diffobj;
                         testmulti := 'SELECT ogc_fid FROM csdiff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL';
                         FOR multifid IN
                             EXECUTE testmulti
                         LOOP
-                            unrollmulti := 'INSERT INTO csdiff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM csdiff WHERE ogc_fid = multifid.ogc_fid)';
-                            delmulti := 'DELETE FROM csdiff WHERE ogc_fid = multifid.ogc_fid';
+                            unrollmulti := concat('INSERT INTO csdiff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid, ')');
+                            delmulti := concat('DELETE FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid);
                             RAISE NOTICE '%', unrollmulti;
                             EXECUTE unrollmulti;
                             RAISE NOTICE '%', delmulti;
                         END LOOP;
                         RAISE NOTICE '%', delobj;
-                        backdiff := 'INSERT INTO quote_ident(cslayer.f_table_name) (wkb_geometry) (SELECT wkb_geometry FROM csdiff)';
+                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff)');
                         RAISE NOTICE '%', backdiff;
                         dropdiff := 'DROP TABLE csdiff';
                     END CASE;
