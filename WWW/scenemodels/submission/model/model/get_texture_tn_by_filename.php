@@ -7,7 +7,7 @@ $filenameText = $dir_array[count($dir_array)-1];
 require_once '../../../inc/functions.inc.php';
 require_once '../../../inc/form_checks.php';
 
-if (!isset($filename) || !preg_match($regex['filename'], $filename)) {
+if (!isset($filenameText) || !preg_match($regex['filename'], $filenameText)) {
     exit;
 }
 
