@@ -44,7 +44,7 @@ if ($resultr) {
 
         // If the request contains a "INSERT INTO fgs_objects" but does NOT contain a formoid
         // If there is just one value, it's a single object insertion
-        if ((substr_count($unzipped_base64_query,"INSERT INTO fgs_objects") == 1) && (substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 0)) {
+        if (substr_count($unzipped_base64_query,"INSERT INTO fgs_objects") == 1 && substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 0) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             if (substr_count($unzipped_base64_query,"VALUES") == 1) {
                 $pending_requests .= "http://scenemodels.flightgear.org/submission/object/submission.php?action=check&sig=".$row->spr_hash."\n";
@@ -54,8 +54,8 @@ if ($resultr) {
                 $pending_requests .= "http://scenemodels.flightgear.org/submission/object/mass_submission.php?action=check&sig=".$row->spr_hash."\n";
             }
         }
-        // If the request contains a "UPDATE FROM fgs_objects"
-        if (substr_count($unzipped_base64_query,"UPDATE FROM fgs_objects") == 1) {
+        // If the request contains a "UPDATE fgs_objects"
+        if (substr_count($unzipped_base64_query,"UPDATE fgs_objects") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is an object update request! Click on the following link to check it!\n";
             $pending_requests .= "http://scenemodels.flightgear.org/submission/object/submission.php?action=check&sig=".$row->spr_hash."\n";
@@ -81,5 +81,5 @@ if ($resultr) {
 }
 
 // Closing the connection.
-pg_close($resource_rw);
+pg_close($resource_r);
 ?>

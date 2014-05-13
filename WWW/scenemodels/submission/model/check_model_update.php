@@ -655,9 +655,9 @@ else {
     $mo_zipped_base64_rw_query = gzcompress($mo_query, 8);                         // Zipping the Base64'd request.
     $mo_base64_rw_query = base64_encode($mo_zipped_base64_rw_query);               // Coding in Base64.
     $mo_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$mo_sha_hash."', '".$mo_base64_rw_query."');";
-    $resultrw = @pg_query($resource_rw, $mo_query_rw_pending_request);             // Sending the request...
+    $resultrw = pg_query($resource_rw, $mo_query_rw_pending_request);             // Sending the request...
 
-    @pg_close($resource_rw);                                                       // Closing the connection.
+    pg_close($resource_rw);                                                       // Closing the connection.
 
     if (!$resultrw) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";

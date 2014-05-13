@@ -225,9 +225,9 @@ function email($case) {
             $message .= "issued the following request:\r\n\r\n" .
                         "Object #:          ".$id_to_update."\r\n" .
                         "Family:            ". get_object_family_from_id($id_to_update) ." => ".family_name($family_name)."\r\n" .
-                        "[ ".$html_family_url."".$family_name." ]" . "\r\n" .
+                        "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_name." ]" . "\r\n" .
                         "Model:             ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
-                        "[ ".$html_object_url."".$model_name." ]" . "\r\n" .
+                        "[ http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_name." ]" . "\r\n" .
                         "Latitude:          ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
                         "Longitude:         ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
                         "Ground elevation:  ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
@@ -245,9 +245,9 @@ function email($case) {
                         "For reference, the first part of the unique ID of this request is '".substr($sha_hash,0,10). "'\r\n\r\n" .
                         "Object #:          ".$id_to_update."\r\n" .
                         "Family:            ". get_object_family_from_id($id_to_update) ." => ".family_name($family_name)."\r\n" .
-                        "[ ".$html_family_url." ]\r\n" .
+                        "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_name." ]\r\n" .
                         "Model:             ". object_name(get_object_model_from_id($id_to_update)) ." => ".object_name($model_name)."\r\n" .
-                        "[ ".$html_object_url." ]\r\n" .
+                        "[ http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_name." ]\r\n" .
                         "Latitude:          ". get_object_latitude_from_id($id_to_update) . "  => ".$new_lat."\r\n" .
                         "Longitude:         ". get_object_longitude_from_id($id_to_update) . " => ".$new_long."\r\n" .
                         "Ground elevation:  ". get_object_elevation_from_id($id_to_update) . " => ".$new_gndelev."\r\n" .
@@ -339,6 +339,6 @@ function email($case) {
     }
     $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 
-    @mail($to, $subject, $message, $headers);
+    mail($to, $subject, $message, $headers);
 }
 ?>
