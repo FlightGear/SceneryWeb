@@ -158,13 +158,13 @@ if (is_sig($_GET["sig"]) && $_GET["action"] == 'accept') {
     if ($resource_rw != '0') {
 
     // Checking the presence of sig into the database
-        $result = @pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
+        $result = pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';");
         if (pg_num_rows($result) != 1) {
             $page_title = "Automated Objects Pending Requests Form";
             $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
             $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
             include '../../inc/error_page.php';
-            @pg_close($resource_rw);
+            pg_close($resource_rw);
             exit;
         }
 
@@ -179,7 +179,7 @@ if (is_sig($_GET["sig"]) && $_GET["action"] == 'accept') {
                 $query_rw = gzuncompress($sqlz);
 
                 // Sending the request...
-                $resultrw = @pg_query($resource_rw, $query_rw);
+                $resultrw = pg_query($resource_rw, $query_rw);
 
                 if (!$resultrw) {
                     $page_title = "Automated Objects Pending Requests Form";
@@ -201,7 +201,7 @@ if (is_sig($_GET["sig"]) && $_GET["action"] == 'accept') {
 
                 // Delete the entry from the pending query table.
                 $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
-                $resultdel = @pg_query($resource_rw,$delete_request);
+                $resultdel = pg_query($resource_rw,$delete_request);
 
                 if(!resultdel) {
                     echo "<p class=\"center warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
@@ -246,7 +246,7 @@ else {
 
             // Checking the presence of sig into the database
             $delete_query = "SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
-            $result = @pg_query($delete_query);
+            $result = pg_query($delete_query);
 
             // If not ok...
 
@@ -257,13 +257,13 @@ else {
                 include '../../inc/error_page.php';
 
                 // Closing the rw connection.
-                @pg_close($resource_rw);
+                pg_close($resource_rw);
                 exit;
             }
 
             // Delete the entry from the pending query table.
             $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
-            $resultdel = @pg_query($resource_rw, $delete_request);
+            $resultdel = pg_query($resource_rw, $delete_request);
 
             if (!resultdel) {
                 $page_title = "Automated Objects Pending Requests Form";

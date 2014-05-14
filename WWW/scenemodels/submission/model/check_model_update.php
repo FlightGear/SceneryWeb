@@ -174,7 +174,9 @@ if ($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror) { // check file s
 
 if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 
-    if ($_FILES['ac3d_file']['type'] == "application/octet-stream" && (show_file_extension(basename($ac3dName)) == "ac" || show_file_extension(basename($ac3dName)) == "AC")) { // check type & extension file
+    // check type & extension file
+    if (($_FILES['ac3d_file']['type'] == "application/octet-stream" || $_FILES['ac3d_file']['type'] == "application/pkix-attr-cert")
+            && (show_file_extension(basename($ac3dName)) == "ac" || show_file_extension(basename($ac3dName)) == "AC")) {
 
         if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
             $error += 1;

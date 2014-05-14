@@ -174,7 +174,9 @@ if ($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror) { // check file s
 
 if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 
-    if ($_FILES['ac3d_file']['type'] == "application/octet-stream" && (show_file_extension(basename($ac3dName)) == "ac" || show_file_extension(basename($ac3dName)) == "AC")) { // check type & extension file
+    // check type & extension file
+    if (($_FILES['ac3d_file']['type'] == "application/octet-stream" || $_FILES['ac3d_file']['type'] == "application/pkix-attr-cert")
+            && strtolower(show_file_extension(basename($ac3dName))) == "ac") {
 
         if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
             $error += 1;
@@ -219,7 +221,7 @@ else {
 
 if ($_FILES['xml_file']['name'] != "") { // if file exists
     if ($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
-        if ($_FILES['xml_file']['type'] == "text/xml" && (show_file_extension(basename($xmlName)) == "xml" || show_file_extension(basename($xmlName)) == "XML")) { // check type & extension file
+        if ($_FILES['xml_file']['type'] == "text/xml" && strtolower(show_file_extension(basename($xmlName))) == "xml") { // check type & extension file
             if ($_FILES['xml_file']['error'] != 0) { // If error is detected
                 $error += 1;
                 $errormsg .= "<li>There has been an error while uploading the file \"".$xmlName."\".</li>";
@@ -272,7 +274,7 @@ for ($i=0; $i<12; $i++) {
 
         if ($pngsize < 2000000 && !$fatalerror) { // check size file
 
-            if ($pngType == 'image/png' && (show_file_extension(basename($pngName)) == "png" || show_file_extension(basename($pngName)) == "PNG")) { // check type & extension file
+            if ($pngType == 'image/png' && strtolower(show_file_extension(basename($pngName))) == "png") { // check type & extension file
 
                 if ($pngError != 0) { // If error is detected
                     $error += 1;

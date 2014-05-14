@@ -21,6 +21,10 @@ if (isset($_REQUEST['update_choice'])
 <script type="text/javascript" src="../../inc/js/jquery.multifile.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
+
+var ac3DSelected = false;
+var thumbSelected = false;
+
 function validateForm()
 {
     var form = document.getElementById("positions");
@@ -45,25 +49,46 @@ function validateTabs()
 
     // Tab 1
     if (!checkComment(form["mo_name"]) ||
-        form["mo_name"].value === "" ||
-        form["ac3d_file"].value === "" ||
-        form["mo_thumbfile"].value === "") {
+            form["mo_name"].value === "" ||
+            !ac3DSelected ||
+            !thumbSelected ||
+            form["comment"].value === "") {
         $( "#tabs" ).tabs({ disabled: [1] });
         return false;
     }
 }
 $(function() {
-    $( "#tabs" ).tabs({ disabled: [1, 2] });
+    $( "#tabs" ).tabs({ disabled: [1] });
 
-    $('#mo_thumbfile').MultiFile({
-        afterFileRemove: function(element, value, master_element){
-            validateTabs();
+    $('#ac3d_file').MultiFile({
+        max: 1,
+        accept: 'ac',
+        afterFileRemove: function(element, value, master_element) {
+          ac3DSelected = false;
+          validateTabs();
         },
-        afterFileAppend: function(element, value, master_element){
-            if (value.indexOf("_thumbnail.jpg", value.length - 14) === -1 && value.indexOf("_thumbnail.jpeg", value.length - 14) === -1) {
-                alert("The thumbnail name must end with _thumbnail");
-            }
-            validateTabs();
+        afterFileAppend: function(element, value, master_element) {
+          ac3DSelected = true;
+          validateTabs();
+        }
+    });
+    
+    $('#mo_thumbfile').MultiFile({
+        max: 1,
+        accept: 'jpg',
+        afterFileRemove: function(element, value, master_element) {
+          thumbSelected = false;
+          validateTabs();
+        },
+        afterFileAppend: function(element, value, master_element) {
+          if (value.indexOf("_thumbnail.jpg", value.length - 14) === -1 && value.indexOf("_thumbnail.jpeg", value.length - 14) === -1) {
+              alert("The thumbnail name must end with _thumbnail");
+              thumbSelected = false;
+          } else if (value !== "") {
+              thumbSelected = true;
+          }
+
+          validateTabs();
         }
     });
 });
@@ -162,7 +187,7 @@ $(function() {
                         <label for="ac3d_file">AC3D file<em>*</em><span >This is the AC3D file of your model (eg: tower.ac).</span></label>
                     </td>
                     <td colspan="2">
-                        <input type="file" name="ac3d_file" id="ac3d_file" class="multi" maxlength="1" accept="ac" onchange="validateTabs();" />
+                        <input type="file" name="ac3d_file" id="ac3d_file" />
                     </td>
                 </tr>
                 <tr>
@@ -186,13 +211,13 @@ $(function() {
                         <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em><span>This is a nice picture representing your model in FlightGear in the best way (eg: tower_thumbnail.jpeg). The filename must end on _thumbnail.</span></label>
                     </td>
                     <td colspan="2">
-                        <input type="file" name="mo_thumbfile" id="mo_thumbfile" class="multi" maxlength="1" accept="image/jpg, image/jpeg" onchange="validateTabs();" />
+                        <input type="file" name="mo_thumbfile" id="mo_thumbfile" />
                     </td>
                 </tr>
                 <tr>
                     <td><label for="comment">Comment<em>*</em><span>Please add a short (max 100 letters) statement why you are updating this model. This will help the maintainers understand what you are doing. eg: 'I have improved texture and clean the meshes, please commit.' Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted.</span></label></td>
                     <td colspan="2">
-                        <input type="text" name="comment" id="comment" maxlength="100" size="90" value="" onkeyup="checkComment(this);" />
+                        <input type="text" name="comment" id="comment" maxlength="100" size="90" value="" onkeyup="checkComment(this);validateTabs();" />
                     </td>
                 </tr>
             </table>
