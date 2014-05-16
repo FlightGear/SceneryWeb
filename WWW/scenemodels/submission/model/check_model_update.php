@@ -342,8 +342,8 @@ if ($fatalerror || $error > 0) {
 ###############################################
 ###############################################
 
-if (file_exists($xmlPath)) {
-    $use_xml_for_mo_path = 0;
+$use_xml_for_mo_path = false;
+if (isset($xmlPath) && file_exists($xmlPath)) {
     $depth = array();
     $xml_parser = xml_parser_create();
 
@@ -379,7 +379,7 @@ if (file_exists($xmlPath)) {
                 $errormsg .= "<li>XML error : ".xml_error_string(xml_get_error_code($xml_parser))." at line ".xml_get_current_line_number($xml_parser)."</li>";
             }
         }
-        $use_xml_for_mo_path = 1;
+        $use_xml_for_mo_path = true;
         xml_parser_free($xml_parser);
     }
 
@@ -548,10 +548,15 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $thumbFile = base64_encode($contents);             // Dump & encode the file
     unlink ($thumbPath);                               // Has to be deleted, because it's not put into the .tar.gz
 
-    $d2u_xml_command  = 'dos2unix '.$xmlPath;          // Dos2unix on XML
-    $d2u_ac3d_command = 'dos2unix '.$ac3dPath;         // Dos2Unix on AC3D
-    system ($d2u_xml_command);
-    system ($d2u_xml_command);
+    // Dos2unix on XML
+    if (isset($xmlPath)) {
+        $d2u_xml_command  = 'dos2unix '.$xmlPath;
+        system ($d2u_xml_command);
+    }
+
+    // Dos2Unix on AC3D
+    $d2u_ac3d_command = 'dos2unix '.$ac3dPath;
+    system ($d2u_ac3d_command);
 
     $phar = new PharData($tmp_dir . '/static.tar');                // Create archive file
     $phar->buildFromDirectory($targetPath);                        // Fills archive file
@@ -641,10 +646,11 @@ else {
 
     # If an XML file is used for the model, the mo_path has to point to it, or
     # FG will not render it correctly. Else the .ac file will be used as mo_path.
-    if ($use_xml_for_mo_path == 1) {
+    if ($use_xml_for_mo_path) {
         $path_to_use = $xmlName;
+    } else {
+        $path_to_use = $ac3dName;
     }
-    else $path_to_use = $ac3dName;
     echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 
     $mo_query  = "UPDATE fgs_models ";
@@ -665,20 +671,20 @@ else {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
     else {
-        $failed_mail = 0;
+        $failed_mail = false;
         $au_email = get_authors_email_from_authors_id($author);
         if (($au_email != '') && (strlen($au_email) > 0)) {
             $safe_au_email = pg_escape_string(stripslashes($au_email));
         }
         else {
-            $failed_mail = 1;
+            $failed_mail = true;
         }
         
         if (is_email($contr_email)) {
             $safe_contr_email = pg_escape_string(stripslashes($contr_email));
         }
         else {
-            $failed_mail = 1;
+            $failed_mail = true;
         }
         
         echo "has been successfully queued into the FG scenery database model update requests!<br />";
@@ -699,7 +705,7 @@ else {
         email("model_update_request_pending");
 
         
-        if($failed_mail != 1) {
+        if(!$failed_mail) {
             // Mailing the submitter to tell him that his submission has been sent for validation
             $to = $safe_contr_email;
             email("model_update_request_sent_for_validation");

@@ -96,7 +96,7 @@ if (isset($_POST["action"])) {
             $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
             $ob_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
 
-            if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
+            if (pg_num_rows($ob_result) != 1 || pg_num_rows($mo_result) != 1) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
@@ -433,13 +433,17 @@ include '../../inc/header.php';
         <td>
 <?php
             // Geshi stuff
-            $file = $target_path.'/'.$xml_file;
-            $source = file_get_contents($file);
-            $language = 'xml';
-            $geshi = new GeSHi($source, $language);
-            $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-            $geshi->set_line_style('background: #fcfcfc;');
-            echo $geshi->parse_code();
+            if (isset($xml_file)) {
+                $file = $target_path.'/'.$xml_file;
+                $source = file_get_contents($file);
+                $language = 'xml';
+                $geshi = new GeSHi($source, $language);
+                $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+                $geshi->set_line_style('background: #fcfcfc;');
+                echo $geshi->parse_code();
+            } else {
+                echo "No XML file submitted.";
+            }
 ?>
         </td>
     </tr>

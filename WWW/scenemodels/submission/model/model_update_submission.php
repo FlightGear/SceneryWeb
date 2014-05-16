@@ -366,13 +366,17 @@ include '../../inc/header.php';
         <td colspan="2">
 <?php
             // Geshi stuff
-            $file = $target_path.'/'.$xml_file;
-            $source = file_get_contents($file);
-            $language = 'xml';
-            $geshi = new GeSHi($source, $language);
-            $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-            $geshi->set_line_style('background: #fcfcfc;');
-            echo $geshi->parse_code();
+            if (isset($xml_file)) {
+                $file = $target_path.'/'.$xml_file;
+                $source = file_get_contents($file);
+                $language = 'xml';
+                $geshi = new GeSHi($source, $language);
+                $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+                $geshi->set_line_style('background: #fcfcfc;');
+                echo $geshi->parse_code();
+            } else {
+                echo "No XML file submitted.";
+            }
 ?>
         </td>
     </tr>

@@ -40,7 +40,7 @@ require '../../inc/header.php';
 ################################################
 ################################################
 
-if (($_FILES["mo_thumbfile"]['name'] != "") && (($_FILES["ac3d_file"]['name'] != "") || ($_FILES["xml_file"]['name'] != ""))) {
+if ($_FILES["mo_thumbfile"]['name'] != "" && ($_FILES["ac3d_file"]['name'] != "" || $_FILES["xml_file"]['name'] != "")) {
     $thumbName = remove_file_extension ($_FILES["mo_thumbfile"]['name']);
     $ac3dName  = remove_file_extension ($_FILES["ac3d_file"]['name']);
     $xmlName   = remove_file_extension ($_FILES["xml_file"]['name']);
@@ -342,8 +342,8 @@ if ($fatalerror || $error > 0) {
 ###############################################
 ###############################################
 
-if (file_exists($xmlPath)) {
-    $use_xml_for_mo_path = false;
+$use_xml_for_mo_path = false;
+if (isset($xmlPath) && file_exists($xmlPath)) {
     $depth = array();
     $xml_parser = xml_parser_create();
 
@@ -551,10 +551,15 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $thumbFile = base64_encode($contents);             // Dump & encode the file
     unlink ($thumbPath);                               // Has to be deleted, because it's not put into the .tar.gz
 
-    $d2u_xml_command  = 'dos2unix '.$xmlPath;          // Dos2unix on XML
-    $d2u_ac3d_command = 'dos2unix '.$ac3dPath;         // Dos2Unix on AC3D
-    system ($d2u_xml_command);
-    system ($d2u_xml_command);
+    // Dos2unix on XML
+    if (isset($xmlPath)) {
+        $d2u_xml_command  = 'dos2unix '.$xmlPath;
+        system ($d2u_xml_command);
+    }
+    
+    // Dos2Unix on AC3D
+    $d2u_ac3d_command = 'dos2unix '.$ac3dPath;
+    system ($d2u_ac3d_command);
 
     $phar = new PharData($tmp_dir . '/static.tar');                // Create archive file
     $phar->buildFromDirectory($targetPath);                        // Fills archive file
