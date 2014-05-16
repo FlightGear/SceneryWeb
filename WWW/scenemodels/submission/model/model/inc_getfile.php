@@ -29,8 +29,8 @@ if ($resource_rw == '0')
 
 // Checking the presence of sig into the database
 $result = pg_query($resource_rw, "SELECT spr_base64_sqlz " .
-                                  "FROM fgs_position_requests " .
-                                  "WHERE spr_hash = '". $mo_sig ."';");
+                                 "FROM fgs_position_requests " .
+                                 "WHERE spr_hash = '". $mo_sig ."';");
 if (pg_num_rows($result) != 1)
     exit;
 
