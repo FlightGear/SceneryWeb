@@ -141,6 +141,22 @@ def fn_runway_ils(icao, dir):
             tree.write(file, pretty_print=True, xml_declaration=True, encoding="ISO-8859-1")
             file.close()
 
+def fn_atis(icao, dir):
+    sql = "SELECT freq_mhz FROM apt_freq WHERE icao LIKE '%s' AND atc_type LIKE 'ATIS'" % icao
+
+    fn_pgexec(sql)
+    if db_cur.rowcount > 0:
+        with open(dir + icao + ".atis.xml", "w") as file:
+            db_result = db_cur.fetchall()
+            PropertyList = etree.Element("PropertyList")
+            freq = etree.SubElement(PropertyList, "freq")
+            for row in db_result:
+                atis = etree.SubElement(freq, "atis")
+                atis.text = str(row[0])
+            tree = etree.ElementTree(PropertyList)
+            tree.write(file, pretty_print=True, xml_declaration=True, encoding="ISO-8859-1")
+            file.close()
+
 def fn_walk():
     sql = "SELECT DISTINCT icao FROM apt_airfield ORDER BY icao"
 
@@ -158,6 +174,7 @@ def fn_walk():
             fn_tower_twr(airfield, directory)
             fn_runway_threshold(airfield, directory)
             fn_runway_ils(airfield, directory)
+            fn_atis(airfield, directory)
 
 fn_walk()
 
