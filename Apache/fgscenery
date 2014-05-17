@@ -4,6 +4,7 @@
     php_value auto_prepend_file /home/jstockill/etc/config.php
     ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
     ScriptAlias /svn-server /home/fgscenery/GIT/WWW/scenery/svn-server.psp
+    ScriptAlias /freq /home/fgscenery/GIT/WWW/scenery/freq.psp
     Alias /tgweb /home/fgscenery/GIT/WWW/tgweb
     <Directory "/home/fgscenery/GIT/WWW/tgweb">
         Options +Indexes -FollowSymlinks
