@@ -9,26 +9,7 @@ lon = float("%(lon)s" % form)
 lat = float("%(lat)s" % form)
 dist = float("%(dist)s" % form)
 
-sql = ("SELECT array_to_json(array_agg(row_to_json(t))) AS freq \
-        FROM ( \
-            SELECT f.icao, \
-                f.freq_name, \
-                f.freq_mhz, \
-                round(ST_Distance_Spheroid( \
-                    ST_PointFromText('POINT(%s %s)', 4326), \
-                    a.wkb_geometry, \
-                    'SPHEROID[\"WGS84\",6378137.000,298.257223563]')::numeric/1852.01, 1) \
-                AS dist \
-            FROM apt_freq AS f, \
-                apt_airfield AS a \
-            WHERE \
-                CAST(ST_Distance_Spheroid( \
-                    ST_PointFromText('POINT(%s %s)', 4326), \
-                    a.wkb_geometry, \
-                    'SPHEROID[\"WGS84\",6378137.000,298.257223563]') AS numeric) < %s*1852.01 \
-            AND f.icao = a.icao \
-            ORDER BY dist) \
-        AS t;") % (lon, lat, lon, lat, dist)
+sql = "SELECT fn_FreqRange(%s, %s, %s) AS freq" % (lon, lat, dist)
 
 db_cur.execute(sql)
 db_result = db_cur.fetchall()
