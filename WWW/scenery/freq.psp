@@ -14,7 +14,11 @@ sql = ("SELECT array_to_json(array_agg(row_to_json(t))) AS freq \
             SELECT f.icao, \
                 f.freq_name, \
                 f.freq_mhz, \
-                ST_Distance_Spheroid(ST_PointFromText('POINT(%s %s)', 4326), a.wkb_geometry, 'SPHEROID[\"WGS84\",6378137.000,298.257223563]')/1000/1.85201::decimal(9,3) AS dist \
+                ST_Distance_Spheroid( \
+                    ST_PointFromText('POINT(%s %s)', 4326), \
+                    a.wkb_geometry, \
+                    'SPHEROID[\"WGS84\",6378137.000,298.257223563]')/1000/1.85201::decimal(9,3) \
+                AS dist \
             FROM apt_freq AS f, \
                 apt_airfield AS a \
             WHERE \
