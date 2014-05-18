@@ -18,9 +18,6 @@ if (isset($filename) && !preg_match($regex['filename'], $filename))
 if (!is_sig($mo_sig))
     exit;
     
-if (!isset($type_contribute))
-    exit;
-
 $resource_rw = connect_sphere_rw();
 
 // If connection is not OK
@@ -44,9 +41,7 @@ $sqlz = base64_decode($sqlzbase64);
 // Gzuncompress the query
 $query_rw = gzuncompress($sqlz);
 
-
-if ($type_contribute == "update_model") {
-    $pattern = "/UPDATE fgs_models SET " .
+$pattern = "/UPDATE fgs_models SET " .
            "mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', " .
            "mo_author \= (?P<author>[0-9]+), " .
            "mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', " .
@@ -55,14 +50,14 @@ if ($type_contribute == "update_model") {
            "mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', " .
            "mo_shared \= (?P<shared>[0-9]+) " .
            "WHERE mo_id \= (?P<modelid>[0-9]+)/";
-} else if ($type_contribute == "insert_model") {
+$correspond = preg_match($pattern, $query_rw, $matches);
+
+if (!$correspond) {
     $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) " .
            "VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) " .
            "RETURNING mo_id/";
+    preg_match($pattern, $query_rw, $matches);
 }
-
-               
-preg_match($pattern, $query_rw, $matches);
 
 $mo_modelfile = base64_decode($matches['modelfile']);
 

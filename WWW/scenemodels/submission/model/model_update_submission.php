@@ -302,7 +302,7 @@ include '../../inc/header.php';
     <tr>
         <td>Corresponding Thumbnail</td>
         <td><img src="../../modelthumb.php?id=<?php echo $mo_id ?>" alt="Thumbnail"/></td>
-        <td><img src="get_thumbnail_from_mo_sig_update.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></td>
+        <td><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></td>
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
@@ -358,7 +358,7 @@ include '../../inc/header.php';
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
             <h3>New model:</h3>
-            <object data="model/index_update.php?mo_sig=<?php echo $_GET['mo_sig']; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="model/index.php?mo_sig=<?php echo $_GET['mo_sig']; ?>" type="text/html" width="720px" height="620px"></object>
         </td>
     </tr>
     <tr>
@@ -394,8 +394,8 @@ include '../../inc/header.php';
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
-                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_by_filename_update.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
-                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename_update.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
+                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
+                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
 
                 $tmp = getimagesize($texture_file);
                 $width  = $tmp[0];

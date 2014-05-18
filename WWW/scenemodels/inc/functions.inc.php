@@ -1,8 +1,5 @@
 <?php
 
-// Setting maintainers (will have to be moved somewhere on sphere)
-require "/home/ojacq/.maintainers";
-
 // Connects Read Only to the database
 // ==================================
 
