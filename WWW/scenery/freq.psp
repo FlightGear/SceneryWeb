@@ -1,0 +1,17 @@
+<%
+import psycopg2
+
+db_params = {"host":"localhost", "port":"5432", "database":"landcover", "user":"webuser"}
+db_conn = psycopg2.connect(**db_params)
+db_cur = db_conn.cursor()
+
+lon = float("%(lon)s" % form)
+lat = float("%(lat)s" % form)
+dist = float("%(dist)s" % form)
+
+sql = "SELECT fn_FreqRange(%s, %s, %s) AS freq" % (lon, lat, dist)
+
+db_cur.execute(sql)
+db_result = db_cur.fetchall()
+url = str(db_result[0][0])
+%><%=("%s") % (url)%>
