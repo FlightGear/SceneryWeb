@@ -7,9 +7,9 @@ db_cur = db_conn.cursor()
 
 lon = float("%(lon)s" % form)
 lat = float("%(lat)s" % form)
-dist = float("%(dist)s" % form)
+range = float("%(range)s" % form)
 
-sql = "SELECT fn_FreqRange(%s, %s, %s) AS freq" % (lon, lat, dist)
+sql = "SELECT fn_FreqRange(%s, %s, %s) AS freq" % (lon, lat, range)
 
 db_cur.execute(sql)
 db_result = db_cur.fetchall()
