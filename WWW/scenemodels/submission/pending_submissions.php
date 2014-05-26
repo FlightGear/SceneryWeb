@@ -2,7 +2,7 @@
 
 // Inserting libs
 require_once '../inc/functions.inc.php';
-require_once '../../classes/EmailContentFactory.php';
+require_once '../classes/EmailContentFactory.php';
 
 // Opening database connection...
 $resource_r = connect_sphere_r();
