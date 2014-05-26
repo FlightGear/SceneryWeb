@@ -101,6 +101,13 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         return $resultArray;
     }
     
+    public function getCountry($countryCode) {
+        $result = $this->database->query("SELECT * FROM fgs_countries WHERE co_code='". $countryCode ."';");
+              
+        $row = pg_fetch_assoc($result);
+        return $this->getCountryFromRow($row);
+    }
+    
     public function getCountries() {
         $result = $this->database->query("SELECT * FROM fgs_countries ORDER BY co_name;");
         
@@ -123,7 +130,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     public function countObjectsByModel($modelId) {
         $result = $this->database->query("SELECT COUNT(*) AS number " .
                                         "FROM fgs_objects " .
-                                        "WHERE ob_model=$modelId");
+                                        "WHERE ob_model=".$modelId.";");
         $row = pg_fetch_assoc($result);
         
         return $row["number"];

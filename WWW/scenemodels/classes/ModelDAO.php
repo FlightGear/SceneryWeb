@@ -4,7 +4,7 @@ require_once 'IModelDAO.php';
 require_once 'Model.php';
 require_once 'Author.php';
 require_once 'ModelMetadata.php';
-require_once 'ModelGroup.php';
+require_once 'ModelsGroup.php';
 require_once 'ModelFilesTar.php';
 require_once 'Criterion.php';
 
@@ -47,7 +47,21 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_id = $modelId AND au_id = mo_author AND mg_id = mo_shared");
+                                         "WHERE mo_id = ".$modelId." AND au_id = mo_author AND mg_id = mo_shared");
+        $row = pg_fetch_assoc($result);
+        
+        return $this->getModelMetadataFromRow($row);
+    }
+    
+    public function getModelMetadataFromName($modelName) {
+        $tab_path = explode("/",$modelName);                         // Explodes the fields of the string separated by /
+        $queried_mo_path = pg_escape_string($tab_path[count($tab_path)-1]);           // Returns the last field value.
+        
+        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
+                                         "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
+                                         "FROM fgs_models, fgs_authors, fgs_modelgroups ".
+                                         "WHERE mo_path = ".$queried_mo_path." AND au_id = mo_author AND mg_id = mo_shared");
+        
         $row = pg_fetch_assoc($result);
         
         return $this->getModelMetadataFromRow($row);
@@ -89,7 +103,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $author->setEmail($row["au_email"]);
         $author->setDescription($row["au_notes"]);
 
-        $modelGroup = $this->getModelGroupFromRow($row);
+        $modelsGroup = $this->getModelsGroupFromRow($row);
         
         $modelMetadata = new ModelMetadata();
         $modelMetadata->setId($row["mo_id"]);
@@ -97,19 +111,19 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $modelMetadata->setFilename($row["mo_path"]);
         $modelMetadata->setName($row["mo_name"]);
         $modelMetadata->setDescription($row["mo_notes"]);
-        $modelMetadata->setModelGroup($modelGroup);
+        $modelMetadata->setModelsGroup($modelsGroup);
         $modelMetadata->setLastUpdated(new DateTime($row['mo_modified']));
 
         return $modelMetadata;
     }
     
-    private function getModelGroupFromRow($row) {
-        $modelGroup = new ModelGroup();
-        $modelGroup->setId($row["mg_id"]);
-        $modelGroup->setName($row["mg_name"]);
-        $modelGroup->setPath($row["mg_path"]);
+    private function getModelsGroupFromRow($row) {
+        $modelsGroup = new ModelsGroup();
+        $modelsGroup->setId($row["mg_id"]);
+        $modelsGroup->setName($row["mg_name"]);
+        $modelsGroup->setPath($row["mg_path"]);
         
-        return $modelGroup;
+        return $modelsGroup;
     }
     
     
@@ -173,7 +187,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "WHERE mg_id = $groupId;");
                            
         $row = pg_fetch_assoc($result);
-        return $this->getModelGroupFromRow($row);
+        return $this->getModelsGroupFromRow($row);
     }
     
     public function getModelsGroups() {
@@ -184,7 +198,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $resultArray[] = $this->getModelGroupFromRow($row);
+            $resultArray[] = $this->getModelsGroupFromRow($row);
         }
         
         return $resultArray;

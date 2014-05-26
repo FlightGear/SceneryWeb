@@ -15,7 +15,7 @@ interface IModelDAO {
     public function updateModel($model);
     
     public function getModel($modelId);
-    
+
     public function countTotalModels();
     
     public function countModelsNoThumb();
@@ -26,11 +26,13 @@ interface IModelDAO {
     
     public function getModelMetadata($modelId);
     
+    public function getModelMetadataFromName($modelName);
+    
     public function getModelMetadatas($offset, $pagesize, $criteria, $orderby);
 
     public function getModelMetadatasByAuthor($authorId);
     
-    public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize, $orderby);
+    public function getModelMetadatasByGroup($modelsGroupId, $offset, $pagesize, $orderby);
     
     public function getModelMetadatasNoThumb($offset, $pagesize);
     

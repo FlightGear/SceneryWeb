@@ -16,7 +16,7 @@ class ModelMetadata {
     private $description;
     private $filename;
     private $author;
-    private $modelGroup;
+    private $modelsGroup;
     private $lastUpdated;
     
     public function getAuthor() {
@@ -59,12 +59,12 @@ class ModelMetadata {
         $this->description = $description;
     }
     
-    public function getModelGroup() {
-        return $this->modelGroup;
+    public function getModelsGroup() {
+        return $this->modelsGroup;
     }
     
-    public function setModelGroup($modelGroup) {
-        $this->modelGroup = $modelGroup;
+    public function setModelsGroup($modelsGroup) {
+        $this->modelsGroup = $modelsGroup;
     }
     
     public function getLastUpdated() {

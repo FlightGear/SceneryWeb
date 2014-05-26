@@ -24,18 +24,18 @@ class ModelFilesTar implements IModelFiles {
     }
 
     public function getACFile() {
-        $target_path = open_tgz($this->modelfile);
-        $dir = opendir($target_path);
+        $targetPath = open_tgz($this->modelfile);
+        $dir = opendir($targetPath);
 
         while ($file = readdir($dir)) {
             if (show_file_extension($file) == "ac") {
-                $filepath = $target_path."/".$file;
+                $filepath = $targetPath."/".$file;
                 $content = file_get_contents($filepath);
                 break;
             }
         }
         
-        close_tgz($target_path);
+        close_tgz($targetPath);
         
         return $content;
     }

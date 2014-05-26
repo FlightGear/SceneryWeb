@@ -52,9 +52,9 @@ $pagesize = 10;
         }
         echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>\n" .
              "<li><b>Last Updated: </b>".$modelMetadata->getLastUpdated()->format("Y-m-d (H:i)")."</li>\n" .
-             "<li><b>Type: </b><a href=\"modelbrowser.php?shared=".$modelMetadata->getModelGroup()->getId()."\">".$modelMetadata->getModelGroup()->getName()."</a></li>\n";
+             "<li><b>Type: </b><a href=\"modelbrowser.php?shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>\n";
 
-        if ($modelMetadata->getModelGroup()->isStatic()) {
+        if ($modelMetadata->getModelsGroup()->isStatic()) {
             $objects = $objectDaoRO->getObjectsByModel($modelMetadata->getId());
 
             foreach ($objects as $object) {             

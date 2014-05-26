@@ -6,7 +6,7 @@ require_once '../../inc/functions.inc.php';
 
 if (isset($_POST["action"])) {
     // Inserting libs
-    include_once '../../inc/email.php';
+    include_once '../../classes/EmailContentFactory.php';
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
@@ -73,8 +73,8 @@ if (isset($_POST["action"])) {
 
             $to = (isset($_POST['email']))?$_POST["email"]:"";
 
-            email("static_request_rejected");
-
+            $emailSubmit = EmailContentFactory::getStaticRequestRejectedEmailContent($dtg, $ob_sha_hash, $mo_sha_hash, $name, $comment);
+            $emailSubmit->sendEmail($to, true);
             exit;
 
             /*echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
@@ -177,8 +177,9 @@ if (isset($_POST["action"])) {
                 // Who will receive it ?
                 $to = (isset($_POST["email"]))?$_POST["email"]:"";
 
-                email("add_model_request_accepted");
-
+                $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $ob_sha_hash, $mo_sha_hash, $name, $comment);
+                $emailSubmit->sendEmail($to, true);
+                
                 include '../../inc/footer.php';
                 exit;
             }
@@ -213,38 +214,37 @@ if (!isset($_POST["action"])) {
                 exit;
             }
 
-            while ($row = pg_fetch_row($result)) {
-                $sqlzbase64 = $row[0];
+            $rows = pg_fetch_row($result);
+            $sqlzbase64 = $rows[0];
 
-                // Base64 decode query
-                $sqlz = base64_decode($sqlzbase64);
+            // Base64 decode query
+            $sqlz = base64_decode($sqlzbase64);
 
-                // Gzuncompress query
-                $query_rw = gzuncompress($sqlz);
+            // Gzuncompress query
+            $query_rw = gzuncompress($sqlz);
 
-                // Retrieve data from query
-                $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
-                $pos = strpos($query_rw, $search);
+            // Retrieve data from query
+            $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
+            $pos = strpos($query_rw, $search);
 
-                if (!$pos) { // No offset is present
-                    $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-                    preg_match($pattern, $query_rw, $matches);
-                    $ob_long       = $matches['longitude'];
-                    $ob_lat        = $matches['latitude'];
-                    $ob_gndelev    = $matches['gndelev'];
-                    $ob_heading    = $matches['heading'];
-                    $ob_country    = $matches['country'];
-                }
-                else { // ob_elevoffset has been found
-                    $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-                    preg_match($pattern, $query_rw, $matches);
-                    $ob_long       = $matches['longitude'];
-                    $ob_lat        = $matches['latitude'];
-                    $ob_gndelev    = $matches['gndelev'];
-                    $ob_elevoffset = $matches['offset'];
-                    $ob_heading    = $matches['heading'];
-                    $ob_country    = $matches['country'];
-                }
+            if (!$pos) { // No offset is present
+                $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+                preg_match($pattern, $query_rw, $matches);
+                $ob_long       = $matches['longitude'];
+                $ob_lat        = $matches['latitude'];
+                $ob_gndelev    = $matches['gndelev'];
+                $ob_heading    = $matches['heading'];
+                $ob_country    = $matches['country'];
+            }
+            else { // ob_elevoffset has been found
+                $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+                preg_match($pattern, $query_rw, $matches);
+                $ob_long       = $matches['longitude'];
+                $ob_lat        = $matches['latitude'];
+                $ob_gndelev    = $matches['gndelev'];
+                $ob_elevoffset = $matches['offset'];
+                $ob_heading    = $matches['heading'];
+                $ob_country    = $matches['country'];
             }
         }
     }

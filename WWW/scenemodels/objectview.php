@@ -79,7 +79,7 @@ if ($object->getDescription() != null) {
             <a href="submission/object/check_update.php?update_choice=<?php echo $id;?>">Update this object</a>
 <?php
     // If the object is static, let not user fix it with a shared script...
-    if (!$modelMetadata->getModelGroup()->isStatic()) {
+    if (!$modelMetadata->getModelsGroup()->isStatic()) {
 ?>
             &nbsp;| <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $id;?>">Delete this object</a>
 <?php

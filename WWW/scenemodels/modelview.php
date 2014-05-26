@@ -41,7 +41,7 @@ if (is_model_id($_REQUEST['id'])) {
         <td>Type</td>
         <td>
 <?php
-            print "<a href=\"modelbrowser.php?shared=".$modelMetadata->getModelGroup()->getId()."\">".$modelMetadata->getModelGroup()->getName()."</a>";
+            print "<a href=\"modelbrowser.php?shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a>";
 ?>
         </td>
     </tr>

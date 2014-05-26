@@ -6,7 +6,7 @@ if (isset($_POST["action"])) {
     // Inserting libs
     include_once '../../inc/functions.inc.php';
     include_once '../../inc/form_checks.php';
-    include_once '../../inc/email.php';
+    include_once '../../classes/EmailContentFactory.php';
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
@@ -69,7 +69,8 @@ if (isset($_POST["action"])) {
             $to = (isset($_POST['contrib_email']))?$_POST["contrib_email"]:"";
   
             // Email to contributor
-            email("model_update_request_rejected");
+            $emailSubmit = EmailContentFactory::getModelUpdateRequestRejectedEmailContent($dtg, $mo_sha_hash, $name, $comment);
+            $emailSubmit->sendEmail($to, true);
 
             exit;
         }
@@ -158,13 +159,11 @@ if (isset($_POST["action"])) {
 
                 // OK, let's start with the mail redaction.
                 // Who will receive it ?
-                if (isset($_POST["contrib_email"]))
-                    $to = $_POST["contrib_email"];
-                else
-                    $to = "";
+                $to = (isset($_POST["contrib_email"]))?$_POST["contrib_email"]:"";
 
                 // Email to contributor
-                email("model_update_request_accepted");
+                $emailSubmit = EmailContentFactory::getModelUpdateRequestAcceptedEmailContent($dtg, $mo_sha_hash, $name, $comment, $model_id);
+                $emailSubmit->sendEmail($to, true);
 
                 include '../../inc/footer.php';
                 exit;

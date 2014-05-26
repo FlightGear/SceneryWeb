@@ -136,7 +136,7 @@ $(function() {
                         // Start the select form
                         echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
                              "<option ";
-                        if (isset($model) && $model->getMetadata()->getModelGroup()->isStatic()) {
+                        if (isset($model) && $model->getMetadata()->getModelsGroup()->isStatic()) {
                             echo "selected=\"selected\" ";
                         }
                         echo "value=\"0\">Please select a family</option>\n" .
@@ -146,7 +146,7 @@ $(function() {
                             $name=preg_replace('/&/',"&amp;",$modelsGroup->getName());
                             $name=preg_replace('/ /',"&nbsp;",$name);
                             echo "<option value=\"".$modelsGroup->getId()."\"";
-                            if (isset($model) && $modelsGroup->getId() == $model->getMetadata()->getModelGroup()->getId()) {
+                            if (isset($model) && $modelsGroup->getId() == $model->getMetadata()->getModelsGroup()->getId()) {
                                 echo " selected=\"selected\"";
                             }
                             echo ">".$name."</option>\n";

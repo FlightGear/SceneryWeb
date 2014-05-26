@@ -1,12 +1,13 @@
 <?php
 require_once "../../classes/DAOFactory.php";
+require_once '../../classes/ObjectFactory.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../inc/email.php';
+require_once '../../classes/EmailContentFactory.php';
 
 // Checking all variables
 if (isset($_POST['new_long']) && is_longitude($_POST['new_long'])) {
@@ -96,6 +97,15 @@ if (isset($model_name)
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p><br />";
         $failed_mail = true;
     }
+    
+    $objectFactory = new ObjectFactory($objectDaoRO);
+    $oldObject = $objectDaoRO->getObject($id_to_update);
+    $newObject = $objectFactory->createObject($id_to_update, $model_name,
+            $new_long, $new_lat, $oldObject->getCountry()->getCode(), 
+            $new_offset, heading_stg_to_true($new_orientation), 1, "");
+    
+    $oldModelMD = $modelDaoRO->getModelMetadata($oldObject->getModelId());
+    $newModelMD = $modelDaoRO->getModelMetadata($model_name);
 
     // Preparing the update request: the quotes around NULL put above were tested OK.
     $query_update="UPDATE fgs_objects ".
@@ -144,12 +154,13 @@ if (isset($model_name)
     $family_name = $_POST['family_name'];
     $comment = $_POST['comment'];
 
-    email("shared_update_request_pending");
+    $emailSubmit = EmailContentFactory::getSharedUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $sha_hash);
+    $emailSubmit->sendEmail("", true);
 
     // Mailing the submitter to tell him that his submission has been sent for validation.
     if (!$failed_mail) {
-        $to = $safe_email;
-        email("shared_update_request_sent_for_validation");
+        $emailSubmit = EmailContentFactory::getSharedUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment);
+        $emailSubmit->sendEmail($safe_email, false);
     }
     include '../../inc/footer.php';
     exit;
@@ -199,14 +210,13 @@ function validateForm()
             <span title="This is the family name of the object you want to update."><label for="family_name">Object's family<em>*</em></label></span>
           </td>
           <td>
-            <?php $actual_family = $modelMDToUp->getModelGroup()->getName(); echo $actual_family; ?>
+            <?php echo $modelMDToUp->getModelsGroup()->getName(); ?>
           </td>
           <td>
 <?php
+    $id_family = $modelMDToUp->getModelsGroup()->getId();
 
-    if (is_shared($id_to_update)) {
-        $id_family = 0;
-
+    if (!$modelMDToUp->getModelsGroup()->isStatic()) {
         // Show all the families other than the static family
         $modelsGroups = $modelDaoRO->getModelsGroups();
 
@@ -214,18 +224,15 @@ function validateForm()
         echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
         foreach ($modelsGroups as $modelsGroup) {
             $name = preg_replace('/ /',"&nbsp;",$modelsGroup->getName());
-            if ($actual_family == $modelsGroup->getName()) {
-                $id_family = $modelsGroup->getId();
+            if ($id_family == $modelsGroup->getId()) {
                 echo "<option selected=\"selected\" value=\"".$modelsGroup->getId()."\">".$name."</option>\n";
-            }
-            else {
+            } else {
                 echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>\n";
             }
         }
         echo "</select>";
     }
     else {
-        $id_family = 1;
         echo "Static";
         echo "      <input name=\"family_name\" type=\"hidden\" value=\"0\"></input>";
     }
@@ -239,14 +246,13 @@ function validateForm()
           </td>
           <td>
 <?php
-    $actual_model_name = $modelMDToUp->getName();
-    echo $actual_model_name;
+    echo $modelMDToUp->getName();
 ?>
           </td>
           <td>
 <?php
 
-    if (is_shared($id_to_update)) {
+    if (!$modelMDToUp->getModelsGroup()->isStatic()) {
 
         echo "<div id=\"form_objects\">";
         echo "    <select name='model_name' id='model_name' onchange='change_thumb()'>";
@@ -258,7 +264,7 @@ function validateForm()
             $id   = $modelMetadata->getId();
             $path = $modelMetadata->getFilename();
 
-            if ($actual_model_name == $modelMetadata->getName()) {
+            if ($modelMDToUp->getId() == $modelMetadata->getId()) {
                 echo "<option selected=\"selected\" value='".$id."'>".$path."</option>\n";
             } else {
                 echo "<option value='".$id."'>".$path."</option>\n";
@@ -268,10 +274,9 @@ function validateForm()
         echo "</select>\n";
         echo "</div>\n";
 
-    }
-    else {
+    } else {
         echo "      <input name=\"model_name\" type=\"hidden\" value=\"".$objectToUp->getModelId()."\"></input>";
-        echo $actual_model_name;
+        echo $modelMDToUp->getName();
     }
 ?>
           </td>
@@ -457,7 +462,7 @@ else {
         <table>
             <tr>
                 <td><span title="This is the family name of the object you want to update."><label>Object's family</label></span></td>
-                <td colspan="4"><?php echo $modelMetadata->getModelGroup()->getName(); ?></td>
+                <td colspan="4"><?php echo $modelMetadata->getModelsGroup()->getName(); ?></td>
             </tr>
             <tr>
                 <td><span title="This is the model name of the object you want to update, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
@@ -533,7 +538,7 @@ else {
                     <input type="radio" name="update_choice" value="<?php echo $object->getId();?>" <?php echo ($i==1)?"checked=\"checked\"":""; ?> />
                 </th>
                 <td><span title="This is the family name of the object you want to update."><label>Object's family</label></span></td>
-                <td colspan="4"><?php echo $modelMetadata->getModelGroup()->getName(); ?></td>
+                <td colspan="4"><?php echo $modelMetadata->getModelsGroup()->getName(); ?></td>
             </tr>
             <tr>
                 <td><span title="This is the model name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">

@@ -6,7 +6,7 @@ $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 // Inserting libs
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../inc/email.php';
+require_once '../../classes/EmailContentFactory.php';
 
 $step = $_POST['step'];
 
@@ -155,7 +155,7 @@ if (!$error) {
                     $return_value = model_exists($value_tag);
                     if ($return_value == 0) {
                         echo "<td><center>".$value_tag."</center></td>";
-                        $model_id = ob_model_from_name($value_tag);
+                        $model_id = $modelDaoRO->getModelMetadataFromName($value_tag)->getId();
                     }
                     else if ($return_value == 1) {
                         echo "<td><p class=\"center warning\">Bad model label!</p></td>";
@@ -272,7 +272,7 @@ if (!$error) {
             echo "</select></td>";
         } else {
             $ob_country = $_POST['ob_country_'.$i];
-            echo "<td>".get_country_name_from_country_code($ob_country)."</td>";
+            echo "<td>".$countries[$ob_country]->getName()."</td>";
         }
 
         if (!$ko) {
@@ -391,12 +391,13 @@ if ($step == 1) {
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
     $host = gethostbyaddr($ipaddr);
 
-    email("mass_import_request_pending");
-
+    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $to, $safe_email, $sha_hash);
+    $emailSubmit->sendEmail("", true);
+    
     // Mailing the submitter to tell that his submission has been sent for validation.
     if (!$failed_mail) {
-        $to = $safe_email;
-        email("mass_import_sent_for_validation");
+        $emailSubmit = EmailContentFactory::getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $sha_hash);
+        $emailSubmit->sendEmail($safe_email, false);
     }
 }
 require '../../inc/footer.php';

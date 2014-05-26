@@ -484,32 +484,6 @@ function model_exists($model_name) {
     pg_close ($headerlink_family);
 }
 
-// Returns an ob_model id from a model name sent in parameter.
-// ===========================================================
-
-function ob_model_from_name($model_name) {
-    $mg_id = pg_escape_string($model_name);
-    $tab_path = explode("/",$mg_id);                         // Explodes the fields of the string separated by /
-    $max_tab_path = count($tab_path);                        // Counts the number of fields.
-    $queried_mo_path = $tab_path[$max_tab_path-1];           // Returns the last field value.
-
-    // Connecting to the database.
-    $headerlink = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT mo_id, mo_path FROM fgs_models WHERE mo_path = '".$queried_mo_path."';";
-    $result = pg_query($headerlink, $query);
-
-    // Checking the number of results. Should be 1.
-    if (pg_num_rows($result) == 1) { // If object is known, returning the mo_id.
-        $row = pg_fetch_row($result);
-        return $row[0];
-    }
-
-    // Closing the connection.
-    pg_close ($headerlink);
-}
-
 
 // Returning the full name of the country depending on the country code submitted
 // ==============================================================================
@@ -638,7 +612,7 @@ function detect_nearby_object($lat, $lon, $ob_model) {
 // ===================================================================================
 
 function remove_file_extension($file) {
-    if (strrpos ($file, ".") == false) {
+    if (!strrpos ($file, ".")) {
         return $file;
     } else {
         return substr($file, 0, strrpos($file, "."));

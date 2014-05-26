@@ -6,7 +6,7 @@ $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 // Inserting libs
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../inc/email.php';
+require_once '../../classes/EmailContentFactory.php';
 
 
 // Checks all variables if exist
@@ -27,7 +27,7 @@ if (!empty($_POST['comment']) && is_comment($_POST['comment'])) {
 }
 
 // Final step to deletion
-if (isset($step) && ($step == 3) && isset($id_to_delete)) {
+if (isset($step) && $step == 3 && isset($id_to_delete)) {
 
     // Captacha stuff
     require_once '../../inc/captcha/recaptchalib.php';
@@ -53,7 +53,10 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     include '../../inc/header.php';
 
     echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p>";
-
+    
+    $objectToDel = $objectDaoRO->getObject($id_to_delete);
+    $modelMD = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
+    
     // Should in fact be somewhere like here. Checking that comment exists. Just a small verification as it's not going into DB.
     $failed_mail = false;
     if (isset($safe_email)) {
@@ -106,12 +109,13 @@ if (isset($step) && ($step == 3) && isset($id_to_delete)) {
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
     $host   = gethostbyaddr($ipaddr);
     
-    email("shared_delete_request_pending");
+    $emailSubmit = EmailContentFactory::getSharedDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $objectToDel, $comment, $sha_hash);
+    $emailSubmit->sendEmail("", true);
 
     // Mailing the submitter and tell him that his submission has been sent for validation.
     if (!$failed_mail) {
-        $to = $safe_email;
-        email("shared_delete_request_sent_for_validation");
+        $emailSubmit = EmailContentFactory::getSharedDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $modelMD, $objectToDel, $comment);
+        $emailSubmit->sendEmail($safe_email, false);
     }
     include '../../inc/footer.php';
     exit;
@@ -216,7 +220,7 @@ function validateForm()
     <table>
         <tr>
             <td><span title="This is the family name of the model's object you want to delete."><label>Object's model family</label></span></td>
-            <td colspan="4"><?php echo $modelMDToDel->getModelGroup()->getName(); ?></td>
+            <td colspan="4"><?php echo $modelMDToDel->getModelsGroup()->getName(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the model name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
@@ -334,7 +338,7 @@ function validateForm()
                 <input type="radio" name="delete_choice" value="<?php echo $candidateObj->getId();?>" <?php echo ($is_first)?"checked=\"checked\"":"";?> />
             </th>
             <td><span title="This is the family name of the object you want to delete."><label>Object's family</label></span></td>
-            <td colspan="4"><?php echo $candidateModelMD->getModelGroup()->getName(); ?></td>
+            <td colspan="4"><?php echo $candidateModelMD->getModelsGroup()->getName(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the model name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>

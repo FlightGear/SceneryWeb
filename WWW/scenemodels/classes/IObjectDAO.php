@@ -26,6 +26,8 @@ interface IObjectDAO {
     
     public function getObjectsGroups();
     
+    public function getCountry($countryCode);
+    
     public function getCountries();
     
     public function countObjects();

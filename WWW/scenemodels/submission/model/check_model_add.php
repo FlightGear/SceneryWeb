@@ -1,12 +1,16 @@
 <?php
-require_once "../../classes/DAOFactory.php";
+require_once '../../classes/DAOFactory.php';
+require_once '../../classes/ModelFactory.php';
+require_once '../../classes/ObjectFactory.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../inc/email.php';
+require_once '../../classes/EmailContentFactory.php';
 
 $fatalerror = 0;
 $error      = 0;
@@ -14,17 +18,22 @@ $errormsg   = "";
 
 // Private key is needed for the server-to-Google auth.
 $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-$resp = recaptcha_check_answer ($privatekey,
-                                $_SERVER["REMOTE_ADDR"],
-                                $_POST["recaptcha_challenge_field"],
-                                $_POST["recaptcha_response_field"]);
+
+if(isset($_POST['recaptcha_challenge_field']) && isset($_POST['recaptcha_response_field'])) {
+    $resp = recaptcha_check_answer ($privatekey,
+                                    $_SERVER["REMOTE_ADDR"],
+                                    $_POST["recaptcha_challenge_field"],
+                                    $_POST["recaptcha_response_field"]);
+}
 
 // What happens when the CAPTCHA was entered incorrectly
-if (!$resp->is_valid) {
+if (!isset($resp) || !$resp->is_valid) {
     $page_title = "Automated Models Submission Form";
-    $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>." .
-         "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
-         "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+    $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>.<br />";
+    if (isset($resp)) {
+        $error_text .= "(reCAPTCHA complained: " . $resp->error . ")<br />";
+    }
+    $error_text .= "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
     include '../../inc/error_page.php';
     exit;
 }
@@ -698,6 +707,12 @@ else {
         $path_to_use = $ac3dName;
     }
     echo "<p class=\"center\">Your model named ".$path_to_use."\n";
+    
+    $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
+    $objectFactory = new ObjectFactory($objectDaoRO);
+    $newModelMD = $modelFactory->createModelMetadata(-1, $author, $path_to_use, $name, $notes, $mo_shared);
+    $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
+            $offset, heading_stg_to_true($heading), 1, "");
 
     $mo_query  = "INSERT INTO fgs_models ";
     $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
@@ -712,7 +727,7 @@ else {
     $mo_query .= $mo_shared;              // mo_shared
     $mo_query .= ") ";
     $mo_query .= "RETURNING mo_id";
-
+    
     # Inserts into fgs_models and returns current mo_id
     $ob_model = 'Thisisthevalueformo_id';
 
@@ -740,7 +755,7 @@ else {
         $ob_query .= $ob_model." ,";                                                           // ob_model
         $ob_query .= "1";
         $ob_query .= ")";
-        }
+    }
 
     // Object Stuff into pending requests table.
     $ob_sha_to_compute = "<".microtime()."><".$ipaddr."><".$ob_query.">";
@@ -764,13 +779,13 @@ else {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
     else {
-        $failed_mail = 0;
+        $failed_mail = false;
         $au_email = get_authors_email_from_authors_id($author);
         if (($au_email != '') && (strlen($au_email) > 0)) {
             $safe_au_email = pg_escape_string(stripslashes($au_email));
         }
         else {
-            $failed_mail = 1;
+            $failed_mail = true;
         }
         echo "has been successfully queued into the FG scenery database insertion requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
@@ -782,17 +797,14 @@ else {
         $dtg = date('l jS \of F Y h:i:s A');
         $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
-
-        // Correctly set the object URL.
-        $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$mo_shared;
-        $html_family_url = htmlspecialchars($family_url);
-
-        email("add_model_request_pending");
-
+        
+        $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_au_email, $newObject, $newModelMD, $mo_sha_hash, $ob_sha_hash);
+        $emailSubmit->sendEmail("", true);
+        
         // Mailing the submitter to tell him that his submission has been sent for validation
-        if ($failed_mail != 1) {
-            $to = $safe_au_email;
-            email("add_model_request_sent_for_validation");
+        if (!$failed_mail) {
+            $emailSubmit = EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $ob_sha_hash, $mo_sha_hash, $newModelMD, $newObject);
+            $emailSubmit->sendEmail($safe_au_email, false);
         }
     }
 }

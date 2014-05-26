@@ -1,12 +1,14 @@
 <?php
-require_once "../../classes/DAOFactory.php";
+require_once '../../classes/DAOFactory.php';
+require_once '../../classes/ModelFactory.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../inc/email.php';
+require_once '../../classes/EmailContentFactory.php';
 
 $fatalerror = 0;
 $error      = 0;
@@ -653,6 +655,10 @@ else {
     }
     echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 
+    $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
+    $newModelMD = $modelFactory->createModelMetadata($model_name, $author, $path_to_use,
+            $name, $notes, $mo_shared);
+    
     $mo_query  = "UPDATE fgs_models ";
     $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$author.", mo_name = '".$name."', mo_notes = '".$notes."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared;
     $mo_query .= " WHERE mo_id = ".$model_name;
@@ -698,22 +704,18 @@ else {
         $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
 
-        // Correctly set the object URL.
-        $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$mo_shared;
-        $html_family_url = htmlspecialchars($family_url);
-
-        email("model_update_request_pending");
-
+        $emailSubmit = EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $newModelMD, $safe_contr_email, $sent_comment, $mo_sha_hash);
+        $emailSubmit->sendEmail("", true);
         
-        if(!$failed_mail) {
+        if (!$failed_mail) {
             // Mailing the submitter to tell him that his submission has been sent for validation
-            $to = $safe_contr_email;
-            email("model_update_request_sent_for_validation");
-        
+            $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $mo_sha_hash, $newModelMD, $safe_contr_email, $sent_comment);
+            $emailSubmit->sendEmail($safe_contr_email, false);
+                    
             // If the author's email is different from the subbmitter's, an email is also sent to the author
             if ($safe_au_email != $safe_contr_email) {
-                $to = $safe_au_email;
-                email("model_update_request_sent_for_validation_author");
+                $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $mo_sha_hash, $newModelMD, $safe_contr_email, $sent_comment);
+                $emailSubmit->sendEmail($safe_au_email, false);
             }
         }
         

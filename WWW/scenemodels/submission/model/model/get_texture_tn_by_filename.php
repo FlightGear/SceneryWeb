@@ -58,7 +58,7 @@ $target_path = open_tgz($mo_modelfile);
 // Looking for the file in the tmp directory
 $dir = opendir($target_path);
 
-while (false !== ($filename = readdir($dir))) {
+while ($filename = readdir($dir)) {
     // If we know the extension
     if (show_file_extension($filename) == "png" && $filename == $filenameText) {
         $filepath = $target_path."/".$filename;

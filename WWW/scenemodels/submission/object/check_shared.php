@@ -1,11 +1,13 @@
 <?php
-require_once "../../classes/DAOFactory.php";
+require_once '../../classes/DAOFactory.php';
+require_once '../../classes/ObjectFactory.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../inc/email.php';
+require_once '../../classes/EmailContentFactory.php';
 
 
 // Captcha stuff
@@ -82,7 +84,8 @@ else {
 // Country.
 if (is_country_id($_POST['ob_country'])) {
     $ob_country = $_POST["ob_country"];
-    echo "<p class=\"ok\">Country: ".get_country_name_from_country_code($ob_country)."</p>";
+    $country = $objectDaoRO->getCountry($ob_country);
+    echo "<p class=\"ok\">Country: ".$country->getName()."</p>";
 }
 else {
     echo "<p class=\"warning\">Country error!</p>";
@@ -143,6 +146,11 @@ if (!$error) {
         include '../../inc/footer.php';
     }
 
+    $objectFactory = new ObjectFactory($objectDaoRO);
+    $modelMD = $modelDaoRO->getModelMetadata($model_id);
+    $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
+            $offset, heading_stg_to_true($heading), 1, "");
+    
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
     $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
@@ -169,7 +177,7 @@ if (!$error) {
     pg_close($resource_rw);
 
     // Talking back to submitter.
-    if(!$resultrw) {
+    if (!$resultrw) {
         echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
     }
     else {
@@ -189,18 +197,13 @@ if (!$error) {
         $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
         $host = gethostbyaddr($ipaddr);
 
-        // Correctly format the data for mail.
-        $family_url = "http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$family_id;
-        $object_url = "http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$model_id;
-        $html_family_url = htmlspecialchars($family_url);
-        $html_object_url = htmlspecialchars($object_url);
-
-        email("shared_request_pending");
+        $emailSubmit = EmailContentFactory::getSharedRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $newObject, $sent_comment, $sha_hash);
+        $emailSubmit->sendEmail("", true);
 
         // Mailing the submitter to tell him that his submission has been sent for validation
-        if(!$failed_mail) {
-            $to = $safe_email;
-            email("shared_request_sent_for_validation");
+        if (!$failed_mail) {
+            $emailSubmit = EmailContentFactory::getSharedRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $modelMD, $newObject, $sent_comment);
+            $emailSubmit->sendEmail($safe_email, false);
         }
     }
 }

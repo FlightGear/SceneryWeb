@@ -2,7 +2,7 @@
 
 // Inserting libs
 require_once '../inc/functions.inc.php';
-require_once '../inc/email.php';
+require_once '../../classes/EmailContentFactory.php';
 
 // Opening database connection...
 $resource_r = connect_sphere_r();
@@ -74,10 +74,11 @@ if ($resultr) {
     $dtg = date('l jS \of F Y h:i:s A');
     
     if (pg_num_rows($resultr) > 0) {
-        email("pending_requests");
+        $emailSubmit = EmailContentFactory::getPendingRequestsEmailContent($pending_requests);  
     } else {
-        email("pending_requests_none");
+        $emailSubmit = EmailContentFactory::getPendingRequestsNoneEmailContent();
     }
+    $emailSubmit->sendEmail("", true);
 }
 
 // Closing the connection.
