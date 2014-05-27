@@ -114,7 +114,8 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $resultArray[] = $this->getCountryFromRow($row);
+            $country = $this->getCountryFromRow($row);
+            $resultArray[$country->getCode()] = $country;
         }
         
         return $resultArray;

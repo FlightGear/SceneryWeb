@@ -452,7 +452,7 @@ function model_exists($model_name) {
     }
 
     // Connecting to the database.
-    $headerlink_family = connect_sphere_rw();
+    $headerlink_family = connect_sphere_r();
 
     // Querying...
     $query = "SELECT mo_path, mo_shared FROM fgs_models WHERE mo_path = '".$queried_mo_path."';";
