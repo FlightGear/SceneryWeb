@@ -391,7 +391,7 @@ if ($step == 1) {
     $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
     $host = gethostbyaddr($ipaddr);
 
-    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $to, $safe_email, $sha_hash);
+    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $to, $safe_email, $sha_hash, $sent_comment);
     $emailSubmit->sendEmail("", true);
     
     // Mailing the submitter to tell that his submission has been sent for validation.
