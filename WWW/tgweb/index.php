@@ -7,7 +7,7 @@ $URL = 'http://scenery.flightgear.org/TGBuild';
 
 // Cleaning directories first
 shell_exec('find '.$WWW_ROOT.' -name *.zip -type f -mmin +15 -delete');
-shell_exec('find '.$WWW_ROOT.' -name \'aptgen_*\' -type d -mmin +15 -exec rm -r "{}" \\;');
+shell_exec('find '.$WWW_ROOT.' -name \'aptgen_*\' -type d -mmin +15 -exec rm -R "{}" \\;');
 
 if(isset($_GET['action'])) {
   $WORKSPACE = $_SESSION['workspace'];

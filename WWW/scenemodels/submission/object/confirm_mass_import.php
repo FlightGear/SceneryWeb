@@ -151,8 +151,11 @@ if (!$error) {
                 }
                 break;
             case 2:  // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
+				echo "Value tag:",$value_tag;
                 if (!preg_match($regex['model_filepath'], $value_tag)) {
+					echo "<br /> preg ok";
                     $return_value = model_exists($value_tag);
+                    echo "<br />returned :",$return_value;
                     if ($return_value == 0) {
                         echo "<td><center>".$value_tag."</center></td>";
                         $model_id = $modelDaoRO->getModelMetadataFromName($value_tag)->getId();
