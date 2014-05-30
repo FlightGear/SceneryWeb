@@ -469,6 +469,7 @@ function model_exists($model_name) {
 
         // Querying to check the existence of the family
         $query_family = "SELECT mg_path FROM fgs_modelgroups WHERE mg_path='".$queried_family_path."';";
+        echo $query_family;
         $result_family = pg_query($headerlink_family, $query_family);
 
         if (pg_num_rows($result_family) == 1) {   // If the family & model are known, return 0.
