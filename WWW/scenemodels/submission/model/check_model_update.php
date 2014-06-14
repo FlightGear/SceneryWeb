@@ -110,13 +110,12 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
         }
     }
 }
-else {
-    if (!$fatalerror) {
-        $fatalerror = 1;
-        $error += 1;
-        $errormsg .= "<li>XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$_FILES["xml_file"]['name']."), tower.ac (currently ".$ac3dName.".ac), tower_thumbnail.jpeg (currently ".$thumbName.".jpg/jpeg).</li>";
-        if (substr($thumbName, -10) != "_thumbnail")
-            $errormsg .= "<li>The thumbnail file name must end with *_thumbnail.</li>";
+else if (!$fatalerror) {
+    $fatalerror = 1;
+    $error += 1;
+    $errormsg .= "<li>XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$_FILES["xml_file"]['name']."), tower.ac (currently ".$ac3dName.".ac), tower_thumbnail.jpeg (currently ".$thumbName.".jpg/jpeg).</li>";
+    if (substr($thumbName, -10) != "_thumbnail") {
+        $errormsg .= "<li>The thumbnail file name must end with *_thumbnail.</li>";
     }
 }
 
@@ -155,20 +154,18 @@ if ($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror) { // check file s
         else {
             if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) { // check uploaded file
                 $fatalerror = 1;
-                $error += 1;
+                $error++;
                 $errormsg .= "<li>There has been an error while moving the file \"".$thumbName."\" on the server.</li>";
             }
         }
     }
     else {
-        $error += 1;
+        $error++;
         $errormsg .= "<li>The file format or extention of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file.</li>";
     }
-} else {
-    if (!$fatalerror) {
-        $error += 1;
-        $errormsg .= "<li>Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes).</li>";
-    }
+} else if (!$fatalerror) {
+    $error++;
+    $errormsg .= "<li>Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes).</li>";
 }
 
 # STEP 3.2 : UPLOAD AC3D FILE IN TMP DIRECTORY
@@ -201,19 +198,19 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
         else {
             if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) { // check upload file
                 $fatalerror = 1;
-                $error += 1;
+                $error++;
                 $errormsg .= "<li>There has been an error while moving the file \"".$ac3dName."\" on the server.</li>";
             }
         }
     }
     else {
-        $error += 1;
+        $error++;
         $errormsg .= "<li>The format or the extention seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file.</li>";
     }
 }
 else {
     if (!$fatalerror) {
-        $error += 1;
+        $error++;
         $errormsg .= "<li>Sorry, but size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).</li>";
     }
 }
@@ -344,8 +341,12 @@ if ($fatalerror || $error > 0) {
 ###############################################
 ###############################################
 
-$use_xml_for_mo_path = false;
+$path_to_use = $ac3dName;
 if (isset($xmlPath) && file_exists($xmlPath)) {
+    # If an XML file is used for the model, the mo_path has to point to it, or
+    # FG will not render it correctly. Else the .ac file will be used as mo_path.
+    $path_to_use = $xmlName;
+    
     $depth = array();
     $xml_parser = xml_parser_create();
 
@@ -381,26 +382,34 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
                 $errormsg .= "<li>XML error : ".xml_error_string(xml_get_error_code($xml_parser))." at line ".xml_get_current_line_number($xml_parser)."</li>";
             }
         }
-        $use_xml_for_mo_path = true;
         xml_parser_free($xml_parser);
     }
 
-    if(!$error > 0) {
+    if ($error == 0) {
 
         // Check if <path> == $ac3dName
         $xmlcontent = simplexml_load_file($xmlPath);
-        if($ac3dName != $xmlcontent->path) {
+        if ($ac3dName != $xmlcontent->path) {
             $error += 1;
             $errormsg .= "<li>The value of the &lt;path&gt; tag in your XML file doesn't match the AC file you provided!</li>";
         }
 
         // Check if the file begin with <?xml> tag
         $xmltag = str_replace(array("<", ">"), array("&lt;", "&gt;"), file_get_contents($xmlPath));
-        if(!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
-            $error += 1;
+        if (!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
+            $error++;
             $errormsg .= "<li>Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;!</li>";
         }
     }
+}
+
+// Check if path is already used
+$modelToUpdateOld = $modelDaoRO->getModelMetadata($_POST["model_name"]);
+if ($path_to_use != $modelToUpdateOld->getFilename() && path_exists($path_to_use)) {
+    $error += 1;
+    $errormsg .= "<li>Filename \"".$path_to_use."\" is already used by another model</li>";
+} else {
+    echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 }
 
 ###############################################
@@ -583,18 +592,18 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (($_POST["family_name"] != "") && ($_POST["mo_author"] != "")
-    && ($_POST["model_name"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
-    && isset($_POST['notes'])) {
+if ($_POST["family_name"] != "" && $_POST["mo_author"] != ""
+        && $_POST["model_name"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != ""
+        && isset($_POST['notes'])) {
 
-        $path        = remove_file_extension ($ac3dName);
-        $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
-        $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
-        $mo_shared   = $_POST["family_name"];
-        $author      = $_POST["mo_author"];
-        $contr_email = $_POST["email"];
-        $model_name  = $_POST["model_name"];
-        $ipaddr      = $_POST["IPAddr"];
+    $path        = remove_file_extension($ac3dName);
+    $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
+    $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
+    $mo_shared   = $_POST["family_name"];
+    $author      = $_POST["mo_author"];
+    $contr_email = $_POST["email"];
+    $model_name  = $_POST["model_name"];
+    $ipaddr      = $_POST["IPAddr"];
 
     if (!preg_match($regex['authorid'], $author)) {
         $error += 1;
@@ -645,15 +654,6 @@ if ($fatalerror || $error > 0) {
 else {
     # Connection to DB
     $resource_rw = connect_sphere_rw();
-
-    # If an XML file is used for the model, the mo_path has to point to it, or
-    # FG will not render it correctly. Else the .ac file will be used as mo_path.
-    if ($use_xml_for_mo_path) {
-        $path_to_use = $xmlName;
-    } else {
-        $path_to_use = $ac3dName;
-    }
-    echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $newModelMD = $modelFactory->createModelMetadata($model_name, $author, $path_to_use,

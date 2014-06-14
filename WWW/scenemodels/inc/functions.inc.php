@@ -469,7 +469,6 @@ function model_exists($model_name) {
 
         // Querying to check the existence of the family
         $query_family = "SELECT mg_path FROM fgs_modelgroups WHERE mg_path='".$queried_family_path."';";
-        echo $query_family;
         $result_family = pg_query($headerlink_family, $query_family);
 
         if (pg_num_rows($result_family) == 1) {   // If the family & model are known, return 0.
@@ -704,7 +703,7 @@ function path_exists($proposed_path) {
     $resource = connect_sphere_r();
 
     // Count the number of objects in the database
-    $path = pg_query($resource,"SELECT COUNT(*) as count FROM fgs_models WHERE mo_path='".$proposed_path.";");
+    $path = pg_query($resource,"SELECT COUNT(*) as count FROM fgs_models WHERE mo_path='".pg_escape_string($proposed_path)."';");
     $line = pg_fetch_assoc($path);
     
     // Close the database resource

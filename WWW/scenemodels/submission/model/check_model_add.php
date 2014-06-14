@@ -351,8 +351,12 @@ if ($fatalerror || $error > 0) {
 ###############################################
 ###############################################
 
-$use_xml_for_mo_path = false;
+$path_to_use = $ac3dName;
 if (isset($xmlPath) && file_exists($xmlPath)) {
+    # If an XML file is used for the model, the mo_path has to point to it, or
+    # FG will not render it correctly. Else the .ac file will be used as mo_path.
+    $path_to_use = $xmlName;
+    
     $depth = array();
     $xml_parser = xml_parser_create();
 
@@ -390,26 +394,32 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
                 $errormsg .= "<li>XML error : ".xml_error_string(xml_get_error_code($xml_parser))." at line ".xml_get_current_line_number($xml_parser)."</li>";
             }
         }
-        $use_xml_for_mo_path = true;
         xml_parser_free($xml_parser);
     }
 
-    if(!$error > 0) {
-
+    if ($error == 0) {
         // Check if <path> == $ac3dName
         $xmlcontent = simplexml_load_file($xmlPath);
-        if($ac3dName != $xmlcontent->path) {
-            $error += 1;
+        if ($ac3dName != $xmlcontent->path) {
+            $error++;
             $errormsg .= "<li>The value of the &lt;path&gt; tag in your XML file doesn't match the AC file you provided!</li>";
         }
 
         // Check if the file begin with <?xml> tag
         $xmltag = str_replace(array("<", ">"), array("&lt;", "&gt;"), file_get_contents($xmlPath));
-        if(!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
-            $error += 1;
+        if (!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
+            $error++;
             $errormsg .= "<li>Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;!</li>";
         }
     }
+}
+
+// Check if path is already used
+if (path_exists($path_to_use)) {
+    $error++;
+    $errormsg .= "<li>Filename \"".$path_to_use."\" is already used</li>";
+} else {
+    echo "<p class=\"center\">Your model named ".$path_to_use."\n";
 }
 
 ###############################################
@@ -430,7 +440,7 @@ if (file_exists($ac3dPath)) {
 
             // Check if the file begins with the string "AC3D"
             if ($i == 0 && substr($line,0,4) != "AC3D") {
-                $error += 1;
+                $error++;
                 $errormsg .= "<li>The AC file does not seem to be a valid AC3D file. The first line must show \"AC3Dx\" with x = version</li>";
             }
 
@@ -439,7 +449,7 @@ if (file_exists($ac3dPath)) {
                 $data = preg_replace('#texture "(.+)"$#', '$1', $line);
                 $data = substr($data, 0, -1);
                 if (!in_array($data, $pngAllName)) {
-                    $error += 1;
+                    $error++;
                     $errormsg .= "<li>The texture reference (".$data.") in your AC file at line ".($i+1)." seems to have a different name than the PNG texture(s) file(s) name(s) you provided!</li>";
                 }
             }
@@ -450,7 +460,7 @@ if (file_exists($ac3dPath)) {
 }
 else {
     $fatalerror = 1;
-    $error += 1;
+    $error++;
     $errormsg .= "<li>The AC file does not exist on the server. Please try to upload it again!</li>";
 }
 
@@ -593,7 +603,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (($_POST["longitude"] != "") && ($_POST["latitude"] != "") && ($_POST["offset"] != "") && ($_POST["heading"] != "")) {
+if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] != "" && $_POST["heading"] != "") {
     $longitude = strip_tags($_POST["longitude"]);
     $latitude  = strip_tags($_POST["latitude"]);
     $offset    = strip_tags($_POST["offset"]);
@@ -634,17 +644,17 @@ else {
 ###############################################
 ###############################################
 
-if (($_POST["mo_shared"] != "") && ($_POST["mo_author"] != "")
-    && ($_POST["ob_country"] != "") && ($_POST["mo_name"] != "") && ($_POST["IPAddr"] != "")
-    && isset($_POST['notes'])) {
+if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
+        && $_POST["ob_country"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != ""
+        && isset($_POST['notes'])) {
 
-        $path        = remove_file_extension ($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
-        $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
-        $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
-        $mo_shared   = $_POST["mo_shared"];
-        $author      = $_POST["mo_author"];
-        $country     = $_POST["ob_country"];
-        $ipaddr      = $_POST["IPAddr"];
+    $path        = remove_file_extension($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
+    $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
+    $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
+    $mo_shared   = $_POST["mo_shared"];
+    $author      = $_POST["mo_author"];
+    $country     = $_POST["ob_country"];
+    $ipaddr      = $_POST["IPAddr"];
 
     // This is only used for shared objects.
     // Reconstructing the parameters the model_exists function is waiting for, based on the path.
@@ -698,15 +708,6 @@ if ($fatalerror || $error > 0) {
 else {
     # Connection to DB
     $resource_rw = connect_sphere_rw();
-
-    # If an XML file is used for the model, the mo_path has to point to it, or
-    # FG will not render it correctly. Else the .ac file will be used as mo_path.
-    if ($use_xml_for_mo_path) {
-        $path_to_use = $xmlName;
-    } else {
-        $path_to_use = $ac3dName;
-    }
-    echo "<p class=\"center\">Your model named ".$path_to_use."\n";
     
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $objectFactory = new ObjectFactory($objectDaoRO);
