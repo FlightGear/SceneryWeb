@@ -92,7 +92,7 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
 
     if (!mkdir($targetPath)) {
         $fatalerror = true;
-        $error += 1;
+        $error++;
         $errormsg .= "<li>Impossible to create temporary directory $targetPath</li>";
     }
 
@@ -185,7 +185,7 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
             && strtolower(show_file_extension(basename($ac3dName))) == "ac") {
 
         if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
-            $error += 1;
+            $error++;
             $errormsg .= "<li>There has been an error while uploading the file \"".$ac3dName."\".</li>";
             switch ($_FILES['ac3d_file']['error']){
                 case 1:
@@ -227,7 +227,7 @@ if ($_FILES['xml_file']['name'] != "") { // if file exists
     if ($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
         if ($_FILES['xml_file']['type'] == "text/xml" && strtolower(show_file_extension(basename($xmlName))) == "xml") { // check type & extension file
             if ($_FILES['xml_file']['error'] != 0) { // If error is detected
-                $error += 1;
+                $error++;
                 $errormsg .= "<li>There has been an error while uploading the file \"".$xmlName."\".</li>";
                 switch ($_FILES['xml_file']['error']) {
                     case 1:

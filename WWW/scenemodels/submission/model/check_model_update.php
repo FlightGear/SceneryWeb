@@ -296,11 +296,11 @@ for ($i=0; $i<12; $i++) {
                 }
             }
             else {
-                $error += 1;
+                $error++;
                 $errormsg .= "<li>The format or extension of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.</li>";
             }
         }
-        else if(!$fatalerror) {
+        else if (!$fatalerror) {
             $error++;
             $errormsg .= "<li>Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes).</li>";
         }
