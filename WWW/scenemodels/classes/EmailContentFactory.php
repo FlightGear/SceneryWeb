@@ -364,7 +364,7 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getStaticRequestRejectedEmailContent($dtg, $obShaHash, $moShaHash, $name, $comment) {
+    static public function getAddModelRequestRejectedEmailContent($dtg, $obShaHash, $moShaHash, $name, $comment) {
         $subject = "3D model import rejected";
         $message = "On ".$dtg." UTC, you issued a 3D model import request.\r\n\r\n" .
                    "We are sorry to let you know that this request was rejected.\r\n\r\n" .

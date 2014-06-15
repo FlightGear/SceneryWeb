@@ -73,7 +73,7 @@ if (isset($_POST["action"])) {
 
             $to = (isset($_POST['email']))?$_POST["email"]:"";
 
-            $emailSubmit = EmailContentFactory::getStaticRequestRejectedEmailContent($dtg, $ob_sha_hash, $mo_sha_hash, $name, $comment);
+            $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $ob_sha_hash, $mo_sha_hash, $name, $comment);
             $emailSubmit->sendEmail($to, true);
             exit;
 
