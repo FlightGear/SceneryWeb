@@ -51,7 +51,6 @@ global $error;
 $error = false;
 
 // Checking that email is valid (if it exists).
-//(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 $failed_mail = false;
 if (is_email($_POST['email'])) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
@@ -137,8 +136,9 @@ if (!$error) {
         echo "<td><center>".$i."</center></td>";
         $tab_tags = explode(" ",$value);
         $j = 1;
-
-        foreach ($tab_tags as $value_tag) { // !=> Have also to check the number of tab_tags returned!
+        
+        // TODO : Have also to check the number of tab_tags returned!
+        foreach ($tab_tags as $value_tag) { 
             switch($j) {
             case 1:  // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
                 if (!strcmp($value_tag, "OBJECT_SHARED")) {
