@@ -65,7 +65,7 @@ if ($resultr) {
         if (substr_count($unzipped_base64_query,"DELETE FROM fgs_objects") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is an object deletion request! Click on the following link to check it!\n";
-            $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$row->spr_hash."\n";
+            $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check_delete&sig=".$row->spr_hash."\n";
         }
     }
 

@@ -13,8 +13,10 @@ if (!is_sig($_GET["sig"]) || !isset($_GET["action"])) {
     exit;
 }
 
+$action = $_GET["action"];
+
 // Common code, to be performed for both types of checks
-if ($_GET["action"] == "check" || $_GET["action"] == "check_update") {
+if ($action == "check" || $action == "check_update" || $action == "check_delete") {
     $resource_rw = connect_sphere_rw();
 
     // If connection is OK
@@ -44,12 +46,9 @@ if ($_GET["action"] == "check" || $_GET["action"] == "check_update") {
         include '../../inc/header.php';
         echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
 
-        if ($_GET["action"] == "check") {
+        if ($action == "check") {
             // Removing the start of the query from the data
             $trigged_query_rw = strstr($query_rw, 'ST_PointFromText');
-
-            echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
-
             $pattern = "/ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
 
             preg_match($pattern, $trigged_query_rw, $matches);
@@ -62,6 +61,7 @@ if ($_GET["action"] == "check" || $_GET["action"] == "check_update") {
             $country = $objectDaoRO->getCountry($matches['country']);
             $modelMD = $modelDaoRO->getModelMetadata($matches['model_id']);
 
+            echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
             echo "<tr>\n" .
                  "<td><center>".$long."</center></td>\n" .
                  "<td><center>".$lat."</center></td>\n" .
@@ -72,7 +72,7 @@ if ($_GET["action"] == "check" || $_GET["action"] == "check_update") {
                  "<td><center><a href=\"http://scenemodels.flightgear.org/modelview.php?id=".$modelMD->getId()."\">".$modelMD->getName()."</a></center></td>\n" .
                  "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
                  "</tr>\n";
-        } elseif ($_GET["action"] == "check_update") {
+        } elseif ($action == "check_update") {
             // Removing the start of the query from the data
             $trigged_query_rw = strstr($query_rw, 'SET');
             $trigged_query_rw = str_replace('$','',$trigged_query_rw);
@@ -91,8 +91,8 @@ if ($_GET["action"] == "check" || $_GET["action"] == "check_update") {
             $orientation = $matches['orientation'];
             // $country = $matches['country'];
             $newModelMD = $modelDaoRO->getModelMetadata($matches['model_id']);
-            $object_id = $matches['object_id'];
-            $oldObject = $objectDaoRO->getObject($object_id);
+            $objectId = $matches['object_id'];
+            $oldObject = $objectDaoRO->getObject($objectId);
             $oldModelMD = $modelDaoRO->getModelMetadata($oldObject->getModelId());
 
             // Obtain old/current values
@@ -131,6 +131,28 @@ if ($_GET["action"] == "check" || $_GET["action"] == "check_update") {
             }
             echo "><td>Object's model</td><td>".$oldModelMD->getName()."</td><td>".$newModelMD->getName()."</td></tr>\n";
             echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$oldObject->getLongitude()."&amp;lat=".$oldObject->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$lon."&amp;lat=".$lat."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>\n" .
+                 "</tr>\n";
+            
+        } else if ($action == "check_delete") {
+            $trigged_query_rw = strstr($query_rw, 'WHERE');
+            $trigged_query_rw = str_replace('$','',$trigged_query_rw);
+            $pattern = "/WHERE ob_id\=(?P<object_id>[0-9]+)/";
+            
+            preg_match($pattern, $trigged_query_rw, $matches);
+            $objectId = $matches['object_id'];
+            $objectToDel = $objectDaoRO->getObject($objectId);
+            $modelMD = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
+            
+            echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
+            echo "<tr>\n" .
+                 "<td><center>".$objectToDel->getLongitude()."</center></td>\n" .
+                 "<td><center>".$objectToDel->getLatitude()."</center></td>\n" .
+                 "<td><center>".$objectToDel->getCountry()->getName()."</center></td>\n" .
+                 "<td><center>".$objectToDel->getGroundElevation()."</center></td>\n" .
+                 "<td><center>".$objectToDel->getElevationOffset()."</center></td>\n" .
+                 "<td><center>".$objectToDel->getOrientation()."</center></td>\n" .
+                 "<td><center><a href=\"http://scenemodels.flightgear.org/modelview.php?id=".$modelMD->getId()."\">".$modelMD->getName()."</a></center></td>\n" .
+                 "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$objectToDel->getLongitude()."&amp;lat=".$objectToDel->getLatitude()."&amp;zoom=14\">Map</a></center></td>\n" .
                  "</tr>\n";
         }
 ?>
