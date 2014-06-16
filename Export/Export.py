@@ -100,35 +100,34 @@ def fn_updateElevations():
     sql = "UPDATE fgs_objects SET ob_elevoffset = NULL where ob_elevoffset = 0;"
     fn_pgexec(sql, "w")
 
-    while 1:
-        sql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999;"
+    sql = "SELECT COUNT(*) FROM fgs_objects WHERE ob_gndelev = -9999;"
+    db_result = fn_pgexec(sql, "r")
+    if db_result[0][0] > 0:
+        # "fgelev" input:
+        # 512280 -179.880556 -16.688333
+        # "fgelev" output:
+        # 512280: 19.479
+        sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) \
+            FROM fgs_objects \
+            WHERE ob_valid IS true AND ob_gndelev = -9999 \
+            ORDER BY ob_tile, ob_id \
+            LIMIT 1000;"
         db_result = fn_pgexec(sql, "r")
-        if db_result[0][0] > 0:
-            # "fgelev" input:
-            # 512280 -179.880556 -16.688333
-            # "fgelev" output:
-            # 512280: 19.479
-            sql = "SELECT ob_id, ST_X(wkb_geometry), ST_Y(wkb_geometry) \
-                FROM fgs_objects \
-                WHERE ob_valid IS true AND ob_gndelev = -9999 \
-                ORDER BY ob_tile, ob_id \
-                LIMIT 1000;"
-            db_result = fn_pgexec(sql, "r")
-            num_rows = len(db_result)
-            print("Updating %s object(s)" % num_rows)
-            ePipe = Popen(["nice", "-n", "19", fgelev], env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-            for row in db_result:
-                obj = "%s %s %s\n" % (row['ob_id'],row['st_x'],row['st_y'])
-                ePipe.stdin.write(obj)
-                eResult = ePipe.stdout.readline()
-                eList = eResult.translate(None, ":").split()
-                sql = "UPDATE fgs_objects \
-                    SET ob_gndelev = %s \
-                    WHERE ob_id = %s AND ob_gndelev = -9999;" % (eList[1], eList[0])  # (ob_gndelev, ob_id)
-                fn_pgexec(sql, "w")
-        else:
-            print("No elevations pending update")
-            break
+        num_rows = len(db_result)
+        print("Updating %s object(s)" % num_rows)
+        ePipe = Popen(["nice", "-n", "19", fgelev], env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+        for row in db_result:
+            obj = "%s %s %s\n" % (row['ob_id'],row['st_x'],row['st_y'])
+            ePipe.stdin.write(obj)
+            eResult = ePipe.stdout.readline()
+            eList = eResult.translate(None, ":").split()
+            sql = "UPDATE fgs_objects \
+                SET ob_gndelev = %s \
+                WHERE ob_id = %s AND ob_gndelev = -9999;" % (eList[1], eList[0])  # (ob_gndelev, ob_id)
+            fn_pgexec(sql, "w")
+    else:
+        print("No elevations pending update")
+        break
 
 def flform(field, val, ob_id):
     """Strip trailing zeroes/dots from floats, used in .stg-export"""
