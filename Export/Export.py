@@ -127,7 +127,6 @@ def fn_updateElevations():
             fn_pgexec(sql, "w")
     else:
         print("No elevations pending update")
-        break
 
 def flform(field, val, ob_id):
     """Strip trailing zeroes/dots from floats, used in .stg-export"""
