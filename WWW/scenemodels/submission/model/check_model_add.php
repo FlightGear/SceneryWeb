@@ -647,7 +647,7 @@ if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
 
     // This is only used for shared objects.
     // Reconstructing the parameters the model_exists function is waiting for, based on the path.
-    if ($mo_shared != 0 && model_exists('Models/'.family_name($mo_shared).'/'.$path) != 2) {
+    if ($mo_shared != 0 && model_exists('Models/'.$modelDaoRO->getModelsGroup($mo_shared)->getPath().$path) != 2) {
         $error++;
         $errormsg .= "<li>It seems that your model already exists in our database. If you want to update it, please use our lovely update script for 3D models (to come).</li>";
     }

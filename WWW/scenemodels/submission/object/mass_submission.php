@@ -62,6 +62,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
                     $orientation = $matches['orientation'];
                     $country = $objectDaoRO->getCountry($matches['country']);
                     $model_id = $matches['model_id'];
+                    $modelMD = $modelDaoRO->getModelMetadata($model_id);
 
                     echo "<tr>\n" .
                          "<td><center>".$i."</center></td>\n" .
@@ -71,7 +72,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && ($_GET["action"] == "check
                          "<td><center>".$elev."</center></td>\n" .
                          "<td><center>".$elevoffset."</center></td>\n" .
                          "<td><center>".$orientation."</center></td>\n" .
-                         "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/modelview.php?id=$model_id' target='_blank'>".object_name($model_id)."</a></center></td>\n" .
+                         "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/modelview.php?id=$model_id' target='_blank'>".$modelMD->getName()."</a></center></td>\n" .
                          "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$long."&amp;lat=".$lat."&amp;zoom=14\">Map</a></center></td>\n" .
                          "</tr>\n";
 
@@ -163,7 +164,7 @@ if (isset($_POST["cancel"]) && is_sig($_POST["hsig"]) && ($_POST["cancel"] == "R
 }
 
 // Now managing the insertion
-if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && ($_POST["submit"] == "Submit the mass import!")) {
+if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && $_POST["submit"] == "Submit the mass import!") {
 
     $resource_rw = connect_sphere_rw();
 
@@ -211,7 +212,8 @@ if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && ($_POST["submit"] == "S
             $elevoffset = $matches['elevoffset'];
             $orientation = $matches['orientation'];
             $model = $matches['model_id'];
-            $ob_text = object_name($model);
+            $modelMD = $modelDaoRO->getModelMetadata($model);
+            $ob_text = $modelMD->getName();
 
             // Avoiding "0" data to be inserted for ob_elevoffset. Should be NULL. This avoids later computation delays on exports
             $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
@@ -225,6 +227,7 @@ if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && ($_POST["submit"] == "S
         }
 
         $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
+        $data_query_rw = "";
         for ($j = 1; $j<$i; $j++) { // For each line, add the data content to the request
             if ($j == ($i-1)) {
                 $data_query_rw = $data_query_rw.$data_rw[$j].";";
@@ -280,6 +283,7 @@ if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && ($_POST["submit"] == "S
         // Sets the time to UTC.
         date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
+        $comment = $_POST["maintainer_comment"];
         $hsig = $_POST['hsig'];
 
         // email destination

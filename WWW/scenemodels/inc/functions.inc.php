@@ -40,50 +40,6 @@ function connect_sphere_rw() {
     }
 }
 
-// Returns the name of the family sent as parameter
-// ================================================
-
-function family_name($id_family) {
-    $mg_id = pg_escape_string($id_family);
-
-    // Connecting to the database.
-    $headerlink_family = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT mg_name FROM fgs_modelgroups WHERE mg_id = ".$mg_id.";";
-    $result = pg_query($headerlink_family, $query);
-
-    $row = pg_fetch_assoc($result);
-    
-    // Closing the connection.
-    pg_close ($headerlink_family);
-    return $row["mg_name"];
-}
-
-
-// Returns the name of the object sent as parameter
-// ================================================
-
-function object_name($id_object) {
-    $mg_id = pg_escape_string($id_object);
-
-    // Connecting to the databse.
-    $headerlink_object = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT mo_name FROM fgs_models WHERE mo_id = ".$mg_id.";";
-    $result = pg_query($headerlink_object, $query);
-
-    // Showing the results.
-    while ($row = pg_fetch_assoc($result)) {
-        $name_object = $row["mo_name"];
-    }
-
-    // Closing the connection.
-    pg_close ($headerlink_object);
-    return $name_object;
-}
-
 
 // Computes the country id of an ob_id sent as parameter
 // (ie, this is not the data in the database)

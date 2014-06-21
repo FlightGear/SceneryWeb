@@ -273,7 +273,7 @@ include '../../inc/header.php';
         <td>
         <?php echo $oldModelMD->getModelsGroup()->getName();?>
         </td>
-        <td><?php echo family_name($mo_shared); ?></td>
+        <td><?php echo $modelDaoRO->getModelsGroup($mo_shared)->getName(); ?></td>
     </tr>
     <tr>
         <td>Proposed Path Name</td>
