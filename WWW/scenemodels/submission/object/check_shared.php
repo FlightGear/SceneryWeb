@@ -39,22 +39,12 @@ global $error;
 
 echo "<center>";
 
-// Checking that family_id exists and is containing only figures.
-if (is_modelgroup_id($_POST['family_name'])) {
-    $family_id = pg_escape_string(stripslashes($_POST['family_name']));
-    $family_real_name = family_name($family_id);
-    echo "<p class=\"ok\">Family Name: ".$family_real_name."</p>";
-}
-else {
-    echo "<p class=\"warning\">Family Name mismatch!</p>";
-    $error = true;
-}
-
 // Checking that model_id exists and is containing only figures and with correct decimal format.
 if (is_model_id($_POST['model_name'])) {
     $model_id = pg_escape_string(stripslashes($_POST['model_name']));
-    $model_real_name = object_name($model_id);
-    echo "<p class=\"ok\">Model Name: ".$model_real_name."</p>";
+    $modelMD = $modelDaoRO->getModelMetadata($model_id);
+    echo "<p class=\"ok\">Model Name: ".$modelMD->getName()."</p>";
+    echo "<p class=\"ok\">Family Name: ".$modelMD->getModelsGroup()->getName()."</p>";
 }
 else {
     echo "<p class=\"warning\">Model Name mismatch!</p>";
@@ -147,14 +137,13 @@ if (!$error) {
     }
 
     $objectFactory = new ObjectFactory($objectDaoRO);
-    $modelMD = $modelDaoRO->getModelMetadata($model_id);
     $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
             $offset, heading_stg_to_true($heading), 1, "");
     
     // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
 
     $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
-                "VALUES ('".object_name($model_id)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".(($offset == 0 || $offset == '')?"NULL":"$offset") .", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
+                "VALUES ('".$modelMD->getName()."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".(($offset == 0 || $offset == '')?"NULL":"$offset") .", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
     $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_rw.">";
