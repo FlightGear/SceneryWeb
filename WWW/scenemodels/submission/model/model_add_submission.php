@@ -106,85 +106,86 @@ if (isset($_POST["action"])) {
                 exit;
             }
 
-            while (($row_mo = pg_fetch_row ($mo_result)) && ($row_ob = pg_fetch_row ($ob_result))) {
-                $sqlzbase64_mo = $row_mo[0];
-                $sqlzbase64_ob = $row_ob[0];
+            $row_mo = pg_fetch_row ($mo_result);
+            $row_ob = pg_fetch_row ($ob_result);
+            
+            $sqlzbase64_mo = $row_mo[0];
+            $sqlzbase64_ob = $row_ob[0];
 
-                // Base64 decode the query
-                $sqlz_mo = base64_decode ($sqlzbase64_mo);
-                $sqlz_ob = base64_decode ($sqlzbase64_ob);
+            // Base64 decode the query
+            $sqlz_mo = base64_decode ($sqlzbase64_mo);
+            $sqlz_ob = base64_decode ($sqlzbase64_ob);
 
-                // Gzuncompress the query
-                $query_rw_mo = gzuncompress ($sqlz_mo);
-                $query_rw_ob = gzuncompress ($sqlz_ob);
+            // Gzuncompress the query
+            $query_rw_mo = gzuncompress ($sqlz_mo);
+            $query_rw_ob = gzuncompress ($sqlz_ob);
 
-                // Sending the requests...
-                $result_rw_mo = pg_query ($resource_rw, $query_rw_mo);
-                $mo_id = pg_fetch_row ($result_rw_mo);
-                $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
-                $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
+            // Sending the requests...
+            $result_rw_mo = pg_query ($resource_rw, $query_rw_mo);
+            $mo_id = pg_fetch_row ($result_rw_mo);
+            $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
+            $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
 
-                $result_rw_ob = pg_query ($resource_rw, $query_rw_ob_with_mo_id);
-                $ret_ob_id = pg_fetch_row ($result_rw_ob);
-                $query_ob_text = "UPDATE fgs_objects SET ob_text = $$". object_name($mo_id[0]) ."$$ WHERE ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
-                $result_obtext_update = pg_query ($resource_rw, $query_ob_text);
+            $result_rw_ob = pg_query ($resource_rw, $query_rw_ob_with_mo_id);
+            $ret_ob_id = pg_fetch_row ($result_rw_ob);
+            $query_ob_text = "UPDATE fgs_objects SET ob_text = $$". object_name($mo_id[0]) ."$$ WHERE ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
+            $result_obtext_update = pg_query ($resource_rw, $query_ob_text);
 
-                if (!$result_rw_mo || !$result_rw_ob) {
-                    $process_text = "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
-                    $error_text = "Sorry, but the INSERT queries could not be processed.";
-                    $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                    include '../../inc/error_page.php';
-
-                    // Closing the rw connection.
-                    pg_close ($resource_rw);
-                    exit;
-                }
-
-                include '../../inc/header.php';
-                echo "<p class=\"center\">";
-                echo "Signatures found.<br /> Now processing INSERT queries of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".</p>";
-                echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
-
-                // Delete the entries from the pending query table.
-                $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
-                $delete_request_ob = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
-                $resultdel_mo = pg_query ($resource_rw, $delete_request_mo);
-                $resultdel_ob = pg_query ($resource_rw, $delete_request_ob);
-
-                if (!$resultdel_mo || !$resultdel_ob) {
-                    echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
-
-                    // Closing the rw connection.
-                    include '../../inc/footer.php';
-                    pg_close($resource_rw);
-                    exit;
-                }
-
-                echo "<p class=\"center ok\">Pending entries correctly deleted from the pending request table.</p>";
+            if (!$result_rw_mo || !$result_rw_ob) {
+                $process_text = "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
+                $error_text = "Sorry, but the INSERT queries could not be processed.";
+                $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+                include '../../inc/error_page.php';
 
                 // Closing the rw connection.
-                pg_close($resource_rw);
-
-                // Sending mail if SQL was correctly inserted and entry deleted.
-                // Sets the time to UTC.
-                date_default_timezone_set('UTC');
-                $dtg = date('l jS \of F Y h:i:s A');
-                $mo_sha_hash = $_POST["mo_sig"];
-                $ob_sha_hash = $_POST["ob_sig"];
-                $name = $_POST["mo_name"];
-                $comment = $_POST["maintainer_comment"];
-                $model_id = $mo_id[0];
-
-                // OK, let's start with the mail redaction.
-                // Who will receive it ?
-                $to = (isset($_POST["email"]))?$_POST["email"]:"";
-
-                $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $ob_sha_hash, $mo_sha_hash, $name, $comment);
-                $emailSubmit->sendEmail($to, true);
-                
-                include '../../inc/footer.php';
+                pg_close ($resource_rw);
                 exit;
             }
+
+            include '../../inc/header.php';
+            echo "<p class=\"center\">";
+            echo "Signatures found.<br /> Now processing INSERT queries of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".</p>";
+            echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
+
+            // Delete the entries from the pending query table.
+            $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
+            $delete_request_ob = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
+            $resultdel_mo = pg_query ($resource_rw, $delete_request_mo);
+            $resultdel_ob = pg_query ($resource_rw, $delete_request_ob);
+
+            if (!$resultdel_mo || !$resultdel_ob) {
+                echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
+
+                // Closing the rw connection.
+                include '../../inc/footer.php';
+                pg_close($resource_rw);
+                exit;
+            }
+
+            echo "<p class=\"center ok\">Pending entries correctly deleted from the pending request table.</p>";
+
+            // Closing the rw connection.
+            pg_close($resource_rw);
+
+            // Sending mail if SQL was correctly inserted and entry deleted.
+            // Sets the time to UTC.
+            date_default_timezone_set('UTC');
+            $dtg = date('l jS \of F Y h:i:s A');
+            $mo_sha_hash = $_POST["mo_sig"];
+            $ob_sha_hash = $_POST["ob_sig"];
+            $name = $_POST["mo_name"];
+            $comment = $_POST["maintainer_comment"];
+            $model_id = $mo_id[0];
+
+            // OK, let's start with the mail redaction.
+            // Who will receive it ?
+            $to = (isset($_POST["email"]))?$_POST["email"]:"";
+
+            $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $ob_sha_hash, $mo_sha_hash, $name, $comment);
+            $emailSubmit->sendEmail($to, true);
+
+            include '../../inc/footer.php';
+            exit;
         }
     }
     include '../../inc/footer.php';
@@ -301,7 +302,7 @@ include '../../inc/header.php';
 <p class="center">Hi, this is the static submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/model.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
-<form id="validation" method="post" action="static_submission.php" onsubmit="return validateForm();">
+<form id="validation" method="post" action="model_add_submission.php" onsubmit="return validateForm();">
 <table>
     <tr>
         <th>Data</th>
@@ -358,7 +359,7 @@ include '../../inc/header.php';
         <td><?php echo $ob_gndelev; ?></td>
     </tr>
 <?php
-    if(isset($ob_elevoffset)) {
+    if (isset($ob_elevoffset)) {
 ?>
     <tr>
         <td>Elevation offset</td>

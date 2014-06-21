@@ -359,7 +359,7 @@ class EmailContentFactory {
                     "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                     "True orientation: ". $newObject->getOrientation() . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/static_submission.php?ob_sig=". $obShaHash ."&mo_sig=". $moShaHash ."&email=". $safe_au_email . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?ob_sig=". $obShaHash ."&mo_sig=". $moShaHash ."&email=". $safe_au_email . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

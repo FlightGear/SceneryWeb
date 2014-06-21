@@ -39,7 +39,7 @@ if ($resultr) {
         if (substr_count($unzipped_base64_query,"INSERT INTO fgs_models") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is a 3D model query!\n";
-            $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/static_submission.php?ob_sig=".$current_ob_id."&mo_sig=".$row->spr_hash."\n";
+            $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?ob_sig=".$current_ob_id."&mo_sig=".$row->spr_hash."\n";
         }
 
         // If the request contains a "INSERT INTO fgs_objects" but does NOT contain a formoid
