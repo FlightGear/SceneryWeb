@@ -593,12 +593,12 @@ if ($_POST["family_name"] != "" && $_POST["mo_author"] != ""
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $mo_shared   = $_POST["family_name"];
-    $author      = $_POST["mo_author"];
+    $authorId    = $_POST["mo_author"];
     $contr_email = $_POST["email"];
     $model_name  = $_POST["model_name"];
     $ipaddr      = $_POST["IPAddr"];
 
-    if (!preg_match($regex['authorid'], $author)) {
+    if (!preg_match($regex['authorid'], $authorId)) {
         $error++;
         $errormsg .= "<li>Please check the author value.</li>";
     }
@@ -649,11 +649,11 @@ else {
     $resource_rw = connect_sphere_rw();
 
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
-    $newModelMD = $modelFactory->createModelMetadata($model_name, $author, $path_to_use,
+    $newModelMD = $modelFactory->createModelMetadata($model_name, $authorId, $path_to_use,
             $name, $notes, $mo_shared);
     
     $mo_query  = "UPDATE fgs_models ";
-    $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$author.", mo_name = '".$name."', mo_notes = '".$notes."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared;
+    $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$authorId.", mo_name = '".$name."', mo_notes = '".$notes."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared;
     $mo_query .= " WHERE mo_id = ".$model_name;
 
     // Model stuff into pending requests table.
@@ -671,7 +671,7 @@ else {
     }
     else {
         $failed_mail = false;
-        $au_email = get_authors_email_from_authors_id($author);
+        $au_email = get_authors_email_from_authors_id($authorId);
         if (($au_email != '') && (strlen($au_email) > 0)) {
             $safe_au_email = pg_escape_string(stripslashes($au_email));
         } else {

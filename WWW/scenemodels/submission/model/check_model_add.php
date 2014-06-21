@@ -641,7 +641,7 @@ if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $mo_shared   = $_POST["mo_shared"];
-    $author      = $_POST["mo_author"];
+    $authorId    = $_POST["mo_author"];
     $country     = $_POST["ob_country"];
     $ipaddr      = $_POST["IPAddr"];
 
@@ -652,7 +652,7 @@ if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
         $errormsg .= "<li>It seems that your model already exists in our database. If you want to update it, please use our lovely update script for 3D models (to come).</li>";
     }
 
-    if (!preg_match($regex['authorid'], $author)) {
+    if (!preg_match($regex['authorid'], $authorId)) {
         $error++;
         $errormsg .= "<li>Please check the author value.</li>";
     }
@@ -700,7 +700,7 @@ else {
     
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $objectFactory = new ObjectFactory($objectDaoRO);
-    $newModelMD = $modelFactory->createModelMetadata(-1, $author, $path_to_use, $name, $notes, $mo_shared);
+    $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $mo_shared);
     $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
             $offset, heading_stg_to_true($heading), 1, "");
 
@@ -709,7 +709,7 @@ else {
     $mo_query .= "VALUES (";
     $mo_query .= "DEFAULT, ";             // mo_id
     $mo_query .= "'".$path_to_use."', ";  // mo_path
-    $mo_query .= $author.", ";            // mo_author
+    $mo_query .= $authorId.", ";          // mo_author
     $mo_query .= "'".$name."', ";         // mo_name
     $mo_query .= "'".$notes."', ";        // mo_notes
     $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
@@ -770,7 +770,7 @@ else {
     }
     else {
         $failed_mail = false;
-        $au_email = get_authors_email_from_authors_id($author);
+        $au_email = get_authors_email_from_authors_id($authorId);
         if (($au_email != '') && (strlen($au_email) > 0)) {
             $safe_au_email = pg_escape_string(stripslashes($au_email));
         }

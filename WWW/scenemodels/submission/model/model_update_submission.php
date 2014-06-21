@@ -1,6 +1,7 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 if (isset($_POST["action"])) {
     // Inserting libs
@@ -218,8 +219,7 @@ if (!isset($_POST["action"])) {
 
             $mo_id        = $matches['modelid'];
             $mo_path      = $matches['path'];
-            $mo_author    = get_authors_name_from_authors_id($matches['author']);
-            $mo_author_email = get_authors_email_from_authors_id($matches['author']);
+            $mo_author    = $authorDaoRO->getAuthor($matches['author']);
             $mo_name      = $matches['name'];
             $mo_notes     = $matches['notes'];
             $mo_thumbfile = $matches['thumbfile'];
@@ -227,11 +227,10 @@ if (!isset($_POST["action"])) {
             $mo_shared    = $matches['shared'];
             
             // Retrieve old model
-            $result = pg_query("SELECT mo_author, mo_id, mo_modified, mo_name, mo_notes, mo_path, mo_shared, to_char(mo_modified,'YYYY-mm-dd (HH24:MI)') AS mo_datedisplay FROM fgs_models WHERE mo_id=$mo_id;");
-            $old_model = pg_fetch_assoc($result);
+            $oldModelMD = $modelDaoRO->getModelMetadata($mo_id);
             
             $mo_contri_email = htmlentities($_GET["email"]);
-            $old_mo_author_email = get_authors_email_from_authors_id($old_model['mo_author']);
+            $oldModelAuthor = $oldModelMD->getAuthor();
         }
     }
 
@@ -253,14 +252,12 @@ include '../../inc/header.php';
         <td>Author (Email)</td>
         <td>
             <?php
-            $result = pg_query("SELECT au_name FROM fgs_authors WHERE au_id = '$old_model[mo_author]';");
-            $row = pg_fetch_assoc($result);
-            echo $row["au_name"] . "(".$old_mo_author_email.")";
+            echo $oldModelAuthor->getName() . "(".$oldModelAuthor->getEmail().")";
             ?>
         </td>
         <td>
-            <?php echo $mo_author."(".$mo_author_email.")"; ?>
-            <input type="hidden" name="email" value="<?php echo $mo_author_email; ?>" />
+            <?php echo $mo_author->getName()."(".$mo_author->getEmail().")"; ?>
+            <input type="hidden" name="email" value="<?php echo $mo_author->getEmail(); ?>" />
         </td>
     </tr>
     <tr>
@@ -274,28 +271,24 @@ include '../../inc/header.php';
     <tr>
         <td>Family</td>
         <td>
-        <?php
-            $result = pg_query("SELECT mg_id, mg_name FROM fgs_modelgroups WHERE mg_id = '$old_model[mo_shared]';");
-            $row = pg_fetch_assoc($result);
-            print $row["mg_name"];
-        ?>
+        <?php echo $oldModelMD->getModelsGroup()->getName();?>
         </td>
         <td><?php echo family_name($mo_shared); ?></td>
     </tr>
     <tr>
         <td>Proposed Path Name</td>
-        <td><?php echo $old_model["mo_path"]; ?></td>
+        <td><?php echo $oldModelMD->getFilename(); ?></td>
         <td><?php echo $mo_path; ?></td>
     </tr>
     <tr>
         <td>Full Name</td>
-        <td><?php echo $old_model["mo_name"]; ?></td>
+        <td><?php echo $oldModelMD->getName(); ?></td>
         <td><?php echo $mo_name; ?></td>
         <input type="hidden" name="mo_name" value="<?php echo $mo_name; ?>" />
     </tr>
     <tr>
         <td>Notes</td>
-        <td><?php echo $old_model["mo_notes"]; ?></td>
+        <td><?php echo $oldModelMD->getDescription(); ?></td>
         <td><?php echo $mo_notes; ?></td>
     </tr>
     <tr>

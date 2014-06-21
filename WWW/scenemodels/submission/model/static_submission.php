@@ -1,6 +1,8 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require_once '../../inc/functions.inc.php';
 
@@ -283,7 +285,7 @@ if (!isset($_POST["action"])) {
             preg_match($pattern, $query_rw, $matches);
 
             $mo_path      = $matches['path'];
-            $mo_author    = get_authors_name_from_authors_id($matches['author']);
+            $mo_author    = $authorDaoRO->getAuthor($matches['author']);
             $mo_name      = $matches['name'];
             $mo_notes     = $matches['notes'];
             $mo_thumbfile = $matches['thumbfile'];
@@ -307,7 +309,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Author</td>
-        <td><?php echo $mo_author; ?></td>
+        <td><?php echo $mo_author->getName(); ?></td>
     </tr>
     <tr>
         <td>Email</td>
@@ -349,7 +351,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Country</td>
-        <td><?php echo get_country_name_from_country_code($ob_country); ?></td>
+        <td><?php echo $objectDaoRO->getCountry($ob_country)->getName(); ?></td>
     </tr>
     <tr>
         <td>Ground Elevation</td>
