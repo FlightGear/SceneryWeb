@@ -181,116 +181,115 @@ if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && ($_POST["submit"] == "S
             exit;
         }
 
-        while ($row = pg_fetch_row($result)) {
-            $sqlzbase64 = $row[0];
+        $row = pg_fetch_row($result);
+        $sqlzbase64 = $row[0];
 
-            // Base64 decode the query
-            $sqlz = base64_decode($sqlzbase64);
+        // Base64 decode the query
+        $sqlz = base64_decode($sqlzbase64);
 
-            // Gzuncompress the query
-            $query_rw = gzuncompress($sqlz);
+        // Gzuncompress the query
+        $query_rw = gzuncompress($sqlz);
 
-            // ####################################################################################################################################################
-            // We have to work on the ob_text field here (working on it before make ob_text hard to parse to show to the maintainer).
-            // Sorry, this means we have to explode the request once more and, line per line, find the model name and set ob_text='".object_name($model_name)."'
-            // and rebuild the query, taking care of the presence of " or , in the ob_text field (while I did not do it in the single addition.
-            // ####################################################################################################################################################
+        // ####################################################################################################################################################
+        // We have to work on the ob_text field here (working on it before make ob_text hard to parse to show to the maintainer).
+        // Sorry, this means we have to explode the request once more and, line per line, find the model name and set ob_text='".object_name($model_name)."'
+        // and rebuild the query, taking care of the presence of " or , in the ob_text field (while I did not do it in the single addition.
+        // ####################################################################################################################################################
 
-            $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group)","",$query_rw); // Removing the start of the query from the data;
-            $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
-            $i = 1;
-            foreach ($tab_tags as $value_tag) {
-                $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
+        $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group)","",$query_rw); // Removing the start of the query from the data;
+        $tab_tags = explode(", (",$trigged_query_rw); // Separating the data based on the ST_PointFromText existence
+        $i = 1;
+        foreach ($tab_tags as $value_tag) {
+            $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
 
-                preg_match($pattern, $value_tag, $matches);
+            preg_match($pattern, $value_tag, $matches);
 
-                $long = $matches['long'];
-                $lat = $matches['lat'];
-                $elevation = $matches['elev'];
-                $country = $matches['country'];
-                $elevoffset = $matches['elevoffset'];
-                $orientation = $matches['orientation'];
-                $model = $matches['model_id'];
-                $ob_text = object_name($model);
+            $long = $matches['long'];
+            $lat = $matches['lat'];
+            $elevation = $matches['elev'];
+            $country = $matches['country'];
+            $elevoffset = $matches['elevoffset'];
+            $orientation = $matches['orientation'];
+            $model = $matches['model_id'];
+            $ob_text = object_name($model);
 
-                // Avoiding "0" data to be inserted for ob_elevoffset. Should be NULL. This avoids later computation delays on exports
-                $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
+            // Avoiding "0" data to be inserted for ob_elevoffset. Should be NULL. This avoids later computation delays on exports
+            $data_rw[$i] = "('".pg_escape_string($ob_text)."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), ".$elevation.", ";
 
-                $data_rw[$i] .= ($elevoffset == 0)?"NULL":$elevoffset;
-                $data_rw[$i] .= ", ".$orientation.", ".$model.", ";
-                $data_rw[$i] .= ($country == "unknown")?"NULL":"'".$country."'";
-                $data_rw[$i] .= ", 1)";
+            $data_rw[$i] .= ($elevoffset == 0)?"NULL":$elevoffset;
+            $data_rw[$i] .= ", ".$orientation.", ".$model.", ";
+            $data_rw[$i] .= ($country == "unknown")?"NULL":"'".$country."'";
+            $data_rw[$i] .= ", 1)";
 
-                $i++;
+            $i++;
+        }
+
+        $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
+        for ($j = 1; $j<$i; $j++) { // For each line, add the data content to the request
+            if ($j == ($i-1)) {
+                $data_query_rw = $data_query_rw.$data_rw[$j].";";
             }
-
-            $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
-            for ($j = 1; $j<$i; $j++) { // For each line, add the data content to the request
-                if ($j == ($i-1)) {
-                    $data_query_rw = $data_query_rw.$data_rw[$j].";";
-                }
-                else {
-                    $data_query_rw = $data_query_rw.$data_rw[$j].", ";
-                }
+            else {
+                $data_query_rw = $data_query_rw.$data_rw[$j].", ";
             }
-            $mass_rw_query = $query_rw.$data_query_rw;
+        }
+        $mass_rw_query = $query_rw.$data_query_rw;
 
-            // ###########################################################################################################################
+        // ###########################################################################################################################
 
-            // Sending the request...
-            $result_rw = pg_query($resource_rw, $mass_rw_query);
+        // Sending the request...
+        $result_rw = pg_query($resource_rw, $mass_rw_query);
 
-            if (!$result_rw) {
-                $page_title = "Automated Objects Massive Insertion Request Form";
-                include '../../inc/header.php';
-                echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_POST["hsig"].".</p><br />";
-                echo "<p class=\"warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
-
-                // Closing the rw connection.
-                include '../../inc/footer.php';
-                pg_close($resource_rw);
-                exit;
-            }
-
+        if (!$result_rw) {
             $page_title = "Automated Objects Massive Insertion Request Form";
             include '../../inc/header.php';
-            echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST["hsig"].".</p><br />\n";
-            echo "<p class=\"center ok\">".pg_affected_rows($result_rw)." objects were added to the database!</p>\n";
-            echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
-
-            // Delete the entry from the pending query table.
-            $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
-            $resultdel = pg_query($resource_rw, $delete_request);
-
-            if (!$resultdel) {
-                echo "<p class=\"warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
-
-                // Closing the rw connection.
-                include '../../inc/footer.php';
-                pg_close($resource_rw);
-                exit;
-            }
-
-            echo "<p class=\"center ok\">Entry correctly deleted from the pending request table.</p>";
+            echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_POST["hsig"].".</p><br />";
+            echo "<p class=\"warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
             // Closing the rw connection.
-            pg_close($resource_rw);
-
-            // Sending mail if SQL was correctly inserted and entry deleted.
-            // Sets the time to UTC.
-            date_default_timezone_set('UTC');
-            $dtg = date('l jS \of F Y h:i:s A');
-            $hsig = $_POST['hsig'];
-
-            // email destination
-            $to = (isset($_POST['email'])) ? $_POST["email"] : '';
-
-            $emailSubmit = EmailContentFactory::getMassImportRequestAcceptedEmailContent($dtg, $hsig, $comment);
-            $emailSubmit->sendEmail($to, true);
-
             include '../../inc/footer.php';
+            pg_close($resource_rw);
             exit;
         }
+
+        $page_title = "Automated Objects Massive Insertion Request Form";
+        include '../../inc/header.php';
+        echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST["hsig"].".</p><br />\n";
+        echo "<p class=\"center ok\">".pg_affected_rows($result_rw)." objects were added to the database!</p>\n";
+        echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
+
+        // Delete the entry from the pending query table.
+        $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
+        $resultdel = pg_query($resource_rw, $delete_request);
+
+        if (!$resultdel) {
+            echo "<p class=\"warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
+
+            // Closing the rw connection.
+            include '../../inc/footer.php';
+            pg_close($resource_rw);
+            exit;
+        }
+
+        echo "<p class=\"center ok\">Entry correctly deleted from the pending request table.</p>";
+
+        // Closing the rw connection.
+        pg_close($resource_rw);
+
+        // Sending mail if SQL was correctly inserted and entry deleted.
+        // Sets the time to UTC.
+        date_default_timezone_set('UTC');
+        $dtg = date('l jS \of F Y h:i:s A');
+        $hsig = $_POST['hsig'];
+
+        // email destination
+        $to = (isset($_POST['email'])) ? $_POST["email"] : '';
+
+        $emailSubmit = EmailContentFactory::getMassImportRequestAcceptedEmailContent($dtg, $hsig, $comment);
+        $emailSubmit->sendEmail($to, true);
+
+        include '../../inc/footer.php';
+        exit;
     }
 }
 ?>
