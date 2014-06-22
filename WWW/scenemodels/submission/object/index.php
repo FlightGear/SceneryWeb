@@ -18,8 +18,7 @@ function validateForm()
 {
     var form = document.getElementById("positions");
 
-    if (!checkStringNotDefault(form["family_name"], 0) ||
-        !checkStringNotDefault(form["longitude"], "") || !checkNumeric(form["longitude"],-180,180) ||
+    if (!checkStringNotDefault(form["longitude"], "") || !checkNumeric(form["longitude"],-180,180) ||
         !checkStringNotDefault(form["latitude"], "") || !checkNumeric(form["latitude"],-90,90) ||
         !checkNumeric(form['offset'],-999,999) ||
         !checkStringNotDefault(form["heading"], "") || !checkNumeric(form['heading'],0,359.999) ||
@@ -88,12 +87,7 @@ $(function() {
                              "<option selected=\"selected\" value=\"\">Please select a family</option>\n" .
                              "<option value=\"\">----</option>\n";
                         foreach ($modelsGroups as $modelsGroup) {
-                            if ($modelsGroup->isStatic()) {
-                                continue;
-                            }
-                        
-                            $name=str_replace('Shared - ',"",$modelsGroup->getName());
-                            echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>\n";
+                            echo "<option value=\"".$modelsGroup->getId()."\">".$modelsGroup->getName()."</option>\n";
                         }
                         echo "</select>";
 

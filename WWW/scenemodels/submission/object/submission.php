@@ -215,14 +215,14 @@ if ($_GET["action"] == 'accept') {
 
         $page_title = "Automated Objects Pending Requests Form";
         include '../../inc/header.php';
-        echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_GET[sig].".</p><br />";
+        echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_GET["sig"].".</p><br />";
         echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
         // Delete the entry from the pending query table.
         $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_GET["sig"] ."';";
         $resultdel = pg_query($resource_rw,$delete_request);
 
-        if(!resultdel) {
+        if(!$resultdel) {
             echo "<p class=\"center warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
             // Closing the rw connection.
