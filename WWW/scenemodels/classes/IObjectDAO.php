@@ -28,6 +28,8 @@ interface IObjectDAO {
     
     public function getCountry($countryCode);
     
+    public function getCountryAt($long, $lat);
+    
     public function getCountries();
     
     public function countObjects();

@@ -108,6 +108,15 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         return $this->getCountryFromRow($row);
     }
     
+    public function getCountryAt($long, $lat) {
+        $query = "SELECT co_code, co_name, co_three FROM gadm2, fgs_countries " .
+                 "WHERE ST_Within(ST_PointFromText('POINT(".$long." ".$lat.")', 4326), gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+        $result = $this->database->query($query);
+
+        $row = pg_fetch_assoc($result);
+        return $this->getCountryFromRow($row);
+    }
+    
     public function getCountries() {
         $result = $this->database->query("SELECT * FROM fgs_countries ORDER BY co_name;");
         

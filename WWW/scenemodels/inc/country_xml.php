@@ -3,7 +3,8 @@
  * This script creates an xml file containing the country code according
  *
  */
-
+require_once "../../classes/DAOFactory.php";
+$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
 require_once 'functions.inc.php';
@@ -14,7 +15,7 @@ $lat=pg_escape_string($_GET['lt']);
 header('Content-Type: text/xml');
 echo "<?xml version=\"1.0\" standalone=\"yes\" ?>\n".
      "<country>".
-     compute_country_code_from_position($long, $lat).
+     $objectDaoRO->getCountryAt($long, $lat)->getCode().
      "</country>";
 
 ?>

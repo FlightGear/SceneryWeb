@@ -46,14 +46,14 @@ function connect_sphere_rw() {
 // =====================================================
 
 function compute_object_country_from_id($ob_id) {
-    $mg_id = pg_escape_string($ob_id);
+    $obId = pg_escape_string($ob_id);
 
     // Connecting to the database.
     $headerlink_country = connect_sphere_r();
 
     // Querying...
     $query = "SELECT co_code FROM gadm2, fgs_countries, fgs_objects ".
-             "WHERE fgs_objects.ob_id = ".$mg_id." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+             "WHERE fgs_objects.ob_id = ".$obId." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
     $result = pg_query($headerlink_country, $query);
 
     while ($row = pg_fetch_assoc($result)) {
@@ -72,36 +72,16 @@ function compute_object_country_from_id($ob_id) {
 // ==============================================
 
 function update_object_country_from_id($ob_id) {
-    $mg_id = pg_escape_string($ob_id);
+    $obId = pg_escape_string($ob_id);
 
-    $country_code = compute_object_country_from_id($mg_id);
+    $country_code = compute_object_country_from_id($obId);
 
     $headerlink_country = connect_sphere_rw();
-    $query = "UPDATE fgs_objects SET ob_country='$country_code' WHERE ob_id = ".$mg_id.";";
+    $query = "UPDATE fgs_objects SET ob_country='$country_code' WHERE ob_id = ".$obId.";";
     pg_query($headerlink_country, $query);
 
     // Closing the connection.
     pg_close ($headerlink_country);
-}
-
-// Computes the country id of position specified by longitude and latitude
-// =======================================================================
-
-function compute_country_code_from_position($long, $lat) {
-    // Connecting to the database.
-    $headerlink_country = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT co_code FROM gadm2, fgs_countries " .
-             "WHERE ST_Within(ST_PointFromText('POINT(".$long." ".$lat.")', 4326), gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
-    $result = pg_query($headerlink_country, $query);
-
-    $row = pg_fetch_assoc($result);
-    
-    // Closing the connection.
-    pg_close ($headerlink_country);
-    
-    return $row["co_code"];
 }
 
 

@@ -253,7 +253,7 @@ if (!$error) {
 
         // Country
         if ($step == 1) {
-            $ob_country = compute_country_code_from_position($long, $lat);
+            $ob_country = $objectDaoRO->getCountryAt($long, $lat)->getCode();
             if ($ob_country == "") {
                 $unknown_country = true;
             }
