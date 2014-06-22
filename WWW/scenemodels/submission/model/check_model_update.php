@@ -345,16 +345,18 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
     function startElement($parser, $name, $attrs) {
         global $depth;
         $parserInt = intval($parser);
-        if(!isset($depth[$parserInt]))
+        if(!isset($depth[$parserInt])) {
             $depth[$parserInt]=0;
+        }
         $depth[$parserInt]++;
     }
 
     function endElement($parser, $name) {
         global $depth;
         $parserInt = intval($parser);
-        if(!isset($depth[$parserInt]))
+        if(!isset($depth[$parserInt])) {
             $depth[$parserInt]=0;
+        }
         $depth[$parserInt]--;
     }
 

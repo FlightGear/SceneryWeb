@@ -377,10 +377,11 @@ include '../../inc/header.php';
         <td colspan="2">
             <center>
 <?php
-            if ($png_file_number <= 1)
+            if ($png_file_number <= 1) {
                 echo $png_file_number." texture file has been submitted:<br/>\n"; // Some eye caviar for the poor scenery maintainers.
-            else
+            } else {
                 echo $png_file_number." texture files have been submitted:<br/>\n";
+            }
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             $based64_target_path = base64_encode($target_path);
