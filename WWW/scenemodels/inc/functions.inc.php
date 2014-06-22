@@ -45,16 +45,14 @@ function connect_sphere_rw() {
 // (ie, this is not the data in the database)
 // =====================================================
 
-function compute_object_country_from_id($ob_id) {
-    $obId = pg_escape_string($ob_id);
-
+function compute_object_country_from_id($obId) {
     // Connecting to the database.
-    $headerlink_country = connect_sphere_r();
+    $resource = connect_sphere_r();
 
     // Querying...
     $query = "SELECT co_code FROM gadm2, fgs_countries, fgs_objects ".
-             "WHERE fgs_objects.ob_id = ".$obId." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
-    $result = pg_query($headerlink_country, $query);
+             "WHERE fgs_objects.ob_id = ".pg_escape_string($obId)." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
+    $result = pg_query($resource, $query);
 
     while ($row = pg_fetch_assoc($result)) {
         if ($row["co_code"] == '') {
@@ -65,7 +63,7 @@ function compute_object_country_from_id($ob_id) {
     }
 
     // Closing the connection.
-    pg_close ($headerlink_country);
+    pg_close($headerlink_country);
 }
 
 // Update the object's country using its location
@@ -74,38 +72,14 @@ function compute_object_country_from_id($ob_id) {
 function update_object_country_from_id($ob_id) {
     $obId = pg_escape_string($ob_id);
 
-    $country_code = compute_object_country_from_id($obId);
+    $countryCode = compute_object_country_from_id($obId);
 
     $headerlink_country = connect_sphere_rw();
-    $query = "UPDATE fgs_objects SET ob_country='$country_code' WHERE ob_id = ".$obId.";";
+    $query = "UPDATE fgs_objects SET ob_country='$countryCode' WHERE ob_id = ".$obId.";";
     pg_query($headerlink_country, $query);
 
     // Closing the connection.
-    pg_close ($headerlink_country);
-}
-
-
-// Returns the author's email from an author's id sent as parameter
-// ================================================================
-
-function get_authors_email_from_authors_id($au_id) {
-    $au_id = pg_escape_string($au_id);
-
-    // Connecting to the database.
-    $headerlink = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT au_email FROM fgs_authors WHERE au_id = ".$au_id.";";
-    $result = pg_query($headerlink, $query);
-
-    while ($row = pg_fetch_assoc($result)) {
-        if ($row["au_email"] != '') {
-            return $row["au_email"];
-        }
-    }
-
-    // Closing the connection.
-    pg_close ($headerlink);
+    pg_close($headerlink_country);
 }
 
 
@@ -186,7 +160,7 @@ function model_exists($model_name) {
     }
 
     // Closing the connection.
-    pg_close ($headerlink_family);
+    pg_close($headerlink_family);
 }
 
 
@@ -253,7 +227,7 @@ function detect_already_existing_object($lat, $lon, $ob_elevoffset, $ob_heading,
     $returned_rows = pg_num_rows($result);
 
     // Closing the connection.
-    pg_close ($resource_r);
+    pg_close($resource_r);
     
     return $returned_rows > 0;
 }
@@ -262,7 +236,7 @@ function detect_already_existing_object($lat, $lon, $ob_elevoffset, $ob_heading,
 // Nearby means (at the moment) within 15 meters
 // ===========================================================================================================
 
-function detect_nearby_object($lat, $lon, $ob_model) {
+function detect_nearby_object($lat, $lon, $obModelId) {
     // Connecting to the database.
     $resource_r = connect_sphere_r();
 
@@ -270,7 +244,7 @@ function detect_nearby_object($lat, $lon, $ob_model) {
     $query = "SELECT (ST_Distance_Spheroid(
         (SELECT wkb_geometry
         FROM fgs_objects
-        WHERE ob_model = ".$ob_model."
+        WHERE ob_model = ".$obModelId."
         ORDER BY ABS( ST_Distance_Spheroid(
                 (wkb_geometry),
                 (ST_PointFromText('POINT(".$lon." ".$lat.")', 4326)),
@@ -284,7 +258,7 @@ function detect_nearby_object($lat, $lon, $ob_model) {
     $row = pg_fetch_row($result);
 
     // Closing the connection.
-    pg_close ($resource_r);
+    pg_close($resource_r);
     
     return ($row[0] == "t");
 }
@@ -379,16 +353,16 @@ function check_terrasync_update_passed() {
 // Checks if the model path already exists in DB.
 // ==============================================
 
-function path_exists($proposed_path) {
+function path_exists($proposedPath) {
     // Connecting to the databse.
     $resource = connect_sphere_r();
 
     // Count the number of objects in the database
-    $path = pg_query($resource,"SELECT COUNT(*) as count FROM fgs_models WHERE mo_path='".pg_escape_string($proposed_path)."';");
+    $path = pg_query($resource,"SELECT COUNT(*) as count FROM fgs_models WHERE mo_path='".pg_escape_string($proposedPath)."';");
     $line = pg_fetch_assoc($path);
     
     // Close the database resource
-    pg_close ($resource);
+    pg_close($resource);
     
     return $line['count']>0;
 }

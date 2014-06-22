@@ -396,12 +396,14 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
 }
 
 // Check if path is already used
-$modelToUpdateOld = $modelDaoRO->getModelMetadata($_POST["model_name"]);
-if ($path_to_use != $modelToUpdateOld->getFilename() && path_exists($path_to_use)) {
-    $error++;
-    $errormsg .= "<li>Filename \"".$path_to_use."\" is already used by another model</li>";
-} else {
-    echo "<p class=\"center\">Your model named ".$path_to_use."\n";
+if (isset($_POST["model_name"])) {
+    $modelToUpdateOld = $modelDaoRO->getModelMetadata($_POST["model_name"]);
+    if ($path_to_use != $modelToUpdateOld->getFilename() && path_exists($path_to_use)) {
+        $error++;
+        $errormsg .= "<li>Filename \"".$path_to_use."\" is already used by another model</li>";
+    } else {
+        echo "<p class=\"center\">Your model named ".$path_to_use."\n";
+    }
 }
 
 ###############################################
@@ -586,8 +588,8 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 
 if ($_POST["family_name"] != "" && $_POST["mo_author"] != ""
-        && $_POST["model_name"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != ""
-        && isset($_POST['notes'])) {
+        && isset($_POST["model_name"]) && $_POST["model_name"] != "" && $_POST["mo_name"] != ""
+        && $_POST["IPAddr"] != "" && isset($_POST['notes'])) {
 
     $path        = remove_file_extension($ac3dName);
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
@@ -671,8 +673,8 @@ else {
     }
     else {
         $failed_mail = false;
-        $au_email = get_authors_email_from_authors_id($authorId);
-        if (($au_email != '') && (strlen($au_email) > 0)) {
+        $au_email = $newModelMD->getAuthor()->getEmail();
+        if ($au_email != '' && strlen($au_email) > 0) {
             $safe_au_email = pg_escape_string(stripslashes($au_email));
         } else {
             $failed_mail = true;

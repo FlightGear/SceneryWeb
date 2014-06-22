@@ -770,8 +770,8 @@ else {
     }
     else {
         $failed_mail = false;
-        $au_email = get_authors_email_from_authors_id($authorId);
-        if (($au_email != '') && (strlen($au_email) > 0)) {
+        $au_email = $newModelMD->getAuthor()->getEmail();
+        if ($au_email != '' && strlen($au_email) > 0) {
             $safe_au_email = pg_escape_string(stripslashes($au_email));
         }
         else {
