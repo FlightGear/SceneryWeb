@@ -316,7 +316,6 @@ if (!$error) {
          "<b>Your email:</b> ".$_POST['email']."<br/>" .
          "<input type='hidden' name='email' id='email' value='".$_POST['email']."'/>" .
          "<input type='hidden' name='comment' id='comment' value='".$_POST['comment']."'/>" .
-         "<input name='IPAddr' type='hidden' value='".$_SERVER['REMOTE_ADDR']."'/>" .
          "<input name='stg' type='hidden' value='".$_POST['stg']."'/>";
 
     if ($global_ko) { // If errors have been found...
@@ -351,7 +350,7 @@ if ($step == 1) {
     $mass_rw_query = $query_rw.$data_query_rw;
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-    $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$mass_rw_query.">";
+    $sha_to_compute = "<".microtime()."><".$_SERVER["REMOTE_ADDR"]."><".$mass_rw_query.">";
     $sha_hash = hash('sha256', $sha_to_compute);
 
     // Zipping the Base64'd request.
@@ -388,7 +387,7 @@ if ($step == 1) {
     $dtg = date('l jS \of F Y h:i:s A');
 
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-    $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
+    $ipaddr = pg_escape_string(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
 
     $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $to, $safe_email, $sha_hash, $sent_comment);

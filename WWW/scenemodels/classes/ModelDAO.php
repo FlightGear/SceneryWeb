@@ -47,7 +47,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_id = ".$modelId." AND au_id = mo_author AND mg_id = mo_shared");
+                                         "WHERE mo_id = ".pg_escape_string($modelId)." AND au_id = mo_author AND mg_id = mo_shared");
         $row = pg_fetch_assoc($result);
         
         return $this->getModelMetadataFromRow($row);

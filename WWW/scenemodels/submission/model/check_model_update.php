@@ -591,7 +591,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 
 if ($_POST["family_name"] != "" && $_POST["mo_author"] != ""
         && isset($_POST["model_name"]) && $_POST["model_name"] != "" && $_POST["mo_name"] != ""
-        && $_POST["IPAddr"] != "" && isset($_POST['notes'])) {
+        && isset($_POST['notes'])) {
 
     $path        = remove_file_extension($ac3dName);
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
@@ -600,7 +600,7 @@ if ($_POST["family_name"] != "" && $_POST["mo_author"] != ""
     $authorId    = $_POST["mo_author"];
     $contr_email = $_POST["email"];
     $model_name  = $_POST["model_name"];
-    $ipaddr      = $_POST["IPAddr"];
+    $ipaddr      = $_SERVER["REMOTE_ADDR"];
 
     if (!preg_match($regex['authorid'], $authorId)) {
         $error++;
@@ -615,7 +615,7 @@ else {
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 if (is_comment($_POST['comment'])) {
-    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
+    $sent_comment = htmlentities(stripslashes($_POST['comment']));
 }
 else {
     $error++;

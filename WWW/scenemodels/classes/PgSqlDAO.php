@@ -18,7 +18,7 @@ abstract class PgSqlDAO {
             foreach ($criteria as $criterion) {
                 $whereClause .= $and . $criterion->getVarName() 
                                 . $criterion->getOperation()
-                                . $criterion->getValue();
+                                . pg_escape_string($criterion->getValue());
                 $and = ' AND ';
             }
         }

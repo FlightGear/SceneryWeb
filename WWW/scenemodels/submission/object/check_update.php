@@ -113,7 +113,7 @@ if (isset($model_name)
                   "WHERE ob_id=".$id_to_update.";";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-    $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_update.">";
+    $sha_to_compute = "<".microtime()."><".$_SERVER["REMOTE_ADDR"]."><".$query_update.">";
     $sha_hash = hash('sha256', $sha_to_compute);
 
     // Zipping the Base64'd request.
@@ -149,7 +149,7 @@ if (isset($model_name)
     $dtg = date('l jS \of F Y h:i:s A');
 
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-    $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
+    $ipaddr = pg_escape_string(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
     $family_name = $_POST['family_name'];
     $comment = $_POST['comment'];
@@ -393,7 +393,6 @@ function validateForm()
     $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
     echo recaptcha_get_html($publickey);
 ?>
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']?>" />
             <input type="submit" name="submit" value="Update this object!" />
             <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
           </td>
@@ -498,7 +497,6 @@ else {
                 </td>
             </tr>
             <input name="update_choice" type="hidden" value="<?php echo $object->getId(); ?>" />
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
             <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
             <tr>
                 <td colspan="4" class="submit">
@@ -581,7 +579,6 @@ else {
 ?>
             <tr>
                 <td colspan="5" class="submit">
-                <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
                 <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
                 <input type="submit" name="submit" value="I want to update the selected object!" />
                 <input type="button" name="cancel" value="Cancel - I made a mistake!" onclick="history.go(-1)"/>

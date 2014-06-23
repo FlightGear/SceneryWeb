@@ -268,7 +268,6 @@ $(function() {
                         ?>
                         <br />
                         <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
-                        <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
                         <input type="submit" value="Submit model" />
                     </td>
                 </tr>

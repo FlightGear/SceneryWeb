@@ -146,7 +146,7 @@ if (!$error) {
                 "VALUES ('".$modelMD->getName()."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".(($offset == 0 || $offset == '')?"NULL":"$offset") .", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-    $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_rw.">";
+    $sha_to_compute = "<".microtime()."><".$_SERVER["REMOTE_ADDR"]."><".$query_rw.">";
     $sha_hash = hash('sha256', $sha_to_compute);
 
     // Zipping the Base64'd request.
@@ -183,7 +183,7 @@ if (!$error) {
         $dtg = date('l jS \of F Y h:i:s A');
 
         // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-        $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
+        $ipaddr = pg_escape_string(stripslashes($_SERVER["REMOTE_ADDR"]));
         $host = gethostbyaddr($ipaddr);
 
         $emailSubmit = EmailContentFactory::getSharedRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $newObject, $sent_comment, $sha_hash);

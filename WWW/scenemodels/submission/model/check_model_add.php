@@ -634,7 +634,7 @@ else {
 ###############################################
 
 if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
-        && $_POST["ob_country"] != "" && $_POST["mo_name"] != "" && $_POST["IPAddr"] != ""
+        && $_POST["ob_country"] != "" && $_POST["mo_name"] != ""
         && isset($_POST['notes'])) {
 
     $path        = remove_file_extension($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
@@ -643,7 +643,7 @@ if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
     $mo_shared   = $_POST["mo_shared"];
     $authorId    = $_POST["mo_author"];
     $country     = $_POST["ob_country"];
-    $ipaddr      = $_POST["IPAddr"];
+    $ipaddr      = $_SERVER["REMOTE_ADDR"];
 
     // This is only used for shared objects.
     // Reconstructing the parameters the model_exists function is waiting for, based on the path.
@@ -772,7 +772,7 @@ else {
         $failed_mail = false;
         $au_email = $newModelMD->getAuthor()->getEmail();
         if ($au_email != '' && strlen($au_email) > 0) {
-            $safe_au_email = pg_escape_string(stripslashes($au_email));
+            $safe_au_email = htmlentities(stripslashes($au_email));
         }
         else {
             $failed_mail = true;
@@ -785,7 +785,7 @@ else {
         // Sending mail if there is no false and SQL was correctly inserted.
         date_default_timezone_set('UTC');                                // Sets the time to UTC.
         $dtg = date('l jS \of F Y h:i:s A');
-        $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+        $ipaddr = stripslashes($ipaddr);                                 // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
         
         $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_au_email, $newObject, $newModelMD, $mo_sha_hash, $ob_sha_hash);

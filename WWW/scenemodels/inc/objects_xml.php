@@ -11,7 +11,7 @@ echo "<?xml version=\"1.0\" standalone=\"yes\" ?>\n";
 // of a specific family, using Ajax.
 
 // To prevent from SQL injections attempts.
-$mg_id = pg_escape_string($_GET['mg_id']);
+$mg_id = $_GET['mg_id'];
 
 // Connecting to the database. Doing no error checking, because it would not
 // show off properly at this position in HTML.

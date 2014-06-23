@@ -9,8 +9,8 @@ $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 // Inserting libs
 require_once 'functions.inc.php';
 
-$long=pg_escape_string($_GET['lg']);
-$lat=pg_escape_string($_GET['lt']);
+$long = $_GET['lg'];
+$lat = $_GET['lt'];
 
 header('Content-Type: text/xml');
 echo "<?xml version=\"1.0\" standalone=\"yes\" ?>\n".

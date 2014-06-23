@@ -70,7 +70,7 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
     $query_delete = "DELETE FROM fgs_objects WHERE ob_id=".$id_to_delete.";";
 
     // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-    $sha_to_compute = "<".microtime()."><".$_POST['IPAddr']."><".$query_delete.">";
+    $sha_to_compute = "<".microtime()."><".$_SERVER['REMOTE_ADDR']."><".$query_delete.">";
     $sha_hash = hash('sha256', $sha_to_compute);
 
     // Zipping the Base64'd request.
@@ -106,7 +106,7 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
     $dtg = date('l jS \of F Y h:i:s A');
 
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-    $ipaddr = pg_escape_string(stripslashes($_POST['IPAddr']));
+    $ipaddr = pg_escape_string(stripslashes($_SERVER['REMOTE_ADDR']));
     $host   = gethostbyaddr($ipaddr);
     
     $emailSubmit = EmailContentFactory::getSharedDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $objectToDel, $comment, $sha_hash);
@@ -227,11 +227,11 @@ function validateForm()
             <td colspan="4"><?php echo $modelMDToDel->getName(); ?></td>
         </tr>
         <tr>
-            <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><label>Longitude</label></span></td>
+            <td><span title="This is the WGS84 longitude of the object you want to delete. Has to be between -180.000000 and +180.000000."><label>Longitude</label></span></td>
             <td colspan="4"><?php echo $objectToDel->getLongitude(); ?></td>
         </tr>
         <tr>
-            <td><span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><label>Latitude</label></span></td>
+            <td><span title="This is the WGS84 latitude of the object you want to delete. Has to be between -90.000000 and +90.000000."><label>Latitude</label></span></td>
             <td colspan="4"><?php echo $objectToDel->getLatitude(); ?></td>
         </tr>
         <tr>
@@ -283,7 +283,6 @@ function validateForm()
             <br />
             <input name="delete_choice" type="hidden" value="<?php echo $objectToDel->getId(); ?>" />
             <input name="step" type="hidden" value="3" />
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
 
             <input type="submit" name="submit" value="Forward for deletion!" />
             <input type="button" name="cancel" value="Cancel this deletion!" onclick="history.go(-1)"/>
@@ -396,7 +395,6 @@ function validateForm()
         </tr>
         <tr>
             <td colspan="5" class="submit">
-            <input name="IPAddr" type="hidden" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
             <input name="step" type="hidden" value="3" />
 <?php
         // Google Captcha stuff
