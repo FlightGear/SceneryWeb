@@ -10,9 +10,9 @@ require '../../inc/header.php';
     
 // Populate fields when a model id is given in the url
 if (isset($_REQUEST['update_choice'])
-        && preg_match($regex['modelid'], $_REQUEST['update_choice'])) {
-    $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
-    $model = $modelDaoRO->getModel($id_to_update);
+        && is_model_id($_REQUEST['update_choice'])) {
+    $id_to_update = stripslashes($_REQUEST['update_choice']);
+    $modelMD = $modelDaoRO->getModelMetadata($id_to_update);
 }
 ?>
 <script type="text/javascript" src="../../inc/js/update_objects.js"></script>
@@ -136,7 +136,7 @@ $(function() {
                         // Start the select form
                         echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
                              "<option ";
-                        if (isset($model) && $model->getMetadata()->getModelsGroup()->isStatic()) {
+                        if (isset($modelMD) && $modelMD->getModelsGroup()->isStatic()) {
                             echo "selected=\"selected\" ";
                         }
                         echo "value=\"0\">Please select a family</option>\n" .
@@ -146,7 +146,7 @@ $(function() {
                             $name=preg_replace('/&/',"&amp;",$modelsGroup->getName());
                             $name=preg_replace('/ /',"&nbsp;",$name);
                             echo "<option value=\"".$modelsGroup->getId()."\"";
-                            if (isset($model) && $modelsGroup->getId() == $model->getMetadata()->getModelsGroup()->getId()) {
+                            if (isset($modelMD) && $modelsGroup->getId() == $modelMD->getModelsGroup()->getId()) {
                                 echo " selected=\"selected\"";
                             }
                             echo ">".$name."</option>\n";
@@ -171,7 +171,7 @@ $(function() {
                         <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($model))?$model->getMetadata()->getName():'';?>"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($modelMD))?$modelMD->getName():'';?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -179,7 +179,7 @@ $(function() {
                         <label for="notes">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($model))?$model->getMetadata()->getDescription():'';?>"/>
+                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($modelMD))?$modelMD->getDescription():'';?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -238,8 +238,8 @@ $(function() {
                             <?php
                             $authors = $authorDaoRO->getAllAuthors(0, "ALL");
                             foreach($authors as $author) {
-                                if ((isset($model) && $author->getId() == $model->getMetadata()->getAuthor()->getId())
-                                        || (!isset($model) && $author->getId() == 1)) {
+                                if ((isset($modelMD) && $author->getId() == $modelMD->getAuthor()->getId())
+                                        || (!isset($modelMD) && $author->getId() == 1)) {
                                     echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>\n";
                                 } else {
                                     echo "<option value=\"".$author->getId()."\">".$author->getName()."</option>\n";
@@ -291,8 +291,8 @@ $(document).ready(function(){
     
     <?php
     // Pre-set model dropdown
-    if (isset($model) && $model->getMetadata()->getFilename()) {
-        echo 'update_objects(\''.$model->getMetadata()->getFilename().'\');';
+    if (isset($modelMD) && $modelMD->getFilename()) {
+        echo 'update_objects(\''.$modelMD->getFilename().'\');';
     }
     ?>
 });

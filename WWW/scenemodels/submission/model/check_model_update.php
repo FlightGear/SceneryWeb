@@ -677,13 +677,13 @@ else {
         $failed_mail = false;
         $au_email = $newModelMD->getAuthor()->getEmail();
         if ($au_email != '' && strlen($au_email) > 0) {
-            $safe_au_email = pg_escape_string(stripslashes($au_email));
+            $safe_au_email = htmlentities(stripslashes($au_email));
         } else {
             $failed_mail = true;
         }
         
         if (is_email($contr_email)) {
-            $safe_contr_email = pg_escape_string(stripslashes($contr_email));
+            $safe_contr_email = htmlentities(stripslashes($contr_email));
         } else {
             $failed_mail = true;
         }
@@ -696,7 +696,7 @@ else {
         // Sending mail if there is no false and SQL was correctly inserted.
         date_default_timezone_set('UTC');                                // Sets the time to UTC.
         $dtg = date('l jS \of F Y h:i:s A');
-        $ipaddr = pg_escape_string(stripslashes($ipaddr));               // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+        $ipaddr = htmlentities(stripslashes($ipaddr));                   // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
 
         $emailSubmit = EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $newModelMD, $safe_contr_email, $sent_comment, $mo_sha_hash);
