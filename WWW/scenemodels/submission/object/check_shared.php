@@ -53,7 +53,7 @@ else {
 
 // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
 if (is_latitude($_POST['latitude'])) {
-    $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
+    $lat = number_format(htmlentities(stripslashes($_POST['latitude'])),7,'.','');
     echo "<p class=\"ok\">Latitude: ".$lat."</p>";
 }
 else {
@@ -63,7 +63,7 @@ else {
 
 // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
 if (is_longitude($_POST['longitude'])) {
-    $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
+    $long = number_format(htmlentities(stripslashes($_POST['longitude'])),7,'.','');
     echo "<p class=\"ok\">Longitude: ".$long."</p>";
 }
 else {
@@ -106,7 +106,7 @@ else {
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 if ($_POST['comment'] != '' && is_comment($_POST['comment'])) {
-    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
+    $sent_comment = htmlentities(stripslashes($_POST['comment']));
     echo "<p class=\"ok\">Comment: ".$sent_comment."</p>";
 }
 else {
@@ -118,7 +118,7 @@ else {
 //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 $failed_mail = false;
 if (is_email($_POST['email'])) {
-    $safe_email = pg_escape_string(stripslashes($_POST['email']));
+    $safe_email = htmlentities(stripslashes($_POST['email']));
     echo "<p class=\"ok\">Email: ".$safe_email."</p>";
 }
 else {
@@ -183,7 +183,7 @@ if (!$error) {
         $dtg = date('l jS \of F Y h:i:s A');
 
         // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-        $ipaddr = pg_escape_string(stripslashes($_SERVER["REMOTE_ADDR"]));
+        $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
         $host = gethostbyaddr($ipaddr);
 
         $emailSubmit = EmailContentFactory::getSharedRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $newObject, $sent_comment, $sha_hash);

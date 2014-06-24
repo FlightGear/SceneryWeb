@@ -43,7 +43,7 @@ if (isset($_POST['model_name']) && is_model_id($_POST['model_name'])) {
 }
 
 if (isset($_POST['email']) && is_email($_POST['email'])) {
-    $safe_email = pg_escape_string(stripslashes($_POST['email']));
+    $safe_email = htmlentities(stripslashes($_POST['email']));
 }
 
 if (isset($_POST['new_ob_text'])
@@ -149,7 +149,7 @@ if (isset($model_name)
     $dtg = date('l jS \of F Y h:i:s A');
 
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-    $ipaddr = pg_escape_string(stripslashes($_SERVER["REMOTE_ADDR"]));
+    $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
     $family_name = $_POST['family_name'];
     $comment = $_POST['comment'];

@@ -53,7 +53,7 @@ $error = false;
 // Checking that email is valid (if it exists).
 $failed_mail = false;
 if (is_email($_POST['email'])) {
-    $safe_email = pg_escape_string(stripslashes($_POST['email']));
+    $safe_email = htmlentities(stripslashes($_POST['email']));
     if ($step == 1) {
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
     }
@@ -67,7 +67,7 @@ else {
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
 if (is_comment($_POST['comment'])) {
-    $sent_comment = pg_escape_string(stripslashes($_POST['comment']));
+    $sent_comment = htmlentities(stripslashes($_POST['comment']));
 }
 else {
     echo "<p class=\"center warning\">Comment mismatch!</p>";
@@ -387,7 +387,7 @@ if ($step == 1) {
     $dtg = date('l jS \of F Y h:i:s A');
 
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-    $ipaddr = pg_escape_string(stripslashes($_SERVER["REMOTE_ADDR"]));
+    $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
 
     $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $to, $safe_email, $sha_hash, $sent_comment);
