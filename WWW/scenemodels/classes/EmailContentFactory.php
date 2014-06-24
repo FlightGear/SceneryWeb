@@ -166,11 +166,14 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getPendingRequestProcessConfirmationEmailContent($sig) {
+    static public function getPendingRequestProcessConfirmationEmailContent($sig, $comment) {
         $subject = "Automatic objects pending request process confirmation";
-        $message = "We would like to let you know that the object (addition, update, deletion) request nr:'".substr($sig,0,10). "'was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n" .
-                   "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
-                   "Please don't forget to use the massive import form rather than the single one if you have many objects to add!\r\n\r\n";
+        $message = "We would like to let you know that the object (addition, update, deletion) request nr:'".substr($sig,0,10). "'was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n";
+        if (!empty($comment)) {
+            $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
+        }
+        $message .= "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
+                    "Please don't forget to use the massive import form rather than the single one if you have many objects to add!\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));
     }
