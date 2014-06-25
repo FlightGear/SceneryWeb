@@ -109,12 +109,12 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
     $ipaddr = pg_escape_string(stripslashes($_SERVER['REMOTE_ADDR']));
     $host   = gethostbyaddr($ipaddr);
     
-    $emailSubmit = EmailContentFactory::getSharedDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $objectToDel, $comment, $sha_hash);
+    $emailSubmit = EmailContentFactory::getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $objectToDel, $comment, $sha_hash);
     $emailSubmit->sendEmail("", true);
 
     // Mailing the submitter and tell him that his submission has been sent for validation.
     if (!$failed_mail) {
-        $emailSubmit = EmailContentFactory::getSharedDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $modelMD, $objectToDel, $comment);
+        $emailSubmit = EmailContentFactory::getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $modelMD, $objectToDel, $comment);
         $emailSubmit->sendEmail($safe_email, false);
     }
     include '../../inc/footer.php';

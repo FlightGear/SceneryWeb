@@ -72,7 +72,7 @@ $(function() {
         <li><a href="#tabs-3">3: Submit</a></li>
     </ul>
 
-    <form id="positions" method="post" action="check_shared.php" onsubmit="return validateForm();">
+    <form id="positions" method="post" action="check_add.php" onsubmit="return validateForm();">
         <div id="tabs-1">
             <table>
                 <tr>

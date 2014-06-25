@@ -204,7 +204,7 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getSharedDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $modelMD, $objectToDel, $comment, $shaHash) {
+    static public function getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $modelMD, $objectToDel, $comment, $shaHash) {
         $subject = "Object deletion needs validation";
         $message = "We would like to let you know that a new object deletion request is pending. " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
@@ -227,9 +227,9 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getSharedDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $modelMD, $objectToDel, $comment) {
+    static public function getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $modelMD, $objectToDel, $comment) {
         $subject = "Object deletion";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared deletion request.\r\n\r\n" .
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object deletion request.\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                    "For reference, the first part of the unique ID of this request is '".substr($shaHash,0,10). "'\r\n\r\n" .
                    "Family:           " .$modelMD->getModelsGroup()->getName(). "\r\n" .
@@ -244,8 +244,8 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getSharedRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $modelMD, $newObject, $sentComment, $shaHash) {
-        $subject = "Automatic object request needs validation";
+    static public function getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $modelMD, $newObject, $sentComment, $shaHash) {
+        $subject = "Object addition needs validation";
         $message = "We would like to let you know that a new object request is pending. " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
         if (!empty($safeEmail)) {
@@ -267,9 +267,9 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getSharedRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $modelMD, $newObject, $sentComment) {
-        $subject = "Object submission";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared submission request.\r\n\r\n" .
+    static public function getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $modelMD, $newObject, $sentComment) {
+        $subject = "Object addition";
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object addition request.\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                    "For reference, the first part of the unique ID of this request is '".substr($shaHash,0,10). "'\r\n\r\n" .
                    "Family:           ". $modelMD->getModelsGroup()->getName() . "\r\n" .
@@ -286,7 +286,7 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getSharedUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $shaHash) {
+    static public function getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $shaHash) {
         $subject = "Object update needs validation";
         $message = "We would like to let you know that an object update request is pending. " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
@@ -311,9 +311,9 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getSharedUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment) {
+    static public function getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment) {
         $subject = "Object update";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a shared update request." . "\r\n\r\n" .
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object update request." . "\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
                    "For reference, the first part of the unique ID of this request is '".substr($shaHash,0,10). "'\r\n\r\n" .
                    "Object #:          ".$oldObject->getId()."\r\n" .

@@ -154,12 +154,12 @@ if (isset($model_name)
     $family_name = $_POST['family_name'];
     $comment = $_POST['comment'];
 
-    $emailSubmit = EmailContentFactory::getSharedUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $sha_hash);
+    $emailSubmit = EmailContentFactory::getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $sha_hash);
     $emailSubmit->sendEmail("", true);
 
     // Mailing the submitter to tell him that his submission has been sent for validation.
     if (!$failed_mail) {
-        $emailSubmit = EmailContentFactory::getSharedUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment);
+        $emailSubmit = EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment);
         $emailSubmit->sendEmail($safe_email, false);
     }
     include '../../inc/footer.php';
