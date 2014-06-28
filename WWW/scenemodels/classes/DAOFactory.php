@@ -6,6 +6,7 @@ require_once 'ObjectDAO.php';
 require_once 'ModelDAO.php';
 require_once 'AuthorDAO.php';
 require_once 'NewsPostDAO.php';
+require_once 'RequestDAO.php';
 
 class DAOFactory {
     private static $instance;
@@ -52,12 +53,20 @@ class DAOFactory {
         return new AuthorDAO($this->db_readwrite);
     }
     
-     public function getNewsPostDaoRO() {
+    public function getNewsPostDaoRO() {
         return new NewsPostDAO($this->db_readonly);
     }
     
     public function getNewsPostDaoRW() {
         return new NewsPostDAO($this->db_readwrite);
+    }
+    
+    public function getRequestDaoRO() {
+        return new RequestDAO($this->db_readonly, $this->getObjectDaoRO());
+    }
+    
+    public function getRequestDaoRW() {
+        return new RequestDAO($this->db_readwrite, $this->getObjectDaoRW());
     }
 }
 
