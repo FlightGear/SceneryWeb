@@ -12,65 +12,59 @@ require_once '../../classes/EmailContentFactory.php';
 // Check the presence of "action", the presence of "signature", its 
 // length (64) and its content.
 if (isset($_GET["action"]) && is_sig($_GET["sig"]) && $_GET["action"] == "check") {
-    $resource_rw = connect_sphere_rw();
-
-    // If connection is OK
-    if ($resource_rw != '0') {
-
-        // Checking the presence of sig into the database
+    // Checking the presence of sig into the database
+    try {
         $request = $requestDaoRO->getRequest($_GET["sig"]);
-        if (!$request) {
-            $page_title = "Automated Objects Massive Import Request Form";
-            $error_text = "Sorry but the request you are asking for does " .
-                          "not exist into the database. Maybe it has " .
-                          "already been validated by someone else?<br/>";
-            $advise_text = "Else, please report to devel ML or FG Scenery forum.";
-            include '../../inc/error_page.php';
-            pg_close($resource_rw);
-            exit;
-        }
-
-        $page_title = "Automated Objects Massive Import Requests Form";
-        include '../../inc/header.php';
-        echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
-
-        echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
-        echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
-        $i = 1;
-        foreach ($request->getNewObjects() as $newObj) {
-            $modelMD = $modelDaoRO->getModelMetadata($newObj->getModelId());
-
-            echo "<tr>\n" .
-                 "<td><center>".$i."</center></td>\n" .
-                 "<td><center>".$newObj->getLongitude()."</center></td>\n" .
-                 "<td><center>".$newObj->getLatitude()."</center></td>\n" .
-                 "<td><center>".$newObj->getCountry()->getName()."</center></td>\n" .
-                 "<td><center>".$newObj->getGroundElevation()."</center></td>\n" .
-                 "<td><center>".$newObj->getElevationOffset()."</center></td>\n" .
-                 "<td><center>".$newObj->getOrientation()."</center></td>\n" .
-                 "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></center></td>\n" .
-                 "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObj->getLongitude()."&amp;lat=".$newObj->getLatitude()."&amp;zoom=14\">Map</a></center></td>\n" .
-                 "</tr>\n";
-
-            $i++;
-        }
-?>
-        <tr>
-            <td colspan="3">Leave a comment to the submitter</td>
-            <td colspan="6"><input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter"/></td>
-        </tr>
-        <tr>
-            <td colspan="9" class="submit">
-                <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET["email"]."\" />"; ?>
-                <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET["sig"]."\" />"; ?>
-                <input type="submit" name="submit" value="Submit the mass import!" />
-                <input type="submit" name="cancel" value="Reject - Do not import!" />
-            </td>
-        </tr>
-        </table>
-<?php
-        include '../../inc/footer.php';
+    } catch (RequestNotFoundException $e) {
+        $page_title = "Automated Objects Massive Import Request Form";
+        $error_text = "Sorry but the request you are asking for does " .
+                      "not exist into the database. Maybe it has " .
+                      "already been validated by someone else?<br/>";
+        $advise_text = "Else, please report to devel ML or FG Scenery forum.";
+        include '../../inc/error_page.php';
+        exit;
     }
+
+    $page_title = "Automated Objects Massive Import Requests Form";
+    include '../../inc/header.php';
+    echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
+
+    echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
+    echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
+    $i = 1;
+    foreach ($request->getNewObjects() as $newObj) {
+        $modelMD = $modelDaoRO->getModelMetadata($newObj->getModelId());
+
+        echo "<tr>\n" .
+             "<td><center>".$i."</center></td>\n" .
+             "<td><center>".$newObj->getLongitude()."</center></td>\n" .
+             "<td><center>".$newObj->getLatitude()."</center></td>\n" .
+             "<td><center>".$newObj->getCountry()->getName()."</center></td>\n" .
+             "<td><center>".$newObj->getGroundElevation()."</center></td>\n" .
+             "<td><center>".$newObj->getElevationOffset()."</center></td>\n" .
+             "<td><center>".$newObj->getOrientation()."</center></td>\n" .
+             "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></center></td>\n" .
+             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObj->getLongitude()."&amp;lat=".$newObj->getLatitude()."&amp;zoom=14\">Map</a></center></td>\n" .
+             "</tr>\n";
+
+        $i++;
+    }
+?>
+    <tr>
+        <td colspan="3">Leave a comment to the submitter</td>
+        <td colspan="6"><input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter"/></td>
+    </tr>
+    <tr>
+        <td colspan="9" class="submit">
+            <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET["email"]."\" />"; ?>
+            <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET["sig"]."\" />"; ?>
+            <input type="submit" name="submit" value="Submit the mass import!" />
+            <input type="submit" name="cancel" value="Reject - Do not import!" />
+        </td>
+    </tr>
+    </table>
+<?php
+    include '../../inc/footer.php';
 }
 
 // Managing the cancellation of a mass import by DB maintainer.

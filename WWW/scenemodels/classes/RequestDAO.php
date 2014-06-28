@@ -29,6 +29,8 @@ require_once 'RequestObjectUpdate.php';
 require_once 'ObjectDAO.php';
 require_once 'ObjectFactory.php';
 
+require_once 'RequestNotFoundException.php';
+
 /**
  * Request DAO
  *
@@ -50,7 +52,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $row = pg_fetch_assoc($result);
         
         if (!$row) {
-            throw new Exception('No request with sig '. $sig. ' was found!');
+            throw new RequestNotFoundException('No request with sig '. $sig. ' was found!');
         }
         
         return $this->getRequestFromRow($row);

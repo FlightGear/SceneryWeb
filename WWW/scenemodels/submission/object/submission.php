@@ -20,14 +20,14 @@ $sig = htmlentities($_REQUEST["sig"]);
 // Common code, to be performed for both types of checks
 if ($action == "check" || $action == "check_update" || $action == "check_delete") {
     // Checking the presence of sig into the database
-    $request = $requestDaoRO->getRequest($sig);
-
-    if (!$request) {
+    
+    try {
+        $request = $requestDaoRO->getRequest($sig);
+    } catch (RequestNotFoundException $e) {
         $page_title = "Automated Objects Pending Requests Form";
         $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
         $advise_text = "Else, please report to devel ML or FG Scenery forum.";
         include '../../inc/error_page.php';
-        pg_close($resource_rw);
         exit;
     }
 
