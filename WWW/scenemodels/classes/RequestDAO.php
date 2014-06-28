@@ -178,7 +178,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $requestObjUp->setContributorEmail("");
         $requestObjUp->setComment("");
         $requestObjUp->setNewObject($newObject);
-        $requestObjUp->setOldObject($this->objectDao->getObject($objectId));
+        $requestObjUp->setOldObject($this->objectDao->getObject($matches['object_id']));
         
         return $requestObjUp;
     }
