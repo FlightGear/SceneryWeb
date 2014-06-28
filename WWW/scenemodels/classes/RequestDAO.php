@@ -123,7 +123,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
         $newObject = $objectFactory->createObject(-1, $matches['model_id'],
                 $matches['long'], $matches['lat'], $matches['country'], 
-                $matches['elevoffset'], heading_stg_to_true($matches['orientation']), 1, "");
+                $matches['elevoffset'], $matches['orientation'], 1, "");
             
         $requestObjAdd = new RequestObjectAdd();
         $requestObjAdd->setNewObject($newObject);
@@ -139,15 +139,15 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $tab_tags = explode(", (",$trigged_query_rw);
         $newObjects = array();
         
+        $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
         foreach ($tab_tags as $value_tag) {
-            $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
             preg_match($pattern, $value_tag, $matches);
 
             $objectFactory = new ObjectFactory($this->objectDao);
         
             $newObject = $objectFactory->createObject(-1, $matches['model_id'],
                     $matches['long'], $matches['lat'], $matches['country'], 
-                    $matches['elevoffset'], heading_stg_to_true($matches['orientation']), 1, "");
+                    $matches['elevoffset'], $matches['orientation'], 1, "");
             
             $newObjects[] = $newObject;
         }
@@ -171,7 +171,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $objectFactory = new ObjectFactory($this->objectDao);
         $newObject = $objectFactory->createObject($matches['object_id'], $matches['model_id'],
                 $matches['lon'], $matches['lat'], 0, $matches['elevoffset'],
-                heading_stg_to_true($matches['orientation']), 1, $matches['notes']);
+                $matches['orientation'], 1, $matches['notes']);
         $newObject->setGroundElevation($matches['elev']);
 
         $requestObjUp = new RequestObjectUpdate();

@@ -100,6 +100,10 @@ class Object {
         $this->elevationOffset = $elevationOffset;
     }
     
+    /**
+     * Gets true orientation
+     * @return true orientation
+     */
     public function getOrientation() {
         return $this->orientation;
     }
