@@ -43,10 +43,11 @@ if ($resultr) {
         }
 
         // If the request contains a "INSERT INTO fgs_objects" but does NOT contain a formoid
-        // If there is just one value, it's a single object insertion
         if (substr_count($unzipped_base64_query,"INSERT INTO fgs_objects") == 1 && substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 0) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
-            if (substr_count($unzipped_base64_query,"VALUES") == 1) {
+            
+            // If there is just one value, it's a single object insertion
+            if (substr_count($unzipped_base64_query,"ST_PointFromText") == 1) {
                 $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$row->spr_hash."\n";
             }
             // Else, is a mass insertion
