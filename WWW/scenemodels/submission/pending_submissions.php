@@ -30,16 +30,12 @@ if ($resultr) {
         $pending_requests .= "\nRequest #".$i." identified by ".$row->spr_hash."\n";
         $pending_requests .= "=========================================================================================\n";
 
-        // We have 6 cases : static model, object going along with a 3D model, [add, update, delete] shared model, mass insertion.
-        // Static model: easy, has a formoid. Not easy: we have to take the next spr_hash as object
-        if (substr_count($unzipped_base64_query,"Thisisthevalueformo_id") == 1) {
-            $pending_requests .= "This is an object linked to a static model! See the model link below.\n";
-            $current_ob_id = $row->spr_hash;
-        }
+        // We have 6 cases : model addition, model update, [add, update, delete] object and mass objects insertion.
+        // Static model: easy, has a formoid.
         if (substr_count($unzipped_base64_query,"INSERT INTO fgs_models") == 1) {
             $pending_requests .= substr($unzipped_base64_query,0,512)."\n";
             $pending_requests .= "This is a 3D model query!\n";
-            $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?ob_sig=".$current_ob_id."&mo_sig=".$row->spr_hash."\n";
+            $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=".$row->spr_hash."\n";
         }
 
         // If the request contains a "INSERT INTO fgs_objects" but does NOT contain a formoid

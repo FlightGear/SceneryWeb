@@ -331,11 +331,11 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getAddModelRequestAcceptedEmailContent($dtg, $obShaHash, $moShaHash, $name, $comment) {
+    static public function getAddModelRequestAcceptedEmailContent($dtg, $modelId, $moShaHash, $name, $comment) {
         $subject = "3D model import accepted";
         $message = "On ".$dtg." UTC, you issued a 3D model import request.\r\n\r\n" .
                    "We are glad to let you know that this request was accepted!\r\n\r\n" .
-                   "For reference, the first part of the unique IDs of this request are '".substr($obShaHash,0,10). "' (object) and '".substr($moShaHash,0,10). "' (model) and it is named '". $name ."'.\r\n\r\n";
+                   "For reference, the first part of the unique ID of this request is '".substr($moShaHash,0,10). "' (model and object) and it is named '". $name ."'.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -345,7 +345,7 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_au_email, $newObject, $newModelMD, $moShaHash, $obShaHash) {
+    static public function getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_au_email, $newObject, $newModelMD, $moShaHash) {
         $subject = "3D model import needs validation.";
         $message = "We would like to let you know that a new 3D model request is pending. " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
@@ -362,16 +362,16 @@ class EmailContentFactory {
                     "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                     "True orientation: ". $newObject->getOrientation() . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?ob_sig=". $obShaHash ."&mo_sig=". $moShaHash ."&email=". $safe_au_email . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $moShaHash ."&email=". $safe_au_email . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getAddModelRequestRejectedEmailContent($dtg, $obShaHash, $moShaHash, $name, $comment) {
+    static public function getAddModelRequestRejectedEmailContent($dtg, $moShaHash, $name, $comment) {
         $subject = "3D model import rejected";
         $message = "On ".$dtg." UTC, you issued a 3D model import request.\r\n\r\n" .
                    "We are sorry to let you know that this request was rejected.\r\n\r\n" .
-                   "For reference, the first part of the unique IDs of this request were '".substr($obShaHash,0,10). "' (object) and '".substr($moShaHash,0,10). "' (model) and it was named '". $name ."'.\r\n\r\n";
+                   "For reference, the first part of the unique ID of this request was '".substr($moShaHash,0,10). "' (model and object) and it was named '". $name ."'.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -380,11 +380,11 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $obShaHash, $moShaHash, $newModelMD, $newObject) {
+    static public function getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $moShaHash, $newModelMD, $newObject) {
         $subject = "3D model import";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request.\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the first part of the unique IDs of this request are '".substr($obShaHash,0,10). "' (object) and '".substr($moShaHash,0,10). "' (model)\r\n\r\n" .
+                   "For reference, the first part of the unique ID of this request is '".substr($moShaHash,0,10). "' (model and object)\r\n\r\n" .
                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .

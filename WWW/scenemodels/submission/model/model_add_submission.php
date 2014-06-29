@@ -16,8 +16,7 @@ if (isset($_POST["action"])) {
         // - Drop fgs_position_requests;
         // - Send 2 mails
 
-    if ($_POST["action"] == "Reject model"
-            && isset($_POST["ob_sig"]) && isset($_POST["mo_sig"])) {
+    if ($_POST["action"] == "Reject model" && isset($_POST["mo_sig"])) {
 
         $resource_rw = connect_sphere_rw();
 
@@ -25,9 +24,8 @@ if (isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $ob_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
             $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
-            if ((pg_num_rows($ob_result) != 1) || (pg_num_rows($mo_result) != 1)) {
+            if (pg_num_rows($mo_result) != 1) {
                 $process_text = "Deleting corresponding pending query.";
                 $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
                 $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
@@ -37,13 +35,11 @@ if (isset($_POST["action"])) {
             }
 
             // Delete the entry from the pending query table.
-            $ob_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
             $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
-            $ob_resultdel = pg_query($resource_rw, $ob_delete_request);
             $mo_resultdel = pg_query($resource_rw, $mo_delete_request);
 
-            if ((!$ob_resultdel) || (!$mo_resultdel)) {
-                $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting requests with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
+            if (!$mo_resultdel) {
+                $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $_POST["mo_sig"];
                 $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                 include '../../inc/error_page.php';
 
@@ -55,7 +51,7 @@ if (isset($_POST["action"])) {
             include '../../inc/header.php';
             echo "<p class=\"center\">Deleting corresponding pending query.</p>";
             echo "<p class=\"center\">";
-            echo "Signature found.<br />Now deleting requests with number ". $_POST["ob_sig"]." and ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
+            echo "Signature found.<br />Now deleting request with number ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
             echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
             echo "</p>";
 
@@ -69,13 +65,12 @@ if (isset($_POST["action"])) {
             date_default_timezone_set('UTC');
             $dtg = date('l jS \of F Y h:i:s A');
             $mo_sha_hash = $_POST["mo_sig"];
-            $ob_sha_hash = $_POST["ob_sig"];
             $name = $_POST["mo_name"];
             $comment = $_POST["maintainer_comment"];
 
             $to = (isset($_POST['email']))?$_POST["email"]:"";
 
-            $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $ob_sha_hash, $mo_sha_hash, $name, $comment);
+            $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $mo_sha_hash, $name, $comment);
             $emailSubmit->sendEmail($to, true);
             exit;
 
@@ -96,9 +91,8 @@ if (isset($_POST["action"])) {
 
             // Checking the presence of sigs into the database
             $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
-            $ob_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';");
-
-            if (pg_num_rows($ob_result) != 1 || pg_num_rows($mo_result) != 1) {
+            
+            if (pg_num_rows($mo_result) != 1) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
                 $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
                 include '../../inc/error_page.php';
@@ -106,34 +100,31 @@ if (isset($_POST["action"])) {
                 exit;
             }
 
-            $row_mo = pg_fetch_row ($mo_result);
-            $row_ob = pg_fetch_row ($ob_result);
-            
+            $row_mo = pg_fetch_row($mo_result);
             $sqlzbase64_mo = $row_mo[0];
-            $sqlzbase64_ob = $row_ob[0];
 
             // Base64 decode the query
-            $sqlz_mo = base64_decode ($sqlzbase64_mo);
-            $sqlz_ob = base64_decode ($sqlzbase64_ob);
+            $sqlz_mo = base64_decode($sqlzbase64_mo);
 
             // Gzuncompress the query
-            $query_rw_mo = gzuncompress ($sqlz_mo);
-            $query_rw_ob = gzuncompress ($sqlz_ob);
+            $query = gzuncompress($sqlz_mo);
+            $query_rw_mo = substr($query, 0, strpos($query, "INSERT INTO fgs_objects"));
+            $query_rw_ob = strstr($query, "INSERT INTO fgs_objects");
 
             // Sending the requests...
-            $result_rw_mo = pg_query ($resource_rw, $query_rw_mo);
-            $mo_id = pg_fetch_row ($result_rw_mo);
+            $result_rw_mo = pg_query($resource_rw, $query_rw_mo);
+            $mo_id = pg_fetch_row($result_rw_mo);
             $modelMD = $modelDaoRO->getModelMetadata($mo_id[0]);
             $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
             $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
 
-            $result_rw_ob = pg_query ($resource_rw, $query_rw_ob_with_mo_id);
-            $ret_ob_id = pg_fetch_row ($result_rw_ob);
+            $result_rw_ob = pg_query($resource_rw, $query_rw_ob_with_mo_id);
+            $ret_ob_id = pg_fetch_row($result_rw_ob);
             $query_ob_text = "UPDATE fgs_objects SET ob_text = $$". $modelMD->getName() ."$$ WHERE ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
-            $result_obtext_update = pg_query ($resource_rw, $query_ob_text);
+            $result_obtext_update = pg_query($resource_rw, $query_ob_text);
 
             if (!$result_rw_mo || !$result_rw_ob) {
-                $process_text = "Signatures found.<br /> Now processing queries with request numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"];
+                $process_text = "Signatures found.<br /> Now processing query with request number ". $_POST["mo_sig"];
                 $error_text = "Sorry, but the INSERT queries could not be processed.";
                 $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                 include '../../inc/error_page.php';
@@ -145,16 +136,14 @@ if (isset($_POST["action"])) {
 
             include '../../inc/header.php';
             echo "<p class=\"center\">";
-            echo "Signatures found.<br /> Now processing INSERT queries of model and object with numbers ". $_POST["ob_sig"]." and ". $_POST["mo_sig"].".</p>";
+            echo "Signatures found.<br /> Now processing INSERT queries of model and object with number ".$_POST["mo_sig"].".</p>";
             echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
             // Delete the entries from the pending query table.
             $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
-            $delete_request_ob = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["ob_sig"] ."';";
-            $resultdel_mo = pg_query ($resource_rw, $delete_request_mo);
-            $resultdel_ob = pg_query ($resource_rw, $delete_request_ob);
+            $resultdel_mo = pg_query($resource_rw, $delete_request_mo);
 
-            if (!$resultdel_mo || !$resultdel_ob) {
+            if (!$resultdel_mo) {
                 echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
 
                 // Closing the rw connection.
@@ -173,7 +162,6 @@ if (isset($_POST["action"])) {
             date_default_timezone_set('UTC');
             $dtg = date('l jS \of F Y h:i:s A');
             $mo_sha_hash = $_POST["mo_sig"];
-            $ob_sha_hash = $_POST["ob_sig"];
             $name = $_POST["mo_name"];
             $comment = $_POST["maintainer_comment"];
             $model_id = $mo_id[0];
@@ -182,7 +170,7 @@ if (isset($_POST["action"])) {
             // Who will receive it ?
             $to = (isset($_POST["email"]))?$_POST["email"]:"";
 
-            $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $ob_sha_hash, $mo_sha_hash, $name, $comment);
+            $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $model_id, $mo_sha_hash, $name, $comment);
             $emailSubmit->sendEmail($to, true);
 
             include '../../inc/footer.php';
@@ -198,63 +186,10 @@ if (!isset($_POST["action"])) {
     include_once '../../inc/form_checks.php';
     include_once '../../inc/geshi/geshi.php';
 
-    $page_title = "Automated Models Submission Form";
+    $page_title = "Model Submission Form";
 
-    // Working on the object, first
-    // Check the presence of "ob_sig", its length (64) and its content.
-    if (is_sig($_GET["ob_sig"])) {
-        $resource_rw = connect_sphere_rw();
 
-        // If connection is OK
-        if ($resource_rw != '0') {
-
-            // Checking the presence of ob_sig into the database
-            $result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["ob_sig"] ."';");
-            if (pg_num_rows($result) != 1) {
-                $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
-                $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../../inc/error_page.php';
-                pg_close($resource_rw);
-                exit;
-            }
-
-            $rows = pg_fetch_row($result);
-            $sqlzbase64 = $rows[0];
-
-            // Base64 decode query
-            $sqlz = base64_decode($sqlzbase64);
-
-            // Gzuncompress query
-            $query_rw = gzuncompress($sqlz);
-
-            // Retrieve data from query
-            $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
-            $pos = strpos($query_rw, $search);
-
-            if (!$pos) { // No offset is present
-                $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-                preg_match($pattern, $query_rw, $matches);
-                $ob_long       = $matches['longitude'];
-                $ob_lat        = $matches['latitude'];
-                $ob_gndelev    = $matches['gndelev'];
-                $ob_heading    = $matches['heading'];
-                $ob_country    = $matches['country'];
-            }
-            else { // ob_elevoffset has been found
-                $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-                preg_match($pattern, $query_rw, $matches);
-                $ob_long       = $matches['longitude'];
-                $ob_lat        = $matches['latitude'];
-                $ob_gndelev    = $matches['gndelev'];
-                $ob_elevoffset = $matches['offset'];
-                $ob_heading    = $matches['heading'];
-                $ob_country    = $matches['country'];
-            }
-        }
-    }
-
-    // Working on the model, now
-    // Check the presence of "mo_sig", its length (64) and its content.
+    // Check the presence of "mo_sig"
     if (is_sig($_GET["mo_sig"])) {
         $resource_rw = connect_sphere_rw();
 
@@ -273,18 +208,19 @@ if (!isset($_POST["action"])) {
 
             // We are sure there is only 1 row
             $row = pg_fetch_row($result);
-
             $sqlzbase64 = $row[0];
 
             // Base64 decode the query
             $sqlz = base64_decode($sqlzbase64);
 
             // Gzuncompress the query
-            $query_rw = gzuncompress($sqlz);
+            $query = gzuncompress($sqlz);
+            $query_mo = substr($query, 0, strpos($query, "INSERT INTO fgs_objects"));
+            $query_ob = strstr($query, "INSERT INTO fgs_objects");
 
-            // Retrieve data from query
-            $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id/";
-            preg_match($pattern, $query_rw, $matches);
+            // Retrieve MODEL data from query
+            $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
+            preg_match($pattern, $query_mo, $matches);
 
             $mo_path      = $matches['path'];
             $mo_author    = $authorDaoRO->getAuthor($matches['author']);
@@ -293,6 +229,31 @@ if (!isset($_POST["action"])) {
             $mo_thumbfile = $matches['thumbfile'];
             $mo_modelfile = $matches['modelfile'];
             $mo_shared    = $matches['shared'];
+            
+            
+            // Retrieve OBJECT data from query
+            $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
+            $pos = strpos($query_ob, $search);
+
+            if (!$pos) { // No offset is present
+                $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+                preg_match($pattern, $query_ob, $matches);
+                $ob_long       = $matches['longitude'];
+                $ob_lat        = $matches['latitude'];
+                $ob_gndelev    = $matches['gndelev'];
+                $ob_heading    = $matches['heading'];
+                $ob_country    = $matches['country'];
+            }
+            else { // ob_elevoffset has been found
+                $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+                preg_match($pattern, $query_ob, $matches);
+                $ob_long       = $matches['longitude'];
+                $ob_lat        = $matches['latitude'];
+                $ob_gndelev    = $matches['gndelev'];
+                $ob_elevoffset = $matches['offset'];
+                $ob_heading    = $matches['heading'];
+                $ob_country    = $matches['country'];
+            }
         }
     }
 
@@ -490,7 +451,6 @@ include '../../inc/header.php';
     <tr>
         <td>Action</td>
         <td class="submit">
-            <input type="hidden" name="ob_sig" value="<?php echo $_GET["ob_sig"]; ?>" />
             <input type="hidden" name="mo_sig" value="<?php echo $_GET["mo_sig"]; ?>" />
             <input type="submit" name="action" value="Submit model" />
             <input type="submit" name="action" value="Reject model" />
