@@ -337,7 +337,7 @@ include '../../inc/header.php';
 ?>
                 <a href="<?php echo $texture_file; ?>" rel="lightbox[submission]" />
                 <?php //imagethumb($texture_file) ?>
-                <img src="<?php echo $texture_file_tn; ?>" alt="Texture #<?php echo $textureName; ?>" />
+                <img src="<?php echo $texture_file_tn; ?>" alt="Texture <?php echo $textureName; ?>" />
 <?php
                 echo $textureName." (Original size: ".$width."x".$height.")</a><br/>";
             }

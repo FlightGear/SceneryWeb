@@ -114,7 +114,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
         // Update model request
         if (substr_count($requestQuery,"UPDATE fgs_models") == 1) {
-            
+            $request = $this->getRequestModelUpdateFromRow($requestQuery);
         }
         
         $request->setSig($requestRow["spr_hash"]);
@@ -161,6 +161,31 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $requestModelAdd->setNewObject($newObject);
         
         return $requestModelAdd;
+    }
+    
+    private function getRequestModelUpdateFromRow($requestQuery) {
+        // Retrieve data from query
+        $pattern = "/UPDATE fgs_models SET mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', mo_author \= (?P<author>[0-9]+), mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', mo_shared \= (?P<shared>[0-9]+) WHERE mo_id \= (?P<modelid>[0-9]+)/";
+        preg_match($pattern, $requestQuery, $matches);
+
+        $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
+        $modelMD = $modelFactory->createModelMetadata($matches['modelid'],
+                $matches['author'], $matches['path'], $matches['name'],
+                $matches['notes'], $matches['shared']);
+        
+        $newModel = new Model();
+        $newModel->setMetadata($modelMD);
+        $newModel->setModelFiles(new ModelFilesTar(base64_decode($matches['modelfile'])));
+        $newModel->setThumbnail(base64_decode($matches['thumbfile']));
+
+        // Retrieve old model
+        $oldModel = $this->modelDao->getModel($modelMD->getId());
+        
+        $requestModelUpd = new RequestModelUpdate();
+        $requestModelUpd->setNewModel($newModel);
+        $requestModelUpd->setOldModel($oldModel);
+        
+        return $requestModelUpd;
     }
     
     private function getRequestObjectAddFromRow($requestQuery) {
