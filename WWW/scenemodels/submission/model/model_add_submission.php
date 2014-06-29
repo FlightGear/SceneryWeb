@@ -6,6 +6,12 @@ $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require_once '../../inc/functions.inc.php';
 
+if (isset($_REQUEST["mo_sig"]) && is_sig($_REQUEST["mo_sig"])) {
+    $sig = $_REQUEST["mo_sig"];
+} else {
+    exit;
+}
+
 if (isset($_POST["action"])) {
     // Inserting libs
     include_once '../../classes/EmailContentFactory.php';
@@ -16,7 +22,7 @@ if (isset($_POST["action"])) {
         // - Drop fgs_position_requests;
         // - Send 2 mails
 
-    if ($_POST["action"] == "Reject model" && isset($_POST["mo_sig"])) {
+    if ($_POST["action"] == "Reject model") {
 
         $resource_rw = connect_sphere_rw();
 
@@ -24,7 +30,7 @@ if (isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sig into the database
-            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
             if (pg_num_rows($mo_result) != 1) {
                 $process_text = "Deleting corresponding pending query.";
                 $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -35,11 +41,11 @@ if (isset($_POST["action"])) {
             }
 
             // Delete the entry from the pending query table.
-            $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
+            $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
             $mo_resultdel = pg_query($resource_rw, $mo_delete_request);
 
             if (!$mo_resultdel) {
-                $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $_POST["mo_sig"];
+                $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $sig;
                 $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                 include '../../inc/error_page.php';
 
@@ -51,7 +57,7 @@ if (isset($_POST["action"])) {
             include '../../inc/header.php';
             echo "<p class=\"center\">Deleting corresponding pending query.</p>";
             echo "<p class=\"center\">";
-            echo "Signature found.<br />Now deleting request with number ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
+            echo "Signature found.<br />Now deleting request with number ". $sig." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
             echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
             echo "</p>";
 
@@ -64,13 +70,12 @@ if (isset($_POST["action"])) {
 
             date_default_timezone_set('UTC');
             $dtg = date('l jS \of F Y h:i:s A');
-            $mo_sha_hash = $_POST["mo_sig"];
             $name = $_POST["mo_name"];
             $comment = $_POST["maintainer_comment"];
 
             $to = (isset($_POST['email']))?$_POST["email"]:"";
 
-            $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $mo_sha_hash, $name, $comment);
+            $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $sig, $name, $comment);
             $emailSubmit->sendEmail($to, true);
             exit;
 
@@ -90,7 +95,7 @@ if (isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sigs into the database
-            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
             
             if (pg_num_rows($mo_result) != 1) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -124,7 +129,7 @@ if (isset($_POST["action"])) {
             $result_obtext_update = pg_query($resource_rw, $query_ob_text);
 
             if (!$result_rw_mo || !$result_rw_ob) {
-                $process_text = "Signatures found.<br /> Now processing query with request number ". $_POST["mo_sig"];
+                $process_text = "Signatures found.<br /> Now processing query with request number ". $sig;
                 $error_text = "Sorry, but the INSERT queries could not be processed.";
                 $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                 include '../../inc/error_page.php';
@@ -136,11 +141,11 @@ if (isset($_POST["action"])) {
 
             include '../../inc/header.php';
             echo "<p class=\"center\">";
-            echo "Signatures found.<br /> Now processing INSERT queries of model and object with number ".$_POST["mo_sig"].".</p>";
+            echo "Signatures found.<br /> Now processing INSERT queries of model and object with number ".$sig.".</p>";
             echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
             // Delete the entries from the pending query table.
-            $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
+            $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
             $resultdel_mo = pg_query($resource_rw, $delete_request_mo);
 
             if (!$resultdel_mo) {
@@ -161,7 +166,6 @@ if (isset($_POST["action"])) {
             // Sets the time to UTC.
             date_default_timezone_set('UTC');
             $dtg = date('l jS \of F Y h:i:s A');
-            $mo_sha_hash = $_POST["mo_sig"];
             $name = $_POST["mo_name"];
             $comment = $_POST["maintainer_comment"];
             $model_id = $mo_id[0];
@@ -170,7 +174,7 @@ if (isset($_POST["action"])) {
             // Who will receive it ?
             $to = (isset($_POST["email"]))?$_POST["email"]:"";
 
-            $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $model_id, $mo_sha_hash, $name, $comment);
+            $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $model_id, $sig, $name, $comment);
             $emailSubmit->sendEmail($to, true);
 
             include '../../inc/footer.php';
@@ -189,71 +193,68 @@ if (!isset($_POST["action"])) {
     $page_title = "Model Submission Form";
 
 
-    // Check the presence of "mo_sig"
-    if (is_sig($_GET["mo_sig"])) {
-        $resource_rw = connect_sphere_rw();
+    $resource_rw = connect_sphere_rw();
 
-        // If connection is OK
-        if ($resource_rw != '0') {
+    // If connection is OK
+    if ($resource_rw != '0') {
 
-            // Checking the presence of sig into the database
-            $result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_GET["mo_sig"] ."';");
-            if (pg_num_rows($result) != 1) {
-                $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
-                $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../../inc/error_page.php';
-                pg_close($resource_rw);
-                exit;
-            }
+        // Checking the presence of sig into the database
+        $result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
+        if (pg_num_rows($result) != 1) {
+            $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+            $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+            include '../../inc/error_page.php';
+            pg_close($resource_rw);
+            exit;
+        }
 
-            // We are sure there is only 1 row
-            $row = pg_fetch_row($result);
-            $sqlzbase64 = $row[0];
+        // We are sure there is only 1 row
+        $row = pg_fetch_row($result);
+        $sqlzbase64 = $row[0];
 
-            // Base64 decode the query
-            $sqlz = base64_decode($sqlzbase64);
+        // Base64 decode the query
+        $sqlz = base64_decode($sqlzbase64);
 
-            // Gzuncompress the query
-            $query = gzuncompress($sqlz);
-            $query_mo = substr($query, 0, strpos($query, "INSERT INTO fgs_objects"));
-            $query_ob = strstr($query, "INSERT INTO fgs_objects");
+        // Gzuncompress the query
+        $query = gzuncompress($sqlz);
+        $query_mo = substr($query, 0, strpos($query, "INSERT INTO fgs_objects"));
+        $query_ob = strstr($query, "INSERT INTO fgs_objects");
 
-            // Retrieve MODEL data from query
-            $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
-            preg_match($pattern, $query_mo, $matches);
+        // Retrieve MODEL data from query
+        $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
+        preg_match($pattern, $query_mo, $matches);
 
-            $mo_path      = $matches['path'];
-            $mo_author    = $authorDaoRO->getAuthor($matches['author']);
-            $mo_name      = $matches['name'];
-            $mo_notes     = $matches['notes'];
-            $mo_thumbfile = $matches['thumbfile'];
-            $mo_modelfile = $matches['modelfile'];
-            $mo_shared    = $matches['shared'];
-            
-            
-            // Retrieve OBJECT data from query
-            $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
-            $pos = strpos($query_ob, $search);
+        $mo_path      = $matches['path'];
+        $mo_author    = $authorDaoRO->getAuthor($matches['author']);
+        $mo_name      = $matches['name'];
+        $mo_notes     = $matches['notes'];
+        $mo_thumbfile = $matches['thumbfile'];
+        $mo_modelfile = $matches['modelfile'];
+        $mo_shared    = $matches['shared'];
 
-            if (!$pos) { // No offset is present
-                $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-                preg_match($pattern, $query_ob, $matches);
-                $ob_long       = $matches['longitude'];
-                $ob_lat        = $matches['latitude'];
-                $ob_gndelev    = $matches['gndelev'];
-                $ob_heading    = $matches['heading'];
-                $ob_country    = $matches['country'];
-            }
-            else { // ob_elevoffset has been found
-                $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-                preg_match($pattern, $query_ob, $matches);
-                $ob_long       = $matches['longitude'];
-                $ob_lat        = $matches['latitude'];
-                $ob_gndelev    = $matches['gndelev'];
-                $ob_elevoffset = $matches['offset'];
-                $ob_heading    = $matches['heading'];
-                $ob_country    = $matches['country'];
-            }
+
+        // Retrieve OBJECT data from query
+        $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
+        $pos = strpos($query_ob, $search);
+
+        if (!$pos) { // No offset is present
+            $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+            preg_match($pattern, $query_ob, $matches);
+            $ob_long       = $matches['longitude'];
+            $ob_lat        = $matches['latitude'];
+            $ob_gndelev    = $matches['gndelev'];
+            $ob_heading    = $matches['heading'];
+            $ob_country    = $matches['country'];
+        }
+        else { // ob_elevoffset has been found
+            $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+            preg_match($pattern, $query_ob, $matches);
+            $ob_long       = $matches['longitude'];
+            $ob_lat        = $matches['latitude'];
+            $ob_gndelev    = $matches['gndelev'];
+            $ob_elevoffset = $matches['offset'];
+            $ob_heading    = $matches['heading'];
+            $ob_country    = $matches['country'];
         }
     }
 
@@ -336,7 +337,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET['mo_sig'] ?>" alt="Thumbnail"/></center></td>
+        <td><center><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $sig ?>" alt="Thumbnail"/></center></td>
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
@@ -379,7 +380,7 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>">Download the submission as .tar.gz for external viewing.</a></center></td>
+        <td><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $sig; ?>">Download the submission as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
@@ -389,7 +390,7 @@ include '../../inc/header.php';
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
 ?>
-            <object data="model/index.php?mo_sig=<?php echo $_GET["mo_sig"]; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="model/index.php?mo_sig=<?php echo $sig; ?>" type="text/html" width="720px" height="620px"></object>
             </center>
         </td>
     </tr>
@@ -427,8 +428,8 @@ include '../../inc/header.php';
             $based64_target_path = base64_encode($target_path);
             $encoded_target_path = rawurlencode($based64_target_path);
             for ($j=0; $j<$png_file_number; $j++) {
-                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
-                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$png_file_name[$j];
+                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_by_filename.php?mo_sig=".$sig."&name=".$png_file_name[$j];
+                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename.php?mo_sig=".$sig."&name=".$png_file_name[$j];
 
                 $tmp = getimagesize($texture_file);
                 $width  = $tmp[0];
@@ -451,7 +452,7 @@ include '../../inc/header.php';
     <tr>
         <td>Action</td>
         <td class="submit">
-            <input type="hidden" name="mo_sig" value="<?php echo $_GET["mo_sig"]; ?>" />
+            <input type="hidden" name="mo_sig" value="<?php echo $sig; ?>" />
             <input type="submit" name="action" value="Submit model" />
             <input type="submit" name="action" value="Reject model" />
         </td>
