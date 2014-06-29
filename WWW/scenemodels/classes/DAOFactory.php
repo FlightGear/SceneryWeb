@@ -62,11 +62,13 @@ class DAOFactory {
     }
     
     public function getRequestDaoRO() {
-        return new RequestDAO($this->db_readonly, $this->getObjectDaoRO());
+        return new RequestDAO($this->db_readonly, $this->getObjectDaoRO(),
+                $this->getModelDaoRO(), $this->getAuthorDaoRO());
     }
     
     public function getRequestDaoRW() {
-        return new RequestDAO($this->db_readwrite, $this->getObjectDaoRW());
+        return new RequestDAO($this->db_readwrite, $this->getObjectDaoRW(),
+                $this->getModelDaoRW(), $this->getAuthorDaoRW());
     }
 }
 

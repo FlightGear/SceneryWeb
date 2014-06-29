@@ -199,7 +199,7 @@ $(function() {
             <ul>
                 <li>Please locate your model, even when you are adding a shared model.</li>
                 <li>The country is the one where the model is located. After entering longitude and latitude, we will try to propose a country. Please check if it is correct.</li>
-                <li>For the elevation, use the terrain shipped with FlightGear/Terrasync, else the model may be sunk or floating. Alternatively enter -9999 to place the object at ground level (this is then automatically calculated from TerraSync terrain).</li>
+                <li>For the elevation, use the elevation offset, which is the difference between ground elevation and model's "zero".</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>

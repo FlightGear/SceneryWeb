@@ -28,6 +28,8 @@ require_once 'RequestObjectDelete.php';
 require_once 'RequestObjectUpdate.php';
 require_once 'ObjectDAO.php';
 require_once 'ObjectFactory.php';
+require_once 'ModelFactory.php';
+require_once 'ModelFilesTar.php';
 
 require_once 'RequestNotFoundException.php';
 
@@ -38,10 +40,15 @@ require_once 'RequestNotFoundException.php';
  */
 class RequestDAO extends PgSqlDAO implements IRequestDAO {
     private $objectDao;
+    private $modelDao;
+    private $authorDao;
     
-    public function __construct(PGDatabase $database, ObjectDAO $objectDao) {
+    public function __construct(PGDatabase $database, ObjectDAO $objectDao,
+            ModelDAO $modelDAO, AuthorDAO $authorDAO) {
         parent::__construct($database);
         $this->objectDao = $objectDao;
+        $this->modelDao = $modelDAO;
+        $this->authorDao = $authorDAO;
     }
     
     public function getRequest($sig) {
@@ -102,7 +109,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
         // Add model request
         if (substr_count($requestQuery,"INSERT INTO fgs_models") == 1) {
-            
+            $request = $this->getRequestModelAddFromRow($requestQuery);
         }
         
         // Update model request
@@ -113,6 +120,47 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $request->setSig($requestRow["spr_hash"]);
         
         return $request;
+    }
+    
+    private function getRequestModelAddFromRow($requestQuery) {
+        $query_mo = substr($requestQuery, 0, strpos($requestQuery, "INSERT INTO fgs_objects"));
+        $query_ob = strstr($requestQuery, "INSERT INTO fgs_objects");
+
+        // Retrieve MODEL data from query
+        $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
+        preg_match($pattern, $query_mo, $matches);
+        
+        $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
+        $modelMD = $modelFactory->createModelMetadata(-1, $matches['author'], $matches['path'], $matches['name'], $matches['notes'], $matches['shared']);
+        $newModel = new Model();
+        $newModel->setMetadata($modelMD);
+        $newModel->setModelFiles(new ModelFilesTar(base64_decode($matches['modelfile'])));
+        $newModel->setThumbnail(base64_decode($matches['thumbfile']));
+        
+        // Retrieve OBJECT data from query
+        $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
+        $pos = strpos($query_ob, $search);
+
+        if (!$pos) { // No offset is present
+            $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+            preg_match($pattern, $query_ob, $matches);
+            $matches['elevoffset'] = 0;
+        }
+        else { // ob_elevoffset has been found
+            $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<elevoffset>[NULL0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
+            preg_match($pattern, $query_ob, $matches);
+        }
+        
+        $objectFactory = new ObjectFactory($this->objectDao);
+        $newObject = $objectFactory->createObject(-1, -1,
+                $matches['long'], $matches['lat'], $matches['country'], 
+                $matches['elevoffset'], $matches['orientation'], 1, "");
+        
+        $requestModelAdd = new RequestModelAdd();
+        $requestModelAdd->setNewModel($newModel);
+        $requestModelAdd->setNewObject($newObject);
+        
+        return $requestModelAdd;
     }
     
     private function getRequestObjectAddFromRow($requestQuery) {

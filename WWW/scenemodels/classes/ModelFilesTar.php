@@ -43,6 +43,7 @@ class ModelFilesTar implements IModelFiles {
     public function getXMLFile() {
         $target_path = open_tgz($this->modelfile);
         $dir = opendir($target_path);
+        $content = null;
         
         while ($file = readdir($dir)) {
             if (show_file_extension($file) == "xml") {

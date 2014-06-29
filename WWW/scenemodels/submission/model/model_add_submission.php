@@ -2,9 +2,10 @@
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
+$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 require_once '../../inc/functions.inc.php';
+require_once '../../inc/form_checks.php';
 
 if (isset($_REQUEST["mo_sig"]) && is_sig($_REQUEST["mo_sig"])) {
     $sig = $_REQUEST["mo_sig"];
@@ -187,75 +188,20 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    include_once '../../inc/form_checks.php';
     include_once '../../inc/geshi/geshi.php';
-
     $page_title = "Model Submission Form";
 
-
-    $resource_rw = connect_sphere_rw();
-
-    // If connection is OK
-    if ($resource_rw != '0') {
-
-        // Checking the presence of sig into the database
-        $result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
-        if (pg_num_rows($result) != 1) {
-            $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
-            $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-            include '../../inc/error_page.php';
-            pg_close($resource_rw);
-            exit;
-        }
-
-        // We are sure there is only 1 row
-        $row = pg_fetch_row($result);
-        $sqlzbase64 = $row[0];
-
-        // Base64 decode the query
-        $sqlz = base64_decode($sqlzbase64);
-
-        // Gzuncompress the query
-        $query = gzuncompress($sqlz);
-        $query_mo = substr($query, 0, strpos($query, "INSERT INTO fgs_objects"));
-        $query_ob = strstr($query, "INSERT INTO fgs_objects");
-
-        // Retrieve MODEL data from query
-        $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
-        preg_match($pattern, $query_mo, $matches);
-
-        $mo_path      = $matches['path'];
-        $mo_author    = $authorDaoRO->getAuthor($matches['author']);
-        $mo_name      = $matches['name'];
-        $mo_notes     = $matches['notes'];
-        $mo_thumbfile = $matches['thumbfile'];
-        $mo_modelfile = $matches['modelfile'];
-        $mo_shared    = $matches['shared'];
-
-
-        // Retrieve OBJECT data from query
-        $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
-        $pos = strpos($query_ob, $search);
-
-        if (!$pos) { // No offset is present
-            $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-            preg_match($pattern, $query_ob, $matches);
-            $ob_long       = $matches['longitude'];
-            $ob_lat        = $matches['latitude'];
-            $ob_gndelev    = $matches['gndelev'];
-            $ob_heading    = $matches['heading'];
-            $ob_country    = $matches['country'];
-        }
-        else { // ob_elevoffset has been found
-            $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<longitude>[0-9.-]+) (?P<latitude>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<offset>[NULL0-9.-]+), (?P<heading>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-            preg_match($pattern, $query_ob, $matches);
-            $ob_long       = $matches['longitude'];
-            $ob_lat        = $matches['latitude'];
-            $ob_gndelev    = $matches['gndelev'];
-            $ob_elevoffset = $matches['offset'];
-            $ob_heading    = $matches['heading'];
-            $ob_country    = $matches['country'];
-        }
+    // Checking the presence of sig into the database
+    try {
+        $requestModelAdd = $requestDaoRO->getRequest($sig);
+        $newModel = $requestModelAdd->getNewModel();
+        $newModelMD = $newModel->getMetadata();
+        $newObj = $requestModelAdd->getNewObject();
+    } catch(RequestNotFoundException $e) {
+        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+        $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+        include '../../inc/error_page.php';
+        exit;
     }
 
 include '../../inc/header.php';
@@ -273,7 +219,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Author</td>
-        <td><?php echo $mo_author->getName(); ?></td>
+        <td><?php echo $newModelMD->getAuthor()->getName(); ?></td>
     </tr>
     <tr>
         <td>Email</td>
@@ -282,58 +228,52 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Family</td>
-        <td><?php echo $modelDaoRO->getModelsGroup($mo_shared)->getName(); ?></td>
+        <td><?php echo $newModelMD->getModelsGroup()->getName(); ?></td>
     </tr>
     <tr>
         <td>Proposed Path Name</td>
-        <td><?php echo $mo_path; ?></td>
+        <td><?php echo $newModelMD->getFilename(); ?></td>
     </tr>
     <tr>
         <td>Full Name</td>
-        <td><?php echo $mo_name; ?></td>
-        <input type="hidden" name="mo_name" value="<?php echo $mo_name; ?>" />
+        <td><?php echo $newModelMD->getName(); ?></td>
+        <input type="hidden" name="mo_name" value="<?php echo $newModelMD->getName(); ?>" />
     </tr>
     <tr>
         <td>Notes</td>
-        <td><?php echo $mo_notes; ?></td>
+        <td><?php echo $newModelMD->getDescription(); ?></td>
     </tr>
     <tr>
         <td>Latitude</td>
-        <td><?php echo $ob_lat; ?></td>
+        <td><?php echo $newObj->getLatitude(); ?></td>
     </tr>
     <tr>
         <td>Longitude</td>
-        <td><?php echo $ob_long; ?></td>
+        <td><?php echo $newObj->getLongitude(); ?></td>
     </tr>
     <tr>
         <td>Map</td>
         <td>
         <center>
-        <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $ob_long; ?>&amp;lat=<?php echo $ob_lat; ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
+        <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $newObj->getLongitude(); ?>&amp;lat=<?php echo $newObj->getLatitude(); ?>&amp;zoom=14" type="text/html" width="320" height="240"/>
         </center>
         </td>
     </tr>
     <tr>
         <td>Country</td>
-        <td><?php echo $objectDaoRO->getCountry($ob_country)->getName(); ?></td>
+        <td><?php echo $newObj->getCountry()->getName(); ?></td>
     </tr>
     <tr>
         <td>Ground Elevation</td>
-        <td><?php echo $ob_gndelev; ?></td>
+        <td><?php echo $newObj->getGroundElevation(); ?></td>
     </tr>
-<?php
-    if (isset($ob_elevoffset)) {
-?>
     <tr>
         <td>Elevation offset</td>
-        <td><?php echo $ob_elevoffset; ?></td>
+        <td><?php echo $newObj->getElevationOffset(); ?></td>
     </tr>
-<?php
-    }
-?>
     <tr>
         <td>True DB orientation</td>
-        <td><?php echo $ob_heading; ?></td>
+        <td><?php echo $newObj->getOrientation(); ?></td>
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
@@ -341,42 +281,7 @@ include '../../inc/header.php';
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
-
-    // Managing possible concurrent accesses on the maintainer side.
-    $target_path = sys_get_temp_dir() .'/submission_'.random_suffix();
-
-    while (file_exists($target_path)) {
-        usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
-    }
-
-    if (!mkdir($target_path)) {
-        echo "Impossible to create ".$target_path." directory!";
-    }
-
-    if (file_exists($target_path) && is_dir($target_path)) {
-        $archive = base64_decode ($mo_modelfile);           // DeBase64 file
-        $file = $target_path.'/submitted_files.tar.gz';     // Defines the destination file
-        file_put_contents ($file, $archive);                // Writes the content of $mo_modelfile into submitted_files.tar.gz
-    }
-
-    $detar_command = 'tar xvzf '.$target_path.'/submitted_files.tar.gz -C '.$target_path . '> /dev/null';
-    system($detar_command);
-
-    $dir = opendir($target_path);
-    $png_file_number = 0;   // Counter for PNG files.
-    while ($file = readdir($dir)) {
-        if (show_file_extension($file) == "ac") {
-            $ac3d_file = $file;
-        }
-        if (show_file_extension($file) == "png") {
-            $png_file_name[$png_file_number] = $file;
-            $png_file_number++;
-        }
-        if (show_file_extension($file) == "xml") {
-            $xml_file = $file;
-        }
-    }
-    closedir($dir);
+    $modelFiles = $newModel->getModelFiles();
 ?>
     <tr>
         <td>Download</td>
@@ -386,11 +291,7 @@ include '../../inc/header.php';
         <td>Corresponding AC3D File</td>
         <td>
             <center>
-<?php
-            $based64_target_path = base64_encode($target_path);
-            $encoded_target_path = rawurlencode($based64_target_path);
-?>
-            <object data="model/index.php?mo_sig=<?php echo $sig; ?>" type="text/html" width="720px" height="620px"></object>
+                <object data="model/index.php?mo_sig=<?php echo $sig; ?>" type="text/html" width="720px" height="620px"/>
             </center>
         </td>
     </tr>
@@ -398,12 +299,11 @@ include '../../inc/header.php';
         <td>Corresponding XML File</td>
         <td>
 <?php
+            $xmlContent = $modelFiles->getXMLFile();
             // Geshi stuff
-            if (isset($xml_file)) {
-                $file = $target_path.'/'.$xml_file;
-                $source = file_get_contents($file);
+            if (!empty($xmlContent)) {
                 $language = 'xml';
-                $geshi = new GeSHi($source, $language);
+                $geshi = new GeSHi($xmlContent, $language);
                 $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
                 $geshi->set_line_style('background: #fcfcfc;');
                 echo $geshi->parse_code();
@@ -418,6 +318,8 @@ include '../../inc/header.php';
         <td>
             <center>
 <?php
+            $texturesNames = $modelFiles->getTexturesNames();
+            $png_file_number = count($texturesNames);
             if ($png_file_number <= 1) {
                 echo $png_file_number." texture file has been submitted:<br/>\n"; // Some eye caviar for the poor scenery maintainers.
             } else {
@@ -425,11 +327,9 @@ include '../../inc/header.php';
             }
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
-            $based64_target_path = base64_encode($target_path);
-            $encoded_target_path = rawurlencode($based64_target_path);
-            for ($j=0; $j<$png_file_number; $j++) {
-                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_by_filename.php?mo_sig=".$sig."&name=".$png_file_name[$j];
-                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename.php?mo_sig=".$sig."&name=".$png_file_name[$j];
+            foreach ($texturesNames as $textureName) {
+                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_by_filename.php?mo_sig=".$sig."&name=".$textureName;
+                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename.php?mo_sig=".$sig."&name=".$textureName;
 
                 $tmp = getimagesize($texture_file);
                 $width  = $tmp[0];
@@ -437,9 +337,9 @@ include '../../inc/header.php';
 ?>
                 <a href="<?php echo $texture_file; ?>" rel="lightbox[submission]" />
                 <?php //imagethumb($texture_file) ?>
-                <img src="<?php echo $texture_file_tn; ?>" alt="Texture #<?php echo $j; ?>" />
+                <img src="<?php echo $texture_file_tn; ?>" alt="Texture #<?php echo $textureName; ?>" />
 <?php
-                echo $png_file_name[$j]." (Original size: ".$width."x".$height.")</a><br/>";
+                echo $textureName." (Original size: ".$width."x".$height.")</a><br/>";
             }
 ?>
             </center>
@@ -461,9 +361,6 @@ include '../../inc/header.php';
 </form>
 <p class="center">This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</p>
 <?php
-// The deletion of the tmp directory
-unlink($target_path.'/submitted_files.tar.gz');  // Deletes compressed file
-clear_dir($target_path);
 }
 require '../../inc/footer.php';
 ?>
