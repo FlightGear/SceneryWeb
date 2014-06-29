@@ -113,7 +113,10 @@ class Object {
     }
     
     
-    
+    /**
+     * Gets object's description
+     * @return object's description string
+     */
     public function getDescription() {
         return $this->description;
     }

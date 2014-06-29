@@ -26,6 +26,7 @@ class ModelFilesTar implements IModelFiles {
     public function getACFile() {
         $targetPath = open_tgz($this->modelfile);
         $dir = opendir($targetPath);
+        $content = null;
 
         while ($file = readdir($dir)) {
             if (show_file_extension($file) == "ac") {
