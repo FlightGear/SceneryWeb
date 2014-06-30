@@ -255,7 +255,7 @@ include '../../inc/header.php';
         <td>Map</td>
         <td>
         <center>
-        <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $newObj->getLongitude(); ?>&amp;lat=<?php echo $newObj->getLatitude(); ?>&amp;zoom=14" type="text/html" width="320" height="240"/>
+            <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $newObj->getLongitude(); ?>&amp;lat=<?php echo $newObj->getLatitude(); ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
         </center>
         </td>
     </tr>

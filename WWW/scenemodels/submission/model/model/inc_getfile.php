@@ -9,83 +9,44 @@
 **/
 
 // Inserting libs
-require_once '../../../inc/functions.inc.php';
 require_once '../../../inc/form_checks.php';
+require_once "../../../classes/DAOFactory.php";
+$requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
+
+$mo_sig = $_GET["mo_sig"];
 
 if ((isset($filename) && !preg_match($regex['filename'], $filename))
         || !is_sig($mo_sig)) {
     exit;
 }
 
-    
-$resource_rw = connect_sphere_rw();
-
-// If connection is not OK
-if ($resource_rw == '0') {
+try {
+    $request = $requestDaoRO->getRequest($mo_sig);
+} catch (RequestNotFoundException $e) {
     exit;
 }
 
-// Checking the presence of sig into the database
-$result = pg_query($resource_rw, "SELECT spr_base64_sqlz " .
-                                 "FROM fgs_position_requests " .
-                                 "WHERE spr_hash = '". $mo_sig ."';");
-if (pg_num_rows($result) != 1) {
-    exit;
-}
+$type = $_REQUEST['type'];
 
-// Now we are sure there is only 1 row
-$row = pg_fetch_row($result);
-$sqlzbase64 = $row[0];
+$modelfiles = $request->getNewModel()->getModelFiles();
 
-// Base64 decode the query
-$sqlz = base64_decode($sqlzbase64);
-
-// Gzuncompress the query
-$query_rw = gzuncompress($sqlz);
-
-$pattern = "/UPDATE fgs_models SET " .
-           "mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', " .
-           "mo_author \= (?P<author>[0-9]+), " .
-           "mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', " .
-           "mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', " .
-           "mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', " .
-           "mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', " .
-           "mo_shared \= (?P<shared>[0-9]+) " .
-           "WHERE mo_id \= (?P<modelid>[0-9]+)/";
-$correspond = preg_match($pattern, $query_rw, $matches);
-
-if (!$correspond) {
-    $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) " .
-           "VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) " .
-           "RETURNING mo_id/";
-    preg_match($pattern, $query_rw, $matches);
-}
-
-$mo_modelfile = base64_decode($matches['modelfile']);
-
-// Prepare the tmp directory
-$target_path = open_tgz($mo_modelfile);
-
-// Looking for the file in the tmp directory
-$dir = opendir($target_path);
-
-while ($file = readdir($dir)) {
-    // If we know the extension
-    if (isset($extension) && show_file_extension($file) == $extension) {
-        $fichier = $target_path."/".$file;
-        readfile($fichier);
+switch ($type) {
+    case "pack":
+        header("Content-type: application/x-gtar");
+        header("Content-Disposition: inline; filename=".$id.".tgz");
+        echo $modelfiles->getPackage();
         break;
-    }
-
-    // If we know the name
-    if (isset($filename) && $file == $filename) {
-        $fichier = $target_path."/".$file;
-        readfile($fichier);
+    case "ac":
+        header("Content-type: application/octet-stream");
+        echo $modelfiles->getACFile();
         break;
-    }
+    case "texture":
+        $dir_array = preg_split("/\//", $_GET['name']);
+        $filename = $dir_array[count($dir_array)-1];
+        
+        header("Content-type: image/png");
+        echo $modelfiles->getTexture($filename);
+        break;
 }
 
-// Ok, now we can delete the stuff we used - at least I think so ;-)
-// This should be done at the end of the script
-close_tgz($target_path);
 ?>

@@ -30,7 +30,7 @@
 
 <script type="text/javascript">
 var Models = [
-  { file: "get_ac3d_from_dir.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>"}
+  { file: "inc_getfile.php?type=ac&mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>"}
 ];
 
 var canvas, details, loading, viewer, current;
@@ -60,7 +60,7 @@ function showModel(model){
   loading.style.display = "block";
   viewer.show(model.file, 
               {callback:onLoaded, 
-               texturePath:"get_texture_by_filename.php?mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>&name="
+               texturePath:"inc_getfile.php?type=texture&mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>&name="
               });
 };
 

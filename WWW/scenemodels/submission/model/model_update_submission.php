@@ -275,7 +275,7 @@ include '../../inc/header.php';
         <td>Corresponding AC3D File</td>
         <td colspan="2">
             <h3>Original model:</h3>
-            <object data="../../viewer.php?id=<?php echo $oldModelMD->getId(); ?>" type="text/html" width="720px" height="620px"/>
+            <object data="../../viewer.php?id=<?php echo $oldModelMD->getId(); ?>" type="text/html" width="720px" height="620px"></object>
             <br/>
             <h3>New model:</h3>
             <object data="model/index.php?mo_sig=<?php echo $_GET['mo_sig']; ?>" type="text/html" width="720px" height="620px"></object>
