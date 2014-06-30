@@ -160,8 +160,6 @@ if ($error) {
     exit;
 }
 
-// Opening database connection...
-$resource_r_deletion = connect_sphere_r();
 
 // If the delete_choice is sent directly to us from a webform "outside" the submission world
 if (isset($id_to_delete)) {
