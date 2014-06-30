@@ -69,8 +69,19 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
     }
     
-    public function deleteRequest($id) {
+    public function deleteRequest($sig) {
+        // Checking the presence of sig into the database
+        $result = $this->database->query("SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
+        $row = pg_fetch_assoc($result);
+        // If not ok...
+        if (!$row) {
+            throw new RequestNotFoundException('No request with sig '. $sig. ' was found!');
+        }
         
+        // Delete the entry from the pending query table.
+        $resultdel = $this->database->query("DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
+
+        return $resultdel != FALSE;
     }
     
     public function getPendingRequests() {

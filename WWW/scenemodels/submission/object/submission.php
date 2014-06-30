@@ -2,7 +2,6 @@
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -19,8 +18,9 @@ $sig = htmlentities($_REQUEST["sig"]);
 
 // Common code, to be performed for both types of checks
 if ($action == "check" || $action == "check_update" || $action == "check_delete") {
-    // Checking the presence of sig into the database
+    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
     
+    // Checking the presence of sig into the database
     try {
         $request = $requestDaoRO->getRequest($sig);
     } catch (RequestNotFoundException $e) {
@@ -224,71 +224,54 @@ if ($action == 'Accept') {
 
 // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
 else if ($action == "Reject") {
-    $resource_rw = connect_sphere_rw();
+    $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
-    // If connection is OK
-    if ($resource_rw != '0') {
+    try {
+        $resultDel = $requestDaoRW->deleteRequest($sig);
+    } catch(RequestNotFoundException $e) {
+        $page_title = "Automated Objects Pending Requests Form";
+        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
+        $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
+        include '../../inc/error_page.php';
+        exit;
+    }
 
-        // Checking the presence of sig into the database
-        $delete_query = "SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
-        $result = pg_query($delete_query);
-
-        // If not ok...
-
-        if (pg_num_rows($result) != 1) {
-            $page_title = "Automated Objects Pending Requests Form";
-            $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
-            $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
-            include '../../inc/error_page.php';
-
-            // Closing the rw connection.
-            pg_close($resource_rw);
-            exit;
-        }
-
-        // Delete the entry from the pending query table.
-        $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
-        $resultdel = pg_query($resource_rw, $delete_request);
-
-        if (!$resultdel) {
-            $page_title = "Automated Objects Pending Requests Form";
-            include '../../inc/header.php';
-            echo "<p class=\"center\">\n".
-                 "Signature found.<br /> Now deleting request with number ".$sig.".</p>".
-                 "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>\n";
-
-            // Closing the rw connection.
-            include '../../inc/footer.php';
-            pg_close($resource_rw);
-            exit;
-        }
-
+    if (!$resultDel) {
         $page_title = "Automated Objects Pending Requests Form";
         include '../../inc/header.php';
-        echo "<p class=\"center\">";
-        echo "Signature found.<br />Now deleting request with number ".$sig.".</p>";
-        echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
-        echo "</p>";
+        echo "<p class=\"center\">\n".
+             "Signature found.<br /> Now deleting request with number ".$sig.".</p>".
+             "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>\n";
 
         // Closing the rw connection.
         include '../../inc/footer.php';
-        pg_close($resource_rw);
-
-        // Sending mail if entry was correctly deleted.
-        // Sets the time to UTC.
-
-        date_default_timezone_set('UTC');
-        $dtg = date('l jS \of F Y h:i:s A');
-        $comment = $_REQUEST['maintainer_comment'];
-
-        // email destination
-        $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
-
-        $emailSubmit = EmailContentFactory::getRejectAndDeletionConfirmationEmailContent($sig, $comment);
-        $emailSubmit->sendEmail($to, true);
-
         exit;
     }
+
+    $page_title = "Automated Objects Pending Requests Form";
+    include '../../inc/header.php';
+    echo "<p class=\"center\">";
+    echo "Signature found.<br />Now deleting request with number ".$sig.".</p>";
+    echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
+    echo "</p>";
+
+    // Closing the rw connection.
+    include '../../inc/footer.php';
+
+    // Sending mail if entry was correctly deleted.
+    // Sets the time to UTC.
+
+    date_default_timezone_set('UTC');
+    $dtg = date('l jS \of F Y h:i:s A');
+    $comment = $_REQUEST['maintainer_comment'];
+
+    // email destination
+    $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
+
+    $emailSubmit = EmailContentFactory::getRejectAndDeletionConfirmationEmailContent($sig, $comment);
+    $emailSubmit->sendEmail($to, true);
+
+    exit;
 }
 // Sending the visitor elsewhere if he has no idea what he's doing here.
 else {

@@ -2,19 +2,26 @@
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
 require_once '../../classes/EmailContentFactory.php';
 
+if (!is_sig($_REQUEST["sig"])) {
+    header("Location: /submission/object/");
+    exit;
+}
+$sig = $_REQUEST["sig"];
+
 // Check the presence of "action", the presence of "signature", its 
 // length (64) and its content.
-if (isset($_GET["action"]) && is_sig($_GET["sig"]) && $_GET["action"] == "check") {
+if (isset($_GET["action"]) && $_GET["action"] == "check") {
+    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
+    
     // Checking the presence of sig into the database
     try {
-        $request = $requestDaoRO->getRequest($_GET["sig"]);
+        $request = $requestDaoRO->getRequest($sig);
     } catch (RequestNotFoundException $e) {
         $page_title = "Automated Objects Massive Import Request Form";
         $error_text = "Sorry but the request you are asking for does " .
@@ -27,7 +34,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && $_GET["action"] == "check"
 
     $page_title = "Automated Objects Massive Import Requests Form";
     include '../../inc/header.php';
-    echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_GET["sig"].".\n</p>\n";
+    echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $sig.".\n</p>\n";
 
     echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
     echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
@@ -57,7 +64,7 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && $_GET["action"] == "check"
     <tr>
         <td colspan="9" class="submit">
             <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET["email"]."\" />"; ?>
-            <?php echo "<input type=\"hidden\" name=\"hsig\" value=\"".$_GET["sig"]."\" />"; ?>
+            <?php echo "<input type=\"hidden\" name=\"sig\" value=\"".$sig."\" />"; ?>
             <input type="submit" name="submit" value="Submit the mass import!" />
             <input type="submit" name="cancel" value="Reject - Do not import!" />
         </td>
@@ -68,71 +75,50 @@ if (isset($_GET["action"]) && is_sig($_GET["sig"]) && $_GET["action"] == "check"
 }
 
 // Managing the cancellation of a mass import by DB maintainer.
-if (isset($_POST["cancel"]) && is_sig($_POST["hsig"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
+if (isset($_POST["cancel"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
+    $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
-     $resource_rw = connect_sphere_rw();
-
-    // If connection is OK
-    if ($resource_rw != 0) {
-
-        // Checking the presence of sig into the database
-        $delete_query = "SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
-        $result = pg_query($delete_query);
-
-        // If not ok...
-        if (pg_num_rows($result) != 1) {
-            $page_title = "Automated Objects Massive Import Request Form";
-            $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?<br/>";
-            $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
-            include '../../inc/error_page.php';
-            pg_close($resource_rw);
-            exit;
-        }
-        else {
-            // Delete the entry from the pending query table.
-            $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
-            $resultdel = pg_query($resource_rw,$delete_request);
-
-            if(!$resultdel) {
-                $page_title = "Automated Objects Massive Import Request Form";
-                $process_text = "Signature found.<br /> Now deleting request with number ". $_POST["hsig"].".";
-                $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                include '../../inc/error_page.php';
-
-                // Closing the rw connection.
-                pg_close($resource_rw);
-                exit;
-            }
-
-            $page_title = "Automated Objects Massive Import Request Form";
-            include '../../inc/header.php';
-            echo "<center>Signature found.<br />Now deleting request with number ". $_POST["hsig"].".</center><br />";
-            echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.</p>";
-
-            // Closing the rw connection.
-            pg_close($resource_rw);
-
-            // Sending mail if entry was correctly deleted.
-            // Sets the time to UTC.
-            date_default_timezone_set('UTC');
-            $dtg = date('l jS \of F Y h:i:s A');
-            $comment = $_POST["maintainer_comment"];
-            $hsig = $_POST["hsig"];
-
-            // email destination
-            $to = (isset($_POST['email'])) ? $_POST["email"] : '';
-
-            $emailSubmit = EmailContentFactory::getMassImportRequestRejectedEmailContent($dtg, $hsig, $comment);
-            $emailSubmit->sendEmail($to, true);
-
-            include '../../inc/footer.php';
-            exit;
-        }
+    try {
+        $resultDel = $requestDaoRW->deleteRequest($sig);
+    } catch(RequestNotFoundException $e) {
+        $page_title = "Automated Objects Massive Import Request Form";
+        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?<br/>";
+        $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
+        include '../../inc/error_page.php';
+        exit;
     }
+
+    if (!$resultDel) {
+        $page_title = "Automated Objects Massive Import Request Form";
+        $process_text = "Signature found.<br /> Now deleting request with number ". $sig.".";
+        $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+        include '../../inc/error_page.php';
+        exit;
+    }
+
+    $page_title = "Automated Objects Massive Import Request Form";
+    include '../../inc/header.php';
+    echo "<center>Signature found.<br />Now deleting request with number ". $sig.".</center><br />";
+    echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.</p>";
+
+    // Sending mail if entry was correctly deleted.
+    // Sets the time to UTC.
+    date_default_timezone_set('UTC');
+    $dtg = date('l jS \of F Y h:i:s A');
+    $comment = $_POST["maintainer_comment"];
+
+    // email destination
+    $to = (isset($_POST['email'])) ? $_POST["email"] : '';
+
+    $emailSubmit = EmailContentFactory::getMassImportRequestRejectedEmailContent($dtg, $sig, $comment);
+    $emailSubmit->sendEmail($to, true);
+
+    include '../../inc/footer.php';
+    exit;
 }
 
 // Now managing the insertion
-if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && $_POST["submit"] == "Submit the mass import!") {
+if (isset($_POST["submit"]) && $_POST["submit"] == "Submit the mass import!") {
 
     $resource_rw = connect_sphere_rw();
 
@@ -140,7 +126,7 @@ if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && $_POST["submit"] == "Su
     if ($resource_rw != 0) {
 
         // Checking the presence of sig into the database
-        $result = pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';");
+        $result = pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
         if (pg_num_rows($result) != 1) {
             $page_title = "Automated Objects Massive Import Request Form";
             $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
@@ -214,7 +200,7 @@ if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && $_POST["submit"] == "Su
         if (!$result_rw) {
             $page_title = "Automated Objects Massive Insertion Request Form";
             include '../../inc/header.php';
-            echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $_POST["hsig"].".</p><br />";
+            echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $sig.".</p><br />";
             echo "<p class=\"warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
 
             // Closing the rw connection.
@@ -225,12 +211,12 @@ if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && $_POST["submit"] == "Su
 
         $page_title = "Automated Objects Massive Insertion Request Form";
         include '../../inc/header.php';
-        echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $_POST["hsig"].".</p><br />\n";
+        echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ". $sig.".</p><br />\n";
         echo "<p class=\"center ok\">".pg_affected_rows($result_rw)." objects were added to the database!</p>\n";
         echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
         // Delete the entry from the pending query table.
-        $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["hsig"] ."';";
+        $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
         $resultdel = pg_query($resource_rw, $delete_request);
 
         if (!$resultdel) {
@@ -252,12 +238,11 @@ if (isset($_POST["submit"]) && is_sig($_POST["hsig"]) && $_POST["submit"] == "Su
         date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
         $comment = $_POST["maintainer_comment"];
-        $hsig = $_POST['hsig'];
 
         // email destination
         $to = (isset($_POST['email'])) ? $_POST["email"] : '';
 
-        $emailSubmit = EmailContentFactory::getMassImportRequestAcceptedEmailContent($dtg, $hsig, $comment);
+        $emailSubmit = EmailContentFactory::getMassImportRequestAcceptedEmailContent($dtg, $sig, $comment);
         $emailSubmit->sendEmail($to, true);
 
         include '../../inc/footer.php';
