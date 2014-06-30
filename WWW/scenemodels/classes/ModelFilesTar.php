@@ -69,7 +69,6 @@ class ModelFilesTar implements IModelFiles {
             $extension = show_file_extension($filename);
             if ($extension == "png" || $extension == "rgb") {
                 $names[] = $filename;
-                break;
             }
         }
         
