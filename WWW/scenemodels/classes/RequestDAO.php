@@ -69,6 +69,10 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
     }
     
+    public function deleteRequest($id) {
+        
+    }
+    
     public function getPendingRequests() {
         $result = $this->database->query("SELECT spr_hash, spr_base64_sqlz ".
                                          "FROM fgs_position_requests ".

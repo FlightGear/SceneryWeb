@@ -9,6 +9,8 @@ interface IRequestDAO {
     
     public function saveRequest($request);
     
+    public function deleteRequest($id);
+    
     public function getPendingRequests();
 }
 ?>
