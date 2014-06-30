@@ -328,7 +328,7 @@ include '../../inc/header.php';
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             foreach ($texturesNames as $textureName) {
-                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_by_filename.php?mo_sig=".$sig."&name=".$textureName;
+                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/inc_getfile.php?type=texture&mo_sig=".$sig."&name=".$textureName;
                 $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename.php?mo_sig=".$sig."&name=".$textureName;
 
                 $tmp = getimagesize($texture_file);
