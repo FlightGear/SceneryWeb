@@ -24,65 +24,48 @@ if (isset($_POST["action"])) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Reject model") {
+        
+        $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
-        $resource_rw = connect_sphere_rw();
-
-        // If connection is OK
-        if ($resource_rw != '0') {
-
-            // Checking the presence of sig into the database
-            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
-            if (pg_num_rows($mo_result) != 1) {
-                $process_text = "Deleting corresponding pending query.";
-                $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-                $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../../inc/error_page.php';
-                pg_close($resource_rw);
-                exit;
-            }
-
-            // Delete the entry from the pending query table.
-            $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
-            $mo_resultdel = pg_query($resource_rw, $mo_delete_request);
-
-            if (!$mo_resultdel) {
-                $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $sig;
-                $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                include '../../inc/error_page.php';
-
-                // Closing the rw connection.
-                pg_close($resource_rw);
-                exit;
-            }
-
-            include '../../inc/header.php';
-            echo "<p class=\"center\">Deleting corresponding pending query.</p>";
-            echo "<p class=\"center\">";
-            echo "Signature found.<br />Now deleting request with number ". $sig." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
-            echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
-            echo "</p>";
-
-            // Closing the rw connection.
-            include '../../inc/footer.php';
-            pg_close($resource_rw);
-
-            // Sending mail if entry was correctly deleted.
-            // Sets the time to UTC.
-
-            date_default_timezone_set('UTC');
-            $dtg = date('l jS \of F Y h:i:s A');
-            $name = $_POST["mo_name"];
-            $comment = $_POST["maintainer_comment"];
-
-            $to = (isset($_POST['email']))?$_POST["email"]:"";
-
-            $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $sig, $name, $comment);
-            $emailSubmit->sendEmail($to, true);
+        try {
+            $resultDel = $requestDaoRW->deleteRequest($sig);
+        } catch(RequestNotFoundException $e) {
+            $process_text = "Deleting corresponding pending query.";
+            $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+            $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
+            include '../../inc/error_page.php';
             exit;
-
-            /*echo "The user submission has been rejected with the following warning: ".$_POST["maintainer_comment"].". User has been informed by mail.";
-            exit;*/
         }
+
+        if (!$resultDel) {
+            $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $sig;
+            $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+            include '../../inc/error_page.php';
+            exit;
+        }
+
+        include '../../inc/header.php';
+        echo "<p class=\"center\">Deleting corresponding pending query.</p>";
+        echo "<p class=\"center\">";
+        echo "Signature found.<br />Now deleting request with number ". $sig." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
+        echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
+        echo "</p>";
+
+        include '../../inc/footer.php';
+
+        // Sending mail if entry was correctly deleted.
+        // Sets the time to UTC.
+
+        date_default_timezone_set('UTC');
+        $dtg = date('l jS \of F Y h:i:s A');
+        $name = $_POST["mo_name"];
+        $comment = $_POST["maintainer_comment"];
+
+        $to = (isset($_POST['email']))?$_POST["email"]:"";
+
+        $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $sig, $name, $comment);
+        $emailSubmit->sendEmail($to, true);
+        exit;
     }
 
     // If $action=accept

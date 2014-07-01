@@ -1,12 +1,18 @@
 <?php
+require_once '../../inc/form_checks.php';
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
+if (isset($_REQUEST["mo_sig"]) && is_sig($_REQUEST["mo_sig"])) {
+    $sig = $_REQUEST["mo_sig"];
+} else {
+    exit;
+}
+
 if (isset($_POST["action"])) {
     // Inserting libs
     include_once '../../inc/functions.inc.php';
-    include_once '../../inc/form_checks.php';
     include_once '../../classes/EmailContentFactory.php';
     $page_title = "Automated Models Submission Form";
 
@@ -15,66 +21,51 @@ if (isset($_POST["action"])) {
         // - Drop fgs_position_requests;
         // - Send 2 mails
 
-    if ($_POST["action"] == "Reject model" && isset($_POST["mo_sig"])) {
-
-        $resource_rw = connect_sphere_rw();
-
-        // If connection is OK
-        if ($resource_rw != '0') {
-
-            // Checking the presence of sig into the database
-            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
-            if (pg_num_rows($mo_result) != 1) {
-                $process_text = "Deleting corresponding pending query.";
-                $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-                $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../inc/error_page.php';
-                pg_close($resource_rw);
-                exit;
-            }
-
-            // Delete the entry from the pending query table.
-            $mo_delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
-            $mo_resultdel = pg_query($resource_rw, $mo_delete_request);
-
-            if (!$mo_resultdel) {
-                $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $_POST["mo_sig"];
-                $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                include '../inc/error_page.php';
-
-                // Closing the rw connection.
-                pg_close($resource_rw);
-                exit;
-            }
-
-            include '../../inc/header.php';
-            echo "<p class=\"center\">Deleting corresponding pending query.</p>";
-            echo "<p class=\"center\">";
-            echo "Signature found.<br />Now deleting request with number ". $_POST["mo_sig"]." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
-            echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
-            echo "</p>";
-
-            // Closing the rw connection.
-            include '../../inc/footer.php';
-            pg_close($resource_rw);
-
-            // Sending mail if entry was correctly deleted.
-            // Sets the time to UTC.
-
-            date_default_timezone_set('UTC');
-            $dtg = date('l jS \of F Y h:i:s A');
-            $mo_sha_hash = $_POST["mo_sig"];
-            $name = $_POST["mo_name"];
-            $comment = $_POST["maintainer_comment"];
-
-            $to = (isset($_POST['contrib_email']))?$_POST["contrib_email"]:"";
-  
-            // Email to contributor
-            $emailSubmit = EmailContentFactory::getModelUpdateRequestRejectedEmailContent($dtg, $mo_sha_hash, $name, $comment);
-            $emailSubmit->sendEmail($to, true);
-
+    if ($_POST["action"] == "Reject model") {
+        $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+        
+        try {
+            $resultDel = $requestDaoRW->deleteRequest($sig);
+        } catch(RequestNotFoundException $e) {
+            $process_text = "Deleting corresponding pending query.";
+            $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+            $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
+            include '../inc/error_page.php';
             exit;
         }
+
+        if (!$resultDel) {
+            $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $sig;
+            $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+            include '../inc/error_page.php';
+            exit;
+        }
+
+        include '../../inc/header.php';
+        echo "<p class=\"center\">Deleting corresponding pending query.</p>";
+        echo "<p class=\"center\">";
+        echo "Signature found.<br />Now deleting request with number ". $sig." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
+        echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
+        echo "</p>";
+
+        include '../../inc/footer.php';
+
+
+        // Sending mail if entry was correctly deleted.
+        // Sets the time to UTC.
+
+        date_default_timezone_set('UTC');
+        $dtg = date('l jS \of F Y h:i:s A');
+        $name = $_POST["mo_name"];
+        $comment = $_POST["maintainer_comment"];
+
+        $to = (isset($_POST['contrib_email']))?$_POST["contrib_email"]:"";
+
+        // Email to contributor
+        $emailSubmit = EmailContentFactory::getModelUpdateRequestRejectedEmailContent($dtg, $sig, $name, $comment);
+        $emailSubmit->sendEmail($to, true);
+
+        exit;
     }
 
     // If $action=accept
@@ -88,7 +79,7 @@ if (isset($_POST["action"])) {
         if ($resource_rw != '0') {
 
             // Checking the presence of sigs into the database
-            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';");
+            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
 
             if (pg_num_rows($mo_result) != 1) {
                 $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
@@ -116,7 +107,7 @@ if (isset($_POST["action"])) {
                 $mo_id = $matches['modelid'];
 
                 if (!$result_rw_mo) {
-                    $process_text = "Signatures found.<br /> Now processing query with request number ". $_POST["mo_sig"];
+                    $process_text = "Signatures found.<br /> Now processing query with request number ". $sig;
                     $error_text = "Sorry, but the UPDATE queries could not be processed.";
                     $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
                     include '../inc/error_page.php';
@@ -128,11 +119,11 @@ if (isset($_POST["action"])) {
 
                 include '../../inc/header.php';
                 echo "<p class=\"center\">";
-                echo "Signatures found.<br /> Now processing UPDATE query of model with number ". $_POST["mo_sig"].".</p>";
+                echo "Signatures found.<br /> Now processing UPDATE query of model with number ". $sig.".</p>";
                 echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
                 // Delete the entries from the pending query table.
-                $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $_POST["mo_sig"] ."';";
+                $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
                 $resultdel_mo = pg_query ($resource_rw, $delete_request_mo);
 
                 if (!$resultdel_mo) {
@@ -153,7 +144,6 @@ if (isset($_POST["action"])) {
                 // Sets the time to UTC.
                 date_default_timezone_set('UTC');
                 $dtg = date('l jS \of F Y h:i:s A');
-                $mo_sha_hash = $_POST["mo_sig"];
                 $name = $_POST["mo_name"];
                 $comment = $_POST["maintainer_comment"];
                 $model_id = $mo_id;
@@ -163,7 +153,7 @@ if (isset($_POST["action"])) {
                 $to = (isset($_POST["contrib_email"]))?$_POST["contrib_email"]:"";
 
                 // Email to contributor
-                $emailSubmit = EmailContentFactory::getModelUpdateRequestAcceptedEmailContent($dtg, $mo_sha_hash, $name, $comment, $model_id);
+                $emailSubmit = EmailContentFactory::getModelUpdateRequestAcceptedEmailContent($dtg, $sig, $name, $comment, $model_id);
                 $emailSubmit->sendEmail($to, true);
 
                 include '../../inc/footer.php';
@@ -185,23 +175,20 @@ if (!isset($_POST["action"])) {
     $page_title = "Automated Models Submission Form";
 
     // Working on the model, now
-    // Check the presence of "mo_sig", its length (64) and its content.
-    if (is_sig($_GET["mo_sig"])) {
-        try {
-            $requestModelUpd = $requestDaoRO->getRequest($_GET["mo_sig"]);
-            $newModel = $requestModelUpd->getNewModel();
-            $newModelMD = $newModel->getMetadata();
-            $oldModel = $requestModelUpd->getOldModel();
-            $oldModelMD = $oldModel->getMetadata();
-        } catch(RequestNotFoundException $e) {
-            $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
-            $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-            include '../../inc/error_page.php';
-            exit;
-        }
-
-        $mo_contri_email = htmlentities($_GET["email"]);
+    try {
+        $requestModelUpd = $requestDaoRO->getRequest($sig);
+        $newModel = $requestModelUpd->getNewModel();
+        $newModelMD = $newModel->getMetadata();
+        $oldModel = $requestModelUpd->getOldModel();
+        $oldModelMD = $oldModel->getMetadata();
+    } catch(RequestNotFoundException $e) {
+        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+        $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+        include '../../inc/error_page.php';
+        exit;
     }
+
+    $mo_contri_email = htmlentities($_GET["email"]);
 
 include '../../inc/header.php';
 
@@ -261,7 +248,7 @@ include '../../inc/header.php';
     <tr>
         <td>Corresponding Thumbnail</td>
         <td><img src="../../modelthumb.php?id=<?php echo $oldModelMD->getId() ?>" alt="Thumbnail"/></td>
-        <td><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $_GET["mo_sig"] ?>" alt="Thumbnail"/></td>
+        <td><img src="get_thumbnail_from_mo_sig.php?mo_sig=<?php echo $sig ?>" alt="Thumbnail"/></td>
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
@@ -269,7 +256,7 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td colspan="2"><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $_GET['mo_sig']; ?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
+        <td colspan="2"><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $sig; ?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
@@ -278,7 +265,7 @@ include '../../inc/header.php';
             <object data="../../viewer.php?id=<?php echo $oldModelMD->getId(); ?>" type="text/html" width="720px" height="620px"></object>
             <br/>
             <h3>New model:</h3>
-            <object data="model/index.php?mo_sig=<?php echo $_GET['mo_sig']; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="model/index.php?mo_sig=<?php echo $sig; ?>" type="text/html" width="720px" height="620px"></object>
         </td>
     </tr>
     <tr>
@@ -314,8 +301,8 @@ include '../../inc/header.php';
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             foreach ($texturesNames as $textureName) {
-                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/inc_getfile.php?type=texture&mo_sig=".$_GET["mo_sig"]."&name=".$textureName;
-                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename.php?mo_sig=".$_GET["mo_sig"]."&name=".$textureName;
+                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/inc_getfile.php?type=texture&mo_sig=".$sig."&name=".$textureName;
+                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/get_texture_tn_by_filename.php?mo_sig=".$sig."&name=".$textureName;
 
                 $tmp = getimagesize($texture_file);
                 $width  = $tmp[0];
@@ -338,7 +325,7 @@ include '../../inc/header.php';
     <tr>
         <td>Action</td>
         <td colspan="2" class="submit">
-            <input type="hidden" name="mo_sig" value="<?php echo $_GET['mo_sig']; ?>" />
+            <input type="hidden" name="mo_sig" value="<?php echo $sig; ?>" />
             <input type="submit" name="action" value="Submit model" />
             <input type="submit" name="action" value="Reject model" />
         </td>

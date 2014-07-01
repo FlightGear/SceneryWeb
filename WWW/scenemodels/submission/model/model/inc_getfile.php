@@ -32,7 +32,7 @@ $modelfiles = $request->getNewModel()->getModelFiles();
 switch ($type) {
     case "pack":
         header("Content-type: application/x-gtar");
-        header("Content-Disposition: inline; filename=".$id.".tgz");
+        header("Content-Disposition: inline; filename=newModel.tgz");
         echo $modelfiles->getPackage();
         break;
     case "ac":
