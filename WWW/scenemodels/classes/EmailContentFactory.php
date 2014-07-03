@@ -178,10 +178,10 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getPendingRequestsEmailContent($pending_requests) {
+    static public function getPendingRequestsEmailContent($pendingRequests) {
         $subject = "Pending requests";
         $message = "We would like to give you an overview of the remaining pending requests.\r\n\r\n" .
-                   $pending_requests . "\r\n" .
+                   $pendingRequests . "\r\n" .
                    "They should be somewhere in your mails. Please check again.\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));

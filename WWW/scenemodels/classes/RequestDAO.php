@@ -113,7 +113,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
         // Add object(s) request
         if (substr_count($requestQuery,"INSERT INTO fgs_objects") == 1 && substr_count($requestQuery,"Thisisthevalueformo_id") == 0) {
-            if (substr_count($requestQuery,"ST_PointFromText") == 1) {
+            if (substr_count($requestQuery,"INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group)") == 1) {
                 $request = $this->getRequestObjectAddFromRow($requestQuery);
             }
             // Else, it is a mass insertion
@@ -138,12 +138,12 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestModelAddFromRow($requestQuery) {
-        $query_mo = substr($requestQuery, 0, strpos($requestQuery, "INSERT INTO fgs_objects"));
-        $query_ob = strstr($requestQuery, "INSERT INTO fgs_objects");
+        $queryModel = substr($requestQuery, 0, strpos($requestQuery, "INSERT INTO fgs_objects"));
+        $queryObj = strstr($requestQuery, "INSERT INTO fgs_objects");
 
         // Retrieve MODEL data from query
         $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
-        preg_match($pattern, $query_mo, $matches);
+        preg_match($pattern, $queryModel, $matches);
         
         $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
         $modelMD = $modelFactory->createModelMetadata(-1, $matches['author'], $matches['path'], $matches['name'], $matches['notes'], $matches['shared']);
@@ -154,16 +154,16 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
         // Retrieve OBJECT data from query
         $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
-        $pos = strpos($query_ob, $search);
+        $pos = strpos($queryObj, $search);
 
         if (!$pos) { // No offset is present
             $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-            preg_match($pattern, $query_ob, $matches);
+            preg_match($pattern, $queryObj, $matches);
             $matches['elevoffset'] = 0;
         }
         else { // ob_elevoffset has been found
             $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<elevoffset>[NULL0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-            preg_match($pattern, $query_ob, $matches);
+            preg_match($pattern, $queryObj, $matches);
         }
         
         $objectFactory = new ObjectFactory($this->objectDao);
@@ -205,10 +205,10 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function getRequestObjectAddFromRow($requestQuery) {
         // Removing the start of the query from the data
-        $trigged_query_rw = strstr($requestQuery, 'ST_PointFromText');
+        $triggedQuery = strstr($requestQuery, 'ST_PointFromText');
         $pattern = "/ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
 
-        preg_match($pattern, $trigged_query_rw, $matches);
+        preg_match($pattern, $triggedQuery, $matches);
         $objectFactory = new ObjectFactory($this->objectDao);
         
         $newObject = $objectFactory->createObject(-1, $matches['model_id'],
@@ -223,10 +223,10 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function getRequestMassiveObjectsAddFromRow($requestQuery) {
         // Removing the start of the query from the data;
-        $trigged_query_rw = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) " .
+        $triggedQuery = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) " .
                                         "VALUES (","",$requestQuery);
         // Separating the data based on the ST_PointFromText existence
-        $tab_tags = explode(", (",$trigged_query_rw);
+        $tab_tags = explode(", (",$triggedQuery);
         $newObjects = array();
         
         $pattern = "/'', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
@@ -250,12 +250,12 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function getRequestObjectUpdateFromRow($requestQuery) {
         // Removing the start of the query from the data
-        $trigged_query_rw = strstr($requestQuery, 'SET');
-        $trigged_query_rw = str_replace('$','',$trigged_query_rw);
+        $triggedQuery = strstr($requestQuery, 'SET');
+        $triggedQuery = str_replace('$','',$triggedQuery);
 
         $pattern = "/SET ob_text\=(?P<notes>[a-zA-Z0-9 +,!_.;\(\)\[\]\/-]*), wkb_geometry\=ST_PointFromText\('POINT\((?P<lon>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/";
 
-        preg_match($pattern, $trigged_query_rw, $matches);
+        preg_match($pattern, $triggedQuery, $matches);
         //$country = $matches['country'];
 
         $objectFactory = new ObjectFactory($this->objectDao);
@@ -274,11 +274,11 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestObjectDeleteFromRow($requestQuery) {
-        $trigged_query_rw = strstr($requestQuery, 'WHERE');
-        $trigged_query_rw = str_replace('$','',$trigged_query_rw);
+        $triggedQuery = strstr($requestQuery, 'WHERE');
+        $triggedQuery = str_replace('$','',$triggedQuery);
         $pattern = "/WHERE ob_id\=(?P<object_id>[0-9]+)/";
 
-        preg_match($pattern, $trigged_query_rw, $matches);
+        preg_match($pattern, $triggedQuery, $matches);
         $objectToDel = $this->objectDao->getObject($matches['object_id']);
 
         $requestObjDel = new RequestObjectDelete();

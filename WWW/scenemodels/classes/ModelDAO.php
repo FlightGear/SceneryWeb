@@ -54,13 +54,13 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function getModelMetadataFromName($modelName) {
-        $tab_path = explode("/",$modelName);                         // Explodes the fields of the string separated by /
-        $queried_mo_path = pg_escape_string($tab_path[count($tab_path)-1]);           // Returns the last field value.
+        $tabPath = explode("/",$modelName);                         // Explodes the fields of the string separated by /
+        $queriedModelPath = pg_escape_string($tabPath[count($tabPath)-1]);           // Returns the last field value.
         
         $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
                                          "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_path = '".$queried_mo_path."' AND au_id = mo_author AND mg_id = mo_shared");
+                                         "WHERE mo_path = '".$queriedModelPath."' AND au_id = mo_author AND mg_id = mo_shared");
         
         $row = pg_fetch_assoc($result);
         

@@ -42,26 +42,26 @@ class ModelFilesTar implements IModelFiles {
     }
     
     public function getXMLFile() {
-        $target_path = open_tgz($this->modelfile);
-        $dir = opendir($target_path);
+        $targetPath = open_tgz($this->modelfile);
+        $dir = opendir($targetPath);
         $content = null;
         
         while ($file = readdir($dir)) {
             if (show_file_extension($file) == "xml") {
-                $filepath = $target_path."/".$file;
+                $filepath = $targetPath."/".$file;
                 $content = file_get_contents($filepath);
                 break;
             }
         }
         
-        close_tgz($target_path);
+        close_tgz($targetPath);
         
         return $content;
     }
     
     public function getTexturesNames() {
-        $target_path = open_tgz($this->modelfile);
-        $dir = opendir($target_path);
+        $targetPath = open_tgz($this->modelfile);
+        $dir = opendir($targetPath);
         
         $names = array();
         
@@ -72,22 +72,24 @@ class ModelFilesTar implements IModelFiles {
             }
         }
         
+        close_tgz($targetPath);
+        
         return $names;
     }
     
     public function getTexture($filename) {
-        $target_path = open_tgz($this->modelfile);
-        $dir = opendir($target_path);
+        $targetPath = open_tgz($this->modelfile);
+        $dir = opendir($targetPath);
 
         while ($file = readdir($dir)) {
             if ($file == $filename) {
-                $filepath = $target_path."/".$file;
+                $filepath = $targetPath."/".$file;
                 $content = file_get_contents($filepath);
                 break;
             }
         }
         
-        close_tgz($target_path);
+        close_tgz($targetPath);
         
         return $content;
     }
