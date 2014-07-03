@@ -256,7 +256,7 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td colspan="2"><center><a href="get_targz_from_mo_sig.php?mo_sig=<?php echo $sig; ?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
+        <td colspan="2"><center><a href="model/inc_getfile.php?type=pack&mo_sig=<?php echo $sig; ?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
