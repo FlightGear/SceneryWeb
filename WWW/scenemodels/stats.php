@@ -314,6 +314,7 @@ require 'inc/header.php';
             [new Date(2013,3,3), 1114822, 3013, 2310 ],
             [new Date(2013,7,6), 1118056, 3200, 2310 ],
             [new Date(2014,0,5), 1130663, 3566, 2310 ],
+            [new Date(2014,6,4), 1176580, 3892, 2310 ],
             [new Date(<?php echo date('Y').",".(date('n')-1).",".date('j')."), ".$objects.", ".$models.", ".$signs; ?> ]
         ]);
 
