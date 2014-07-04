@@ -10,9 +10,11 @@
 
 interface IObjectDAO {
 
-    public function addObject($object);
+    public function addObject($newObject);
 
-    public function updateObject($object);
+    public function updateObject($newObject);
+    
+    public function deleteObject($objectId);
     
     public function getObject($objectId);
     

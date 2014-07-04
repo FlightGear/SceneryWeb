@@ -205,15 +205,15 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function getRequestObjectAddFromRow($requestQuery) {
         // Removing the start of the query from the data
-        $triggedQuery = strstr($requestQuery, 'ST_PointFromText');
-        $pattern = "/ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
+        $triggedQuery = strstr($requestQuery, 'VALUES');
+        $pattern = "/VALUES \('(?P<desc>[0-9a-zA-Z_\-. \[\]()]+)', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
 
         preg_match($pattern, $triggedQuery, $matches);
         $objectFactory = new ObjectFactory($this->objectDao);
         
         $newObject = $objectFactory->createObject(-1, $matches['model_id'],
                 $matches['long'], $matches['lat'], $matches['country'], 
-                $matches['elevoffset'], $matches['orientation'], 1, "");
+                $matches['elevoffset'], $matches['orientation'], 1, $matches['desc']);
             
         $requestObjAdd = new RequestObjectAdd();
         $requestObjAdd->setNewObject($newObject);

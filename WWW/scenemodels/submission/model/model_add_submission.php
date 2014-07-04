@@ -2,7 +2,6 @@
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
@@ -72,6 +71,7 @@ if (isset($_POST["action"])) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Submit model") {
+        $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
         $resource_rw = connect_sphere_rw();
 
         // If connection is OK
@@ -168,7 +168,8 @@ if (isset($_POST["action"])) {
 }
 
 if (!isset($_POST["action"])) {
-
+    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
+    
     // Inserting libs
     include_once '../../inc/geshi/geshi.php';
     $page_title = "Model Submission Form";

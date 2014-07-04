@@ -1,4 +1,5 @@
 <?php
+require_once "../../classes/RequestExecutor.php";
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
@@ -142,84 +143,64 @@ if ($action == "check" || $action == "check_update" || $action == "check_delete"
 
 // Check the presence of "action", the presence of "signature", its length (64) and its content.
 if ($action == 'Accept') {
-    $resource_rw = connect_sphere_rw();
-
-    // If connection is OK
-    if ($resource_rw != '0') {
+    $objectDaoRW = DAOFactory::getInstance()->getObjectDaoRW();
+    $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
+    $reqExecutor = new RequestExecutor(null, $objectDaoRW);
 
     // Checking the presence of sig into the database
-        $result = pg_query($resource_rw,"SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
-        if (pg_num_rows($result) != 1) {
-            $page_title = "Automated Objects Pending Requests Form";
-            $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
-            $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-            include '../../inc/error_page.php';
-            pg_close($resource_rw);
-            exit;
-        }
-
-        $row = pg_fetch_row($result);
-        $sqlzbase64 = $row[0];
-
-        // Base64 decode the query
-        $sqlz = base64_decode($sqlzbase64);
-
-        // Gzuncompress the query
-        $query_rw = gzuncompress($sqlz);
-
-        // Sending the request...
-        $resultrw = pg_query($resource_rw, $query_rw);
-
-        if (!$resultrw) {
-            $page_title = "Automated Objects Pending Requests Form";
-            include '../../inc/header.php';
-            echo "<p class=\"center\">";
-            echo "Signature found.<br /> Now processing query with request number ".$sig.".</p><br />";
-            echo "<p class=\"center warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
-
-            // Closing the rw connection.
-            include '../../inc/footer.php';
-            pg_close($resource_rw);
-            exit;
-        }
-
+    try {
+        $request = $requestDaoRO->getRequest($sig);
+    } catch (RequestNotFoundException $e) {
         $page_title = "Automated Objects Pending Requests Form";
-        include '../../inc/header.php';
-        echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ".$sig.".</p><br />";
-        echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
-
-        // Delete the entry from the pending query table.
-        $delete_request = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
-        $resultdel = pg_query($resource_rw,$delete_request);
-
-        if(!$resultdel) {
-            echo "<p class=\"center warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
-
-            // Closing the rw connection.
-            include '../../inc/footer.php';
-            pg_close($resource_rw);
-            exit;
-        }
-
-        echo "<p class=\"center ok\">Entry correctly deleted from the pending request table.</p>";
-
-        // Closing the rw connection.
-        pg_close($resource_rw);
-
-        // Sending mail if SQL was correctly inserted and entry deleted.
-        // Sets the time to UTC.
-        date_default_timezone_set('UTC');
-        $dtg = date('l jS \of F Y h:i:s A');
-        $comment = $_REQUEST['maintainer_comment'];
-
-        // email destination
-        $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
-
-        $emailSubmit = EmailContentFactory::getPendingRequestProcessConfirmationEmailContent($sig, $comment);
-        $emailSubmit->sendEmail($to, true);
-
+        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+        $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+        include '../../inc/error_page.php';
         exit;
     }
+    
+    // Executes request
+    try {
+        $reqExecutor->executeRequest($request);
+    } catch (Exception $ex) {
+        $page_title = "Automated Objects Pending Requests Form";
+        include '../../inc/header.php';
+        echo "<p class=\"center\">";
+        echo "Signature found.<br /> Now processing query with request number ".$sig.".</p><br />";
+        echo "<p class=\"center warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
+        include '../../inc/footer.php';
+        exit;
+    }
+
+    $page_title = "Automated Objects Pending Requests Form";
+    include '../../inc/header.php';
+    echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ".$sig.".</p><br />";
+    echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
+
+    // Delete the entry from the pending query table.
+    try {
+        $resultDel = $requestDaoRW->deleteRequest($sig);
+    } catch(RequestNotFoundException $e) {
+        echo "<p class=\"center warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
+        include '../../inc/footer.php';
+        exit;
+    }
+
+    echo "<p class=\"center ok\">Entry correctly deleted from the pending request table.</p>";
+
+    // Sending mail if SQL was correctly inserted and entry deleted.
+    // Sets the time to UTC.
+    date_default_timezone_set('UTC');
+    $dtg = date('l jS \of F Y h:i:s A');
+    $comment = $_REQUEST['maintainer_comment'];
+
+    // email destination
+    $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
+
+    $emailSubmit = EmailContentFactory::getPendingRequestProcessConfirmationEmailContent($sig, $comment);
+    $emailSubmit->sendEmail($to, true);
+
+    exit;
 }
 
 // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
@@ -242,8 +223,6 @@ else if ($action == "Reject") {
         echo "<p class=\"center\">\n".
              "Signature found.<br /> Now deleting request with number ".$sig.".</p>".
              "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>\n";
-
-        // Closing the rw connection.
         include '../../inc/footer.php';
         exit;
     }
@@ -254,8 +233,6 @@ else if ($action == "Reject") {
     echo "Signature found.<br />Now deleting request with number ".$sig.".</p>";
     echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
     echo "</p>";
-
-    // Closing the rw connection.
     include '../../inc/footer.php';
 
     // Sending mail if entry was correctly deleted.

@@ -16,12 +16,39 @@ require_once "ObjectsGroup.php";
  */
 
 class ObjectDAO extends PgSqlDAO implements IObjectDAO {    
-    public function addObject($object) {
-        //TODO
+    public function addObject($obj) {
+        $query = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
+                "VALUES ('".$obj->getDescription()."', ST_PointFromText('POINT(".$obj->getLongitude()." ".$obj->getLatitude().")', 4326), -9999, ".
+                (($obj->getElevationOffset() == 0 || $obj->getElevationOffset() == '')?"NULL":$obj->getElevationOffset()) .
+                ", ".$obj->getOrientation().", '".$obj->getCountry()->getCode()."', ".$obj->getModelId().", 1);";
+    
+        $result = $this->database->query($query);
+        
+        if (!$result) {
+            throw new Exception("Adding object failed!");
+        }
     }
 
     public function updateObject($object) {
-        //TODO
+        $query = "UPDATE fgs_objects ".
+                 "SET ob_text=$$".pg_escape_string($object->getDescription())."$$, ".
+                 "wkb_geometry=ST_PointFromText('POINT(".$object->getLongitude()." ".$object->getLatitude().")', 4326),".
+                 "ob_gndelev=-9999, ob_elevoffset=".$object->getElevationOffset().", ob_heading=".$object->getOrientation().", ob_model=".$object->getModelId().", ob_group=1 ".
+                 "WHERE ob_id=".$object->getId().";";
+        
+        $result = $this->database->query($query);
+        
+        if (!$result) {
+            throw new Exception("Updating object failed!");
+        }
+    }
+    
+    public function deleteObject($objectId) {
+        $result = $this->database->query("DELETE FROM fgs_objects WHERE ob_id=".pg_escape_string($objectId).";");
+        
+        if (!$result) {
+            throw new Exception("Deleting object id ".$objectId." failed!");
+        }
     }
     
     public function getObject($objectId) {
