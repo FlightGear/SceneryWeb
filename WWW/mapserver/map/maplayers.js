@@ -71,11 +71,11 @@
         {type:'png', getURL: get_osm_url, displayOutsideMaxExtent: true, 'buffer':1, transitionEffect: 'resize'}
     );
 
-    var nlcd2006r = new OpenLayers.Layer.WMS( "NLCD 2006 30m raster",
+    var nlcd2011r = new OpenLayers.Layer.WMS( "NLCD 2011 30m raster",
         [ "http://flightgear.telascience.org/tc?",
           "http://flightgear.telascience.org/tc?" ],
-        {layers: 'nlcd2006r', format: 'image/png'},
-        {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2006.php'>MRLC</a>"}
+        {layers: 'nlcd2011r', format: 'image/png'},
+        {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2011.php'>MRLC</a>"}
     );
 
     var clc06v16r = new OpenLayers.Layer.WMS( "CLC2006v16 100m raster",

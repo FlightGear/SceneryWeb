@@ -12283,8 +12283,8 @@ MAP
   END # fg_buckets
 
   LAYER
-    NAME nlcd2006r
-    DATA "/home/martin/live/MRLC/nlcd2006_landcover_4-20-11_se5_to.tiff"
+    NAME nlcd2011r
+    DATA "/home/martin/live/MRLC/nlcd_2011_landcover_2011_edition_2014_03_31_to.tiff"
     TYPE RASTER
     STATUS ON
     PROJECTION  # SR-ORG:6630
@@ -12302,18 +12302,18 @@ MAP
     END
     EXTENT -2493045.000 177285.000 2342655.000 3310005.000
     METADATA
-      "wms_title" "nlcd2006r"
+      "wms_title" "nlcd2011r"
       "wms_extent" "-2493045.000 177285.000 2342655.000 3310005.000"
       "wms_srs" "EPSG:4326 EPSG:900913"
       "wms_abstract" "FlightGear Landcover-DB - Source: MRLC"
-      "wfs_title" "nlcd2006r"
+      "wfs_title" "nlcd2011r"
       "wfs_extent" "-2493045.000 177285.000 2342655.000 3310005.000"
       "wfs_srs" "EPSG:4326 EPSG:900913"
       "wfs_featureid" "ID"
       "wfs_abstract" "FlightGear Landcover-DB - Source: MRLC"
       "gml_include_items" "all"
     END
-  END  # nlcd2006r
+  END  # nlcd2011r
 
   LAYER
     NAME clc06v16r
