@@ -17,16 +17,20 @@ require_once "ObjectsGroup.php";
 
 class ObjectDAO extends PgSqlDAO implements IObjectDAO {    
     public function addObject($obj) {
-        $query = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
-                "VALUES ('".$obj->getDescription()."', ST_PointFromText('POINT(".$obj->getLongitude()." ".$obj->getLatitude().")', 4326), -9999, ".
+        $query = "INSERT INTO fgs_objects (ob_id, ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
+                "VALUES (DEFAULT, '".$obj->getDescription()."', ST_PointFromText('POINT(".$obj->getLongitude()." ".$obj->getLatitude().")', 4326), -9999, ".
                 (($obj->getElevationOffset() == 0 || $obj->getElevationOffset() == '')?"NULL":$obj->getElevationOffset()) .
-                ", ".$obj->getOrientation().", '".$obj->getCountry()->getCode()."', ".$obj->getModelId().", 1);";
+                ", ".$obj->getOrientation().", '".$obj->getCountry()->getCode()."', ".$obj->getModelId().", 1) RETURNING ob_id;";
     
         $result = $this->database->query($query);
         
         if (!$result) {
             throw new Exception("Adding object failed!");
         }
+        
+        $returnRow = pg_fetch_row($result);
+        $obj->setId($returnRow[0]);
+        return $obj;
     }
 
     public function updateObject($object) {
@@ -142,6 +146,11 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $result = $this->database->query($query);
 
         $row = pg_fetch_assoc($result);
+        // If not found, return Unknown
+        if (!$row) {
+            return $this->getCountry("zz");
+        }
+        
         return $this->getCountryFromRow($row);
     }
     

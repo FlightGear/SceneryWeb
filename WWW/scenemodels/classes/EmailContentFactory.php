@@ -52,11 +52,11 @@ class EmailContentFactory {
     }
     
     
-    static public function getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $to, $safeEmail, $shaHash, $sentComment) {
+    static public function getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $shaHash, $sentComment) {
         $subject = "Massive object import needs validation";
         $message = "We would like to let you know that a new objects massive import request is pending. " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
-        if (!empty($to)) {
+        if (!empty($safeEmail)) {
             $message .= "and with email address ".$safeEmail." ";
         }
         $message .= "issued an objects massive import request.\r\n\r\n" .

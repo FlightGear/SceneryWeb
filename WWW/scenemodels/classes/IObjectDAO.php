@@ -9,7 +9,11 @@
  */
 
 interface IObjectDAO {
-
+    /**
+     * Adds the given object to database.
+     * @param Object $newObject
+     * @return object with id
+     */
     public function addObject($newObject);
 
     public function updateObject($newObject);

@@ -36,7 +36,7 @@ class RequestExecutor {
     public function executeRequest($request) {
         switch (get_class($request)) {
         case "RequestObjectAdd":
-            $this->executeRequestObjectAdd($request);
+            return $this->executeRequestObjectAdd($request);
             break;
         
         case "RequestObjectUpdate":
@@ -47,6 +47,18 @@ class RequestExecutor {
             $this->executeRequestObjectDelete($request);
             break;
         
+        case "RequestMassiveObjectsAdd":
+            return $this->executeRequestMassiveObjectsAdd($request);
+            break;
+        
+        case "RequestModelAdd":
+            return $this->executeRequestModelAdd($request);
+            break;
+        
+        case "RequestModelUpdate":
+            $this->executeRequestModelUpdate($request);
+            break;
+        
         default:
             throw new Exception("Not a request!");
         }
@@ -54,7 +66,9 @@ class RequestExecutor {
     
     private function executeRequestObjectAdd($request) {
         $newObj = $request->getNewObject();
-        $this->objectDAO->addObject($newObj);
+        $newObjWithId = $this->objectDAO->addObject($newObj);
+        
+        return $newObjWithId;
     }
     
     private function executeRequestObjectUpdate($request) {
@@ -65,5 +79,29 @@ class RequestExecutor {
     private function executeRequestObjectDelete($request) {
         $objId = $request->getObjectToDelete()->getId();
         $this->objectDAO->deleteObject($objId);
+    }
+    
+    private function executeRequestMassiveObjectsAdd($request) {
+        $objsWithId = array();
+        
+        foreach ($request->getNewObjects() as $newObj) {
+            $objsWithId[] = $this->objectDAO->addObject($newObj);
+        }
+        
+        return $objsWithId;
+    }
+    
+    private function executeRequestModelAdd($request) {
+        $newModel = $request->getNewModel();
+        $newModelWithId = $this->modelDAO->addModel($newModel);
+        
+        $newObject = $request->getNewObject();
+        $newObject->setId($newModelWithId->getId());
+        $this->objectDAO->addObject($newObject);
+    }
+    
+    private function executeRequestModelUpdate($request) {
+        $newModel = $request->getNewModel();
+        $this->modelDAO->updateModel($newModel);
     }
 }

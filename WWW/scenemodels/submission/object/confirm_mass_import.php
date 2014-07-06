@@ -39,7 +39,7 @@ require '../../inc/header.php';
 function update_countries(code,n)
 {
     for(var i = 1; i < n; i++) {
-        if (!document.getElementById("ob_country_"+i).value) {
+        if (document.getElementById("ob_country_"+i).value === "zz") {
             document.getElementById("ob_country_"+i).value=code;
         }
     }
@@ -155,7 +155,8 @@ if (!$error) {
                     $return_value = model_exists($value_tag);
                     if ($return_value == 0) {
                         echo "<td><center>".$value_tag."</center></td>";
-                        $model_id = $modelDaoRO->getModelMetadataFromName($value_tag)->getId();
+                        $modelMD = $modelDaoRO->getModelMetadataFromName($value_tag);
+                        $model_id = $modelMD->getId();
                     }
                     else if ($return_value == 1) {
                         echo "<td><p class=\"center warning\">Bad model label!</p></td>";
@@ -204,8 +205,7 @@ if (!$error) {
                 break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             case 5:  // Checking Elevation, must contain only figures and, be max 20 characters (TODO: can be used to automatically compute offset!!)
-                if ((strlen($value_tag) <= 20)
-                    && preg_match('/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u', $value_tag)) {
+                if (is_gndelevation($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $gndelev = $value_tag;
                 }
@@ -254,12 +254,10 @@ if (!$error) {
         // Country
         if ($step == 1) {
             $ob_country = $objectDaoRO->getCountryAt($long, $lat)->getCode();
-            if ($ob_country == "") {
+            if ($ob_country == "zz") {
                 $unknown_country = true;
             }
-            echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>" .
-                 "<option value=\"\">Unknown</option>" .
-                 "<option value=\"\">----</option>";
+            echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>";
             
             foreach($countries as $country) {
                 echo "<option value=\"".$country->getCode()."\"";
@@ -289,8 +287,7 @@ if (!$error) {
                     echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
                 }
                 
-                $ob_country_db = ($ob_country == "") ? "unknown":$ob_country;
-                $data_rw[$i]="('', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country_db."', 1)";
+                $data_rw[$i]="('".pg_escape_string($modelMD->getName())."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country."', 1)";
             }
         }
         else {
@@ -390,7 +387,7 @@ if ($step == 1) {
     $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
 
-    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $to, $safe_email, $sha_hash, $sent_comment);
+    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $sha_hash, $sent_comment);
     $emailSubmit->sendEmail("", true);
     
     // Mailing the submitter to tell that his submission has been sent for validation.
