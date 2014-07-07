@@ -1,4 +1,5 @@
 <?php
+require_once "../../classes/RequestExecutor.php";
 require_once '../../inc/form_checks.php';
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
@@ -73,91 +74,66 @@ if (isset($_POST["action"])) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Submit model") {
-        $resource_rw = connect_sphere_rw();
+        $modelDaoRW = DAOFactory::getInstance()->getModelDaoRW();
+        $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+        $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
+        $reqExecutor = new RequestExecutor($modelDaoRW, null);
+        
+        try {
+            $request = $requestDaoRO->getRequest($sig);
+        } catch (RequestNotFoundException $e) {
+            $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+            $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+            include '../inc/error_page.php';
+            exit;
+        }
 
-        // If connection is OK
-        if ($resource_rw != '0') {
+        // Executes request
+        try {
+            $reqExecutor->executeRequest($request);
+        } catch (Exception $ex) {
+            $process_text = "Signatures found.<br /> Now processing query with request number ". $sig;
+            $error_text = "Sorry, but the UPDATE queries could not be processed.";
+            $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+            include '../inc/error_page.php';
+            exit;
+        }
+        
+        $newModelMD = $request->getNewModel()->getMetadata();
 
-            // Checking the presence of sigs into the database
-            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
+        include '../../inc/header.php';
+        echo "<p class=\"center\">";
+        echo "Signatures found.<br /> Now processing UPDATE query of model with number ". $sig.".</p>";
+        echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
-            if (pg_num_rows($mo_result) != 1) {
-                $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-                $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../inc/error_page.php';
-                pg_close($resource_rw);
-                exit;
-            }
-
-            $row_mo = pg_fetch_row ($mo_result);
-            $sqlzbase64_mo = $row_mo[0];
-
-            // Base64 decode the query
-            $sqlz_mo = base64_decode ($sqlzbase64_mo);
-
-            // Gzuncompress the query
-            $query_rw_mo = gzuncompress ($sqlz_mo);
-
-            // Sending the requests...
-            $result_rw_mo = pg_query ($resource_rw, $query_rw_mo);
-
-            $pattern = "/UPDATE fgs_models SET mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', mo_author \= (?P<author>[0-9]+), mo_name \= '(?P<name>[a-zA-Z0-9,;:?@ !_.-]+)', mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', mo_shared \= (?P<shared>[0-9]+) WHERE mo_id \= (?P<modelid>[0-9]+)/";
-            preg_match($pattern, $query_rw_mo, $matches);
-
-            $mo_id = $matches['modelid'];
-
-            if (!$result_rw_mo) {
-                $process_text = "Signatures found.<br /> Now processing query with request number ". $sig;
-                $error_text = "Sorry, but the UPDATE queries could not be processed.";
-                $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                include '../inc/error_page.php';
-
-                // Closing the rw connection.
-                pg_close ($resource_rw);
-                exit;
-            }
-
-            include '../../inc/header.php';
-            echo "<p class=\"center\">";
-            echo "Signatures found.<br /> Now processing UPDATE query of model with number ". $sig.".</p>";
-            echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
-
-            // Delete the entries from the pending query table.
-            $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
-            $resultdel_mo = pg_query ($resource_rw, $delete_request_mo);
-
-            if (!$resultdel_mo) {
-                echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
-
-                // Closing the rw connection.
-                include '../../inc/footer.php';
-                pg_close($resource_rw);
-                exit;
-            }
-
-            echo "<p class=\"center ok\">Pending entries correctly deleted from the pending request table.</p>";
-
-            // Closing the rw connection.
-            pg_close($resource_rw);
-
-            // Sending mail if SQL was correctly inserted and entry deleted.
-            // Sets the time to UTC.
-            date_default_timezone_set('UTC');
-            $dtg = date('l jS \of F Y h:i:s A');
-            $name = $_POST["mo_name"];
-            $comment = $_POST["maintainer_comment"];
-
-            // OK, let's start with the mail redaction.
-            // Who will receive it ?
-            $to = (isset($_POST["contrib_email"]))?$_POST["contrib_email"]:"";
-
-            // Email to contributor
-            $emailSubmit = EmailContentFactory::getModelUpdateRequestAcceptedEmailContent($dtg, $sig, $name, $comment, $mo_id);
-            $emailSubmit->sendEmail($to, true);
-
+        // Delete the entries from the pending query table.
+        try {
+            $resultDel = $requestDaoRW->deleteRequest($sig);
+        } catch(RequestNotFoundException $e) {
+            echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
             include '../../inc/footer.php';
             exit;
         }
+
+        echo "<p class=\"center ok\">Pending entries correctly deleted from the pending request table.</p>";
+
+
+        // Sending mail if SQL was correctly inserted and entry deleted.
+        // Sets the time to UTC.
+        date_default_timezone_set('UTC');
+        $dtg = date('l jS \of F Y h:i:s A');
+        $comment = $_POST["maintainer_comment"];
+
+        // OK, let's start with the mail redaction.
+        // Who will receive it ?
+        $to = (isset($_POST["contrib_email"]))?$_POST["contrib_email"]:"";
+
+        // Email to contributor
+        $emailSubmit = EmailContentFactory::getModelUpdateRequestAcceptedEmailContent($dtg, $sig, $newModelMD->getName(), $comment, $newModelMD->getId());
+        $emailSubmit->sendEmail($to, true);
+
+        include '../../inc/footer.php';
+        exit;
     }
     include '../../inc/footer.php';
 }

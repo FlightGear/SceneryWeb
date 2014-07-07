@@ -24,14 +24,32 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
 
     public function updateModel($model) {
-        //TODO
+        $modelMD = $model->getMetadata();
+        
+        $query  = "UPDATE fgs_models ";
+        $query .= "SET mo_path = '".$modelMD->getFilename()."', mo_author = ".$modelMD->getAuthor()->getId().
+                  ", mo_name = '".$modelMD->getName()."', mo_notes = '".$modelMD->getDescription()."', ".
+                  "mo_thumbfile = '".base64_encode($model->getThumbnail())."', ".
+                  "mo_modelfile = '".base64_encode($model->getModelFiles()->getPackage())."', ".
+                  "mo_shared = ".$modelMD->getModelsGroup()->getId();
+        $query .= " WHERE mo_id = ".$modelMD->getId();
+        
+        $result = $this->database->query($query);
+        
+        if (!$result) {
+            throw new Exception("Updating model failed!");
+        }
     }
     
     public function getModel($modelId) {
         $result = $this->database->query("SELECT * FROM fgs_models, fgs_authors, fgs_modelgroups ".
                                          "WHERE mo_id = ".pg_escape_string($modelId)." AND au_id = mo_author AND mg_id = mo_shared");
-        $row = pg_fetch_assoc($result);
+        if (!$result) {
+            throw new Exception("Model ".$modelId." not found!");
+        }
         
+        $row = pg_fetch_assoc($result);
+
         return $this->getModelFromRow($row);
     }
     

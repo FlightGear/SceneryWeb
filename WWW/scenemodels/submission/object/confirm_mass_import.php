@@ -36,8 +36,7 @@ $page_title = "Automated Objects Massive Import Submission Form";
 require '../../inc/header.php';
 ?>
 <script type ="text/javascript">
-function update_countries(code,n)
-{
+function update_countries(code,n) {
     for(var i = 1; i < n; i++) {
         if (document.getElementById("ob_country_"+i).value === "zz") {
             document.getElementById("ob_country_"+i).value=code;

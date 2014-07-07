@@ -41,48 +41,6 @@ function connect_sphere_rw() {
 }
 
 
-// Computes the country id of an ob_id sent as parameter
-// (ie, this is not the data in the database)
-// =====================================================
-
-function compute_object_country_from_id($obId) {
-    // Connecting to the database.
-    $resource = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT co_code FROM gadm2, fgs_countries, fgs_objects ".
-             "WHERE fgs_objects.ob_id = ".pg_escape_string($obId)." AND ST_Within(fgs_objects.wkb_geometry, gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
-    $result = pg_query($resource, $query);
-
-    while ($row = pg_fetch_assoc($result)) {
-        if ($row["co_code"] == '') {
-            return 0;
-        } else {
-            return $row["co_code"];
-        }
-    }
-
-    // Closing the connection.
-    pg_close($headerlink_country);
-}
-
-// Update the object's country using its location
-// ==============================================
-
-function update_object_country_from_id($ob_id) {
-    $obId = pg_escape_string($ob_id);
-
-    $countryCode = compute_object_country_from_id($obId);
-
-    $headerlink_country = connect_sphere_rw();
-    $query = "UPDATE fgs_objects SET ob_country='$countryCode' WHERE ob_id = ".$obId.";";
-    pg_query($headerlink_country, $query);
-
-    // Closing the connection.
-    pg_close($headerlink_country);
-}
-
-
 // Computes the STG heading into a true heading before submission to the database.
 // ===============================================================================
 
