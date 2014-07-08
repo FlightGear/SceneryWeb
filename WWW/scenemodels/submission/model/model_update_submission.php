@@ -212,7 +212,6 @@ include '../../inc/header.php';
         <td>Full Name</td>
         <td><?php echo $oldModelMD->getName(); ?></td>
         <td><?php echo $newModelMD->getName(); ?></td>
-        <input type="hidden" name="mo_name" value="<?php echo $mo_name; ?>" />
     </tr>
     <tr>
         <td>Notes</td>
