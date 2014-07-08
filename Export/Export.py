@@ -50,6 +50,8 @@ pgenv["PGHOST"] = pghost
 pgenv["PGDATABASE"] = pgdatabase
 pgenv["PGUSER"] = pguser
 
+gl_debug = True  # FIXME
+
 gl_sqlPosition = ""
 gl_sqlMeta = ""
 gl_sqlWhere = ""
@@ -67,6 +69,8 @@ except:
 db_cur = db_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 def fn_pgexec(sql, mode):
+    if gl_debug is True:
+        print(sql)
     if mode == "r":
         try:
             db_cur.execute(sql)
