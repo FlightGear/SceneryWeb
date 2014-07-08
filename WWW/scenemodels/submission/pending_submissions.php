@@ -27,12 +27,12 @@ foreach ($requests as $request) {
         break;
     case "RequestObjectUpdate":
         $pending_requests .= "This is an object update request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check_update&sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$sig."\n";
         break;
 
     case "RequestObjectDelete":
         $pending_requests .= "This is an object deletion request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check_delete&sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$sig."\n";
         break;
 
     case "RequestMassiveObjectsAdd":
