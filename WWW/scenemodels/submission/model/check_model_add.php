@@ -721,31 +721,23 @@ else {
     # Inserts into fgs_models and returns current mo_id
     $ob_model = 'Thisisthevalueformo_id';
 
-    if ($offset != '') {
-        $ob_query  = "INSERT INTO fgs_objects ";
-        $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ";
-        $ob_query .= "VALUES (";
-        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-        $ob_query .= "-9999, ";                                                                // ob_gndelev
-        $ob_query .= $offset.", ";                                                             // ob_elevoffset
-        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-        $ob_query .= "'".$country."', ";                                                       // ob_country
-        $ob_query .= $ob_model.", ";                                                           // ob_model
-        $ob_query .= "1";                                                                       // ob_group
-        $ob_query .= ")";
+    if (empty($offset)) {
+        $offset = 0;
     }
-    else {
-        $ob_query  = "INSERT INTO fgs_objects ";
-        $ob_query .= "(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group) ";
-        $ob_query .= "VALUES (";
-        $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-        $ob_query .= "-9999, ";                                                                // ob_gndelev
-        $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-        $ob_query .= "'".$country."', ";                                                       // ob_country
-        $ob_query .= $ob_model." ,";                                                           // ob_model
-        $ob_query .= "1";
-        $ob_query .= ")";
-    }
+    
+    $ob_query  = "INSERT INTO fgs_objects ";
+    $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_text, ob_group) ";
+    $ob_query .= "VALUES (";
+    $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
+    $ob_query .= "-9999, ";                                                                // ob_gndelev
+    $ob_query .= $offset.", ";                                                             // ob_elevoffset
+    $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
+    $ob_query .= "'".$country."', ";                                                       // ob_country
+    $ob_query .= $ob_model.", ";                                                           // ob_model
+    $ob_query .= "'".$name."', ";                                                          // ob_text
+    $ob_query .= "1";                                                                      // ob_group
+    $ob_query .= ")";
+    
     $final_query = $mo_query.";".$ob_query;
 
     // Model and object stuff into pending requests table.

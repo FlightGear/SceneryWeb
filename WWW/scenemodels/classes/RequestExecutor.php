@@ -96,8 +96,13 @@ class RequestExecutor {
         $newModelWithId = $this->modelDAO->addModel($newModel);
         
         $newObject = $request->getNewObject();
-        $newObject->setId($newModelWithId->getId());
-        $this->objectDAO->addObject($newObject);
+        $newObject->setModelId($newModelWithId->getMetadata()->getId());
+        $newObjectWithId = $this->objectDAO->addObject($newObject);
+        
+        $request->setNewModel($newModelWithId);
+        $request->setNewObject($newObjectWithId);
+        
+        return $request;
     }
     
     private function executeRequestModelUpdate($request) {

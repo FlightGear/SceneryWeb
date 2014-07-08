@@ -156,20 +156,13 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
         $pos = strpos($queryObj, $search);
 
-        if (!$pos) { // No offset is present
-            $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-            preg_match($pattern, $queryObj, $matches);
-            $matches['elevoffset'] = 0;
-        }
-        else { // ob_elevoffset has been found
-            $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<elevoffset>[NULL0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), 1\)/";
-            preg_match($pattern, $queryObj, $matches);
-        }
+        $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_text, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<elevoffset>[NULL0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', 1\)/";
+        preg_match($pattern, $queryObj, $matches);
         
         $objectFactory = new ObjectFactory($this->objectDao);
         $newObject = $objectFactory->createObject(-1, -1,
                 $matches['long'], $matches['lat'], $matches['country'], 
-                $matches['elevoffset'], $matches['orientation'], 1, "");
+                $matches['elevoffset'], $matches['orientation'], 1, $matches['notes']);
         
         $requestModelAdd = new RequestModelAdd();
         $requestModelAdd->setNewModel($newModel);

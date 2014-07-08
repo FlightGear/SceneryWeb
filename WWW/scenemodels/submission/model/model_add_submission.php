@@ -1,4 +1,5 @@
 <?php
+require_once "../../classes/RequestExecutor.php";
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
@@ -71,98 +72,66 @@ if (isset($_POST["action"])) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Submit model") {
+        $modelDaoRW = DAOFactory::getInstance()->getModelDaoRW();
+        $objectDaoRW = DAOFactory::getInstance()->getObjectDaoRW();
+        $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
         $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
-        $resource_rw = connect_sphere_rw();
+        $reqExecutor = new RequestExecutor($modelDaoRW, $objectDaoRW);
+        
 
-        // If connection is OK
-        if ($resource_rw != '0') {
+        try {
+            $request = $requestDaoRO->getRequest($sig);
+        } catch (RequestNotFoundException $e) {
+            $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+            $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+            include '../../inc/error_page.php';
+            exit;
+        }
 
-            // Checking the presence of sigs into the database
-            $mo_result = pg_query($resource_rw, "SELECT spr_base64_sqlz FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
-            
-            if (pg_num_rows($mo_result) != 1) {
-                $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-                $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-                include '../../inc/error_page.php';
-                pg_close($resource_rw);
-                exit;
-            }
+        // Executes request
+        try {
+            $updatedReq = $reqExecutor->executeRequest($request);
+        } catch (Exception $ex) {
+            $process_text = "Signatures found.<br /> Now processing query with request number ". $sig;
+            $error_text = "Sorry, but the INSERT queries could not be processed.";
+            $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+            include '../../inc/error_page.php';
+            exit;
+        }
+        
+        $newModelMD = $updatedReq->getNewModel()->getMetadata();
 
-            $row_mo = pg_fetch_row($mo_result);
-            $sqlzbase64_mo = $row_mo[0];
+        include '../../inc/header.php';
+        echo "<p class=\"center\">";
+        echo "Signatures found.<br /> Now processing INSERT queries of model and object with number ".$sig.".</p>";
+        echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
-            // Base64 decode the query
-            $sqlz_mo = base64_decode($sqlzbase64_mo);
-
-            // Gzuncompress the query
-            $query = gzuncompress($sqlz_mo);
-            $query_rw_mo = substr($query, 0, strpos($query, "INSERT INTO fgs_objects"));
-            $query_rw_ob = strstr($query, "INSERT INTO fgs_objects");
-
-            // Sending the requests...
-            $result_rw_mo = pg_query($resource_rw, $query_rw_mo);
-            $mo_id = pg_fetch_row($result_rw_mo);
-            $modelMD = $modelDaoRO->getModelMetadata($mo_id[0]);
-            $query_rw_ob_with_mo_id = str_replace("Thisisthevalueformo_id", $mo_id[0], $query_rw_ob); // Adding mo_id in the object request... sorry didn't find a shorter way.
-            $query_rw_ob_with_mo_id = $query_rw_ob_with_mo_id." RETURNING ob_id;";
-
-            $result_rw_ob = pg_query($resource_rw, $query_rw_ob_with_mo_id);
-            $ret_ob_id = pg_fetch_row($result_rw_ob);
-            $query_ob_text = "UPDATE fgs_objects SET ob_text = $$". $modelMD->getName() ."$$ WHERE ob_id = '".$ret_ob_id[0]."';"; // Adding ob_text;
-            $result_obtext_update = pg_query($resource_rw, $query_ob_text);
-
-            if (!$result_rw_mo || !$result_rw_ob) {
-                $process_text = "Signatures found.<br /> Now processing query with request number ". $sig;
-                $error_text = "Sorry, but the INSERT queries could not be processed.";
-                $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-                include '../../inc/error_page.php';
-
-                // Closing the rw connection.
-                pg_close ($resource_rw);
-                exit;
-            }
-
-            include '../../inc/header.php';
-            echo "<p class=\"center\">";
-            echo "Signatures found.<br /> Now processing INSERT queries of model and object with number ".$sig.".</p>";
-            echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
-
-            // Delete the entries from the pending query table.
-            $delete_request_mo = "DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';";
-            $resultdel_mo = pg_query($resource_rw, $delete_request_mo);
-
-            if (!$resultdel_mo) {
-                echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
-
-                // Closing the rw connection.
-                include '../../inc/footer.php';
-                pg_close($resource_rw);
-                exit;
-            }
-
-            echo "<p class=\"center ok\">Pending entries correctly deleted from the pending request table.</p>";
-
-            // Closing the rw connection.
-            pg_close($resource_rw);
-
-            // Sending mail if SQL was correctly inserted and entry deleted.
-            // Sets the time to UTC.
-            date_default_timezone_set('UTC');
-            $dtg = date('l jS \of F Y h:i:s A');
-            $name = $_POST["mo_name"];
-            $comment = $_POST["maintainer_comment"];
-            $model_id = $mo_id[0];
-
-            // OK, let's start with the mail redaction.
-            // Who will receive it ?
-            $to = (isset($_POST["email"]))?$_POST["email"]:"";
-
-            $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $model_id, $sig, $name, $comment);
-            $emailSubmit->sendEmail($to, true);
-
+        // Delete the entries from the pending query table.
+        try {
+            $resultDel = $requestDaoRW->deleteRequest($sig);
+        } catch(RequestNotFoundException $e) {
+            echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
             include '../../inc/footer.php';
             exit;
         }
+
+        echo "<p class=\"center ok\">Pending entries correctly deleted from the pending request table.</p>";
+
+        // Sending mail if SQL was correctly inserted and entry deleted.
+        // Sets the time to UTC.
+        date_default_timezone_set('UTC');
+        $dtg = date('l jS \of F Y h:i:s A');
+        $comment = $_POST["maintainer_comment"];
+
+        // OK, let's start with the mail redaction.
+        // Who will receive it ?
+        $to = (isset($_POST["email"]))?$_POST["email"]:"";
+
+        $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $newModelMD->getId(), $sig, $newModelMD->getName(), $comment);
+        $emailSubmit->sendEmail($to, true);
+
+        include '../../inc/footer.php';
+        exit;
     }
     include '../../inc/footer.php';
 }

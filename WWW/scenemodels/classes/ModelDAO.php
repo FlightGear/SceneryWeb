@@ -20,7 +20,29 @@ require_once 'Criterion.php';
 
 class ModelDAO extends PgSqlDAO implements IModelDAO {    
     public function addModel($model) {
-        //TODO
+        $modelMD = $model->getMetadata();
+        
+        $query  = "INSERT INTO fgs_models ";
+        $query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
+        $query .= "VALUES (";
+        $query .= "DEFAULT, ";             // mo_id
+        $query .= "'".$modelMD->getFilename()."', ";  // mo_path
+        $query .= $modelMD->getAuthor()->getId().", ";          // mo_author
+        $query .= "'".$modelMD->getName()."', ";         // mo_name
+        $query .= "'".$modelMD->getDescription()."', ";        // mo_notes
+        $query .= "'".base64_encode($model->getThumbnail())."', ";    // mo_thumbfile
+        $query .= "'".base64_encode($model->getModelFiles()->getPackage())."', ";    // mo_modelfile
+        $query .= $modelMD->getModelsGroup()->getId();              // mo_shared
+        $query .= ") ";
+        $query .= "RETURNING mo_id";
+        
+        $result = $this->database->query($query);
+        
+        $returnRow = pg_fetch_row($result);
+        $modelMD->setId($returnRow[0]);
+        $model->setMetadata($modelMD);
+        
+        return $model;
     }
 
     public function updateModel($model) {
