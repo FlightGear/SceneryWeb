@@ -18,7 +18,7 @@ $action = $_REQUEST["action"];
 $sig = htmlentities($_REQUEST["sig"]);
 
 // Common code, to be performed for both types of checks
-if ($action == "check" || $action == "check_update" || $action == "check_delete") {
+if ($action == "check") {
     $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
     
     // Checking the presence of sig into the database
