@@ -166,9 +166,12 @@ def fn_exportCommon():
         os.makedirs(row['obpath'])
     print("Objects directories done")
 
-    gl_sqlPosition = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
-    gl_sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
-    gl_sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
+    gl_sqlPosition = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, \
+        ST_Y(wkb_geometry) AS lat, ST_X(wkb_geometry) AS lon";
+    gl_sqlMeta = "ob_tile AS tile, fn_StgElevation(ob_gndelev, ob_elevoffset)::float AS stgelev, \
+        fn_StgHeading(ob_heading)::float AS stgheading, mo_id, mo_path";
+    gl_sqlWhere = "WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL \
+        AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared";
     gl_sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
 
 def fn_exportShared():
@@ -219,7 +222,8 @@ def fn_exportStatic():
     print("Static Objects done")
 
 def fn_exportSigns():
-    gl_sqlMeta = "si_tile AS tile, si_gndelev::float AS stgelev, fn_StgHeading(si_heading)::float AS stgheading";
+    gl_sqlMeta = "si_tile AS tile, si_gndelev::float AS stgelev, \
+        fn_StgHeading(si_heading)::float AS stgheading";
     gl_sqlWhere = "WHERE si_valid IS TRUE";
     gl_sqlOrder = "ORDER BY tile, lon, lat, stgelev, stgheading";
     sql = "SELECT si_id, %s, %s, si_definition \
@@ -251,7 +255,8 @@ def fn_exportModels():
         os.makedirs(row['mgpath'])
     print("Models directories done")
 
-    sql = "SELECT m.mo_id, concat('Models/', g.mg_path) AS mgpath, LENGTH(m.mo_modelfile) AS mo_size, m.mo_modelfile, g.mg_path \
+    sql = "SELECT m.mo_id, concat('Models/', g.mg_path) AS mgpath, \
+        LENGTH(m.mo_modelfile) AS mo_size, m.mo_modelfile, g.mg_path \
         FROM fgs_models AS m, fgs_modelgroups AS g \
         WHERE m.mo_shared > 0 AND m.mo_shared = g.mg_id \
         ORDER BY g.mg_id, m.mo_id;"
