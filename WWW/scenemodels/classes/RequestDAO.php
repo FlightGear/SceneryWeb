@@ -52,7 +52,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     public function getRequest($sig) {
-        $result = $this->database->query("SELECT spr_hash, spr_base64_sqlz ".
+        $result = $this->database->query("SELECT spr_id, spr_hash, spr_base64_sqlz ".
                                          "FROM fgs_position_requests ".
                                          "WHERE spr_hash = '". $sig ."';");
         
@@ -85,7 +85,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     public function getPendingRequests() {
-        $result = $this->database->query("SELECT spr_hash, spr_base64_sqlz ".
+        $result = $this->database->query("SELECT spr_id, spr_hash, spr_base64_sqlz ".
                                          "FROM fgs_position_requests ".
                                          "ORDER BY spr_id ASC;");
         $resultArray = array();
@@ -132,6 +132,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
             $request = $this->getRequestModelUpdateFromRow($requestQuery);
         }
         
+        $request->setId($requestRow["spr_id"]);
         $request->setSig($requestRow["spr_hash"]);
         
         return $request;

@@ -10,14 +10,12 @@ $requests = $requestDaoRO->getPendingRequests();
 
 // Talking back to submitter.
 // Declare variables
-$i = 0;
 $pending_requests = "";
 
 // List all requests
 foreach ($requests as $request) {
-    $i++;
     $sig = $request->getSig();
-    $pending_requests .= "\nRequest #".$i." identified by ".$sig."\n";
+    $pending_requests .= "\nRequest #".$request->getId()."\n";
     $pending_requests .= "=========================================================================================\n";
 
     switch (get_class($request)) {

@@ -3,9 +3,18 @@
  * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
 abstract class Request {
+    protected $id;
     protected $sig;
     protected $contributorEmail;
     protected $comment;
+    
+    public function setId($id) {
+        $this->id = $id;
+    }
+    
+    public function getId() {
+        return $this->id;
+    }
     
     public function setSig($sig) {
         $this->sig = $sig;
