@@ -175,6 +175,15 @@ def fn_exportCommon():
     gl_sqlOrder = "ORDER BY tile, mo_id, lon, lat, stgelev, stgheading";
 
 def fn_exportShared():
+# Prototype
+    sql = "SELECT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/', ob_tile, '.stg') AS stgfile, \
+        concat('OBJECT_SHARED Models/', mg_path, mo_path, ' ', ST_X(wkb_geometry), ' ', ST_Y(wkb_geometry), ' ', fn_StgElevation(ob_gndelev, ob_elevoffset)::float, ' ', fn_StgHeading(ob_heading)::float) AS stgrow \
+        FROM fgs_objects, fgs_models, fgs_modelgroups \
+        WHERE ob_valid IS TRUE AND ob_tile IS NOT NULL \
+        AND ob_model = mo_id AND ob_gndelev > -9999 \
+        AND mo_shared > 0 AND mo_shared = mg_id \
+        ORDER BY stgfile, mo_id, stgrow LIMIT 5;"
+#
     sql = "SELECT ob_id, %s, %s, mg_path \
         FROM fgs_objects, fgs_models, fgs_modelgroups %s > 0 AND mo_shared = mg_id %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
     db_result = fn_pgexec(sql, "r")
