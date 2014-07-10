@@ -1,7 +1,9 @@
 <?php
 require_once "../../classes/DAOFactory.php";
+require_once '../../classes/RequestObjectDelete.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -65,36 +67,19 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
         $failed_mail = true;
     }
+    
+    $request = new RequestObjectDelete();
+    $request->setObjectToDelete($objectToDel);
 
-    // Preparing the deletion request
-    $query_delete = "DELETE FROM fgs_objects WHERE ob_id=".$id_to_delete.";";
-
-    // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-    $sha_to_compute = "<".microtime()."><".$_SERVER['REMOTE_ADDR']."><".$query_delete.">";
-    $sha_hash = hash('sha256', $sha_to_compute);
-
-    // Zipping the Base64'd request.
-    $zipped_base64_delete_query = gzcompress($query_delete,8);
-
-    // Coding in Base64.
-    $base64_delete_query = base64_encode($zipped_base64_delete_query);
-
-    // Opening database connection...
-    $resource_rw = connect_sphere_rw();
-
-    // Sending the request...
-    $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_delete_query."');";
-    $resultrw = pg_query($resource_rw, $query_rw_pending_request);
-
-    // Closing the connection.
-    pg_close($resource_rw);
-
-    // Talking back to submitter.
-    if (!$resultrw) {
+    try {
+        $updatedReq = $requestDaoRW->saveRequest($request);
+    } catch (Exception $ex) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
         include '../../inc/footer.php';
         exit;
     }
+    
+    
     echo "<p class=\"center\">Your object has been successfully queued into the deletion requests!<br />";
     echo "Unless it's rejected, the object should be dropped in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
@@ -109,12 +94,12 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
     $ipaddr = pg_escape_string(stripslashes($_SERVER['REMOTE_ADDR']));
     $host   = gethostbyaddr($ipaddr);
     
-    $emailSubmit = EmailContentFactory::getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $objectToDel, $comment, $sha_hash);
+    $emailSubmit = EmailContentFactory::getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $objectToDel, $comment, $updatedReq->getSig());
     $emailSubmit->sendEmail("", true);
 
     // Mailing the submitter and tell him that his submission has been sent for validation.
     if (!$failed_mail) {
-        $emailSubmit = EmailContentFactory::getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $modelMD, $objectToDel, $comment);
+        $emailSubmit = EmailContentFactory::getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $modelMD, $objectToDel, $comment);
         $emailSubmit->sendEmail($safe_email, false);
     }
     include '../../inc/footer.php';

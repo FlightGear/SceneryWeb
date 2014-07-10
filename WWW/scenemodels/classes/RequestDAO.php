@@ -143,7 +143,11 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function serializeRequestObjectDelete($request) {
+        $objToDel = $request->getObjectToDelete();
         
+        $reqStr = "DELETE FROM fgs_objects WHERE ob_id=".$objToDel->getId().";";
+                
+        return $reqStr;
     }
     
     private function serializeRequestMassiveObjectsAdd($request) {
