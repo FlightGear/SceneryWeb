@@ -1,8 +1,10 @@
 <?php
 require_once '../../classes/DAOFactory.php';
 require_once '../../classes/ObjectFactory.php';
+require_once '../../classes/RequestObjectAdd.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -138,38 +140,14 @@ if (!$error) {
 
     $objectFactory = new ObjectFactory($objectDaoRO);
     $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
-            $offset, heading_stg_to_true($heading), 1, "");
+            $offset, heading_stg_to_true($heading), 1, $modelMD->getName());
     
-    // Leave the entire "ob_elevoffset" out from the SQL if the user doesn't supply a figure into this field.
-
-    $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
-                "VALUES ('".$modelMD->getName()."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".(($offset == 0 || $offset == '')?"NULL":"$offset") .", ".heading_stg_to_true($heading).", '".$ob_country."', ".$model_id.", 1);";
-
-    // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-    $sha_to_compute = "<".microtime()."><".$_SERVER["REMOTE_ADDR"]."><".$query_rw.">";
-    $sha_hash = hash('sha256', $sha_to_compute);
-
-    // Zipping the Base64'd request.
-    $zipped_base64_rw_query = gzcompress($query_rw,8);
-
-    // Coding in Base64.
-    $base64_rw_query = base64_encode($zipped_base64_rw_query);
-
-    // Opening database connection...
-    $resource_rw = connect_sphere_rw();
-
-    // Sending the request...
-    $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_rw_query."');";
-    $resultrw = pg_query($resource_rw, $query_rw_pending_request);
-
-    // Closing the connection.
-    pg_close($resource_rw);
-
-    // Talking back to submitter.
-    if (!$resultrw) {
-        echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
-    }
-    else {
+    $request = new RequestObjectAdd();
+    $request->setNewObject($newObject);
+    
+    try {
+        $updatedReq = $requestDaoRW->saveRequest($request);
+        
         echo "<br />Your object request has been successfully queued into the FG scenery database update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
@@ -186,14 +164,16 @@ if (!$error) {
         $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
         $host = gethostbyaddr($ipaddr);
 
-        $emailSubmit = EmailContentFactory::getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $newObject, $sent_comment, $sha_hash);
+        $emailSubmit = EmailContentFactory::getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $newObject, $sent_comment, $updatedReq->getSig());
         $emailSubmit->sendEmail("", true);
 
         // Mailing the submitter to tell him that his submission has been sent for validation
         if (!$failed_mail) {
-            $emailSubmit = EmailContentFactory::getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $modelMD, $newObject, $sent_comment);
+            $emailSubmit = EmailContentFactory::getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $modelMD, $newObject, $sent_comment);
             $emailSubmit->sendEmail($safe_email, false);
         }
+    } catch(Exception $e) {
+        echo "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
     }
 }
 

@@ -66,6 +66,89 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     public function saveRequest($request) {
+        $reqStr = $this->serializeRequest($request);
+        
+        $zippedQuery = gzcompress($reqStr,8);
+        $encodedReqStr = base64_encode($zippedQuery);
+        
+        $shaToCompute = "<".microtime()."><".$_SERVER["REMOTE_ADDR"]."><".$encodedReqStr.">";
+        $sig = hash('sha256', $shaToCompute);
+        
+        $query = "INSERT INTO fgs_position_requests (spr_id, spr_hash, spr_base64_sqlz) VALUES (DEFAULT, '".$sig."', '".$encodedReqStr."') RETURNING spr_id;";
+        
+        $result = $this->database->query($query);
+        
+        if (!$result) {
+            throw new Exception("Adding object failed!");
+        }
+        
+        $returnRow = pg_fetch_row($result);
+        $request->setId($returnRow[0]);
+        $request->setSig($sig);
+        return $request;
+    }
+    
+    private function serializeRequest($request) {
+        switch (get_class($request)) {
+        case "RequestObjectAdd":
+            $reqStr = $this->serializeRequestObjectAdd($request);
+            break;
+        
+        case "RequestObjectUpdate":
+            $reqStr = $this->serializeRequestObjectUpdate($request);
+            break;
+        
+        case "RequestObjectDelete":
+            $reqStr = $this->serializeRequestObjectDelete($request);
+            break;
+        
+        case "RequestMassiveObjectsAdd":
+            $reqStr = $this->serializeRequestMassiveObjectsAdd($request);
+            break;
+        
+        case "RequestModelAdd":
+            $reqStr = $this->serializeRequestModelAdd($request);
+            break;
+        
+        case "RequestModelUpdate":
+            $reqStr = $this->serializeRequestModelUpdate($request);
+            break;
+        
+        default:
+            throw new Exception("Not a request!");
+        }
+        
+        return $reqStr;
+    }
+    
+    private function serializeRequestObjectAdd($request) {
+        $newObj = $request->getNewObject();
+        
+        $reqStr = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
+                  "VALUES ('".pg_escape_string($newObj->getDescription())."', ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), -9999, ".
+                  (empty($newObj->getElevationOffset())?"NULL":$newObj->getElevationOffset()) .", ".
+                  $newObj->getOrientation().", '".$newObj->getCountry()->getCode()."', ".$newObj->getModelId().", 1);";
+
+        return $reqStr;
+    }
+    
+    private function serializeRequestObjectUpdate($request) {
+        
+    }
+    
+    private function serializeRequestObjectDelete($request) {
+        
+    }
+    
+    private function serializeRequestMassiveObjectsAdd($request) {
+        
+    }
+    
+    private function serializeRequestModelAdd($request) {
+        
+    }
+    
+    private function serializeRequestModelUpdate($request) {
         
     }
     
@@ -200,7 +283,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     private function getRequestObjectAddFromRow($requestQuery) {
         // Removing the start of the query from the data
         $triggedQuery = strstr($requestQuery, 'VALUES');
-        $pattern = "/VALUES \('(?P<desc>[0-9a-zA-Z_\-. \[\]()]+)', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
+        $pattern = "/VALUES \('(?P<desc>[0-9a-zA-Z_\-., \[\]()]+)', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
 
         preg_match($pattern, $triggedQuery, $matches);
         $objectFactory = new ObjectFactory($this->objectDao);

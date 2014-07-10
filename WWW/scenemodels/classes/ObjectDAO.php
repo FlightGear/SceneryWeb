@@ -18,7 +18,7 @@ require_once "ObjectsGroup.php";
 class ObjectDAO extends PgSqlDAO implements IObjectDAO {    
     public function addObject($obj) {
         $query = "INSERT INTO fgs_objects (ob_id, ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
-                "VALUES (DEFAULT, '".$obj->getDescription()."', ST_PointFromText('POINT(".$obj->getLongitude()." ".$obj->getLatitude().")', 4326), -9999, ".
+                "VALUES (DEFAULT, '".pg_escape_string($obj->getDescription())."', ST_PointFromText('POINT(".$obj->getLongitude()." ".$obj->getLatitude().")', 4326), -9999, ".
                 (($obj->getElevationOffset() == 0 || $obj->getElevationOffset() == '')?"NULL":$obj->getElevationOffset()) .
                 ", ".$obj->getOrientation().", '".$obj->getCountry()->getCode()."', ".$obj->getModelId().", 1) RETURNING ob_id;";
     
