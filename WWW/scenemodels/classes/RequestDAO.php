@@ -133,7 +133,13 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function serializeRequestObjectUpdate($request) {
+        $newObj = $request->getNewObject();
         
+        $reqStr = "UPDATE fgs_objects ".
+                  "SET ob_text=$$".$newObj->getDescription()."$$, wkb_geometry=ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), ob_gndelev=-9999, ob_elevoffset=".$newObj->getElevationOffset().", ob_heading=".$newObj->getOrientation().", ob_model=".$newObj->getModelId().", ob_group=1 ".
+                  "WHERE ob_id=".$newObj->getId().";";
+                
+        return $reqStr;
     }
     
     private function serializeRequestObjectDelete($request) {

@@ -1,8 +1,10 @@
 <?php
 require_once "../../classes/DAOFactory.php";
 require_once '../../classes/ObjectFactory.php';
+require_once '../../classes/RequestObjectUpdate.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -102,37 +104,18 @@ if (isset($model_name)
     $oldObject = $objectDaoRO->getObject($id_to_update);
     $newObject = $objectFactory->createObject($id_to_update, $model_name,
             $new_long, $new_lat, $oldObject->getCountry()->getCode(), 
-            $new_offset, heading_stg_to_true($new_orientation), 1, "");
+            $new_offset, heading_stg_to_true($new_orientation), 1, $safe_new_ob_text);
     
     $oldModelMD = $modelDaoRO->getModelMetadata($oldObject->getModelId());
     $newModelMD = $modelDaoRO->getModelMetadata($model_name);
-
-    // Preparing the update request: the quotes around NULL put above were tested OK.
-    $query_update="UPDATE fgs_objects ".
-                  "SET ob_text=$$".$safe_new_ob_text."$$, wkb_geometry=ST_PointFromText('POINT(".$new_long." ".$new_lat.")', 4326), ob_gndelev=-9999, ob_elevoffset=".$new_offset.", ob_heading=".heading_stg_to_true($new_orientation).", ob_model=".$model_name.", ob_group=1 ".
-                  "WHERE ob_id=".$id_to_update.";";
-
-    // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-    $sha_to_compute = "<".microtime()."><".$_SERVER["REMOTE_ADDR"]."><".$query_update.">";
-    $sha_hash = hash('sha256', $sha_to_compute);
-
-    // Zipping the Base64'd request.
-    $zipped_base64_update_query = gzcompress($query_update,8);
-
-    // Coding in Base64.
-    $base64_update_query = base64_encode($zipped_base64_update_query);
-
-    // Opening database connection...
-    $resource_rw = connect_sphere_rw();
-
-    // Sending the request...
-    $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_update_query."');";
-    $resultrw = pg_query($resource_rw, $query_rw_pending_request);
-
-    // Closing the connection.
-    pg_close($resource_rw);
-
-    if (!$resultrw) {
+    
+    $request = new RequestObjectUpdate();
+    $request->setNewObject($newObject);
+    $request->setOldObject($oldObject);
+    
+    try {
+        $updatedReq = $requestDaoRW->saveRequest($request);
+    } catch (Exception $e) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></p>";
         include '../../inc/footer.php';
         exit;
@@ -151,15 +134,14 @@ if (isset($model_name)
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
     $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
-    $family_name = $_POST['family_name'];
     $comment = $_POST['comment'];
 
-    $emailSubmit = EmailContentFactory::getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $sha_hash);
+    $emailSubmit = EmailContentFactory::getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $updatedReq->getSig());
     $emailSubmit->sendEmail("", true);
 
     // Mailing the submitter to tell him that his submission has been sent for validation.
     if (!$failed_mail) {
-        $emailSubmit = EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $sha_hash, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment);
+        $emailSubmit = EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $oldObject, $oldModelMD, $newObject, $newModelMD, $comment);
         $emailSubmit->sendEmail($safe_email, false);
     }
     include '../../inc/footer.php';
