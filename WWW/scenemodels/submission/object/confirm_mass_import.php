@@ -1,7 +1,10 @@
 <?php
 require_once "../../classes/DAOFactory.php";
+require_once '../../classes/ObjectFactory.php';
+require_once '../../classes/RequestMassiveObjectsAdd.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -53,14 +56,7 @@ $error = false;
 $failed_mail = false;
 if (is_email($_POST['email'])) {
     $safe_email = htmlentities(stripslashes($_POST['email']));
-    if ($step == 1) {
-        echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
-    }
-}
-else {
-    if ($step == 1) {
-        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
-    }
+} else {
     $failed_mail = true;
 }
 
@@ -76,6 +72,12 @@ else {
 }
 
 if ($step == 1) {
+    if (!$failed_mail) {
+        echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
+    } else {
+        echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
+    }
+    
     // Checking that stg exists and is containing only letters or figures.
     if (isset($_POST['stg']) && preg_match($regex['stg'], $_POST['stg'])) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
@@ -126,6 +128,8 @@ if (!$error) {
     echo "<tr>\n<th>Line</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Elev. offset</th><th>Country</th>\n\n<th>Result</th>\n</tr>\n";
 
     $countries = $objectDaoRO->getCountries();
+    $objectFactory = new ObjectFactory($objectDaoRO);
+    $newObjects = array();
     
     foreach ($tab_lines as $value) { // Now printing the lines...
         $ko = false;
@@ -243,6 +247,7 @@ if (!$error) {
             }
             $j++;
         }
+        
         while ($j < 7) {
             echo "<td></td>";
             $j++;
@@ -286,7 +291,8 @@ if (!$error) {
                     echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
                 }
                 
-                $data_rw[$i]="('".pg_escape_string($modelMD->getName())."', ST_PointFromText('POINT(".$long." ".$lat.")', 4326), -9999, ".$elevoffset.", ".heading_stg_to_true($orientation).", ".$model_id.", '".$ob_country."', 1)";
+                $newObjects[] = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
+                        $elevoffset, heading_stg_to_true($orientation), 1, $modelMD->getName());
             }
         }
         else {
@@ -317,14 +323,12 @@ if (!$error) {
     if ($global_ko) { // If errors have been found...
         if ($cpt_err == 1) {
             echo "<p class=\"center warning\">".$cpt_err." error has been found in your submission. Please <a href='javascript:history.go(-1)'>go back</a> and correct or delete the corresponding line from your submission before submitting again.</p>";
-            include '../../inc/footer.php';
-            exit;
-        }
-        else {
+        } else {
             echo "<p class=\"center warning\">".$cpt_err." errors have been found in your submission. Please <a href='javascript:history.go(-1)'>go back</a> and correct or delete the corresponding lines from your submission before submitting again.</p>";
-            include '../../inc/footer.php';
-            exit;
         }
+        
+        include '../../inc/footer.php';
+        exit;
     }
 }
 if ($step == 1) {
@@ -334,39 +338,13 @@ if ($step == 1) {
          "<input type='hidden' name='step' value='2'/><input name='submit' type='submit' value='Submit objects' /></p></form>";
 } else {
     // Proceed on with the request generation
-    $data_query_rw = "";
-    $query_rw = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
-   
-    // For each line, add the data content to the request
-    for ($j = 1; $j<$nb_lines; $j++) {
-        $data_query_rw = $data_query_rw.$data_rw[$j].", ";
-    }
-    $data_query_rw = $data_query_rw.$data_rw[$nb_lines].";";
+    $request = new RequestMassiveObjectsAdd();
+    $request->setNewObjects($newObjects);
     
-    $mass_rw_query = $query_rw.$data_query_rw;
-
-    // Generating the SHA-256 hash based on the data we've received + microtime (ms) + IP + request. Should hopefully be enough ;-)
-    $sha_to_compute = "<".microtime()."><".$_SERVER["REMOTE_ADDR"]."><".$mass_rw_query.">";
-    $sha_hash = hash('sha256', $sha_to_compute);
-
-    // Zipping the Base64'd request.
-    $zipped_base64_rw_query = gzcompress($mass_rw_query,8);
-
-    // Coding in Base64.
-    $base64_rw_query = base64_encode($zipped_base64_rw_query);
-
-    // Opening database connection...
-    $resource_rw = connect_sphere_rw();
-
-    // Sending the request...
-    $query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$sha_hash."', '".$base64_rw_query."');";
-    $resultrw = pg_query($resource_rw, $query_rw_pending_request);
-
-    // Closing the connection.
-    pg_close($resource_rw);
-
-    // Talking back to submitter.
-    if (!$resultrw) {
+    try {
+        $updatedRequest = $requestDaoRW->saveRequest($request);
+    } catch (Exception $ex) {
+        // Talking back to submitter.
         echo "<p>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p>";
         include '../../inc/footer.php';
         exit;
@@ -386,12 +364,12 @@ if ($step == 1) {
     $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
 
-    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $sha_hash, $sent_comment);
+    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $updatedRequest->getSig(), $sent_comment);
     $emailSubmit->sendEmail("", true);
     
     // Mailing the submitter to tell that his submission has been sent for validation.
     if (!$failed_mail) {
-        $emailSubmit = EmailContentFactory::getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $sha_hash);
+        $emailSubmit = EmailContentFactory::getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedRequest->getSig());
         $emailSubmit->sendEmail($safe_email, false);
     }
 }
