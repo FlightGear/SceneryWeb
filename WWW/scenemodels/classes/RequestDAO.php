@@ -151,7 +151,22 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function serializeRequestMassiveObjectsAdd($request) {
+        $newObjects = $request->getNewObjects();
         
+        // Proceed on with the request generation
+        $reqStr = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
+
+        $comma = "";
+        // For each line, add the data content to the request
+        foreach ($newObjects as $newObj) {
+            $reqStr .= $comma."('".pg_escape_string($newObj->getDescription()).
+                    "', ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), -9999, ".
+                    $newObj->getElevationOffset().", ".$newObj->getOrientation().", ".$newObj->getModelId().", '".$newObj->getCountry()->getCode()."', 1)";
+
+            $comma = ", ";
+        }
+                
+        return $reqStr.";";
     }
     
     private function serializeRequestModelAdd($request) {
