@@ -1,8 +1,10 @@
 <?php
 require_once '../../classes/DAOFactory.php';
 require_once '../../classes/ModelFactory.php';
+require_once '../../classes/RequestModelUpdate.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
+$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';
@@ -653,27 +655,19 @@ else {
     $resource_rw = connect_sphere_rw();
 
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
+    $newModel = new Model();
     $newModelMD = $modelFactory->createModelMetadata($model_name, $authorId, $path_to_use,
             $name, $notes, $mo_shared);
+    $newModel->setMetadata($newModelMD);
+    $newModel->setModelFiles($modelFile);
+    $newModel->setThumbnail($thumbFile);
     
-    $mo_query  = "UPDATE fgs_models ";
-    $mo_query .= "SET mo_path = '".$path_to_use."', mo_author = ".$authorId.", mo_name = '".$name."', mo_notes = '".$notes."', mo_thumbfile = '".$thumbFile."', mo_modelfile = '".$modelFile."', mo_shared = ".$mo_shared;
-    $mo_query .= " WHERE mo_id = ".$model_name;
-
-    // Model stuff into pending requests table.
-    $mo_sha_to_compute = "<".microtime()."><".$ipaddr."><".$mo_query.">";
-    $mo_sha_hash = hash('sha256', $mo_sha_to_compute);
-    $mo_zipped_base64_rw_query = gzcompress($mo_query, 8);                         // Zipping the Base64'd request.
-    $mo_base64_rw_query = base64_encode($mo_zipped_base64_rw_query);               // Coding in Base64.
-    $mo_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$mo_sha_hash."', '".$mo_base64_rw_query."');";
-    $resultrw = pg_query($resource_rw, $mo_query_rw_pending_request);             // Sending the request...
-
-    pg_close($resource_rw);                                                       // Closing the connection.
-
-    if (!$resultrw) {
-        echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
-    }
-    else {
+    $request = new RequestModelUpdate();
+    $request->setNewModel($newModel);
+    
+    try {
+        $updatedReq = $requestDaoRW->saveRequest($request);
+        
         $failed_mail = false;
         $au_email = $newModelMD->getAuthor()->getEmail();
         if ($au_email != '' && strlen($au_email) > 0) {
@@ -699,12 +693,12 @@ else {
         $ipaddr = htmlentities(stripslashes($ipaddr));                   // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
 
-        $emailSubmit = EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $newModelMD, $safe_contr_email, $sent_comment, $mo_sha_hash);
+        $emailSubmit = EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $newModelMD, $safe_contr_email, $sent_comment, $updatedReq->getSig());
         $emailSubmit->sendEmail("", true);
         
         if (!$failed_mail) {
             // Mailing the submitter to tell him that his submission has been sent for validation
-            $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $mo_sha_hash, $newModelMD, $safe_contr_email, $sent_comment);
+            $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $newModelMD, $safe_contr_email, $sent_comment);
             $emailSubmit->sendEmail($safe_contr_email, false);
                     
             // If the author's email is different from the subbmitter's, an email is also sent to the author
@@ -713,7 +707,8 @@ else {
                 $emailSubmit->sendEmail($safe_au_email, false);
             }
         }
-        
+    } catch (Exception $ex) {
+        echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
 }
 require '../../inc/footer.php';

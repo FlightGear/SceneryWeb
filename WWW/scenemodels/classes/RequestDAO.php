@@ -174,7 +174,14 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function serializeRequestModelUpdate($request) {
+        $newModel = $request->getNewModel();
+        $newModelMD = $newModel->getMetadata();
         
+        $reqStr  = "UPDATE fgs_models ";
+        $reqStr .= "SET mo_path = '".$newModelMD->getFilename()."', mo_author = ".$newModelMD->getAuthor()->getId().", mo_name = '".$newModelMD->getName()."', mo_notes = '".$newModelMD->getDescription()."', mo_thumbfile = '".$newModel->getThumbnail()."', mo_modelfile = '".$newModel->getModelFiles()."', mo_shared = ".$newModelMD->getModelsGroup()->getId();
+        $reqStr .= " WHERE mo_id = ".$newModelMD->getId();
+                
+        return $reqStr;
     }
     
     public function deleteRequest($sig) {
