@@ -2,5 +2,4 @@ User-agent: *
 Disallow: /submission/
 Disallow: /tmp/
 Disallow: /update/
-Disallow: /modeledit.php
 Disallow: /objects.php
