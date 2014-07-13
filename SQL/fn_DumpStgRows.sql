@@ -39,7 +39,7 @@ AS $$
             AND mo_shared = mg_id)
         SELECT concat((CASE WHEN shared > 0 THEN concat('OBJECT_SHARED Models/', path) ELSE 'OBJECT_STATIC '  END), name, ' ', lon, ' ', lat, ' ', stgelev, ' ', stgheading)::varchar
         FROM items
-        ORDER BY shared DESC, id, lon, lat, stgelev, stgheading;
+        ORDER BY shared DESC, id, lon::float, lat::float, stgelev::float, stgheading::float;
 
         RETURN QUERY
         WITH items AS (SELECT si_definition AS name, 
@@ -53,7 +53,7 @@ AS $$
             AND si_gndelev > -9999)
         SELECT concat('OBJECT_SIGN ', name, ' ', lon, ' ', lat, ' ', stgelev, ' ', stgheading)::varchar
         FROM items
-        ORDER BY lon, lat, stgelev, stgheading;
+        ORDER BY lon::float, lat::float, stgelev::float, stgheading::float;
     END;
 $$
 LANGUAGE 'plpgsql';
