@@ -314,10 +314,10 @@ if (!$error) {
     }
     echo "</table>\n";
 
-    echo "<b>Your comment:</b> ".$_POST['comment']."<br/>" .
-         "<b>Your email:</b> ".$_POST['email']."<br/>" .
-         "<input type='hidden' name='email' id='email' value='".$_POST['email']."'/>" .
-         "<input type='hidden' name='comment' id='comment' value='".$_POST['comment']."'/>" .
+    echo "<b>Your comment:</b> ".$sent_comment."<br/>" .
+         "<b>Your email:</b> ".$safe_email."<br/>" .
+         "<input type='hidden' name='email' id='email' value='".$safe_email."'/>" .
+         "<input type='hidden' name='comment' id='comment' value='".$sent_comment."'/>" .
          "<input name='stg' type='hidden' value='".$_POST['stg']."'/>";
 
     if ($global_ko) { // If errors have been found...
@@ -340,6 +340,8 @@ if ($step == 1) {
     // Proceed on with the request generation
     $request = new RequestMassiveObjectsAdd();
     $request->setNewObjects($newObjects);
+    $request->setContributorEmail($safe_email);
+    $request->setComment($sent_comment);
     
     try {
         $updatedRequest = $requestDaoRW->saveRequest($request);
@@ -364,12 +366,12 @@ if ($step == 1) {
     $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
 
-    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $updatedRequest->getSig(), $sent_comment);
+    $emailSubmit = EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedRequest);
     $emailSubmit->sendEmail("", true);
     
     // Mailing the submitter to tell that his submission has been sent for validation.
     if (!$failed_mail) {
-        $emailSubmit = EmailContentFactory::getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedRequest->getSig());
+        $emailSubmit = EmailContentFactory::getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedRequest);
         $emailSubmit->sendEmail($safe_email, false);
     }
 }

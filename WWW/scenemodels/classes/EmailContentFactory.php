@@ -37,11 +37,11 @@ class EmailContentFactory {
         return wordwrap($message, 70, "\r\n");
     }
     
-    static public function getMassImportRequestAcceptedEmailContent($dtg, $hsig, $comment) {
+    static public function getMassImportRequestAcceptedEmailContent($dtg, $request, $comment) {
         $subject = "Massive object import accepted";
         $message = "On ".$dtg." UTC, you issued a massive objects import request.\r\n\r\n" .
                    "We are glad to let you know that this request has been accepted!\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request was '".substr($hsig,0,10). "'\r\n\r\n";
+                   "For reference, the ID of this request was '".$request->getId(). "'\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -52,26 +52,27 @@ class EmailContentFactory {
     }
     
     
-    static public function getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $shaHash, $sentComment) {
+    static public function getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $request) {
         $subject = "Massive object import needs validation";
         $message = "We would like to let you know that a new objects massive import request is pending. " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
-        if (!empty($safeEmail)) {
-            $message .= "and with email address ".$safeEmail." ";
+        $contrEmail = $request->getContributorEmail();
+        if (!empty($contrEmail)) {
+            $message .= "and with email address ".$contrEmail." ";
         }
-        $message .= "issued an objects massive import request.\r\n\r\n" .
-                    "Comment by user: ".strip_tags($sentComment)."\r\n\r\n" .
+        $message .= "issued an objects massive import request (#".$request->getId().").\r\n\r\n" .
+                    "Comment by user: ".strip_tags($request->getComment())."\r\n\r\n" .
                     "Now please click the following link to check and confirm ".
-                    "or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $shaHash ."&email=". $safeEmail . "\r\n\r\n";
+                    "or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."&email=". $contrEmail . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getMassImportRequestRejectedEmailContent($dtg, $hsig, $comment) {
+    static public function getMassImportRequestRejectedEmailContent($dtg, $request, $comment) {
         $subject = "Massive object import rejected";
         $message = "On ".$dtg." UTC, you issued an objects massive import request.\r\n\r\n" .
                    "We are sorry to let you know that this request has been rejected.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request was '".substr($hsig,0,10). "'\r\n\r\n";
+                   "For reference, the ID of this request was '".$request->getId(). "'\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -80,11 +81,11 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $shaHash) {
+    static public function getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $request) {
         $subject = "Massive object import";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request.\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($shaHash,0,10). "'\r\n\r\n";
+                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n";
         return new EmailContent($subject, self::format($message));
     }
     

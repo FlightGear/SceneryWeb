@@ -3,6 +3,7 @@ require_once "../../classes/RequestExecutor.php";
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -18,8 +19,6 @@ $sig = $_REQUEST["sig"];
 // Check the presence of "action", the presence of "signature", its 
 // length (64) and its content.
 if (isset($_GET["action"]) && $_GET["action"] == "check") {
-    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
-    
     // Checking the presence of sig into the database
     try {
         $request = $requestDaoRO->getRequest($sig);
@@ -80,6 +79,7 @@ if (isset($_POST["cancel"]) && ($_POST["cancel"] == "Reject - Do not import!")) 
     $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
     try {
+        $request = $requestDaoRO->getRequest($sig);
         $resultDel = $requestDaoRW->deleteRequest($sig);
     } catch(RequestNotFoundException $e) {
         $page_title = "Automated Objects Massive Import Request Form";
@@ -111,7 +111,7 @@ if (isset($_POST["cancel"]) && ($_POST["cancel"] == "Reject - Do not import!")) 
     // email destination
     $to = (isset($_POST['email'])) ? $_POST["email"] : '';
 
-    $emailSubmit = EmailContentFactory::getMassImportRequestRejectedEmailContent($dtg, $sig, $comment);
+    $emailSubmit = EmailContentFactory::getMassImportRequestRejectedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     include '../../inc/footer.php';
@@ -122,7 +122,6 @@ if (isset($_POST["cancel"]) && ($_POST["cancel"] == "Reject - Do not import!")) 
 if (isset($_POST["submit"]) && $_POST["submit"] == "Submit the mass import!") {
     $objectDaoRW = DAOFactory::getInstance()->getObjectDaoRW();
     $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
-    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
     $reqExecutor = new RequestExecutor(null, $objectDaoRW);
     
     // Checking the presence of sig into the database
@@ -175,7 +174,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] == "Submit the mass import!") {
     // email destination
     $to = (isset($_POST['email'])) ? $_POST["email"] : '';
 
-    $emailSubmit = EmailContentFactory::getMassImportRequestAcceptedEmailContent($dtg, $sig, $comment);
+    $emailSubmit = EmailContentFactory::getMassImportRequestAcceptedEmailContent($dtg, $massObjReq, $comment);
     $emailSubmit->sendEmail($to, true);
 
     include '../../inc/footer.php';
