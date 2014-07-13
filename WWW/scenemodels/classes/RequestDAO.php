@@ -127,7 +127,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
         $reqStr = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
                   "VALUES ('".pg_escape_string($newObj->getDescription())."', ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), -9999, ".
-                  (empty($offset)?"NULL":$offset .", ".
+                  (empty($offset)?"NULL":$offset) .", ".
                   $newObj->getOrientation().", '".$newObj->getCountry()->getCode()."', ".$newObj->getModelId().", 1);";
 
         return $reqStr;
