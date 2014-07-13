@@ -651,9 +651,6 @@ if ($fatalerror || $error > 0) {
     exit;
 }
 else {
-    # Connection to DB
-    $resource_rw = connect_sphere_rw();
-
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $newModel = new Model();
     $newModelMD = $modelFactory->createModelMetadata($model_name, $authorId, $path_to_use,

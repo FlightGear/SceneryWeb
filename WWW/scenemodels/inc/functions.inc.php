@@ -20,26 +20,6 @@ function connect_sphere_r() {
     }
 }
 
-// Connects Read-Write to the database
-// ===================================
-
-function connect_sphere_rw() {
-    // Inserting dependencies and defining settings
-    include "/home/ojacq/.scenemodels";
-
-    // Connecting silently
-    $resource_rw = pg_connect('dbname='.$database.' host='.$host.' user='.$rw_user.' password='.$rw_pass.' sslmode=disable');
-
-    // If could not connect to the database
-    if ($resource_rw == '0') {
-        $error_text = "We're sorry, but an error has occurred while connecting to the database.";
-        include "error_page.php";
-        exit;
-    } else {
-        return $resource_rw; // Returning resource_rw
-    }
-}
-
 
 // Computes the STG heading into a true heading before submission to the database.
 // ===============================================================================
