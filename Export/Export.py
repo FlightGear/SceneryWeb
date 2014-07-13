@@ -243,11 +243,11 @@ def fn_exportSigns():
     gl_sqlWhere = "WHERE si_valid IS TRUE";
     gl_sqlOrder = "ORDER BY tile, lon, lat, stgelev, stgheading";
 # Prototype
-    sql = "SELECT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/', si_tile, '.stg') AS stgfile,
-        concat('OBJECT_SIGN ', si_definition, ' ', ST_X(wkb_geometry), ' ', ST_Y(wkb_geometry), ' ', si_gndelev::float, ' ', fn_StgHeading(si_heading)::float) AS stgrow
-        FROM fgs_signs
-        WHERE si_valid IS TRUE AND si_tile IS NOT NULL
-        AND si_gndelev > -9999
+    sql = "SELECT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/', si_tile, '.stg') AS stgfile, \
+        concat('OBJECT_SIGN ', si_definition, ' ', ST_X(wkb_geometry), ' ', ST_Y(wkb_geometry), ' ', si_gndelev::float, ' ', fn_StgHeading(si_heading)::float) AS stgrow \
+        FROM fgs_signs \
+        WHERE si_valid IS TRUE AND si_tile IS NOT NULL \
+        AND si_gndelev > -9999 \
         ORDER BY si_tile, stgrow LIMIT 5;"
     sql = "SELECT si_id, %s, %s, si_definition \
         FROM fgs_signs %s %s;" % (gl_sqlPosition, gl_sqlMeta, gl_sqlWhere, gl_sqlOrder)
