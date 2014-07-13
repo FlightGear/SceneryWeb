@@ -220,7 +220,7 @@ function is_shared($mo_id) {
     $resource_r = connect_sphere_r();
 
     // Querying...
-    $query = "SELECT mo_shared FROM fgs_models WHERE mo_id = ".$mo_id.");";
+    $query = "SELECT mo_shared FROM fgs_models WHERE mo_id = ".$mo_id.";";
     $result = pg_query($resource_r, $query);
 
     // Closing the connection.
