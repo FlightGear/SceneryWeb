@@ -215,7 +215,7 @@ if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_
                  "  <td>".$object->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
                  "  <a href=\"submission/object/check_update.php?update_choice=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
-            if (is_shared($object->getId())) {
+            if (is_shared($object->getModelId())) {
 ?>
                 <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $object->getId(); ?>">
                     <img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png" alt="delete"/>
