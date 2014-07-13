@@ -2,9 +2,11 @@
 require_once '../../classes/DAOFactory.php';
 require_once '../../classes/ModelFactory.php';
 require_once '../../classes/ObjectFactory.php';
+require_once '../../classes/RequestModelAdd.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
+$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';
@@ -695,65 +697,28 @@ if ($fatalerror || $error > 0) {
     exit;
 }
 else {
-    # Connection to DB
-    $resource_rw = connect_sphere_rw();
-    
-    $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
-    $objectFactory = new ObjectFactory($objectDaoRO);
-    $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $mo_shared);
-    $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
-            $offset, heading_stg_to_true($heading), 1, "");
-
-    $mo_query  = "INSERT INTO fgs_models ";
-    $mo_query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
-    $mo_query .= "VALUES (";
-    $mo_query .= "DEFAULT, ";             // mo_id
-    $mo_query .= "'".$path_to_use."', ";  // mo_path
-    $mo_query .= $authorId.", ";          // mo_author
-    $mo_query .= "'".$name."', ";         // mo_name
-    $mo_query .= "'".$notes."', ";        // mo_notes
-    $mo_query .= "'".$thumbFile."', ";    // mo_thumbfile
-    $mo_query .= "'".$modelFile."', ";    // mo_modelfile
-    $mo_query .= $mo_shared;              // mo_shared
-    $mo_query .= ") ";
-    $mo_query .= "RETURNING mo_id";
-    
-    # Inserts into fgs_models and returns current mo_id
-    $ob_model = 'Thisisthevalueformo_id';
-
     if (empty($offset)) {
         $offset = 0;
     }
     
-    $ob_query  = "INSERT INTO fgs_objects ";
-    $ob_query .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_text, ob_group) ";
-    $ob_query .= "VALUES (";
-    $ob_query .= "ST_PointFromText('POINT(".$longitude." ".$latitude.")', 4326), ";        // wkb_geometry
-    $ob_query .= "-9999, ";                                                                // ob_gndelev
-    $ob_query .= $offset.", ";                                                             // ob_elevoffset
-    $ob_query .= heading_stg_to_true($heading).", ";                                       // ob_heading
-    $ob_query .= "'".$country."', ";                                                       // ob_country
-    $ob_query .= $ob_model.", ";                                                           // ob_model
-    $ob_query .= "'".$name."', ";                                                          // ob_text
-    $ob_query .= "1";                                                                      // ob_group
-    $ob_query .= ")";
+    $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
+    $objectFactory = new ObjectFactory($objectDaoRO);
+    $newModel = new Model();
+    $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $mo_shared);
+    $newModel->setMetadata($newModelMD);
+    $newModel->setModelFiles($modelFile);
+    $newModel->setThumbnail($thumbFile);
     
-    $final_query = $mo_query.";".$ob_query;
+    $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
+            $offset, heading_stg_to_true($heading), 1, $name);
 
-    // Model and object stuff into pending requests table.
-    $mo_sha_to_compute = "<".microtime()."><".$ipaddr."><".$final_query.">";
-    $mo_sha_hash = hash('sha256', $mo_sha_to_compute);
-    $mo_zipped_base64_rw_query = gzcompress($final_query, 8);                      // Zipping the Base64'd request.
-    $mo_base64_rw_query = base64_encode($mo_zipped_base64_rw_query);               // Coding in Base64.
-    $mo_query_rw_pending_request = "INSERT INTO fgs_position_requests (spr_hash, spr_base64_sqlz) VALUES ('".$mo_sha_hash."', '".$mo_base64_rw_query."');";
-    $resultrw = pg_query($resource_rw, $mo_query_rw_pending_request);             // Sending the request...
-
-    pg_close($resource_rw);                                                       // Closing the connection.
-
-    if (!$resultrw) {
-        echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
-    }
-    else {
+    $request = new RequestModelAdd();
+    $request->setNewModel($newModel);
+    $request->setNewObject($newObject);
+    
+    try {
+        $updatedReq = $requestDaoRW->saveRequest($request);
+        
         $failed_mail = false;
         $au_email = $newModelMD->getAuthor()->getEmail();
         if ($au_email != '' && strlen($au_email) > 0) {
@@ -773,14 +738,16 @@ else {
         $ipaddr = stripslashes($ipaddr);                                 // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
         
-        $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_au_email, $newObject, $newModelMD, $mo_sha_hash);
+        $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_au_email, $newObject, $newModelMD, $updatedReq->getSig());
         $emailSubmit->sendEmail("", true);
         
         // Mailing the submitter to tell him that his submission has been sent for validation
         if (!$failed_mail) {
-            $emailSubmit = EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $mo_sha_hash, $newModelMD, $newObject);
+            $emailSubmit = EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $newModelMD, $newObject);
             $emailSubmit->sendEmail($safe_au_email, false);
         }
+    } catch(Exception $ex) {
+        echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
 }
 require '../../inc/footer.php';

@@ -171,7 +171,40 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function serializeRequestModelAdd($request) {
+        $newModel = $request->getNewModel();
+        $newModelMD = $newModel->getMetadata();
+        $newObject = $request->getNewObject();
         
+        $moQuery  = "INSERT INTO fgs_models ";
+        $moQuery .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
+        $moQuery .= "VALUES (";
+        $moQuery .= "DEFAULT, ";             // mo_id
+        $moQuery .= "'".$newModelMD->getFilename()."', ";  // mo_path
+        $moQuery .= $newModelMD->getAuthor()->getId().", ";          // mo_author
+        $moQuery .= "'".$newModelMD->getName()."', ";         // mo_name
+        $moQuery .= "'".$newModelMD->getDescription()."', ";        // mo_notes
+        $moQuery .= "'".$newModel->getThumbnail()."', ";    // mo_thumbfile
+        $moQuery .= "'".$newModel->getModelFiles()."', ";    // mo_modelfile
+        $moQuery .= $newModelMD->getModelsGroup()->getId();              // mo_shared
+        $moQuery .= ") ";
+        $moQuery .= "RETURNING mo_id";
+
+        $obQuery  = "INSERT INTO fgs_objects ";
+        $obQuery .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_text, ob_group) ";
+        $obQuery .= "VALUES (";
+        $obQuery .= "ST_PointFromText('POINT(".$newObject->getLongitude()." ".$newObject->getLatitude().")', 4326), ";        // wkb_geometry
+        $obQuery .= "-9999, ";                                                                // ob_gndelev
+        $obQuery .= $newObject->getElevationOffset().", ";                                                             // ob_elevoffset
+        $obQuery .= $newObject->getOrientation().", ";                                       // ob_heading
+        $obQuery .= "'".$newObject->getCountry()->getCode()."', ";                                                       // ob_country
+        $obQuery .= "Thisisthevalueformo_id, ";                                                           // ob_model
+        $obQuery .= "'".$newObject->getDescription()."', ";                                                          // ob_text
+        $obQuery .= "1";                                                                      // ob_group
+        $obQuery .= ")";
+
+        $reqStr = $moQuery.";".$obQuery;
+                
+        return $reqStr;
     }
     
     private function serializeRequestModelUpdate($request) {
