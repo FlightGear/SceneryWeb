@@ -28,10 +28,10 @@ AS $$
             (CASE WHEN mo_shared > 0 THEN 1 ELSE 0 END) AS shared,
             mg_path AS path,
             mo_path AS name,
-            trim(trailing '.' FROM to_char(ST_X(wkb_geometry), 'FM999999990D999999999')) AS lon,
-            trim(trailing '.' FROM to_char(ST_Y(wkb_geometry), 'FM999999990D999999999')) AS lat,
-            trim(trailing '.' FROM to_char(fn_StgElevation(ob_gndelev, ob_elevoffset)::float, 'FM999999990D999999999')) AS stgelev,
-            trim(trailing '.' FROM to_char(fn_StgHeading(ob_heading)::float, 'FM999999990D999999999')) AS stgheading
+            trim(trailing '.' FROM to_char(ST_X(wkb_geometry), 'FM990D999999999')) AS lon,
+            trim(trailing '.' FROM to_char(ST_Y(wkb_geometry), 'FM990D999999999')) AS lat,
+            trim(trailing '.' FROM to_char(fn_StgElevation(ob_gndelev, ob_elevoffset)::float, 'FM99990D999999999')) AS stgelev,
+            trim(trailing '.' FROM to_char(fn_StgHeading(ob_heading)::float, 'FM990D999999999')) AS stgheading
         FROM fgs_objects, fgs_models, fgs_modelgroups
         WHERE ob_tile = tileno
             AND ob_valid IS TRUE AND ob_tile IS NOT NULL
@@ -43,10 +43,10 @@ AS $$
 
         RETURN QUERY
         WITH items AS (SELECT si_definition AS name, 
-            trim(trailing '.' FROM to_char(ST_X(wkb_geometry), 'FM999999990D999999999')) AS lon,
-            trim(trailing '.' FROM to_char(ST_Y(wkb_geometry), 'FM999999990D999999999')) AS lat,
-            trim(trailing '.' FROM to_char(si_gndelev::float, 'FM999999990D999999999')) AS stgelev,
-            trim(trailing '.' FROM to_char(fn_StgHeading(si_heading)::float, 'FM999999990D999999999')) AS stgheading
+            trim(trailing '.' FROM to_char(ST_X(wkb_geometry), 'FM990D999999999')) AS lon,
+            trim(trailing '.' FROM to_char(ST_Y(wkb_geometry), 'FM990D999999999')) AS lat,
+            trim(trailing '.' FROM to_char(si_gndelev::float, 'FM99990D999999999')) AS stgelev,
+            trim(trailing '.' FROM to_char(fn_StgHeading(si_heading)::float, 'FM990D999999999')) AS stgheading
         FROM fgs_signs
         WHERE si_tile = tileno
             AND si_valid IS TRUE AND si_tile IS NOT NULL
