@@ -14,8 +14,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
--- Helpers to provide path names and elevation/heading figures for
--- FlightGear scenery .stg-files
+-- Dump all .stg-rows for a given tile
 
 CREATE OR REPLACE FUNCTION fn_DumpStgRows(integer)
     RETURNS setof varchar
