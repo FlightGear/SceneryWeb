@@ -89,23 +89,29 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getModelUpdateRequestAcceptedEmailContent($dtg, $moShaHash, $name, $comment, $modelId) {
+    static public function getModelUpdateRequestAcceptedEmailContent($dtg, $request, $comment) {
+        $modelMD = $request->getNewModel()->getMetadata();
         $subject = "3D model update accepted";
         $message = "On ".$dtg." UTC, you issued a 3D model update request.\r\n\r\n" .
                    "We are glad to let you know that this request has been accepted!\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($moShaHash,0,10). "' and it is named '". $name ."'.\r\n\r\n";
+                   "For reference, the ID of this request is '".$request->getId(). "' and it is named '". $modelMD->getName() ."'.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$modelId."\r\n\r\n" .
-                    "Thanks for your help in making FlightGear better!\r\n\r\n";
+        $message .= "The corresponding entries will be updated in TerraSync at " .
+                check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list ".
+                "and check the model at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$modelMD->getId()."\r\n\r\n" .
+                "Thanks for your help in making FlightGear better!\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $newModelMD, $safeContrEmail, $sentComment, $moShaHash) {
+    static public function getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $request) {
+        $newModelMD = $request->getNewModel()->getMetadata();
+        $safeContrEmail = $request->getContributorEmail();
+        
         $subject = "3D model update needs validation.";
-        $message = "We would like to let you know that an update for a 3D model request is pending. " .
+        $message = "We would like to let you know that an update for a 3D model request is pending (#".$request->getId()."). " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
         if (!empty($safeContrEmail)) {
             $message .= "and with email address ".$safeContrEmail." ";
@@ -117,17 +123,19 @@ class EmailContentFactory {
                     "Contributor email ". $safeContrEmail ."\r\n" .
                     "Model name:       ". $newModelMD->getName() ."\r\n" .
                     "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
-                    "Comment by user:  ". strip_tags($sentComment) . "\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=". $moShaHash ."&email=". $safeContrEmail . "\r\n\r\n";
+                    "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n" .
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=". $request->getSig() ."&email=". $safeContrEmail . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getModelUpdateRequestRejectedEmailContent($dtg, $moShaHash, $name, $comment) {
+    static public function getModelUpdateRequestRejectedEmailContent($dtg, $request, $comment) {
+        $newModelMD = $request->getNewModel()->getMetadata();
+        
         $subject = "3D model update rejected";
         $message = "On ".$dtg." UTC, you issued a 3D model update request.\r\n\r\n" .
                    "We are sorry to let you know that this request has been rejected.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request was '".substr($moShaHash,0,10). "' and it was named '". $name ."'.\r\n\r\n";
+                   "For reference, the ID of this request was '".$request->getId(). "' and it was named '". $newModelMD->getName() ."'.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -136,40 +144,43 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $moShaHash, $newModelMD, $safeContrEmail, $sentComment) {
+    static public function getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request) {
+        $newModelMD = $request->getNewModel()->getMetadata();
         $subject = "3D model update request";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model update request.\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($moShaHash,0,10). "'\r\n\r\n" .
+                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
-                   "Contributor email ". $safeContrEmail ."\r\n" .
+                   "Contributor email ". $request->getContributorEmail() ."\r\n" .
                    "Model name:       ". $newModelMD->getName() ."\r\n" .
                    "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
-                   "Comment by user:  ". strip_tags($sentComment) . "\r\n\r\n";
+                   "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n";
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $moShaHash, $newModelMD, $safeContrEmail, $sentComment) {
+    static public function getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $request) {
+        $newModelMD = $request->getNewModel()->getMetadata();
+        
         $subject = "3D model update request";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), issued a 3D model update request for your model.\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($moShaHash,0,10). "'\r\n\r\n" .
+                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
-                   "Contributor email ". $safeContrEmail ."\r\n" .
+                   "Contributor email ". $request->getContributorEmail() ."\r\n" .
                    "Model name:       ". $newModelMD->getName() ."\r\n" .
                    "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
-                   "Comment by user:  ". strip_tags($sentComment) . "\r\n\r\n";
+                   "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getPendingRequestProcessConfirmationEmailContent($sig, $comment) {
+    static public function getObjectRequestAcceptedEmailContent($request, $comment) {
         $subject = "Automatic objects pending request process confirmation";
-        $message = "We would like to let you know that the object (addition, update, deletion) request nr:'".substr($sig,0,10). "'was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n";
+        $message = "We would like to let you know that the object (addition, update, deletion) request #".$request->getId(). " was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -195,9 +206,9 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getRejectAndDeletionConfirmationEmailContent($sig, $comment) {
+    static public function getRejectAndDeletionConfirmationEmailContent($request, $comment) {
         $subject = "Automatic objects reject and deletion confirmation";
-        $message = "We are sorry to let you know that the object request nr: '".substr($sig,0,10). "' was rejected.\r\n\r\n";
+        $message = "We are sorry to let you know that the object request #".$request->getId(). " was rejected.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -205,9 +216,12 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $modelMD, $objectToDel, $comment, $shaHash) {
+    static public function getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $request) {
+        $safeEmail = $request->getContributorEmail();
+        $objectToDel = $request->getObjectToDelete();
+        
         $subject = "Object deletion needs validation";
-        $message = "We would like to let you know that a new object deletion request is pending. " .
+        $message = "We would like to let you know that a new object deletion request is pending (#".$request->getId()."). " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
         if (!empty($safeEmail)) {
             $message .= "and with email address ".$safeEmail." ";
@@ -221,18 +235,20 @@ class EmailContentFactory {
                     "Ground elevation: " .$objectToDel->getGroundElevation(). "\r\n" .
                     "Elevation offset: " .$objectToDel->getElevationOffset(). "\r\n" .
                     "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
-                    "Comment:          " .strip_tags($comment) . "\r\n" .
+                    "Comment:          " .strip_tags($request->getComment()) . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDel->getLongitude() ."&lat=". $objectToDel->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $shaHash . "&email=" . $safeEmail . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "&email=" . $safeEmail . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $modelMD, $objectToDel, $comment) {
+    static public function getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $modelMD) {
+        $objectToDel = $request->getObjectToDelete();
+        
         $subject = "Object deletion";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object deletion request.\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($shaHash,0,10). "'\r\n\r\n" .
+                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           " .$modelMD->getModelsGroup()->getName(). "\r\n" .
                    "Model:            " .$modelMD->getName(). "\r\n" .
                    "Latitude:         " .$objectToDel->getLatitude(). "\r\n" .
@@ -240,14 +256,17 @@ class EmailContentFactory {
                    "Ground elevation: " .$objectToDel->getGroundElevation(). "\r\n" .
                    "Elevation offset: " .$objectToDel->getElevationOffset(). "\r\n" .
                    "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
-                   "Comment:          " .strip_tags($comment) . "\r\n".
+                   "Comment:          " .strip_tags($request->getComment()) . "\r\n".
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDel->getLongitude() ."&lat=". $objectToDel->getLatitude() ."&zoom=14\r\n\r\n";
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $modelMD, $newObject, $sentComment, $shaHash) {
+    static public function getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $request) {
+        $safeEmail = $request->getContributorEmail();
+        $newObject = $request->getNewObject();
+        
         $subject = "Object addition needs validation";
-        $message = "We would like to let you know that a new object request is pending. " .
+        $message = "We would like to let you know that a new object request is pending (#".$request->getId()."). " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
         if (!empty($safeEmail)) {
             $message .= "and with email address ".$safeEmail." ";
@@ -261,18 +280,20 @@ class EmailContentFactory {
                     "Ground elevation will be automagically computed\r\n" .
                     "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                     "True orientation: ". $newObject->getOrientation() . "\r\n" .
-                    "Comment:          ". strip_tags($sentComment) . "\r\n" .
+                    "Comment:          ". strip_tags($request->getComment()) . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $shaHash ."&email=". $safeEmail."\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() ."&email=". $safeEmail."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $modelMD, $newObject, $sentComment) {
+    static public function getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $modelMD) {
+        $newObject = $request->getNewObject();
+        
         $subject = "Object addition";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object addition request.\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($shaHash,0,10). "'\r\n\r\n" .
+                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           ". $modelMD->getModelsGroup()->getName() . "\r\n" .
                    "Model:            ". $modelMD->getName() . "\r\n" .
                    "Latitude:         ". $newObject->getLatitude() . "\r\n" .
@@ -280,16 +301,20 @@ class EmailContentFactory {
                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
-                   "Comment:          ". strip_tags($sentComment) ."\r\n\r\n" .
+                   "Comment:          ". strip_tags($request->getComment()) ."\r\n\r\n" .
                    "Please remember to use the massive insertion script should you have many objects to add: ".
                    "http://".$_SERVER['SERVER_NAME']."/submission/object/index_mass_import.php\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safeEmail, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $shaHash) {
+    static public function getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $oldModelMD, $newModelMD, $request) {
+        $safeEmail = $request->getContributorEmail();
+        $oldObject = $request->getOldObject();
+        $newObject = $request->getNewObject();
+        
         $subject = "Object update needs validation";
-        $message = "We would like to let you know that an object update request is pending. " .
+        $message = "We would like to let you know that an object update request is pending (#".$request->getId()."). " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
         if (!empty($safeEmail)) {
             $message .= "and with email address ".$safeEmail." ";
@@ -306,17 +331,20 @@ class EmailContentFactory {
                     "Elevation offset:  ". $oldObject->getElevationOffset() . " => ".$newObject->getElevationOffset()."\r\n" .
                     "True orientation:  ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
                     "Map (new position): http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14" . "\r\n" .
-                    "Comment:           ". strip_tags($comment) ."\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $shaHash . "&email=" . $safeEmail . "\r\n\r\n";
+                    "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n" .
+                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "&email=" . $safeEmail . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $shaHash, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment) {
+    static public function getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $oldModelMD, $newModelMD) {
+        $oldObject = $request->getOldObject();
+        $newObject = $request->getNewObject();
+        
         $subject = "Object update";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object update request." . "\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($shaHash,0,10). "'\r\n\r\n" .
+                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Object #:          ".$oldObject->getId()."\r\n" .
                    "Family:            ". $oldModelMD->getModelsGroup()->getName() ." => ".$newModelMD->getModelsGroup()->getName()."\r\n" .
                    "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
@@ -327,29 +355,38 @@ class EmailContentFactory {
                    "Ground elevation:  ". $oldObject->getGroundElevation() . " => will be recomputed\r\n" .
                    "Elevation offset:  ". $oldObject->getElevationOffset() . " => ".$newObject->getElevationOffset()."\r\n" .
                    "True rientation:   ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
-                   "Comment:           ". strip_tags($comment) ."\r\n\r\n";
+                   "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getAddModelRequestAcceptedEmailContent($dtg, $modelId, $moShaHash, $name, $comment) {
+    static public function getAddModelRequestAcceptedEmailContent($dtg, $request, $comment) {
+        $newModelMD = $request->getNewModel()->getMetadata();
+        
         $subject = "3D model import accepted";
         $message = "On ".$dtg." UTC, you issued a 3D model import request.\r\n\r\n" .
                    "We are glad to let you know that this request was accepted!\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($moShaHash,0,10). "' (model and object) and it is named '". $name ."'.\r\n\r\n";
+                   "For reference, the ID of this request is '".$request->getId(). "' (model and object) and it is named '". $newModelMD->getName() ."'.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$modelId."\r\n\r\n" .
+        $message .= "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newModelMD->getId()."\r\n\r\n" .
                     "Thanks for your help in making FlightGear better!\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_au_email, $newObject, $newModelMD, $moShaHash) {
+    static public function getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $request) {
+        $contrEmail = $request->getContributorEmail();
+        $newModelMD = $request->getNewModel()->getMetadata();
+        $newObject = $request->getNewObject();
+        
         $subject = "3D model import needs validation.";
-        $message = "We would like to let you know that a new 3D model request is pending. " .
+        $message = "We would like to let you know that a new 3D model request is pending (#".$request->getId()."). " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
+        if (!empty($contrEmail)) {
+            $message .= "and with email address ".$contrEmail." ";
+        }
 
         $message .= "issued the following request:" . "\r\n\r\n" .
                     "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
@@ -363,16 +400,18 @@ class EmailContentFactory {
                     "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                     "True orientation: ". $newObject->getOrientation() . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $moShaHash ."&email=". $safe_au_email . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $request->getSig() ."&email=". $contrEmail . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getAddModelRequestRejectedEmailContent($dtg, $moShaHash, $name, $comment) {
+    static public function getAddModelRequestRejectedEmailContent($dtg, $request, $comment) {
+        $modelMD = $request->getNewModel()->getMetadata();
+        
         $subject = "3D model import rejected";
         $message = "On ".$dtg." UTC, you issued a 3D model import request.\r\n\r\n" .
                    "We are sorry to let you know that this request was rejected.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request was '".substr($moShaHash,0,10). "' (model and object) and it was named '". $name ."'.\r\n\r\n";
+                   "For reference, the ID of this request was '".$request->getId(). "' (model and object) and it was named '". $modelMD->getName() ."'.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -381,11 +420,14 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $moShaHash, $newModelMD, $newObject) {
+    static public function getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request) {
+        $newModelMD = $request->getNewModel()->getMetadata();
+        $newObject = $request->getNewObject();
+        
         $subject = "3D model import";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request.\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the first part of the unique ID of this request is '".substr($moShaHash,0,10). "' (model and object)\r\n\r\n" .
+                   "For reference, the ID of this request is '".$request->getId(). "' (model and object)\r\n\r\n" .
                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .

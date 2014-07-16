@@ -1,10 +1,11 @@
 <?php
 $regex = array(
- 'comment' => "/^[0-9a-z-A-Z\';:!?@-_\. ]+$/u",
+ 'comment' => "/^[0-9a-z-A-Z\';:!?@\-_\. ]+$/u",
  'stg' => '/^[a-zA-Z0-9\_\.\-\,\/]+$/u',
  'model_filepath' => '/^[a-z0-9_\/.-]$/i',
  'modelid' => '/^[0-9]+$/u',
  'modelgroupid' => '/^[0-9]+$/',
+ 'modelname' => '/^[0-9a-zA-Z;!?@\-_\.\(\)\[\]+ ]+$/',
  'filename' => '/^[a-zA-Z0-9_.-]*$/u',
  'png_filename' => '/^[a-zA-Z0-9_.-]*$/u',
  'ac3d_filename' => '/^[a-zA-Z0-9_.-]*$/u',
@@ -34,6 +35,13 @@ function is_model_id($id_to_check) {
     global $regex;
     return preg_match($regex['modelid'], $id_to_check)
            && $id_to_check > 0;
+}
+
+// Checks if the name is a model name
+// ================================================
+function is_model_name($name) {
+    global $regex;
+    return preg_match($regex['modelname'], $name);
 }
 
 // Checks if the id is an object id

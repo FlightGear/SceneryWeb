@@ -712,21 +712,23 @@ else {
     $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
             $offset, heading_stg_to_true($heading), 1, $name);
 
+    $failed_mail = false;
+    $au_email = $newModelMD->getAuthor()->getEmail();
+    if ($au_email != '' && strlen($au_email) > 0) {
+        $safe_au_email = htmlentities(stripslashes($au_email));
+    }
+    else {
+        $failed_mail = true;
+    }
+    
     $request = new RequestModelAdd();
     $request->setNewModel($newModel);
     $request->setNewObject($newObject);
+    $request->setContributorEmail($safe_au_email);
     
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);
         
-        $failed_mail = false;
-        $au_email = $newModelMD->getAuthor()->getEmail();
-        if ($au_email != '' && strlen($au_email) > 0) {
-            $safe_au_email = htmlentities(stripslashes($au_email));
-        }
-        else {
-            $failed_mail = true;
-        }
         echo "has been successfully queued into the FG scenery database insertion requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
@@ -738,12 +740,12 @@ else {
         $ipaddr = stripslashes($ipaddr);                                 // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
         
-        $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_au_email, $newObject, $newModelMD, $updatedReq->getSig());
+        $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
         $emailSubmit->sendEmail("", true);
         
         // Mailing the submitter to tell him that his submission has been sent for validation
         if (!$failed_mail) {
-            $emailSubmit = EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $newModelMD, $newObject);
+            $emailSubmit = EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
             $emailSubmit->sendEmail($safe_au_email, false);
         }
     } catch(Exception $ex) {

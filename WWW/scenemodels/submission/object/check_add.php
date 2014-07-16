@@ -144,6 +144,8 @@ if (!$error) {
     
     $request = new RequestObjectAdd();
     $request->setNewObject($newObject);
+    $request->setContributorEmail($safe_email);
+    $request->setComment($sent_comment);
     
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);
@@ -164,12 +166,12 @@ if (!$error) {
         $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
         $host = gethostbyaddr($ipaddr);
 
-        $emailSubmit = EmailContentFactory::getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $modelMD, $newObject, $sent_comment, $updatedReq->getSig());
+        $emailSubmit = EmailContentFactory::getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $updatedReq);
         $emailSubmit->sendEmail("", true);
 
         // Mailing the submitter to tell him that his submission has been sent for validation
         if (!$failed_mail) {
-            $emailSubmit = EmailContentFactory::getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $modelMD, $newObject, $sent_comment);
+            $emailSubmit = EmailContentFactory::getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $modelMD);
             $emailSubmit->sendEmail($safe_email, false);
         }
     } catch(Exception $e) {

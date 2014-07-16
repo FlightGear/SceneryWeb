@@ -109,9 +109,18 @@ if (isset($model_name)
     $oldModelMD = $modelDaoRO->getModelMetadata($oldObject->getModelId());
     $newModelMD = $modelDaoRO->getModelMetadata($model_name);
     
+    if (isset($_POST['comment']) && is_comment($_POST['comment'])) {
+        $comment = $_POST['comment'];
+    } else {
+        $comment = "";
+    }
+    
+    
     $request = new RequestObjectUpdate();
     $request->setNewObject($newObject);
     $request->setOldObject($oldObject);
+    $request->setContributorEmail($safe_email);
+    $request->setComment($comment);
     
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);
@@ -134,14 +143,13 @@ if (isset($model_name)
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
     $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
     $host = gethostbyaddr($ipaddr);
-    $comment = $_POST['comment'];
 
-    $emailSubmit = EmailContentFactory::getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $safe_email, $oldObject, $oldModelMD, $newObject, $newModelMD, $comment, $updatedReq->getSig());
+    $emailSubmit = EmailContentFactory::getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $oldModelMD, $newModelMD, $updatedReq);
     $emailSubmit->sendEmail("", true);
 
     // Mailing the submitter to tell him that his submission has been sent for validation.
     if (!$failed_mail) {
-        $emailSubmit = EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $oldObject, $oldModelMD, $newObject, $newModelMD, $comment);
+        $emailSubmit = EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $oldModelMD, $newModelMD);
         $emailSubmit->sendEmail($safe_email, false);
     }
     include '../../inc/footer.php';

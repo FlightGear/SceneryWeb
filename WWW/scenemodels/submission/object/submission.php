@@ -3,6 +3,7 @@ require_once "../../classes/RequestExecutor.php";
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -17,24 +18,22 @@ if (!is_sig($_REQUEST["sig"]) || !isset($_REQUEST["action"])) {
 $action = $_REQUEST["action"];
 $sig = htmlentities($_REQUEST["sig"]);
 
+// Checking the presence of sig into the database
+try {
+    $request = $requestDaoRO->getRequest($sig);
+} catch (RequestNotFoundException $e) {
+    $page_title = "Automated Objects Pending Requests Form";
+    $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+    $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+    include '../../inc/error_page.php';
+    exit;
+}
+
 // Common code, to be performed for both types of checks
 if ($action == "check") {
-    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
-    
-    // Checking the presence of sig into the database
-    try {
-        $request = $requestDaoRO->getRequest($sig);
-    } catch (RequestNotFoundException $e) {
-        $page_title = "Automated Objects Pending Requests Form";
-        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?<br/>";
-        $advise_text = "Else, please report to devel ML or FG Scenery forum.";
-        include '../../inc/error_page.php';
-        exit;
-    }
-
     $page_title = "Automated Objects Pending Requests Form";
     include '../../inc/header.php';
-    echo "<p class=\"center\">Signature found.<br /> Now processing query with request number ". $sig.".\n</p>\n";
+    echo "<p class=\"center\">Signature found.<br /> Now processing request #". $request->getId().".\n</p>\n";
 
     switch (get_class($request)) {
     case "RequestObjectAdd":
@@ -145,20 +144,8 @@ if ($action == "check") {
 if ($action == 'Accept') {
     $objectDaoRW = DAOFactory::getInstance()->getObjectDaoRW();
     $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
-    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
     $reqExecutor = new RequestExecutor(null, $objectDaoRW);
 
-    // Checking the presence of sig into the database
-    try {
-        $request = $requestDaoRO->getRequest($sig);
-    } catch (RequestNotFoundException $e) {
-        $page_title = "Automated Objects Pending Requests Form";
-        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
-        $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-        include '../../inc/error_page.php';
-        exit;
-    }
-    
     // Executes request
     try {
         $reqExecutor->executeRequest($request);
@@ -166,7 +153,7 @@ if ($action == 'Accept') {
         $page_title = "Automated Objects Pending Requests Form";
         include '../../inc/header.php';
         echo "<p class=\"center\">";
-        echo "Signature found.<br /> Now processing query with request number ".$sig.".</p><br />";
+        echo "Signature found.<br /> Now processing request #".$request->getId().".</p><br />";
         echo "<p class=\"center warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
         include '../../inc/footer.php';
         exit;
@@ -174,7 +161,7 @@ if ($action == 'Accept') {
 
     $page_title = "Automated Objects Pending Requests Form";
     include '../../inc/header.php';
-    echo "<p class=\"center\">Signature found.<br /> Now processing INSERT or DELETE or UPDATE position query with number ".$sig.".</p><br />";
+    echo "<p class=\"center\">Signature found.<br /> Now processing add/update/delete object request #".$request->getId().".</p><br />";
     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
     // Delete the entry from the pending query table.
@@ -197,7 +184,7 @@ if ($action == 'Accept') {
     // email destination
     $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
 
-    $emailSubmit = EmailContentFactory::getPendingRequestProcessConfirmationEmailContent($sig, $comment);
+    $emailSubmit = EmailContentFactory::getObjectRequestAcceptedEmailContent($request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     exit;
@@ -221,7 +208,7 @@ else if ($action == "Reject") {
         $page_title = "Automated Objects Pending Requests Form";
         include '../../inc/header.php';
         echo "<p class=\"center\">\n".
-             "Signature found.<br /> Now deleting request with number ".$sig.".</p>".
+             "Signature found.<br /> Now deleting request #".$request->getId().".</p>".
              "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>\n";
         include '../../inc/footer.php';
         exit;
@@ -230,7 +217,7 @@ else if ($action == "Reject") {
     $page_title = "Automated Objects Pending Requests Form";
     include '../../inc/header.php';
     echo "<p class=\"center\">";
-    echo "Signature found.<br />Now deleting request with number ".$sig.".</p>";
+    echo "Signature found.<br />Now deleting request #".$request->getId().".</p>";
     echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
     echo "</p>";
     include '../../inc/footer.php';
@@ -245,7 +232,7 @@ else if ($action == "Reject") {
     // email destination
     $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
 
-    $emailSubmit = EmailContentFactory::getRejectAndDeletionConfirmationEmailContent($sig, $comment);
+    $emailSubmit = EmailContentFactory::getRejectAndDeletionConfirmationEmailContent($request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     exit;

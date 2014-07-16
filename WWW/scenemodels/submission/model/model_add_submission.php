@@ -3,6 +3,7 @@ require_once "../../classes/RequestExecutor.php";
 require_once "../../classes/DAOFactory.php";
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
@@ -10,6 +11,15 @@ require_once '../../inc/form_checks.php';
 if (isset($_REQUEST["mo_sig"]) && is_sig($_REQUEST["mo_sig"])) {
     $sig = $_REQUEST["mo_sig"];
 } else {
+    exit;
+}
+
+try {
+    $request = $requestDaoRO->getRequest($sig);
+} catch (RequestNotFoundException $e) {
+    $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+    $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+    include '../../inc/error_page.php';
     exit;
 }
 
@@ -37,16 +47,18 @@ if (isset($_POST["action"])) {
         }
 
         if (!$resultDel) {
-            $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request with number ". $sig;
+            $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request #". $request->getId();
             $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
             include '../../inc/error_page.php';
             exit;
         }
+        
+        $comment = $_POST["maintainer_comment"];
 
         include '../../inc/header.php';
         echo "<p class=\"center\">Deleting corresponding pending query.</p>";
         echo "<p class=\"center\">";
-        echo "Signature found.<br />Now deleting request with number ". $sig." with comment \"". $_POST["maintainer_comment"] ."\".</p>";
+        echo "Signature found.<br />Now deleting request #". $request->getId()." with comment \"". $comment ."\".</p>";
         echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
         echo "</p>";
 
@@ -57,12 +69,10 @@ if (isset($_POST["action"])) {
 
         date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
-        $name = $_POST["mo_name"];
-        $comment = $_POST["maintainer_comment"];
 
         $to = (isset($_POST['email']))?$_POST["email"]:"";
 
-        $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $sig, $name, $comment);
+        $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $request, $comment);
         $emailSubmit->sendEmail($to, true);
         exit;
     }
@@ -75,35 +85,22 @@ if (isset($_POST["action"])) {
         $modelDaoRW = DAOFactory::getInstance()->getModelDaoRW();
         $objectDaoRW = DAOFactory::getInstance()->getObjectDaoRW();
         $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
-        $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
         $reqExecutor = new RequestExecutor($modelDaoRW, $objectDaoRW);
-        
-
-        try {
-            $request = $requestDaoRO->getRequest($sig);
-        } catch (RequestNotFoundException $e) {
-            $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-            $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-            include '../../inc/error_page.php';
-            exit;
-        }
 
         // Executes request
         try {
             $updatedReq = $reqExecutor->executeRequest($request);
         } catch (Exception $ex) {
-            $process_text = "Signatures found.<br /> Now processing query with request number ". $sig;
+            $process_text = "Signatures found.<br /> Now processing request #". $request->getId();
             $error_text = "Sorry, but the INSERT queries could not be processed.";
             $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
             include '../../inc/error_page.php';
             exit;
         }
-        
-        $newModelMD = $updatedReq->getNewModel()->getMetadata();
 
         include '../../inc/header.php';
         echo "<p class=\"center\">";
-        echo "Signatures found.<br /> Now processing INSERT queries of model and object with number ".$sig.".</p>";
+        echo "Signatures found.<br /> Now processing request #".$request->getId().".</p>";
         echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
         // Delete the entries from the pending query table.
@@ -127,7 +124,7 @@ if (isset($_POST["action"])) {
         // Who will receive it ?
         $to = (isset($_POST["email"]))?$_POST["email"]:"";
 
-        $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $newModelMD->getId(), $sig, $newModelMD->getName(), $comment);
+        $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $updatedReq, $comment);
         $emailSubmit->sendEmail($to, true);
 
         include '../../inc/footer.php';
@@ -142,19 +139,11 @@ if (!isset($_POST["action"])) {
     // Inserting libs
     include_once '../../inc/geshi/geshi.php';
     $page_title = "Model Submission Form";
+    
+    $newModel = $request->getNewModel();
+    $newModelMD = $newModel->getMetadata();
+    $newObj = $request->getNewObject();
 
-    // Checking the presence of sig into the database
-    try {
-        $requestModelAdd = $requestDaoRO->getRequest($sig);
-        $newModel = $requestModelAdd->getNewModel();
-        $newModelMD = $newModel->getMetadata();
-        $newObj = $requestModelAdd->getNewObject();
-    } catch(RequestNotFoundException $e) {
-        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
-        $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-        include '../../inc/error_page.php';
-        exit;
-    }
 
 include '../../inc/header.php';
 

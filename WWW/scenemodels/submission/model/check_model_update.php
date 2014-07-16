@@ -591,24 +591,24 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if ($_POST["family_name"] != "" && $_POST["mo_author"] != ""
-        && isset($_POST["model_name"]) && $_POST["model_name"] != "" && $_POST["mo_name"] != ""
-        && isset($_POST['notes'])) {
+if (is_author_id($_POST["mo_author"])) {
+    $authorId  = $_POST["mo_author"];
+} else {
+    $error++;
+    $errormsg .= "<li>Please check the author value.</li>";
+}
+    
+if (is_modelgroup_id($_POST["family_name"]) && isset($_POST["model_name"])
+        && is_model_id($_POST["model_name"]) && is_model_name($_POST["mo_name"])
+        && isset($_POST['notes']) && is_comment($_POST['notes'])) {
 
     $path        = remove_file_extension($ac3dName);
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $mo_shared   = $_POST["family_name"];
-    $authorId    = $_POST["mo_author"];
     $contr_email = $_POST["email"];
     $model_name  = $_POST["model_name"];
     $ipaddr      = $_SERVER["REMOTE_ADDR"];
-
-    if (!preg_match($regex['authorid'], $authorId)) {
-        $error++;
-        $errormsg .= "<li>Please check the author value.</li>";
-    }
-
 }
 else {
     $error++;
@@ -659,19 +659,21 @@ else {
     $newModel->setModelFiles($modelFile);
     $newModel->setThumbnail($thumbFile);
     
+    $failed_mail = false;
+    $au_email = $newModelMD->getAuthor()->getEmail();
+    if ($au_email != '' && strlen($au_email) > 0) {
+        $safe_au_email = htmlentities(stripslashes($au_email));
+    } else {
+        $failed_mail = true;
+    }
+    
     $request = new RequestModelUpdate();
     $request->setNewModel($newModel);
+    $request->setContributorEmail($contr_email);
+    $request->setComment($sent_comment);
     
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);
-        
-        $failed_mail = false;
-        $au_email = $newModelMD->getAuthor()->getEmail();
-        if ($au_email != '' && strlen($au_email) > 0) {
-            $safe_au_email = htmlentities(stripslashes($au_email));
-        } else {
-            $failed_mail = true;
-        }
         
         if (is_email($contr_email)) {
             $safe_contr_email = htmlentities(stripslashes($contr_email));
@@ -690,17 +692,17 @@ else {
         $ipaddr = htmlentities(stripslashes($ipaddr));                   // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
 
-        $emailSubmit = EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $newModelMD, $safe_contr_email, $sent_comment, $updatedReq->getSig());
+        $emailSubmit = EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
         $emailSubmit->sendEmail("", true);
         
         if (!$failed_mail) {
             // Mailing the submitter to tell him that his submission has been sent for validation
-            $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq->getSig(), $newModelMD, $safe_contr_email, $sent_comment);
+            $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
             $emailSubmit->sendEmail($safe_contr_email, false);
                     
             // If the author's email is different from the subbmitter's, an email is also sent to the author
             if ($safe_au_email != $safe_contr_email) {
-                $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $mo_sha_hash, $newModelMD, $safe_contr_email, $sent_comment);
+                $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $updatedReq);
                 $emailSubmit->sendEmail($safe_au_email, false);
             }
         }
