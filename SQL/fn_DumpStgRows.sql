@@ -17,13 +17,13 @@
 -- Dump all .stg-rows for a given tile
 
 CREATE OR REPLACE FUNCTION fn_DumpStgRows(integer)
-    RETURNS setof varchar
+    RETURNS setof text
 AS $$
     DECLARE
         tileno integer = $1;
     BEGIN
         RETURN QUERY
-        WITH items AS (SELECT mo_id AS id,
+        WITH modelitems AS (SELECT mo_id AS id,
             (CASE WHEN mo_shared > 0 THEN 1 ELSE 0 END) AS shared,
             mg_path AS path,
             mo_path AS name,
@@ -35,13 +35,9 @@ AS $$
         WHERE ob_tile = tileno
             AND ob_valid IS TRUE AND ob_tile IS NOT NULL
             AND ob_model = mo_id AND ob_gndelev > -9999
-            AND mo_shared = mg_id)
-        SELECT concat((CASE WHEN shared > 0 THEN concat('OBJECT_SHARED Models/', path) ELSE 'OBJECT_STATIC '  END), name, ' ', lon, ' ', lat, ' ', stgelev, ' ', stgheading)::varchar
-        FROM items
-        ORDER BY shared DESC, id, lon::float, lat::float, stgelev::float, stgheading::float;
+            AND mo_shared = mg_id),
 
-        RETURN QUERY
-        WITH items AS (SELECT si_definition AS name, 
+        signitems AS (SELECT si_definition AS name,
             trim(trailing '.' FROM to_char(ST_X(wkb_geometry), 'FM990D999999999')) AS lon,
             trim(trailing '.' FROM to_char(ST_Y(wkb_geometry), 'FM990D999999999')) AS lat,
             trim(trailing '.' FROM to_char(si_gndelev::float, 'FM99990D999999999')) AS stgelev,
@@ -49,10 +45,33 @@ AS $$
         FROM fgs_signs
         WHERE si_tile = tileno
             AND si_valid IS TRUE AND si_tile IS NOT NULL
-            AND si_gndelev > -9999)
-        SELECT concat('OBJECT_SIGN ', name, ' ', lon, ' ', lat, ' ', stgelev, ' ', stgheading)::varchar
-        FROM items
-        ORDER BY lon::float, lat::float, stgelev::float, stgheading::float;
+            AND si_gndelev > -9999),
+
+        modelrow AS (SELECT concat((CASE WHEN shared > 0 THEN concat('OBJECT_SHARED Models/', path) ELSE 'OBJECT_STATIC '  END),
+            name, ' ', lon, ' ', lat, ' ', stgelev, ' ', stgheading)::text AS object
+        FROM modelitems
+        ORDER BY shared DESC, id, lon::float, lat::float,
+            stgelev::float, stgheading::float),
+
+        signrow AS (SELECT concat('OBJECT_SIGN ',
+            name, ' ', lon, ' ', lat, ' ', stgelev, ' ', stgheading)::text AS object
+        FROM signitems
+        ORDER BY lon::float, lat::float,
+            stgelev::float, stgheading::float),
+
+        mo AS (SELECT string_agg(object, E'\n') AS mo FROM modelrow),
+        si AS (SELECT string_agg(object, E'\n') AS si FROM signrow)
+
+        SELECT (CASE
+            WHEN COUNT(mo) = 1 AND COUNT(si) = 1 THEN concat(mo, E'\n', si)
+            WHEN COUNT(mo) = 1 AND COUNT(si) = 0 THEN mo
+            WHEN COUNT(mo) = 0 AND COUNT(si) = 1 THEN si
+        END) AS ret
+        FROM mo, si
+        WHERE (SELECT COUNT(mo) FROM mo) > 0
+            OR (SELECT COUNT(si) FROM si) > 0
+        GROUP BY mo, si;
+
     END;
 $$
 LANGUAGE 'plpgsql';

@@ -179,9 +179,9 @@ def fn_exportStgRows():
             stgfile = os.path.join(obpath, str(obtile) + suffix)
 #            print("\n%s") % stgfile
             stgobj = open(stgfile, "a")
-            for stgrow in db_stg:
-#                print(stgrow[0])
-                stgobj.write("%s\n" % stgrow[0])
+            stgstring = db_stg[0][0]
+#            print(stgstring)
+            stgobj.write("%s\n" % stgstring)
             stgobj.close()
     print("Stg-Rows done")
 
