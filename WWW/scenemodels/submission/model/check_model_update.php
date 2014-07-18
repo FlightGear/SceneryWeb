@@ -18,17 +18,22 @@ $errormsg   = "";
 
 // Private key is needed for the server-to-Google auth.
 $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-$resp = recaptcha_check_answer ($privatekey,
-                                $_SERVER["REMOTE_ADDR"],
-                                $_POST["recaptcha_challenge_field"],
-                                $_POST["recaptcha_response_field"]);
+
+if (isset($_POST['recaptcha_challenge_field']) && isset($_POST['recaptcha_response_field'])) {
+    $resp = recaptcha_check_answer ($privatekey,
+            $_SERVER["REMOTE_ADDR"],
+            $_POST["recaptcha_challenge_field"],
+            $_POST["recaptcha_response_field"]);
+}
 
 // What happens when the CAPTCHA was entered incorrectly
-if (!$resp->is_valid) {
+if (!isset($resp) || !$resp->is_valid) {
     $page_title = "Automated Models Submission Form";
-    $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>." .
-         "<br />(reCAPTCHA complained: " . $resp->error . ")<br />" .
-         "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+    $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>.<br />";
+    if (isset($resp)) {
+        $error_text .= "(reCAPTCHA complained: " . $resp->error . ")<br />";
+    }
+    $error_text .= "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
     include '../../inc/error_page.php';
     exit;
 }
@@ -44,7 +49,7 @@ require '../../inc/header.php';
 ################################################
 ################################################
 
-if (($_FILES["mo_thumbfile"]['name'] != "") && (($_FILES["ac3d_file"]['name'] != "") || ($_FILES["xml_file"]['name'] != ""))) {
+if ($_FILES["mo_thumbfile"]['name'] != "" && ($_FILES["ac3d_file"]['name'] != "" || $_FILES["xml_file"]['name'] != "")) {
     $thumbName = remove_file_extension ($_FILES["mo_thumbfile"]['name']);
     $ac3dName  = remove_file_extension ($_FILES["ac3d_file"]['name']);
     $xmlName   = remove_file_extension ($_FILES["xml_file"]['name']);
@@ -101,7 +106,7 @@ if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
     $ac3dName     = $_FILES["ac3d_file"]['name'];
 
     for ($i=0; $i<12; $i++) {
-        if(isset($_FILES["png_file"]["name"][$i])) {
+        if (isset($_FILES["png_file"]["name"][$i])) {
             if (!preg_match($regex['png_filename'], $_FILES["png_file"]["name"][$i])) {
                 $fatalerror = true;
                 $error++;
@@ -177,7 +182,7 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 
     // check type & extension file
     if (($_FILES['ac3d_file']['type'] == "application/octet-stream" || $_FILES['ac3d_file']['type'] == "application/pkix-attr-cert")
-            && (show_file_extension(basename($ac3dName)) == "ac" || show_file_extension(basename($ac3dName)) == "AC")) {
+            && strtolower(show_file_extension(basename($ac3dName))) == "ac") {
 
         if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
             $error++;
@@ -210,7 +215,7 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
 }
 else if (!$fatalerror) {
     $error++;
-    $errormsg .= "<li>Sorry, but size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).</li>";
+    $errormsg .= "<li>Sorry, but the size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).</li>";
 }
 
 # STEP 3.3 : UPLOAD XML FILE IN TMP DIRECTORY
@@ -218,7 +223,7 @@ else if (!$fatalerror) {
 
 if ($_FILES['xml_file']['name'] != "") { // if file exists
     if ($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
-        if ($_FILES['xml_file']['type'] == "text/xml" && (show_file_extension(basename($xmlName)) == "xml" || show_file_extension(basename($xmlName)) == "XML")) { // check type & extension file
+        if ($_FILES['xml_file']['type'] == "text/xml" && strtolower(show_file_extension(basename($xmlName))) == "xml") { // check type & extension file
             if ($_FILES['xml_file']['error'] != 0) { // If error is detected
                 $error++;
                 $errormsg .= "<li>There has been an error while uploading the file \"".$xmlName."\".</li>";
@@ -248,11 +253,9 @@ if ($_FILES['xml_file']['name'] != "") { // if file exists
             $errormsg .= "<li>The format or extension of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file.</li>";
         }
     }
-    else {
-        if (!$fatalerror) {
-            $error++;
-            $errormsg .= "<li>Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$_FILES['xml_file']['size']." bytes).</li>";
-        }
+    else if (!$fatalerror) {
+        $error++;
+        $errormsg .= "<li>Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$_FILES['xml_file']['size']." bytes).</li>";
     }
 }
 
@@ -269,7 +272,7 @@ for ($i=0; $i<12; $i++) {
 
         if ($pngsize < 2000000 && !$fatalerror) { // check size file
 
-            if ($pngType == 'image/png' && (show_file_extension(basename($pngName)) == "png" || show_file_extension(basename($pngName)) == "PNG")) { // check type & extension file
+            if ($pngType == 'image/png' && strtolower(show_file_extension(basename($pngName))) == "png") { // check type & extension file
 
                 if ($pngError != 0) { // If error is detected
                     $error++;
@@ -289,12 +292,10 @@ for ($i=0; $i<12; $i++) {
                             break;
                     }
                 }
-                else {
-                    if (!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
-                        $fatalerror = true;
-                        $error++;
-                        $errormsg .= "<li>There has been an error while moving the file \"".$pngName."\" on the server.</li>";
-                    }
+                else if (!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
+                    $fatalerror = true;
+                    $error++;
+                    $errormsg .= "<li>There has been an error while moving the file \"".$pngName."\" on the server.</li>";
                 }
             }
             else {
@@ -348,7 +349,7 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
         global $depth;
         $parserInt = intval($parser);
         if(!isset($depth[$parserInt])) {
-            $depth[$parserInt]=0;
+            $depth[$parserInt] = 0;
         }
         $depth[$parserInt]++;
     }
@@ -357,7 +358,7 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
         global $depth;
         $parserInt = intval($parser);
         if(!isset($depth[$parserInt])) {
-            $depth[$parserInt]=0;
+            $depth[$parserInt] = 0;
         }
         $depth[$parserInt]--;
     }
@@ -382,7 +383,6 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
     }
 
     if ($error == 0) {
-
         // Check if <path> == $ac3dName
         $xmlcontent = simplexml_load_file($xmlPath);
         if ($ac3dName != $xmlcontent->path) {
@@ -465,7 +465,7 @@ for ($i=0; $i<12; $i++) {
         $pngPath  = $targetPath.$_FILES["png_file"]["name"][$i];
         $pngName  = $_FILES["png_file"]["name"][$i];
 
-        if (file_exists($pngPath)){
+        if (file_exists($pngPath)) {
             $tmp    = getimagesize($pngPath);
             $width  = $tmp[0];
             $height = $tmp[1];

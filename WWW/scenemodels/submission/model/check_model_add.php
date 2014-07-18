@@ -21,11 +21,11 @@ $errormsg   = "";
 // Private key is needed for the server-to-Google auth.
 $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
 
-if(isset($_POST['recaptcha_challenge_field']) && isset($_POST['recaptcha_response_field'])) {
+if (isset($_POST['recaptcha_challenge_field']) && isset($_POST['recaptcha_response_field'])) {
     $resp = recaptcha_check_answer ($privatekey,
-                                    $_SERVER["REMOTE_ADDR"],
-                                    $_POST["recaptcha_challenge_field"],
-                                    $_POST["recaptcha_response_field"]);
+            $_SERVER["REMOTE_ADDR"],
+            $_POST["recaptcha_challenge_field"],
+            $_POST["recaptcha_response_field"]);
 }
 
 // What happens when the CAPTCHA was entered incorrectly
@@ -204,12 +204,10 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
                     break;
             }
         }
-        else {
-            if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) { // check upload file
-                $fatalerror = true;
-                $error++;
-                $errormsg .= "<li>There has been an error while moving the file \"".$ac3dName."\" on the server.</li>";
-            }
+        else if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) { // check upload file
+            $fatalerror = true;
+            $error++;
+            $errormsg .= "<li>There has been an error while moving the file \"".$ac3dName."\" on the server.</li>";
         }
     }
     else {
@@ -246,12 +244,10 @@ if ($_FILES['xml_file']['name'] != "") { // if file exists
                         break;
                 }
             }
-            else {
-                if(!move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) { // check uploaded file
-                    $fatalerror = true;
-                    $error++;
-                    $errormsg .= "<li>There has been an error while moving the file \"".$xmlName."\" on the server.</li>";
-                }
+            else if(!move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) { // check uploaded file
+                $fatalerror = true;
+                $error++;
+                $errormsg .= "<li>There has been an error while moving the file \"".$xmlName."\" on the server.</li>";
             }
         }
         else {
@@ -309,7 +305,7 @@ for ($i=0; $i<12; $i++) {
                 $errormsg .= "<li>The format or extension of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.</li>";
             }
         }
-        else if(!$fatalerror) {
+        else if (!$fatalerror) {
             $error++;
             $errormsg .= "<li>Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes).</li>";
         }
@@ -566,7 +562,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
         $d2u_xml_command  = 'dos2unix '.$xmlPath;
         system ($d2u_xml_command);
     }
-    
+
     // Dos2Unix on AC3D
     $d2u_ac3d_command = 'dos2unix '.$ac3dPath;
     system ($d2u_ac3d_command);
@@ -716,8 +712,7 @@ else {
     $au_email = $newModelMD->getAuthor()->getEmail();
     if ($au_email != '' && strlen($au_email) > 0) {
         $safe_au_email = htmlentities(stripslashes($au_email));
-    }
-    else {
+    } else {
         $failed_mail = true;
     }
     
@@ -737,7 +732,7 @@ else {
         // Sending mail if there is no false and SQL was correctly inserted.
         date_default_timezone_set('UTC');                                // Sets the time to UTC.
         $dtg = date('l jS \of F Y h:i:s A');
-        $ipaddr = stripslashes($ipaddr);                                 // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+        $ipaddr = htmlentities(stripslashes($ipaddr));                                 // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
         
         $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
