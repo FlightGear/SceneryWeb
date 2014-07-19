@@ -591,15 +591,30 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (is_modelgroup_id($_POST["model_group_id"]) && isset($_POST["model_name"])
-        && is_model_id($_POST["model_name"]) && is_model_name($_POST["mo_name"])
+if (isset($_POST["model_group_id"]) && isset($_POST["model_name"])
+        && isset($_POST["mo_name"])
         && isset($_POST['notes']) && isset($_POST["mo_author"]) && is_comment($_POST['notes'])) {
 
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $authorId    = $_POST["mo_author"];
     $mo_shared   = $_POST["model_group_id"];
-    $model_name  = $_POST["model_name"];
+    $modelId     = $_POST["model_name"];
+    
+	if (!is_model_id($modelId)) {
+		$error++;
+        $errormsg .= "<li>Please check the original model selected.</li>";
+	}
+
+    if (!is_model_name($name)) {
+        $error++;
+        $errormsg .= "<li>Please check the model name.</li>";
+    }
+    
+    if (!is_modelgroup_id($mo_shared)) {
+        $error++;
+        $errormsg .= "<li>Please check the model group.</li>";
+    }
     
     if (!is_author_id($authorId)) {
         $error++;
@@ -649,7 +664,7 @@ if ($fatalerror || $error > 0) {
 else {
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $newModel = new Model();
-    $newModelMD = $modelFactory->createModelMetadata($model_name, $authorId, $path_to_use,
+    $newModelMD = $modelFactory->createModelMetadata($modelId, $authorId, $path_to_use,
             $name, $notes, $mo_shared);
     $newModel->setMetadata($newModelMD);
     $newModel->setModelFiles($modelFile);
@@ -676,8 +691,6 @@ else {
     
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);
-        
-        
         
         echo "has been successfully queued into the FG scenery database model update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";

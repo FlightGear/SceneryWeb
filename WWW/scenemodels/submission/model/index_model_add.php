@@ -125,10 +125,10 @@ $(function() {
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
                     <td style="width: 200px;">
-                        <label for="mo_shared">Model's family<em>*</em><span>This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family.</span></label>
+                        <label for="model_group_id">Model's family<em>*</em><span>This is the family name of the model you want to add. If your 3D model is going to be shared, use the proper family. If it's going to be a static one, then choose the static family.</span></label>
                     </td>
                     <td>
-                        <select name="mo_shared" id="mo_shared">
+                        <select name="model_group_id" id="model_group_id">
                             <?php
                             $modelsGroups = $modelDaoRO->getModelsGroups();
 

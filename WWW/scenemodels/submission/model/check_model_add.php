@@ -590,14 +590,19 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (isset($_POST["mo_shared"]) && isset($_POST["mo_author"])
+if (isset($_POST["model_group_id"]) && isset($_POST["mo_author"])
         && isset($_POST["mo_name"]) && isset($_POST['notes'])) {
 
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
-    $mo_shared   = $_POST["mo_shared"];
     $authorId    = $_POST["mo_author"];
+    $mo_shared   = $_POST["model_group_id"];
 
+    if (!is_modelgroup_id($mo_shared)) {
+        $error++;
+        $errormsg .= "<li>Please check the model group.</li>";
+    }
+    
     if (!is_author_id($authorId)) {
         $error++;
         $errormsg .= "<li>Please check the author value.</li>";
