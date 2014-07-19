@@ -586,7 +586,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 #                                             #
-# STEP 10 : CHECK GENERAL INFORMATION         #
+# STEP 9 : CHECK MODEL INFORMATION            #
 #                                             #
 ###############################################
 ###############################################
@@ -632,7 +632,7 @@ if (!isset($_POST["gpl"])) {
 ###############################################
 ###############################################
 #                                             #
-# STEP 11 : RESUME AND SUBMIT VALIDATION      #
+# FINAL STEP : RESUME AND SUBMIT VALIDATION   #
 #                                             #
 ###############################################
 ###############################################
@@ -667,19 +667,21 @@ else {
         $failed_mail = true;
     }
     
+    if (is_email($contr_email)) {
+        $safe_contr_email = htmlentities(stripslashes($contr_email));
+    } else {
+        $failed_mail = true;
+    }
+    
     $request = new RequestModelUpdate();
     $request->setNewModel($newModel);
-    $request->setContributorEmail($contr_email);
+    $request->setContributorEmail($safe_contr_email);
     $request->setComment($sent_comment);
     
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);
         
-        if (is_email($contr_email)) {
-            $safe_contr_email = htmlentities(stripslashes($contr_email));
-        } else {
-            $failed_mail = true;
-        }
+        
         
         echo "has been successfully queued into the FG scenery database model update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";

@@ -585,48 +585,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 #                                             #
-# STEP 9 : CHECK GEOGRAPHICAL INFORMATION     #
-#                                             #
-###############################################
-###############################################
-
-if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] != "" && $_POST["heading"] != "") {
-    $longitude = strip_tags($_POST["longitude"]);
-    $latitude  = strip_tags($_POST["latitude"]);
-    $offset    = strip_tags($_POST["offset"]);
-    $heading   = strip_tags($_POST["heading"]);
-
-    if (!is_longitude($longitude)) {
-        $error++;
-        $errormsg .= "<li>Please check the longitude value (-180 < longitude < 180) and not null.</li>";
-    }
-
-    if (!is_latitude($latitude)) {
-        $error++;
-        $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
-    }
-
-    if ($offset == '' || $offset == '0') {
-        $offset = "NULL";
-    } else if (!is_offset($offset)) {
-        $error++;
-        $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
-    }
-
-    if (!is_heading($heading)) {
-        $error++;
-        $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
-    }
-}
-else {
-    $error++;
-    $errormsg .= "<li>Please fill in all required fields.</li>";
-}
-
-###############################################
-###############################################
-#                                             #
-# STEP 10 : CHECK GENERAL INFORMATION         #
+# STEP 9 : CHECK MODEL INFORMATION            #
 #                                             #
 ###############################################
 ###############################################
@@ -674,7 +633,48 @@ if (!isset($_POST["gpl"])) {
 ###############################################
 ###############################################
 #                                             #
-# STEP 11 : RESUME AND SUBMIT VALIDATION      #
+# STEP 10 : CHECK GEOGRAPHICAL INFORMATION    #
+#                                             #
+###############################################
+###############################################
+
+if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] != "" && $_POST["heading"] != "") {
+    $longitude = strip_tags($_POST["longitude"]);
+    $latitude  = strip_tags($_POST["latitude"]);
+    $offset    = strip_tags($_POST["offset"]);
+    $heading   = strip_tags($_POST["heading"]);
+
+    if (!is_longitude($longitude)) {
+        $error++;
+        $errormsg .= "<li>Please check the longitude value (-180 < longitude < 180) and not null.</li>";
+    }
+
+    if (!is_latitude($latitude)) {
+        $error++;
+        $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
+    }
+
+    if ($offset == '' || $offset == '0') {
+        $offset = "NULL";
+    } else if (!is_offset($offset)) {
+        $error++;
+        $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
+    }
+
+    if (!is_heading($heading)) {
+        $error++;
+        $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
+    }
+}
+else {
+    $error++;
+    $errormsg .= "<li>Please fill in all required fields.</li>";
+}
+
+###############################################
+###############################################
+#                                             #
+# FINAL STEP : RESUME AND SUBMIT VALIDATION   #
 #                                             #
 ###############################################
 ###############################################
