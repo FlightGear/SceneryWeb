@@ -591,16 +591,13 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 
 if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
-        && $_POST["ob_country"] != "" && $_POST["mo_name"] != ""
-        && isset($_POST['notes'])) {
+        && $_POST["mo_name"] != "" && isset($_POST['notes'])) {
 
     $path        = remove_file_extension($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $mo_shared   = $_POST["mo_shared"];
     $authorId    = $_POST["mo_author"];
-    $country     = $_POST["ob_country"];
-    $ipaddr      = $_SERVER["REMOTE_ADDR"];
 
     // This is only used for shared objects.
     // Reconstructing the parameters the model_exists function is waiting for, based on the path.
@@ -609,16 +606,10 @@ if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
         $errormsg .= "<li>It seems that your model already exists in our database. If you want to update it, please use our lovely update script for 3D models (to come).</li>";
     }
 
-    if (!preg_match($regex['authorid'], $authorId)) {
+    if (!is_author_id($authorId)) {
         $error++;
         $errormsg .= "<li>Please check the author value.</li>";
     }
-
-    if (!preg_match($regex['countryid'], $country)) {
-        $error++;
-        $errormsg .= "<li>Please check the country value.</li>";
-    }
-
 }
 else {
     $error++;
@@ -638,11 +629,13 @@ if (!isset($_POST["gpl"])) {
 ###############################################
 ###############################################
 
-if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] != "" && $_POST["heading"] != "") {
+if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] != ""
+        && $_POST["heading"] != "" && $_POST["ob_country"] != "") {
     $longitude = strip_tags($_POST["longitude"]);
     $latitude  = strip_tags($_POST["latitude"]);
     $offset    = strip_tags($_POST["offset"]);
     $heading   = strip_tags($_POST["heading"]);
+    $country   = $_POST["ob_country"];
 
     if (!is_longitude($longitude)) {
         $error++;
@@ -664,6 +657,11 @@ if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] !=
     if (!is_heading($heading)) {
         $error++;
         $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
+    }
+    
+    if (!is_country_id($country)) {
+        $error++;
+        $errormsg .= "<li>Please check the country value.</li>";
     }
 }
 else {
@@ -732,7 +730,7 @@ else {
         // Sending mail if there is no false and SQL was correctly inserted.
         date_default_timezone_set('UTC');                                // Sets the time to UTC.
         $dtg = date('l jS \of F Y h:i:s A');
-        $ipaddr = htmlentities(stripslashes($ipaddr));                                 // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+        $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));   // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
         
         $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);

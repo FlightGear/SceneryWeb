@@ -606,9 +606,7 @@ if (is_modelgroup_id($_POST["family_name"]) && isset($_POST["model_name"])
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $mo_shared   = $_POST["family_name"];
-    $contr_email = $_POST["email"];
     $model_name  = $_POST["model_name"];
-    $ipaddr      = $_SERVER["REMOTE_ADDR"];
 }
 else {
     $error++;
@@ -667,8 +665,8 @@ else {
         $failed_mail = true;
     }
     
-    if (is_email($contr_email)) {
-        $safe_contr_email = htmlentities(stripslashes($contr_email));
+    if (is_email($_POST["email"])) {
+        $safe_contr_email = htmlentities(stripslashes($_POST["email"]));
     } else {
         $failed_mail = true;
     }
@@ -691,7 +689,7 @@ else {
         // Sending mail if there is no false and SQL was correctly inserted.
         date_default_timezone_set('UTC');                                // Sets the time to UTC.
         $dtg = date('l jS \of F Y h:i:s A');
-        $ipaddr = htmlentities(stripslashes($ipaddr));                   // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+        $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));   // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
         $host = gethostbyaddr($ipaddr);
 
         $emailSubmit = EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
