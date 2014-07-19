@@ -593,18 +593,10 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 if (isset($_POST["mo_shared"]) && isset($_POST["mo_author"])
         && isset($_POST["mo_name"]) && isset($_POST['notes'])) {
 
-    $path        = remove_file_extension($ac3dName);
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $mo_shared   = $_POST["mo_shared"];
     $authorId    = $_POST["mo_author"];
-
-    // This is only used for shared objects.
-    // Reconstructing the parameters the model_exists function is waiting for, based on the path.
-    if ($mo_shared != 0 && model_exists('Models/'.$modelDaoRO->getModelsGroup($mo_shared)->getPath().$path) != 2) {
-        $error++;
-        $errormsg .= "<li>It seems that your model already exists in our database. If you want to update it, please use our lovely update script for 3D models (to come).</li>";
-    }
 
     if (!is_author_id($authorId)) {
         $error++;

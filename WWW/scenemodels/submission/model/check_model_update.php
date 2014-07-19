@@ -595,7 +595,6 @@ if (is_modelgroup_id($_POST["model_group_id"]) && isset($_POST["model_name"])
         && is_model_id($_POST["model_name"]) && is_model_name($_POST["mo_name"])
         && isset($_POST['notes']) && isset($_POST["mo_author"]) && is_comment($_POST['notes'])) {
 
-    $path        = remove_file_extension($ac3dName);
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $authorId    = $_POST["mo_author"];
