@@ -590,10 +590,10 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if ($_POST["mo_shared"] != "" && $_POST["mo_author"] != ""
-        && $_POST["mo_name"] != "" && isset($_POST['notes'])) {
+if (isset($_POST["mo_shared"]) && isset($_POST["mo_author"])
+        && isset($_POST["mo_name"]) && isset($_POST['notes'])) {
 
-    $path        = remove_file_extension($ac3dName); //addslashes(htmlentities(strip_tags($_POST["mo_path"]), ENT_QUOTES));
+    $path        = remove_file_extension($ac3dName);
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $mo_shared   = $_POST["mo_shared"];

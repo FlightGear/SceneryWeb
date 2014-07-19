@@ -591,22 +591,21 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (is_author_id($_POST["mo_author"])) {
-    $authorId  = $_POST["mo_author"];
-} else {
-    $error++;
-    $errormsg .= "<li>Please check the author value.</li>";
-}
-    
 if (is_modelgroup_id($_POST["family_name"]) && isset($_POST["model_name"])
         && is_model_id($_POST["model_name"]) && is_model_name($_POST["mo_name"])
-        && isset($_POST['notes']) && is_comment($_POST['notes'])) {
+        && isset($_POST['notes']) && isset($_POST["mo_author"]) && is_comment($_POST['notes'])) {
 
     $path        = remove_file_extension($ac3dName);
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
+    $authorId    = $_POST["mo_author"];
     $mo_shared   = $_POST["family_name"];
     $model_name  = $_POST["model_name"];
+    
+    if (!is_author_id($authorId)) {
+        $error++;
+        $errormsg .= "<li>Please check the author value.</li>";
+    }
 }
 else {
     $error++;
