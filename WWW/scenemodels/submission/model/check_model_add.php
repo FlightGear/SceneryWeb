@@ -648,7 +648,7 @@ if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] !=
     }
 
     if ($offset == '' || $offset == '0') {
-        $offset = "NULL";
+        $offset = 0;
     } else if (!is_offset($offset)) {
         $error++;
         $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
@@ -691,10 +691,6 @@ if ($fatalerror || $error > 0) {
     exit;
 }
 else {
-    if (empty($offset)) {
-        $offset = 0;
-    }
-    
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $objectFactory = new ObjectFactory($objectDaoRO);
     $newModel = new Model();

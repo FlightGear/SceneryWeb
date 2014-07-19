@@ -126,7 +126,7 @@ $(function() {
             </ul>
             <table style="width: 100%;">
                 <tr>
-                    <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object.</span></label></td>
+                    <td><label for="model_group_id">Object's family<em>*</em><span>This is the family name of the object.</span></label></td>
                     <td>
             <?php
 
@@ -134,7 +134,7 @@ $(function() {
                         $modelsGroups = $modelDaoRO->getModelsGroups();
 
                         // Start the select form
-                        echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
+                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">\n" .
                              "<option ";
                         if (isset($modelMD) && $modelMD->getModelsGroup()->isStatic()) {
                             echo "selected=\"selected\" ";

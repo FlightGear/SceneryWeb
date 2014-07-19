@@ -591,7 +591,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (is_modelgroup_id($_POST["family_name"]) && isset($_POST["model_name"])
+if (is_modelgroup_id($_POST["model_group_id"]) && isset($_POST["model_name"])
         && is_model_id($_POST["model_name"]) && is_model_name($_POST["mo_name"])
         && isset($_POST['notes']) && isset($_POST["mo_author"]) && is_comment($_POST['notes'])) {
 
@@ -599,7 +599,7 @@ if (is_modelgroup_id($_POST["family_name"]) && isset($_POST["model_name"])
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $authorId    = $_POST["mo_author"];
-    $mo_shared   = $_POST["family_name"];
+    $mo_shared   = $_POST["model_group_id"];
     $model_name  = $_POST["model_name"];
     
     if (!is_author_id($authorId)) {
@@ -665,14 +665,14 @@ else {
     }
     
     if (is_email($_POST["email"])) {
-        $safe_contr_email = htmlentities(stripslashes($_POST["email"]));
+        $contr_email = htmlentities(stripslashes($_POST["email"]));
     } else {
         $failed_mail = true;
     }
     
     $request = new RequestModelUpdate();
     $request->setNewModel($newModel);
-    $request->setContributorEmail($safe_contr_email);
+    $request->setContributorEmail($contr_email);
     $request->setComment($sent_comment);
     
     try {
@@ -697,10 +697,10 @@ else {
         if (!$failed_mail) {
             // Mailing the submitter to tell him that his submission has been sent for validation
             $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
-            $emailSubmit->sendEmail($safe_contr_email, false);
+            $emailSubmit->sendEmail($contr_email, false);
                     
             // If the author's email is different from the subbmitter's, an email is also sent to the author
-            if ($safe_au_email != $safe_contr_email) {
+            if ($safe_au_email != $contr_email) {
                 $emailSubmit = EmailContentFactory::getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $updatedReq);
                 $emailSubmit->sendEmail($safe_au_email, false);
             }

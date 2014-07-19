@@ -197,7 +197,7 @@ function validateForm()
         <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
         <tr>
           <td>
-            <span title="This is the family name of the object you want to update."><label for="family_name">Object's family<em>*</em></label></span>
+            <span title="This is the family name of the object you want to update."><label for="model_group_id">Object's family<em>*</em></label></span>
           </td>
           <td>
             <?php echo $modelMDToUp->getModelsGroup()->getName(); ?>
@@ -211,7 +211,7 @@ function validateForm()
         $modelsGroups = $modelDaoRO->getModelsGroups();
 
         // Start the select form
-        echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects();\">\n";
+        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects();\">\n";
         foreach ($modelsGroups as $modelsGroup) {
             $name = preg_replace('/ /',"&nbsp;",$modelsGroup->getName());
             if ($id_family == $modelsGroup->getId()) {
@@ -224,7 +224,7 @@ function validateForm()
     }
     else {
         echo "Static";
-        echo "      <input name=\"family_name\" type=\"hidden\" value=\"0\"></input>";
+        echo "      <input name=\"model_group_id\" type=\"hidden\" value=\"0\"></input>";
     }
 ?>
           </td>

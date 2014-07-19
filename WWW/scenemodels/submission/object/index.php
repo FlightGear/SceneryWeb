@@ -33,7 +33,7 @@ function validateTabs()
     $( "#tabs" ).tabs({ disabled: false });
 
     // Tab 1
-    if (form["family_name"].value === 0) {
+    if (form["model_group_id"].value === 0) {
         $( "#tabs" ).tabs({ disabled: [1, 2] });
         return false;
     }
@@ -76,14 +76,14 @@ $(function() {
         <div id="tabs-1">
             <table>
                 <tr>
-                    <td><label for="family_name">Object's family<em>*</em><span>This is the family name of the object you want to add.</span></label></td>
+                    <td><label for="model_group_id">Object's family<em>*</em><span>This is the family name of the object you want to add.</span></label></td>
                     <td colspan="2">
             <?php
                         // Show all the families other than the static family
                         $modelsGroups = $modelDaoRO->getModelsGroups();
 
                         // Start the select form
-                        echo "<select id=\"family_name\" name=\"family_name\" onchange=\"update_objects(); validateTabs();\">\n" .
+                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">\n" .
                              "<option selected=\"selected\" value=\"\">Please select a family</option>\n" .
                              "<option value=\"\">----</option>\n";
                         foreach ($modelsGroups as $modelsGroup) {
