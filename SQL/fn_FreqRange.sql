@@ -17,33 +17,36 @@
 -- Helpers to provide path names and elevation/heading figures for
 -- FlightGear scenery .stg-files
 
-CREATE OR REPLACE FUNCTION fn_FreqRange(lon numeric, lat numeric, range numeric)
+CREATE OR REPLACE FUNCTION fn_FreqRange(numeric, numeric, numeric)
     RETURNS SETOF json
 AS $$
+    DECLARE
+        lon numeric := $1;
+        lat numeric := $2;
+        range numeric := $3;
     BEGIN
-        RETURN QUERY SELECT array_to_json(array_agg(row_to_json(t))) AS freq
+        RETURN QUERY
+        WITH res AS (SELECT icao,
+            CAST(
+                ST_Distance_Spheroid(
+                    ST_PointFromText(concat('POINT(6.5 51.5)'), 4326),
+                    wkb_geometry,
+                    'SPHEROID["WGS84",6378137.000,298.257223563]')
+                AS numeric) AS dist
+        FROM apt_airfield)
+
+        SELECT array_to_json(array_agg(row_to_json(t))) AS freq
         FROM (
             SELECT f.icao,
                 f.freq_name,
                 f.freq_mhz,
-                round(CAST(
-                    ST_Distance_Spheroid(
-                        ST_PointFromText(concat('POINT(', lon, ' ',  lat, ')'), 4326),
-                        a.wkb_geometry,
-                        'SPHEROID["WGS84",6378137.000,298.257223563]')
-                    AS numeric) / 1852.01, 1)
+                round(res.dist / 1852.01, 1)
                 AS dist
             FROM apt_freq AS f,
-                apt_airfield AS a
-            WHERE
-                CAST(
-                    ST_Distance_Spheroid(
-                        ST_PointFromText(concat('POINT(', lon, ' ',  lat, ')'), 4326),
-                        a.wkb_geometry,
-                        'SPHEROID["WGS84",6378137.000,298.257223563]')
-                    AS numeric) < range * 1852.01
-            AND f.icao = a.icao
-            ORDER BY dist, f.icao, f.freq_name)
+                res
+            WHERE res.dist < range * 1852.01
+            AND f.icao = res.icao
+            ORDER BY res.dist, f.icao, f.freq_name)
         AS t;
     END;
 $$
