@@ -3,7 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
-<!-- Test-URL:
+<!-- *Main public download page*
+    Test-URL:
     http://mapserver.flightgear.org/shpdl?xmin=6&xmax=7&ymin=50&ymax=51
 -->
 
@@ -342,8 +343,7 @@ else:
         </td>
         <td valign="top" align="center">
             <p><h4>
-              Download every polygon from the Landcover database
-              within a given bounding box query.
+              Download every polygon of a certain class.
             </h4></p>
              Bounding Box (degrees):
             <form method="post" action="/dlshp">

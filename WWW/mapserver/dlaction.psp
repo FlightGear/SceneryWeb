@@ -1,10 +1,12 @@
 <%
 #
-# called by 'shpdl.psp'
-# calls '<basename>.sh'
+# called by 'shpdl.psp' (Main public download page)
+# calls 'dlaction.sh'
+#
+#  *Download individual layers*
 #
 # Verify input from the web form and store the necessary details in the
-# 'download' database table. Fire '<basename>.sh' with a reference to the UUID
+# 'download' database table. Fire 'dlaction.sh' with a reference to the UUID
 # of the respective database entry.
 #
 import os, time

@@ -25,8 +25,11 @@
     ScriptAlias /ms /usr/local/lib/cgi-bin/landcover
     ScriptAlias /ils /usr/local/lib/cgi-bin/ils
     RedirectPermanent /download.psp /shpdl/
+    # Main public download page
     ScriptAlias /shpdl /home/fgscenery/GIT/WWW/mapserver/shpdl.psp
+    # Download individual layers
     ScriptAlias /dlaction /home/fgscenery/GIT/WWW/mapserver/dlaction.psp
+    # Download every polygon of a certain class
     ScriptAlias /dlshp /home/fgscenery/GIT/WWW/mapserver/procshpdl.psp
     <Location /dlshp>
         Order allow,deny
