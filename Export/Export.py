@@ -25,14 +25,17 @@ import psycopg2, psycopg2.extras
 from subprocess import Popen, PIPE, STDOUT
 import base64
 import fnmatch
+import hashlib
 import tarfile
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
 
-homedir = os.path.expanduser("~")
+homedir = os.path.expanduser("~")  # jstockill
 fgscenery = os.path.expanduser("~fgscenery")
+martin = os.path.expanduser("~martin")
 statusfile = open(os.path.join(homedir, ".exportstatus"), "w")
 workdir = os.path.join(fgscenery, "Dump")
+fg_scenery = os.path.join(fgscenery, "Terrascenery")
 statusfile.write("running\n")
 statusfile.flush()
 
@@ -51,6 +54,7 @@ pgenv["PGDATABASE"] = pgdatabase
 pgenv["PGUSER"] = pguser
 
 gl_debug = False  # FIXME
+check_svn = False  # FIXME
 
 try:
     os.chdir(workdir)
@@ -85,10 +89,8 @@ def fn_pgexec(sql, mode):
             print("Cannot write to DB.")
 
 def fn_updateElevations():
-    martin = os.path.expanduser("~martin")
     fg_home = os.path.join(martin, "terragear")
     fg_root = os.path.join(martin, "SCM", "FlightGear", "fgdata")
-    fg_scenery = os.path.join(fgscenery, "Terrascenery")
     fgelev = os.path.join(martin, "bin", "fgelev")
 
     fgenv = dict(os.environ)
@@ -160,31 +162,6 @@ def fn_exportCommon():
         os.makedirs(row['obpath'])
     print("Objects directories done")
 
-def fn_exportStgRows():
-    sqlPath = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
-    sql = "SELECT DISTINCT ob_tile AS tile, %s FROM fgs_objects \
-        UNION \
-        SELECT DISTINCT si_tile AS tile, %s FROM fgs_signs \
-        ORDER BY tile;" % (sqlPath, sqlPath)
-    db_result = fn_pgexec(sql, "r")
-    num_rows = len(db_result)
-    print("%s valid .stg-files") % num_rows
-    suffix = ".stg"
-    for row in db_result:
-        obpath = os.path.join(workdir, row['obpath'])
-        obtile = row['tile']  # integer !
-        stgsql = "SELECT fn_DumpStgRows(%s);" % obtile
-        db_stg = fn_pgexec(stgsql, "r")
-        if db_stg != None:
-            stgfile = os.path.join(obpath, str(obtile) + suffix)
-#            print("\n%s") % stgfile
-            stgobj = open(stgfile, "a")
-            stgstring = db_stg[0][0]
-#            print(stgstring)
-            stgobj.write("%s\n" % stgstring)
-            stgobj.close()
-    print("Stg-Rows done")
-
 def fn_exportStaticModels():
     sql = "SELECT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, \
             mo_modelfile \
@@ -226,6 +203,49 @@ def fn_exportSharedModels():
         modeltar = tarfile.open(fileobj=tarobject, mode='r')
         modeltar.extractall(path=mgpath)
     print("Shared Models done")
+
+def fn_exportStgRows():
+    sqlPath = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
+    sql = "SELECT DISTINCT ob_tile AS tile, %s FROM fgs_objects \
+        UNION \
+        SELECT DISTINCT si_tile AS tile, %s FROM fgs_signs \
+        ORDER BY tile;" % (sqlPath, sqlPath)
+    db_result = fn_pgexec(sql, "r")
+    num_rows = len(db_result)
+    print("%s valid .stg-files") % num_rows
+    for row in db_result:
+        obtile = row['tile']  # integer !
+        stgfile = "%s.stg" % obtile
+        stgsql = "SELECT fn_DumpStgRows(%s);" % obtile
+        db_stg = fn_pgexec(stgsql, "r")
+        if db_stg != None:
+            stgfullpath = os.path.join(workdir, row['obpath'], stgfile)
+#            print("\n%s") % stgfullpath
+            stgobj = open(stgfullpath, "a")
+            stgstring = ("%s\n" % db_stg[0][0])
+#            print(stgstring)
+            md5sum = hashlib.md5(stgstring).hexdigest()
+#            print(md5sum)
+            stgobj.write(stgstring)
+            stgobj.close()
+            if check_svn is True:
+                stgfullpath_svn = os.path.join(fg_scenery, row['obpath'], str(obtile) + suffix)
+                print("\n%s") % stgfullpath_svn
+                try:
+                    print("Opening .stg-file %s") % stgfullpath_svn
+                    stgobj_svn = open(stgfullpath_svn, "r")
+                except:
+                    sys.exit("Failed to open .stg-file %s") % stgfullpath_svn
+                try:
+                    print(("Reading .stg-file %s from:\n") % (stgfullpath_svn, stgobj_svn))
+                    stgstring_svn = stgobj_svn.read()
+                except:
+                    sys.exit("Failed to read .stg-file %s") % stgfullpath_svn
+                print(stgstring_svn)
+                md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
+                print(md5sum_svn)
+                stgobj_svn.close()
+    print("Stg-Rows done")
 
 def fn_tfreset(tarinfo):
     tarinfo.uid = tarinfo.gid = 0
@@ -285,24 +305,23 @@ try:
 except:
     sys.exit("Cleanup failed")
 
-# Export the Objects directory
-print("### Exporting Objects tree ....")
+print("### Creating Objects directories ....")
 fn_exportCommon()
+#print("### Exporting Static Models ....")
+#try:
+#    fn_exportStaticModels()
+#except:
+#    sys.exit("Static Models export failed.")
+#print("### Exporting Shared Models tree ....")
+#try:
+#    fn_exportSharedModels()
+#except:
+#    sys.exit("Shared Models export failed.")
+print("### Exporting Objects tree ....")
 try:
     fn_exportStgRows()
 except:
     sys.exit("Stg-Rows export failed.")
-try:
-    fn_exportStaticModels()
-except:
-    sys.exit("Static Models export failed.")
-
-# Export the Models directory
-print("### Exporting Models tree ....")
-try:
-    fn_exportSharedModels()
-except:
-    sys.exit("Shared Models export failed.")
 
 try:
     # Remove empty dirs
