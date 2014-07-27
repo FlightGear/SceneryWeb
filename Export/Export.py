@@ -307,16 +307,16 @@ except:
 
 print("### Creating Objects directories ....")
 fn_exportCommon()
-#print("### Exporting Static Models ....")
-#try:
-#    fn_exportStaticModels()
-#except:
-#    sys.exit("Static Models export failed.")
-#print("### Exporting Shared Models tree ....")
-#try:
-#    fn_exportSharedModels()
-#except:
-#    sys.exit("Shared Models export failed.")
+print("### Exporting Static Models ....")
+try:
+    fn_exportStaticModels()
+except:
+    sys.exit("Static Models export failed.")
+print("### Exporting Shared Models tree ....")
+try:
+    fn_exportSharedModels()
+except:
+    sys.exit("Shared Models export failed.")
 print("### Exporting Objects tree ....")
 try:
     fn_exportStgRows()
