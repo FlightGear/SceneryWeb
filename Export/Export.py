@@ -230,15 +230,16 @@ def fn_exportStgRows():
             stgobj.write(stgstring)
             stgobj.close()
             if check_svn is True:
-                stgfullpath_svn = os.path.join(fg_scenery, obpath], stgfile)
+                stgfullpath_svn = os.path.join(fg_scenery, obpath, stgfile)
                 print("\n%s" % stgfullpath_svn)
                 try:
                     print("Opening .stg-file %s" % stgfullpath_svn)
                     stgobj_svn = open(stgfullpath_svn, "r")
                 except:
                     sys.exit("Failed to open .stg-file %s" % stgfullpath_svn)
+                print("File %s opened in access mode: %s" % (stgobj_svn.name, stgobj_svn.mode))
                 try:
-                    print("Reading .stg-file %s from:\n" % (stgfullpath_svn, stgobj_svn))
+                    print("Reading .stg-file %s" % stgfullpath_svn)
                     stgstring_svn = stgobj_svn.read()
                 except:
                     sys.exit("Failed to read .stg-file %s" % stgfullpath_svn)
