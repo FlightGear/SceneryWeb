@@ -212,35 +212,36 @@ def fn_exportStgRows():
         ORDER BY tile;" % (sqlPath, sqlPath)
     db_result = fn_pgexec(sql, "r")
     num_rows = len(db_result)
-    print("%s valid .stg-files") % num_rows
+    print("%s valid .stg-files" % num_rows)
     for row in db_result:
+        obpath = row['obpath']
         obtile = row['tile']  # integer !
         stgfile = "%s.stg" % obtile
         stgsql = "SELECT fn_DumpStgRows(%s);" % obtile
         db_stg = fn_pgexec(stgsql, "r")
         if db_stg != None:
-            stgfullpath = os.path.join(workdir, row['obpath'], stgfile)
-#            print("\n%s") % stgfullpath
+            stgfullpath = os.path.join(workdir, obpath, stgfile)
+#            print("\n%s" % stgfullpath)
             stgobj = open(stgfullpath, "a")
-            stgstring = ("%s\n" % db_stg[0][0])
+            stgstring = "%s\n" % db_stg[0][0]
 #            print(stgstring)
             md5sum = hashlib.md5(stgstring).hexdigest()
 #            print(md5sum)
             stgobj.write(stgstring)
             stgobj.close()
             if check_svn is True:
-                stgfullpath_svn = os.path.join(fg_scenery, row['obpath'], str(obtile) + suffix)
-                print("\n%s") % stgfullpath_svn
+                stgfullpath_svn = os.path.join(fg_scenery, obpath], stgfile)
+                print("\n%s" % stgfullpath_svn)
                 try:
-                    print("Opening .stg-file %s") % stgfullpath_svn
+                    print("Opening .stg-file %s" % stgfullpath_svn)
                     stgobj_svn = open(stgfullpath_svn, "r")
                 except:
-                    sys.exit("Failed to open .stg-file %s") % stgfullpath_svn
+                    sys.exit("Failed to open .stg-file %s" % stgfullpath_svn)
                 try:
-                    print(("Reading .stg-file %s from:\n") % (stgfullpath_svn, stgobj_svn))
+                    print("Reading .stg-file %s from:\n" % (stgfullpath_svn, stgobj_svn))
                     stgstring_svn = stgobj_svn.read()
                 except:
-                    sys.exit("Failed to read .stg-file %s") % stgfullpath_svn
+                    sys.exit("Failed to read .stg-file %s" % stgfullpath_svn)
                 print(stgstring_svn)
                 md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
                 print(md5sum_svn)
