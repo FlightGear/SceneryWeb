@@ -54,7 +54,7 @@ pgenv["PGDATABASE"] = pgdatabase
 pgenv["PGUSER"] = pguser
 
 gl_debug = False  # FIXME
-check_svn = False  # FIXME
+check_svn = True  # FIXME
 
 try:
     os.chdir(workdir)
@@ -231,21 +231,19 @@ def fn_exportStgRows():
             stgobj.close()
             if check_svn is True:
                 stgfullpath_svn = os.path.join(fg_scenery, obpath, stgfile)
-                print("\n%s" % stgfullpath_svn)
+#                print("\n%s" % stgfullpath_svn)
                 try:
-                    print("Opening .stg-file %s" % stgfullpath_svn)
+#                    print("Opening .stg-file %s" % stgfullpath_svn)
                     stgobj_svn = open(stgfullpath_svn, "r")
-                except:
-                    sys.exit("Failed to open .stg-file %s" % stgfullpath_svn)
-                print("File %s opened in access mode: %s" % (stgobj_svn.name, stgobj_svn.mode))
-                try:
-                    print("Reading .stg-file %s" % stgfullpath_svn)
+#                    print("File %s opened in access mode: %s,\nreading now ...." % (stgobj_svn.name, stgobj_svn.mode))
                     stgstring_svn = stgobj_svn.read()
                 except:
-                    sys.exit("Failed to read .stg-file %s" % stgfullpath_svn)
-                print(stgstring_svn)
+                    print("Failed to read .stg-file %s" % stgfullpath_svn)
+#                print(stgstring_svn)
                 md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
-                print(md5sum_svn)
+#                print(md5sum_svn)
+                if md5sum != md5sum_svn:
+                    print("### Stg-files differ:\n    %s, %s, %s" % (os.path.join(obpath, stgfile), md5sum, md5sum_svn))
                 stgobj_svn.close()
     print("Stg-Rows done")
 
