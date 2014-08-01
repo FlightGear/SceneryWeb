@@ -27,9 +27,9 @@
         {type: google.maps.MapTypeId.SATELLITE, 'sphericalMercator': true, numZoomLevels: 22}
     );
 
-    var yahoosat = new OpenLayers.Layer.Yahoo( "Yahoo Satellite (License!?)",
-        {type: YAHOO_MAP_SAT, 'sphericalMercator': true, numZoomLevels: 20}
-    );
+//    var yahoosat = new OpenLayers.Layer.Yahoo( "Yahoo Satellite (License!?)",
+//        {type: YAHOO_MAP_SAT, 'sphericalMercator': true, numZoomLevels: 20}
+//    );
 
     var bingaerial = new OpenLayers.Layer.Bing(
         {name: "Bing Aerial (License!!)", key: BingKey, type: "Aerial"}
