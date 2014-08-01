@@ -235,10 +235,14 @@ def fn_exportStgRows():
                 try:
 #                    print("Opening .stg-file %s" % stgfullpath_svn)
                     stgobj_svn = open(stgfullpath_svn, "r")
-#                    print("File %s opened in access mode: %s,\nreading now ...." % (stgobj_svn.name, stgobj_svn.mode))
-                    stgstring_svn = stgobj_svn.read()
                 except:
-                    print("Failed to read .stg-file %s" % stgfullpath_svn)
+                    print("Failed to open .stg-file %s" % stgfullpath_svn)
+                else:
+                    try:
+#                        print("File %s opened in access mode: %s,\nreading now ...." % (stgobj_svn.name, stgobj_svn.mode))
+                        stgstring_svn = stgobj_svn.read()
+                    except:
+                        print("Failed to read .stg-file %s" % stgfullpath_svn)
 #                print(stgstring_svn)
                 md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
 #                print(md5sum_svn)
