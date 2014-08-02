@@ -74,7 +74,8 @@ def fn_pgexec(sql, mode):
         try:
             db_cur.execute(sql)
             if db_cur.rowcount == 0:
-                print("DB query result is empty!")
+                if gl_debug is True:
+                    print("DB query result is empty!")
                 return None
             else:
                 db_result = db_cur.fetchall()
@@ -221,31 +222,27 @@ def fn_exportStgRows():
         db_stg = fn_pgexec(stgsql, "r")
         if db_stg != None:
             stgfullpath = os.path.join(workdir, obpath, stgfile)
-#            print("\n%s" % stgfullpath)
             stgobj = open(stgfullpath, "a")
             stgstring = "%s\n" % db_stg[0][0]
-#            print(stgstring)
             md5sum = hashlib.md5(stgstring).hexdigest()
-#            print(md5sum)
             stgobj.write(stgstring)
             stgobj.close()
             if check_svn is True:
                 stgfullpath_svn = os.path.join(fg_scenery, obpath, stgfile)
-#                print("\n%s" % stgfullpath_svn)
                 try:
-#                    print("Opening .stg-file %s" % stgfullpath_svn)
+                    if gl_debug is True:
+                        print("Opening .stg-file %s" % stgfullpath_svn)
                     stgobj_svn = open(stgfullpath_svn, "r")
                 except:
                     print("Failed to open .stg-file %s" % stgfullpath_svn)
                 else:
                     try:
-#                        print("File %s opened in access mode: %s,\nreading now ...." % (stgobj_svn.name, stgobj_svn.mode))
+                        if gl_debug is True:
+                            print("File %s opened in access mode: %s,\nreading now ...." % (stgobj_svn.name, stgobj_svn.mode))
                         stgstring_svn = stgobj_svn.read()
                     except:
                         print("Failed to read .stg-file %s" % stgfullpath_svn)
-#                print(stgstring_svn)
                 md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
-#                print(md5sum_svn)
                 if md5sum != md5sum_svn:
                     print("### Stg-files differ:\n    %s, %s, %s" % (os.path.join(obpath, stgfile), md5sum, md5sum_svn))
                 stgobj_svn.close()
