@@ -56,6 +56,8 @@ pgenv["PGUSER"] = pguser
 gl_debug = False  # FIXME
 check_svn = True  # FIXME
 
+svn_sync_dir = []
+
 try:
     os.chdir(workdir)
 except:
@@ -205,6 +207,27 @@ def fn_exportSharedModels():
         modeltar.extractall(path=mgpath)
     print("Shared Models done")
 
+def fn_check_svn(path_svn, file_svn, md5sum):
+    stgfullpath_svn = os.path.join(fg_scenery, path_svn, file_svn)
+    try:
+        if gl_debug is True:
+            print("Opening .stg-file %s" % stgfullpath_svn)
+        stgobj_svn = open(stgfullpath_svn, "r")
+    except:
+        print("Failed to open .stg-file %s" % stgfullpath_svn)
+    else:
+        try:
+            if gl_debug is True:
+                print("File %s opened in access mode: %s,\nreading now ...." % (stgobj_svn.name, stgobj_svn.mode))
+            stgstring_svn = stgobj_svn.read()
+        except:
+            print("Failed to read .stg-file %s" % stgfullpath_svn)
+    md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
+    if md5sum != md5sum_svn:
+        print("### Stg-files differ:\n    %s, %s, %s" % (os.path.join(path_svn, file_svn), md5sum, md5sum_svn))
+        svn_sync_dir.append(path_svn)
+    stgobj_svn.close()
+
 def fn_exportStgRows():
     sqlPath = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
     sql = "SELECT DISTINCT ob_tile AS tile, %s FROM fgs_objects \
@@ -228,24 +251,7 @@ def fn_exportStgRows():
             stgobj.write(stgstring)
             stgobj.close()
             if check_svn is True:
-                stgfullpath_svn = os.path.join(fg_scenery, obpath, stgfile)
-                try:
-                    if gl_debug is True:
-                        print("Opening .stg-file %s" % stgfullpath_svn)
-                    stgobj_svn = open(stgfullpath_svn, "r")
-                except:
-                    print("Failed to open .stg-file %s" % stgfullpath_svn)
-                else:
-                    try:
-                        if gl_debug is True:
-                            print("File %s opened in access mode: %s,\nreading now ...." % (stgobj_svn.name, stgobj_svn.mode))
-                        stgstring_svn = stgobj_svn.read()
-                    except:
-                        print("Failed to read .stg-file %s" % stgfullpath_svn)
-                md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
-                if md5sum != md5sum_svn:
-                    print("### Stg-files differ:\n    %s, %s, %s" % (os.path.join(obpath, stgfile), md5sum, md5sum_svn))
-                stgobj_svn.close()
+                fn_check_svn(obpath, stgfile, md5sum)
     print("Stg-Rows done")
 
 def fn_tfreset(tarinfo):
