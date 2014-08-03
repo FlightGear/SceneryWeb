@@ -252,7 +252,7 @@ def fn_exportStgRows():
             stgobj.close()
             if check_svn is True:
                 fn_check_svn(obpath, stgfile, md5sum)
-    print("Stg-Rows done")
+    print("Stg-Files done")
 
 def fn_tfreset(tarinfo):
     tarinfo.uid = tarinfo.gid = 0
@@ -314,21 +314,21 @@ except:
 
 print("### Creating Objects directories ....")
 fn_exportCommon()
-print("### Exporting Static Models ....")
-try:
-    fn_exportStaticModels()
-except:
-    sys.exit("Static Models export failed.")
 print("### Exporting Shared Models tree ....")
 try:
     fn_exportSharedModels()
 except:
     sys.exit("Shared Models export failed.")
-print("### Exporting Objects tree ....")
+print("### Exporting Static Models ....")
+try:
+    fn_exportStaticModels()
+except:
+    sys.exit("Static Models export failed.")
+print("### Exporting Stg-Files ....")
 try:
     fn_exportStgRows()
 except:
-    sys.exit("Stg-Rows export failed.")
+    sys.exit("Stg-Files export failed.")
 
 try:
     # Remove empty dirs
