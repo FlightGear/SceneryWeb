@@ -56,7 +56,7 @@ pgenv["PGUSER"] = pguser
 gl_debug = False  # FIXME
 check_svn = True  # FIXME
 
-svn_sync_dir = []
+svn_sync_dirs = []
 
 try:
     os.chdir(workdir)
@@ -225,7 +225,7 @@ def fn_check_svn(path_svn, file_svn, md5sum):
     md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
     if md5sum != md5sum_svn:
         print("### Stg-files differ:\n    %s, %s, %s" % (os.path.join(path_svn, file_svn), md5sum, md5sum_svn))
-        svn_sync_dir.append(path_svn)
+        svn_sync_dirs.append(path_svn)
     stgobj_svn.close()
 
 def fn_exportStgRows():
@@ -359,6 +359,10 @@ fn_pgexec(sql, "w")
 
 statusfile.write("successful\n")
 statusfile.flush()
+
+if len(svn_sync_dirs) > 0:
+    svn_synclist = sorted(set(svn_sync_dirs))
+    print("Directories pending SVN commit:\n%s" % svn_synclist)
 
 Notice = "Subject: Export Finished"
 Recipient = "martin@localhost"
