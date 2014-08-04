@@ -19,10 +19,9 @@
 #
 
 import os, sys, io
-import subprocess
 
 import psycopg2, psycopg2.extras
-from subprocess import Popen, PIPE, STDOUT
+from subprocess import check_call, Popen, PIPE, STDOUT
 import base64
 import fnmatch
 import hashlib
@@ -159,59 +158,48 @@ def fn_exportCommon():
                 WHERE fgs_objects.wkb_geometry && %s \
                 ORDER BY geom;" % row['bbox']
             print(bbox)
-    sqlPath = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
+    # Create empty Objects/ and Models/ directory trees
+    sqlPath = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS path"
     sql = "SELECT DISTINCT %s FROM fgs_objects \
-           UNION \
-           SELECT DISTINCT %s FROM fgs_signs \
-           ORDER BY obpath;" % (sqlPath, sqlPath)
-    db_result = fn_pgexec(sql, "r")
-    for row in db_result:
-        os.makedirs(row['obpath'])
-    print("Objects directories done")
-
-def fn_exportStaticModels():
-    sql = "SELECT concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, \
-            mo_modelfile \
-        FROM fgs_objects, fgs_models \
-        WHERE LENGTH(mo_modelfile) > 15 \
-            AND ob_valid IS TRUE AND ob_tile IS NOT NULL \
-            AND ob_model = mo_id AND ob_gndelev > -9999 AND mo_shared = 0 \
-        ORDER BY ob_tile;"
-    db_result = fn_pgexec(sql, "r")
-    for row in db_result:
-        obpath = os.path.join(workdir, row['obpath'])
-        modeldata = base64.b64decode(row['mo_modelfile'])
-        tarobject = io.BytesIO(modeldata)
-        modeltar = tarfile.open(fileobj=tarobject, mode='r')
-        modeltar.extractall(path=obpath)
-    print("Static Models done")
-
-def fn_exportSharedModels():
-    sql = "SELECT DISTINCT concat('Models/', g.mg_path) AS mgpath \
+        UNION \
+        SELECT DISTINCT %s FROM fgs_signs \
+        UNION \
+        SELECT DISTINCT concat('Models/', g.mg_path) AS path \
         FROM fgs_models AS m, fgs_modelgroups AS g \
         WHERE m.mo_shared > 0 AND m.mo_shared = g.mg_id \
-        ORDER BY mgpath;"
+        ORDER BY path;" % (sqlPath, sqlPath)
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
-        os.makedirs(row['mgpath'])
-    print("Models directories done")
+        os.makedirs(row['path'])
+    print("Empty Objects and Models directories done")
 
-    sql = "SELECT m.mo_id, concat('Models/', g.mg_path) AS mgpath, \
-            m.mo_modelfile, g.mg_path \
+def fn_exportModels():
+    sql = "SELECT m.mo_id AS id, concat('Objects/', fn_SceneDir(o.wkb_geometry), '/', fn_SceneSubDir(o.wkb_geometry), '/') AS path, \
+            m.mo_modelfile \
+        FROM fgs_objects AS o, fgs_models AS m \
+        WHERE LENGTH(m.mo_modelfile) > 15 \
+            AND o.ob_valid IS TRUE AND o.ob_tile IS NOT NULL \
+            AND o.ob_model = m.mo_id AND o.ob_gndelev > -9999 AND m.mo_shared = 0 \
+        UNION \
+        SELECT m.mo_id AS id, concat('Models/', g.mg_path) AS path, \
+            m.mo_modelfile \
         FROM fgs_models AS m, fgs_modelgroups AS g \
-        WHERE LENGTH(mo_modelfile) > 15 \
+        WHERE LENGTH(m.mo_modelfile) > 15 \
             AND m.mo_shared > 0 AND m.mo_shared = g.mg_id \
-        ORDER BY g.mg_id, m.mo_id;"
+        ORDER BY path, id;"
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
+        mgpath = os.path.join(workdir, row['path'])
         modeldata = base64.b64decode(row['mo_modelfile'])
-        mgpath = os.path.join(workdir, row['mgpath'])
         tarobject = io.BytesIO(modeldata)
         modeltar = tarfile.open(fileobj=tarobject, mode='r')
         modeltar.extractall(path=mgpath)
-    print("Shared Models done")
+    print("Models done")
 
 def fn_check_svn(path, file, md5sum):
+    '''
+    Runs once per file.
+    '''
     global gl_diffcount
     fullpath = os.path.join(path, file)
     svnpath_local = os.path.join(fg_scenery, fullpath)
@@ -231,7 +219,10 @@ def fn_check_svn(path, file, md5sum):
         else:
             md5sum_local = hashlib.md5(svndata_local).hexdigest()
             if md5sum != md5sum_local:
-                print("### Files differ: %s" % fullpath)
+                if gl_diffcount == 0:
+                    print("### Files differ: %s" % fullpath)
+                else:
+                    print("###             : %s" % fullpath)
                 svn_sync_dirs.append(path)
                 if 0:
                     svnpath_remote = os.path.join(svn_root, fullpath)
@@ -325,22 +316,17 @@ fn_updateElevations()
 
 # Cleanup Objects and Models
 try:
-    subprocess.check_call("find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;", shell=True)
+    check_call("find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;", shell=True)
 except:
     sys.exit("Cleanup failed")
 # Start exports
 print("### Creating Objects directories ....")
 fn_exportCommon()
-print("### Exporting Shared Models tree ....")
+print("### Exporting Models ....")
 try:
-    fn_exportSharedModels()
+    fn_exportModels()
 except:
-    sys.exit("Shared Models export failed.")
-print("### Exporting Static Models ....")
-try:
-    fn_exportStaticModels()
-except:
-    sys.exit("Static Models export failed.")
+    sys.exit("Models export failed.")
 print("### Exporting Stg-Files ....")
 try:
     fn_exportStgRows()
@@ -349,19 +335,19 @@ except:
 # All exports are over now, cleanup
 try:
     # Remove empty dirs
-    subprocess.check_call("find Objects/ Models/ -depth -type d -empty -exec rmdir --ignore-fail-on-non-empty {} \;", shell=True)
+    check_call("find Objects/ Models/ -depth -type d -empty -exec rmdir --ignore-fail-on-non-empty {} \;", shell=True)
 except:
     sys.exit("Removing empy directories failed.")
 try:
     # Ensure perms are correct
-    subprocess.check_call("find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;", shell=True)
-    subprocess.check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;", shell=True)
+    check_call("find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;", shell=True)
+    check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;", shell=True)
 except:
     sys.exit("Set permissions failed.")
 # Export dirs are clean now, print status
 if gl_diffcount == 1:
     print("### 1 file changed")
-if gl_diffcount > 1:
+elif gl_diffcount > 1:
     print("### %s files changed" % gl_diffcount)
 if len(svn_sync_dirs) > 0:
     svn_synclist = sorted(set(svn_sync_dirs))
