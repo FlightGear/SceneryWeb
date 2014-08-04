@@ -27,6 +27,7 @@ import base64
 import fnmatch
 import hashlib
 import tarfile
+import pysvn
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
 
@@ -36,6 +37,7 @@ martin = os.path.expanduser("~martin")
 statusfile = open(os.path.join(homedir, ".exportstatus"), "w")
 workdir = os.path.join(fgscenery, "Dump")
 fg_scenery = os.path.join(fgscenery, "Terrascenery")
+svn_root = "http://terrascenery.googlecode.com/svn/trunk/data/Scenery"
 statusfile.write("running\n")
 statusfile.flush()
 
@@ -57,6 +59,8 @@ gl_debug = False  # FIXME
 check_svn = True  # FIXME
 
 svn_sync_dirs = []
+gl_diffcount = 0
+svnclient = pysvn.Client()
 
 try:
     os.chdir(workdir)
@@ -207,26 +211,39 @@ def fn_exportSharedModels():
         modeltar.extractall(path=mgpath)
     print("Shared Models done")
 
-def fn_check_svn(path_svn, file_svn, md5sum):
-    stgfullpath_svn = os.path.join(fg_scenery, path_svn, file_svn)
+def fn_check_svn(path, file, md5sum):
+    global gl_diffcount
+    fullpath = os.path.join(path, file)
+    svnpath_local = os.path.join(fg_scenery, fullpath)
     try:
         if gl_debug is True:
-            print("Opening .stg-file %s" % stgfullpath_svn)
-        stgobj_svn = open(stgfullpath_svn, "r")
+            print("Opening file %s" % svnpath_local)
+        svnobj = open(svnpath_local, "rb")
     except:
-        print("Failed to open .stg-file %s" % stgfullpath_svn)
+        print("Failed to open file %s" % svnpath_local)
     else:
         try:
             if gl_debug is True:
-                print("File %s opened in access mode: %s,\nreading now ...." % (stgobj_svn.name, stgobj_svn.mode))
-            stgstring_svn = stgobj_svn.read()
+                print("File %s opened in access mode: %s,\nreading now ...." % (svnobj.name, svnobj.mode))
+            svndata_local = svnobj.read()
         except:
-            print("Failed to read .stg-file %s" % stgfullpath_svn)
-    md5sum_svn = hashlib.md5(stgstring_svn).hexdigest()
-    if md5sum != md5sum_svn:
-        print("### Stg-files differ:\n    %s, %s, %s" % (os.path.join(path_svn, file_svn), md5sum, md5sum_svn))
-        svn_sync_dirs.append(path_svn)
-    stgobj_svn.close()
+            print("Failed to read file %s" % svnpath_local)
+        else:
+            md5sum_local = hashlib.md5(svndata_local).hexdigest()
+            if md5sum != md5sum_local:
+                print("### Files differ: %s" % fullpath)
+                svn_sync_dirs.append(path)
+                if 0:
+                    svnpath_remote = os.path.join(svn_root, fullpath)
+                    try:
+                        svndata_remote = svnclient.cat(svnpath_remote)
+                    except:
+                        print("Failed to read from repository:\n    %s" % svnpath_remote)
+                    else:
+                        md5sum_remote = hashlib.md5(svndata_remote).hexdigest()
+                        print("    %s\n    Dump  : %s\n    Local : %s\n    Remote: %s" % (svnpath_remote, md5sum, md5sum_local, md5sum_remote))
+                gl_diffcount += 1
+        svnobj.close()
 
 def fn_exportStgRows():
     sqlPath = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
@@ -311,7 +328,7 @@ try:
     subprocess.check_call("find Objects/ Models/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;", shell=True)
 except:
     sys.exit("Cleanup failed")
-
+# Start exports
 print("### Creating Objects directories ....")
 fn_exportCommon()
 print("### Exporting Shared Models tree ....")
@@ -329,7 +346,7 @@ try:
     fn_exportStgRows()
 except:
     sys.exit("Stg-Files export failed.")
-
+# All exports are over now, cleanup
 try:
     # Remove empty dirs
     subprocess.check_call("find Objects/ Models/ -depth -type d -empty -exec rmdir --ignore-fail-on-non-empty {} \;", shell=True)
@@ -341,7 +358,15 @@ try:
     subprocess.check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;", shell=True)
 except:
     sys.exit("Set permissions failed.")
-
+# Export dirs are clean now, print status
+if gl_diffcount == 1:
+    print("### 1 file changed")
+if gl_diffcount > 1:
+    print("### %s files changed" % gl_diffcount)
+if len(svn_sync_dirs) > 0:
+    svn_synclist = sorted(set(svn_sync_dirs))
+    print("### Directories pending SVN commit:\n    %s" % svn_synclist)
+# Pack
 print("### Packing Global Objects and Models ....")
 fn_pack()
 
@@ -359,10 +384,6 @@ fn_pgexec(sql, "w")
 
 statusfile.write("successful\n")
 statusfile.flush()
-
-if len(svn_sync_dirs) > 0:
-    svn_synclist = sorted(set(svn_sync_dirs))
-    print("Directories pending SVN commit:\n%s" % svn_synclist)
 
 Notice = "Subject: Export Finished"
 Recipient = "martin@localhost"
