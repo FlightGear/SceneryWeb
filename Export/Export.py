@@ -30,10 +30,9 @@ import pysvn
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
 
-homedir = os.path.expanduser("~")  # jstockill
-fgscenery = os.path.expanduser("~fgscenery")
 martin = os.path.expanduser("~martin")
-statusfile = open(os.path.join(homedir, ".exportstatus"), "w")
+fgscenery = os.path.expanduser("~fgscenery")
+statusfile = open(os.path.join(martin, ".exportstatus"), "w")
 workdir = os.path.join(fgscenery, "Dump")
 fg_scenery = os.path.join(fgscenery, "Terrascenery")
 svn_root = "http://terrascenery.googlecode.com/svn/trunk/data/Scenery"
@@ -42,7 +41,7 @@ statusfile.flush()
 
 pghost = "localhost"
 pgdatabase = "landcover"
-pguser = "jstockill"
+pguser = "martin"
 db_params = {"host":pghost, "database":pgdatabase, "user":pguser}
 
 # Save this for later use by subprocesses like:
@@ -57,9 +56,11 @@ pgenv["PGUSER"] = pguser
 gl_debug = False  # FIXME
 check_svn = True  # FIXME
 
-svn_sync_dirs = []
+svn_newfiles = []
+svn_changefiles = []
+svn_syncdirs = []
 gl_diffcount = 0
-svnclient = pysvn.Client()
+svnclient = pysvn.Client(os.path.join(martin, ".subversion"))
 
 try:
     os.chdir(workdir)
@@ -205,7 +206,7 @@ def fn_exportModels():
                 print("Broken model archive: %s." % moid)
             else:
                 md5sum = hashlib.md5(filedata).hexdigest()
-                if 0:
+                if check_svn is True:
                     fn_check_svn(mopath, filename, md5sum)
     print("Models done")
 
@@ -222,6 +223,8 @@ def fn_check_svn(path, file, md5sum):
         svnobj = open(svnpath_local, "rb")
     except:
         print("Failed to open file %s" % svnpath_local)
+        svn_newfiles.append(fullpath)
+        svn_syncdirs.append(path)
     else:
         try:
             if gl_debug is True:
@@ -232,11 +235,8 @@ def fn_check_svn(path, file, md5sum):
         else:
             md5sum_local = hashlib.md5(svndata_local).hexdigest()
             if md5sum != md5sum_local:
-                if gl_diffcount == 0:
-                    print("### Files differ: %s" % fullpath)
-                else:
-                    print("                : %s" % fullpath)
-                svn_sync_dirs.append(path)
+                svn_changefiles.append(fullpath)
+                svn_syncdirs.append(path)
                 if 0:
                     svnpath_remote = os.path.join(svn_root, fullpath)
                     try:
@@ -371,12 +371,31 @@ if gl_diffcount == 1:
     print("### 1 file changed")
 elif gl_diffcount > 1:
     print("### %s files changed" % gl_diffcount)
-num_dirs = len(svn_sync_dirs)
-if num_dirs > 0:
-    svn_synclist = sorted(set(svn_sync_dirs))
-    print("### Directories pending SVN commit:\n    %s" % svn_synclist)
-if (gl_diffcount == 0 and num_dirs > 0) or (gl_diffcount > 0 and num_dirs == 0):
+
+num_newfiles = len(svn_newfiles)
+if num_newfiles > 0:
+    svn_newlist = sorted(set(svn_newfiles))
+    print("### Files missing from SVN:")
+    for newfile in svn_newlist:
+        print("    %s" % newfile)
+
+num_changefiles = len(svn_changefiles)
+if num_changefiles > 0:
+    svn_changelist = sorted(set(svn_changefiles))
+    print("### Files differing from SVN")
+    for changefile in svn_changelist:
+        print("    %s" % changefile)
+
+num_syncdirs = len(svn_syncdirs)
+if num_syncdirs > 0:
+    svn_synclist = sorted(set(svn_syncdirs), reverse=True)
+    print("### Directories pending SVN commit")
+    for syncdir in svn_synclist:
+        print("    %s" % syncdir)
+
+if (gl_diffcount == 0 and num_syncdirs > 0) or (gl_diffcount > 0 and num_syncdirs == 0):
     print("### Someting strange going on here .... ###")
+
 # Pack
 print("### Packing Global Objects and Models ....")
 fn_pack()
