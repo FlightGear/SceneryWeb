@@ -190,11 +190,12 @@ def fn_exportModels():
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
         moid = row['id']
-        mopath = os.path.join(workdir, row['path'])
+        mopath = row['path']
+        fullpath = os.path.join(workdir, mopath)
         modeldata = base64.b64decode(row['modelfile'])
         tarobj = io.BytesIO(modeldata)
         modeltar = tarfile.open(fileobj=tarobj, mode='r:gz')
-        modeltar.extractall(path=mopath)
+        modeltar.extractall(path=fullpath)
         for member in modeltar.getmembers():
             filename = member.name
             fileobj = modeltar.extractfile(filename)
@@ -205,7 +206,6 @@ def fn_exportModels():
             else:
                 md5sum = hashlib.md5(filedata).hexdigest()
                 if 0:
-                    print("%s # %s" % (md5sum, os.path.join(mopath, filename)))
                     fn_check_svn(mopath, filename, md5sum)
     print("Models done")
 
@@ -235,7 +235,7 @@ def fn_check_svn(path, file, md5sum):
                 if gl_diffcount == 0:
                     print("### Files differ: %s" % fullpath)
                 else:
-                    print("###             : %s" % fullpath)
+                    print("                : %s" % fullpath)
                 svn_sync_dirs.append(path)
                 if 0:
                     svnpath_remote = os.path.join(svn_root, fullpath)
