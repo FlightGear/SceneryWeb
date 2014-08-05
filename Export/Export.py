@@ -189,11 +189,19 @@ def fn_exportModels():
         ORDER BY path, id;"
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
-        mgpath = os.path.join(workdir, row['path'])
+        mopath = os.path.join(workdir, row['path'])
         modeldata = base64.b64decode(row['mo_modelfile'])
-        tarobject = io.BytesIO(modeldata)
-        modeltar = tarfile.open(fileobj=tarobject, mode='r')
-        modeltar.extractall(path=mgpath)
+        tarobj = io.BytesIO(modeldata)
+        modeltar = tarfile.open(fileobj=tarobj, mode='r:gz')
+        modeltar.extractall(path=mopath)
+        for member in modeltar.getmembers():
+            filename = member.name
+            fileobj = modeltar.extractfile(filename)
+            filedata = fileobj.read()
+            md5sum = hashlib.md5(filedata).hexdigest()
+            if 0:
+                print("%s # %s" % (md5sum, os.path.join(mopath, filename)))
+                fn_check_svn(mopath, filename, md5sum)
     print("Models done")
 
 def fn_check_svn(path, file, md5sum):
@@ -237,6 +245,9 @@ def fn_check_svn(path, file, md5sum):
         svnobj.close()
 
 def fn_exportStgRows():
+    '''
+    Fetch the entire file content as a single string.
+    '''
     sqlPath = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
     sql = "SELECT DISTINCT ob_tile AS tile, %s FROM fgs_objects \
         UNION \
@@ -312,7 +323,10 @@ sql = "UPDATE fgs_signs SET si_tile = fn_GetTileNumber(wkb_geometry) \
 fn_pgexec(sql, "w")
 
 print("### Updating ground elevations ....")
-fn_updateElevations()
+try:
+    fn_updateElevations()
+except:
+    sys.exit("Ground elevations failed.")
 
 # Cleanup Objects and Models
 try:
@@ -321,7 +335,10 @@ except:
     sys.exit("Cleanup failed")
 # Start exports
 print("### Creating Objects directories ....")
-fn_exportCommon()
+try:
+    fn_exportCommon()
+except:
+    sys.exit("Setting up export failed.")
 print("### Exporting Models ....")
 try:
     fn_exportModels()
@@ -332,14 +349,14 @@ try:
     fn_exportStgRows()
 except:
     sys.exit("Stg-Files export failed.")
-# All exports are over now, cleanup
+# All exports are over now, clean up
 try:
     # Remove empty dirs
     check_call("find Objects/ Models/ -depth -type d -empty -exec rmdir --ignore-fail-on-non-empty {} \;", shell=True)
 except:
     sys.exit("Removing empy directories failed.")
 try:
-    # Ensure perms are correct
+    # Ensure permissions are correct
     check_call("find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;", shell=True)
     check_call("find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;", shell=True)
 except:
@@ -349,9 +366,12 @@ if gl_diffcount == 1:
     print("### 1 file changed")
 elif gl_diffcount > 1:
     print("### %s files changed" % gl_diffcount)
-if len(svn_sync_dirs) > 0:
+num_dirs = len(svn_sync_dirs)
+if num_dirs > 0:
     svn_synclist = sorted(set(svn_sync_dirs))
     print("### Directories pending SVN commit:\n    %s" % svn_synclist)
+if (gl_diffcount == 0 and num_dirs > 0) or (gl_diffcount > 0 and num_dirs == 0):
+    print("### Someting strange going on here .... ###")
 # Pack
 print("### Packing Global Objects and Models ....")
 fn_pack()
