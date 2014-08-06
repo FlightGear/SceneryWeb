@@ -68,6 +68,8 @@ if ($action == "check") {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
         echo "><td>Description</td><td>".$oldObject->getDescription()."</td><td>".$newObject->getDescription()."</td></tr>\n";
+        echo "<tr><td>Thumbnail</td><td><img src='../../modelthumb.php?id=".$oldModelMD->getId()."' alt=''/></td>".
+                "<td><img src='../../modelthumb.php?id=".$newModelMD->getId()."' alt=''/></td></tr>";
         echo "<tr";
         if ($oldObject->getLongitude() != $newObject->getLongitude()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
@@ -232,7 +234,7 @@ else if ($action == "Reject") {
     // email destination
     $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
 
-    $emailSubmit = EmailContentFactory::getRejectAndDeletionConfirmationEmailContent($request, $comment);
+    $emailSubmit = EmailContentFactory::getObjectRejectedEmailContent($request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     exit;

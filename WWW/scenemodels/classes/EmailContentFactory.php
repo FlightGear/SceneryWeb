@@ -179,7 +179,7 @@ class EmailContentFactory {
     }
     
     static public function getObjectRequestAcceptedEmailContent($request, $comment) {
-        $subject = "Automatic objects pending request process confirmation";
+        $subject = "Object request accepted";
         $message = "We would like to let you know that the object (addition, update, deletion) request #".$request->getId(). " was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
@@ -206,8 +206,8 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getRejectAndDeletionConfirmationEmailContent($request, $comment) {
-        $subject = "Automatic objects reject and deletion confirmation";
+    static public function getObjectRejectedEmailContent($request, $comment) {
+        $subject = "Object request rejected";
         $message = "We are sorry to let you know that the object request #".$request->getId(). " was rejected.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
