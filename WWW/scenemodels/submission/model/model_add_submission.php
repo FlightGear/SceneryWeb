@@ -149,7 +149,7 @@ include '../../inc/header.php';
 
 ?>
 
-<p class="center">Hi, this is the static submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/model.</p>
+<p class="center">Hi, this is the model import submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/model.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
 <form id="validation" method="post" action="model_add_submission.php" onsubmit="return validateForm();">

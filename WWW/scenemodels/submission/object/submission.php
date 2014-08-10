@@ -68,6 +68,11 @@ if ($action == "check") {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
         echo "><td>Description</td><td>".$oldObject->getDescription()."</td><td>".$newObject->getDescription()."</td></tr>\n";
+        echo "<tr";
+        if ($oldModelMD->getId() != $newModelMD->getId()) {
+            echo " style=\"background-color: rgb(255, 200, 0)\"";
+        }
+        echo "><td>Object's model</td><td>".$oldModelMD->getName()."</td><td>".$newModelMD->getName()."</td></tr>\n";
         echo "<tr><td>Thumbnail</td><td><img src='../../modelthumb.php?id=".$oldModelMD->getId()."' alt=''/></td>".
                 "<td><img src='../../modelthumb.php?id=".$newModelMD->getId()."' alt=''/></td></tr>";
         echo "<tr";
@@ -88,17 +93,14 @@ if ($action == "check") {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
         echo "><td>Elevation offset</td><td>".$oldObject->getElevationOffset()."</td><td>".$newObject->getElevationOffset()."</td></tr>\n";
+        
         echo "<tr";
         if ($oldObject->getOrientation() != $newObject->getOrientation()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
         echo "><td>Heading (STG)</td><td>".heading_true_to_stg($oldObject->getOrientation())." (STG) - ".$oldObject->getOrientation()."(true)</td>".
              "<td>".heading_true_to_stg($newObject->getOrientation())." (STG) - ".$newObject->getOrientation()." (true)</td></tr>\n";
-        echo "<tr";
-        if ($oldModelMD->getId() != $newModelMD->getId()) {
-            echo " style=\"background-color: rgb(255, 200, 0)\"";
-        }
-        echo "><td>Object's model</td><td>".$oldModelMD->getName()."</td><td>".$newModelMD->getName()."</td></tr>\n";
+        
         echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$oldObject->getLongitude()."&amp;lat=".$oldObject->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td>".
              "<td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$newObject->getLongitude()."&amp;lat=".$newObject->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>\n" .
              "</tr>\n";
