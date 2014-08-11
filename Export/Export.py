@@ -215,37 +215,38 @@ def fn_check_svn(path, file, md5sum):
     Runs once per file.
     '''
     global gl_diffcount
+    path = os.path.normpath(path)
     fullpath = os.path.join(path, file)
-    svnpath_local = os.path.join(fg_scenery, fullpath)
+    svn_fullpath = os.path.join(fg_scenery, fullpath)
     try:
         if gl_debug is True:
-            print("Opening file %s" % svnpath_local)
-        svnobj = open(svnpath_local, "rb")
+            print("Opening file %s" % svn_fullpath)
+        svnobj = open(svn_fullpath, "rb")
     except:
-        print("Failed to open file %s" % svnpath_local)
+        print("Failed to open file %s" % svn_fullpath)
         svn_newfiles.append(fullpath)
         svn_syncdirs.append(path)
     else:
         try:
             if gl_debug is True:
                 print("File %s opened in access mode: %s,\nreading now ...." % (svnobj.name, svnobj.mode))
-            svndata_local = svnobj.read()
+            svn_data = svnobj.read()
         except:
-            print("Failed to read file %s" % svnpath_local)
+            print("Failed to read file %s" % svn_fullpath)
         else:
-            md5sum_local = hashlib.md5(svndata_local).hexdigest()
-            if md5sum != md5sum_local:
+            svn_md5sum = hashlib.md5(svn_data).hexdigest()
+            if md5sum != svn_md5sum:
                 svn_changefiles.append(fullpath)
                 svn_syncdirs.append(path)
                 if 0:
-                    svnpath_remote = os.path.join(svn_root, fullpath)
+                    svn_rfullpath = os.path.join(svn_root, fullpath)
                     try:
-                        svndata_remote = svnclient.cat(svnpath_remote)
+                        svn_rdata = svnclient.cat(svn_rfullpath)
                     except:
-                        print("Failed to read from repository:\n    %s" % svnpath_remote)
+                        print("Failed to read from repository:\n    %s" % svn_rfullpath)
                     else:
-                        md5sum_remote = hashlib.md5(svndata_remote).hexdigest()
-                        print("    %s\n    Dump  : %s\n    Local : %s\n    Remote: %s" % (svnpath_remote, md5sum, md5sum_local, md5sum_remote))
+                        svn_rmd5sum = hashlib.md5(svn_rdata).hexdigest()
+                        print("    %s\n    Dump  : %s\n    Local : %s\n    Remote: %s" % (svn_rfullpath, md5sum, svn_md5sum, svn_rmd5sum))
                 gl_diffcount += 1
         svnobj.close()
 
@@ -375,7 +376,7 @@ elif gl_diffcount > 1:
 num_newfiles = len(svn_newfiles)
 if num_newfiles > 0:
     svn_newlist = sorted(set(svn_newfiles))
-    print("### Files missing from SVN:")
+    print("### Files unknown to SVN:")
     for newfile in svn_newlist:
         print("    %s" % newfile)
 
@@ -391,6 +392,7 @@ if num_syncdirs > 0:
     svn_synclist = sorted(set(svn_syncdirs), reverse=True)
     print("### Directories pending SVN commit")
     for syncdir in svn_synclist:
+        syncdir = os.path.normpath(syncdir)
         print("    %s" % syncdir)
 
 if (gl_diffcount == 0 and num_syncdirs > 0) or (gl_diffcount > 0 and num_syncdirs == 0):
