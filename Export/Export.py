@@ -105,7 +105,7 @@ def fn_pgexec(sql, mode):
 
 def fn_updateElevations():
     fg_home = os.path.join(martin, "terragear")
-    fg_root = os.path.join(martin, "SCM", "FlightGear", "fgdata")
+    fg_root = os.path.join(martin, "live", "fgdata-3.0.0")
     fgelev = os.path.join(martin, "bin", "fgelev")
 
     fgenv = dict(os.environ)
