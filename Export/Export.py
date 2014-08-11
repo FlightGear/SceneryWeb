@@ -27,6 +27,8 @@ import fnmatch
 import hashlib
 import tarfile
 import pysvn
+from datetime import date
+import shutil
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
 
@@ -61,6 +63,12 @@ svn_changefiles = []
 svn_syncdirs = []
 gl_diffcount = 0
 svnclient = pysvn.Client(os.path.join(martin, ".subversion"))
+
+svn_info = svnclient.info(fg_scenery)
+#print("SVN root: %s" % svn_info.url)
+
+datestr = date.today().strftime("%Y%m%d")
+#print("Date string: %s" % datestr)
 
 try:
     os.chdir(workdir)
@@ -217,6 +225,7 @@ def fn_check_svn(path, file, md5sum):
     global gl_diffcount
     path = os.path.normpath(path)
     fullpath = os.path.join(path, file)
+    svn_dirpath = os.path.join(fg_scenery, path)
     svn_fullpath = os.path.join(fg_scenery, fullpath)
     try:
         if gl_debug is True:
@@ -224,6 +233,11 @@ def fn_check_svn(path, file, md5sum):
         svnobj = open(svn_fullpath, "rb")
     except:
         print("Failed to open file %s" % svn_fullpath)
+        if not os.path.isdir(svn_dirpath):
+            os.makedirs(svn_dirpath)
+            svnclient.add(svn_dirpath)
+        shutil.copy(fullpath, svn_dirpath)
+        svnclient.add(svn_fullpath)
         svn_newfiles.append(fullpath)
         svn_syncdirs.append(path)
     else:
@@ -236,6 +250,7 @@ def fn_check_svn(path, file, md5sum):
         else:
             svn_md5sum = hashlib.md5(svn_data).hexdigest()
             if md5sum != svn_md5sum:
+                shutil.copy(fullpath, svn_dirpath)
                 svn_changefiles.append(fullpath)
                 svn_syncdirs.append(path)
                 if 0:
@@ -394,6 +409,14 @@ if num_syncdirs > 0:
     for syncdir in svn_synclist:
         syncdir = os.path.normpath(syncdir)
         print("    %s" % syncdir)
+        svn_dirpath = os.path.join(fg_scenery, syncdir)
+        splitpath = syncdir.split(os.sep)
+        commitdir = os.path.join(splitpath[0], splitpath[1])
+        commitmsg = "%s %s" % (commitdir, datestr)
+        try:
+            svnclient.checkin([os.path.join(fg_scenery, commitdir)], commitmsg)
+        except:
+            sys.exit("SVN commit failed in: %s" % commitdir)
 
 if (gl_diffcount == 0 and num_syncdirs > 0) or (gl_diffcount > 0 and num_syncdirs == 0):
     print("### Someting strange going on here .... ###")
