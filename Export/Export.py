@@ -208,9 +208,9 @@ def fn_exportModels():
         modeltar.extractall(path=fullpath)
         for member in modeltar.getmembers():
             filename = member.name
-            fileobj = modeltar.extractfile(filename)
+            mofileobj = modeltar.extractfile(filename)
             try:
-                filedata = fileobj.read()
+                filedata = mofileobj.read()
             except:
                 print("Broken model archive: %s." % moid)
             else:
@@ -308,20 +308,20 @@ def fn_pack():
     # 10x10 degree tile Objects
     for packtile in os.listdir(objects):
         if fnmatch.fnmatch(packtile, "[ew][0-9][0-9]0[ns][0-9]0"):
-            destfile = os.path.join(download, packtile + suffix)
-            packfile = tarfile.open(destfile, "w:gz", format=tarfile.USTAR_FORMAT)
-            packfile.add("Objects/" + packtile, filter=fn_tfreset)
-            packfile.close()
+            distfilepath = os.path.join(download, packtile + suffix)
+            distfileobj = tarfile.open(distfilepath, "w:gz", format=tarfile.USTAR_FORMAT)
+            distfileobj.add("Objects/" + packtile, filter=fn_tfreset)
+            distfileobj.close()
     # GlobalObjects
-    destfile = os.path.join(download, "GlobalObjects" + suffix)
-    packfile = tarfile.open(destfile, "w:gz", format=tarfile.USTAR_FORMAT)
-    packfile.add("Objects", filter=fn_tfreset)
-    packfile.close()
+    distfilepath = os.path.join(download, "GlobalObjects" + suffix)
+    distfileobj = tarfile.open(distfilepath, "w:gz", format=tarfile.USTAR_FORMAT)
+    distfileobj.add("Objects", filter=fn_tfreset)
+    distfileobj.close()
     # SharedModels
-    destfile = os.path.join(download, "SharedModels" + suffix)
-    packfile = tarfile.open(destfile, "w:gz", format=tarfile.USTAR_FORMAT)
-    packfile.add("Models", filter=fn_tfreset)
-    packfile.close()
+    distfilepath = os.path.join(download, "SharedModels" + suffix)
+    distfileobj = tarfile.open(distfilepath, "w:gz", format=tarfile.USTAR_FORMAT)
+    distfileobj.add("Models", filter=fn_tfreset)
+    distfileobj.close()
 
 # End of update period for current export
 sql = "INSERT INTO fgs_timestamp (id, stamp) VALUES (1, now());"
