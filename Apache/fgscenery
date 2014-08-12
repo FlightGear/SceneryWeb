@@ -16,6 +16,8 @@
         PythonHandler mod_python.psp
         PythonDebug Off
     </Directory>
+    # Scenemodels Debugging
+    Alias /dupes.txt /home/martin/WWW/dupes.txt
     ErrorLog ${APACHE_LOG_DIR}/flightgear.org_error.log
     CustomLog ${APACHE_LOG_DIR}/flightgear.org_access.log combined
 </VirtualHost>

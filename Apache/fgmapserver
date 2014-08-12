@@ -104,8 +104,6 @@
     Alias /webalizer /home/martin/WWW/webalizer
     # Historic
     Alias /CrashTheDB_2.sql.gz /home/martin/landcover/CrashTheDB_full.sql.gz
-    # Scenemodels Debugging
-    Alias /dupes.txt /home/martin/WWW/dupes.txt
 ########################################################################
     # VirtualPlanetBuilder
     Alias /earth /home/martin/VPB/out
