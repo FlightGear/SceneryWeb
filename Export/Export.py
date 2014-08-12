@@ -399,8 +399,13 @@ num_changefiles = len(svn_changefiles)
 if num_changefiles > 0:
     svn_changelist = sorted(set(svn_changefiles))
     print("### Files differing from SVN")
+    dupes = open(os.path.join(martin, "WWW", "dupes.txt"), "w")
     for changefile in svn_changelist:
         print("    %s" % changefile)
+        if not re.match(r".*\.stg$", changefile):
+            dupes.write("%s\n" % changefile)
+    dupes.flush()
+    dupes.close()
 
 num_syncdirs = len(svn_syncdirs)
 if num_syncdirs > 0:
