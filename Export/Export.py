@@ -29,6 +29,7 @@ import tarfile
 import pysvn
 from datetime import date
 import shutil
+import re
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
 
