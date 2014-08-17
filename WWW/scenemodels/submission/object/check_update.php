@@ -175,11 +175,12 @@ function validateForm()
         !checkStringNotDefault(form["new_lat"], "") || !checkNumeric(form["new_lat"],-90,90) ||
         !checkNumeric(form['new_offset'],-999,999) ||
         !checkStringNotDefault(form["new_heading"], "") || !checkNumeric(form['new_heading'],0,359.999) ||
+        !checkComment(form['new_ob_text']) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
         (form['email'].value!=="" && !checkEmail(form['email'])))
         return false;
-
 }
+
 /*]]>*/
 </script>
     <p class="center">You have asked to update object <?php echo "<a href=\"/objectview.php?id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
