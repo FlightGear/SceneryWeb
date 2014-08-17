@@ -101,7 +101,7 @@ if (isset($_REQUEST['country']) && is_country_id($_REQUEST['country'])){
     $countryId = "";
 }
 
-if (isset($_REQUEST['description']) && (preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_REQUEST['description']))){
+if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_REQUEST['description'])){
     $description = $_REQUEST['description'];
     $filter_text .= "&amp;description=".$description;
     

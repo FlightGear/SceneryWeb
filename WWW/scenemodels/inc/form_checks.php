@@ -140,4 +140,13 @@ function is_sig($value) {
            && preg_match($regex['sig'], $value);
 }
 
+// Checks if the given variable is an obtext
+// ================================================
+function is_obtext($value) {
+    global $regex;
+    return strlen($value) > 0
+            && strlen($value) <= 100
+            && preg_match($regex['obtext'], $value);
+}
+
 ?>

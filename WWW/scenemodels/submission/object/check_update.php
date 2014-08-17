@@ -48,11 +48,8 @@ if (isset($_POST['email']) && is_email($_POST['email'])) {
     $safe_email = htmlentities(stripslashes($_POST['email']));
 }
 
-if (isset($_POST['new_ob_text'])
-    && strlen($_POST['new_ob_text']) > 0
-    && strlen($_POST['new_ob_text']) <= 100) {
-    // && preg_match($regex['obtext'], $_POST['new_ob_text']) )
-    $safe_new_ob_text = pg_escape_string(stripslashes($_POST['new_ob_text']));
+if (isset($_POST['new_ob_text']) && is_obtext($_POST['new_ob_text'])) {
+    $safe_new_ob_text = pg_escape_string(htmlentities(stripslashes($_POST['new_ob_text'])));
 }
 
 // Final step to edition
@@ -343,7 +340,7 @@ function validateForm()
           </td>
         </tr>
         <tr>
-            <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description (Just for test now - don't use)</label></span></td>
+            <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
             <td><?php $actual_ob_text = $objectToUp->getDescription(); echo $actual_ob_text; ?></td>
             <td>
                 <input type="text" name="new_ob_text" id="new_ob_text" size="50" maxlength="100" value="<?php echo $actual_ob_text; ?>" onkeyup="checkComment(this);" />

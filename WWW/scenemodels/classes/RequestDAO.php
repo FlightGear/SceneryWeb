@@ -394,9 +394,8 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     private function getRequestObjectUpdateFromRow($requestQuery) {
         // Removing the start of the query from the data
         $triggedQuery = strstr($requestQuery, 'SET');
-        $triggedQuery = str_replace('$','',$triggedQuery);
-        echo $triggedQuery;
-        $pattern = "/SET ob_text\=(?P<notes>[a-zA-Z0-9 +,!_.;\(\)\[\]\/-]*), wkb_geometry\=ST_PointFromText\('POINT\((?P<lon>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/";
+
+        $pattern = '/SET ob_text\=\$\$(?P<notes>[a-zA-Z0-9 +,!_.;\(\)\[\]\/-]*)\$\$, wkb_geometry\=ST_PointFromText\(\'POINT\((?P<lon>[0-9.-]+) (?P<lat>[0-9.-]+)\)\', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/';
 
         preg_match($pattern, $triggedQuery, $matches);
         //$country = $matches['country'];
@@ -418,7 +417,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function getRequestObjectDeleteFromRow($requestQuery) {
         $triggedQuery = strstr($requestQuery, 'WHERE');
-        $triggedQuery = str_replace('$','',$triggedQuery);
+        
         $pattern = "/WHERE ob_id\=(?P<object_id>[0-9]+)/";
 
         preg_match($pattern, $triggedQuery, $matches);
