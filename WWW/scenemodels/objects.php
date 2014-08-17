@@ -105,7 +105,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
     $description = $_REQUEST['description'];
     $filter_text .= "&amp;description=".$description;
     
-    $criteria[] = new Criterion("ob_text", Criterion::OPERATION_LIKE, "'%".$_REQUEST['description']."%'");
+    $criteria[] = new Criterion("ob_text", Criterion::OPERATION_LIKE, $_REQUEST['description']);
 } else {
     $description = "";
 }
