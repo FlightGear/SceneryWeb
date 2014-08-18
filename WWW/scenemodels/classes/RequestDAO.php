@@ -240,7 +240,11 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
-            $resultArray[] = $this->getRequestFromRow($row);
+            try {
+                $resultArray[] = $this->getRequestFromRow($row);
+            } catch (Exception $ex) {
+                error_log("Error with request ".$row['spr_id'].": ". $ex->getMessage());
+            }
         }
         
         return $resultArray;
