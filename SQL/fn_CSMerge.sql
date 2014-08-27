@@ -73,20 +73,23 @@ AS $BODY$
                     CASE WHEN within IS TRUE THEN
                         delobj := concat('DELETE FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, ';');
                     ELSE
-                        diffobj := concat('DROP TABLE IF EXISTS csdiff; CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole));');
+                        diffobj := concat('DROP TABLE IF EXISTS csdiff; CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole)) AS wkb_geometry;');
                         EXECUTE diffobj;
-                        testmulti := 'SELECT ogc_fid FROM csdiff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL';
+                        ALTER TABLE csdiff ADD COLUMN ogc_fid serial;
+                        testmulti := 'SELECT ogc_fid FROM csdiff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL;';
                         FOR multifid IN
                             EXECUTE testmulti
                         LOOP
-                            unrollmulti := concat('INSERT INTO csdiff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid, ')');
+                            unrollmulti := concat('INSERT INTO csdiff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid, ');');
+                            delmulti := concat('DELETE FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid, ';');
                             EXECUTE unrollmulti;
-                            delmulti := concat('DELETE FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid);
                             EXECUTE delmulti;
                         END LOOP;
-                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff)');
+                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff);');
                         RAISE NOTICE '%', delobj;
+                        EXECUTE delobj;
                         RAISE NOTICE '%', backdiff;
+                        EXECUTE backdiff;
                     END CASE;
                 ELSE NULL;
                 END CASE;
