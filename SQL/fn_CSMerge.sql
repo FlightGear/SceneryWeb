@@ -32,11 +32,11 @@
 --     generate_series ?) and store back to layer.
 --
 
-CREATE OR REPLACE FUNCTION fn_CSMerge(varchar)
-    RETURNS void
+CREATE OR REPLACE FUNCTION fn_CSMerge(grasslayer varchar)
+    RETURNS setof text
 AS $BODY$
     DECLARE
-        getcslayers CURSOR FOR SELECT f_table_name FROM geometry_columns WHERE f_table_name LIKE 'cs_%' AND type LIKE 'POLYGON' ORDER BY f_table_name;
+        getcslayers varchar := $$SELECT f_table_name FROM geometry_columns WHERE f_table_name LIKE 'cs_%' AND type LIKE 'POLYGON' ORDER BY f_table_name;$$;
         bboxtest varchar;
         xstest varchar;
         intest varchar;
@@ -46,46 +46,52 @@ AS $BODY$
         unrollmulti varchar;
         delmulti varchar;
         backdiff varchar;
-        dropdiff varchar;
+        intersects bool;
+        within bool;
         cslayer record;
         ogcfid record;
         multifid record;
     BEGIN
+        DROP TABLE IF EXISTS cshole;
+        CREATE TABLE cshole AS SELECT ST_Collect(wkb_geometry) AS wkb_geometry FROM base_collect;
+        ALTER TABLE cshole ADD CONSTRAINT "enforce_dims_wkb_geometry" CHECK (ST_NDims(wkb_geometry) = 2);
+        ALTER TABLE cshole ADD CONSTRAINT "enforce_geotype_wkb_geometry" CHECK (GeometryType(wkb_geometry) = 'MULTIPOLYGON'::text);
+        ALTER TABLE cshole ADD CONSTRAINT "enforce_srid_wkb_geometry" CHECK (ST_SRID(wkb_geometry) = 4326);
+
         FOR cslayer IN
-            getcslayers
+            EXECUTE getcslayers
         LOOP  -- through layers
-            bboxtest := concat('SELECT ogc_fid FROM ', quote_ident(cslayer.f_table_name), ' WHERE wkb_geometry && (SELECT wkb_geometry FROM cshole) ORDER BY ogc_fid');
+            bboxtest := concat('SELECT ogc_fid FROM ', quote_ident(cslayer.f_table_name), ' WHERE wkb_geometry && (SELECT wkb_geometry FROM cshole) ORDER BY ogc_fid;');
             FOR ogcfid IN
                 EXECUTE bboxtest
             LOOP  -- through candidate objects
-                xstest := concat('SELECT ST_Intersects((SELECT wkb_geometry FROM cshole), (SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '))');
-                CASE WHEN EXECUTE xstest THEN
-                    intest := concat('SELECT ST_Within((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole))');
-                    delobj := concat('DELETE FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid);
-                    CASE WHEN EXECUTE intest THEN
-                        RAISE NOTICE '%', delobj;
+                xstest := concat('SELECT ST_Intersects((SELECT wkb_geometry FROM cshole), (SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '));');
+                EXECUTE xstest INTO intersects;
+                CASE WHEN intersects IS TRUE THEN
+                    intest := concat('SELECT ST_Within((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole));');
+                    EXECUTE intest INTO within;
+                    CASE WHEN within IS TRUE THEN
+                        delobj := concat('DELETE FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, ';');
                     ELSE
-                        diffobj := concat('CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole))');
-                        RAISE NOTICE '%', diffobj;
+                        diffobj := concat('DROP TABLE IF EXISTS csdiff; CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole));');
                         EXECUTE diffobj;
                         testmulti := 'SELECT ogc_fid FROM csdiff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL';
                         FOR multifid IN
                             EXECUTE testmulti
                         LOOP
                             unrollmulti := concat('INSERT INTO csdiff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid, ')');
-                            delmulti := concat('DELETE FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid);
-                            RAISE NOTICE '%', unrollmulti;
                             EXECUTE unrollmulti;
-                            RAISE NOTICE '%', delmulti;
+                            delmulti := concat('DELETE FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid);
+                            EXECUTE delmulti;
                         END LOOP;
-                        RAISE NOTICE '%', delobj;
                         backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff)');
+                        RAISE NOTICE '%', delobj;
                         RAISE NOTICE '%', backdiff;
-                        dropdiff := 'DROP TABLE csdiff';
                     END CASE;
+                ELSE NULL;
                 END CASE;
             END LOOP;
         END LOOP;
     END;
 $BODY$
-LANGUAGE 'plpgsql';
+LANGUAGE plpgsql;
