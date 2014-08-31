@@ -71,7 +71,7 @@ AS $BODY$
                 CASE WHEN intersects IS TRUE THEN
                     intest := concat('SELECT ST_Within((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole));');
                     EXECUTE intest INTO within;
-                    CASE WHEN within IS TRUE THEN
+                    CASE WHEN within IS FALSE THEN
                         DROP TABLE IF EXISTS csdiff;
                         diffobj := concat('CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole)) AS wkb_geometry;');
                         RAISE NOTICE '%', diffobj;
