@@ -86,15 +86,15 @@ AS $BODY$
                             EXECUTE unrollmulti;
                             EXECUTE delmulti;
                         END LOOP;
---                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff);');
-                        backdiff := 'INSERT INTO difftemp (wkb_geometry) (SELECT wkb_geometry FROM csdiff);';
+                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff);');
+--                        backdiff := 'INSERT INTO difftemp (wkb_geometry) (SELECT wkb_geometry FROM csdiff);';
                         RAISE NOTICE '%', backdiff;
                         EXECUTE backdiff;
                     ELSE NULL;
                     END CASE;
                     delobj := concat('DELETE FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, ';');
                     RAISE NOTICE '%', delobj;
---                    EXECUTE delobj;
+                    EXECUTE delobj;
                 ELSE NULL;
                 END CASE;
             END LOOP;
