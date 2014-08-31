@@ -31,6 +31,11 @@
 --     "ST_NumGeometries" to avoid multipolygons ("ST_Dump" or
 --     generate_series ?) and store back to layer.
 --
+-- Requirements:
+--	csfull: Layer containing all new land cover by category,
+--          *without* ocean, type POLYGON
+--	cscollect: Layer containing polygons for hole cutting,
+--          *including* ocean, single category, type POLYGON
 
 CREATE OR REPLACE FUNCTION fn_CSMerge(grasslayer varchar)
     RETURNS setof text
@@ -46,14 +51,17 @@ AS $BODY$
         unrollmulti varchar;
         delmulti varchar;
         backdiff varchar;
+        newcslayers varchar := 'SELECT DISTINCT pglayer FROM csfull ORDER BY pglayer;';
+        addnewlayer varchar;
         intersects bool;
         within bool;
         cslayer record;
         ogcfid record;
         multifid record;
+        pglayer record;
     BEGIN
         DROP TABLE IF EXISTS cshole;
-        CREATE TABLE cshole AS SELECT ST_Collect(wkb_geometry) AS wkb_geometry FROM base_collect;
+        CREATE TABLE cshole AS SELECT ST_Collect(wkb_geometry) AS wkb_geometry FROM cscollect;
         ALTER TABLE cshole ADD COLUMN ogc_fid serial NOT NULL;
         ALTER TABLE cshole ADD CONSTRAINT "enforce_dims_wkb_geometry" CHECK (ST_NDims(wkb_geometry) = 2);
         ALTER TABLE cshole ADD CONSTRAINT "enforce_geotype_wkb_geometry" CHECK (GeometryType(wkb_geometry) = 'MULTIPOLYGON'::text);
@@ -98,6 +106,14 @@ AS $BODY$
                 ELSE NULL;
                 END CASE;
             END LOOP;
+        END LOOP;
+
+        FOR pglayer IN
+            EXECUTE newcslayers
+        LOOP
+            addnewlayer := concat('INSERT INTO ', quote_ident(pglayer.pglayer), $$ (wkb_geometry) (SELECT wkb_geometry FROM csfull WHERE pglayer LIKE '$$, quote_ident(pglayer.pglayer), $$');$$);
+            RAISE NOTICE '%', addnewlayer;
+            EXECUTE addnewlayer;
         END LOOP;
     END;
 $BODY$
