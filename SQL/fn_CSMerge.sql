@@ -54,6 +54,7 @@ AS $BODY$
     BEGIN
         DROP TABLE IF EXISTS cshole;
         CREATE TABLE cshole AS SELECT ST_Collect(wkb_geometry) AS wkb_geometry FROM base_collect;
+        ALTER TABLE cshole ADD COLUMN ogc_fid serial NOT NULL;
         ALTER TABLE cshole ADD CONSTRAINT "enforce_dims_wkb_geometry" CHECK (ST_NDims(wkb_geometry) = 2);
         ALTER TABLE cshole ADD CONSTRAINT "enforce_geotype_wkb_geometry" CHECK (GeometryType(wkb_geometry) = 'MULTIPOLYGON'::text);
         ALTER TABLE cshole ADD CONSTRAINT "enforce_srid_wkb_geometry" CHECK (ST_SRID(wkb_geometry) = 4326);
@@ -71,11 +72,11 @@ AS $BODY$
                     intest := concat('SELECT ST_Within((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole));');
                     EXECUTE intest INTO within;
                     CASE WHEN within IS TRUE THEN
-                        delobj := concat('DELETE FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, ';');
-                    ELSE
-                        diffobj := concat('DROP TABLE IF EXISTS csdiff; CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole)) AS wkb_geometry;');
+                        DROP TABLE IF EXISTS csdiff;
+                        diffobj := concat('CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole)) AS wkb_geometry;');
+                        RAISE NOTICE '%', diffobj;
                         EXECUTE diffobj;
-                        ALTER TABLE csdiff ADD COLUMN ogc_fid serial;
+                        ALTER TABLE csdiff ADD COLUMN ogc_fid serial NOT NULL;
                         testmulti := 'SELECT ogc_fid FROM csdiff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL;';
                         FOR multifid IN
                             EXECUTE testmulti
@@ -85,12 +86,15 @@ AS $BODY$
                             EXECUTE unrollmulti;
                             EXECUTE delmulti;
                         END LOOP;
-                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff);');
-                        RAISE NOTICE '%', delobj;
-                        EXECUTE delobj;
+--                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff);');
+                        backdiff := 'INSERT INTO difftemp (wkb_geometry) (SELECT wkb_geometry FROM csdiff);';
                         RAISE NOTICE '%', backdiff;
                         EXECUTE backdiff;
+                    ELSE NULL;
                     END CASE;
+                    delobj := concat('DELETE FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, ';');
+                    RAISE NOTICE '%', delobj;
+--                    EXECUTE delobj;
                 ELSE NULL;
                 END CASE;
             END LOOP;
