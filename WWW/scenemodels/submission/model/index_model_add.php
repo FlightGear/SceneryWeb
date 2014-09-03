@@ -247,14 +247,6 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <label for="gndelev">Elevation (NOT USED ANYMORE!!)<span>This is the ground elevation (in meters) of the position where the object you want to add is located.</span></label>
-                    </td>
-                    <td>
-                        <input type="text" name="gndelev" id="gndelev" maxlength="10" value="Use elevation offset instead" readonly="readonly" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <label for="heading">Orientation<em>*</em><span>The orientation (in degrees) of the object you want to add - as it appears in the .stg file (this is NOT the true heading). Let 0 if there is no specific orientation.</span></label>
                     </td>
                     <td>

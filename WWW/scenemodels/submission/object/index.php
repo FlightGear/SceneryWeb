@@ -152,9 +152,6 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><label for="gndelev">The ground elevation is now automagically computed by FlightGear with the latest terrain data. Please use positive/negative offset if you want to place your object over/under the ground.<span>This is the ground elevation (in meters) of the position where the object you want to add is located.</span></label></td>
-                </tr>
-                <tr>
                     <td><label for="heading">Orientation<em>*</em><span>The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation.</span></label></td>
                     <td>
                         <input type="text" name="heading" id="heading" maxlength="7" value="" onkeyup="checkNumeric(form['heading'],0,359.999);validateTabs();" />

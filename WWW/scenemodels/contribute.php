@@ -68,7 +68,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         <p>If you wish to help populate the world with interesting static objects (yes, we really are aiming for total world domination here :-) then we'll need the following details:</p>
 
         <h3 id="items"><a>Submission items</a></h3>
-        <h4>Mandantory submission items</h4>
+        <h4>Mandatory submission items</h4>
         <ul>
             <li><strong>Model placement</strong>:
                 <ul class="detail">
@@ -163,10 +163,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         will stay the same and the star will always be sitting on its building, and the submitter has just nothing to change!
         </li>
         <li>
-        For those wondering, the offset is applied on export by Terrasync, which computes the (easy) operation ELEV+OFFSET (whether offset is positive or negative) and puts the result into the STG file.
-        </li>
-        <li>
-        You can let FG compute the terrain elevation automagically, enter -9999 in the elevation field. FG will then compute the elevation with the current official terrain before pushing the result to the STG files pushed by Terrasync.
+        For those wondering, the offset is applied on export by TerraSync, which computes the (easy) operation ELEV+OFFSET (whether offset is positive or negative) and puts the result into the STG file.
         </li>
     </ul>
     </p>
