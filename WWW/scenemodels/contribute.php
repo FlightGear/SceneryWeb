@@ -50,7 +50,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         If you have data available in other formats please try to convert them into the STG format first. You can find help on the <a href="http://www.flightgear.org/forums">forums</a> to do so.</li>
         </ul>
 
-        <h3>Extra options for .stg submissions (currently unsupported by our webform)</h3>
+        <!--<h3>Extra options for .stg submissions (currently unsupported by our webform)</h3>
         <p>You can help speed the import process by including all the details about your scenery in an stg file. This can be processed automatically and is by far the quickest way to get your model locations into the database.</p>
         <p>There's an example file here: <a href="example.stg">example.stg</a></p>
         <p>Currently supported comments are:</p>
@@ -58,7 +58,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
           <li>#country: - defines the country in which the objects reside.</li>
           <li>#submitter: - your name</li>
           <li>#desc: - description to be used for the following objects</li>
-        </ul>
+        </ul>-->
     </div>
 </div>
 
