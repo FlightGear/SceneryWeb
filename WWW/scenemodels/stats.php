@@ -11,7 +11,6 @@ require 'inc/header.php';
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript'>
     google.load('visualization', '1', {'packages': ['geochart','corechart']});
-    google.setOnLoadCallback(drawRegionsMap);
 
     var regionId = 'world';
     var worldmap = 'data1';
@@ -289,7 +288,7 @@ require 'inc/header.php';
         dataObjects.addRows([
             [new Date(2008,3,8), 993836, 735, 0],
             [new Date(2008,5,1), 994057, 786, 0],
-            [new Date(2008,09,15), 1038108, 1269, 573 ],
+            [new Date(2008,9,15), 1038108, 1269, 573 ],
             [new Date(2008,11,5), 1038477, 1306, 679 ],
             [new Date(2009,0,7), 1036978, 1340, 723 ],
             [new Date(2009,1,1), 1113318, 1371, 723],
@@ -341,6 +340,7 @@ require 'inc/header.php';
     };
 
     google.setOnLoadCallback(drawVisualization);
+    google.setOnLoadCallback(drawRegionsMap('world','auto'));
 </script>
 
 <h1>FlightGear Scenery Statistics</h1>
