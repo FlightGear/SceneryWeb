@@ -32,10 +32,14 @@
 --     generate_series ?) and store back to layer.
 --
 -- Requirements:
---	csfull: Layer containing all new land cover by category,
+--	csnew_full: Layer containing all new land cover by category,
 --          *without* ocean, type POLYGON
---	cscollect: Layer containing polygons for hole cutting,
+--	csnew_collect: Layer containing polygons for hole cutting,
 --          *including* ocean, single category, type POLYGON
+-- Uses:
+--      csnew_hole: Unification of hole cutting polygons into one single feature
+--          of type MULTIPOLYGON
+--      csnew_diff: Temporary store of intersected polygons
 
 CREATE OR REPLACE FUNCTION fn_CSMerge(grasslayer varchar)
     RETURNS setof text
@@ -51,7 +55,7 @@ AS $BODY$
         unrollmulti varchar;
         delmulti varchar;
         backdiff varchar;
-        newcslayers varchar := 'SELECT DISTINCT pglayer FROM csfull ORDER BY pglayer;';
+        newcslayers varchar := 'SELECT DISTINCT pglayer FROM csnew_full ORDER BY pglayer;';
         addnewlayer varchar;
         intersects bool;
         within bool;
@@ -60,42 +64,41 @@ AS $BODY$
         multifid record;
         pglayer record;
     BEGIN
-        DROP TABLE IF EXISTS cshole;
-        CREATE TABLE cshole AS SELECT ST_Collect(wkb_geometry) AS wkb_geometry FROM cscollect;
-        ALTER TABLE cshole ADD COLUMN ogc_fid serial NOT NULL;
-        ALTER TABLE cshole ADD CONSTRAINT "enforce_dims_wkb_geometry" CHECK (ST_NDims(wkb_geometry) = 2);
-        ALTER TABLE cshole ADD CONSTRAINT "enforce_geotype_wkb_geometry" CHECK (GeometryType(wkb_geometry) = 'MULTIPOLYGON'::text);
-        ALTER TABLE cshole ADD CONSTRAINT "enforce_srid_wkb_geometry" CHECK (ST_SRID(wkb_geometry) = 4326);
+        DROP TABLE IF EXISTS csnew_hole;
+        CREATE TABLE csnew_hole AS SELECT ST_Collect(wkb_geometry) AS wkb_geometry FROM csnew_collect;
+        ALTER TABLE csnew_hole ADD COLUMN ogc_fid serial NOT NULL;
+        ALTER TABLE csnew_hole ADD CONSTRAINT "enforce_dims_wkb_geometry" CHECK (ST_NDims(wkb_geometry) = 2);
+        ALTER TABLE csnew_hole ADD CONSTRAINT "enforce_geotype_wkb_geometry" CHECK (GeometryType(wkb_geometry) = 'MULTIPOLYGON'::text);
+        ALTER TABLE csnew_hole ADD CONSTRAINT "enforce_srid_wkb_geometry" CHECK (ST_SRID(wkb_geometry) = 4326);
 
         FOR cslayer IN
             EXECUTE getcslayers
         LOOP  -- through layers
-            bboxtest := concat('SELECT ogc_fid FROM ', quote_ident(cslayer.f_table_name), ' WHERE wkb_geometry && (SELECT wkb_geometry FROM cshole) ORDER BY ogc_fid;');
+            bboxtest := concat('SELECT ogc_fid FROM ', quote_ident(cslayer.f_table_name), ' WHERE wkb_geometry && (SELECT wkb_geometry FROM csnew_hole) ORDER BY ogc_fid;');
             FOR ogcfid IN
                 EXECUTE bboxtest
             LOOP  -- through candidate objects
-                xstest := concat('SELECT ST_Intersects((SELECT wkb_geometry FROM cshole), (SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '));');
+                xstest := concat('SELECT ST_Intersects((SELECT wkb_geometry FROM csnew_hole), (SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '));');
                 EXECUTE xstest INTO intersects;
                 CASE WHEN intersects IS TRUE THEN
-                    intest := concat('SELECT ST_Within((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole));');
+                    intest := concat('SELECT ST_Within((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM csnew_hole));');
                     EXECUTE intest INTO within;
                     CASE WHEN within IS FALSE THEN
-                        DROP TABLE IF EXISTS csdiff;
-                        diffobj := concat('CREATE TABLE csdiff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM cshole)) AS wkb_geometry;');
+                        DROP TABLE IF EXISTS csnew_diff;
+                        diffobj := concat('CREATE TABLE csnew_diff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM csnew_hole)) AS wkb_geometry;');
                         RAISE NOTICE '%', diffobj;
                         EXECUTE diffobj;
-                        ALTER TABLE csdiff ADD COLUMN ogc_fid serial NOT NULL;
-                        testmulti := 'SELECT ogc_fid FROM csdiff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL;';
+                        ALTER TABLE csnew_diff ADD COLUMN ogc_fid serial NOT NULL;
+                        testmulti := 'SELECT ogc_fid FROM csnew_diff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL;';
                         FOR multifid IN
                             EXECUTE testmulti
                         LOOP
-                            unrollmulti := concat('INSERT INTO csdiff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid, ');');
-                            delmulti := concat('DELETE FROM csdiff WHERE ogc_fid = ', multifid.ogc_fid, ';');
+                            unrollmulti := concat('INSERT INTO csnew_diff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM csnew_diff WHERE ogc_fid = ', multifid.ogc_fid, ');');
+                            delmulti := concat('DELETE FROM csnew_diff WHERE ogc_fid = ', multifid.ogc_fid, ';');
                             EXECUTE unrollmulti;
                             EXECUTE delmulti;
                         END LOOP;
-                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csdiff);');
---                        backdiff := 'INSERT INTO difftemp (wkb_geometry) (SELECT wkb_geometry FROM csdiff);';
+                        backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM csnew_diff);');
                         RAISE NOTICE '%', backdiff;
                         EXECUTE backdiff;
                     ELSE NULL;
@@ -111,7 +114,7 @@ AS $BODY$
         FOR pglayer IN
             EXECUTE newcslayers
         LOOP
-            addnewlayer := concat('INSERT INTO ', quote_ident(pglayer.pglayer), $$ (wkb_geometry) (SELECT wkb_geometry FROM csfull WHERE pglayer LIKE '$$, quote_ident(pglayer.pglayer), $$');$$);
+            addnewlayer := concat('INSERT INTO ', quote_ident(pglayer.pglayer), $$ (wkb_geometry) (SELECT wkb_geometry FROM csnew_full WHERE pglayer LIKE '$$, quote_ident(pglayer.pglayer), $$');$$);
             RAISE NOTICE '%', addnewlayer;
             EXECUTE addnewlayer;
         END LOOP;
