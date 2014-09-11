@@ -86,7 +86,7 @@ AS $BODY$
                     EXECUTE intest INTO within;
                     CASE WHEN within IS FALSE THEN
                         DROP TABLE IF EXISTS newcs_diff;
-                        diffobj := concat('CREATE TABLE newcs_diff AS SELECT ST_Difference((SELECT wkb_geometry FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM newcs_hole)) AS wkb_geometry;');
+                        diffobj := concat('CREATE TABLE newcs_diff AS SELECT ST_Difference((SELECT ST_MakeValid(wkb_geometry) FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM newcs_hole)) AS wkb_geometry;');
                         RAISE NOTICE '%', diffobj;
                         EXECUTE diffobj;
                         ALTER TABLE newcs_diff ADD COLUMN ogc_fid serial NOT NULL;
