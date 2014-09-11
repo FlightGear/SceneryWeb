@@ -70,6 +70,7 @@ AS $BODY$
         ALTER TABLE newcs_hole ADD CONSTRAINT "enforce_dims_wkb_geometry" CHECK (ST_NDims(wkb_geometry) = 2);
         ALTER TABLE newcs_hole ADD CONSTRAINT "enforce_geotype_wkb_geometry" CHECK (GeometryType(wkb_geometry) = 'MULTIPOLYGON'::text);
         ALTER TABLE newcs_hole ADD CONSTRAINT "enforce_srid_wkb_geometry" CHECK (ST_SRID(wkb_geometry) = 4326);
+        ALTER TABLE newcs_hole ADD CONSTRAINT "enforce_valid_wkb_geometry" CHECK (ST_IsValid(wkb_geometry));
 
         FOR cslayer IN
             EXECUTE getcslayers
@@ -89,6 +90,7 @@ AS $BODY$
                         RAISE NOTICE '%', diffobj;
                         EXECUTE diffobj;
                         ALTER TABLE newcs_diff ADD COLUMN ogc_fid serial NOT NULL;
+                        ALTER TABLE newcs_diff ADD CONSTRAINT "enforce_valid_wkb_geometry" CHECK (ST_IsValid(wkb_geometry));
                         testmulti := 'SELECT ogc_fid FROM newcs_diff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL;';
                         FOR multifid IN
                             EXECUTE testmulti
