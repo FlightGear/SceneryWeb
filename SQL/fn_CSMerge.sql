@@ -87,7 +87,7 @@ AS $BODY$
                     CASE WHEN within IS FALSE THEN
                         DROP TABLE IF EXISTS newcs_diff;
                         diffobj := concat('CREATE TABLE newcs_diff AS SELECT ST_Difference((SELECT ST_MakeValid(wkb_geometry) FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM newcs_hole)) AS wkb_geometry;');
-                        RAISE NOTICE '%', diffobj;
+--                        RAISE NOTICE '%', diffobj;
                         EXECUTE diffobj;
                         ALTER TABLE newcs_diff ADD COLUMN ogc_fid serial NOT NULL;
                         ALTER TABLE newcs_diff ADD CONSTRAINT "enforce_valid_wkb_geometry" CHECK (ST_IsValid(wkb_geometry));
@@ -101,12 +101,12 @@ AS $BODY$
                             EXECUTE delmulti;
                         END LOOP;
                         backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM newcs_diff);');
-                        RAISE NOTICE '%', backdiff;
+--                        RAISE NOTICE '%', backdiff;
                         EXECUTE backdiff;
                     ELSE NULL;
                     END CASE;
                     delobj := concat('DELETE FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, ';');
-                    RAISE NOTICE '%', delobj;
+--                    RAISE NOTICE '%', delobj;
                     EXECUTE delobj;
                 ELSE NULL;
                 END CASE;
@@ -117,7 +117,7 @@ AS $BODY$
             EXECUTE newcslayers
         LOOP
             addnewlayer := concat('INSERT INTO ', quote_ident(pglayer.pglayer), $$ (wkb_geometry) (SELECT wkb_geometry FROM newcs_full WHERE pglayer LIKE '$$, quote_ident(pglayer.pglayer), $$');$$);
-            RAISE NOTICE '%', addnewlayer;
+--            RAISE NOTICE '%', addnewlayer;
             EXECUTE addnewlayer;
         END LOOP;
     END;
