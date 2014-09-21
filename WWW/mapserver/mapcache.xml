@@ -94,7 +94,7 @@
    <service type="mapguide" enabled="true"/>
    <service type="demo" enabled="true"/>
 
-   <errors>report</errors>
+   <errors>empty_img</errors>
    <lock_dir>/var/cache/mapcache</lock_dir>
 
 </mapcache>
