@@ -62,6 +62,14 @@
 #        ExpiresActive on
 #        ExpiresDefault "now plus 6 days"
     </Directory>
+    # MapCache
+    <IfModule mapcache_module>
+       <Directory /var/cache/mapcache>
+          Order Allow,Deny
+          Allow from all
+       </Directory>
+       MapCacheAlias /mc "/home/martin/WWW/mapserver/mapcache.xml"
+    </IfModule>
     # MS template view
     Alias /tmp /home/fgscenery/MStmp
     # OpenLayers
