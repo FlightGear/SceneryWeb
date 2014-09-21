@@ -68,7 +68,7 @@
           Order Allow,Deny
           Allow from all
        </Directory>
-       MapCacheAlias /mc "/home/martin/WWW/mapserver/mapcache.xml"
+       MapCacheAlias /mc "/home/fgscenery/GIT/WWW/mapserver/mapcache.xml"
     </IfModule>
     # MS template view
     Alias /tmp /home/fgscenery/MStmp

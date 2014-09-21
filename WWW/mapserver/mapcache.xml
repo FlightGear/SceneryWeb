@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapcache>
+   <cache name="disk" type="disk">
+      <base>/var/cache/mapcache</base>
+      <symlink_blank/>
+   </cache>
+
+   <source name="vmap0" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>basic</LAYERS>
+         </params>
+      </getmap>
+      
+      <http>
+         <url>http://vmap0.tiles.osgeo.org/wms/vmap0</url>
+      </http>
+   </source>
+
+   <source name="customscene" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>cs_void,cs_fishing,cs_suburban,cs_rainforest,cs_polarice,cs_packice,cs_lava,cs_intermittentlake,cs_herbtundra,cs_floodland,cs_dirt,cs_cemetery,cs_asphalt,cs_estuary,cs_lagoon,cs_lake,cs_watercourse,cs_littoral,cs_saline,cs_saltmarsh,cs_bog,cs_marsh,cs_glacier,cs_burnt,cs_barrencover,cs_rock,cs_sand,cs_scrub,cs_sclerophyllous,cs_heath,cs_grassland,cs_mixedforest,cs_evergreenforest,cs_deciduousforest,cs_agroforest,cs_naturalcrop,cs_complexcrop,cs_mixedcrop,cs_cropgrass,cs_olives,cs_orchard,cs_vineyard,cs_rice,cs_irrcrop,cs_drycrop,cs_golfcourse,cs_greenspace,cs_construction,cs_dump,cs_openmining,cs_airport,cs_port,cs_transport,cs_industrial,cs_town,cs_urban</LAYERS>
+         </params>
+      </getmap>
+      
+      <http>
+         <url>http://mapserver.flightgear.org/ms</url>
+      </http>
+   </source>
+
+   <source name="v0cover" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>v0_lake,v0_intermittentlake,v0_floodland,v0_fishing,v0_suburban,v0_urban,v0_deciduousforest,v0_evergreenforest,v0_mixedforest,v0_sand,v0_littoral,v0_lava,v0_barrencover,v0_grassland,v0_scrub,v0_herbtundra,v0_glacier,v0_packice,v0_polarice,v0_marsh,v0_openmining,v0_saline,v0_bog,v0_mixedcrop,v0_drycrop,v0_irrcrop,v0_void</LAYERS>
+         </params>
+      </getmap>
+      
+      <http>
+         <url>http://mapserver.flightgear.org/ms</url>
+      </http>
+   </source>
+   
+   <tileset name="test">
+      <source>vmap0</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+   
+   <tileset name="customscene">
+      <source>customscene</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+   
+   <tileset name="v0cover">
+      <source>v0cover</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+
+   <default_format>JPEG</default_format>
+
+   <service type="wms" enabled="true">
+      <full_wms>assemble</full_wms>
+      <resample_mode>bilinear</resample_mode>
+      <format>JPEG</format>
+      <maxsize>4096</maxsize>
+   </service>
+   <service type="wmts" enabled="true"/>
+   <service type="tms" enabled="true"/>
+   <service type="kml" enabled="true"/>
+   <service type="gmaps" enabled="true"/>
+   <service type="ve" enabled="true"/>
+   <service type="mapguide" enabled="true"/>
+   <service type="demo" enabled="true"/>
+
+   <errors>report</errors>
+   <lock_dir>/var/cache/mapcache</lock_dir>
+
+</mapcache>
