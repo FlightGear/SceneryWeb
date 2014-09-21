@@ -12,8 +12,8 @@
     );
 
     var v0cover = new OpenLayers.Layer.WMS( "Landcover-DB VMap0 Ed.5",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://flightgear.telascience.org/mc?",
+          "http://flightgear.telascience.org/mc?" ],
         {layers: 'v0cover', format: 'image/png'},
         {attribution: "Origin: <a href='http://www.nga.mil/'>NGA</a>"}
     );
