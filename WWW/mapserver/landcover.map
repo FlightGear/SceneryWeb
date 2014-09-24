@@ -30,14 +30,6 @@ MAP
 #  CONFIG "CPL_DEBUG" "ON"
 #  CONFIG "PROJ_DEBUG" "ON"
 
-#  OUTPUTFORMAT
-#    NAME "aggpng24"
-#    DRIVER AGG/PNG
-#    MIMETYPE "image/png"
-#    IMAGEMODE RGB
-#    EXTENSION "png"
-#  END
-
   OUTPUTFORMAT
     NAME gif
     DRIVER "GD/GIF"
@@ -48,11 +40,13 @@ MAP
 
   OUTPUTFORMAT
     NAME png
-    DRIVER "GD/PNG"
+    DRIVER "AGG/PNG"
     MIMETYPE "image/png"
-#    IMAGEMODE RGBA
-    IMAGEMODE PC256
+    IMAGEMODE RGBA
     TRANSPARENT ON
+    FORMATOPTION "QUANTIZE_FORCE=ON"
+    FORMATOPTION "QUANTIZE_DITHER=OFF"
+    FORMATOPTION "QUANTIZE_COLORS=256"
     EXTENSION "png"
   END
 
@@ -168,31 +162,31 @@ MAP
 
   SYMBOL
     NAME "Apt"
-    TYPE PIXMAP 
+    TYPE PIXMAP
     IMAGE "symbols/apt.png"
   END
 
   SYMBOL
     NAME "Vor"
-    TYPE PIXMAP 
+    TYPE PIXMAP
     IMAGE "symbols/vor.png"
   END
 
   SYMBOL
     NAME "Dme"
-    TYPE PIXMAP 
+    TYPE PIXMAP
     IMAGE "symbols/dme.png"
   END
 
   SYMBOL
     NAME "Ndb"
-    TYPE PIXMAP 
+    TYPE PIXMAP
     IMAGE "symbols/dme.png"
   END
 
   SYMBOL
     NAME "Fix"
-    TYPE PIXMAP 
+    TYPE PIXMAP
     IMAGE "symbols/fix.png"
   END
 
@@ -11408,7 +11402,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11491,7 +11484,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11539,7 +11531,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11587,7 +11578,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11635,7 +11625,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11684,7 +11673,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11733,7 +11721,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11782,7 +11769,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11830,7 +11816,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11913,7 +11898,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -11961,7 +11945,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -12009,7 +11992,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -12057,7 +12039,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -12105,7 +12086,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -12153,7 +12133,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -12202,7 +12181,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -12251,7 +12229,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -12299,7 +12276,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS FALSE
         MINDISTANCE 300
@@ -12348,7 +12324,6 @@ MAP
       LABEL
         COLOR 255 255 42
         SIZE LARGE
-        ANTIALIAS FALSE
         POSITION UR
         PARTIALS TRUE
         MINDISTANCE 0
@@ -12535,7 +12510,6 @@ MAP
       LABEL
         COLOR 0 0 0
         SIZE MEDIUM
-        ANTIALIAS FALSE
         POSITION CC
         PARTIALS FALSE
         MINDISTANCE 30000
