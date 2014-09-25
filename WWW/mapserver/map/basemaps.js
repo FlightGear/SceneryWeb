@@ -6,8 +6,8 @@
 //    );
 
     var customscene = new OpenLayers.Layer.WMS( "Landcover-DB CS Test",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://flightgear.telascience.org/mc?",
+          "http://flightgear.telascience.org/mc?" ],
         {layers: 'customscene', format: 'image/png'}
     );
 
