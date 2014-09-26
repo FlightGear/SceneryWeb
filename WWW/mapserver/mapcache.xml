@@ -51,7 +51,7 @@
       <grid>WGS84</grid>
       <grid>g</grid>
       <format>PNG</format>
-      <metatile>5 5</metatile>
+      <metatile>4 4</metatile>
       <metabuffer>10</metabuffer>
       <expires>3600</expires>
    </tileset>
@@ -62,7 +62,7 @@
       <grid>WGS84</grid>
       <grid>g</grid>
       <format>PNG</format>
-      <metatile>5 5</metatile>
+      <metatile>4 4</metatile>
       <metabuffer>10</metabuffer>
       <expires>3600</expires>
    </tileset>
@@ -73,7 +73,7 @@
       <grid>WGS84</grid>
       <grid>g</grid>
       <format>PNG</format>
-      <metatile>5 5</metatile>
+      <metatile>4 4</metatile>
       <metabuffer>10</metabuffer>
       <expires>3600</expires>
    </tileset>
