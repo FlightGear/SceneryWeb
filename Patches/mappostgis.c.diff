@@ -1,0 +1,14 @@
+--- mappostgis.c.original	2014-01-02 04:41:49.000000000 -0800
++++ mappostgis.c	2014-09-24 03:16:44.976978409 -0700
+@@ -1654,9 +1654,9 @@
+     */
+     char *force2d = "";
+ #if TRANSFER_ENCODING == 64
+-    static char *strGeomTemplate = "encode(ST_AsBinary(%s(\"%s\"),'%s'),'base64') as geom,\"%s\"";
++    static char *strGeomTemplate = "encode(ST_AsBinary(%s(%s),'%s'),'base64') as geom,%s";
+ #else
+-    static char *strGeomTemplate = "encode(ST_AsBinary(%s(\"%s\"),'%s'),'hex') as geom,\"%s\"";
++    static char *strGeomTemplate = "encode(ST_AsBinary(%s(%s),'%s'),'hex') as geom,%s";
+ #endif
+     if( layerinfo->force2d ) {
+       if( layerinfo->version >= 20100 )
