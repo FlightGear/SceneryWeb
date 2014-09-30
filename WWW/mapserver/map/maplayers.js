@@ -72,8 +72,8 @@
     );
 
     var nlcd2011r = new OpenLayers.Layer.WMS( "NLCD 2011 30m raster",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://flightgear.telascience.org/mc?",
+          "http://flightgear.telascience.org/mc?" ],
         {layers: 'nlcd2011r', format: 'image/png'},
         {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2011.php'>MRLC</a>"}
     );

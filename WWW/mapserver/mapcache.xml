@@ -44,6 +44,19 @@
          <url>http://mapserver.flightgear.org/ms</url>
       </http>
    </source>
+
+   <source name="nlcd2011r" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>nlcd2011r</LAYERS>
+         </params>
+      </getmap>
+      
+      <http>
+         <url>http://mapserver.flightgear.org/ms</url>
+      </http>
+   </source>
    
    <tileset name="test">
       <source>vmap0</source>
@@ -69,6 +82,17 @@
    
    <tileset name="v0cover">
       <source>v0cover</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+   
+   <tileset name="nlcd2011r">
+      <source>nlcd2011r</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>
