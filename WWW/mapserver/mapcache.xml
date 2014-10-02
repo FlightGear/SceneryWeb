@@ -13,7 +13,6 @@
             <LAYERS>basic</LAYERS>
          </params>
       </getmap>
-      
       <http>
          <url>http://vmap0.tiles.osgeo.org/wms/vmap0</url>
       </http>
@@ -26,7 +25,6 @@
             <LAYERS>cs_void,cs_fishing,cs_suburban,cs_rainforest,cs_polarice,cs_packice,cs_lava,cs_intermittentlake,cs_herbtundra,cs_floodland,cs_dirt,cs_cemetery,cs_asphalt,cs_estuary,cs_lagoon,cs_lake,cs_watercourse,cs_littoral,cs_saline,cs_saltmarsh,cs_bog,cs_marsh,cs_glacier,cs_burnt,cs_barrencover,cs_rock,cs_sand,cs_scrub,cs_sclerophyllous,cs_heath,cs_grassland,cs_mixedforest,cs_evergreenforest,cs_deciduousforest,cs_agroforest,cs_naturalcrop,cs_complexcrop,cs_mixedcrop,cs_cropgrass,cs_olives,cs_orchard,cs_vineyard,cs_rice,cs_irrcrop,cs_drycrop,cs_golfcourse,cs_greenspace,cs_construction,cs_dump,cs_openmining,cs_airport,cs_port,cs_transport,cs_industrial,cs_town,cs_urban</LAYERS>
          </params>
       </getmap>
-      
       <http>
          <url>http://eclipse.optiputer.net/ms</url>
       </http>
@@ -39,6 +37,10 @@
             <LAYERS>v0_lake,v0_intermittentlake,v0_floodland,v0_fishing,v0_suburban,v0_urban,v0_deciduousforest,v0_evergreenforest,v0_mixedforest,v0_sand,v0_littoral,v0_lava,v0_barrencover,v0_grassland,v0_scrub,v0_herbtundra,v0_glacier,v0_packice,v0_polarice,v0_marsh,v0_openmining,v0_saline,v0_bog,v0_mixedcrop,v0_drycrop,v0_irrcrop,v0_void</LAYERS>
          </params>
       </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
 
    <source name="clc00" type="wms">
       <getmap>
@@ -47,6 +49,10 @@
             <LAYERS>clc00_lake,clc00_watercourse,clc00_rock,clc00_openmining,clc00_saline,clc00_agroforest,clc00_airport,clc00_port,clc00_transport,clc00_industrial,clc00_construction,clc00_dump,clc00_burnt,clc00_town,clc00_urban,clc00_deciduousforest,clc00_evergreenforest,clc00_mixedforest,clc00_sand,clc00_littoral,clc00_lagoon,clc00_estuary,clc00_golfcourse,clc00_greenspace,clc00_grassland,clc00_scrub,clc00_sclerophyllous,clc00_heath,clc00_glacier,clc00_marsh,clc00_saltmarsh,clc00_bog,clc00_barrencover,clc00_cropgrass,clc00_mixedcrop,clc00_naturalcrop,clc00_complexcrop,clc00_orchard,clc00_olives,clc00_vineyard,clc00_drycrop,clc00_irrcrop,clc00_rice</LAYERS>
          </params>
       </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
 
    <source name="clc06" type="wms">
       <getmap>
@@ -55,7 +61,6 @@
             <LAYERS>clc06_lake,clc06_watercourse,clc06_rock,clc06_openmining,clc06_saline,clc06_agroforest,clc06_airport,clc06_port,clc06_transport,clc06_industrial,clc06_construction,clc06_dump,clc06_burnt,clc06_town,clc06_urban,clc06_deciduousforest,clc06_evergreenforest,clc06_mixedforest,clc06_sand,clc06_littoral,clc06_lagoon,clc06_estuary,clc06_golfcourse,clc06_greenspace,clc06_grassland,clc06_scrub,clc06_sclerophyllous,clc06_heath,clc06_glacier,clc06_marsh,clc06_saltmarsh,clc06_bog,clc06_barrencover,clc06_cropgrass,clc06_mixedcrop,clc06_naturalcrop,clc06_complexcrop,clc06_orchard,clc06_olives,clc06_vineyard,clc06_drycrop,clc06_irrcrop,clc06_rice</LAYERS>
          </params>
       </getmap>
-      
       <http>
          <url>http://eclipse.optiputer.net/ms</url>
       </http>
@@ -68,7 +73,6 @@
             <LAYERS>nlcd2011r</LAYERS>
          </params>
       </getmap>
-      
       <http>
          <url>http://mapserver.flightgear.org/ms</url>
       </http>
