@@ -42,7 +42,7 @@ svn_root = "http://terrascenery.googlecode.com/svn/trunk/data/Scenery"
 statusfile.write("running\n")
 statusfile.flush()
 
-pghost = "localhost"
+pghost = "eclipse.optiputer.net"
 pgdatabase = "landcover"
 pguser = "martin"
 db_params = {"host":pghost, "database":pgdatabase, "user":pguser}
