@@ -28,7 +28,7 @@
       </getmap>
       
       <http>
-         <url>http://mapserver.flightgear.org/ms</url>
+         <url>http://eclipse.optiputer.net/ms</url>
       </http>
    </source>
 
@@ -41,7 +41,7 @@
       </getmap>
       
       <http>
-         <url>http://mapserver.flightgear.org/ms</url>
+         <url>http://eclipse.optiputer.net/ms</url>
       </http>
    </source>
 
@@ -54,7 +54,7 @@
       </getmap>
       
       <http>
-         <url>http://mapserver.flightgear.org/ms</url>
+         <url>http://eclipse.optiputer.net/ms</url>
       </http>
    </source>
    
