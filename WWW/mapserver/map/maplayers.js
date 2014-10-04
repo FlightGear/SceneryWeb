@@ -51,15 +51,15 @@
 //    );
 
     var clc00 = new OpenLayers.Layer.WMS( "CORINE CLC2000v16",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://flightgear.telascience.org/mc?",
+          "http://flightgear.telascience.org/mc?" ],
         {layers: 'clc00', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
     var clc06 = new OpenLayers.Layer.WMS( "CORINE CLC2006v16",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://flightgear.telascience.org/mc?",
+          "http://flightgear.telascience.org/mc?" ],
         {layers: 'clc06', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
