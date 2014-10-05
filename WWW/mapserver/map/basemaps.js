@@ -6,14 +6,14 @@
 //    );
 
     var customscene = new OpenLayers.Layer.WMS( "Landcover-DB CS Test",
-        [ "http://flightgear.telascience.org/mc?",
-          "http://flightgear.telascience.org/mc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'customscene', format: 'image/png'}
     );
 
     var v0cover = new OpenLayers.Layer.WMS( "Landcover-DB VMap0 Ed.5",
-        [ "http://flightgear.telascience.org/mc?",
-          "http://flightgear.telascience.org/mc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'v0cover', format: 'image/png'},
         {attribution: "Origin: <a href='http://www.nga.mil/'>NGA</a>"}
     );

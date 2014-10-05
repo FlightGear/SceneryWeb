@@ -51,15 +51,15 @@
 //    );
 
     var clc00 = new OpenLayers.Layer.WMS( "CORINE CLC2000v16",
-        [ "http://flightgear.telascience.org/mc?",
-          "http://flightgear.telascience.org/mc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'clc00', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
     var clc06 = new OpenLayers.Layer.WMS( "CORINE CLC2006v16",
-        [ "http://flightgear.telascience.org/mc?",
-          "http://flightgear.telascience.org/mc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'clc06', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
@@ -72,8 +72,8 @@
     );
 
     var nlcd2011r = new OpenLayers.Layer.WMS( "NLCD 2011 30m raster",
-        [ "http://flightgear.telascience.org/mc?",
-          "http://flightgear.telascience.org/mc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'nlcd2011r', format: 'image/png'},
         {attribution: "Origin: <a href='http://www.mrlc.gov/nlcd2011.php'>MRLC</a>"}
     );
