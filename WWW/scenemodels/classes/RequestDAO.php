@@ -299,6 +299,8 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[0-9a-zA-Z;!?@\-_\.\(\)\[\]+ ]+)', '(?P<notes>[^$]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
         preg_match($pattern, $queryModel, $matches);
 
+	echo "$requestQuery";
+
         $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
         $modelMD = $modelFactory->createModelMetadata(-1, $matches['author'], $matches['path'], $matches['name'], $matches['notes'], $matches['shared']);
         $newModel = new Model();
