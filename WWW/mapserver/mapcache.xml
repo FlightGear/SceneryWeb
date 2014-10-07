@@ -66,6 +66,18 @@
       </http>
    </source>
 
+   <source name="osmlines" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>osm_service,osm_residential,osm_track,osm_unclassified,osm_tertiary,osm_secondary,osm_primary,osm_trunk,osm_motorway,osm_light_rail,osm_tram,osm_rail,osm_drain,osm_stream,osm_canal,osm_river</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
    <source name="nlcd2011r" type="wms">
       <getmap>
          <params>
@@ -124,6 +136,17 @@
    
    <tileset name="clc06">
       <source>clc06</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+   
+   <tileset name="osmlines">
+      <source>osmlines</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>
