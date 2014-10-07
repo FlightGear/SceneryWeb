@@ -49,8 +49,8 @@
     );
 
     var osmlines = new OpenLayers.Layer.WMS( "OSM line features (#CURRENTOSMVERSION#)",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'osmlines', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
 //        {gutter: 50}
