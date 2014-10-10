@@ -297,16 +297,17 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
 
         // Retrieve MODEL data from query
         $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[0-9a-zA-Z;!?@\-_\.\(\)\[\]+ ]+)', '(?P<notes>[^$]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
-        preg_match($pattern, $queryModel, $matches);
+        if (preg_match($pattern, $queryModel, $matches)) {
+            $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
+            $modelMD = $modelFactory->createModelMetadata(-1, $matches['author'], $matches['path'], $matches['name'], $matches['notes'], $matches['shared']);
+            $newModel = new Model();
+            $newModel->setMetadata($modelMD);
+            $newModel->setModelFiles(new ModelFilesTar(base64_decode($matches['modelfile'])));
+            $newModel->setThumbnail(base64_decode($matches['thumbfile']));
+        } else {
+            throw new Exception("PREG Error with model query ,with code " . preg_last_error());
+        }
 
-	echo $queryModel;
-
-        $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
-        $modelMD = $modelFactory->createModelMetadata(-1, $matches['author'], $matches['path'], $matches['name'], $matches['notes'], $matches['shared']);
-        $newModel = new Model();
-        $newModel->setMetadata($modelMD);
-        $newModel->setModelFiles(new ModelFilesTar(base64_decode($matches['modelfile'])));
-        $newModel->setThumbnail(base64_decode($matches['thumbfile']));
         
         // Retrieve OBJECT data from query
         $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
