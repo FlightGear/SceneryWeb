@@ -83,6 +83,8 @@ MAP
       "wms_enable_request" "GetMap GetFeatureInfo"
       "wms_title" "FlightGear Landcover-DB"
       "wms_onlineresource" "http://mapserver.flightgear.org/ms?"
+      "wms_enable_request" "*"
+      "ows_enable_request" "*"
       "wms_abstract" "This is the UMN MapServer frontend to the FlightGear World Custom Scenery Landcover-DB. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "wms_accessconstraints" "none"
       "wms_srs" "EPSG:4326 EPSG:900913"
