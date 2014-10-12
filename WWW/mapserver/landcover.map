@@ -12147,7 +12147,6 @@ MAP
     CLASS
       NAME "fg_buckets"
       STYLE
-        COLOR 255 255 255
         OUTLINECOLOR 0 0 0
       END
       LABEL
