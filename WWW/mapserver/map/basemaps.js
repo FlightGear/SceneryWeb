@@ -35,8 +35,8 @@
 //    );
 
     var tarmac810 = new OpenLayers.Layer.WMS( "Airfield layouts (v8.10)",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'tarmac810', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
     );
@@ -64,29 +64,29 @@
     );
 
     var navaid = new OpenLayers.Layer.WMS( "Navaids",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'navaid', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var fix = new OpenLayers.Layer.WMS( "Fixes",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'fix', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
-        [ "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-          "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
+        [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+          "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
         {layers: 'fgs_staticobjects,fgs_sharedobjects', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
     );
 
 //    var sceneobject = new OpenLayers.Layer.WMS( "Scenery Objects (point)",
-//        [ "http://flightgear.telascience.org/tc?",
-//          "http://flightgear.telascience.org/tc?" ],
+//        [ "http://1.flightgear.telascience.org/mc?",
+//          "http://2.flightgear.telascience.org/mc?" ],
 //        {layers: 'sceneobject', transparent: 'true', format: 'image/png'},
 //        {isBaseLayer: false}
 //    );

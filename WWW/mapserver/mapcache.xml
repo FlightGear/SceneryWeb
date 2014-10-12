@@ -78,11 +78,35 @@
       </http>
    </source>
 
+   <source name="tarmac810" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>apt_tarmac_v810misc,apt_tarmac_v810grass,apt_tarmac_v810water,apt_stopway_v810,apt_runway_v810misc,apt_runway_v810grass,apt_runway_v810water,apt_marking_v810</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
    <source name="tarmac" type="wms">
       <getmap>
          <params>
             <FORMAT>image/png</FORMAT>
             <LAYERS>apt_tarmac_misc,apt_tarmac_grass,apt_tarmac_water,apt_stopway,apt_runway_misc,apt_runway_grass,apt_runway_water,apt_marking</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="osmtarmac" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>osm_apron,osm_taxiway,osm_runway</LAYERS>
          </params>
       </getmap>
       <http>
@@ -107,6 +131,78 @@
          <params>
             <FORMAT>image/png</FORMAT>
             <LAYERS>apt_airfield</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="navaid" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>apt_ndb,apt_dme,apt_vor</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="fix" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>apt_fix</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="airspaces" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>airspaces</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="sceneobject" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>fgs_staticobjects,fgs_sharedobjects,fgs_signs</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="osmcoast" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>osm_coastline</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="fgbuckets" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>fg_buckets</LAYERS>
          </params>
       </getmap>
       <http>
@@ -174,8 +270,28 @@
       <expires>3600</expires>
    </tileset>
 
+   <tileset name="tarmac810">
+      <source>tarmac810</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
    <tileset name="tarmac">
       <source>tarmac</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="osmtarmac">
+      <source>osmtarmac</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>
@@ -196,6 +312,66 @@
 
    <tileset name="airfield">
       <source>airfield</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="navaid">
+      <source>navaid</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="fix">
+      <source>fix</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="airspaces">
+      <source>airspaces</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="sceneobject">
+      <source>sceneobject</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="osmcoast">
+      <source>osmcoast</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="fgbuckets">
+      <source>fgbuckets</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>

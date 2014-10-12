@@ -86,15 +86,15 @@
     );
 
     var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (#CURRENTOSMVERSION#)",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'osmtarmac', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
     );
 
     var airspaces = new OpenLayers.Layer.WMS( "Airspaces (experimental)",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'airspaces', format: 'image/png'},
         {isBaseLayer: false}
     );
@@ -161,8 +161,8 @@
     );
 
     var osmcoast = new OpenLayers.Layer.WMS( "OSMCoastline",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'osmcoast', format: 'image/png'},
         {isBaseLayer: false}
     );
@@ -182,8 +182,8 @@
     );
 
     var fgbuckets = new OpenLayers.Layer.WMS( "FG Scenery buckets",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'fgbuckets', format: 'image/png'},
         {isBaseLayer: false}
     );
