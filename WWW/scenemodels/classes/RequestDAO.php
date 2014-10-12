@@ -292,6 +292,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestModelAddFromRow($requestQuery) {
+	echo $requestQuery;
         $queryModel = substr($requestQuery, 0, strpos($requestQuery, "INSERT INTO fgs_objects"));
         $queryObj = strstr($requestQuery, "INSERT INTO fgs_objects");
 
