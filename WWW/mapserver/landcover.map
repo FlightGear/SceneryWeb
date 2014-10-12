@@ -234,7 +234,6 @@ MAP
   LAYER
     NAME v0_landmass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -269,7 +268,6 @@ MAP
   LAYER
     NAME v1_landmass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -304,7 +302,6 @@ MAP
   LAYER
     NAME gshhs_coastline
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -338,7 +335,6 @@ MAP
   LAYER
     NAME gshhs_lakes
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -372,7 +368,6 @@ MAP
   LAYER
     NAME gshhs_islands
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -406,7 +401,6 @@ MAP
   LAYER
     NAME gshhs_ponds
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -440,7 +434,6 @@ MAP
   LAYER
     NAME swbd
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 35550000
     CONNECTION "dbname=landcover user=webuser"
@@ -476,7 +469,6 @@ MAP
   LAYER
     NAME mgrs
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -511,7 +503,6 @@ MAP
   LAYER
     NAME v0_void
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -545,7 +536,6 @@ MAP
   LAYER
     NAME v0_floodland
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -579,7 +569,6 @@ MAP
   LAYER
     NAME v0_sand
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -613,7 +602,6 @@ MAP
   LAYER
     NAME v0_lava
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -647,7 +635,6 @@ MAP
   LAYER
     NAME v0_glacier
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -681,7 +668,6 @@ MAP
   LAYER
     NAME v0_packice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -715,7 +701,6 @@ MAP
   LAYER
     NAME v0_polarice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -749,7 +734,6 @@ MAP
   LAYER
     NAME v1_floodland
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -783,7 +767,6 @@ MAP
   LAYER
     NAME v1_lava
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -817,7 +800,6 @@ MAP
   LAYER
     NAME v1_sand
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -851,7 +833,6 @@ MAP
   LAYER
     NAME v1_glacier
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -885,7 +866,6 @@ MAP
   LAYER
     NAME v1_snowfield
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -919,7 +899,6 @@ MAP
   LAYER
     NAME v1_icefield
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -953,7 +932,6 @@ MAP
   LAYER
     NAME v1_miscice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -987,7 +965,6 @@ MAP
   LAYER
     NAME v1_packice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1021,7 +998,6 @@ MAP
   LAYER
     NAME v1_polarice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1055,7 +1031,6 @@ MAP
   LAYER
     NAME v1_seaice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1089,7 +1064,6 @@ MAP
   LAYER
     NAME v0_littoral
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1123,7 +1097,6 @@ MAP
   LAYER
     NAME v0_barrencover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1157,7 +1130,6 @@ MAP
   LAYER
     NAME v0_grassland
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1191,7 +1163,6 @@ MAP
   LAYER
     NAME v0_scrub
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1225,7 +1196,6 @@ MAP
   LAYER
     NAME v0_marsh
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1259,7 +1229,6 @@ MAP
   LAYER
     NAME v0_openmining
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1293,7 +1262,6 @@ MAP
   LAYER
     NAME v0_saline
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1327,7 +1295,6 @@ MAP
   LAYER
     NAME v0_bog
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1361,7 +1328,6 @@ MAP
   LAYER
     NAME v1_boulder
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1395,7 +1361,6 @@ MAP
   LAYER
     NAME v1_barrencover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1429,7 +1394,6 @@ MAP
   LAYER
     NAME v1_mixedcover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1463,7 +1427,6 @@ MAP
   LAYER
     NAME v1_park
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1497,7 +1460,6 @@ MAP
   LAYER
     NAME v1_harbour
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1531,7 +1493,6 @@ MAP
   LAYER
     NAME v1_railyard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
     CONNECTION "dbname=landcover user=webuser"
@@ -1566,7 +1527,6 @@ MAP
   LAYER
     NAME v1_powerplant
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1600,7 +1560,6 @@ MAP
   LAYER
     NAME v1_grasscover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1634,7 +1593,6 @@ MAP
   LAYER
     NAME v1_bog
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1668,7 +1626,6 @@ MAP
   LAYER
     NAME v1_marsh
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1702,7 +1659,6 @@ MAP
   LAYER
     NAME v1_mixedswamp
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1736,7 +1692,6 @@ MAP
   LAYER
     NAME v0_herbtundra
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1770,7 +1725,6 @@ MAP
   LAYER
     NAME v0_mixedcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1804,7 +1758,6 @@ MAP
   LAYER
     NAME v0_drycrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1838,7 +1791,6 @@ MAP
   LAYER
     NAME v0_irrcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1872,7 +1824,6 @@ MAP
   LAYER
     NAME v1_ricefield
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1906,7 +1857,6 @@ MAP
   LAYER
     NAME v1_cropland
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1940,7 +1890,6 @@ MAP
   LAYER
     NAME v1_mixedcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -1974,7 +1923,6 @@ MAP
   LAYER
     NAME v1_herbtundracover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2008,7 +1956,6 @@ MAP
   LAYER
     NAME v0_deciduousforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2042,7 +1989,6 @@ MAP
   LAYER
     NAME v0_evergreenforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2076,7 +2022,6 @@ MAP
   LAYER
     NAME v0_mixedforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2110,7 +2055,6 @@ MAP
   LAYER
     NAME v1_orchard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2144,7 +2088,6 @@ MAP
   LAYER
     NAME v1_vineyard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2178,7 +2121,6 @@ MAP
   LAYER
     NAME v1_mixedorchard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2212,7 +2154,6 @@ MAP
   LAYER
     NAME v1_coniferous
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2246,7 +2187,6 @@ MAP
   LAYER
     NAME v1_nipapalm
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2280,7 +2220,6 @@ MAP
   LAYER
     NAME v1_palm
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2314,7 +2253,6 @@ MAP
   LAYER
     NAME v1_mangrove
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2348,7 +2286,6 @@ MAP
   LAYER
     NAME v1_deciduous
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2382,7 +2319,6 @@ MAP
   LAYER
     NAME v1_eucalyptus
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2416,7 +2352,6 @@ MAP
   LAYER
     NAME v1_cypress
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2450,7 +2385,6 @@ MAP
   LAYER
     NAME v1_mixedforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2484,7 +2418,6 @@ MAP
   LAYER
     NAME v0_lake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2518,7 +2451,6 @@ MAP
   LAYER
     NAME v0_intermittentlake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2552,7 +2484,6 @@ MAP
   LAYER
     NAME v0_fishing
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2586,7 +2517,6 @@ MAP
   LAYER
     NAME v0_suburban
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2620,7 +2550,6 @@ MAP
   LAYER
     NAME v0_urban
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2654,7 +2583,6 @@ MAP
   LAYER
     NAME v1_drylake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2688,7 +2616,6 @@ MAP
   LAYER
     NAME v1_intermittentlake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2722,7 +2649,6 @@ MAP
   LAYER
     NAME v1_lake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2756,7 +2682,6 @@ MAP
   LAYER
     NAME v1_misclake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2790,7 +2715,6 @@ MAP
   LAYER
     NAME v1_saltlake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2824,7 +2748,6 @@ MAP
   LAYER
     NAME v1_reservoir
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2858,7 +2781,6 @@ MAP
   LAYER
     NAME v1_watercourse
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2892,7 +2814,6 @@ MAP
   LAYER
     NAME v1_disposal
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2926,7 +2847,6 @@ MAP
   LAYER
     NAME v1_saltmine
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2960,7 +2880,6 @@ MAP
   LAYER
     NAME v1_openpit
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -2994,7 +2913,6 @@ MAP
   LAYER
     NAME v1_miscextraction
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3028,7 +2946,6 @@ MAP
   LAYER
     NAME v1_industry
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3062,7 +2979,6 @@ MAP
   LAYER
     NAME v1_treatment
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3096,7 +3012,6 @@ MAP
   LAYER
     NAME v1_asphaltlake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3130,7 +3045,6 @@ MAP
   LAYER
     NAME v1_building
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3165,7 +3079,6 @@ MAP
   LAYER
     NAME v1_fortification
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3200,7 +3113,6 @@ MAP
   LAYER
     NAME v1_urban
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3234,7 +3146,6 @@ MAP
   LAYER
     NAME v1_settlement
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3269,7 +3180,6 @@ MAP
   LAYER
     NAME v1_ruin
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3304,7 +3214,6 @@ MAP
   LAYER
     NAME tgr_waterbodies
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3334,7 +3243,6 @@ MAP
   LAYER
     NAME tgr_landmarks
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3364,7 +3272,6 @@ MAP
   LAYER
     NAME clc00_urban
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3398,7 +3305,6 @@ MAP
   LAYER
     NAME clc00_town
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3432,7 +3338,6 @@ MAP
   LAYER
     NAME clc00_industrial
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3466,7 +3371,6 @@ MAP
   LAYER
     NAME clc00_transport
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3500,7 +3404,6 @@ MAP
   LAYER
     NAME clc00_port
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3534,7 +3437,6 @@ MAP
   LAYER
     NAME clc00_airport
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3568,7 +3470,6 @@ MAP
   LAYER
     NAME clc00_openmining
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3602,7 +3503,6 @@ MAP
   LAYER
     NAME clc00_dump
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3636,7 +3536,6 @@ MAP
   LAYER
     NAME clc00_construction
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3670,7 +3569,6 @@ MAP
   LAYER
     NAME clc00_greenspace
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3704,7 +3602,6 @@ MAP
   LAYER
     NAME clc00_golfcourse
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3738,7 +3635,6 @@ MAP
   LAYER
     NAME clc00_drycrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3772,7 +3668,6 @@ MAP
   LAYER
     NAME clc00_irrcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3806,7 +3701,6 @@ MAP
   LAYER
     NAME clc00_rice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3840,7 +3734,6 @@ MAP
   LAYER
     NAME clc00_vineyard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3874,7 +3767,6 @@ MAP
   LAYER
     NAME clc00_orchard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3908,7 +3800,6 @@ MAP
   LAYER
     NAME clc00_olives
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3942,7 +3833,6 @@ MAP
   LAYER
     NAME clc00_cropgrass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -3976,7 +3866,6 @@ MAP
   LAYER
     NAME clc00_mixedcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4010,7 +3899,6 @@ MAP
   LAYER
     NAME clc00_complexcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4044,7 +3932,6 @@ MAP
   LAYER
     NAME clc00_naturalcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4078,7 +3965,6 @@ MAP
   LAYER
     NAME clc00_agroforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4112,7 +3998,6 @@ MAP
   LAYER
     NAME clc00_deciduousforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4146,7 +4031,6 @@ MAP
   LAYER
     NAME clc00_evergreenforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4180,7 +4064,6 @@ MAP
   LAYER
     NAME clc00_mixedforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4214,7 +4097,6 @@ MAP
   LAYER
     NAME clc00_grassland
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4248,7 +4130,6 @@ MAP
   LAYER
     NAME clc00_heath
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4282,7 +4163,6 @@ MAP
   LAYER
     NAME clc00_sclerophyllous
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4316,7 +4196,6 @@ MAP
   LAYER
     NAME clc00_scrub
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4350,7 +4229,6 @@ MAP
   LAYER
     NAME clc00_sand
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4384,7 +4262,6 @@ MAP
   LAYER
     NAME clc00_rock
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4418,7 +4295,6 @@ MAP
   LAYER
     NAME clc00_barrencover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4452,7 +4328,6 @@ MAP
   LAYER
     NAME clc00_burnt
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4486,7 +4361,6 @@ MAP
   LAYER
     NAME clc00_glacier
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4520,7 +4394,6 @@ MAP
   LAYER
     NAME clc00_marsh
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4554,7 +4427,6 @@ MAP
   LAYER
     NAME clc00_bog
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4588,7 +4460,6 @@ MAP
   LAYER
     NAME clc00_saltmarsh
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4622,7 +4493,6 @@ MAP
   LAYER
     NAME clc00_saline
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4656,7 +4526,6 @@ MAP
   LAYER
     NAME clc00_littoral
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4690,7 +4559,6 @@ MAP
   LAYER
     NAME clc00_watercourse
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4724,7 +4592,6 @@ MAP
   LAYER
     NAME clc00_lake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4758,7 +4625,6 @@ MAP
   LAYER
     NAME clc00_lagoon
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4792,7 +4658,6 @@ MAP
   LAYER
     NAME clc00_estuary
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4826,7 +4691,6 @@ MAP
   LAYER
     NAME clc06_urban
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4860,7 +4724,6 @@ MAP
   LAYER
     NAME clc06_town
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4894,7 +4757,6 @@ MAP
   LAYER
     NAME clc06_industrial
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4928,7 +4790,6 @@ MAP
   LAYER
     NAME clc06_transport
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4962,7 +4823,6 @@ MAP
   LAYER
     NAME clc06_port
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -4996,7 +4856,6 @@ MAP
   LAYER
     NAME clc06_airport
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5030,7 +4889,6 @@ MAP
   LAYER
     NAME clc06_openmining
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5064,7 +4922,6 @@ MAP
   LAYER
     NAME clc06_dump
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5098,7 +4955,6 @@ MAP
   LAYER
     NAME clc06_construction
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5132,7 +4988,6 @@ MAP
   LAYER
     NAME clc06_greenspace
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5166,7 +5021,6 @@ MAP
   LAYER
     NAME clc06_golfcourse
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5200,7 +5054,6 @@ MAP
   LAYER
     NAME clc06_drycrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5234,7 +5087,6 @@ MAP
   LAYER
     NAME clc06_irrcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5268,7 +5120,6 @@ MAP
   LAYER
     NAME clc06_rice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5302,7 +5153,6 @@ MAP
   LAYER
     NAME clc06_vineyard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5336,7 +5186,6 @@ MAP
   LAYER
     NAME clc06_orchard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5370,7 +5219,6 @@ MAP
   LAYER
     NAME clc06_olives
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5404,7 +5252,6 @@ MAP
   LAYER
     NAME clc06_cropgrass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5438,7 +5285,6 @@ MAP
   LAYER
     NAME clc06_mixedcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5472,7 +5318,6 @@ MAP
   LAYER
     NAME clc06_complexcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5506,7 +5351,6 @@ MAP
   LAYER
     NAME clc06_naturalcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5540,7 +5384,6 @@ MAP
   LAYER
     NAME clc06_agroforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5574,7 +5417,6 @@ MAP
   LAYER
     NAME clc06_deciduousforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5608,7 +5450,6 @@ MAP
   LAYER
     NAME clc06_evergreenforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5642,7 +5483,6 @@ MAP
   LAYER
     NAME clc06_mixedforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5676,7 +5516,6 @@ MAP
   LAYER
     NAME clc06_grassland
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5710,7 +5549,6 @@ MAP
   LAYER
     NAME clc06_heath
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5744,7 +5582,6 @@ MAP
   LAYER
     NAME clc06_sclerophyllous
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5778,7 +5615,6 @@ MAP
   LAYER
     NAME clc06_scrub
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5812,7 +5648,6 @@ MAP
   LAYER
     NAME clc06_sand
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5846,7 +5681,6 @@ MAP
   LAYER
     NAME clc06_rock
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5880,7 +5714,6 @@ MAP
   LAYER
     NAME clc06_barrencover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5914,7 +5747,6 @@ MAP
   LAYER
     NAME clc06_burnt
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5948,7 +5780,6 @@ MAP
   LAYER
     NAME clc06_glacier
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -5982,7 +5813,6 @@ MAP
   LAYER
     NAME clc06_marsh
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6016,7 +5846,6 @@ MAP
   LAYER
     NAME clc06_bog
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6050,7 +5879,6 @@ MAP
   LAYER
     NAME clc06_saltmarsh
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6084,7 +5912,6 @@ MAP
   LAYER
     NAME clc06_saline
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6118,7 +5945,6 @@ MAP
   LAYER
     NAME clc06_littoral
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6152,7 +5978,6 @@ MAP
   LAYER
     NAME clc06_watercourse
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6186,7 +6011,6 @@ MAP
   LAYER
     NAME clc06_lake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6220,7 +6044,6 @@ MAP
   LAYER
     NAME clc06_lagoon
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6254,7 +6077,6 @@ MAP
   LAYER
     NAME clc06_estuary
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6288,7 +6110,6 @@ MAP
   LAYER
     NAME cs_airport
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6322,7 +6143,6 @@ MAP
   LAYER
     NAME cs_port
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6356,7 +6176,6 @@ MAP
   LAYER
     NAME cs_transport
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6390,7 +6209,6 @@ MAP
   LAYER
     NAME cs_rock
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6424,7 +6242,6 @@ MAP
   LAYER
     NAME cs_asphalt
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6458,7 +6275,6 @@ MAP
   LAYER
     NAME cs_industrial
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6492,7 +6308,6 @@ MAP
   LAYER
     NAME cs_fishing
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6526,7 +6341,6 @@ MAP
   LAYER
     NAME cs_construction
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6560,7 +6374,6 @@ MAP
   LAYER
     NAME cs_dump
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6594,7 +6407,6 @@ MAP
   LAYER
     NAME cs_burnt
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6628,7 +6440,6 @@ MAP
   LAYER
     NAME cs_cropgrass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6662,7 +6473,6 @@ MAP
   LAYER
     NAME cs_drycrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6696,7 +6506,6 @@ MAP
   LAYER
     NAME cs_irrcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6730,7 +6539,6 @@ MAP
   LAYER
     NAME cs_rice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6764,7 +6572,6 @@ MAP
   LAYER
     NAME cs_mixedcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6798,7 +6605,6 @@ MAP
   LAYER
     NAME cs_naturalcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6832,7 +6638,6 @@ MAP
   LAYER
     NAME cs_complexcrop
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6866,7 +6671,6 @@ MAP
   LAYER
     NAME cs_orchard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6900,7 +6704,6 @@ MAP
   LAYER
     NAME cs_olives
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6934,7 +6737,6 @@ MAP
   LAYER
     NAME cs_vineyard
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -6968,7 +6770,6 @@ MAP
   LAYER
     NAME cs_dirt
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7002,7 +6803,6 @@ MAP
   LAYER
     NAME cs_golfcourse
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7036,7 +6836,6 @@ MAP
   LAYER
     NAME cs_cemetery
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7070,7 +6869,6 @@ MAP
   LAYER
     NAME cs_grassland
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7104,7 +6902,6 @@ MAP
   LAYER
     NAME cs_greenspace
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7138,7 +6935,6 @@ MAP
   LAYER
     NAME cs_lake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7172,7 +6968,6 @@ MAP
   LAYER
     NAME cs_watercourse
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7206,7 +7001,6 @@ MAP
   LAYER
     NAME cs_intermittentlake
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7240,7 +7034,6 @@ MAP
   LAYER
     NAME cs_lava
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7274,7 +7067,6 @@ MAP
   LAYER
     NAME cs_lagoon
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7308,7 +7100,6 @@ MAP
   LAYER
     NAME cs_estuary
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7342,7 +7133,6 @@ MAP
   LAYER
     NAME cs_littoral
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7376,7 +7166,6 @@ MAP
   LAYER
     NAME cs_floodland
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7410,7 +7199,6 @@ MAP
   LAYER
     NAME cs_bog
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7444,7 +7232,6 @@ MAP
   LAYER
     NAME cs_barrencover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7478,7 +7265,6 @@ MAP
   LAYER
     NAME cs_marsh
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7512,7 +7298,6 @@ MAP
   LAYER
     NAME cs_saltmarsh
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7546,7 +7331,6 @@ MAP
   LAYER
     NAME cs_openmining
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7580,7 +7364,6 @@ MAP
   LAYER
     NAME cs_saline
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7614,7 +7397,6 @@ MAP
   LAYER
     NAME cs_agroforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7648,7 +7430,6 @@ MAP
   LAYER
     NAME cs_deciduousforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7682,7 +7463,6 @@ MAP
   LAYER
     NAME cs_evergreenforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7716,7 +7496,6 @@ MAP
   LAYER
     NAME cs_mixedforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7750,7 +7529,6 @@ MAP
   LAYER
     NAME cs_rainforest
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7784,7 +7562,6 @@ MAP
   LAYER
     NAME cs_sand
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7818,7 +7595,6 @@ MAP
   LAYER
     NAME cs_scrub
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7852,7 +7628,6 @@ MAP
   LAYER
     NAME cs_sclerophyllous
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7886,7 +7661,6 @@ MAP
   LAYER
     NAME cs_herbtundra
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7920,7 +7694,6 @@ MAP
   LAYER
     NAME cs_heath
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7954,7 +7727,6 @@ MAP
   LAYER
     NAME cs_glacier
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -7988,7 +7760,6 @@ MAP
   LAYER
     NAME cs_packice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -8022,7 +7793,6 @@ MAP
   LAYER
     NAME cs_polarice
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -8056,7 +7826,6 @@ MAP
   LAYER
     NAME cs_town
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -8090,7 +7859,6 @@ MAP
   LAYER
     NAME cs_suburban
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -8124,7 +7892,6 @@ MAP
   LAYER
     NAME cs_urban
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -8158,7 +7925,6 @@ MAP
   LAYER
     NAME cs_void
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -8192,7 +7958,6 @@ MAP
   LAYER
     NAME cs_stream
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
@@ -8229,7 +7994,6 @@ MAP
   LAYER
     NAME cs_intermittentstream
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -8266,7 +8030,6 @@ MAP
   LAYER
     NAME cs_canal
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
     SYMBOLSCALE 10000
@@ -8303,7 +8066,6 @@ MAP
   LAYER
     NAME apt_ctr
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8338,7 +8100,6 @@ MAP
   LAYER
     NAME apt_tarmac_v810misc
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8374,7 +8135,6 @@ MAP
   LAYER
     NAME apt_tarmac_v810grass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8410,7 +8170,6 @@ MAP
   LAYER
     NAME apt_tarmac_v810water
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8446,7 +8205,6 @@ MAP
   LAYER
     NAME apt_stopway_v810
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8481,7 +8239,6 @@ MAP
   LAYER
     NAME apt_runway_v810misc
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8517,7 +8274,6 @@ MAP
   LAYER
     NAME apt_runway_v810grass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8553,7 +8309,6 @@ MAP
   LAYER
     NAME apt_runway_v810water
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8589,7 +8344,6 @@ MAP
   LAYER
     NAME apt_marking_v810
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 20000
     CONNECTION "dbname=landcover user=webuser"
@@ -8625,7 +8379,6 @@ MAP
   LAYER
     NAME apt_tarmac_misc
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8661,7 +8414,6 @@ MAP
   LAYER
     NAME apt_tarmac_grass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8697,7 +8449,6 @@ MAP
   LAYER
     NAME apt_tarmac_water
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8733,7 +8484,6 @@ MAP
   LAYER
     NAME apt_stopway
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8768,7 +8518,6 @@ MAP
   LAYER
     NAME apt_runway_misc
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8804,7 +8553,6 @@ MAP
   LAYER
     NAME apt_runway_grass
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8840,7 +8588,6 @@ MAP
   LAYER
     NAME apt_runway_water
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     CONNECTION "dbname=landcover user=webuser"
@@ -8876,7 +8623,6 @@ MAP
   LAYER
     NAME apt_marking
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 20000
     CONNECTION "dbname=landcover user=webuser"
@@ -8912,7 +8658,6 @@ MAP
   LAYER
     NAME v0_stream
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
@@ -8949,7 +8694,6 @@ MAP
   LAYER
     NAME v0_intermittentstream
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -8986,7 +8730,6 @@ MAP
   LAYER
     NAME v0_canal
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
     SYMBOLSCALE 10000
@@ -9023,7 +8766,6 @@ MAP
   LAYER
     NAME v0_road
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     SYMBOLSCALE 10000
@@ -9064,7 +8806,6 @@ MAP
   LAYER
     NAME v0_freeway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
@@ -9105,7 +8846,6 @@ MAP
   LAYER
     NAME cs_road
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
@@ -9146,7 +8886,6 @@ MAP
   LAYER
     NAME cs_freeway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -9187,7 +8926,6 @@ MAP
   LAYER
     NAME v0_railroad1
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -9224,7 +8962,6 @@ MAP
   LAYER
     NAME v0_railroad2
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -9271,7 +9008,6 @@ MAP
   LAYER
     NAME cs_railroad1
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -9308,7 +9044,6 @@ MAP
   LAYER
     NAME cs_railroad2
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -9355,7 +9090,6 @@ MAP
   LAYER
     NAME v0_depthcontour
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9389,7 +9123,6 @@ MAP
   LAYER
     NAME v0_elevcontour
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9423,7 +9156,6 @@ MAP
   LAYER
     NAME v1_ditch
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9458,7 +9190,6 @@ MAP
   LAYER
     NAME v1_intermittentstream
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9493,7 +9224,6 @@ MAP
   LAYER
     NAME v1_stream
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9528,7 +9258,6 @@ MAP
   LAYER
     NAME v1_canal
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9562,7 +9291,6 @@ MAP
   LAYER
     NAME v1_siderail
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
     CONNECTION "dbname=landcover user=webuser"
@@ -9597,7 +9325,6 @@ MAP
   LAYER
     NAME v1_railroad1
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -9634,7 +9361,6 @@ MAP
   LAYER
     NAME v1_railroad2
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -9681,7 +9407,6 @@ MAP
   LAYER
     NAME v1_miscrailroad
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
     CONNECTION "dbname=landcover user=webuser"
@@ -9717,7 +9442,6 @@ MAP
   LAYER
     NAME v1_road
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
@@ -9758,7 +9482,6 @@ MAP
   LAYER
     NAME v1_freeway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -9799,7 +9522,6 @@ MAP
   LAYER
     NAME v1_motorway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 8500000
     SYMBOLSCALE 10000
@@ -9840,7 +9562,6 @@ MAP
   LAYER
     NAME v1_firebreak
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9875,7 +9596,6 @@ MAP
   LAYER
     NAME v1_pipeline
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9910,7 +9630,6 @@ MAP
   LAYER
     NAME v1_powerline
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -9945,7 +9664,6 @@ MAP
   LAYER
     NAME pgs
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -9980,7 +9698,6 @@ MAP
   LAYER
     NAME srtm_elevation
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -10014,7 +9731,6 @@ MAP
   LAYER
     NAME tgr_motorway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 8500000
     SYMBOLSCALE 10000
@@ -10056,7 +9772,6 @@ MAP
   LAYER
     NAME tgr_primary
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -10098,7 +9813,6 @@ MAP
   LAYER
     NAME tgr_secondary
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -10140,7 +9854,6 @@ MAP
   LAYER
     NAME tgr_minor_roads
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
@@ -10182,7 +9895,6 @@ MAP
   LAYER
     NAME tgr_railroads
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -10230,7 +9942,6 @@ MAP
   LAYER
     NAME tgr_waterways
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -10266,7 +9977,6 @@ MAP
   LAYER
     NAME grnf_roads
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
@@ -10307,7 +10017,6 @@ MAP
   LAYER
     NAME osm_motorway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 8500000
     SYMBOLSCALE 10000
@@ -10351,7 +10060,6 @@ MAP
   LAYER
     NAME osm_trunk
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
@@ -10392,7 +10100,6 @@ MAP
   LAYER
     NAME osm_primary
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     SYMBOLSCALE 10000
@@ -10433,7 +10140,6 @@ MAP
   LAYER
     NAME osm_secondary
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -10474,7 +10180,6 @@ MAP
   LAYER
     NAME osm_tertiary
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 800000
     SYMBOLSCALE 10000
@@ -10515,7 +10220,6 @@ MAP
   LAYER
     NAME osm_unclassified
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
@@ -10556,7 +10260,6 @@ MAP
   LAYER
     NAME osm_track
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
@@ -10597,7 +10300,6 @@ MAP
   LAYER
     NAME osm_residential
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
@@ -10638,7 +10340,6 @@ MAP
   LAYER
     NAME osm_service
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MINSCALE 1
     MAXSCALE 30000
@@ -10680,7 +10381,6 @@ MAP
   LAYER
     NAME osm_bridleway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MAXSCALE 100000
     MAXSCALE 30000
@@ -10718,7 +10418,6 @@ MAP
   LAYER
     NAME osm_cycleway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MAXSCALE 100000
     MAXSCALE 30000
@@ -10756,7 +10455,6 @@ MAP
   LAYER
     NAME osm_footway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MAXSCALE 100000
     MAXSCALE 30000
@@ -10794,7 +10492,6 @@ MAP
   LAYER
     NAME osm_pedestrian
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MAXSCALE 100000
     MAXSCALE 30000
@@ -10836,7 +10533,6 @@ MAP
   LAYER
     NAME osm_steps
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MAXSCALE 100000
     MAXSCALE 30000
@@ -10902,7 +10598,6 @@ MAP
   LAYER
     NAME osm_rail
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MAXSCALE 25000000
     MAXSCALE 1000000
@@ -10964,7 +10659,6 @@ MAP
   LAYER
     NAME osm_tram
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MAXSCALE 1000000
     MAXSCALE 1000000
@@ -11002,7 +10696,6 @@ MAP
   LAYER
     NAME osm_light_rail
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
 #    MAXSCALE 1000000
     MAXSCALE 1000000
@@ -11040,7 +10733,6 @@ MAP
   LAYER
     NAME osm_river
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1500000
     SYMBOLSCALE 10000
@@ -11077,7 +10769,6 @@ MAP
   LAYER
     NAME osm_canal
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
     SYMBOLSCALE 10000
@@ -11114,7 +10805,6 @@ MAP
   LAYER
     NAME osm_stream
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 100000
     SYMBOLSCALE 10000
@@ -11151,7 +10841,6 @@ MAP
   LAYER
     NAME osm_drain
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 30000
     SYMBOLSCALE 10000
@@ -11188,7 +10877,6 @@ MAP
   LAYER
     NAME osm_runway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -11225,7 +10913,6 @@ MAP
   LAYER
     NAME osm_taxiway
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -11262,7 +10949,6 @@ MAP
   LAYER
     NAME osm_apron
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 1000000
     SYMBOLSCALE 10000
@@ -11298,7 +10984,6 @@ MAP
   LAYER
     NAME osm_coastline
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -11332,7 +11017,6 @@ MAP
   LAYER
     NAME osm_roadcover
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -11366,7 +11050,6 @@ MAP
   LAYER
     NAME v0_town
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
     CONNECTION "dbname=landcover user=webuser"
@@ -11411,7 +11094,6 @@ MAP
   LAYER
     NAME v1_waterintake
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
     CONNECTION "dbname=landcover user=webuser"
@@ -11448,7 +11130,6 @@ MAP
   LAYER
     NAME v1_town
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 25000000
     CONNECTION "dbname=landcover user=webuser"
@@ -11493,7 +11174,6 @@ MAP
   LAYER
     NAME apt_airfield
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -11540,7 +11220,6 @@ MAP
   LAYER
     NAME apt_twr
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -11587,7 +11266,6 @@ MAP
   LAYER
     NAME apt_fix
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -11634,7 +11312,6 @@ MAP
   LAYER
     NAME apt_vor
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -11682,7 +11359,6 @@ MAP
   LAYER
     NAME apt_dme
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -11730,7 +11406,6 @@ MAP
   LAYER
     NAME apt_ndb
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -11778,7 +11453,6 @@ MAP
   LAYER
     NAME apt_ils
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -11825,7 +11499,6 @@ MAP
   LAYER
     NAME airspaces
     TYPE LINE
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -11860,7 +11533,6 @@ MAP
   LAYER
     NAME geonam_10k
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -11907,7 +11579,6 @@ MAP
   LAYER
     NAME geonam_10k-50k
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -11954,7 +11625,6 @@ MAP
   LAYER
     NAME geonam_50k-100k
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -12001,7 +11671,6 @@ MAP
   LAYER
     NAME geonam_100k-500k
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -12048,7 +11717,6 @@ MAP
   LAYER
     NAME geonam_500k-1M
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -12095,7 +11763,6 @@ MAP
   LAYER
     NAME geonam_gt1M
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 5550000
     CONNECTION "dbname=landcover user=webuser"
@@ -12142,7 +11809,6 @@ MAP
   LAYER
     NAME fgs_staticobjects
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -12190,7 +11856,6 @@ MAP
   LAYER
     NAME fgs_sharedobjects
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
@@ -12238,7 +11903,6 @@ MAP
   LAYER
     NAME fgs_signs
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 30000
 #    SYMBOLSCALE 10000
@@ -12285,7 +11949,6 @@ MAP
   LAYER
     NAME modis_fire_7d
     TYPE POINT
-    DUMP TRUE
     STATUS OFF
     LABELMAXSCALE 10
     CONNECTION "dbname=landcover user=webuser"
@@ -12333,7 +11996,6 @@ MAP
   LAYER
     NAME gadm_bund
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -12368,7 +12030,6 @@ MAP
   LAYER
     NAME gadm_land
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -12403,7 +12064,6 @@ MAP
   LAYER
     NAME gadm_regbez
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -12438,7 +12098,6 @@ MAP
   LAYER
     NAME gadm_kreis
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
@@ -12473,7 +12132,6 @@ MAP
   LAYER
     NAME fg_buckets
     TYPE POLYGON
-    DUMP TRUE
     STATUS OFF
     MAXSCALE 35550000
     LABELMAXSCALE 1000000
