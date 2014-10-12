@@ -175,19 +175,14 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newModelMD = $newModel->getMetadata();
         $newObject = $request->getNewObject();
         
-        $moQuery  = "INSERT INTO fgs_models ";
-        $moQuery .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
-        $moQuery .= "VALUES (";
-        $moQuery .= "DEFAULT, ";             // mo_id
-        $moQuery .= "'".$newModelMD->getFilename()."', ";  // mo_path
-        $moQuery .= $newModelMD->getAuthor()->getId().", ";          // mo_author
-        $moQuery .= "'".$newModelMD->getName()."', ";         // mo_name
-        $moQuery .= "'".$newModelMD->getDescription()."', ";        // mo_notes
-        $moQuery .= "'".$newModel->getThumbnail()."', ";    // mo_thumbfile
-        $moQuery .= "'".$newModel->getModelFiles()."', ";    // mo_modelfile
-        $moQuery .= $newModelMD->getModelsGroup()->getId();              // mo_shared
-        $moQuery .= ") ";
-        $moQuery .= "RETURNING mo_id";
+        $moQuery  = "MODEL_ADD||";
+        $moQuery .= $newModelMD->getFilename()."||";        // mo_path
+        $moQuery .= $newModelMD->getAuthor()->getId()."||"; // mo_author
+        $moQuery .= $newModelMD->getName()."||";            // mo_name
+        $moQuery .= $newModelMD->getDescription()."||";     // mo_notes
+        $moQuery .= $newModel->getThumbnail()."||";         // mo_thumbfile
+        $moQuery .= $newModel->getModelFiles()."||";        // mo_modelfile
+        $moQuery .= $newModelMD->getModelsGroup()->getId(); // mo_shared
 
         $obQuery  = "INSERT INTO fgs_objects ";
         $obQuery .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_text, ob_group) ";
@@ -276,7 +271,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         }
         
         // Add model request
-        if (substr_count($requestQuery,"INSERT INTO fgs_models") == 1) {
+        if (substr_count($requestQuery,"MODEL_ADD") == 1) {
             $request = $this->getRequestModelAddFromRow($requestQuery);
         }
         
@@ -292,24 +287,19 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestModelAddFromRow($requestQuery) {
-	echo $requestQuery;
-        $queryModel = substr($requestQuery, 0, strpos($requestQuery, "INSERT INTO fgs_objects"));
+        $queryModel = substr($requestQuery, 0, strpos($requestQuery, ";INSERT INTO fgs_objects"));
         $queryObj = strstr($requestQuery, "INSERT INTO fgs_objects");
 
         // Retrieve MODEL data from query
-        $pattern = "/INSERT INTO fgs_models \(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared\) VALUES \(DEFAULT, '(?P<path>[a-zA-Z0-9_.-]+)', (?P<author>[0-9]+), '(?P<name>[0-9a-zA-Z;!?@\-_\.\(\)\[\]+ ]+)', '(?P<notes>[^$]*)', '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', '(?P<modelfile>[a-zA-Z0-9=+\/]+)', (?P<shared>[0-9]+)\) RETURNING mo_id;/";
-        if (preg_match($pattern, $queryModel, $matches)) {
-            $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
-            $modelMD = $modelFactory->createModelMetadata(-1, $matches['author'], $matches['path'], $matches['name'], $matches['notes'], $matches['shared']);
-            $newModel = new Model();
-            $newModel->setMetadata($modelMD);
-            $newModel->setModelFiles(new ModelFilesTar(base64_decode($matches['modelfile'])));
-            $newModel->setThumbnail(base64_decode($matches['thumbfile']));
-        } else {
-            throw new Exception("PREG Error with model query ,with code " . preg_last_error());
-        }
+        // MODEL_ADD||mo_path||mo_author||mo_name||mo_notes||mo_thumbfile||mo_modelfile||mo_shared
+        $modelArr = explode("||", $queryModel);
+        $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
+        $modelMD = $modelFactory->createModelMetadata(-1, $modelArr[2], $modelArr[1], $modelArr[3], $modelArr[4], $modelArr[7]);
+        $newModel = new Model();
+        $newModel->setMetadata($modelMD);
+        $newModel->setModelFiles(new ModelFilesTar(base64_decode($modelArr[6])));
+        $newModel->setThumbnail(base64_decode($modelArr[5]));
 
-        
         // Retrieve OBJECT data from query
         $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
         $pos = strpos($queryObj, $search);
