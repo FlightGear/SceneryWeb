@@ -42,8 +42,8 @@
     );
 
     var tarmac = new OpenLayers.Layer.WMS( "Airfield layouts (v9.00, 2013.10)",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'tarmac', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
     );
@@ -57,8 +57,8 @@
     );
 
     var airfield = new OpenLayers.Layer.WMS( "Aerodrome reference points",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'airfield', format: 'image/png'},
         {isBaseLayer: false}
     );
