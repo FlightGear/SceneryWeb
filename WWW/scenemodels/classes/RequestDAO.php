@@ -248,7 +248,6 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     private function getRequestFromRow($requestRow) {
         // Decoding in Base64. Dezipping the Base64'd request.
         $requestQuery = gzuncompress(base64_decode($requestRow["spr_base64_sqlz"]));
-        echo $requestQuery;
         
         // Delete object request
         if (substr_count($requestQuery,"DELETE FROM fgs_objects") == 1) {
