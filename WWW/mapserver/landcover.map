@@ -11180,7 +11180,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM apt_airfield USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM v_apt_heading USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
