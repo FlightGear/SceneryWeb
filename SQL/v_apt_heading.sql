@@ -26,25 +26,23 @@ BEGIN TRANSACTION;
                 (CASE WHEN COALESCE(substring(rwy_num1 FROM '[0-9]*'), rwy_num1) != ''
                     THEN COALESCE(substring(rwy_num1 FROM '[0-9]*'), rwy_num1)
                     ELSE rwy_num1
-                    -- Convert rnuway designation string into number as degrees.
-                    END)::numeric * 10 AS heading,
-                -- obsolete ....
+                    END) AS heading,
+                ROUND(AVG(true_heading_deg), 2) AS true_heading_deg,
+                -- Testing, non-functional ....
                 COUNT(*),
-                -- Rank rnuway headings by number of occurrences.
+                -- Rank runway headings by number of occurrences.
                 ROW_NUMBER() OVER (PARTITION BY icao ORDER BY icao, COUNT(*) DESC) AS rank
             FROM apt_runway
-            -- FIXME, skip heliports, they start with a non-numeric character.
-            WHERE left(rwy_num1, 1) != 'H'
             GROUP BY icao, heading)
 
         -- Views don't have serials, create a work-alike.
         SELECT ROW_NUMBER() OVER (ORDER BY a.icao) AS ogc_fid,
-            -- Join weighted airport center with heading ....
-            a.icao AS icao, ST_Centroid(ST_Collect(a.wkb_geometry)) AS wkb_geometry, h.heading
+            -- Join weighted airport center with true heading ....
+            a.icao AS icao, ST_Centroid(ST_Collect(a.wkb_geometry)) AS wkb_geometry, h.true_heading_deg AS heading
         FROM apt_runway AS a, h
         -- .... which has the highest rank.
         WHERE a.icao = h.icao AND h.rank = 1
-        GROUP BY a.icao, h.heading
+        GROUP BY a.icao, h.true_heading_deg
         ORDER BY icao);
     -- Let everybody read the view.
     GRANT SELECT ON v_apt_heading TO webuser;
