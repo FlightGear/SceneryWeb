@@ -14,8 +14,8 @@
 # Distanz abholen
   $dbquery = pg_query ("
     SELECT (ST_Distance_Spheroid(
-      (SELECT wkb_geometry FROM apt_airfield WHERE icao ILIKE '$icao1'),
-      (SELECT wkb_geometry FROM apt_airfield WHERE icao ILIKE '$icao2'),
+      (SELECT wkb_geometry FROM v_apt_heading WHERE icao ILIKE '$icao1'),
+      (SELECT wkb_geometry FROM v_apt_heading WHERE icao ILIKE '$icao2'),
       'SPHEROID[\"WGS84\",6378137.000,298.257223563]'
     )/1000)::decimal(9,3) AS Km;
   ");

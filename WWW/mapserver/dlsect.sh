@@ -36,7 +36,7 @@ for LAYER in apt_runway apt_tarmac v0_lake v0_landmass; do
             -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
             "SELECT * FROM ${LAYER} \
                 WHERE wkb_geometry && \
-                ST_Buffer((SELECT wkb_geometry FROM apt_airfield WHERE icao LIKE 'EHAM'), 2)"
+                ST_Buffer((SELECT wkb_geometry FROM v_apt_heading WHERE icao LIKE 'EHAM'), 2)"
         cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
     fi
 done
