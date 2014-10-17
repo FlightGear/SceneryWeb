@@ -16,22 +16,26 @@
 
 -- Derive center and most frequent runway heading from runway table.
 
-CREATE OR REPLACE VIEW v_apt_heading AS (
-    WITH apt_heading AS (
-        SELECT icao,
-            ST_Centroid(ST_Collect(wkb_geometry)) AS wkb_geometry,
-            (CASE WHEN COALESCE(substring(rwy_num1 FROM '[0-9]*'), rwy_num1) != ''
-                THEN COALESCE(substring(rwy_num1 FROM '[0-9]*'), rwy_num1)
-                ELSE rwy_num1
-                END)::numeric * 10 AS heading,
-            COUNT(*),
-            ROW_NUMBER() OVER (PARTITION BY icao ORDER BY icao, COUNT(*) DESC) AS rnk
-        FROM apt_runway
-        WHERE left(rwy_num1, 1) != 'H'
-        GROUP BY icao, heading)
+BEGIN TRANSACTION;
+    DROP MATERIALIZED VIEW v_apt_heading;
+    CREATE MATERIALIZED VIEW v_apt_heading AS (
+        WITH h AS (
+            SELECT icao,
+                (CASE WHEN COALESCE(substring(rwy_num1 FROM '[0-9]*'), rwy_num1) != ''
+                    THEN COALESCE(substring(rwy_num1 FROM '[0-9]*'), rwy_num1)
+                    ELSE rwy_num1
+                    END)::numeric * 10 AS heading,
+                COUNT(*),
+                ROW_NUMBER() OVER (PARTITION BY icao ORDER BY icao, COUNT(*) DESC) AS rnk
+            FROM apt_runway
+            WHERE left(rwy_num1, 1) != 'H'
+            GROUP BY icao, heading)
 
-    SELECT ROW_NUMBER() OVER (ORDER BY icao) AS ogc_fid,
-        icao, wkb_geometry, heading
-    FROM apt_heading
-    WHERE rnk = 1
-    ORDER BY icao);
+        SELECT ROW_NUMBER() OVER (ORDER BY a.icao) AS ogc_fid,
+            a.icao AS icao, ST_Centroid(ST_Collect(a.wkb_geometry)) AS wkb_geometry, h.heading
+        FROM apt_runway AS a, h
+        WHERE a.icao = h.icao AND h.rnk = 1
+        GROUP BY a.icao, h.heading
+        ORDER BY icao);
+    GRANT SELECT ON v_apt_heading TO webuser;
+COMMIT;
