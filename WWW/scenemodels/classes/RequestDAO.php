@@ -206,9 +206,15 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newModel = $request->getNewModel();
         $newModelMD = $newModel->getMetadata();
         
-        $reqStr  = "UPDATE fgs_models ";
-        $reqStr .= "SET mo_path = '".$newModelMD->getFilename()."', mo_author = ".$newModelMD->getAuthor()->getId().", mo_name = '".$newModelMD->getName()."', mo_notes = '".$newModelMD->getDescription()."', mo_thumbfile = '".$newModel->getThumbnail()."', mo_modelfile = '".$newModel->getModelFiles()."', mo_shared = ".$newModelMD->getModelsGroup()->getId();
-        $reqStr .= " WHERE mo_id = ".$newModelMD->getId();
+        $reqStr  = "MODEL_UPDATE||";
+        $reqStr .= $newModelMD->getFilename()."||";             // mo_path
+        $reqStr .= $newModelMD->getAuthor()->getId()."||";      // mo_author
+        $reqStr .= $newModelMD->getName()."||";                 // mo_name
+        $reqStr .= $newModelMD->getDescription()."||";          // mo_notes
+        $reqStr .= $newModel->getThumbnail()."||";              // mo_thumbfile
+        $reqStr .= $newModel->getModelFiles()."||";             // mo_modelfile
+        $reqStr .= $newModelMD->getModelsGroup()->getId()."||"; // mo_shared
+        $reqStr .= $newModelMD->getId();                        // mo_id
                 
         return $reqStr;
     }
@@ -276,7 +282,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         }
         
         // Update model request
-        if (substr_count($requestQuery,"UPDATE fgs_models") == 1) {
+        if (substr_count($requestQuery,"MODEL_UPDATE") == 1) {
             $request = $this->getRequestModelUpdateFromRow($requestQuery);
         }
         
@@ -321,18 +327,18 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function getRequestModelUpdateFromRow($requestQuery) {
         // Retrieve data from query
-        $pattern = "/UPDATE fgs_models SET mo_path \= '(?P<path>[a-zA-Z0-9_.-]+)', mo_author \= (?P<author>[0-9]+), mo_name \= '(?P<name>[0-9a-zA-Z;!?@\-_\.\(\)\[\]+ ]+)', mo_notes \= '(?P<notes>[a-zA-Z0-9 ,!_.-]*)', mo_thumbfile \= '(?P<thumbfile>[a-zA-Z0-9=+\/]+)', mo_modelfile \= '(?P<modelfile>[a-zA-Z0-9=+\/]+)', mo_shared \= (?P<shared>[0-9]+) WHERE mo_id \= (?P<modelid>[0-9]+)/";
-        preg_match($pattern, $requestQuery, $matches);
+        // MODEL_UPDATE||path||author||name||notes||thumbfile||modelfile||shared||modelid
+        $modelArr = explode("||", $requestQuery);
 
         $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
-        $modelMD = $modelFactory->createModelMetadata($matches['modelid'],
-                $matches['author'], $matches['path'], $matches['name'],
-                $matches['notes'], $matches['shared']);
+        $modelMD = $modelFactory->createModelMetadata($modelArr[8],
+                $modelArr[2], $modelArr[1], $modelArr[3],
+                $modelArr[4], $modelArr[7]);
         
         $newModel = new Model();
         $newModel->setMetadata($modelMD);
-        $newModel->setModelFiles(new ModelFilesTar(base64_decode($matches['modelfile'])));
-        $newModel->setThumbnail(base64_decode($matches['thumbfile']));
+        $newModel->setModelFiles(new ModelFilesTar(base64_decode($modelArr[6])));
+        $newModel->setThumbnail(base64_decode($modelArr[5]));
 
         // Retrieve old model
         $oldModel = $this->modelDao->getModel($modelMD->getId());
