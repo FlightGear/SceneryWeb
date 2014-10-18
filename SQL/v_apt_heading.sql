@@ -31,7 +31,7 @@ BEGIN TRANSACTION;
                 -- Testing, non-functional ....
                 COUNT(*),
                 -- Rank runway headings by number of occurrences.
-                ROW_NUMBER() OVER (PARTITION BY icao ORDER BY icao, COUNT(*) DESC) AS rank
+                ROW_NUMBER() OVER (PARTITION BY icao ORDER BY icao, COUNT(*) DESC, SUM(ST_Area(wkb_geometry)) DESC) AS rank
             FROM apt_runway
             GROUP BY icao, heading)
 
