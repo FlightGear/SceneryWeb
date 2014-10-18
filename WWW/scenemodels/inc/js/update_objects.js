@@ -17,7 +17,7 @@ function update_objects(modelFilename)
 
 function changeObjectsList(hreq, modelFilename)
 {
-    var text="<select name='model_name' id='model_name' onchange='change_thumb();update_model_info();'>";
+    var text="<select name='modelId' id='modelId' onchange='change_thumb();update_model_info();'>";
 
     // If the request is finished
     if(hreq.readyState === 4)
@@ -46,7 +46,7 @@ function changeObjectsList(hreq, modelFilename)
 function update_model_info(path)
 {
     //retrives information from a php-generated xml
-    var url = '/inc/model_info_xml.php?mo_id='+document.getElementById('model_name').value;
+    var url = '/inc/model_info_xml.php?mo_id='+document.getElementById('modelId').value;
 
     var hreq = null;
     if(window.XMLHttpRequest){//firefox, chrome,...
@@ -82,7 +82,7 @@ function changeModelInfo(hreq, path)
 }
 
 function change_thumb() {
-    document.getElementById('form_objects_thumb').src = "../../modelthumb.php?id="+document.getElementById('model_name').value;  
+    document.getElementById('form_objects_thumb').src = "../../modelthumb.php?id="+document.getElementById('modelId').value;  
 }
 
 function update_map(long_id, lat_id) {

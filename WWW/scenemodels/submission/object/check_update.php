@@ -40,8 +40,8 @@ if (isset($_REQUEST['update_choice']) && is_object_id($_REQUEST['update_choice']
     $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
 }
 
-if (isset($_POST['model_name']) && is_model_id($_POST['model_name'])) {
-    $model_name = pg_escape_string($_POST['model_name']);
+if (isset($_POST['modelId']) && is_model_id($_POST['modelId'])) {
+    $model_name = pg_escape_string($_POST['modelId']);
 }
 
 if (isset($_POST['email']) && is_email($_POST['email'])) {
@@ -230,7 +230,7 @@ function validateForm()
         <tr>
           <td>
             <span title="This is the model name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
-            <label for="model_name">Model name<em>*</em></label></span>
+            <label for="modelId">Model name<em>*</em></label></span>
           </td>
           <td>
 <?php
@@ -243,7 +243,7 @@ function validateForm()
     if (!$modelMDToUp->getModelsGroup()->isStatic()) {
 
         echo "<div id=\"form_objects\">";
-        echo "    <select name='model_name' id='model_name' onchange='change_thumb()'>";
+        echo "    <select name='modelId' id='modelId' onchange='change_thumb()'>";
 
         $modelMetadatas = $modelDaoRO->getModelMetadatasByGroup($id_family, 0, "ALL");
         
@@ -263,7 +263,7 @@ function validateForm()
         echo "</div>\n";
 
     } else {
-        echo "      <input name=\"model_name\" type=\"hidden\" value=\"".$objectToUp->getModelId()."\"></input>";
+        echo "      <input name=\"modelId\" type=\"hidden\" value=\"".$objectToUp->getModelId()."\"></input>";
         echo $modelMDToUp->getName();
     }
 ?>

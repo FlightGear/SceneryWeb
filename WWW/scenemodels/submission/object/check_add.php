@@ -42,8 +42,8 @@ global $error;
 echo "<center>";
 
 // Checking that model_id exists and is containing only figures and with correct decimal format.
-if (is_model_id($_POST['model_name'])) {
-    $model_id = pg_escape_string(stripslashes($_POST['model_name']));
+if (is_model_id($_POST['modelId'])) {
+    $model_id = pg_escape_string(stripslashes($_POST['modelId']));
     $modelMD = $modelDaoRO->getModelMetadata($model_id);
     echo "<p class=\"ok\">Model Name: ".$modelMD->getName()."</p>";
     echo "<p class=\"ok\">Family Name: ".$modelMD->getModelsGroup()->getName()."</p>";

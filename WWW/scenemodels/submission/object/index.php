@@ -95,7 +95,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="model_name">Model name<em>*</em><span>This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file.</span></label></td>
+                    <td><label for="modelId">Model name<em>*</em><span>This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file.</span></label></td>
                     <td>
                         <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
 

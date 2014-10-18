@@ -400,8 +400,8 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
 }
 
 // Check if path is already used
-if (isset($_POST["model_name"])) {
-    $modelToUpdateOld = $modelDaoRO->getModelMetadata($_POST["model_name"]);
+if (isset($_POST["modelId"])) {
+    $modelToUpdateOld = $modelDaoRO->getModelMetadata($_POST["modelId"]);
     if ($path_to_use != $modelToUpdateOld->getFilename() && path_exists($path_to_use)) {
         $error++;
         $errormsg .= "<li>Filename \"".$path_to_use."\" is already used by another model</li>";
@@ -591,7 +591,7 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
 ###############################################
 ###############################################
 
-if (isset($_POST["model_group_id"]) && isset($_POST["model_name"])
+if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
         && isset($_POST["mo_name"])
         && isset($_POST['notes']) && isset($_POST["mo_author"]) && is_comment($_POST['notes'])) {
 
@@ -599,7 +599,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["model_name"])
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $authorId    = $_POST["mo_author"];
     $mo_shared   = $_POST["model_group_id"];
-    $modelId     = $_POST["model_name"];
+    $modelId     = $_POST["modelId"];
     
 	if (!is_model_id($modelId)) {
 		$error++;
