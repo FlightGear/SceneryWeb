@@ -16,11 +16,10 @@ try {
 } catch (RequestNotFoundException $e) {
     $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
     $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-    include '../inc/error_page.php';
+    include '../../inc/error_page.php';
     exit;
 }
 
-    
 if (isset($_POST["action"])) {
     // Inserting libs
     include_once '../../inc/functions.inc.php';
@@ -34,21 +33,21 @@ if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Reject model") {
         $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
-        
+
         try {
             $resultDel = $requestDaoRW->deleteRequest($sig);
         } catch(RequestNotFoundException $e) {
             $process_text = "Deleting corresponding pending query.";
             $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
             $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
-            include '../inc/error_page.php';
+            include '../../inc/error_page.php';
             exit;
         }
 
         if (!$resultDel) {
             $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request #". $request->getId();
             $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-            include '../inc/error_page.php';
+            include '../../inc/error_page.php';
             exit;
         }
 
@@ -62,7 +61,6 @@ if (isset($_POST["action"])) {
         echo "</p>";
 
         include '../../inc/footer.php';
-
 
         // Sending mail if entry was correctly deleted.
         // Sets the time to UTC.
@@ -141,8 +139,6 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
 
     // Inserting libs
-    include_once '../../inc/functions.inc.php';
-    include_once '../../inc/form_checks.php';
     include_once '../../inc/geshi/geshi.php';
 
 

@@ -72,6 +72,7 @@ if (isset($_POST["action"])) {
 
         $to = (isset($_POST['email']))?$_POST["email"]:"";
 
+        // Email to contributor
         $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $request, $comment);
         $emailSubmit->sendEmail($to, true);
         exit;
@@ -124,6 +125,7 @@ if (isset($_POST["action"])) {
         // Who will receive it ?
         $to = (isset($_POST["email"]))?$_POST["email"]:"";
 
+        // Email to contributor
         $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $updatedReq, $comment);
         $emailSubmit->sendEmail($to, true);
 
@@ -134,8 +136,6 @@ if (isset($_POST["action"])) {
 }
 
 if (!isset($_POST["action"])) {
-    $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
-    
     // Inserting libs
     include_once '../../inc/geshi/geshi.php';
     $page_title = "Model Submission Form";

@@ -83,6 +83,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
     public function getObjects($pagesize, $offset, $criteria=null, $orderby="ob_modified", $order="DESC") {
         $whereClause = $this->generateWhereClauseCriteria($criteria);
+        
         if ($whereClause != "") {
             $whereClause .= " AND"; 
         }
@@ -91,7 +92,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
                                          "FROM fgs_objects, fgs_countries WHERE $whereClause ob_country = co_code ".
                                          "ORDER BY ".$orderby." $order LIMIT ".$pagesize." OFFSET ".$offset.";");
         $resultArray = array();
-                           
+        
         while ($row = pg_fetch_assoc($result)) {
             $resultArray[] = $this->getObjectFromRow($row);
         }
