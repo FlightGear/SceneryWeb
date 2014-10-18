@@ -162,8 +162,10 @@ MAP
 
   SYMBOL
     NAME "Apt"
-    TYPE PIXMAP
-    IMAGE "symbols/apt.png"
+#    TYPE PIXMAP
+#    IMAGE "symbols/apt.png"
+    TYPE SVG
+    IMAGE "images/arp.svg"
   END
 
   SYMBOL
@@ -11192,6 +11194,9 @@ MAP
         COLOR 255 225 90
         OUTLINECOLOR 0 0 0
         SYMBOL 'Apt'
+        SIZE 20
+        MINSIZE 15
+        MAXSIZE 25
       END
       LABEL
         COLOR 0 0 0
