@@ -3,6 +3,10 @@ require_once '../../classes/DAOFactory.php';
 require_once '../../classes/ModelFactory.php';
 require_once '../../classes/ObjectFactory.php';
 require_once '../../classes/RequestModelAdd.php';
+require_once '../../classes/ModelChecker.php';
+require_once '../../classes/ModelFilesValidator.php';
+require_once '../../classes/ThumbValidator.php';
+require_once '../../classes/ValidatorsSet.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
@@ -15,7 +19,6 @@ require_once '../../inc/form_checks.php';
 require_once '../../classes/EmailContentFactory.php';
 
 $fatalerror = false;
-$error      = 0;
 $errormsg   = "";
 
 // Private key is needed for the server-to-Google auth.
@@ -40,6 +43,8 @@ if (!isset($resp) || !$resp->is_valid) {
     exit;
 }
 
+$modelChecker = new ModelChecker();
+
 $page_title = "Automated Models Submission Form";
 require '../../inc/header.php';
 
@@ -52,19 +57,17 @@ require '../../inc/header.php';
 ################################################
 
 if ($_FILES["mo_thumbfile"]['name'] != "" && ($_FILES["ac3d_file"]['name'] != "" || $_FILES["xml_file"]['name'] != "")) {
-    $thumbName = remove_file_extension ($_FILES["mo_thumbfile"]['name']);
-    $ac3dName  = remove_file_extension ($_FILES["ac3d_file"]['name']);
-    $xmlName   = remove_file_extension ($_FILES["xml_file"]['name']);
+    $thumbName = $_FILES["mo_thumbfile"]['name'];
+    $ac3dName  = $_FILES["ac3d_file"]['name'];
+    $xmlName   = $_FILES["xml_file"]['name'];
 }
 else {
     if ($_FILES["mo_thumbfile"]["name"] == "") {
         $fatalerror = true;
-        $error++;
         $errormsg .= "<li>You must provide a thumbnail.</li>";
     }
-    if (($_FILES["ac3d_file"]['name'] == "") && ($_FILES["xml_file"]['name'] == "")) {
+    if ($_FILES["ac3d_file"]['name'] == "" && $_FILES["xml_file"]['name'] == "") {
         $fatalerror = true;
-        $error++;
         $errormsg .= "<li>You must provide at least one model (AC or XML) file.</li>";
     }
 }
@@ -76,57 +79,29 @@ else {
 #                                                         #
 ###########################################################
 ###########################################################
+$exceptions = $modelChecker->checkFilesNames($ac3dName, $xmlName, $thumbName, $_FILES["png_file"]["name"]);
+if (count($exceptions) > 0) {
+    $fatalerror = true;
+    foreach ($exceptions as $ex) {
+        $errormsg .= "<li>".$ex->getMessage()."</li>";
+    }
+}
 
+// Open working directory and set paths
 $tmp_dir = sys_get_temp_dir();
 
-if (!preg_match($regex['ac3d_filename'], $ac3dName)
-        || !preg_match($regex['xml_filename'], $xmlName)) {
+try {
+    $targetPath = $modelChecker->openWorkingDirectory($tmp_dir);
+} catch (Exception $ex) {
     $fatalerror = true;
-    $error++;
-    $errormsg .= "<li>AC3D and XML name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
+    $errormsg .= "<li>".$ex->getMessage()."</li>";
 }
 
-if ($thumbName == $ac3dName."_thumbnail" && !$fatalerror) {
-    $targetPath   = $tmp_dir . "/static_".random_suffix()."/";
-    while (file_exists($targetPath)) {
-        usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
-    }
-
-    if (!mkdir($targetPath)) {
-        $fatalerror = true;
-        $error++;
-        $errormsg .= "<li>Impossible to create temporary directory $targetPath</li>";
-    }
-
-    if ($ac3dName == $xmlName) {
-        $xmlName    = $_FILES["xml_file"]['name'];
-        $xmlPath    = $targetPath.$_FILES["xml_file"]['name'];
-    }
-    $thumbPath    = $targetPath.$_FILES["mo_thumbfile"]['name'];
-    $ac3dPath     = $targetPath.$_FILES["ac3d_file"]['name'];
-    $thumbName    = $_FILES["mo_thumbfile"]['name'];
-    $ac3dName     = $_FILES["ac3d_file"]['name'];
-
-    for ($i=0; $i<12; $i++) {
-        if (isset($_FILES["png_file"]["name"][$i])) {
-            if (!preg_match($regex['png_filename'], $_FILES["png_file"]["name"][$i])) {
-                $fatalerror = true;
-                $error++;
-                $errormsg .= "<li>Textures' name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'</li>";
-            } else {
-                $pngAllName[] = $_FILES["png_file"]["name"][$i];
-            }
-        }
-    }
+if ($xmlName != "") {
+    $xmlPath = $targetPath.$xmlName;
 }
-else if (!$fatalerror) {
-    $fatalerror = true;
-    $error++;
-    $errormsg .= "<li>XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$_FILES["xml_file"]['name']."), tower.ac (currently ".$ac3dName.".ac), tower_thumbnail.jpeg (currently ".$thumbName.".jpg/jpeg).</li>";
-    if (substr($thumbName, -10) != "_thumbnail") {
-        $errormsg .= "<li>The thumbnail file name must end with *_thumbnail.</li>";
-    }
-}
+$thumbPath = $targetPath.$thumbName;
+$ac3dPath  = $targetPath.$ac3dName;
 
 
 ###############################################
@@ -140,10 +115,10 @@ else if (!$fatalerror) {
 # STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY (Will be removed later on)
 ##############################################################################
 
-if ($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror) { // check file size
+if ($_FILES['mo_thumbfile']['size'] < 2000000) { // check file size
     if ($_FILES['mo_thumbfile']['type'] == "image/jpeg" && (show_file_extension(basename($thumbName)) == "jpeg") || (show_file_extension(basename($thumbName)) == "JPEG") || (show_file_extension(basename($thumbName)) == "JPG") || (show_file_extension(basename($thumbName)) == "jpg")) { // check type & extension file
         if ($_FILES['mo_thumbfile']['error'] != 0) { // If an error is detected
-            $error++;
+            $fatalerror = true;
             $errormsg .= "<li>There has been an error while uploading the file \"".$thumbName."\".</li>";
             switch ($_FILES['mo_thumbfile']['error']) {
                 case 1:
@@ -163,31 +138,30 @@ if ($_FILES['mo_thumbfile']['size'] < 2000000 && !$fatalerror) { // check file s
         else {
             if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) { // check uploaded file
                 $fatalerror = true;
-                $error++;
                 $errormsg .= "<li>There has been an error while moving the file \"".$thumbName."\" on the server.</li>";
             }
         }
     }
     else {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>The file format or extention of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file.</li>";
     }
-} else if (!$fatalerror) {
-    $error++;
+} else {
+    $fatalerror = true;
     $errormsg .= "<li>Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes).</li>";
 }
 
 # STEP 3.2 : UPLOAD AC3D FILE IN TMP DIRECTORY
 ##############################################
 
-if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
+if ($_FILES['ac3d_file']['size'] < 2000000) { // check size file
 
     // check type & extension file
     if (($_FILES['ac3d_file']['type'] == "application/octet-stream" || $_FILES['ac3d_file']['type'] == "application/pkix-attr-cert")
             && strtolower(show_file_extension(basename($ac3dName))) == "ac") {
 
         if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
-            $error++;
+            $fatalerror = true;
             $errormsg .= "<li>There has been an error while uploading the file \"".$ac3dName."\".</li>";
             switch ($_FILES['ac3d_file']['error']){
                 case 1:
@@ -206,17 +180,16 @@ if ($_FILES['ac3d_file']['size'] < 2000000 && !$fatalerror) { // check size file
         }
         else if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) { // check upload file
             $fatalerror = true;
-            $error++;
             $errormsg .= "<li>There has been an error while moving the file \"".$ac3dName."\" on the server.</li>";
         }
     }
     else {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>The format or the extention seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file.</li>";
     }
 }
-else if (!$fatalerror) {
-    $error++;
+else {
+    $fatalerror = true;
     $errormsg .= "<li>Sorry, but the size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).</li>";
 }
 
@@ -224,10 +197,10 @@ else if (!$fatalerror) {
 #############################################
 
 if ($_FILES['xml_file']['name'] != "") { // if file exists
-    if ($_FILES['xml_file']['size'] < 2000000 && !$fatalerror) { // check size file
+    if ($_FILES['xml_file']['size'] < 2000000) { // check size file
         if ($_FILES['xml_file']['type'] == "text/xml" && strtolower(show_file_extension(basename($xmlName))) == "xml") { // check type & extension file
             if ($_FILES['xml_file']['error'] != 0) { // If error is detected
-                $error++;
+                $fatalerror = true;
                 $errormsg .= "<li>There has been an error while uploading the file \"".$xmlName."\".</li>";
                 switch ($_FILES['xml_file']['error']) {
                     case 1:
@@ -246,17 +219,16 @@ if ($_FILES['xml_file']['name'] != "") { // if file exists
             }
             else if(!move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) { // check uploaded file
                 $fatalerror = true;
-                $error++;
                 $errormsg .= "<li>There has been an error while moving the file \"".$xmlName."\" on the server.</li>";
             }
         }
         else {
-            $error++;
+            $fatalerror = true;
             $errormsg .= "<li>The format or extension of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file.</li>";
         }
     }
-    else if (!$fatalerror) {
-        $error++;
+    else {
+        $fatalerror = true;
         $errormsg .= "<li>Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$_FILES['xml_file']['size']." bytes).</li>";
     }
 }
@@ -264,7 +236,7 @@ if ($_FILES['xml_file']['name'] != "") { // if file exists
 # STEP 3.4 : UPLOAD PNG FILE IN TMP DIRECTORY
 #############################################
 
-for ($i=0; $i<12; $i++) {
+for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
     if (isset($_FILES['png_file']['name'][$i]) && ($_FILES['png_file']['name'][$i] != '')) {
         $pngName  = $_FILES['png_file']['name'][$i];
         $pngType  = $_FILES['png_file']['type'][$i];
@@ -272,14 +244,14 @@ for ($i=0; $i<12; $i++) {
         $pngError = $_FILES['png_file']['error'][$i];
         $pngTmp   = $_FILES['png_file']['tmp_name'][$i];
 
-        if ($pngsize < 2000000 && !$fatalerror) { // check size file
+        if ($pngsize < 2000000) { // check size file
 
             if ($pngType == 'image/png' && strtolower(show_file_extension(basename($pngName))) == "png") { // check type & extension file
 
                 if ($pngError != 0) { // If error is detected
-                    $error++;
+                    $fatalerror = true;
                     $errormsg .= "<li>There has been an error while uploading the file \"".$pngName."\".</li>";
-                    switch ($_FILES['png_file']['error']) {
+                    switch ($pngError) {
                         case 1:
                             $errormsg .= "<li>The file \"".$pngName."\" is bigger than this server installation allows.</li>";
                             break;
@@ -296,17 +268,16 @@ for ($i=0; $i<12; $i++) {
                 }
                 else if (!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
                     $fatalerror = true;
-                    $error++;
                     $errormsg .= "<li>There has been an error while moving the file \"".$pngName."\" on the server.</li>";
                 }
             }
             else {
-                $error++;
+                $fatalerror = true;
                 $errormsg .= "<li>The format or extension of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.</li>";
             }
         }
-        else if (!$fatalerror) {
-            $error++;
+        else {
+            $fatalerror = true;
             $errormsg .= "<li>Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes).</li>";
         }
     }
@@ -316,16 +287,16 @@ for ($i=0; $i<12; $i++) {
 # IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS #
 ######################################################
 
-if ($fatalerror || $error > 0) {
+if ($fatalerror) {
     echo "<h2>Oops, something went wrong</h2>" .
-         "Number of error(s): ".$error."<br/>" .
-         "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
          "Error message(s)  : <br/>" .
          "<ul>".$errormsg."</ul><br/>" .
          "<a href='javascript:history.go(-1)'>Go back and correct your mistakes</a>.<br/><br/>" .
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
          "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
-    clear_dir($targetPath);
+    if (isset($targetPath)) {
+        clear_dir($targetPath);
+    }
     include '../../inc/footer.php';
     exit;
 }
@@ -333,204 +304,48 @@ if ($fatalerror || $error > 0) {
 ###############################################
 ###############################################
 #                                             #
-# STEP 4 : CHECK XML FILE                     #
+# STEP 4 : CHECK FILES                        #
 #                                             #
 ###############################################
 ###############################################
+
+$validatorsSet = new ValidatorsSet();
+if ($xmlName != "") {
+    $modelFilesValidator = ModelFilesValidator::instanceWithXML($targetPath, $xmlName, $ac3dName, $_FILES["png_file"]["name"]);
+} else {
+    $modelFilesValidator = ModelFilesValidator::instanceWithAC3DOnly($targetPath, $ac3dName, $_FILES["png_file"]["name"]);
+}
+$thumbValidator = new ThumbValidator($thumbPath);
+$validatorsSet->addValidator($modelFilesValidator);
+$validatorsSet->addValidator($thumbValidator);
+
+$exceptions = $validatorsSet->validate();
+
 
 $path_to_use = $ac3dName;
 if (isset($xmlPath) && file_exists($xmlPath)) {
     # If an XML file is used for the model, the mo_path has to point to it, or
     # FG will not render it correctly. Else the .ac file will be used as mo_path.
     $path_to_use = $xmlName;
-    
-    $depth = array();
-    $xml_parser = xml_parser_create();
-
-    function startElement($parser, $name, $attrs) {
-        global $depth;
-        $parserInt = intval($parser);
-        if(!isset($depth[$parserInt])) {
-            $depth[$parserInt] = 0;
-        }
-        $depth[$parserInt]++;
-    }
-
-    function endElement($parser, $name) {
-        global $depth;
-        $parserInt = intval($parser);
-        if(!isset($depth[$parserInt])) {
-            $depth[$parserInt] = 0;
-        }
-        $depth[$parserInt]--;
-    }
-
-    xml_set_element_handler($xml_parser, "startElement", "endElement");
-
-    if (!($fp = fopen($xmlPath, "r"))) {
-        $fatalerror = true;
-        $error++;
-        $errormsg .= "<li>Could not open XML \"".$xmlName."\"</li>";
-    }
-    else {
-        while ($data = fread($fp, 4096)) {
-
-        // check if tags are closed and if <PropertyList> is present
-            if (!xml_parse($xml_parser, $data, feof($fp))) {
-                $error++;
-                $errormsg .= "<li>XML error : ".xml_error_string(xml_get_error_code($xml_parser))." at line ".xml_get_current_line_number($xml_parser)."</li>";
-            }
-        }
-        xml_parser_free($xml_parser);
-    }
-
-    if ($error == 0) {
-        // Check if <path> == $ac3dName
-        $xmlcontent = simplexml_load_file($xmlPath);
-        if ($ac3dName != $xmlcontent->path) {
-            $error++;
-            $errormsg .= "<li>The value of the &lt;path&gt; tag in your XML file doesn't match the AC file you provided!</li>";
-        }
-
-        // Check if the file begin with <?xml> tag
-        $xmltag = str_replace(array("<", ">"), array("&lt;", "&gt;"), file_get_contents($xmlPath));
-        if (!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
-            $error++;
-            $errormsg .= "<li>Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;!</li>";
-        }
-    }
 }
 
 // Check if path is already used
 if (path_exists($path_to_use)) {
-    $error++;
-    $errormsg .= "<li>Filename \"".$path_to_use."\" is already used</li>";
+    $exceptions[] = new Exception("Filename \"".$path_to_use."\" is already used");
 } else {
     echo "<p class=\"center\">Your model named ".$path_to_use."\n";
-}
-
-###############################################
-###############################################
-#                                             #
-# STEP 5 : CHECK AC3D FILE                    #
-#                                             #
-###############################################
-###############################################
-
-if (file_exists($ac3dPath)) {
-    $handle = fopen($ac3dPath, 'r');
-    if ($handle) {
-        $i = 0;
-        while (!feof($handle)) {
-            $line = fgets($handle);
-            $line = rtrim($line, "\r\n") . PHP_EOL;
-
-            // Check if the file begins with the string "AC3D"
-            if ($i == 0 && substr($line,0,4) != "AC3D") {
-                $error++;
-                $errormsg .= "<li>The AC file does not seem to be a valid AC3D file. The first line must show \"AC3Dx\" with x = version</li>";
-            }
-
-            // Check if the texture reference matches $pngName
-            if (preg_match('#^texture#', $line)) {
-                $data = preg_replace('#texture "(.+)"$#', '$1', $line);
-                $data = substr($data, 0, -1);
-                if (!in_array($data, $pngAllName)) {
-                    $error++;
-                    $errormsg .= "<li>The texture reference (".$data.") in your AC file at line ".($i+1)." seems to have a different name than the PNG texture(s) file(s) name(s) you provided!</li>";
-                }
-            }
-            $i++;
-        }
-        fclose($handle);
-    }
-}
-else {
-    $fatalerror = true;
-    $error++;
-    $errormsg .= "<li>The AC file does not exist on the server. Please try to upload it again!</li>";
-}
-
-###############################################
-###############################################
-#                                             #
-# STEP 6 : CHECK TEXTURE FILE(S)              #
-#                                             #
-###############################################
-###############################################
-
-for ($i=0; $i<12; $i++) {
-    if (isset($_FILES["png_file"]["name"][$i]) && ($_FILES['png_file']['name'][$i] != '')) {
-        $pngPath  = $targetPath.$_FILES["png_file"]["name"][$i];
-        $pngName  = $_FILES["png_file"]["name"][$i];
-
-        if (file_exists($pngPath)) {
-            $tmp    = getimagesize($pngPath);
-            $width  = $tmp[0];
-            $height = $tmp[1];
-            $mime   = $tmp["mime"];
-            $validDimension = array(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192);
-
-            // Check if PNG file is a valid PNG file (compare the type file)
-            if ($mime != "image/png") {
-                $error++;
-                $errormsg .= "<li>Your texture file does not seem to be a PNG file. Please upload a valid PNG file.</li>";
-            }
-
-            // Check if PNG dimensions are a multiple of ^2
-            if(!in_array($height, $validDimension) || !in_array($width, $validDimension)) {
-                $error++;
-                $errormsg .= "<li>The size in pixels of your texture file (".$pngName.") appears not to be a power of 2.</li>";
-            }
-        }
-        else {
-            $fatalerror = true;
-            $error++;
-            $errormsg .= "<li>The texture file does not exist on the server. Please try to upload it again.</li>";
-        }
-    }
-}
-
-###############################################
-###############################################
-#                                             #
-# STEP 7 : CHECK THUMBNAIL FILE               #
-#                                             #
-###############################################
-###############################################
-
-if (file_exists($thumbPath)) {
-    $tmp    = getimagesize($thumbPath);
-    $width  = $tmp[0];
-    $height = $tmp[1];
-    $mime   = $tmp["mime"];
-
-    // Check if JPEG file is a valid JPEG file (compare the type file)
-    if ($mime != "image/jpeg") {
-        $error++;
-        $errormsg .= "<li>Your thumbnail file does not seem to be a JPEG file. Please upload a valid JPEG file.</li>";
-    }
-
-    // Check if PNG dimensions are a multiple of ^2
-    if ($height != 240 || $width != 320) {
-        $error++;
-        $errormsg .= "<li>The dimension in pixels of your thumbnail file (".$width."x".$height.") does not seem to be 320x240.</li>";
-    }
-}
-else {
-    $fatalerror = true;
-    $error++;
-    $errormsg .= "<li>The thumbnail file does not exist on the server. Please try to upload it again.</li>";
 }
 
 ####################################################
 # IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS
 ####################################################
 
-if ($fatalerror || $error > 0) {
+if (count($exceptions) > 0) {
+    foreach ($exceptions as $ex) {
+        $errormsg .= "<li>".$ex->getMessage()."</li>";
+    }
+    
     echo "<h2>Oops, something went wrong</h2>" .
-         "Number of error(s): ".$error."<br/>" .
-         "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
          "Error message(s)  : <br/>" .
          "<ul>".$errormsg."</ul><br/>" .
          "<a href='javascript:history.go(-1)'>Go back and correct your mistakes</a>.<br/><br/>" .
@@ -555,17 +370,17 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $contents  = fread($handle, filesize($thumbPath));
     fclose($handle);
     $thumbFile = base64_encode($contents);             // Dump & encode the file
-    unlink ($thumbPath);                               // Has to be deleted, because it's not put into the .tar.gz
+    unlink($thumbPath);                                // Has to be deleted, because it's not put into the .tar.gz
 
     // Dos2unix on XML
     if (isset($xmlPath)) {
         $d2u_xml_command  = 'dos2unix '.$xmlPath;
-        system ($d2u_xml_command);
+        system($d2u_xml_command);
     }
 
     // Dos2Unix on AC3D
     $d2u_ac3d_command = 'dos2unix '.$ac3dPath;
-    system ($d2u_ac3d_command);
+    system($d2u_ac3d_command);
 
     $phar = new PharData($tmp_dir . '/static.tar');                // Create archive file
     $phar->buildFromDirectory($targetPath);                        // Fills archive file
@@ -598,23 +413,28 @@ if (isset($_POST["model_group_id"]) && isset($_POST["mo_author"])
     $authorId    = $_POST["mo_author"];
     $mo_shared   = $_POST["model_group_id"];
 
+    if (!is_model_name($name)) {
+        $fatalerror = true;
+        $errormsg .= "<li>Please check the model name.</li>";
+    }
+    
     if (!is_modelgroup_id($mo_shared)) {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>Please check the model group.</li>";
     }
     
     if (!is_author_id($authorId)) {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>Please check the author value.</li>";
     }
 }
 else {
-    $error++;
+    $fatalerror = true;
     $errormsg .= "<li>Please fill in all required fields.</li>";
 }
 
 if (!isset($_POST["gpl"])) {
-    $error++;
+    $fatalerror = true;
     $errormsg .= "<li>You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FlightGear must wear this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.</li>";
 }
 
@@ -635,34 +455,34 @@ if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] !=
     $country   = $_POST["ob_country"];
 
     if (!is_longitude($longitude)) {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>Please check the longitude value (-180 < longitude < 180) and not null.</li>";
     }
 
     if (!is_latitude($latitude)) {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
     }
 
     if ($offset == '' || $offset == '0') {
         $offset = 0;
     } else if (!is_offset($offset)) {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
     }
 
     if (!is_heading($heading)) {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
     }
     
     if (!is_country_id($country)) {
-        $error++;
+        $fatalerror = true;
         $errormsg .= "<li>Please check the country value.</li>";
     }
 }
 else {
-    $error++;
+    $fatalerror = true;
     $errormsg .= "<li>Please fill in all required fields.</li>";
 }
 
@@ -674,10 +494,8 @@ else {
 ###############################################
 ###############################################
 
-if ($fatalerror || $error > 0) {
+if ($fatalerror) {
     echo "<h2>Oops, something went wrong</h2>" .
-         "Number of error(s): ".$error."<br/>" .
-         "FatalError        : ".($fatalerror ? "TRUE":"FALSE")."<br/>" .
          "Error message(s)  : <br/>" .
          "<ul>".$errormsg."</ul><br/>" .
          "<a href='javascript:history.go(-1)'>Go back and correct your mistakes</a>.<br/><br/>" .
@@ -734,7 +552,7 @@ else {
             $emailSubmit = EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
             $emailSubmit->sendEmail($safe_au_email, false);
         }
-    } catch(Exception $ex) {
+    } catch (Exception $ex) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
 }

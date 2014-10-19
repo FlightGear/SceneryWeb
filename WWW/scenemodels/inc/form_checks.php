@@ -1,4 +1,6 @@
 <?php
+// Deprecated. Use instead classes/FormChecker.php
+
 $regex = array(
  'comment' => "/^[0-9a-z-A-Z\';:!?@\-_\. ]+$/u",
  'stg' => '/^[a-zA-Z0-9\_\.\-\,\/]+$/u',
