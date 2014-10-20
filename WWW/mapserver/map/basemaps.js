@@ -19,8 +19,8 @@
     );
 
     var icubed = new OpenLayers.Layer.WMS( "TelaScience i-Cubed",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'icubed', format: 'image/png'},
         {wrapDateLine: true}
     );

@@ -79,8 +79,8 @@
     );
 
     var clc06v16r = new OpenLayers.Layer.WMS( "CLC2006v16 100m raster",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'clc06v16r', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
@@ -168,8 +168,8 @@
     );
 
     var gshhs = new OpenLayers.Layer.WMS( "GSHHS coastline (1.6)",
-        [ "http://flightgear.telascience.org/tc?",
-          "http://flightgear.telascience.org/tc?" ],
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.flightgear.telascience.org/mc?" ],
         {layers: 'gshhs', format: 'image/png'},
         {isBaseLayer: false}
     );

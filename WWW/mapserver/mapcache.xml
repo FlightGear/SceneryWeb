@@ -74,7 +74,31 @@
          </params>
       </getmap>
       <http>
-         <url>http://mapserver.flightgear.org/ms</url>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="clc06v16r" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>clc06v16r</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
+   <source name="icubed" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>NewWorld</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://hyperquad.telascience.org/cgi-bin/NewWorld2?</url>
       </http>
    </source>
 
@@ -198,6 +222,18 @@
       </http>
    </source>
 
+   <source name="gshhs" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>gshhs_coastline</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://eclipse.optiputer.net/ms</url>
+      </http>
+   </source>
+
    <source name="fgbuckets" type="wms">
       <getmap>
          <params>
@@ -262,6 +298,26 @@
 
    <tileset name="nlcd2011r">
       <source>nlcd2011r</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="clc06v16r">
+      <source>clc06v16r</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="icubed">
+      <source>icubed</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>
@@ -362,6 +418,16 @@
 
    <tileset name="osmcoast">
       <source>osmcoast</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="gshhs">
+      <source>gshhs</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>
