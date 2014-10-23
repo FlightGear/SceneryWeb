@@ -33,7 +33,7 @@ AS $$
                     wkb_geometry,
                     'SPHEROID["WGS84",6378137.000,298.257223563]')
                 AS numeric) AS dist
-        FROM apt_airfield)
+        FROM v_apt_heading)
 
         SELECT array_to_json(array_agg(row_to_json(t))) AS freq
         FROM (
