@@ -79,7 +79,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
         <td>Airport code - OpenLayers:</td>
         <td></td>
         <td>  ICAO:</td>
-        <td> <input type="text" size="4" maxlength="4" name="icao"></td>
+        <td> <input type="text" size="4" maxlength="4" name="icao" autofocus></td>
         <td>  <input type="submit" name="senden" value="ICAO"></td>
       </tr>
     </form>
