@@ -221,6 +221,21 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         return $objectsGroup;
     }
 
+    public function checkObjectAlreadyExists($object) {
+        // Querying...
+        $query = "SELECT count(*) AS number FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$object->getLongitude()." ".$object->getLatitude().")', 4326) AND ";
+        if ($object->getElevationOffset() == 0) {
+            $query .= "ob_elevoffset IS NULL ";
+        } else {
+            $query .= "ob_elevoffset = ".$object->getElevationOffset()." ";
+        }
+        $query .= "AND ob_heading = ".$object->getOrientation()." AND ob_model = ".$object->getModelId().";";
+        
+        $result = $this->database->query($query);
+        $row = pg_fetch_assoc($result);
+
+        return $row["number"] > 0;
+    }
 }
 
 ?>

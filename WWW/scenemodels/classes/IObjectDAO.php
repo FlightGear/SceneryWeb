@@ -42,6 +42,11 @@ interface IObjectDAO {
     
     public function countObjectsByModel($modelId);
 
+    /**
+     * Detects if a submitted object already exists in the database f(lat, lon, ob_gndelev, ob_heading, ob_model).
+     * @param Object $object
+     */
+    public function checkObjectAlreadyExists($object);
 }
 
 ?>

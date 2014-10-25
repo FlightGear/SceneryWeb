@@ -132,15 +132,15 @@ else {
 if (!$error) {
     echo "<p class=\"ok\">Data seems to be OK to be inserted in the database</p>";
 
-    // Detect if the object is already in the database
-    if (detect_already_existing_object($lat, $long, $offset, $heading, $model_id)) {
-        echo "<p class=\"warning\">The object already exists in the database!</p>";
-        include '../../inc/footer.php';
-    }
-
     $objectFactory = new ObjectFactory($objectDaoRO);
     $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
             $offset, heading_stg_to_true($heading), 1, $modelMD->getName());
+    
+    // Detect if the object is already in the database
+    if ($objectDaoRO->checkObjectAlreadyExists($newObject)) {
+        echo "<p class=\"warning\">The object already exists in the database!</p>";
+        include '../../inc/footer.php';
+    }
     
     $request = new RequestObjectAdd();
     $request->setNewObject($newObject);

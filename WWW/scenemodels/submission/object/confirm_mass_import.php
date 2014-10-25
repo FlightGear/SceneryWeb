@@ -278,7 +278,10 @@ if (!$error) {
         }
 
         if (!$ko) {
-            if (detect_already_existing_object($lat, $long, $elevoffset, $orientation, $model_id)) {
+            $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
+                        $elevoffset, heading_stg_to_true($orientation), 1, $modelMD->getName());
+            
+            if ($objectDaoRO->checkObjectAlreadyExists($newObject)) {
                 $ko = true;
                 $global_ko = true;
                 $cpt_err++;
@@ -291,8 +294,7 @@ if (!$error) {
                     echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
                 }
                 
-                $newObjects[] = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
-                        $elevoffset, heading_stg_to_true($orientation), 1, $modelMD->getName());
+                $newObjects[] = $newObject;
             }
         }
         else {

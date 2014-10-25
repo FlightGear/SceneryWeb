@@ -146,29 +146,6 @@ function clear_dir($folder) {
     return rmdir($folder);
 }
 
-// Detects if a submitted object already exists in the database f(lat, lon, ob_gndelev, ob_heading, ob_model).
-// ===========================================================================================================
-
-function detect_already_existing_object($lat, $lon, $ob_elevoffset, $ob_heading, $ob_model) {
-    // Connecting to the database.
-    $resource_r = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT ob_id FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$lon." ".$lat.")', 4326) AND ";
-    if ($ob_elevoffset == 0) {
-        $query .= "ob_elevoffset IS NULL ";
-    } else {
-        $query .= "ob_elevoffset = ".$ob_elevoffset." ";
-    }
-    $query .= "AND ob_heading = ".heading_stg_to_true($ob_heading)." AND ob_model = ".$ob_model.";";
-    $result = pg_query($resource_r, $query);
-    $returned_rows = pg_num_rows($result);
-
-    // Closing the connection.
-    pg_close($resource_r);
-    
-    return $returned_rows > 0;
-}
 
 // Detects if an object exists in the database that is located (suspiciously) close to the submitted position
 // Nearby means (at the moment) within 15 meters

@@ -14,6 +14,12 @@ interface IModelDAO {
 
     public function updateModel($model);
     
+    /**
+     * Gets all model (metadata + files) using the id
+     * 
+     * @param type $modelId Id of the model
+     * @return the model
+     */
     public function getModel($modelId);
 
     public function countTotalModels();
