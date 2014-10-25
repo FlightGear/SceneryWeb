@@ -45,8 +45,20 @@ interface IObjectDAO {
     /**
      * Detects if a submitted object already exists in the database f(lat, lon, ob_gndelev, ob_heading, ob_model).
      * @param Object $object
+     * @return true if the given object exists, false otherwise
      */
     public function checkObjectAlreadyExists($object);
+    
+    /**
+     * Detects if an object exists in the database that is located (suspiciously) close to the submitted position
+     * Nearby means (at the moment) within 15 meters.
+     * 
+     * @param double $lat
+     * @param double $lon
+     * @param int $obModelId
+     * @param int $dist distance in meters (default 15)
+     */
+    public function detectNearbyObjects($lat, $lon, $obModelId, $dist = 15);
 }
 
 ?>

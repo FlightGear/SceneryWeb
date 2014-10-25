@@ -147,37 +147,6 @@ function clear_dir($folder) {
 }
 
 
-// Detects if an object exists in the database that is located (suspiciously) close to the submitted position
-// Nearby means (at the moment) within 15 meters
-// ===========================================================================================================
-
-function detect_nearby_object($lat, $lon, $obModelId) {
-    // Connecting to the database.
-    $resource_r = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT (ST_Distance_Spheroid(
-        (SELECT wkb_geometry
-        FROM fgs_objects
-        WHERE ob_model = ".$obModelId."
-        ORDER BY ABS( ST_Distance_Spheroid(
-                (wkb_geometry),
-                (ST_PointFromText('POINT(".$lon." ".$lat.")', 4326)),
-                'SPHEROID[\"WGS84\",6378137.000,298.257223563]'
-            ) ) ASC
-        LIMIT 1),
-        (ST_PointFromText('POINT(".$lon." ".$lat.")', 4326)),
-        'SPHEROID[\"WGS84\",6378137.000,298.257223563]'
-    ))::integer < 15";
-    $result = pg_query($resource_r, $query);
-    $row = pg_fetch_row($result);
-
-    // Closing the connection.
-    pg_close($resource_r);
-    
-    return ($row[0] == "t");
-}
-
 // This function returns the core filename of a file, ie without its native extension.
 // ===================================================================================
 

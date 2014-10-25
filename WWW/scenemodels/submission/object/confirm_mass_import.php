@@ -288,7 +288,7 @@ if (!$error) {
                 echo "<td style='background-color: rgb(200, 0, 0);'>Exists already</td>"; // Fatal error
             // this used to break the backend, testing if it still does
             } else {
-                if (detect_nearby_object($lat, $long, $model_id)) {
+                if ($objectDaoRO->detectNearbyObjects($lat, $long, $model_id)) {
                     echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>"; // Just a warning, not fatal
                 } else {
                     echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
