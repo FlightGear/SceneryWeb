@@ -21,7 +21,8 @@
 require_once 'Validator.php';
 
 /**
- *
+ * Interface for validators.
+ * 
  * @author Julien Nguyen
  */
 interface Validator {

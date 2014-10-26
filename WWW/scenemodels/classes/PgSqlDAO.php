@@ -1,6 +1,9 @@
 <?php
 require_once 'PGDatabase.php';
 
+/**
+ * DAO implementation for PostgreSQL database
+ */
 abstract class PgSqlDAO {
     protected $database;
     

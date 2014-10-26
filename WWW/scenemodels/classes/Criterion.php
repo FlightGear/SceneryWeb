@@ -21,6 +21,13 @@ class Criterion {
     const OPERATION_LIKE = " LIKE ";
     const OPERATION_IS = " is ";
     
+    /**
+     * Constructor
+     * 
+     * @param string $varName
+     * @param string $operation
+     * @param type $value
+     */
     public function __construct($varName, $operation, $value) {
         $this->varName = $varName;
         $this->operation = $operation;

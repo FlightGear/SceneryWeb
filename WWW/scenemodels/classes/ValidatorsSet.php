@@ -19,7 +19,7 @@
  */
 
 /**
- * Description of ValidatorsSet
+ * Set of validators
  *
  * @author Julien Nguyen
  */
@@ -32,10 +32,20 @@ class ValidatorsSet {
         $this->errors = array();
     }
     
+    /**
+     * Adds a validator to the actual set.
+     * 
+     * @param Validator $validator
+     */
     public function addValidator($validator) {
         $this->validators[] = $validator;
     }
     
+    /**
+     * Executes validation for each validators in the set.
+     * 
+     * @return array of errors (empty if no errors)
+     */
     public function validate() {
         foreach ($this->validators as $validator) {
             $this->errors = array_merge($this->errors, $validator->validate());
