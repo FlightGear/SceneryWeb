@@ -84,10 +84,10 @@ class ModelFilesValidator implements Validator {
     private function checkXML($xmlPath, $ac3dName) {
         $errors = array();
         $this->depth = array();
-        $xml_parser = xml_parser_create();
+        $xmlParser = xml_parser_create();
 
-        xml_set_object($xml_parser, $this);
-        xml_set_element_handler($xml_parser, "startElement", "endElement");
+        xml_set_object($xmlParser, $this);
+        xml_set_element_handler($xmlParser, "startElement", "endElement");
 
         $fp = fopen($xmlPath, "r");
         if (!$fp) {
@@ -95,11 +95,11 @@ class ModelFilesValidator implements Validator {
         } else {
             while ($data = fread($fp, 4096)) {
                 // check if tags are closed and if <PropertyList> is present
-                if (!xml_parse($xml_parser, $data, feof($fp))) {
-                    $errors[] = new Exception("XML error : ".xml_error_string(xml_get_error_code($xml_parser))." at line ".xml_get_current_line_number($xml_parser));
+                if (!xml_parse($xmlParser, $data, feof($fp))) {
+                    $errors[] = new Exception("XML error : ".xml_error_string(xml_get_error_code($xmlParser))." at line ".xml_get_current_line_number($xmlParser));
                 }
             }
-            xml_parser_free($xml_parser);
+            xml_parser_free($xmlParser);
         }
 
         if (count($errors) == 0) {
@@ -119,6 +119,12 @@ class ModelFilesValidator implements Validator {
         return $errors;
     }
     
+    /**
+     * (Used by checkXML method)
+     * @param type $parser
+     * @param string $name
+     * @param type $attrs
+     */
     private function startElement($parser, $name, $attrs) {
         $parserInt = intval($parser);
         if (!isset($this->depth[$parserInt])) {
@@ -127,6 +133,11 @@ class ModelFilesValidator implements Validator {
         $this->depth[$parserInt]++;
     }
 
+    /**
+     * (Used by checkXML method)
+     * @param type $parser
+     * @param string $name
+     */
     private function endElement($parser, $name) {
         $parserInt = intval($parser);
         if (!isset($this->depth[$parserInt])) {
