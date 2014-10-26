@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * Class representing a group that objects can be identified with.
+ */
 class ObjectsGroup {
     private $id;
     private $name;
     
+    /**
+     * Gets the group id.
+     * 
+     * @return int id of the group
+     */
     public function getId() {
         return $this->id;
     }

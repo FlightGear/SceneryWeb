@@ -3,7 +3,7 @@
 require_once 'FormChecker.php';
 
 /*
- * Copyright (C) 2014 julien
+ * Copyright (C) 2014 Flightgear Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,7 +23,7 @@ require_once 'FormChecker.php';
 /**
  * Description of ModelChecker
  *
- * @author julien
+ * @author Julien Nguyen
  */
 class ModelChecker {
     private $depth;
