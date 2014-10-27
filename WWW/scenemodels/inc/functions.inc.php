@@ -158,24 +158,6 @@ function remove_file_extension($file) {
     }
 }
 
-// This function returns 'true' if a model is shared, or 'false' if an object is static, based on its id.
-// ===========================================================================================================
-
-function is_shared($mo_id) {
-    // Connecting to the database.
-    $resource_r = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT mo_shared FROM fgs_models WHERE mo_id = ".$mo_id.";";
-    $result = pg_query($resource_r, $query);
-
-    // Closing the connection.
-    pg_close ($resource_r);
-    
-    $row = pg_fetch_row($result);
-    return $row[0] > 0;
-}
-
 // This function returns a random string which is used to be suffixed to a directory name to (try) to make it unique.
 // ==================================================================================================================
 

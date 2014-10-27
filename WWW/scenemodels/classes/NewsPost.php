@@ -1,7 +1,7 @@
 <?php
 
 /**
- * News
+ * NewsPost
  *
  * @author     Julien Nguyen <julien.nguyen3@gmail.com>
  * @copyright  2014 - FlightGear Team

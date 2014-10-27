@@ -19,6 +19,11 @@ class ModelMetadata {
     private $modelsGroup;
     private $lastUpdated;
     
+    /**
+     * Gets the model's author
+     * 
+     * @return Author the model's author
+     */
     public function getAuthor() {
         return $this->author;
     }
@@ -35,6 +40,11 @@ class ModelMetadata {
         $this->filename = $filename;
     }
     
+    /**
+     * Gets the model id
+     * 
+     * @return int model id
+     */
     public function getId() {
         return $this->modelId;
     }
