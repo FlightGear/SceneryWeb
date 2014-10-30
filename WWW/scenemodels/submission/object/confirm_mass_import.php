@@ -32,25 +32,25 @@ function getModelFromSTG($modelFullPath) {
     }
     
     // Counts the number of fields.
-    $max_tab_path = count($tabPath);
+    $maxTabPath = count($tabPath);
     
     // Returns the last field value.
-    $queried_mo_path = $tabPath[$max_tab_path-1];
+    $queriedMoPath = $tabPath[$maxTabPath-1];
 
     // Get the model (throw exception if not found)
-    $modelMD = $modelDaoRO->getModelMetadataFromName($queried_mo_path);
+    $modelMD = $modelDaoRO->getModelMetadataFromName($queriedMoPath);
 
     // Now proceeding with the family
     // The family path is the string between Models and the object name. Can be multiple.
-    $queried_family_path = "";
-    for ($j=1; $j<($max_tab_path-1); $j++) {
-        $queried_family_path .= $tabPath[$j]."/";
+    $queriedFamilyPath = "";
+    for ($j=1; $j<$maxTabPath-1; $j++) {
+        $queriedFamilyPath .= $tabPath[$j]."/";
     }
     
-    $modelsGroup = $modelDaoRO->getModelsGroupByPath($queried_family_path);
+    $modelsGroup = $modelDaoRO->getModelsGroupByPath($queriedFamilyPath);
     
     if ($modelsGroup->getId() != $modelMD->getModelsGroup()->getId()) {
-        throw new Exception("No $queried_mo_path found in $queried_family_path!");
+        throw new Exception("No $queriedMoPath found in $queriedFamilyPath!");
     }
 
     return $modelMD;

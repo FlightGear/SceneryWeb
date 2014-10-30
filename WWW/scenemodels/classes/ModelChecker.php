@@ -26,9 +26,7 @@ require_once 'FormChecker.php';
  * @author Julien Nguyen
  */
 class ModelChecker {
-    private $depth;
-    static private $validDimension = array(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192);
-    
+
     public function checkFilesNames($ac3dName, $xmlName, $thumbName, array $pngNames) {
         $exceptions = array();
         
