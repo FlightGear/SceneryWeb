@@ -41,8 +41,7 @@ class ModelFilesValidator implements Validator {
     }
     
     static function instanceWithAC3DOnly($folderPath, $ac3dName, $pngNames) {
-        $instance = new self($folderPath, $ac3dName, $pngNames);
-        return $instance;
+        return new self($folderPath, $ac3dName, $pngNames);
     }
     
     static function instanceWithXML($folderPath, $xmlName, $ac3dName, $pngNames) {

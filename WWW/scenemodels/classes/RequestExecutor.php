@@ -66,9 +66,7 @@ class RequestExecutor {
     
     private function executeRequestObjectAdd($request) {
         $newObj = $request->getNewObject();
-        $newObjWithId = $this->objectDAO->addObject($newObj);
-        
-        return $newObjWithId;
+        return $this->objectDAO->addObject($newObj);
     }
     
     private function executeRequestObjectUpdate($request) {

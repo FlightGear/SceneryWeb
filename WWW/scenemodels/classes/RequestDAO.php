@@ -125,30 +125,24 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newObj = $request->getNewObject();
         $offset = $newObj->getElevationOffset();
         
-        $reqStr = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
-                  "VALUES ('".pg_escape_string($newObj->getDescription())."', ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), -9999, ".
-                  (empty($offset)?"NULL":$offset) .", ".
-                  $newObj->getOrientation().", '".$newObj->getCountry()->getCode()."', ".$newObj->getModelId().", 1);";
-
-        return $reqStr;
+        return "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
+               "VALUES ('".pg_escape_string($newObj->getDescription())."', ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), -9999, ".
+               (empty($offset)?"NULL":$offset) .", ".
+               $newObj->getOrientation().", '".$newObj->getCountry()->getCode()."', ".$newObj->getModelId().", 1);";
     }
     
     private function serializeRequestObjectUpdate($request) {
         $newObj = $request->getNewObject();
         
-        $reqStr = "UPDATE fgs_objects ".
-                  "SET ob_text=$$".$newObj->getDescription()."$$, wkb_geometry=ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), ob_gndelev=-9999, ob_elevoffset=".$newObj->getElevationOffset().", ob_heading=".$newObj->getOrientation().", ob_model=".$newObj->getModelId().", ob_group=1 ".
-                  "WHERE ob_id=".$newObj->getId().";";
-                
-        return $reqStr;
+        return "UPDATE fgs_objects ".
+               "SET ob_text=$$".$newObj->getDescription()."$$, wkb_geometry=ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), ob_gndelev=-9999, ob_elevoffset=".$newObj->getElevationOffset().", ob_heading=".$newObj->getOrientation().", ob_model=".$newObj->getModelId().", ob_group=1 ".
+               "WHERE ob_id=".$newObj->getId().";";
     }
     
     private function serializeRequestObjectDelete($request) {
         $objToDel = $request->getObjectToDelete();
         
-        $reqStr = "DELETE FROM fgs_objects WHERE ob_id=".$objToDel->getId().";";
-                
-        return $reqStr;
+        return "DELETE FROM fgs_objects WHERE ob_id=".$objToDel->getId().";";
     }
     
     private function serializeRequestMassiveObjectsAdd($request) {
@@ -197,9 +191,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $obQuery .= "1";                                                                      // ob_group
         $obQuery .= ")";
 
-        $reqStr = $moQuery.";".$obQuery;
-                
-        return $reqStr;
+        return $moQuery.";".$obQuery;
     }
     
     private function serializeRequestModelUpdate($request) {
