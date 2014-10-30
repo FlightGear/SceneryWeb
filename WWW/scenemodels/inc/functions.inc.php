@@ -47,60 +47,6 @@ function heading_true_to_stg($true_heading) {
     return $stg_heading;
 }
 
-// Checks if models exists in DB from a model name sent in parameter.
-// ==================================================================
-// Model's name is composed of: OBJECT_SHARED Models/
-// a mg_path from fgs_modelgroups;
-// a mo_path from fgs_models;
-// ie : Models/Power/windturbine.xml
-// So we have to check that the couple Power/windturbine.xml exists: if both concatenated values are ok, then we're fine.
-
-function model_exists($model_name) {
-    // Starting by checking the existence of the object
-
-    $mg_id = pg_escape_string($model_name);
-    $tab_path = explode("/", $mg_id);               // Explodes the fields of the string separated by /
-    $max_tab_path = count($tab_path);               // Counts the number of fields.
-    $queried_mo_path = $tab_path[$max_tab_path-1];  // Returns the last field value.
-
-    // Checking that the label "Model" is correct
-    if (strcmp($tab_path[0],"Models")) {
-        return 1;
-    }
-
-    // Connecting to the database.
-    $headerlink_family = connect_sphere_r();
-
-    // Querying...
-    $query = "SELECT mo_path, mo_shared FROM fgs_models WHERE mo_path = '".$queried_mo_path."';";
-    $result = pg_query($headerlink_family, $query);
-
-    // Checking the number of results. Should be 1.
-    if (pg_num_rows($result) == 1) {               // If object is known, going to check the family next.
-        // Now proceeding with the family
-        // The family path is the string between Models and the object name. Can be multiple.
-        $queried_family_path = "";
-        for ($j=1; $j<($max_tab_path-1); $j++) {
-            $queried_family_path.=$tab_path[$j]."/";
-        }
-
-        // Querying to check the existence of the family
-        $query_family = "SELECT mg_path FROM fgs_modelgroups WHERE mg_path='".$queried_family_path."';";
-        $result_family = pg_query($headerlink_family, $query_family);
-
-        if (pg_num_rows($result_family) == 1) {   // If the family & model are known, return 0.
-            return 0;
-        } else {
-            return 3;    // If the family is unknown, I say it and exit
-        }
-    } else {
-        return 2;    // Il the object is unknown, I say it and exit
-    }
-
-    // Closing the connection.
-    pg_close($headerlink_family);
-}
-
 
 // Returns the extension of a file sent in parameter
 // =================================================

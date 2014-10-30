@@ -11,6 +11,51 @@ require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
 require_once '../../classes/EmailContentFactory.php';
 
+
+// Checks if models exists in DB from a model name sent in parameter.
+// ==================================================================
+// Model's name is composed of: OBJECT_SHARED Models/
+// a mg_path from fgs_modelgroups;
+// a mo_path from fgs_models;
+// ie : Models/Power/windturbine.xml
+// So we have to check that the couple Power/windturbine.xml exists: if both concatenated values are ok, then we're fine.
+
+function getModelFromSTG($modelFullPath) {
+    global $modelDaoRO;
+    
+    // Explodes the fields of the string separated by /
+    $tabPath = explode("/", $modelFullPath);
+    
+    // Checking that the label "Model" is correct
+    if (strcmp($tabPath[0],"Models") != 0) {
+        throw new Exception("Bad model label!");
+    }
+    
+    // Counts the number of fields.
+    $max_tab_path = count($tabPath);
+    
+    // Returns the last field value.
+    $queried_mo_path = $tabPath[$max_tab_path-1];
+
+    // Get the model (throw exception if not found)
+    $modelMD = $modelDaoRO->getModelMetadataFromName($queried_mo_path);
+
+    // Now proceeding with the family
+    // The family path is the string between Models and the object name. Can be multiple.
+    $queried_family_path = "";
+    for ($j=1; $j<($max_tab_path-1); $j++) {
+        $queried_family_path .= $tabPath[$j]."/";
+    }
+    
+    $modelsGroup = $modelDaoRO->getModelsGroupByPath($queried_family_path);
+    
+    if ($modelsGroup->getId() != $modelMD->getModelsGroup()->getId()) {
+        throw new Exception("No $queried_mo_path found in $queried_family_path!");
+    }
+
+    return $modelMD;
+}
+
 $step = $_POST['step'];
 
 if ($step == 1) {
@@ -155,24 +200,13 @@ if (!$error) {
                 break;
             case 2:  // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
                 if (!preg_match($regex['model_filepath'], $value_tag)) {
-                    $return_value = model_exists($value_tag);
-                    if ($return_value == 0) {
-                        echo "<td><center>".$value_tag."</center></td>";
-                        $modelMD = $modelDaoRO->getModelMetadataFromName($value_tag);
+
+                    try {
+                        $modelMD = getModelFromSTG($value_tag);
                         $model_id = $modelMD->getId();
-                    }
-                    else if ($return_value == 1) {
-                        echo "<td><p class=\"center warning\">Bad model label!</p></td>";
-                        $ko = true;
-                        $cpt_err++;
-                    }
-                    else if ($return_value == 2) {
-                        echo "<td><p class=\"center warning\">Model unknown!</p></td>";
-                        $ko = true;
-                        $cpt_err++;
-                    }
-                    else if ($return_value == 3) {
-                        echo "<td><p class=\"center warning\">Family unknown!</p></td>";
+                        echo "<td><center>".$value_tag."</center></td>";
+                    } catch (Exception $ex) {
+                        echo "<td><p class=\"center warning\">".$ex->getMessage()."</p></td>";
                         $ko = true;
                         $cpt_err++;
                     }

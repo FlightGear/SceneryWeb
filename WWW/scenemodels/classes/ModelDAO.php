@@ -103,6 +103,10 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
                                          "WHERE mo_path = '".$queriedModelPath."' AND au_id = mo_author AND mg_id = mo_shared");
         
         $row = pg_fetch_assoc($result);
+
+	if (!$row) {
+            throw new Exception("Model ".$modelName." not found!");
+        }
         
         return $this->getModelMetadataFromRow($row);
     }
@@ -224,9 +228,27 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     public function getModelsGroup($groupId) {
         $result = $this->database->query("SELECT mg_id, mg_name, mg_path ".
                                          "FROM fgs_modelgroups ".
-                                         "WHERE mg_id = $groupId;");
-                           
+                                         "WHERE mg_id = ".pg_escape_string($groupId).";");
         $row = pg_fetch_assoc($result);
+        
+        if (!$row) {
+            throw new Exception("Models group ".$groupId." not found!");
+        }
+        
+        return $this->getModelsGroupFromRow($row);
+    }
+    
+    public function getModelsGroupByPath($groupPath) {
+        $result = $this->database->query("SELECT mg_id, mg_name, mg_path ".
+                                         "FROM fgs_modelgroups ".
+                                         "WHERE mg_path = '".pg_escape_string($groupPath)."';");
+        
+        $row = pg_fetch_assoc($result);
+        
+        if (!$row) {
+            throw new Exception("Models group ".$groupPath." not found!");
+        }
+        
         return $this->getModelsGroupFromRow($row);
     }
     

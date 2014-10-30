@@ -32,6 +32,10 @@ interface IModelDAO {
     
     public function getModelMetadata($modelId);
     
+    /**
+     * 
+     * @param string $modelName model name (= filename)
+     */
     public function getModelMetadataFromName($modelName);
     
     public function getModelMetadatas($offset, $pagesize, $criteria, $orderby);
@@ -45,6 +49,8 @@ interface IModelDAO {
     public function getPaths();
     
     public function getModelsGroup($groupId);
+    
+    public function getModelsGroupByPath($groupPath);
     
     public function getModelsGroups();
     
