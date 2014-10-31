@@ -10,14 +10,18 @@ require_once 'RequestDAO.php';
 
 class DAOFactory {
     private static $instance;
-    private $db_readonly;
-    private $db_readwrite;
- 
 
     private function __construct() {
+    }
+    
+    private function getDBReadOnly() {
         include "/home/ojacq/.scenemodels";
-        $this->db_readonly = new PGDatabase($database, $host, $ro_user, $ro_pass);
-        $this->db_readwrite = new PGDatabase($database, $host, $rw_user, $rw_pass);
+        return new PGDatabase($database, $host, $ro_user, $ro_pass);
+    }
+    
+    private function getDBReadWrite() {
+        include "/home/ojacq/.scenemodels";
+        return new PGDatabase($database, $host, $rw_user, $rw_pass);
     }
     
     public static function getInstance() {
@@ -29,44 +33,44 @@ class DAOFactory {
     }
     
     public function getModelDaoRO() {
-        return new ModelDAO($this->db_readonly);
+        return new ModelDAO($this->getDBReadOnly());
     }
     
     public function getModelDaoRW() {
-        return new ModelDAO($this->db_readwrite);
+        return new ModelDAO($this->getDBReadWrite());
     }
     
     public function getObjectDaoRO() {
-        return new ObjectDAO($this->db_readonly);
+        return new ObjectDAO($this->getDBReadOnly());
     }
     
     public function getObjectDaoRW() {
-        return new ObjectDAO($this->db_readwrite);
+        return new ObjectDAO($this->getDBReadWrite());
     }
     
     public function getAuthorDaoRO() {
-        return new AuthorDAO($this->db_readonly);
+        return new AuthorDAO($this->getDBReadOnly());
     }
     
     public function getAuthorDaoRW() {
-        return new AuthorDAO($this->db_readwrite);
+        return new AuthorDAO($this->getDBReadWrite());
     }
     
     public function getNewsPostDaoRO() {
-        return new NewsPostDAO($this->db_readonly);
+        return new NewsPostDAO($this->getDBReadOnly());
     }
     
     public function getNewsPostDaoRW() {
-        return new NewsPostDAO($this->db_readwrite);
+        return new NewsPostDAO($this->getDBReadWrite());
     }
     
     public function getRequestDaoRO() {
-        return new RequestDAO($this->db_readonly, $this->getObjectDaoRO(),
+        return new RequestDAO($this->getDBReadOnly(), $this->getObjectDaoRO(),
                 $this->getModelDaoRO(), $this->getAuthorDaoRO());
     }
     
     public function getRequestDaoRW() {
-        return new RequestDAO($this->db_readwrite, $this->getObjectDaoRW(),
+        return new RequestDAO($this->getDBReadWrite(), $this->getObjectDaoRW(),
                 $this->getModelDaoRW(), $this->getAuthorDaoRW());
     }
 }
