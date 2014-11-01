@@ -19,7 +19,7 @@ class DAOFactory {
         global $dbname;
         global $dbuser;
         global $dbpass;
-        return new PGDatabase($dbname, $dbhost, $dbname, $dbpass);
+        return new PGDatabase($dbname, $dbhost, $dbuser, $dbpass);
     }
     
     private function getDBReadWrite() {
