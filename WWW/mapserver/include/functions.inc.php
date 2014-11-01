@@ -8,7 +8,7 @@ function connect_sphere_r()
     // Inserting dependencies and defining settings
     include ("/home/ojacq/.scenemodels");
     $dbrname = $database;
-    $dbrhost = $host;
+    $dbrhost = $ro_host;
     $dbruser = $ro_user;
     $dbrpass = $ro_pass;
 
@@ -36,7 +36,7 @@ function connect_sphere_rw()
     // Inserting dependencies and defining settings
     include ("/home/ojacq/.scenemodels");
     $dbrwname = $database;
-    $dbrwhost = $host;
+    $dbrwhost = $rw_host;
     $dbrwuser = $rw_user;
     $dbrwpass = $rw_pass;
 
