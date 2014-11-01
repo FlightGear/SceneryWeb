@@ -5,15 +5,13 @@
 
 function connect_sphere_r()
 {
-    // Inserting dependencies and defining settings
-    include ("/home/ojacq/.scenemodels");
-    $dbrname = $database;
-    $dbrhost = $ro_host;
-    $dbruser = $ro_user;
-    $dbrpass = $ro_pass;
+    global $dbhost;
+    global $dbname;
+    global $dbuser;
+    global $dbpass;
 
     // Connecting silently
-    $resource_r = @pg_connect('dbname='.$dbrname.' host='.$dbrhost.' user='.$dbruser.' password='.$dbrpass.' sslmode=disable');
+    $resource_r = @pg_connect('host='.$dbhost.' dbname='.$dbname.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
 
     // If could not connect to the database
     if ($resource_r == '0') {
@@ -33,15 +31,13 @@ function connect_sphere_r()
 
 function connect_sphere_rw()
 {
-    // Inserting dependencies and defining settings
-    include ("/home/ojacq/.scenemodels");
-    $dbrwname = $database;
-    $dbrwhost = $rw_host;
-    $dbrwuser = $rw_user;
-    $dbrwpass = $rw_pass;
+    global $rwhost;
+    global $rwname;
+    global $rwuser;
+    global $rwpass;
 
     // Connecting silently
-    $resource_rw = @pg_connect('dbname='.$dbrwname.' host='.$dbrwhost.' user='.$dbrwuser.' password='.$dbrwpass.' sslmode=disable');
+    $resource_rw = @pg_connect('host='.$rwhost.' dbname='.$rwname.' user='.$rwuser.' password='.$rwpass.' sslmode=disable');
 
     // If could not connect to the database
     if ($resource_rw == '0') {
