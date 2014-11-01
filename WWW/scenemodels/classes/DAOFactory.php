@@ -15,13 +15,19 @@ class DAOFactory {
     }
     
     private function getDBReadOnly() {
-        include "/home/ojacq/.scenemodels";
-        return new PGDatabase($database, $host, $ro_user, $ro_pass);
+        global $dbhost;
+        global $dbname;
+        global $dbuser;
+        global $dbpass;
+        return new PGDatabase($dbname, $dbhost, $dbname, $dbpass);
     }
     
     private function getDBReadWrite() {
-        include "/home/ojacq/.scenemodels";
-        return new PGDatabase($database, $host, $rw_user, $rw_pass);
+        global $rwhost;
+        global $rwname;
+        global $rwuser;
+        global $rwpass;
+        return new PGDatabase($rwname, $rwhost, $rwuser, $rwpass);
     }
     
     public static function getInstance() {

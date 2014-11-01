@@ -4,11 +4,13 @@
 // ==================================
 
 function connect_sphere_r() {
-    // Inserting dependencies and defining settings
-    include "/home/ojacq/.scenemodels";
-
+    global $dbhost;
+    global $dbname;
+    global $dbuser;
+    global $dbpass;
+    
     // Connecting silently
-    $resource_r = pg_connect('dbname='.$database.' host='.$host.' user='.$ro_user.' password='.$ro_pass.' sslmode=disable');
+    $resource_r = pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
 
     // If could not connect to the database
     if ($resource_r == '0') {
