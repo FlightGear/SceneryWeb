@@ -10,10 +10,6 @@ class PGDatabase implements Database {
                          ' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
     }
     
-    public function __destruct() {
-        pg_close($this->connection);
-    }
-    
     public function query($query) {
         return pg_query($this->connection, $query);
     }
