@@ -123,12 +123,21 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function serializeRequestObjectAdd($request) {
         $newObj = $request->getNewObject();
-        $offset = $newObj->getElevationOffset();
         
-        return "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
-               "VALUES ('".pg_escape_string($newObj->getDescription())."', ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), -9999, ".
-               (empty($offset)?"NULL":$offset) .", ".
-               $newObj->getOrientation().", '".$newObj->getCountry()->getCode()."', ".$newObj->getModelId().", 1);";
+        return $this->serializeObject($newObj);
+    }
+    
+    private function serializeObject($object) {
+        $offset = $object->getElevationOffset();
+        
+        return "OBJECT_ADD||" .
+               $object->getDescription(). "||" . // ob_text
+               $object->getLongitude(). "||" . // longitude
+               $object->getLatitude(). "||" . // latitude
+               (empty($offset)?"NULL":$offset). "||" . // elevation offset
+               $object->getOrientation(). "||" . // orientation
+               $object->getCountry()->getCode(). "||" . //country
+               $object->getModelId(); // model id
     }
     
     private function serializeRequestObjectUpdate($request) {
@@ -151,17 +160,15 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         // Proceed on with the request generation
         $reqStr = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
 
-        $comma = "";
+        $separator = "";
         // For each line, add the data content to the request
         foreach ($newObjects as $newObj) {
-            $reqStr .= $comma."('".pg_escape_string($newObj->getDescription()).
-                    "', ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), -9999, ".
-                    $newObj->getElevationOffset().", ".$newObj->getOrientation().", ".$newObj->getModelId().", '".$newObj->getCountry()->getCode()."', 1)";
+            $reqStr .= $separator . $this->serializeObject($newObj);
 
-            $comma = ", ";
+            $separator = "|||";
         }
                 
-        return $reqStr.";";
+        return $reqStr;
     }
     
     private function serializeRequestModelAdd($request) {
@@ -178,20 +185,10 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $moQuery .= $newModel->getModelFiles()."||";        // mo_modelfile
         $moQuery .= $newModelMD->getModelsGroup()->getId(); // mo_shared
 
-        $obQuery  = "INSERT INTO fgs_objects ";
-        $obQuery .= "(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_text, ob_group) ";
-        $obQuery .= "VALUES (";
-        $obQuery .= "ST_PointFromText('POINT(".$newObject->getLongitude()." ".$newObject->getLatitude().")', 4326), ";        // wkb_geometry
-        $obQuery .= "-9999, ";                                                                // ob_gndelev
-        $obQuery .= $newObject->getElevationOffset().", ";                                                             // ob_elevoffset
-        $obQuery .= $newObject->getOrientation().", ";                                       // ob_heading
-        $obQuery .= "'".$newObject->getCountry()->getCode()."', ";                                                       // ob_country
-        $obQuery .= "Thisisthevalueformo_id, ";                                                           // ob_model
-        $obQuery .= "'".$newObject->getDescription()."', ";                                                          // ob_text
-        $obQuery .= "1";                                                                      // ob_group
-        $obQuery .= ")";
+        // Serialize object
+        $obQuery = $this->serializeObject($newObject);
 
-        return $moQuery.";".$obQuery;
+        return $moQuery."|||".$obQuery;
     }
     
     private function serializeRequestModelUpdate($request) {
@@ -258,8 +255,8 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         }
         
         // Add object(s) request
-        if (substr_count($requestQuery,"INSERT INTO fgs_objects") == 1 && substr_count($requestQuery,"Thisisthevalueformo_id") == 0) {
-            if (substr_count($requestQuery,"INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group)") == 1) {
+        if (substr_count($requestQuery,"OBJECT_ADD") > 0 && substr_count($requestQuery,"Thisisthevalueformo_id") == 0) {
+            if (substr_count($requestQuery,"OBJECT_ADD") == 1) {
                 $request = $this->getRequestObjectAddFromRow($requestQuery);
             }
             // Else, it is a mass insertion
@@ -285,8 +282,8 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestModelAddFromRow($requestQuery) {
-        $queryModel = substr($requestQuery, 0, strpos($requestQuery, ";INSERT INTO fgs_objects"));
-        $queryObj = strstr($requestQuery, "INSERT INTO fgs_objects");
+        $queryModel = substr($requestQuery, 0, strpos($requestQuery, "|||OBJECT_ADD"));
+        $queryObj = strstr($requestQuery, "OBJECT_ADD");
 
         // Retrieve MODEL data from query
         // MODEL_ADD||mo_path||mo_author||mo_name||mo_notes||mo_thumbfile||mo_modelfile||mo_shared
@@ -299,16 +296,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newModel->setThumbnail(base64_decode($modelArr[5]));
 
         // Retrieve OBJECT data from query
-        $search = 'ob_elevoffset'; // We're searching for ob_elevoffset presence in the request to correctly preg it.
-        $pos = strpos($queryObj, $search);
-
-        $pattern  = "/INSERT INTO fgs_objects \(wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_text, ob_group\) VALUES \(ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<gndelev>[0-9.-]+), (?P<elevoffset>[NULL0-9.-]+), (?P<orientation>[0-9.-]+), '(?P<country>[a-z-A-Z-]+)', (?P<model>[a-z-A-Z_0-9-]+), '(?P<notes>[^$]*)', 1\)/";
-        preg_match($pattern, $queryObj, $matches);
-        
-        $objectFactory = new ObjectFactory($this->objectDao);
-        $newObject = $objectFactory->createObject(-1, -1,
-                $matches['long'], $matches['lat'], $matches['country'], 
-                $matches['elevoffset'], $matches['orientation'], 1, $matches['notes']);
+        $newObject = $this->getObjectFromSerialized($queryObj);
         
         $requestModelAdd = new RequestModelAdd();
         $requestModelAdd->setNewModel($newModel);
@@ -343,16 +331,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestObjectAddFromRow($requestQuery) {
-        // Removing the start of the query from the data
-        $triggedQuery = strstr($requestQuery, 'VALUES');
-        $pattern = "/VALUES \('(?P<desc>[0-9a-zA-Z_\-., \[\]()]+)', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>(([0-9.-]+)|NULL)), (?P<orientation>[0-9.-]+), '(?P<country>[a-z]+)', (?P<model_id>[0-9]+), 1\)/";
-
-        preg_match($pattern, $triggedQuery, $matches);
-        $objectFactory = new ObjectFactory($this->objectDao);
-        
-        $newObject = $objectFactory->createObject(-1, $matches['model_id'],
-                $matches['long'], $matches['lat'], $matches['country'], 
-                $matches['elevoffset'], $matches['orientation'], 1, $matches['desc']);
+        $newObject = $this->getObjectFromSerialized($requestQuery);
             
         $requestObjAdd = new RequestObjectAdd();
         $requestObjAdd->setNewObject($newObject);
@@ -360,24 +339,24 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         return $requestObjAdd;
     }
     
+    private function getObjectFromSerialized($objectSerialized) {
+        // OBJECT_ADD||ob_text||longitude||latitude||elevation offset||orientation||country||model id
+        $objectArr = explode("||", $objectSerialized);
+        
+        $objectFactory = new ObjectFactory($this->objectDao);
+        
+        return $objectFactory->createObject(-1, $objectArr[7],
+               $objectArr[2], $objectArr[3], $objectArr[6], 
+               $objectArr[4], $objectArr[5], 1, $objectArr[1]);
+    }
+    
     private function getRequestMassiveObjectsAddFromRow($requestQuery) {
-        // Removing the start of the query from the data;
-        $triggedQuery = str_replace("INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) " .
-                                        "VALUES (","",$requestQuery);
         // Separating the data based on the ST_PointFromText existence
-        $tab_tags = explode(", (",$triggedQuery);
+        $objRequests = explode("|||", $requestQuery);
         $newObjects = array();
         
-        $pattern = "/'(?P<notes>[a-zA-Z0-9 +,!_.;\(\)\[\]\/-]*)', ST_PointFromText\('POINT\((?P<long>[0-9.-]+) (?P<lat>[0-9.-]+)\)', 4326\), (?P<elev>[0-9.-]+), (?P<elevoffset>[0-9.-]+), (?P<orientation>[0-9.-]+), (?P<model_id>[0-9]+), '(?P<country>[a-z]+)', 1\)/";
-        foreach ($tab_tags as $value_tag) {
-            preg_match($pattern, $value_tag, $matches);
-
-            $objectFactory = new ObjectFactory($this->objectDao);
-        
-            $newObject = $objectFactory->createObject(-1, $matches['model_id'],
-                    $matches['long'], $matches['lat'], $matches['country'], 
-                    $matches['elevoffset'], $matches['orientation'], 1, $matches['notes']);
-            
+        foreach ($objRequests as $objRequest) {
+            $newObject = $this->getObjectFromSerialized($objRequest);
             $newObjects[] = $newObject;
         }
         
