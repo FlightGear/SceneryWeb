@@ -1,0 +1,100 @@
+<%
+#
+# called by 'shpdl.psp' (Main public download page)
+# calls 'dlaction.sh'
+#
+#  *Download individual layers*
+#
+# Verify input from the web form and store the necessary details in the
+# 'download' database table. Fire 'dlaction.sh' with a reference to the UUID
+# of the respective database entry.
+#
+import os, time
+import subprocess
+
+import psycopg2
+
+db_params = {"host":"localhost", "database":"landcover", "user":"webuser"}
+try:
+    db_conn = psycopg2.connect(**db_params)
+except:
+    print "Cannot connect to database."
+db_cur = db_conn.cursor()
+
+url_params = {}
+url_params['mylayer'] = ("%(layer)s" % form)
+
+# Check if the defined layer to download is a valid one
+#
+sql = "SELECT COUNT(*) from conf_layer \
+    WHERE maplayer = '%(mylayer)s' \
+    OR (pgislayer = '%(mylayer)s' AND maplayer IS NULL);" % url_params
+
+try:
+    db_cur.execute(sql)
+    layervalid = db_cur.fetchone()
+except:
+    print "Cannot read from DB."
+
+# Layer not present in 'conf_layer' table
+#
+if layervalid[0] != 1:
+    print "Please select a valid layer!"
+    exit(1)
+
+xmin = float("%(xmin)s" % form)
+xmax = float("%(xmax)s" % form)
+ymin = float("%(ymin)s" % form)
+ymax = float("%(ymax)s" % form)
+dlarea = ((xmax - xmin) * (ymax - ymin))
+
+# West/East swapped
+#
+if xmin > xmax:
+    print "Please use reasonable coordinates!"
+    exit(1)
+
+# Nort/South swapped
+#
+if ymin > ymax:
+    print "Please use reasonable coordinates!"
+    exit(1)
+
+# Area too large
+#
+if dlarea > 144:
+    print "Please don't exceed maximum area!"
+    exit(1)
+
+# Now, everything is ok
+#
+url_params['ll_geometry'] = ("%(xmin)s %(ymin)s" % form)
+url_params['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
+url_params['bbox'] = ("%(ll_geometry)s, %(ur_geometry)s" % url_params)
+
+# After everything's verified, store an entry in the 'download' table for
+# retrieval and execution via the '<basename>.sh' script.
+#
+sql = "INSERT INTO download (wkb_geometry, feature, requestdate, single) VALUES \
+    (ST_SetSRID('BOX3D(%(ll_geometry)s, %(ur_geometry)s)'::BOX3D, 4326), \
+    '%(mylayer)s', now(), TRUE) \
+    RETURNING uuid;" % url_params
+
+try:
+    db_cur.execute(sql)
+    db_conn.commit()
+    result = db_cur.fetchone()
+    url_params['myuuid'] = result[0]
+except:
+    print "Cannot insert download job into DB."
+
+db_cur.close
+db_conn.close
+
+# Finally call '<basename>.sh' with the given UUID identifier as stored in the
+# 'download' table and redirect to the downloadable file.
+#
+dumpcmd = "/home/fgscenery/GIT/WWW/mapserver/dlaction.sh %(myuuid)s > /tmp/dlaction.log 2>&1" % url_params
+subprocess.check_call(dumpcmd, shell=True)
+psp.redirect("/SHPdl/%(mylayer)s-%(myuuid)s.zip" % url_params)
+%>

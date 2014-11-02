@@ -29,6 +29,7 @@
     ScriptAlias /shpdl /home/fgscenery/GIT/WWW/mapserver/shpdl.psp
     # Download individual layers
     ScriptAlias /dlaction /home/fgscenery/GIT/WWW/mapserver/dlaction.psp
+    ScriptAlias /dlsingle /home/fgscenery/GIT/WWW/mapserver/dlsingle.psp
     # Download every polygon of a certain class
     ScriptAlias /dlshp /home/fgscenery/GIT/WWW/mapserver/procshpdl.psp
     <Location /dlshp>
