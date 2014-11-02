@@ -23,7 +23,7 @@ abstract class PgSqlDAO {
             $whereClause = "";
             $and = '';
             foreach ($criteria as $criterion) {
-                $whereClause .= $this->criterionToClause($criterion);
+                $whereClause .= $and . $this->criterionToClause($criterion);
                 $and = ' AND ';
             }
         }
@@ -35,8 +35,18 @@ abstract class PgSqlDAO {
         switch($criterion->getOperation()) {
         case Criterion::OPERATION_LIKE:
             $clause = $criterion->getVarName() 
-                . $criterion->getOperation()
+                . " LIKE "
                 . "'%" . pg_escape_string($criterion->getValue()) . "%'";
+            break;
+        case Criterion::OPERATION_LIKE_BEGIN:
+            $clause = $criterion->getVarName() 
+                . " LIKE "
+                . "'" . pg_escape_string($criterion->getValue()) . "%'";
+            break;
+        case Criterion::OPERATION_LIKE_END:
+            $clause = $criterion->getVarName() 
+                . " LIKE "
+                . "'%" . pg_escape_string($criterion->getValue()) . "'";
             break;
         default:
             $clause = $criterion->getVarName() 

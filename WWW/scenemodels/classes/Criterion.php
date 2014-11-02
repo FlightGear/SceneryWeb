@@ -19,6 +19,8 @@ class Criterion {
     const OPERATION_GT = ">";
     const OPERATION_LT = "<";
     const OPERATION_LIKE = " LIKE ";
+    const OPERATION_LIKE_BEGIN = "LIKEBEGIN";
+    const OPERATION_LIKE_END = "LIKEEND";
     const OPERATION_IS = " is ";
     
     /**

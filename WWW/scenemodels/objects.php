@@ -78,7 +78,7 @@ if (isset($_REQUEST['lat']) && is_latitude($_REQUEST['lat'])){
     $lat = $_REQUEST['lat'];
     $filter_text .= "&amp;lat=".$lat;
     
-    $criteria[] = new Criterion("CAST (ST_Y(wkb_geometry) AS text)", Criterion::OPERATION_LIKE, "'".$lat."%'");
+    $criteria[] = new Criterion("CAST (ST_Y(wkb_geometry) AS text)", Criterion::OPERATION_LIKE_BEGIN, $lat);
 } else {
     $lat = "";
 }
@@ -87,7 +87,7 @@ if (isset($_REQUEST['lon']) && is_longitude($_REQUEST['lon'])){
     $lon = $_REQUEST['lon'];
     $filter_text .= "&amp;lon=".$lon;
     
-    $criteria[] = new Criterion("CAST (ST_X(wkb_geometry) AS text)", Criterion::OPERATION_LIKE, "'".$lon."%'");
+    $criteria[] = new Criterion("CAST (ST_X(wkb_geometry) AS text)", Criterion::OPERATION_LIKE_BEGIN, $lon);
 } else {
     $lon = "";
 }
