@@ -62,11 +62,11 @@ if [ ${SINGLE} = "f" ]; then
         DumpSingleLayer ${LAYER}
         cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${LAYER}\.prj
     done
-    zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}_*.*
+    zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}_*.* COPYING
 elif [ ${SINGLE} = "t" ]; then
     DumpSingleLayer ${FEATURE} ${DUMPTABLE} "${SQLFILTER}"
     cp -a ${BASEDIR}/WWW/mapserver/EPSG4326.prj ${DUMPDIR}/${FEATURE}\.prj
-    zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}.*
+    zip ${DLDIR}/${FEATURE}-${UUID}\.zip ${FEATURE}.* COPYING
 fi
 
 cd ${DUMPDIR}/.. && rm -rf ${UUID}
