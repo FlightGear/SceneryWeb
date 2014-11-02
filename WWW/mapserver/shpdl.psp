@@ -28,7 +28,7 @@ else:
 # end
 %>
 
-<!-- calls 'procshpdl.psp'
+<!-- calls 'dlshp.psp'
      Pythonification into a generic abstraction to download features is
      still pending ....  -->
 
