@@ -24,7 +24,7 @@ if (isset($_REQUEST['model']) && is_model_id($_REQUEST['model'])){
     $model = $_REQUEST['model'];
     $filter_text .= "&amp;model=".$model;
     
-    $criteria[] = new Criterion("ob_model", Criterion::OPERATION_EQ, $model);
+    $criteria[] = new Criterion("ob_model", Criterion::OPERATION_EQ, $model, Criterion::INTTYPE);
 } else {
     $model = "";
 }
@@ -33,7 +33,7 @@ if (isset($_REQUEST['groupid']) && preg_match('/^[0-9]+$/u',$_REQUEST['groupid']
     $groupid = $_REQUEST['groupid'];
     $filter_text .= "&amp;groupid=".$groupid;
     
-    $criteria[] = new Criterion("ob_group", "=", $groupid);
+    $criteria[] = new Criterion("ob_group", Criterion::OPERATION_EQ, $groupid, Criterion::INTTYPE);
 } else {
     $groupid = "";
 }
@@ -44,8 +44,8 @@ if (isset($_REQUEST['elevation']) && is_gndelevation($_REQUEST['elevation'])){
     $elevation = $_REQUEST['elevation'];
     $filter_text .= "&amp;elevation=".$elevation;
     
-    $criteria[] = new Criterion("ob_gndelev", Criterion::OPERATION_GT, $min);
-    $criteria[] = new Criterion("ob_gndelev", Criterion::OPERATION_LT, $max);
+    $criteria[] = new Criterion("ob_gndelev", Criterion::OPERATION_GT, $min, Criterion::INTTYPE);
+    $criteria[] = new Criterion("ob_gndelev", Criterion::OPERATION_LT, $max, Criterion::INTTYPE);
 } else {
     $elevation = "";
 }
@@ -56,8 +56,8 @@ if (isset($_REQUEST['elevoffset']) && is_offset($_REQUEST['elevoffset'])){
     $elevoffset = $_REQUEST['elevoffset'];
     $filter_text .= "&amp;elevoffset=".$elevoffset;
     
-    $criteria[] = new Criterion("ob_elevoffset", Criterion::OPERATION_GT, $min);
-    $criteria[] = new Criterion("ob_elevoffset", Criterion::OPERATION_LT, $max);
+    $criteria[] = new Criterion("ob_elevoffset", Criterion::OPERATION_GT, $min, Criterion::INTTYPE);
+    $criteria[] = new Criterion("ob_elevoffset", Criterion::OPERATION_LT, $max, Criterion::INTTYPE);
 } else {
     $elevoffset = "";
 }
@@ -68,8 +68,8 @@ if (isset($_REQUEST['heading']) && is_heading($_REQUEST['heading'])){
     $heading = $_REQUEST['heading'];
     $filter_text .= "&amp;heading=".$heading;
     
-    $criteria[] = new Criterion("ob_heading", Criterion::OPERATION_GT, $min);
-    $criteria[] = new Criterion("ob_heading", Criterion::OPERATION_LT, $max);
+    $criteria[] = new Criterion("ob_heading", Criterion::OPERATION_GT, $min, Criterion::INTTYPE);
+    $criteria[] = new Criterion("ob_heading", Criterion::OPERATION_LT, $max, Criterion::INTTYPE);
 } else {
     $heading = "";
 }
@@ -78,7 +78,7 @@ if (isset($_REQUEST['lat']) && is_latitude($_REQUEST['lat'])){
     $lat = $_REQUEST['lat'];
     $filter_text .= "&amp;lat=".$lat;
     
-    $criteria[] = new Criterion("CAST (ST_Y(wkb_geometry) AS text)", Criterion::OPERATION_LIKE_BEGIN, $lat);
+    $criteria[] = new Criterion("CAST (ST_Y(wkb_geometry) AS text)", Criterion::OPERATION_LIKE_BEGIN, $lat, Criterion::INTTYPE);
 } else {
     $lat = "";
 }
@@ -87,7 +87,7 @@ if (isset($_REQUEST['lon']) && is_longitude($_REQUEST['lon'])){
     $lon = $_REQUEST['lon'];
     $filter_text .= "&amp;lon=".$lon;
     
-    $criteria[] = new Criterion("CAST (ST_X(wkb_geometry) AS text)", Criterion::OPERATION_LIKE_BEGIN, $lon);
+    $criteria[] = new Criterion("CAST (ST_X(wkb_geometry) AS text)", Criterion::OPERATION_LIKE_BEGIN, $lon, Criterion::INTTYPE);
 } else {
     $lon = "";
 }
@@ -96,7 +96,7 @@ if (isset($_REQUEST['country']) && is_country_id($_REQUEST['country'])){
     $countryId = $_REQUEST['country'];
     $filter_text .= "&amp;country=".$countryId;
     
-    $criteria[] = new Criterion("ob_country", Criterion::OPERATION_EQ, $countryId);
+    $criteria[] = new Criterion("ob_country", Criterion::OPERATION_EQ, $countryId, Criterion::STRINGTYPE);
 } else {
     $countryId = "";
 }
@@ -105,7 +105,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
     $description = $_REQUEST['description'];
     $filter_text .= "&amp;description=".$description;
     
-    $criteria[] = new Criterion("ob_text", Criterion::OPERATION_LIKE, $_REQUEST['description']);
+    $criteria[] = new Criterion("ob_text", Criterion::OPERATION_LIKE, $_REQUEST['description'], Criterion::STRINGTYPE);
 } else {
     $description = "";
 }

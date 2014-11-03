@@ -10,6 +10,7 @@
 
 class Criterion {
     private $varName;
+    private $varType;
     private $operation;
     private $value;
     
@@ -18,10 +19,13 @@ class Criterion {
     const OPERATION_LE = "<=";
     const OPERATION_GT = ">";
     const OPERATION_LT = "<";
-    const OPERATION_LIKE = " LIKE ";
+    const OPERATION_LIKE = "LIKE";
     const OPERATION_LIKE_BEGIN = "LIKEBEGIN";
     const OPERATION_LIKE_END = "LIKEEND";
-    const OPERATION_IS = " is ";
+    
+    const INTTYPE = 2;
+    const STRINGTYPE = 3;
+    const DATETYPE = 4;
     
     /**
      * Constructor
@@ -30,10 +34,11 @@ class Criterion {
      * @param string $operation
      * @param type $value
      */
-    public function __construct($varName, $operation, $value) {
+    public function __construct($varName, $operation, $value, $type) {
         $this->varName = $varName;
         $this->operation = $operation;
         $this->value = $value;
+        $this->varType = $type;
     }
     
     public function getVarName() {
@@ -58,6 +63,14 @@ class Criterion {
     
     public function setValue($value) {
         $this->value = $value;
+    }
+    
+    public function getVarType() {
+        return $this->varType;
+    }
+    
+    public function setVarType($varType) {
+        $this->varType = $varType;
     }
 }
 

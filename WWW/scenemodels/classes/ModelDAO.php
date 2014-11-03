@@ -195,19 +195,19 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     
     public function getModelMetadatasNoThumb($offset, $pagesize) {
         $criteria = array();
-        $criteria[] = new Criterion("mo_thumbfile", Criterion::OPERATION_IS, "NULL");
+        $criteria[] = new Criterion("mo_thumbfile", Criterion::OPERATION_EQ, NULL, Criterion::STRINGTYPE);
         return $this->getModelMetadatas($offset, $pagesize, $criteria);
     }
     
     public function getModelMetadatasByAuthor($authorId) {
         $criteria = array();
-        $criteria[] = new Criterion("mo_author", Criterion::OPERATION_EQ, $authorId);
+        $criteria[] = new Criterion("mo_author", Criterion::OPERATION_EQ, $authorId, Criterion::INTTYPE);
         return $this->getModelMetadatas(0, "ALL", $criteria);
     }
     
     public function getModelMetadatasByGroup($modelGroupId, $offset, $pagesize, $orderby="mo_modified", $order="ASC") {
         $criteria = array();
-        $criteria[] = new Criterion("mo_shared", Criterion::OPERATION_EQ, $modelGroupId);
+        $criteria[] = new Criterion("mo_shared", Criterion::OPERATION_EQ, $modelGroupId, Criterion::INTTYPE);
         return $this->getModelMetadatas($offset, $pagesize, $criteria, $orderby, $order);
     }
     

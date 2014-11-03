@@ -32,7 +32,9 @@ abstract class PgSqlDAO {
     }
     
     private function criterionToClause($criterion) {
-        switch($criterion->getOperation()) {
+        $op = $criterion->getOperation();
+        
+        switch($op) {
         case Criterion::OPERATION_LIKE:
             $clause = $criterion->getVarName() 
                 . " LIKE "
@@ -49,9 +51,20 @@ abstract class PgSqlDAO {
                 . "'%" . pg_escape_string($criterion->getValue()) . "'";
             break;
         default:
-            $clause = $criterion->getVarName() 
-                . $criterion->getOperation()
-                . pg_escape_string($criterion->getValue());
+            $clause = $criterion->getVarName();
+            
+            if ($criterion->getValue() == NULL) {
+                $clause .= " IS NULL";
+                
+            } else {
+                $clause .= $op;
+                
+                if ($criterion->getVarType() == Criterion::INTTYPE) {
+                    $clause .= pg_escape_string($criterion->getValue());
+                } else {
+                    $clause .= "'".pg_escape_string($criterion->getValue())."'";
+                }
+            }
         }
         
         return $clause;
