@@ -20,7 +20,7 @@ $sig = $_REQUEST["sig"];
 try {
     $request = $requestDaoRO->getRequest($sig);
 } catch(RequestNotFoundException $e) {
-    $page_title = "Automated Objects Massive Import Request Form";
+    $page_title = "Automated Objects Addition Request Form";
     $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?<br/>";
     $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
     include '../../inc/error_page.php';
@@ -30,7 +30,7 @@ try {
 // Check the presence of "action", the presence of "signature", its 
 // length (64) and its content.
 if (isset($_GET["action"]) && $_GET["action"] == "check") {
-    $page_title = "Automated Objects Massive Import Requests Form";
+    $page_title = "Automated Objects Addition Requests Form";
     include '../../inc/header.php';
     echo "<p class=\"center\">Signature found.<br /> Now processing request #". $request->getId().".\n</p>\n";
 
@@ -63,8 +63,8 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
         <td colspan="9" class="submit">
             <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET["email"]."\" />"; ?>
             <?php echo "<input type=\"hidden\" name=\"sig\" value=\"".$sig."\" />"; ?>
-            <input type="submit" name="submit" value="Submit the mass import!" />
-            <input type="submit" name="cancel" value="Reject - Do not import!" />
+            <input type="submit" name="accept" value="Accept object(s)" />
+            <input type="submit" name="cancel" value="Reject!" />
         </td>
     </tr>
     </table>
@@ -73,19 +73,19 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
 }
 
 // Managing the cancellation of a mass import by DB maintainer.
-if (isset($_POST["cancel"]) && ($_POST["cancel"] == "Reject - Do not import!")) {
+if (isset($_POST["cancel"])) {
     $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
     $resultDel = $requestDaoRW->deleteRequest($sig);
 
     if (!$resultDel) {
-        $page_title = "Automated Objects Massive Import Request Form";
+        $page_title = "Automated Objects Addition Request Form";
         $process_text = "Signature found.<br /> Now deleting request #". $request->getId().".";
         $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
         include '../../inc/error_page.php';
         exit;
     }
 
-    $page_title = "Automated Objects Massive Import Request Form";
+    $page_title = "Automated Objects Addition Request Form";
     include '../../inc/header.php';
     echo "<center>Signature found.<br />Now deleting request #". $request->getId().".</center><br />";
     echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.</p>";
@@ -107,7 +107,7 @@ if (isset($_POST["cancel"]) && ($_POST["cancel"] == "Reject - Do not import!")) 
 }
 
 // Now managing the insertion
-if (isset($_POST["submit"]) && $_POST["submit"] == "Submit the mass import!") {
+if (isset($_POST["accept"])) {
     $objectDaoRW = DAOFactory::getInstance()->getObjectDaoRW();
     $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
     $reqExecutor = new RequestExecutor(null, $objectDaoRW);
@@ -116,7 +116,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] == "Submit the mass import!") {
     try {
         $objsWithId = $reqExecutor->executeRequest($request);
     } catch (Exception $ex) {
-        $page_title = "Automated Objects Massive Insertion Request Form";
+        $page_title = "Automated Objects Addition Request Form";
         include '../../inc/header.php';
         echo "<p class=\"center\">Signature found.<br /> Now processing request #". $request->getId().".</p><br />";
         echo "<p class=\"warning\">Sorry, but the INSERT query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
@@ -124,7 +124,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] == "Submit the mass import!") {
         exit;
     }
 
-    $page_title = "Automated Objects Massive Insertion Request Form";
+    $page_title = "Automated Objects Addition Request Form";
     include '../../inc/header.php';
     echo "<p class=\"center\">Signature found.<br /> Now processing massive add objects request #". $request->getId().".</p><br />\n";
     echo "<p class=\"center ok\">".count($objsWithId)." objects were added to the database!</p>\n";
@@ -151,7 +151,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] == "Submit the mass import!") {
     // email destination
     $to = (isset($_POST['email'])) ? $_POST["email"] : '';
 
-    $emailSubmit = EmailContentFactory::getMassImportRequestAcceptedEmailContent($dtg, $request, $comment);
+    $emailSubmit = EmailContentFactory::getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     include '../../inc/footer.php';

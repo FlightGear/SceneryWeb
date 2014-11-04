@@ -37,9 +37,9 @@ class EmailContentFactory {
         return wordwrap($message, 70, "\r\n");
     }
     
-    static public function getMassImportRequestAcceptedEmailContent($dtg, $request, $comment) {
+    static public function getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment) {
         $subject = "Massive object import accepted";
-        $message = "On ".$dtg." UTC, you issued a massive objects import request.\r\n\r\n" .
+        $message = "On ".$dtg." UTC, you issued an object(s) import request.\r\n\r\n" .
                    "We are glad to let you know that this request has been accepted!\r\n\r\n" .
                    "For reference, the ID of this request was '".$request->getId(). "'\r\n\r\n";
         if (!empty($comment)) {
@@ -263,7 +263,8 @@ class EmailContentFactory {
     
     static public function getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $request) {
         $safeEmail = $request->getContributorEmail();
-        $newObject = $request->getNewObject();
+        $newObjects = $request->getNewObjects();
+        $newObject = $newObjects[0];
         
         $subject = "Object addition needs validation";
         $message = "We would like to let you know that a new object request is pending (#".$request->getId()."). " .
@@ -282,7 +283,7 @@ class EmailContentFactory {
                     "True orientation: ". $newObject->getOrientation() . "\r\n" .
                     "Comment:          ". strip_tags($request->getComment()) . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() ."&email=". $safeEmail."\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."&email=". $safeEmail."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

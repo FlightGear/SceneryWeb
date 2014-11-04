@@ -36,23 +36,6 @@ if ($action == "check") {
     echo "<p class=\"center\">Signature found.<br /> Now processing request #". $request->getId().".\n</p>\n";
 
     switch (get_class($request)) {
-    case "RequestObjectAdd":
-        $newObj = $request->getNewObject();
-        $modelMD = $modelDaoRO->getModelMetadata($newObj->getModelId());
-
-        echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
-        echo "<tr>\n" .
-             "<td><center>".$newObj->getLongitude()."</center></td>\n" .
-             "<td><center>".$newObj->getLatitude()."</center></td>\n" .
-             "<td><center>".$newObj->getCountry()->getName()."</center></td>\n" .
-             "<td><center>".$newObj->getGroundElevation()."</center></td>\n" .
-             "<td><center>".$newObj->getElevationOffset()."</center></td>\n" .
-             "<td><center>".$newObj->getOrientation()."</center></td>\n" .
-             "<td><center><a href=\"http://scenemodels.flightgear.org/modelview.php?id=".$modelMD->getId()."\">".$modelMD->getName()."</a></center></td>\n" .
-             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObj->getLongitude()."&amp;lat=".$newObj->getLatitude()."&amp;zoom=14\">Map</a></center></td>\n" .
-             "</tr>\n";
-        break;
-    
     case "RequestObjectUpdate":
         $oldObject = $request->getOldObject();
         $newObject = $request->getNewObject();

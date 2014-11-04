@@ -1,7 +1,6 @@
 <?php
 require_once '../../classes/DAOFactory.php';
 require_once '../../classes/ObjectFactory.php';
-require_once '../../classes/RequestObjectAdd.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
@@ -142,8 +141,11 @@ if (!$error) {
         include '../../inc/footer.php';
     }
     
-    $request = new RequestObjectAdd();
-    $request->setNewObject($newObject);
+    
+    $newObjects = array();
+    $newObjects[] = $newObject;
+    $request = new RequestMassiveObjectsAdd();
+    $request->setNewObjects($newObjects);
     $request->setContributorEmail($safe_email);
     $request->setComment($sent_comment);
     

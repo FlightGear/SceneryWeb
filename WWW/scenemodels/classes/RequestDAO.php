@@ -23,7 +23,6 @@ require_once 'Request.php';
 require_once 'RequestMassiveObjectsAdd.php';
 require_once 'RequestModelAdd.php';
 require_once 'RequestModelUpdate.php';
-require_once 'RequestObjectAdd.php';
 require_once 'RequestObjectDelete.php';
 require_once 'RequestObjectUpdate.php';
 require_once 'ObjectDAO.php';
@@ -90,10 +89,6 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function serializeRequest($request) {
         switch (get_class($request)) {
-        case "RequestObjectAdd":
-            $reqStr = $this->serializeRequestObjectAdd($request);
-            break;
-        
         case "RequestObjectUpdate":
             $reqStr = $this->serializeRequestObjectUpdate($request);
             break;
@@ -119,12 +114,6 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         }
         
         return $reqStr;
-    }
-    
-    private function serializeRequestObjectAdd($request) {
-        $newObj = $request->getNewObject();
-        
-        return $this->serializeObject($newObj);
     }
     
     private function serializeObject($object) {
@@ -256,13 +245,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         
         // Add object(s) request
         if (substr_count($requestQuery,"OBJECT_ADD") > 0 && substr_count($requestQuery,"Thisisthevalueformo_id") == 0) {
-            if (substr_count($requestQuery,"OBJECT_ADD") == 1) {
-                $request = $this->getRequestObjectAddFromRow($requestQuery);
-            }
-            // Else, it is a mass insertion
-            else {
-                $request = $this->getRequestMassiveObjectsAddFromRow($requestQuery);
-            }
+            $request = $this->getRequestMassiveObjectsAddFromRow($requestQuery);
         }
         
         // Add model request
@@ -328,15 +311,6 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $requestModelUpd->setOldModel($oldModel);
         
         return $requestModelUpd;
-    }
-    
-    private function getRequestObjectAddFromRow($requestQuery) {
-        $newObject = $this->getObjectFromSerialized($requestQuery);
-            
-        $requestObjAdd = new RequestObjectAdd();
-        $requestObjAdd->setNewObject($newObject);
-        
-        return $requestObjAdd;
     }
     
     private function getObjectFromSerialized($objectSerialized) {

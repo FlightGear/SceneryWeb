@@ -35,10 +35,6 @@ class RequestExecutor {
     
     public function executeRequest($request) {
         switch (get_class($request)) {
-        case "RequestObjectAdd":
-            return $this->executeRequestObjectAdd($request);
-            break;
-        
         case "RequestObjectUpdate":
             $this->executeRequestObjectUpdate($request);
             break;
@@ -62,11 +58,6 @@ class RequestExecutor {
         default:
             throw new Exception("Not a request!");
         }
-    }
-    
-    private function executeRequestObjectAdd($request) {
-        $newObj = $request->getNewObject();
-        return $this->objectDAO->addObject($newObj);
     }
     
     private function executeRequestObjectUpdate($request) {
