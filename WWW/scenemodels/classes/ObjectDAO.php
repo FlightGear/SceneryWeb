@@ -1,9 +1,4 @@
 <?php
-require_once 'PgSqlDAO.php';
-require_once "IObjectDAO.php";
-require_once "Object.php";
-require_once "Country.php";
-require_once "ObjectsGroup.php";
 
 /**
  * Object Data Access Object implementation for PostgreSQL

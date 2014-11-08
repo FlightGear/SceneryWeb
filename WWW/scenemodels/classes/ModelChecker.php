@@ -1,7 +1,5 @@
 <?php
 
-require_once 'FormChecker.php';
-
 /*
  * Copyright (C) 2014 Flightgear Team
  *

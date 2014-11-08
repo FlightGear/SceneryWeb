@@ -1,12 +1,4 @@
 <?php
-require_once 'PgSqlDAO.php';
-require_once 'IModelDAO.php';
-require_once 'Model.php';
-require_once 'Author.php';
-require_once 'ModelMetadata.php';
-require_once 'ModelsGroup.php';
-require_once 'ModelFilesTar.php';
-require_once 'Criterion.php';
 
 /**
  * Model Data Access Object implementation for PostgreSQL

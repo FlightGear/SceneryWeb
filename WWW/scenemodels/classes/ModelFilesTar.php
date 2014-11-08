@@ -1,7 +1,6 @@
 <?php
 
 require_once dirname(__FILE__) . '/../inc/functions.inc.php';
-require_once 'IModelFiles.php';
 
 /**
  * Model files in a TAR format

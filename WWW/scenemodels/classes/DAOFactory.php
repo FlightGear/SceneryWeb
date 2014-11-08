@@ -1,13 +1,5 @@
 <?php
 
-require_once 'Database.php';
-require_once 'PGDatabase.php';
-require_once 'ObjectDAO.php';
-require_once 'ModelDAO.php';
-require_once 'AuthorDAO.php';
-require_once 'NewsPostDAO.php';
-require_once 'RequestDAO.php';
-
 class DAOFactory {
     private static $instance;
 

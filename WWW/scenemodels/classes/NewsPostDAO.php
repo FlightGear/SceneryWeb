@@ -1,10 +1,5 @@
 <?php
 
-require_once 'PgSqlDAO.php';
-require_once 'INewsPostDAO.php';
-require_once 'NewsPost.php';
-require_once 'Author.php';
-
 /**
  * News Data Access Object implementation for PostgreSQL
  *

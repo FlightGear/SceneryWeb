@@ -1,8 +1,4 @@
 <?php
-require_once 'PgSqlDAO.php';
-require_once 'IAuthorDAO.php';
-require_once 'Author.php';
-
 /**
  * Author Data Access Object implementation for PostgreSQL
  *
