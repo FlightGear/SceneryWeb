@@ -1,6 +1,6 @@
 <?php
 $nojs_page = true;
-require_once 'classes/DAOFactory.php';
+require_once 'autoload.php';
 require 'inc/header.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 ?>

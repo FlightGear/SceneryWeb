@@ -1,8 +1,7 @@
 <?php
 
 // Inserting libs
-require_once '../classes/EmailContentFactory.php';
-require_once '../classes/DAOFactory.php';
+require_once '../autoload.php';
 $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 // Get pending requests

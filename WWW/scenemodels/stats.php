@@ -1,7 +1,7 @@
 <?php
 // Including librairies
 require_once 'inc/functions.inc.php';
-require_once "classes/DAOFactory.php";
+require_once 'autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 

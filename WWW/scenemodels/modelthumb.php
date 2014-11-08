@@ -1,7 +1,7 @@
 <?php
 header("Content-type: image/jpg");
 require 'inc/form_checks.php';
-require 'classes/DAOFactory.php';
+require_once 'autoload.php';
 
 $id = $_REQUEST['id'];
 

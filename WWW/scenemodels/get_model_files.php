@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/DAOFactory.php';
+require_once 'autoload.php';
 require_once 'inc/form_checks.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 

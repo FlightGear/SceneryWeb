@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/DAOFactory.php';
+require_once 'autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
 $page_title = "FlightGear World Scenery v2.10.0";

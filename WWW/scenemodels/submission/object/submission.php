@@ -1,6 +1,5 @@
 <?php
-require_once "../../classes/RequestExecutor.php";
-require_once "../../classes/DAOFactory.php";
+require_once '../../autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
@@ -8,7 +7,6 @@ $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 // Inserting libs
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../classes/EmailContentFactory.php';
 
 if (!is_sig($_REQUEST["sig"]) || !isset($_REQUEST["action"])) {
     header("Location: /submission/object/");

@@ -1,6 +1,5 @@
 <?php
-require_once "../../classes/RequestExecutor.php";
-require_once "../../classes/DAOFactory.php";
+require_once '../../autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();

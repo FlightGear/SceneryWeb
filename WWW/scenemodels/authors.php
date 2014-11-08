@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/DAOFactory.php';
+require_once 'autoload.php';
 $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require 'inc/header.php';

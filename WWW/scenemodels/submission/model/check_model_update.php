@@ -1,11 +1,5 @@
 <?php
-require_once '../../classes/DAOFactory.php';
-require_once '../../classes/ModelFactory.php';
-require_once '../../classes/RequestModelUpdate.php';
-require_once '../../classes/ModelChecker.php';
-require_once '../../classes/ModelFilesValidator.php';
-require_once '../../classes/ThumbValidator.php';
-require_once '../../classes/ValidatorsSet.php';
+require_once '../../autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
@@ -14,7 +8,6 @@ $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 require_once '../../inc/captcha/recaptchalib.php';
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../classes/EmailContentFactory.php';
 
 $fatalerror = false;
 $errormsg   = "";

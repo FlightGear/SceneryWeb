@@ -1,7 +1,5 @@
 <?php
-require_once "../../classes/DAOFactory.php";
-require_once '../../classes/ObjectFactory.php';
-require_once '../../classes/RequestObjectUpdate.php';
+require_once '../../autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
@@ -9,7 +7,6 @@ $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 // Inserting libs
 require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
-require_once '../../classes/EmailContentFactory.php';
 
 // Checking all variables
 if (isset($_POST['new_long']) && is_longitude($_POST['new_long'])) {

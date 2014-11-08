@@ -3,7 +3,7 @@
 // Inserting libs
 require_once 'inc/functions.inc.php';
 require_once 'inc/form_checks.php';
-require_once 'classes/DAOFactory.php';
+require_once 'autoload.php';
 $objectDAO = DAOFactory::getInstance()->getObjectDaoRO();
 
 require 'inc/header.php';
