@@ -14,9 +14,9 @@ interface IObjectDAO {
      * @param Object $newObject
      * @return object with id
      */
-    public function addObject($newObject);
+    public function addObject(Object $newObject);
 
-    public function updateObject($newObject);
+    public function updateObject(Object $newObject);
     
     public function deleteObject($objectId);
     

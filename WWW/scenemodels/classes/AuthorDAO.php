@@ -11,17 +11,17 @@
  
 class AuthorDAO extends PgSqlDAO implements IAuthorDAO {
     
-    public function addAuthor($author) {
+    public function addAuthor(Author $author) {
         //TODO
     }
 
-    public function updateAuthor($author) {
+    public function updateAuthor(Author $author) {
         //TODO
     }
     
     public function getAuthor($authorId) {
         $result = $this->database->query("SELECT au_id, au_name, au_email, au_notes ".
-                                         "FROM fgs_authors WHERE au_id=".$authorId.";");
+                                         "FROM fgs_authors WHERE au_id=".pg_escape_string($authorId).";");
         $authorRow = pg_fetch_assoc($result);
         
         return $this->getAuthorFromRow($authorRow);
@@ -29,7 +29,7 @@ class AuthorDAO extends PgSqlDAO implements IAuthorDAO {
     
     public function getAllAuthors($offset, $pagesize) {
         $result = $this->database->query("SELECT au_id, au_name, au_email, au_notes FROM fgs_authors ".
-                                         "ORDER BY au_name LIMIT ".$pagesize." OFFSET ".$offset);
+                                         "ORDER BY au_name LIMIT ".pg_escape_string($pagesize)." OFFSET ".pg_escape_string($offset));
         
         $resultArray = array();
                            

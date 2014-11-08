@@ -10,9 +10,9 @@
 
 interface IAuthorDAO {
 
-    public function addAuthor($author);
+    public function addAuthor(Author $author);
 
-    public function updateAuthor($author);
+    public function updateAuthor(Author $author);
     
     public function getAuthor($authorId);
     

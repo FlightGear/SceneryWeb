@@ -11,7 +11,7 @@
  */
 
 class ObjectDAO extends PgSqlDAO implements IObjectDAO {    
-    public function addObject($obj) {
+    public function addObject(Object $obj) {
         $query = "INSERT INTO fgs_objects (ob_id, ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
                 "VALUES (DEFAULT, '".pg_escape_string($obj->getDescription())."', ST_PointFromText('POINT(".$obj->getLongitude()." ".$obj->getLatitude().")', 4326), -9999, ".
                 (($obj->getElevationOffset() == 0 || $obj->getElevationOffset() == '')?"NULL":$obj->getElevationOffset()) .
@@ -28,7 +28,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         return $obj;
     }
 
-    public function updateObject($object) {
+    public function updateObject(Object $object) {
         $query = "UPDATE fgs_objects ".
                  "SET ob_text=$$".pg_escape_string($object->getDescription())."$$, ".
                  "wkb_geometry=ST_PointFromText('POINT(".$object->getLongitude()." ".$object->getLatitude().")', 4326),".

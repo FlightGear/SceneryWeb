@@ -30,7 +30,7 @@ class Model {
         return $this->modelMetadata;
     }
     
-    public function setMetadata($modelMetadata) {
+    public function setMetadata(ModelMetadata $modelMetadata) {
         $this->modelMetadata = $modelMetadata;
     }
     
