@@ -1,7 +1,7 @@
 <?php
 
 // Inserting libs
-require_once '../classes/DAOFactory.php';
+require_once '../autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
 header('Content-Type: text/xml');

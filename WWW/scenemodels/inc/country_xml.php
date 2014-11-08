@@ -3,7 +3,7 @@
  * This script creates an xml file containing the country code according
  *
  */
-require_once "../classes/DAOFactory.php";
+require_once '../autoload.php';
 $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 
 // Inserting libs
