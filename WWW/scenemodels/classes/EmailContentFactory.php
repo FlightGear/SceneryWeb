@@ -289,7 +289,8 @@ class EmailContentFactory {
     }
     
     static public function getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $modelMD) {
-        $newObject = $request->getNewObject();
+        $newObjects = $request->getNewObjects();
+        $newObject = $newObjects[0];
         
         $subject = "Object addition";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object addition request.\r\n\r\n" .
