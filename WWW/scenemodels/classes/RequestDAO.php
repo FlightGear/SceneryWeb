@@ -147,8 +147,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newObjects = $request->getNewObjects();
         
         // Proceed on with the request generation
-        $reqStr = "INSERT INTO fgs_objects (ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_model, ob_country, ob_group) VALUES ";
-
+        $reqStr = "";
         $separator = "";
         // For each line, add the data content to the request
         foreach ($newObjects as $newObj) {
@@ -242,19 +241,19 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         if (substr_count($requestQuery,"UPDATE fgs_objects") == 1) {
             $request = $this->getRequestObjectUpdateFromRow($requestQuery);
         }
-        
+
         // Add object(s) request
-        if (substr_count($requestQuery,"OBJECT_ADD") > 0 && substr_count($requestQuery,"Thisisthevalueformo_id") == 0) {
+        if (strpos($requestQuery,"OBJECT_ADD") === 0) {
             $request = $this->getRequestMassiveObjectsAddFromRow($requestQuery);
         }
         
         // Add model request
-        if (substr_count($requestQuery,"MODEL_ADD") == 1) {
+        if (strpos($requestQuery,"MODEL_ADD") === 0) {
             $request = $this->getRequestModelAddFromRow($requestQuery);
         }
         
         // Update model request
-        if (substr_count($requestQuery,"MODEL_UPDATE") == 1) {
+        if (strpos($requestQuery,"MODEL_UPDATE") === 0) {
             $request = $this->getRequestModelUpdateFromRow($requestQuery);
         }
         
