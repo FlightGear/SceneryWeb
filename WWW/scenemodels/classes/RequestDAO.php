@@ -140,7 +140,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     private function serializeRequestObjectDelete($request) {
         $objToDel = $request->getObjectToDelete();
         
-        return "DELETE FROM fgs_objects WHERE ob_id=".$objToDel->getId().";";
+        return "OBJECT_DELETE||".$objToDel->getId();
     }
     
     private function serializeRequestMassiveObjectsAdd($request) {
@@ -233,7 +233,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $requestQuery = gzuncompress(base64_decode($requestRow["spr_base64_sqlz"]));
         
         // Delete object request
-        if (substr_count($requestQuery,"DELETE FROM fgs_objects") == 1) {
+        if (strpos($requestQuery,"OBJECT_DELETE") === 0) {
             $request = $this->getRequestObjectDeleteFromRow($requestQuery);
         }
         
@@ -364,12 +364,9 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestObjectDeleteFromRow($requestQuery) {
-        $triggedQuery = strstr($requestQuery, 'WHERE');
-        
-        $pattern = "/WHERE ob_id\=(?P<object_id>[0-9]+)/";
-
-        preg_match($pattern, $triggedQuery, $matches);
-        $objectToDel = $this->objectDao->getObject($matches['object_id']);
+        // OBJECT_DELETE||ob_id
+        $objectArr = explode("||", $requestQuery);
+        $objectToDel = $this->objectDao->getObject($objectArr[1]);
 
         $requestObjDel = new RequestObjectDelete();
         
