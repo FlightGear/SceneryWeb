@@ -112,31 +112,31 @@
 //);
 
     var wmssigns = new OpenLayers.Layer.WMS( "WMS Taxiway Signs",
-        [ "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-          "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
+        [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+          "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
         {layers: 'fgs_signs', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false, maxScale: 5000 }
     );
 
     //TODO This is temporary code
     var wfssigns = new OpenLayers.Layer.WMS( "WMS Taxiway Signs",
-        [ "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-          "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
+        [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+          "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
         {layers: 'fgs_signs', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false, minScale: 5000 }
     );
 
 // This code is buggy
 //    var wfssigns = new OpenLayers.Layer.WFS( "WFS Taxiway Signs",
-//        [ "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-//          "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
+//        [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+//          "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
 //        { typename: "fgs_signs", maxfeatures: 200},
 //        { minScale: 5000 }
 //    );
 
     var wmsobjects = new OpenLayers.Layer.WMS( "Scenery Objects",
-        [ "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-          "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
+        [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+          "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
         {layers: 'fgs_staticobjects,fgs_sharedobjects', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false, maxScale: 12500 }
     );
@@ -189,8 +189,8 @@
     );
 
     var osmlinecover = new OpenLayers.Layer.WMS( "OSM line features (polygon, experimental)",
-        [ "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&",
-          "http://flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
+        [ "http://1.flightgear.telascience.org/ms?srs=EPSG%3A900913&",
+          "http://2.flightgear.telascience.org/ms?srs=EPSG%3A900913&" ],
         {layers: 'osm_roadcover', format: 'image/png'},
         {isBaseLayer: false}
     );
