@@ -41,8 +41,10 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $modelMD = $model->getMetadata();
         
         $query  = "UPDATE fgs_models ";
-        $query .= "SET mo_path = '".$modelMD->getFilename()."', mo_author = ".$modelMD->getAuthor()->getId().
-                  ", mo_name = '".$modelMD->getName()."', mo_notes = '".$modelMD->getDescription()."', ".
+        $query .= "SET mo_path = '".$modelMD->getFilename()."', ".
+                  "mo_author = ".$modelMD->getAuthor()->getId().", ".
+                  "mo_name = '".$modelMD->getName()."', ".
+                  "mo_notes = '".$modelMD->getDescription()."', ".
                   "mo_thumbfile = '".base64_encode($model->getThumbnail())."', ".
                   "mo_modelfile = '".base64_encode($model->getModelFiles()->getPackage())."', ".
                   "mo_shared = ".$modelMD->getModelsGroup()->getId();
@@ -86,8 +88,10 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function getModelMetadataFromName($modelName) {
-        $tabPath = explode("/",$modelName);                         // Explodes the fields of the string separated by /
-        $queriedModelPath = pg_escape_string($tabPath[count($tabPath)-1]);           // Returns the last field value.
+        // Explodes the fields of the string separated by /
+        $tabPath = explode("/",$modelName);
+        // Returns the last field value.
+        $queriedModelPath = pg_escape_string($tabPath[count($tabPath)-1]);
         
         $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
                                          "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
@@ -259,7 +263,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function getModelFiles($modelId) {
-        $result = $this->database->query("SELECT mo_modelfile FROM fgs_models WHERE mo_id=$modelId;");
+        $result = $this->database->query("SELECT mo_modelfile FROM fgs_models WHERE mo_id=".$modelId.";");
         $row = pg_fetch_assoc($result);
         
         return new ModelFilesTar(base64_decode($row["mo_modelfile"]));
