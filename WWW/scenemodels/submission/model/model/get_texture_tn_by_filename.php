@@ -6,7 +6,7 @@ $filenameText = $dir_array[count($dir_array)-1];
 // Inserting libs
 require_once '../../../inc/functions.inc.php';
 require_once '../../../inc/form_checks.php';
-require_once "../../../classes/DAOFactory.php";
+require_once '../../../autoload.php';
 $requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
 
 if (!isset($filenameText) || !preg_match($regex['filename'], $filenameText)

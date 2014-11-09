@@ -10,7 +10,7 @@
 
 // Inserting libs
 require_once '../../../inc/form_checks.php';
-require_once "../../../classes/DAOFactory.php";
+require_once '../../../autoload.php';
 $requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
 
 $mo_sig = $_GET["mo_sig"];
