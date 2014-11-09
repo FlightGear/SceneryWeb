@@ -32,6 +32,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $query = "UPDATE fgs_objects ".
                  "SET ob_text=$$".pg_escape_string($object->getDescription())."$$, ".
                  "wkb_geometry=ST_PointFromText('POINT(".$object->getLongitude()." ".$object->getLatitude().")', 4326),".
+                 "ob_country='".$object->getCountry()->getCode()."',".
                  "ob_gndelev=-9999, ob_elevoffset=".$object->getElevationOffset().", ob_heading=".$object->getOrientation().", ob_model=".$object->getModelId().", ob_group=1 ".
                  "WHERE ob_id=".$object->getId().";";
         

@@ -131,10 +131,17 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function serializeRequestObjectUpdate($request) {
         $newObj = $request->getNewObject();
+        $offset = $newObj->getElevationOffset();
         
-        return "UPDATE fgs_objects ".
-               "SET ob_text=$$".$newObj->getDescription()."$$, wkb_geometry=ST_PointFromText('POINT(".$newObj->getLongitude()." ".$newObj->getLatitude().")', 4326), ob_gndelev=-9999, ob_elevoffset=".$newObj->getElevationOffset().", ob_heading=".$newObj->getOrientation().", ob_model=".$newObj->getModelId().", ob_group=1 ".
-               "WHERE ob_id=".$newObj->getId().";";
+        return "OBJECT_UPDATE||" .
+               $newObj->getDescription(). "||" . // ob_text
+               $newObj->getLongitude(). "||" . // longitude
+               $newObj->getLatitude(). "||" . // latitude
+               (empty($offset)?"NULL":$offset). "||" . // elevation offset
+               $newObj->getOrientation(). "||" . // orientation
+               $newObj->getCountry()->getCode(). "||" . //country
+               $newObj->getModelId(). "||" . // model id
+               $newObj->getId(); // ob_id
     }
     
     private function serializeRequestObjectDelete($request) {
@@ -238,7 +245,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         }
         
         // Update object request
-        if (substr_count($requestQuery,"UPDATE fgs_objects") == 1) {
+        if (strpos($requestQuery,"OBJECT_UPDATE") === 0) {
             $request = $this->getRequestObjectUpdateFromRow($requestQuery);
         }
 
@@ -340,25 +347,20 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestObjectUpdateFromRow($requestQuery) {
-        // Removing the start of the query from the data
-        $triggedQuery = strstr($requestQuery, 'SET');
-
-        $pattern = '/SET ob_text\=\$\$(?P<notes>[^\$]*)\$\$, wkb_geometry\=ST_PointFromText\(\'POINT\((?P<lon>[0-9.-]+) (?P<lat>[0-9.-]+)\)\', 4326\), ob_gndelev\=(?P<elev>[0-9.-]+), ob_elevoffset\=(?P<elevoffset>(([0-9.-]+)|NULL)), ob_heading\=(?P<orientation>[0-9.-]+), ob_model\=(?P<model_id>[0-9]+), ob_group\=1 WHERE ob_id\=(?P<object_id>[0-9]+)/';
-
-        preg_match($pattern, $triggedQuery, $matches);
-        //$country = $matches['country'];
-
+        // OBJECT_UPDATE||ob_text||longitude||latitude||elevation offset||orientation||country||model id||ob id
+        $objectArr = explode("||", $requestQuery);
+        
         $objectFactory = new ObjectFactory($this->objectDao);
-        $newObject = $objectFactory->createObject($matches['object_id'], $matches['model_id'],
-                $matches['lon'], $matches['lat'], 0, $matches['elevoffset'],
-                $matches['orientation'], 1, $matches['notes']);
-        $newObject->setGroundElevation($matches['elev']);
+
+        $newObject = $objectFactory->createObject($objectArr[8], $objectArr[7],
+               $objectArr[2], $objectArr[3], $objectArr[6], 
+               $objectArr[4], $objectArr[5], 1, $objectArr[1]);
 
         $requestObjUp = new RequestObjectUpdate();
         $requestObjUp->setContributorEmail("");
         $requestObjUp->setComment("");
         $requestObjUp->setNewObject($newObject);
-        $requestObjUp->setOldObject($this->objectDao->getObject($matches['object_id']));
+        $requestObjUp->setOldObject($this->objectDao->getObject($objectArr[8]));
         
         return $requestObjUp;
     }

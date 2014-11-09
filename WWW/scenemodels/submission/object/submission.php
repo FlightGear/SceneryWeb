@@ -66,9 +66,14 @@ if ($action == "check") {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
         echo "><td>Latitude</td><td>".$oldObject->getLatitude()."</td><td>".$newObject->getLatitude()."</td></tr>\n";
-
+        echo "<tr";
+        if ($oldObject->getCountry()->getCode() != $newObject->getCountry()->getCode()) {
+            echo " style=\"background-color: rgb(255, 200, 0)\"";
+        }
+        echo "><td>Country</td><td>".$oldObject->getCountry()->getName()."</td><td>".$newObject->getCountry()->getName()."</td></tr>\n";
+        
         echo "<tr style=\"background-color: rgb(255, 200, 0)\">";
-        echo "<td>Elevation</td><td>".$oldObject->getGroundElevation()."</td><td>".$newObject->getGroundElevation()."</td></tr>\n";
+        echo "<td>Elevation</td><td>".$oldObject->getGroundElevation()."</td><td>Will be recalculated</td></tr>\n";
         echo "<tr";
         if ($oldObject->getElevationOffset() != $newObject->getElevationOffset()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";

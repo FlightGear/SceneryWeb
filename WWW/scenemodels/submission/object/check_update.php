@@ -17,6 +17,10 @@ if (isset($_POST['new_lat']) && is_latitude($_POST['new_lat'])) {
     $new_lat = pg_escape_string($_POST['new_lat']);
 }
 
+if (isset($_POST['new_country']) && is_country_id($_POST['new_country'])) {
+    $new_country = pg_escape_string($_POST['new_country']);
+}
+
 if (isset($_POST['new_offset']) && is_offset($_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
     // Have to put quotes around NULL, else we're gonna have problems with the SQL query.
@@ -53,6 +57,7 @@ if (isset($_POST['new_ob_text']) && is_obtext($_POST['new_ob_text'])) {
 if (isset($model_name)
     && isset($new_long)
     && isset($new_lat)
+    && isset($new_country)
     // Have to keep the NULL between quotes else we'll have a parse error of the SQL INSERT request
     && (isset($new_offset) || $new_offset == 'NULL')
     && isset($new_orientation)
@@ -97,7 +102,7 @@ if (isset($model_name)
     $objectFactory = new ObjectFactory($objectDaoRO);
     $oldObject = $objectDaoRO->getObject($id_to_update);
     $newObject = $objectFactory->createObject($id_to_update, $model_name,
-            $new_long, $new_lat, $oldObject->getCountry()->getCode(), 
+            $new_long, $new_lat, $new_country, 
             $new_offset, heading_stg_to_true($new_orientation), 1, $safe_new_ob_text);
     
     $oldModelMD = $modelDaoRO->getModelMetadata($oldObject->getModelId());
@@ -293,26 +298,30 @@ function validateForm()
         <tr>
             <td>
                 <span title="This is the country of the object you want to update. Not editable, though, cause automatic procedures are doing it.">
-                <label for="country">Country</label></span>
+                <label for="new_country">Country</label></span>
             </td>
-            <td colspan="2">
+            <td>
 <?php
-        $country = $objectToUp->getCountry()->getName();
-        echo ($country == '')?"Unknown!":$country;
+        $countryName = $objectToUp->getCountry()->getName();
+        echo ($countryName == '')?"Unknown!":$countryName;
 ?>
             </td>
-        </tr>
-        <tr>
-          <td>
-            <span title="This is the ground elevation (in meters) where the object you want to update is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below.">
-            <label for="new_gndelev">Ground elevation (will be recalculated)</label></span>
-          </td>
-          <td>
-            <?php $actual_elevation = $objectToUp->getGroundElevation(); echo $actual_elevation; ?>
-          </td>
-          <td>
-            <input type="text" name="new_gndelev" id="new_gndelev" maxlength="10" value="<?php echo $actual_elevation; ?>" readonly="readonly" />
-          </td>
+            <td>
+                <select name="new_country" id="ob_country">
+<?php
+                    $countries = $objectDaoRO->getCountries();
+
+                    foreach($countries as $country) {
+                        if ($objectToUp->getCountry()->getCode() == $country->getCode()) {
+                            echo "<option value=\"".$country->getCode()."\" selected=\"selected\">".$country->getName()."</option>\n";
+                        } else {
+                            echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>\n";
+                        }
+                       
+                    }
+?>
+                </select>
+            </td>
         </tr>
         <tr>
           <td>

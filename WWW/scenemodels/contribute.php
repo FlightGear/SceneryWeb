@@ -74,7 +74,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
                 <ul class="detail">
                   <li><strong>Position</strong> (if appropriate; either lon/lat, or Ordnance Survey grid - other grids can be added on request).</li>
                   <li><strong>Heading</strong> (if appropriate).</li>
-                  <li><strong>Ground elevation</strong> (if known to the author) - in any case, report if the model has to be sunk into the ground (what we call offset) in order to display properly !! In the web forms, use -9999 to let FG compute automatically the elevation.</li>
+                  <li><strong>Ground elevation</strong> (if known to the author) - in any case, report if the model has to be sunk into the ground (what we call offset) in order to display properly !!</li>
                   <li><b> -> </b>....  or just simply submit the respective .stg-line with your model.</li>
                 </ul>
             </li>
