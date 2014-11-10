@@ -1,5 +1,5 @@
 <?php 
-require_once "../classes/DAOFactory.php";
+require_once '../autoload.php';
 $newsPostDaoRO = DAOFactory::getInstance()->getNewsPostDaoRO();    
 
 header('Content-type: application/rss+xml');
