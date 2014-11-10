@@ -1,5 +1,5 @@
 <?php
-require_once "classes/DAOFactory.php";
+require_once 'autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
 $page_title = "TelaScience / OSGeo / FlightGear Landcover Database Mapserver";
