@@ -270,7 +270,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
             
             return $request;
         } else {
-            throw new Exception("Error reading request: "+ $requestRow);
+            throw new Exception("Error reading request: ". $requestRow);
         }
     }
     
