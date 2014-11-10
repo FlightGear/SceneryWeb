@@ -264,10 +264,14 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
             $request = $this->getRequestModelUpdateFromRow($requestQuery);
         }
         
-        $request->setId($requestRow["spr_id"]);
-        $request->setSig($requestRow["spr_hash"]);
-        
-        return $request;
+        if (isset($request)) {
+            $request->setId($requestRow["spr_id"]);
+            $request->setSig($requestRow["spr_hash"]);
+            
+            return $request;
+        } else {
+            throw new Exception("Error reading request: "+ $requestRow);
+        }
     }
     
     private function getRequestModelAddFromRow($requestQuery) {
