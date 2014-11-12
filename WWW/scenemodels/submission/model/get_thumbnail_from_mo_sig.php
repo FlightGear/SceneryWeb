@@ -4,11 +4,10 @@
 // There is no other (known ;-) possibility to include this in the rest of the static submission script.
 
 header("Content-type: image/jpg");
-require_once '../../inc/form_checks.php';
 require_once '../../autoload.php';
 $requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
 
-if (is_sig($_GET["mo_sig"])) {
+if (FormChecker::isSig($_GET["mo_sig"])) {
     $request = $requestDaoRO->getRequest($_GET["mo_sig"]);
     echo $request->getNewModel()->getThumbnail();
 }

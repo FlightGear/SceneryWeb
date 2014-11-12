@@ -9,7 +9,6 @@
 **/
 
 // Inserting libs
-require_once '../../../inc/form_checks.php';
 require_once '../../../autoload.php';
 $requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
 
@@ -17,7 +16,7 @@ $mo_sig = $_GET["mo_sig"];
 $type = $_REQUEST['type'];
 
 if ((isset($filename) && !preg_match($regex['filename'], $filename))
-        || !is_sig($mo_sig)) {
+        || !FormChecker::isSig($mo_sig)) {
     exit;
 }
 

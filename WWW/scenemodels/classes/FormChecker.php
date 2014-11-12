@@ -123,7 +123,7 @@ class FormChecker {
 
    // Checks if the given variable is a heading
    // ================================================
-   static public function is_heading($value) {
+   static public function isHeading($value) {
        return strlen($value) <= 20
               && preg_match(self::$regex['heading'], $value)
               && $value < 360
