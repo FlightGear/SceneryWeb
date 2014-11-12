@@ -38,7 +38,7 @@ class EmailContentFactory {
     }
     
     static public function getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment) {
-        $subject = "Massive object import accepted";
+        $subject = "Object(s) import accepted";
         $message = "On ".$dtg." UTC, you issued an object(s) import request.\r\n\r\n" .
                    "We are glad to let you know that this request has been accepted!\r\n\r\n" .
                    "For reference, the ID of this request was '".$request->getId(). "'\r\n\r\n";
