@@ -168,4 +168,11 @@ class FormChecker {
    static public function isXMLFilename($filename) {
        return preg_match(self::$regex['xml_filename'], $filename);
    }
+   
+   // Checks if the given variable is a filename
+   // ================================================
+   static public function isFilename($filename) {
+       return preg_match(self::$regex['filename'], $filename);
+   }
+   
 }

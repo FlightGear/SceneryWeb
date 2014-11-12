@@ -8,7 +8,7 @@ require_once '../../../inc/functions.inc.php';
 require_once '../../../autoload.php';
 $requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
 
-if (!isset($filenameText) || !preg_match($regex['filename'], $filenameText)
+if (!isset($filenameText) || !FormChecker::isFilename($filenameText)
         || !FormChecker::isSig($mo_sig)) {
     exit;
 }

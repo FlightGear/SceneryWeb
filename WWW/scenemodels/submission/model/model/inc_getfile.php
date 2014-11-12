@@ -15,7 +15,7 @@ $requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
 $mo_sig = $_GET["mo_sig"];
 $type = $_REQUEST['type'];
 
-if ((isset($filename) && !preg_match($regex['filename'], $filename))
+if ((isset($filename) && !FormChecker::isFilename($filename))
         || !FormChecker::isSig($mo_sig)) {
     exit;
 }
