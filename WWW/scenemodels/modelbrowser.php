@@ -14,12 +14,12 @@ if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset']))
 $pagesize = 99;
 
 
-if (isset($_REQUEST['shared']) && is_modelgroup_id($_REQUEST['shared'])) {
+if (isset($_REQUEST['shared']) && FormChecker::isModelGroupId($_REQUEST['shared'])) {
     $modelGroupId = $_REQUEST['shared'];
 }
 
 if (isset($modelGroupId)) {
-    if ($modelGroupId>0) {
+    if ($modelGroupId >= 0) {
         $group = $modelDaoRO->getModelsGroup($modelGroupId);
         $title = "Model Browser: ".$group->getName();
         $modelMetadatas = $modelDaoRO->getModelMetadatasByGroup($modelGroupId, $offset, $pagesize);
