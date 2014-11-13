@@ -24,21 +24,6 @@ $regex = array(
  'sig' => '/[0-9a-z]/'
 );
 
-// Checks if the id is a model group id
-// ================================================
-function is_modelgroup_id($id_to_check) {
-    global $regex;
-    return preg_match($regex['modelgroupid'], $id_to_check);
-}
-
-// Checks if the id is a model id
-// ================================================
-function is_model_id($id_to_check) {
-    global $regex;
-    return preg_match($regex['modelid'], $id_to_check)
-           && $id_to_check > 0;
-}
-
 // Checks if the id is an object id
 // ================================================
 function is_object_id($id_to_check) {

@@ -39,7 +39,7 @@ global $error;
 echo "<center>";
 
 // Checking that model_id exists and is containing only figures and with correct decimal format.
-if (is_model_id($_POST['modelId'])) {
+if (FormChecker::isModelId($_POST['modelId'])) {
     $model_id = pg_escape_string(stripslashes($_POST['modelId']));
     $modelMD = $modelDaoRO->getModelMetadata($model_id);
     echo "<p class=\"ok\">Model Name: ".$modelMD->getName()."</p>";

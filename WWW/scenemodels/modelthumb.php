@@ -1,11 +1,10 @@
 <?php
 header("Content-type: image/jpg");
-require 'inc/form_checks.php';
 require_once 'autoload.php';
 
 $id = $_REQUEST['id'];
 
-if (is_model_id($id)) {
+if (FormChecker::isModelId($id)) {
     $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
     $thumbnail = $modelDaoRO->getThumbnail($id);
     

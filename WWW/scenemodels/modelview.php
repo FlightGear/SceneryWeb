@@ -1,5 +1,4 @@
 <?php
-require_once 'inc/form_checks.php';
 require_once 'autoload.php';
 
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
@@ -17,7 +16,7 @@ function popmap(lat,lon,zoom) {
 
 <?php
 
-if (is_model_id($_REQUEST['id'])) {
+if (FormChecker::isModelId($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
     
     $modelMetadata = $modelDaoRO->getModelMetadata($id);

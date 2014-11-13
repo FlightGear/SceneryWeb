@@ -414,7 +414,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
     $mo_shared   = $_POST["model_group_id"];
     $modelId     = $_POST["modelId"];
     
-    if (!is_model_id($modelId)) {
+    if (!FormChecker::isModelId($modelId)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the original model selected.</li>";
     }
@@ -424,7 +424,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
         $errormsg .= "<li>Please check the model name.</li>";
     }
     
-    if (!is_modelgroup_id($mo_shared)) {
+    if (!FormChecker::isModelGroupId($mo_shared)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the model group.</li>";
     }

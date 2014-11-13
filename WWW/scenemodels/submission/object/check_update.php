@@ -41,7 +41,7 @@ if (isset($_REQUEST['update_choice']) && is_object_id($_REQUEST['update_choice']
     $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
 }
 
-if (isset($_POST['modelId']) && is_model_id($_POST['modelId'])) {
+if (isset($_POST['modelId']) && FormChecker::isModelId($_POST['modelId'])) {
     $model_name = pg_escape_string($_POST['modelId']);
 }
 

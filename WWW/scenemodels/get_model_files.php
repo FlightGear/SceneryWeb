@@ -1,12 +1,11 @@
 <?php
 require_once 'autoload.php';
-require_once 'inc/form_checks.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 
 $id = $_REQUEST['id'];
 $type = $_REQUEST['type'];
 
-if (!is_model_id($id)) {
+if (!FormChecker::isModelId($id)) {
     exit;
 }
     

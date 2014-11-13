@@ -18,7 +18,7 @@ if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset']))
 }
 
 
-if (isset($_REQUEST['model']) && is_model_id($_REQUEST['model'])){
+if (isset($_REQUEST['model']) && FormChecker::isModelId($_REQUEST['model'])){
     $model = $_REQUEST['model'];
     $filter_text .= "&amp;model=".$model;
     

@@ -10,7 +10,7 @@ require '../../inc/header.php';
     
 // Populate fields when a model id is given in the url
 if (isset($_REQUEST['update_choice'])
-        && is_model_id($_REQUEST['update_choice'])) {
+        && FormChecker::isModelId($_REQUEST['update_choice'])) {
     $id_to_update = stripslashes($_REQUEST['update_choice']);
     $modelMD = $modelDaoRO->getModelMetadata($id_to_update);
 }

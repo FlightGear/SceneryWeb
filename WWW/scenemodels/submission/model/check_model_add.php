@@ -410,7 +410,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["mo_author"])
         $errormsg .= "<li>Please check the model name.</li>";
     }
     
-    if (!is_modelgroup_id($mo_shared)) {
+    if (!FormChecker::isModelGroupId($mo_shared)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the model group.</li>";
     }
