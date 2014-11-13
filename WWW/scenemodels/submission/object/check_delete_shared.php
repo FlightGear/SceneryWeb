@@ -18,11 +18,11 @@ if (isset($_REQUEST['delete_choice']) && is_object_id($_REQUEST['delete_choice']
     $id_to_delete = stripslashes($_REQUEST['delete_choice']);
 }
 
-if (isset($_POST['email']) && is_email($_POST['email'])) {
+if (isset($_POST['email']) && FormChecker::isEmail($_POST['email'])) {
     $safe_email = pg_escape_string(stripslashes($_POST['email']));
 }
 
-if (!empty($_POST['comment']) && is_comment($_POST['comment'])) {
+if (!empty($_POST['comment']) && FormChecker::isComment($_POST['comment'])) {
     $comment = strip_tags($_POST['comment']);
 }
 

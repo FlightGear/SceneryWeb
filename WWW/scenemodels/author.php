@@ -1,5 +1,4 @@
 <?php
-require 'inc/form_checks.php';
 require_once 'autoload.php';
 
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
@@ -7,7 +6,7 @@ $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require 'inc/header.php';
 
-if (is_author_id($_REQUEST['id'])) {
+if (FormChecker::isAuthorId($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
     $author=$authorDaoRO->getAuthor($id);
 

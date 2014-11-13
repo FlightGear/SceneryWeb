@@ -17,7 +17,7 @@ if (isset($_POST['new_lat']) && is_latitude($_POST['new_lat'])) {
     $new_lat = pg_escape_string($_POST['new_lat']);
 }
 
-if (isset($_POST['new_country']) && is_country_id($_POST['new_country'])) {
+if (isset($_POST['new_country']) && FormChecker::isCountryId($_POST['new_country'])) {
     $new_country = pg_escape_string($_POST['new_country']);
 }
 
@@ -45,7 +45,7 @@ if (isset($_POST['modelId']) && is_model_id($_POST['modelId'])) {
     $model_name = pg_escape_string($_POST['modelId']);
 }
 
-if (isset($_POST['email']) && is_email($_POST['email'])) {
+if (isset($_POST['email']) && FormChecker::isEmail($_POST['email'])) {
     $safe_email = htmlentities(stripslashes($_POST['email']));
 }
 
@@ -108,7 +108,7 @@ if (isset($model_name)
     $oldModelMD = $modelDaoRO->getModelMetadata($oldObject->getModelId());
     $newModelMD = $modelDaoRO->getModelMetadata($model_name);
     
-    if (isset($_POST['comment']) && is_comment($_POST['comment'])) {
+    if (isset($_POST['comment']) && FormChecker::isComment($_POST['comment'])) {
         $comment = $_POST['comment'];
     } else {
         $comment = "";

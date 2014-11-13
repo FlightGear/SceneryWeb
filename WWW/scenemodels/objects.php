@@ -36,7 +36,7 @@ if (isset($_REQUEST['groupid']) && preg_match('/^[0-9]+$/u',$_REQUEST['groupid']
     $groupid = "";
 }
 
-if (isset($_REQUEST['elevation']) && is_gndelevation($_REQUEST['elevation'])){
+if (isset($_REQUEST['elevation']) && FormChecker::isGndElevation($_REQUEST['elevation'])){
     $min = $_REQUEST['elevation']-25;
     $max = $_REQUEST['elevation']+25;
     $elevation = $_REQUEST['elevation'];
@@ -90,7 +90,7 @@ if (isset($_REQUEST['lon']) && is_longitude($_REQUEST['lon'])){
     $lon = "";
 }
 
-if (isset($_REQUEST['country']) && is_country_id($_REQUEST['country'])){
+if (isset($_REQUEST['country']) && FormChecker::isCountryId($_REQUEST['country'])){
     $countryId = $_REQUEST['country'];
     $filter_text .= "&amp;country=".$countryId;
     

@@ -96,14 +96,14 @@ $error = false;
 
 // Checking that email is valid (if it exists).
 $failed_mail = false;
-if (is_email($_POST['email'])) {
+if (FormChecker::isEmail($_POST['email'])) {
     $safe_email = htmlentities(stripslashes($_POST['email']));
 } else {
     $failed_mail = true;
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
-if (is_comment($_POST['comment'])) {
+if (FormChecker::isComment($_POST['comment'])) {
     $sent_comment = htmlentities(stripslashes($_POST['comment']));
 }
 else {
@@ -239,7 +239,7 @@ if (!$error) {
                 break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             case 5:  // Checking Elevation, must contain only figures and, be max 20 characters (TODO: can be used to automatically compute offset!!)
-                if (is_gndelevation($value_tag)) {
+                if (FormChecker::isGndElevation($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $gndelev = $value_tag;
                 }

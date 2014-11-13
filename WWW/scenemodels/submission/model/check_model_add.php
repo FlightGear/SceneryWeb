@@ -405,7 +405,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["mo_author"])
     $authorId    = $_POST["mo_author"];
     $mo_shared   = $_POST["model_group_id"];
 
-    if (!is_model_name($name)) {
+    if (!FormChecker::isModelName($name)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the model name.</li>";
     }
@@ -415,7 +415,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["mo_author"])
         $errormsg .= "<li>Please check the model group.</li>";
     }
     
-    if (!is_author_id($authorId)) {
+    if (!FormChecker::isAuthorId($authorId)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the author value.</li>";
     }
@@ -468,7 +468,7 @@ if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] !=
         $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
     }
     
-    if (!is_country_id($country)) {
+    if (!FormChecker::isCountryId($country)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the country value.</li>";
     }

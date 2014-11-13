@@ -404,7 +404,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
 
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     
-    if (isset($_POST['notes']) && is_comment($_POST['notes'])) {
+    if (isset($_POST['notes']) && FormChecker::isComment($_POST['notes'])) {
         $notes   = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     } else {
         $notes   = "";
@@ -419,7 +419,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
         $errormsg .= "<li>Please check the original model selected.</li>";
     }
 
-    if (!is_model_name($name)) {
+    if (!FormChecker::isModelName($name)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the model name.</li>";
     }
@@ -429,7 +429,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
         $errormsg .= "<li>Please check the model group.</li>";
     }
     
-    if (!is_author_id($authorId)) {
+    if (!FormChecker::isAuthorId($authorId)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the author value.</li>";
     }
@@ -445,7 +445,7 @@ if (!isset($_POST["gpl"])) {
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
-if (is_comment($_POST['comment'])) {
+if (FormChecker::isComment($_POST['comment'])) {
     $sent_comment = htmlentities(stripslashes($_POST['comment']));
 }
 else {
@@ -489,7 +489,7 @@ else {
         $failed_mail = true;
     }
     
-    if (is_email($_POST["email"])) {
+    if (FormChecker::isEmail($_POST["email"])) {
         $contr_email = htmlentities(stripslashes($_POST["email"]));
     } else {
         $failed_mail = true;

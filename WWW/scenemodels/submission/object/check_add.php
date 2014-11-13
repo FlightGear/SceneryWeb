@@ -71,7 +71,7 @@ else {
 }
 
 // Country.
-if (is_country_id($_POST['ob_country'])) {
+if (FormChecker::isCountryId($_POST['ob_country'])) {
     $ob_country = $_POST["ob_country"];
     $country = $objectDaoRO->getCountry($ob_country);
     echo "<p class=\"ok\">Country: ".$country->getName()."</p>";
@@ -104,7 +104,7 @@ else {
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
-if ($_POST['comment'] != '' && is_comment($_POST['comment'])) {
+if ($_POST['comment'] != '' && FormChecker::isComment($_POST['comment'])) {
     $sent_comment = htmlentities(stripslashes($_POST['comment']));
     echo "<p class=\"ok\">Comment: ".$sent_comment."</p>";
 }
@@ -116,7 +116,7 @@ else {
 // Checking that email is valid (if it exists).
 //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 $failed_mail = false;
-if (is_email($_POST['email'])) {
+if (FormChecker::isEmail($_POST['email'])) {
     $safe_email = htmlentities(stripslashes($_POST['email']));
     echo "<p class=\"ok\">Email: ".$safe_email."</p>";
 }
