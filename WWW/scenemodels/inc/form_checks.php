@@ -24,46 +24,6 @@ $regex = array(
  'sig' => '/[0-9a-z]/'
 );
 
-// Checks if the given variable is a latitude
-// ================================================
-function is_latitude($value) {
-    global $regex;
-    return strlen($value) <= 20
-           && $value <= 90
-           && $value >= -90
-           && preg_match($regex['long_lat'], $value);
-}
-
-// Checks if the given variable is a longitude
-// ================================================
-function is_longitude($value) {
-    global $regex;
-    return strlen($value) <= 20
-           && $value <= 180
-           && $value >= -180
-           && preg_match($regex['long_lat'], $value);
-}
-
-// Checks if the given variable is an offset
-// ================================================
-function is_offset($value) {
-    global $regex;
-    return strlen($value) <= 20
-           && preg_match($regex['offset'], $value)
-           && $value < 1000
-           && $value > -1000;
-}
-
-// Checks if the given variable is a heading
-// ================================================
-function is_heading($value) {
-    global $regex;
-    return strlen($value) <= 20
-           && preg_match($regex['heading'], $value)
-           && $value < 360
-           && $value >= 0;
-}
-
 // Checks if the given variable is an sig id
 // ================================================
 function is_sig($value) {

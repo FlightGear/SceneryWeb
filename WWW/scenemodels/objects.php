@@ -48,7 +48,7 @@ if (isset($_REQUEST['elevation']) && FormChecker::isGndElevation($_REQUEST['elev
     $elevation = "";
 }
 
-if (isset($_REQUEST['elevoffset']) && is_offset($_REQUEST['elevoffset'])){
+if (isset($_REQUEST['elevoffset']) && FormChecker::isOffset($_REQUEST['elevoffset'])){
     $min = $_REQUEST['elevoffset']-25;
     $max = $_REQUEST['elevoffset']+25;
     $elevoffset = $_REQUEST['elevoffset'];
@@ -60,7 +60,7 @@ if (isset($_REQUEST['elevoffset']) && is_offset($_REQUEST['elevoffset'])){
     $elevoffset = "";
 }
 
-if (isset($_REQUEST['heading']) && is_heading($_REQUEST['heading'])){
+if (isset($_REQUEST['heading']) && FormChecker::isHeading($_REQUEST['heading'])){
     $min = $_REQUEST['heading']-5;
     $max = $_REQUEST['heading']+5;
     $heading = $_REQUEST['heading'];
@@ -72,7 +72,7 @@ if (isset($_REQUEST['heading']) && is_heading($_REQUEST['heading'])){
     $heading = "";
 }
 
-if (isset($_REQUEST['lat']) && is_latitude($_REQUEST['lat'])){
+if (isset($_REQUEST['lat']) && FormChecker::isLatitude($_REQUEST['lat'])){
     $lat = $_REQUEST['lat'];
     $filter_text .= "&amp;lat=".$lat;
     
@@ -81,7 +81,7 @@ if (isset($_REQUEST['lat']) && is_latitude($_REQUEST['lat'])){
     $lat = "";
 }
 
-if (isset($_REQUEST['lon']) && is_longitude($_REQUEST['lon'])){
+if (isset($_REQUEST['lon']) && FormChecker::isLongitude($_REQUEST['lon'])){
     $lon = $_REQUEST['lon'];
     $filter_text .= "&amp;lon=".$lon;
     

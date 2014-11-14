@@ -51,7 +51,7 @@ else {
 }
 
 // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-if (is_latitude($_POST['latitude'])) {
+if (FormChecker::isLatitude($_POST['latitude'])) {
     $lat = number_format(htmlentities(stripslashes($_POST['latitude'])),7,'.','');
     echo "<p class=\"ok\">Latitude: ".$lat."</p>";
 }
@@ -61,7 +61,7 @@ else {
 }
 
 // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-if (is_longitude($_POST['longitude'])) {
+if (FormChecker::isLongitude($_POST['longitude'])) {
     $long = number_format(htmlentities(stripslashes($_POST['longitude'])),7,'.','');
     echo "<p class=\"ok\">Longitude: ".$long."</p>";
 }
@@ -83,7 +83,7 @@ else {
 
 
 // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
-if (is_offset($_POST['offset'])) {
+if (FormChecker::isOffset($_POST['offset'])) {
     $offset = number_format(pg_escape_string(stripslashes($_POST['offset'])),2,'.','');
     echo "<p class=\"ok\">Offset: ".$offset."</p>";
 }
@@ -94,7 +94,7 @@ else {
 
 // Checking that orientation exists and is containing only digits, and is >=0 and <=359
 // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
-if (is_heading($_POST['heading'])) {
+if (FormChecker::isHeading($_POST['heading'])) {
     $heading = number_format(pg_escape_string(stripslashes($_POST['heading'])),1,'.','');
     echo "<p class=\"ok\">STG Orientation: ".$heading.", DB (true) orientation: ".number_format(heading_stg_to_true($heading),1,'.','')."</p>";
 }

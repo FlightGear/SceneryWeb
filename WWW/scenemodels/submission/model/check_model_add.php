@@ -446,24 +446,24 @@ if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] !=
     $heading   = strip_tags($_POST["heading"]);
     $country   = $_POST["ob_country"];
 
-    if (!is_longitude($longitude)) {
+    if (!FormChecker::isLongitude($longitude)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the longitude value (-180 < longitude < 180) and not null.</li>";
     }
 
-    if (!is_latitude($latitude)) {
+    if (!FormChecker::isLatitude($latitude)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
     }
 
     if ($offset == '' || $offset == '0') {
         $offset = 0;
-    } else if (!is_offset($offset)) {
+    } else if (!FormChecker::isOffset($offset)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
     }
 
-    if (!is_heading($heading)) {
+    if (!FormChecker::isHeading($heading)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
     }

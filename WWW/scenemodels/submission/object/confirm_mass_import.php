@@ -216,7 +216,7 @@ if (!$error) {
 
                 break;
             case 3:  // Checking Longitude, must contain only figures and ., be >-180 and <180, be 20 characters max.
-                if (is_longitude($value_tag)) {
+                if (FormChecker::isLongitude($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $long = $value_tag;
                 }
@@ -227,7 +227,7 @@ if (!$error) {
                 }
                 break;
             case 4:  // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 20 characters max.
-                if (is_latitude($value_tag)) {
+                if (FormChecker::isLatitude($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $lat = $value_tag;
                 }
@@ -250,7 +250,7 @@ if (!$error) {
                 }
                 break;
             case 6:  // Checking Orientation, must contain only figures, be >0, be 20 characters max.
-                if (is_heading($value_tag)) {
+                if (FormChecker::isHeading($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td> ";
                     $orientation = $value_tag;
                 }
@@ -263,7 +263,7 @@ if (!$error) {
 
             case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
                 if (count($tab_tags)==7) {
-                    if (is_offset($value_tag)) {
+                    if (FormChecker::isOffset($value_tag)) {
                         //echo "<td><center>".$value_tag."</center></td>";
                         $elevoffset = $value_tag;
                     }

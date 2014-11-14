@@ -114,7 +114,7 @@ if (!isset($id_to_delete)) {
     $error_text = "";
 
     // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
-    if (is_latitude($_POST['latitude'])) {
+    if (FormChecker::isLatitude($_POST['latitude'])) {
         $lat = number_format(htmlentities(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
@@ -123,7 +123,7 @@ if (!isset($id_to_delete)) {
     }
 
     // Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-    if (is_longitude($_POST['longitude'])) {
+    if (FormChecker::isLongitude($_POST['longitude'])) {
         $long = number_format(htmlentities(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {

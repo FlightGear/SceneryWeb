@@ -9,11 +9,11 @@ require_once '../../inc/functions.inc.php';
 require_once '../../inc/form_checks.php';
 
 // Checking all variables
-if (isset($_POST['new_long']) && is_longitude($_POST['new_long'])) {
+if (isset($_POST['new_long']) && FormChecker::isLongitude($_POST['new_long'])) {
     $new_long = pg_escape_string($_POST['new_long']);
 }
 
-if (isset($_POST['new_lat']) && is_latitude($_POST['new_lat'])) {
+if (isset($_POST['new_lat']) && FormChecker::isLatitude($_POST['new_lat'])) {
     $new_lat = pg_escape_string($_POST['new_lat']);
 }
 
@@ -21,7 +21,7 @@ if (isset($_POST['new_country']) && FormChecker::isCountryId($_POST['new_country
     $new_country = pg_escape_string($_POST['new_country']);
 }
 
-if (isset($_POST['new_offset']) && is_offset($_POST['new_offset'])) {
+if (isset($_POST['new_offset']) && FormChecker::isOffset($_POST['new_offset'])) {
     $new_offset = pg_escape_string($_POST['new_offset']);
     // Have to put quotes around NULL, else we're gonna have problems with the SQL query.
     if ($new_offset == '' || $new_offset == 0) {
@@ -29,7 +29,7 @@ if (isset($_POST['new_offset']) && is_offset($_POST['new_offset'])) {
     }
 }
 
-if (isset($_POST['new_heading']) && is_heading($_POST['new_heading'])) {
+if (isset($_POST['new_heading']) && FormChecker::isHeading($_POST['new_heading'])) {
     $new_orientation = pg_escape_string($_POST['new_heading']);
 }
 
@@ -403,7 +403,7 @@ else {
 
     // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
     $error_text = "";
-    if (is_latitude($_POST['latitude'])) {
+    if (FormChecker::isLatitude($_POST['latitude'])) {
         $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
     }
     else {
@@ -412,7 +412,7 @@ else {
     }
 
     // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
-    if (is_longitude($_POST['longitude'])) {
+    if (FormChecker::isLongitude($_POST['longitude'])) {
         $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
     }
     else {
