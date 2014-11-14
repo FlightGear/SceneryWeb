@@ -33,12 +33,8 @@ if (isset($_POST['new_heading']) && is_heading($_POST['new_heading'])) {
     $new_orientation = pg_escape_string($_POST['new_heading']);
 }
 
-if (isset($_POST['id_to_update']) && is_object_id($_POST['id_to_update'])) {
-    $id_to_update = pg_escape_string($_POST['id_to_update']);
-}
-
-if (isset($_REQUEST['update_choice']) && is_object_id($_REQUEST['update_choice'])) {
-    $id_to_update = pg_escape_string(stripslashes($_REQUEST['update_choice']));
+if (isset($_REQUEST['id_to_update']) && FormChecker::isObjectId($_REQUEST['id_to_update'])) {
+    $id_to_update = pg_escape_string($_REQUEST['id_to_update']);
 }
 
 if (isset($_POST['modelId']) && FormChecker::isModelId($_POST['modelId'])) {
@@ -155,7 +151,7 @@ if (isset($model_name)
     exit;
 }
 
-// Getting back the update_choice
+// Getting back the id_to_update
 if (isset($id_to_update)) {
     $page_title = "Automated Object Update Form";
     $body_onload = "update_objects();";
@@ -490,7 +486,7 @@ else {
                 <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
                 </td>
             </tr>
-            <input name="update_choice" type="hidden" value="<?php echo $object->getId(); ?>" />
+            <input name="id_to_update" type="hidden" value="<?php echo $object->getId(); ?>" />
             <input name="comment" type="hidden" value="<?php echo $_POST['comment']; ?>" />
             <tr>
                 <td colspan="4" class="submit">
@@ -527,7 +523,7 @@ else {
             </tr>
             <tr>
                 <th rowspan="7">
-                    <input type="radio" name="update_choice" value="<?php echo $object->getId();?>" <?php echo ($i==1)?"checked=\"checked\"":""; ?> />
+                    <input type="radio" name="id_to_update" value="<?php echo $object->getId();?>" <?php echo ($i==1)?"checked=\"checked\"":""; ?> />
                 </th>
                 <td><span title="This is the family name of the object you want to update."><label>Object's family</label></span></td>
                 <td colspan="4"><?php echo $modelMetadata->getModelsGroup()->getName(); ?></td>

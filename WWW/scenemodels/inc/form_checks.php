@@ -24,14 +24,6 @@ $regex = array(
  'sig' => '/[0-9a-z]/'
 );
 
-// Checks if the id is an object id
-// ================================================
-function is_object_id($id_to_check) {
-    global $regex;
-    return $id_to_check > 0
-           && preg_match($regex['objectid'], $id_to_check);
-}
-
 // Checks if the given variable is a latitude
 // ================================================
 function is_latitude($value) {

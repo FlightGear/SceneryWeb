@@ -212,7 +212,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$object->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
-                 "  <a href=\"submission/object/check_update.php?update_choice=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
+                 "  <a href=\"submission/object/check_update.php?id_to_update=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\"/></a>";
             if ($modelDAO->getModelMetadata($object->getModelId())->getModelsGroup()->isStatic()) {
 ?>
                 <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $object->getId(); ?>">

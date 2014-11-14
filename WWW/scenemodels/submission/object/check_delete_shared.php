@@ -14,7 +14,7 @@ if (isset($_POST['step']) && preg_match('/^[0-9]+$/u', $_POST['step'])) {
     $step = $_POST['step'];
 }
 
-if (isset($_REQUEST['delete_choice']) && is_object_id($_REQUEST['delete_choice'])) {
+if (isset($_REQUEST['delete_choice']) && FormChecker::isObjectId($_REQUEST['delete_choice'])) {
     $id_to_delete = stripslashes($_REQUEST['delete_choice']);
 }
 
@@ -109,11 +109,6 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
 
 $error = false;
 global $error;
-
-// We can directly retrieve the object ID through the other forms, therefore no test is needed.
-if (isset($_REQUEST['delete_choice']) && is_object_id($_REQUEST['delete_choice'])) {
-    $id_to_delete = stripslashes($_REQUEST['delete_choice']);
-}
 
 if (!isset($id_to_delete)) {
     $error_text = "";

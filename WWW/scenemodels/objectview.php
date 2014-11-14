@@ -2,13 +2,12 @@
 
 // Inserting libs
 require_once 'inc/functions.inc.php';
-require_once 'inc/form_checks.php';
 require_once 'autoload.php';
 $objectDAO = DAOFactory::getInstance()->getObjectDaoRO();
 
 require 'inc/header.php';
 
-if (is_object_id($_REQUEST['id'])) {
+if (FormChecker::isObjectId($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
     $object = $objectDAO->getObject($id);
 ?>
@@ -76,7 +75,7 @@ if ($object->getDescription() != null) {
     </tr>
     <tr>
         <td colspan="3" align="center">
-            <a href="submission/object/check_update.php?update_choice=<?php echo $id;?>">Update this object</a>
+            <a href="submission/object/check_update.php?id_to_update=<?php echo $id;?>">Update this object</a>
 <?php
     // If the object is static, let not user fix it with a shared script...
     if (!$modelMetadata->getModelsGroup()->isStatic()) {
