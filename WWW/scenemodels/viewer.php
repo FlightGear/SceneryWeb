@@ -29,6 +29,7 @@
     <script type="text/javascript" src="inc/hangar/viewer.js"></script>
 
     <?php
+    require_once 'autoload.php';
     if (FormChecker::isModelId($_REQUEST['id'])) {
         $id = $_REQUEST['id'];
     }
