@@ -5,9 +5,8 @@ $objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 require_once '../../inc/functions.inc.php';
-require_once '../../inc/form_checks.php';
 
-if (isset($_REQUEST["mo_sig"]) && is_sig($_REQUEST["mo_sig"])) {
+if (isset($_REQUEST["mo_sig"]) && FormChecker::isSig($_REQUEST["mo_sig"])) {
     $sig = $_REQUEST["mo_sig"];
 } else {
     exit;

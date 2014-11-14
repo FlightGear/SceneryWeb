@@ -6,7 +6,6 @@ $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
-require_once '../../inc/form_checks.php';
 
 
 // Checks if models exists in DB from a model name sent in parameter.
@@ -121,7 +120,7 @@ if ($step == 1) {
     }
     
     // Checking that stg exists and is containing only letters or figures.
-    if (isset($_POST['stg']) && preg_match($regex['stg'], $_POST['stg'])) {
+    if (isset($_POST['stg']) && preg_match(FormChecker::$regex['stg'], $_POST['stg'])) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
         $error = true;
         include '../../inc/footer.php';
@@ -196,7 +195,7 @@ if (!$error) {
                 }
                 break;
             case 2:  // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
-                if (!preg_match($regex['model_filepath'], $value_tag)) {
+                if (!preg_match(FormChecker::$regex['model_filepath'], $value_tag)) {
 
                     try {
                         $modelMD = getModelFromSTG($value_tag);

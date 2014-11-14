@@ -6,7 +6,6 @@ $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
-require_once '../../inc/form_checks.php';
 
 // Checking all variables
 if (isset($_POST['new_long']) && FormChecker::isLongitude($_POST['new_long'])) {
@@ -45,7 +44,7 @@ if (isset($_POST['email']) && FormChecker::isEmail($_POST['email'])) {
     $safe_email = htmlentities(stripslashes($_POST['email']));
 }
 
-if (isset($_POST['new_ob_text']) && is_obtext($_POST['new_ob_text'])) {
+if (isset($_POST['new_ob_text']) && FormChecker::isObtext($_POST['new_ob_text'])) {
     $safe_new_ob_text = pg_escape_string(htmlentities(stripslashes($_POST['new_ob_text'])));
 }
 

@@ -1,10 +1,9 @@
 <?php
-require_once '../../inc/form_checks.php';
 require_once '../../autoload.php';
 $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
-if (isset($_REQUEST["mo_sig"]) && is_sig($_REQUEST["mo_sig"])) {
+if (isset($_REQUEST["mo_sig"]) && FormChecker::isSig($_REQUEST["mo_sig"])) {
     $sig = $_REQUEST["mo_sig"];
 } else {
     exit;

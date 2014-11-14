@@ -29,8 +29,7 @@
     <script type="text/javascript" src="inc/hangar/viewer.js"></script>
 
     <?php
-    require_once 'inc/form_checks.php';
-    if (is_model_id($_REQUEST['id'])) {
+    if (FormChecker::isModelId($_REQUEST['id'])) {
         $id = $_REQUEST['id'];
     }
     ?>

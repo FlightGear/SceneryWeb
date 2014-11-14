@@ -4,7 +4,7 @@ $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
 $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require_once '../../inc/functions.inc.php';
-require_once '../../inc/form_checks.php';
+
 $page_title = "Automated Models Submission Form";
 require '../../inc/header.php';
     

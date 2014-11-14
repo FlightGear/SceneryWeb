@@ -6,9 +6,8 @@ $requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
-require_once '../../inc/form_checks.php';
 
-if (!is_sig($_REQUEST["sig"]) || !isset($_REQUEST["action"])) {
+if (!FormChecker::isSig($_REQUEST["sig"]) || !isset($_REQUEST["action"])) {
     header("Location: /submission/object/");
     exit;
 }

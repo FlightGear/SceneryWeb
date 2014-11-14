@@ -6,7 +6,6 @@ $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
-require_once '../../inc/form_checks.php';
 
 
 // Captcha stuff

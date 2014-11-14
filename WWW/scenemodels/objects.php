@@ -1,5 +1,4 @@
 <?php
-require_once 'inc/form_checks.php';
 require_once 'autoload.php';
 
 $modelDAO = DAOFactory::getInstance()->getModelDaoRO();
@@ -27,7 +26,7 @@ if (isset($_REQUEST['model']) && FormChecker::isModelId($_REQUEST['model'])){
     $model = "";
 }
 
-if (isset($_REQUEST['groupid']) && preg_match('/^[0-9]+$/u',$_REQUEST['groupid']) && $_REQUEST['groupid']>0){
+if (isset($_REQUEST['groupid']) && FormChecker::isModelGroupId($_REQUEST['groupid']) && $_REQUEST['groupid']>0){
     $groupid = $_REQUEST['groupid'];
     $filter_text .= "&amp;groupid=".$groupid;
     
