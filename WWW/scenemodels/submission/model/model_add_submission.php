@@ -68,7 +68,8 @@ if (isset($_POST["action"])) {
         date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
 
-        $to = (isset($_POST['email']))?$_POST["email"]:"";
+        $to = $request->getContributorEmail();
+        $to = (isset($to)) ? $to : '';
 
         // Email to contributor
         $emailSubmit = EmailContentFactory::getAddModelRequestRejectedEmailContent($dtg, $request, $comment);
@@ -121,7 +122,8 @@ if (isset($_POST["action"])) {
 
         // OK, let's start with the mail redaction.
         // Who will receive it ?
-        $to = (isset($_POST["email"]))?$_POST["email"]:"";
+        $to = $request->getContributorEmail();
+        $to = (isset($to)) ? $to : '';
 
         // Email to contributor
         $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $updatedReq, $comment);
@@ -162,8 +164,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Email</td>
-        <td><?php echo $_GET["email"]; ?></td>
-        <input type="hidden" name="email" value="<?php echo htmlentities($_GET["email"]); ?>" />
+        <td><?php echo $request->getContributorEmail(); ?></td>
     </tr>
     <tr>
         <td>Family</td>

@@ -56,19 +56,19 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
     $objectToDel = $objectDaoRO->getObject($id_to_delete);
     $modelMD = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
     
+    $request = new RequestObjectDelete();
+    $request->setObjectToDelete($objectToDel);
+    $request->setComment($comment);
+    
     // Should in fact be somewhere like here. Checking that comment exists. Just a small verification as it's not going into DB.
     $failed_mail = false;
     if (isset($safe_email)) {
+        $request->setContributorEmail($safe_email);
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
     } else {
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
         $failed_mail = true;
     }
-    
-    $request = new RequestObjectDelete();
-    $request->setObjectToDelete($objectToDel);
-    $request->setContributorEmail($safe_email);
-    $request->setComment($comment);
 
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);

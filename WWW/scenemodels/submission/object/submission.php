@@ -115,7 +115,6 @@ if ($action == "check") {
         <td colspan="8" class="submit">
             <form action="submission.php" method="POST">
                 <input type="hidden" name="sig" value="<?php echo $sig;?>"/>
-                <input type="hidden" name="email" value="<?php echo $_GET["email"];?>"/>
                 Comment : <input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter"/><br/>
 
                 <input type="submit" name="action" value="Accept" />
@@ -171,7 +170,8 @@ if ($action == 'Accept') {
     $comment = $_REQUEST['maintainer_comment'];
 
     // email destination
-    $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
+    $to = $request->getContributorEmail();
+    $to = (isset($to)) ? $to : '';
 
     $emailSubmit = EmailContentFactory::getObjectRequestAcceptedEmailContent($request, $comment);
     $emailSubmit->sendEmail($to, true);
@@ -219,7 +219,8 @@ else if ($action == "Reject") {
     $comment = $_REQUEST['maintainer_comment'];
 
     // email destination
-    $to = (isset($_REQUEST['email'])) ? $_REQUEST['email'] : '';
+    $to = $request->getContributorEmail();
+    $to = (isset($to)) ? $to : '';
 
     $emailSubmit = EmailContentFactory::getObjectRejectedEmailContent($request, $comment);
     $emailSubmit->sendEmail($to, true);

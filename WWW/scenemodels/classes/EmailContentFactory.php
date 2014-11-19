@@ -63,7 +63,7 @@ class EmailContentFactory {
         $message .= "issued an objects massive import request (#".$request->getId().").\r\n\r\n" .
                     "Comment by user: ".strip_tags($request->getComment())."\r\n\r\n" .
                     "Now please click the following link to check and confirm ".
-                    "or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."&email=". $contrEmail . "\r\n\r\n";
+                    "or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -237,7 +237,7 @@ class EmailContentFactory {
                     "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                     "Comment:          " .strip_tags($request->getComment()) . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDel->getLongitude() ."&lat=". $objectToDel->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "&email=" . $safeEmail . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -283,7 +283,7 @@ class EmailContentFactory {
                     "True orientation: ". $newObject->getOrientation() . "\r\n" .
                     "Comment:          ". strip_tags($request->getComment()) . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."&email=". $safeEmail."\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -334,7 +334,7 @@ class EmailContentFactory {
                     "True orientation:  ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
                     "Map (new position): http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14" . "\r\n" .
                     "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "&email=" . $safeEmail . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -402,7 +402,7 @@ class EmailContentFactory {
                     "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                     "True orientation: ". $newObject->getOrientation() . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $request->getSig() ."&email=". $contrEmail . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

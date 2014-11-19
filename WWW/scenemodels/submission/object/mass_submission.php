@@ -30,6 +30,8 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
     $page_title = "Automated Objects Addition Requests Form";
     include '../../inc/header.php';
     echo "<p class=\"center\">Signature found.<br /> Now processing request #". $request->getId().".\n</p>\n";
+    echo "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>";
+    echo "<p class=\"center\">Comment: ".$request->getComment()."</p>";
 
     echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
     echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
@@ -58,7 +60,6 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
     </tr>
     <tr>
         <td colspan="9" class="submit">
-            <?php echo "<input type=\"hidden\" name=\"email\" value=\"".$_GET["email"]."\" />"; ?>
             <?php echo "<input type=\"hidden\" name=\"sig\" value=\"".$sig."\" />"; ?>
             <input type="submit" name="accept" value="Accept object(s)" />
             <input type="submit" name="cancel" value="Reject!" />
@@ -94,7 +95,8 @@ if (isset($_POST["cancel"])) {
     $comment = $_POST["maintainer_comment"];
 
     // email destination
-    $to = (isset($_POST['email'])) ? $_POST["email"] : '';
+    $to = $request->getContributorEmail();
+    $to = (isset($to)) ? $to : '';
 
     $emailSubmit = EmailContentFactory::getMassImportRequestRejectedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);
@@ -146,7 +148,8 @@ if (isset($_POST["accept"])) {
     $comment = $_POST["maintainer_comment"];
 
     // email destination
-    $to = (isset($_POST['email'])) ? $_POST["email"] : '';
+    $to = $request->getContributorEmail();
+    $to = (isset($to)) ? $to : '';
 
     $emailSubmit = EmailContentFactory::getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);

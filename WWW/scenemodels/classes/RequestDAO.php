@@ -90,30 +90,34 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     private function serializeRequest($request) {
         switch (get_class($request)) {
         case "RequestObjectUpdate":
-            $reqStr = $this->serializeRequestObjectUpdate($request);
+            $reqStrContent = $this->serializeRequestObjectUpdate($request);
             break;
         
         case "RequestObjectDelete":
-            $reqStr = $this->serializeRequestObjectDelete($request);
+            $reqStrContent = $this->serializeRequestObjectDelete($request);
             break;
         
         case "RequestMassiveObjectsAdd":
-            $reqStr = $this->serializeRequestMassiveObjectsAdd($request);
+            $reqStrContent = $this->serializeRequestMassiveObjectsAdd($request);
             break;
         
         case "RequestModelAdd":
-            $reqStr = $this->serializeRequestModelAdd($request);
+            $reqStrContent = $this->serializeRequestModelAdd($request);
             break;
         
         case "RequestModelUpdate":
-            $reqStr = $this->serializeRequestModelUpdate($request);
+            $reqStrContent = $this->serializeRequestModelUpdate($request);
             break;
         
         default:
             throw new Exception("Not a request!");
         }
         
-        return $reqStr;
+        $reqArray = array("email"=>$request->getContributorEmail(),
+                     "comment"=>$request->getComment(),
+                     "content"=>$reqStrContent);
+        
+        return json_encode($reqArray);
     }
     
     private function serializeObject($object) {
@@ -190,17 +194,15 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newModel = $request->getNewModel();
         $newModelMD = $newModel->getMetadata();
         
-        $reqStr  = "MODEL_UPDATE||";
-        $reqStr .= $newModelMD->getFilename()."||";             // mo_path
-        $reqStr .= $newModelMD->getAuthor()->getId()."||";      // mo_author
-        $reqStr .= $newModelMD->getName()."||";                 // mo_name
-        $reqStr .= $newModelMD->getDescription()."||";          // mo_notes
-        $reqStr .= $newModel->getThumbnail()."||";              // mo_thumbfile
-        $reqStr .= $newModel->getModelFiles()."||";             // mo_modelfile
-        $reqStr .= $newModelMD->getModelsGroup()->getId()."||"; // mo_shared
-        $reqStr .= $newModelMD->getId();                        // mo_id
-                
-        return $reqStr;
+        return "MODEL_UPDATE||".
+               $newModelMD->getFilename()."||".             // mo_path
+               $newModelMD->getAuthor()->getId()."||".      // mo_author
+               $newModelMD->getName()."||".                 // mo_name
+               $newModelMD->getDescription()."||".          // mo_notes
+               $newModel->getThumbnail()."||".              // mo_thumbfile
+               $newModel->getModelFiles()."||".             // mo_modelfile
+               $newModelMD->getModelsGroup()->getId()."||". // mo_shared
+               $newModelMD->getId();                        // mo_id
     }
     
     public function deleteRequest($sig) {
@@ -237,7 +239,10 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function getRequestFromRow($requestRow) {
         // Decoding in Base64. Dezipping the Base64'd request.
-        $requestQuery = gzuncompress(base64_decode($requestRow["spr_base64_sqlz"]));
+        $requestJson = gzuncompress(base64_decode($requestRow["spr_base64_sqlz"]));
+        
+        $requestArray = json_decode($requestJson, true);
+        $requestQuery = $requestArray["content"];
         
         // Delete object request
         if (strpos($requestQuery,"OBJECT_DELETE") === 0) {
@@ -267,6 +272,8 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         if (isset($request)) {
             $request->setId($requestRow["spr_id"]);
             $request->setSig($requestRow["spr_hash"]);
+            $request->setComment($requestArray["comment"]);
+            $request->setContributorEmail($requestArray["email"]);
             
             return $request;
         } else {

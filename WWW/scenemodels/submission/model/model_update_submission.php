@@ -66,7 +66,8 @@ if (isset($_POST["action"])) {
         date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
 
-        $to = (isset($_POST['contrib_email']))?$_POST["contrib_email"]:"";
+        $to = $request->getContributorEmail();
+        $to = (isset($to)) ? $to : '';
 
         // Email to contributor
         $emailSubmit = EmailContentFactory::getModelUpdateRequestRejectedEmailContent($dtg, $request, $comment);
@@ -122,7 +123,8 @@ if (isset($_POST["action"])) {
 
         // OK, let's start with the mail redaction.
         // Who will receive it ?
-        $to = (isset($_POST["contrib_email"]))?$_POST["contrib_email"]:"";
+        $to = $request->getContributorEmail();
+        $to = (isset($to)) ? $to : '';
 
         // Email to contributor
         $emailSubmit = EmailContentFactory::getModelUpdateRequestAcceptedEmailContent($dtg, $request, $comment);
