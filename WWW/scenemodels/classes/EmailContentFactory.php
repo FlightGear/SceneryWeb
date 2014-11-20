@@ -385,24 +385,25 @@ class EmailContentFactory {
         
         $subject = "3D model import needs validation.";
         $message = "We would like to let you know that a new 3D model request is pending (#".$request->getId()."). " .
-                   "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
-        if (!empty($contrEmail)) {
-            $message .= "and with email address ".$contrEmail." ";
+                   "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ".
+                   "and with email address ".$contrEmail." ".
+                   "issued the following request:" . "\r\n\r\n" .
+                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
+                   "Path:             ". $newModelMD->getFilename() . "\r\n" .
+                   "Author:           ". $newModelMD->getAuthor()->getName();
+        if ($newModelMD->getAuthor()->getId() == 1) {
+            $message .= " (must be added first)";
         }
-
-        $message .= "issued the following request:" . "\r\n\r\n" .
-                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
-                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
-                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
-                    "Model name:       ". $newModelMD->getName() ."\r\n" .
-                    "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
-                    "Latitude:         ". $newObject->getLatitude() . "\r\n" .
-                    "Longitude:        ". $newObject->getLongitude() . "\r\n" .
-                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
-                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
-                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
-                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $request->getSig() . "\r\n\r\n";
+        $message .="\r\n" .
+                   "Model name:       ". $newModelMD->getName() ."\r\n" .
+                   "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
+                   "Latitude:         ". $newObject->getLatitude() . "\r\n" .
+                   "Longitude:        ". $newObject->getLongitude() . "\r\n" .
+                   "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
+                   "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
+                   "True orientation: ". $newObject->getOrientation() . "\r\n" .
+                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
+                   "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

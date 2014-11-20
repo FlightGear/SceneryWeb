@@ -403,6 +403,23 @@ if (isset($_POST["model_group_id"]) && isset($_POST["mo_author"])
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $authorId    = $_POST["mo_author"];
     $mo_shared   = $_POST["model_group_id"];
+    
+    // If the author was unknown in the DB
+    if ($authorId == 1) {
+        if (isset($_POST["au_email"]) && FormChecker::isEmail($_POST["au_email"])) {
+            $auEmail = $_POST["au_email"];
+        } else {
+            $fatalerror = true;
+            $errormsg .= "<li>Please check email.</li>";
+        }
+        
+        if (isset($_POST["au_name"]) && FormChecker::isComment($_POST["au_name"])) {
+            $auName = $_POST["au_name"];
+        } else {
+            $fatalerror = true;
+            $errormsg .= "<li>Please check your name.</li>";
+        }
+    }
 
     if (!FormChecker::isModelName($name)) {
         $fatalerror = true;
@@ -501,6 +518,15 @@ else {
     $objectFactory = new ObjectFactory($objectDaoRO);
     $newModel = new Model();
     $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $mo_shared);
+    if ($authorId != 1) {
+        $auEmail = $newModelMD->getAuthor()->getEmail();
+    } else {
+        $author = $newModelMD->getAuthor();
+        $author->setName($auName);
+        $author->setEmail($auEmail);
+        $newModelMD->setAuthor($author);
+    }
+    
     $newModel->setMetadata($newModelMD);
     $newModel->setModelFiles($modelFile);
     $newModel->setThumbnail($thumbFile);
@@ -508,18 +534,10 @@ else {
     $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
             $offset, heading_stg_to_true($heading), 1, $name);
 
-    $failed_mail = false;
-    $au_email = $newModelMD->getAuthor()->getEmail();
-    if ($au_email != '' && strlen($au_email) > 0) {
-        $safe_au_email = htmlentities(stripslashes($au_email));
-    } else {
-        $failed_mail = true;
-    }
-    
     $request = new RequestModelAdd();
     $request->setNewModel($newModel);
     $request->setNewObject($newObject);
-    $request->setContributorEmail($safe_au_email);
+    $request->setContributorEmail($auEmail);
     
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);
@@ -539,10 +557,8 @@ else {
         $emailSubmit->sendEmail("", true);
         
         // Mailing the submitter to tell him that his submission has been sent for validation
-        if (!$failed_mail) {
-            $emailSubmit = EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
-            $emailSubmit->sendEmail($safe_au_email, false);
-        }
+        $emailSubmitContr = EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
+        $emailSubmitContr->sendEmail($auEmail, false);
     } catch (Exception $ex) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }

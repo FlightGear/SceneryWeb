@@ -160,7 +160,7 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Author</td>
-        <td><?php echo $newModelMD->getAuthor()->getName(); ?></td>
+        <td><?php echo ($newModelMD->getAuthor()->getId() != 1)?$newModelMD->getAuthor()->getName():"<strong>Unknown! must be added first!</strong>"; ?></td>
     </tr>
     <tr>
         <td>Email</td>

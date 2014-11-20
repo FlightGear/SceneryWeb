@@ -88,6 +88,16 @@ $(function() {
           validateTabs();
         }
     });
+    
+    $("#mo_author").change(function() {
+        if ($("#mo_author").val() === "1") {
+            $("#newAuthorName").show();
+            $("#newAuthorEmail").show();
+        } else {
+            $("#newAuthorName").hide();
+            $("#newAuthorEmail").hide();
+        }
+    });
 });
 /*]]>*/
 </script>
@@ -279,6 +289,22 @@ $(function() {
                             }
                             ?>
                         </select>
+                    </td>
+                </tr>
+                <tr id="newAuthorName">
+                    <td>
+                        <label for="au_name">Your name<em>*</em><span>Your name.</span></label>
+                    </td>
+                    <td>
+                        <input type="text" name="au_name" id="au_name" maxlength="50" size="30" value="" onkeyup="checkComment(this);" />
+                    </td>
+                </tr>
+                <tr id="newAuthorEmail">
+                    <td>
+                        <label for="au_email">Your email<em>*</em><span>Your email.</span></label>
+                    </td>
+                    <td>
+                        <input type="text" name="au_email" id="au_email" maxlength="50" size="30" value="" onkeyup="checkEmail(this);" />
                     </td>
                 </tr>
                 <tr>
