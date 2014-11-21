@@ -180,7 +180,7 @@ class EmailContentFactory {
     
     static public function getObjectRequestAcceptedEmailContent($request, $comment) {
         $subject = "Object request accepted";
-        $message = "We would like to let you know that the object (addition, update, deletion) request #".$request->getId(). " was successfully treated in the fgs_objects table. The corresponding pending entry has consequently been deleted from the pending requests table.\r\n\r\n";
+        $message = "We would like to let you know that the object (update, deletion) request #".$request->getId(). " was successfully treated.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
