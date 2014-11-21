@@ -29,27 +29,27 @@ try {
 if (isset($_GET["action"]) && $_GET["action"] == "check") {
     $page_title = "Automated Objects Addition Requests Form";
     include '../../inc/header.php';
-    echo "<p class=\"center\">Signature found.<br /> Now processing request #". $request->getId().".\n</p>\n";
+    echo "<p class=\"center\">Request #". $request->getId()."</p>";
     echo "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>";
     echo "<p class=\"center\">Comment: ".$request->getComment()."</p>";
 
     echo "<form id=\"check_mass\" method=\"post\" action=\"mass_submission.php\">";
-    echo "<table>\n<tr>\n<th>Line #</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
+    echo "<table><tr><th>Line #</th><th>Longitude</th><th>Latitude</th><th>Country</th><th>Elevation</th><th>Elev. offset</th><th>True orientation</th><th>Model</th><th>Map</th></tr>";
     $i = 1;
     foreach ($request->getNewObjects() as $newObj) {
         $modelMD = $modelDaoRO->getModelMetadata($newObj->getModelId());
 
-        echo "<tr>\n" .
-             "<td><center>".$i."</center></td>\n" .
-             "<td><center>".$newObj->getLongitude()."</center></td>\n" .
-             "<td><center>".$newObj->getLatitude()."</center></td>\n" .
-             "<td><center>".$newObj->getCountry()->getName()."</center></td>\n" .
-             "<td><center>".$newObj->getGroundElevation()."</center></td>\n" .
-             "<td><center>".$newObj->getElevationOffset()."</center></td>\n" .
-             "<td><center>".$newObj->getOrientation()."</center></td>\n" .
-             "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></center></td>\n" .
-             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObj->getLongitude()."&amp;lat=".$newObj->getLatitude()."&amp;zoom=14\">Map</a></center></td>\n" .
-             "</tr>\n";
+        echo "<tr>" .
+             "<td><center>".$i."</center></td>" .
+             "<td><center>".$newObj->getLongitude()."</center></td>" .
+             "<td><center>".$newObj->getLatitude()."</center></td>" .
+             "<td><center>".$newObj->getCountry()->getName()."</center></td>" .
+             "<td><center>".$newObj->getGroundElevation()."</center></td>" .
+             "<td><center>".$newObj->getElevationOffset()."</center></td>" .
+             "<td><center>".$newObj->getOrientation()."</center></td>" .
+             "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></center></td>" .
+             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObj->getLongitude()."&amp;lat=".$newObj->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
+             "</tr>";
 
         $i++;
     }
@@ -125,8 +125,8 @@ if (isset($_POST["accept"])) {
 
     $page_title = "Automated Objects Addition Request Form";
     include '../../inc/header.php';
-    echo "<p class=\"center\">Signature found.<br /> Now processing massive add objects request #". $request->getId().".</p><br />\n";
-    echo "<p class=\"center ok\">".count($objsWithId)." objects were added to the database!</p>\n";
+    echo "<p class=\"center\">Now processing massive add objects request #". $request->getId().".</p><br />";
+    echo "<p class=\"center ok\">".count($objsWithId)." objects were added to the database!</p>";
     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
 

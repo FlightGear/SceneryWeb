@@ -165,8 +165,8 @@ if (!$error) {
     ?>
     <form id="positions" method="post" action="confirm_mass_import.php" onsubmit="return validateForm();">
     <?php
-    echo "<table>\n";
-    echo "<tr>\n<th>Line</th>\n<th>Type</th>\n<th>Model</th>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Elevation</th>\n<th>Orientation</th>\n<th>Elev. offset</th><th>Country</th>\n\n<th>Result</th>\n</tr>\n";
+    echo "<table>";
+    echo "<tr><th>Line</th><th>Type</th><th>Model</th><th>Longitude</th><th>Latitude</th><th>Elevation</th><th>Orientation</th><th>Elev. offset</th><th>Country</th><th>Result</th></tr>";
 
     $countries = $objectDaoRO->getCountries();
     $objectFactory = new ObjectFactory($objectDaoRO);
@@ -298,7 +298,7 @@ if (!$error) {
                 if ($country->getCode() == $ob_country) {
                     echo " selected";
                 }
-                echo ">".$country->getName()."</option>\n";
+                echo ">".$country->getName()."</option>";
             }
 
             echo "</select></td>";
@@ -331,7 +331,7 @@ if (!$error) {
             $global_ko = true;
             echo "<td style='background-color: rgb(200, 0, 0); text-align: center;'>KO</td>"; // Good or not ?
         }
-        echo "</tr>\n";      // Finishes the line.
+        echo "</tr>";      // Finishes the line.
         $i++;                // Increments the line number.
     }
     if ($unknown_country) {
@@ -340,11 +340,11 @@ if (!$error) {
              "<option value=\"\">----</option>";
 
         foreach($countries as $country) {
-            echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>\n";
+            echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>";
         }
         echo "</select></td><td></td></tr>";
     }
-    echo "</table>\n";
+    echo "</table>";
 
     echo "<b>Your comment:</b> ".$sent_comment."<br/>" .
          "<b>Your email:</b> ".$safe_email."<br/>" .

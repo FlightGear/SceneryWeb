@@ -30,8 +30,10 @@ try {
 if ($action == "check") {
     $page_title = "Automated Objects Pending Requests Form";
     include '../../inc/header.php';
-    echo "<p class=\"center\">Signature found.<br /> Now processing request #". $request->getId().".\n</p>\n";
-
+    echo "<p class=\"center\">Request #". $request->getId()."</p>";
+    echo "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>";
+    echo "<p class=\"center\">Comment: ".$request->getComment()."</p>";
+    
     switch (get_class($request)) {
     case "RequestObjectUpdate":
         $oldObject = $request->getOldObject();
