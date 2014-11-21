@@ -143,7 +143,7 @@ if ($action == 'Accept') {
         $page_title = "Automated Objects Pending Requests Form";
         include '../../inc/header.php';
         echo "<p class=\"center\">";
-        echo "Signature found.<br /> Now processing request #".$request->getId().".</p><br />";
+        echo "Now processing request #".$request->getId().".</p><br />";
         echo "<p class=\"center warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
         include '../../inc/footer.php';
         exit;
@@ -151,7 +151,7 @@ if ($action == 'Accept') {
 
     $page_title = "Automated Objects Pending Requests Form";
     include '../../inc/header.php';
-    echo "<p class=\"center\">Signature found.<br /> Now processing add/update/delete object request #".$request->getId().".</p><br />";
+    echo "<p class=\"center\">Now processing add/update/delete object request #".$request->getId().".</p><br />";
     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
     // Delete the entry from the pending query table.
@@ -198,8 +198,8 @@ else if ($action == "Reject") {
     if (!$resultDel) {
         $page_title = "Automated Objects Pending Requests Form";
         include '../../inc/header.php';
-        echo "<p class=\"center\">\n".
-             "Signature found.<br /> Now deleting request #".$request->getId().".</p>".
+        echo "<p class=\"center\">".
+             "Now deleting request #".$request->getId().".</p>".
              "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>\n";
         include '../../inc/footer.php';
         exit;
@@ -208,7 +208,7 @@ else if ($action == "Reject") {
     $page_title = "Automated Objects Pending Requests Form";
     include '../../inc/header.php';
     echo "<p class=\"center\">";
-    echo "Signature found.<br />Now deleting request #".$request->getId().".</p>";
+    echo "Now deleting request #".$request->getId().".</p>";
     echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
     echo "</p>";
     include '../../inc/footer.php';

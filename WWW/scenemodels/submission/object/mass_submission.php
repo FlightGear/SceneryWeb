@@ -60,7 +60,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
     </tr>
     <tr>
         <td colspan="9" class="submit">
-            <?php echo "<input type=\"hidden\" name=\"sig\" value=\"".$sig."\" />"; ?>
+            <input type="hidden" name="sig" value="<?php echo $sig;?>" />
             <input type="submit" name="accept" value="Accept object(s)" />
             <input type="submit" name="cancel" value="Reject!" />
         </td>
@@ -77,7 +77,7 @@ if (isset($_POST["cancel"])) {
 
     if (!$resultDel) {
         $page_title = "Automated Objects Addition Request Form";
-        $process_text = "Signature found.<br /> Now deleting request #". $request->getId().".";
+        $process_text = "Now deleting request #". $request->getId().".";
         $error_text = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
         include '../../inc/error_page.php';
         exit;
@@ -85,7 +85,7 @@ if (isset($_POST["cancel"])) {
 
     $page_title = "Automated Objects Addition Request Form";
     include '../../inc/header.php';
-    echo "<center>Signature found.<br />Now deleting request #". $request->getId().".</center><br />";
+    echo "<center>Now deleting request #". $request->getId().".</center><br />";
     echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.</p>";
 
     // Sending mail if entry was correctly deleted.
@@ -117,7 +117,7 @@ if (isset($_POST["accept"])) {
     } catch (Exception $ex) {
         $page_title = "Automated Objects Addition Request Form";
         include '../../inc/header.php';
-        echo "<p class=\"center\">Signature found.<br /> Now processing request #". $request->getId().".</p><br />";
+        echo "<p class=\"center\">Now processing request #". $request->getId().".</p><br />";
         echo "<p class=\"warning\">Sorry, but the INSERT query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
         include '../../inc/footer.php';
         exit;
