@@ -9,19 +9,19 @@ require_once '../../inc/functions.inc.php';
 
 // Checking all variables
 if (isset($_POST['new_long']) && FormChecker::isLongitude($_POST['new_long'])) {
-    $new_long = pg_escape_string($_POST['new_long']);
+    $new_long = $_POST['new_long'];
 }
 
 if (isset($_POST['new_lat']) && FormChecker::isLatitude($_POST['new_lat'])) {
-    $new_lat = pg_escape_string($_POST['new_lat']);
+    $new_lat = $_POST['new_lat'];
 }
 
 if (isset($_POST['new_country']) && FormChecker::isCountryId($_POST['new_country'])) {
-    $new_country = pg_escape_string($_POST['new_country']);
+    $new_country = $_POST['new_country'];
 }
 
 if (isset($_POST['new_offset']) && FormChecker::isOffset($_POST['new_offset'])) {
-    $new_offset = pg_escape_string($_POST['new_offset']);
+    $new_offset = $_POST['new_offset'];
     // Have to put quotes around NULL, else we're gonna have problems with the SQL query.
     if ($new_offset == '' || $new_offset == 0) {
         $new_offset = 'NULL';
@@ -29,15 +29,15 @@ if (isset($_POST['new_offset']) && FormChecker::isOffset($_POST['new_offset'])) 
 }
 
 if (isset($_POST['new_heading']) && FormChecker::isHeading($_POST['new_heading'])) {
-    $new_orientation = pg_escape_string($_POST['new_heading']);
+    $new_orientation = $_POST['new_heading'];
 }
 
 if (isset($_REQUEST['id_to_update']) && FormChecker::isObjectId($_REQUEST['id_to_update'])) {
-    $id_to_update = pg_escape_string($_REQUEST['id_to_update']);
+    $id_to_update = $_REQUEST['id_to_update'];
 }
 
 if (isset($_POST['modelId']) && FormChecker::isModelId($_POST['modelId'])) {
-    $model_name = pg_escape_string($_POST['modelId']);
+    $model_name = $_POST['modelId'];
 }
 
 if (isset($_POST['email']) && FormChecker::isEmail($_POST['email'])) {
@@ -45,7 +45,7 @@ if (isset($_POST['email']) && FormChecker::isEmail($_POST['email'])) {
 }
 
 if (isset($_POST['new_ob_text']) && FormChecker::isObtext($_POST['new_ob_text'])) {
-    $safe_new_ob_text = pg_escape_string(htmlentities(stripslashes($_POST['new_ob_text'])));
+    $safe_new_ob_text = htmlentities(stripslashes($_POST['new_ob_text']));
 }
 
 // Final step to edition
@@ -403,7 +403,7 @@ else {
     // Checking that latitude exists and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
     $error_text = "";
     if (FormChecker::isLatitude($_POST['latitude'])) {
-        $lat = number_format(pg_escape_string(stripslashes($_POST['latitude'])),7,'.','');
+        $lat = number_format(stripslashes($_POST['latitude']),7,'.','');
     }
     else {
         $error_text .= "Latitude mismatch!<br/>";
@@ -412,7 +412,7 @@ else {
 
     // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
     if (FormChecker::isLongitude($_POST['longitude'])) {
-        $long = number_format(pg_escape_string(stripslashes($_POST['longitude'])),7,'.','');
+        $long = number_format(stripslashes($_POST['longitude']),7,'.','');
     }
     else {
         $error_text .= "Longitude mismatch!<br/>";

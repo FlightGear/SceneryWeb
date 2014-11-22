@@ -12,10 +12,12 @@
 
 class ObjectDAO extends PgSqlDAO implements IObjectDAO {    
     public function addObject(Object $obj) {
+        $obOffset = $obj->getElevationOffset();
+        
         $query = "INSERT INTO fgs_objects (ob_id, ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
-                "VALUES (DEFAULT, '".pg_escape_string($obj->getDescription())."', ST_PointFromText('POINT(".$obj->getLongitude()." ".$obj->getLatitude().")', 4326), -9999, ".
-                (($obj->getElevationOffset() == 0 || $obj->getElevationOffset() == '')?"NULL":$obj->getElevationOffset()) .
-                ", ".$obj->getOrientation().", '".$obj->getCountry()->getCode()."', ".$obj->getModelId().", 1) RETURNING ob_id;";
+                "VALUES (DEFAULT, '".pg_escape_string($obj->getDescription())."', ST_PointFromText('POINT(".pg_escape_string($obj->getLongitude())." ".pg_escape_string($obj->getLatitude()).")', 4326), -9999, ".
+                (($obOffset == 0 || $obOffset == '')?"NULL":pg_escape_string($obOffset)) .
+                ", ".pg_escape_string($obj->getOrientation()).", '".pg_escape_string($obj->getCountry()->getCode())."', ".pg_escape_string($obj->getModelId()).", 1) RETURNING ob_id;";
     
         $result = $this->database->query($query);
         
@@ -31,10 +33,10 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     public function updateObject(Object $object) {
         $query = "UPDATE fgs_objects ".
                  "SET ob_text=$$".pg_escape_string($object->getDescription())."$$, ".
-                 "wkb_geometry=ST_PointFromText('POINT(".$object->getLongitude()." ".$object->getLatitude().")', 4326),".
-                 "ob_country='".$object->getCountry()->getCode()."',".
-                 "ob_gndelev=-9999, ob_elevoffset=".$object->getElevationOffset().", ob_heading=".$object->getOrientation().", ob_model=".$object->getModelId().", ob_group=1 ".
-                 "WHERE ob_id=".$object->getId().";";
+                 "wkb_geometry=ST_PointFromText('POINT(".pg_escape_string($object->getLongitude())." ".pg_escape_string($object->getLatitude()).")', 4326),".
+                 "ob_country='".pg_escape_string($object->getCountry()->getCode())."',".
+                 "ob_gndelev=-9999, ob_elevoffset=".pg_escape_string($object->getElevationOffset()).", ob_heading=".pg_escape_string($object->getOrientation()).", ob_model=".pg_escape_string($object->getModelId()).", ob_group=1 ".
+                 "WHERE ob_id=".pg_escape_string($object->getId()).";";
         
         $result = $this->database->query($query);
         
@@ -66,7 +68,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
     public function getObjectsAt($long, $lat) {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects, fgs_countries WHERE wkb_geometry = ST_PointFromText('POINT(".$long." ".$lat.")', 4326) AND ob_country = co_code;");
+                                         "FROM fgs_objects, fgs_countries WHERE wkb_geometry = ST_PointFromText('POINT(".pg_escape_string($long)." ".pg_escape_string($lat).")', 4326) AND ob_country = co_code;");
     
         $resultArray = array();
                            
@@ -86,7 +88,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
                                          "FROM fgs_objects, fgs_countries WHERE $whereClause ob_country = co_code ".
-                                         "ORDER BY ".$orderby." $order LIMIT ".$pagesize." OFFSET ".$offset.";");
+                                         "ORDER BY ".pg_escape_string($orderby)." ".pg_escape_string($order)." LIMIT ".pg_escape_string($pagesize)." OFFSET ".pg_escape_string($offset).";");
         $resultArray = array();
         
         while ($row = pg_fetch_assoc($result)) {
@@ -98,7 +100,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
     public function getObjectsByModel($modelId) {
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects, fgs_countries WHERE ob_model=$modelId AND ob_country = co_code ".
+                                         "FROM fgs_objects, fgs_countries WHERE ob_model=".pg_escape_string($modelId)." AND ob_country = co_code ".
                                          "ORDER BY ob_modified DESC;");
         $resultArray = array();
                            
@@ -111,7 +113,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
     public function getObjectsGroup($objectGroupId) {
         $result = $this->database->query("SELECT gp_id, gp_name FROM fgs_groups ".
-                                         "WHERE gp_id=".$objectGroupId.";");
+                                         "WHERE gp_id=".pg_escape_string($objectGroupId).";");
         
         $row = pg_fetch_assoc($result);
         return $this->getObjectGroupFromRow($row);
@@ -130,7 +132,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     public function getCountry($countryCode) {
-        $result = $this->database->query("SELECT * FROM fgs_countries WHERE co_code='". $countryCode ."';");
+        $result = $this->database->query("SELECT * FROM fgs_countries WHERE co_code='". pg_escape_string($countryCode) ."';");
               
         $row = pg_fetch_assoc($result);
         return $this->getCountryFromRow($row);
@@ -174,7 +176,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     public function countObjectsByModel($modelId) {
         $result = $this->database->query("SELECT COUNT(*) AS number " .
                                         "FROM fgs_objects " .
-                                        "WHERE ob_model=".$modelId.";");
+                                        "WHERE ob_model=".pg_escape_string($modelId).";");
         $row = pg_fetch_assoc($result);
         
         return $row["number"];
@@ -219,7 +221,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
 
     public function checkObjectAlreadyExists($object) {
         // Querying...
-        $query = "SELECT count(*) AS number FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".$object->getLongitude()." ".$object->getLatitude().")', 4326) AND ";
+        $query = "SELECT count(*) AS number FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".pg_escape_string($object->getLongitude())." ".pg_escape_string($object->getLatitude()).")', 4326) AND ";
         if ($object->getElevationOffset() == 0) {
             $query .= "ob_elevoffset IS NULL ";
         } else {
@@ -238,14 +240,14 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $query = "SELECT (ST_Distance_Spheroid(
             (SELECT wkb_geometry
             FROM fgs_objects
-            WHERE ob_model = ".$obModelId."
+            WHERE ob_model = ".pg_escape_string($obModelId)."
             ORDER BY ABS( ST_Distance_Spheroid(
                     (wkb_geometry),
-                    (ST_PointFromText('POINT(".$lon." ".$lat.")', 4326)),
+                    (ST_PointFromText('POINT(".pg_escape_string($lon)." ".pg_escape_string($lat).")', 4326)),
                     'SPHEROID[\"WGS84\",6378137.000,298.257223563]'
                 ) ) ASC
             LIMIT 1),
-            (ST_PointFromText('POINT(".$lon." ".$lat.")', 4326)),
+            (ST_PointFromText('POINT(".pg_escape_string($lon)." ".pg_escape_string($lat).")', 4326)),
             'SPHEROID[\"WGS84\",6378137.000,298.257223563]'
         ))::integer < $dist";
         

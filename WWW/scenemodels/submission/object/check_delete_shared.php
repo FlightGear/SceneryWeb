@@ -18,7 +18,7 @@ if (isset($_REQUEST['delete_choice']) && FormChecker::isObjectId($_REQUEST['dele
 }
 
 if (isset($_POST['email']) && FormChecker::isEmail($_POST['email'])) {
-    $safe_email = pg_escape_string(stripslashes($_POST['email']));
+    $safe_email = stripslashes($_POST['email']);
 }
 
 if (!empty($_POST['comment']) && FormChecker::isComment($_POST['comment'])) {
@@ -90,7 +90,7 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
     $dtg = date('l jS \of F Y h:i:s A');
 
     // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-    $ipaddr = pg_escape_string(stripslashes($_SERVER['REMOTE_ADDR']));
+    $ipaddr = stripslashes($_SERVER['REMOTE_ADDR']);
     $host   = gethostbyaddr($ipaddr);
     
     $emailSubmit = EmailContentFactory::getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $updatedReq);
