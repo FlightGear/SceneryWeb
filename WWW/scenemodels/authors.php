@@ -4,7 +4,7 @@ $authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
 
 require 'inc/header.php';
 
-if (isset($_REQUEST['offset']) && preg_match('/^[0-9]+$/u',$_REQUEST['offset'])){
+if (isset($_REQUEST['offset']) && preg_match(FormChecker::$regex['pageoffset'],$_REQUEST['offset'])){
     $offset = $_REQUEST['offset'];
 } else {
     $offset = 0;

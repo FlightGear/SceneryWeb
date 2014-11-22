@@ -44,7 +44,8 @@ class FormChecker {
         'offset' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
         'heading' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
         'obtext' => '/^[0-9a-zA-Z_\-. \[\]()]+$/u',
-        'sig' => '/[0-9a-z]/'
+        'sig' => '/[0-9a-z]/',
+        'pageoffset' => '/^[0-9]+$/u'
        );
 
     // Checks if the id is a model group id
