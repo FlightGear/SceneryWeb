@@ -30,7 +30,7 @@
             foreach ($groups as $group) {
                 $name = preg_replace('/&/',"&amp;", $group->getName());
                 $name = preg_replace('/ /',"&nbsp;", $name);
-                echo "<li><a href=\"/modelbrowser.php?shared=".$group->getId()."\">".$name."</a></li>\n";
+                echo "<li><a href=\"/modelbrowser.php?shared=".$group->getId()."\">".$name."</a></li>";
             }
 ?>
         </ul>

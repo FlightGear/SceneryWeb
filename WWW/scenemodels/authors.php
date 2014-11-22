@@ -26,12 +26,12 @@ $pagesize = 20;
     $authors = $authorDaoRO->getAllAuthors($offset, $pagesize);
     
     foreach ($authors as $author){
-        echo "<tr>\n" .
+        echo "<tr>" .
                  "<td style=\"width: 25%\">\n" .
-                     "<b><a href=\"author.php?id=".$author->getId()."\">".$author->getName()."</a><b/>\n" .
-                 "</td>\n" .
-                 "<td>".$author->getDescription()."</td>\n" .
-             "</tr>\n";
+                     "<b><a href=\"author.php?id=".$author->getId()."\">".$author->getName()."</a><b/>" .
+                 "</td>" .
+                 "<td>".$author->getDescription()."</td>" .
+             "</tr>";
     }
 ?>
     <tr class="bottom">

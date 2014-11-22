@@ -25,7 +25,7 @@ if (FormChecker::isAuthorId($_REQUEST['id'])) {
             "</td><td><p><b>Name:</b> <a href=\"modelview.php?id=".$modelMetadata->getId()."\">".$modelMetadata->getName()."</a></p>".
             "<p><b>Path:</b> <a href=\"objects.php?model=".$modelMetadata->getId()."\">".$modelMetadata->getFilename()."</a></p>".
             "<p><b>Last Updated: </b>".$modelMetadata->getLastUpdated()->format("Y-m-d (H:i)")."</p>".
-            "</td></tr>\n";
+            "</td></tr>";
     }
 ?>
 </table>

@@ -23,17 +23,17 @@ require 'inc/header.php';
         $objects = $objectDaoRO->getObjects(5, 0);
         
         foreach ($objects as $object) {
-            echo "<tr>\n" .
+            echo "<tr>" .
                     "<td><a href=\"objectview.php?id=".$object->getId()."\">".$object->getDescription()."</a><br/>" .
-                    $object->getLastUpdated()->format("Y-m-d (H:i)")."</td>\n" .
+                    $object->getLastUpdated()->format("Y-m-d (H:i)")."</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
                     "<a href=\"/objectview.php?id=". $object->getId() . "\">" .
                     "    <img title=\"". $object->getDescription()."\"" .
                     "    src=\"modelthumb.php?id=". $object->getModelId() . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
-                    "</td>\n" .
-                 "</tr>\n";
+                    "</td>" .
+                 "</tr>";
         }
 ?>
         <tr class="bottom">
@@ -48,17 +48,17 @@ require 'inc/header.php';
         $models = $modelDaoRO->getModelMetadatas(0, 5);
 
         foreach ($models as $model) {
-            echo "<tr>\n" .
+            echo "<tr>" .
                     "<td><a href=\"modelview.php?id=".$model->getId()."\">".$model->getName()."</a><br/>" .
-                    $model->getLastUpdated()->format("Y-m-d (H:i)"). "</td>\n" .
+                    $model->getLastUpdated()->format("Y-m-d (H:i)"). "</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
                     "<a href=\"/modelview.php?id=". $model->getId() ."\">" .
                     "    <img title=\"". $model->getName().' ['.$model->getFilename().']'."\"" .
                     "    src=\"modelthumb.php?id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
-                    "</td>\n" .
-                "</tr>\n";
+                    "</td>" .
+                "</tr>";
         }
 ?>
         <tr class="bottom">
