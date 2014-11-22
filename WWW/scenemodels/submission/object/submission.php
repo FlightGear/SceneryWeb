@@ -49,47 +49,47 @@ if ($action == "check") {
         if ($oldObject->getDescription() != $newObject->getDescription()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Description</td><td>".$oldObject->getDescription()."</td><td>".$newObject->getDescription()."</td></tr>\n";
+        echo "><td>Description</td><td>".$oldObject->getDescription()."</td><td>".$newObject->getDescription()."</td></tr>";
         echo "<tr";
         if ($oldModelMD->getId() != $newModelMD->getId()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Object's model</td><td>".$oldModelMD->getName()."</td><td>".$newModelMD->getName()."</td></tr>\n";
+        echo "><td>Object's model</td><td>".$oldModelMD->getName()."</td><td>".$newModelMD->getName()."</td></tr>";
         echo "<tr><td>Thumbnail</td><td><img src='../../modelthumb.php?id=".$oldModelMD->getId()."' alt=''/></td>".
                 "<td><img src='../../modelthumb.php?id=".$newModelMD->getId()."' alt=''/></td></tr>";
         echo "<tr";
         if ($oldObject->getLongitude() != $newObject->getLongitude()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Longitude</td><td>".$oldObject->getLongitude()."</td><td>".$newObject->getLongitude()."</td></tr>\n";
+        echo "><td>Longitude</td><td>".$oldObject->getLongitude()."</td><td>".$newObject->getLongitude()."</td></tr>";
         echo "<tr";
         if ($oldObject->getLatitude() != $newObject->getLatitude()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Latitude</td><td>".$oldObject->getLatitude()."</td><td>".$newObject->getLatitude()."</td></tr>\n";
+        echo "><td>Latitude</td><td>".$oldObject->getLatitude()."</td><td>".$newObject->getLatitude()."</td></tr>";
         echo "<tr";
         if ($oldObject->getCountry()->getCode() != $newObject->getCountry()->getCode()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Country</td><td>".$oldObject->getCountry()->getName()."</td><td>".$newObject->getCountry()->getName()."</td></tr>\n";
+        echo "><td>Country</td><td>".$oldObject->getCountry()->getName()."</td><td>".$newObject->getCountry()->getName()."</td></tr>";
         
         echo "<tr style=\"background-color: rgb(255, 200, 0)\">";
-        echo "<td>Elevation</td><td>".$oldObject->getGroundElevation()."</td><td>Will be recalculated</td></tr>\n";
+        echo "<td>Elevation</td><td>".$oldObject->getGroundElevation()."</td><td>Will be recalculated</td></tr>";
         echo "<tr";
         if ($oldObject->getElevationOffset() != $newObject->getElevationOffset()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Elevation offset</td><td>".$oldObject->getElevationOffset()."</td><td>".$newObject->getElevationOffset()."</td></tr>\n";
+        echo "><td>Elevation offset</td><td>".$oldObject->getElevationOffset()."</td><td>".$newObject->getElevationOffset()."</td></tr>";
         
         echo "<tr";
         if ($oldObject->getOrientation() != $newObject->getOrientation()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
         echo "><td>Heading (STG)</td><td>".heading_true_to_stg($oldObject->getOrientation())." (STG) - ".$oldObject->getOrientation()."(true)</td>".
-             "<td>".heading_true_to_stg($newObject->getOrientation())." (STG) - ".$newObject->getOrientation()." (true)</td></tr>\n";
+             "<td>".heading_true_to_stg($newObject->getOrientation())." (STG) - ".$newObject->getOrientation()." (true)</td></tr>";
         
         echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$oldObject->getLongitude()."&amp;lat=".$oldObject->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td>".
-             "<td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$newObject->getLongitude()."&amp;lat=".$newObject->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>\n" .
+             "<td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$newObject->getLongitude()."&amp;lat=".$newObject->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>" .
              "</tr>\n";
         break;
         
@@ -98,17 +98,17 @@ if ($action == "check") {
         $objectToDel = $request->getObjectToDelete();
         $modelMD = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
 
-        echo "<table>\n<tr>\n<th>Longitude</th>\n<th>Latitude</th>\n<th>Country</th>\n<th>Elevation</th>\n<th>Elev. offset</th>\n<th>True orientation</th>\n<th>Model</th>\n<th>Map</th>\n</tr>\n";
-        echo "<tr>\n" .
-             "<td><center>".$objectToDel->getLongitude()."</center></td>\n" .
-             "<td><center>".$objectToDel->getLatitude()."</center></td>\n" .
-             "<td><center>".$objectToDel->getCountry()->getName()."</center></td>\n" .
-             "<td><center>".$objectToDel->getGroundElevation()."</center></td>\n" .
-             "<td><center>".$objectToDel->getElevationOffset()."</center></td>\n" .
-             "<td><center>".$objectToDel->getOrientation()."</center></td>\n" .
-             "<td><center><a href=\"http://scenemodels.flightgear.org/modelview.php?id=".$modelMD->getId()."\">".$modelMD->getName()."</a></center></td>\n" .
-             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$objectToDel->getLongitude()."&amp;lat=".$objectToDel->getLatitude()."&amp;zoom=14\">Map</a></center></td>\n" .
-             "</tr>\n";
+        echo "<table><tr><th>Longitude</th><th>Latitude</th><th>Country</th><th>Elevation</th><th>Elev. offset</th><th>True orientation</th><th>Model</th><th>Map</th></tr>";
+        echo "<tr>" .
+             "<td><center>".$objectToDel->getLongitude()."</center></td>" .
+             "<td><center>".$objectToDel->getLatitude()."</center></td>" .
+             "<td><center>".$objectToDel->getCountry()->getName()."</center></td>" .
+             "<td><center>".$objectToDel->getGroundElevation()."</center></td>" .
+             "<td><center>".$objectToDel->getElevationOffset()."</center></td>" .
+             "<td><center>".$objectToDel->getOrientation()."</center></td>" .
+             "<td><center><a href=\"http://scenemodels.flightgear.org/modelview.php?id=".$modelMD->getId()."\">".$modelMD->getName()."</a></center></td>" .
+             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$objectToDel->getLongitude()."&amp;lat=".$objectToDel->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
+             "</tr>";
         break;
     }
 ?>
@@ -200,7 +200,7 @@ else if ($action == "Reject") {
         include '../../inc/header.php';
         echo "<p class=\"center\">".
              "Now deleting request #".$request->getId().".</p>".
-             "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>\n";
+             "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>";
         include '../../inc/footer.php';
         exit;
     }

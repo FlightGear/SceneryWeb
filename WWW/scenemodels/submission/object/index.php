@@ -83,11 +83,11 @@ $(function() {
                         $modelsGroups = $modelDaoRO->getModelsGroups();
 
                         // Start the select form
-                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">\n" .
-                             "<option selected=\"selected\" value=\"\">Please select a family</option>\n" .
-                             "<option value=\"\">----</option>\n";
+                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">" .
+                             "<option selected=\"selected\" value=\"\">Please select a family</option>" .
+                             "<option value=\"\">----</option>";
                         foreach ($modelsGroups as $modelsGroup) {
-                            echo "<option value=\"".$modelsGroup->getId()."\">".$modelsGroup->getName()."</option>\n";
+                            echo "<option value=\"".$modelsGroup->getId()."\">".$modelsGroup->getName()."</option>";
                         }
                         echo "</select>";
 
@@ -137,7 +137,7 @@ $(function() {
                                 $countries = $objectDaoRO->getCountries();
                                 
                                 foreach($countries as $country) {
-                                    echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>\n";
+                                    echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>";
                                 }
                             ?>
                         </select>

@@ -134,13 +134,13 @@ $(function() {
                         $modelsGroups = $modelDaoRO->getModelsGroups();
 
                         // Start the select form
-                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">\n" .
+                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">" .
                              "<option ";
                         if (isset($modelMD) && $modelMD->getModelsGroup()->isStatic()) {
                             echo "selected=\"selected\" ";
                         }
-                        echo "value=\"0\">Please select a family</option>\n" .
-                             "<option value=\"0\">----</option>\n";
+                        echo "value=\"0\">Please select a family</option>" .
+                             "<option value=\"0\">----</option>";
                              
                         foreach ($modelsGroups as $modelsGroup) {
                             $name=preg_replace('/&/',"&amp;",$modelsGroup->getName());
@@ -149,7 +149,7 @@ $(function() {
                             if (isset($modelMD) && $modelsGroup->getId() == $modelMD->getModelsGroup()->getId()) {
                                 echo " selected=\"selected\"";
                             }
-                            echo ">".$name."</option>\n";
+                            echo ">".$name."</option>";
                         }
                         echo "</select>";
             ?>
@@ -240,9 +240,9 @@ $(function() {
                             foreach($authors as $author) {
                                 if ((isset($modelMD) && $author->getId() == $modelMD->getAuthor()->getId())
                                         || (!isset($modelMD) && $author->getId() == 1)) {
-                                    echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>\n";
+                                    echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>";
                                 } else {
-                                    echo "<option value=\"".$author->getId()."\">".$author->getName()."</option>\n";
+                                    echo "<option value=\"".$author->getId()."\">".$author->getName()."</option>";
                                 }
                             }
                             ?>

@@ -146,9 +146,9 @@ $(function() {
                                 $name = preg_replace('/ /',"&nbsp;", $modelsGroup->getName());
                                 // Selecting static family by default
                                 if($modelsGroup->isStatic()) {
-                                    echo "<option value=\"".$modelsGroup->getId()."\" selected=\"selected\">".$name."</option>\n";
+                                    echo "<option value=\"".$modelsGroup->getId()."\" selected=\"selected\">".$name."</option>";
                                 } else {
-                                    echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>\n";
+                                    echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>";
                                 }
                             }
                             ?>
@@ -241,7 +241,7 @@ $(function() {
                             $countries = $objectDaoRO->getCountries();
 
                             foreach($countries as $country) {
-                                echo "<option value=\"".$country->getCode()."\">".rtrim($country->getName())."</option>\n";
+                                echo "<option value=\"".$country->getCode()."\">".rtrim($country->getName())."</option>";
                             }
                             ?>
                         </select>
@@ -282,9 +282,9 @@ $(function() {
                             $authors = $authorDaoRO->getAllAuthors(0, "ALL");
                             foreach($authors as $author) {
                                 if ($author->getId() == 1) {
-                                    echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>\n";
+                                    echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>";
                                 } else {
-                                    echo "<option value=\"".$author->getId()."\">".$author->getName()."</option>\n";
+                                    echo "<option value=\"".$author->getId()."\">".$author->getName()."</option>";
                                 }
                             }
                             ?>

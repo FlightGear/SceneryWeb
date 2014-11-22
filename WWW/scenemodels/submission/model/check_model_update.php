@@ -325,7 +325,7 @@ if (isset($_POST["modelId"])) {
     if ($path_to_use != $modelToUpdateOld->getFilename() && path_exists($path_to_use)) {
         $exceptions[] = new Exception("Filename \"".$path_to_use."\" is already used by another model");
     } else {
-        echo "<p class=\"center\">Your model named ".$path_to_use."\n";
+        echo "<p class=\"center\">Your model named ".$path_to_use;
     }
 }
 

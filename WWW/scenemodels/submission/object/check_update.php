@@ -206,13 +206,13 @@ function validateForm()
         $modelsGroups = $modelDaoRO->getModelsGroups();
 
         // Start the select form
-        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects();\">\n";
+        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects();\">";
         foreach ($modelsGroups as $modelsGroup) {
             $name = preg_replace('/ /',"&nbsp;",$modelsGroup->getName());
             if ($id_family == $modelsGroup->getId()) {
-                echo "<option selected=\"selected\" value=\"".$modelsGroup->getId()."\">".$name."</option>\n";
+                echo "<option selected=\"selected\" value=\"".$modelsGroup->getId()."\">".$name."</option>";
             } else {
-                echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>\n";
+                echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>";
             }
         }
         echo "</select>";
@@ -250,14 +250,14 @@ function validateForm()
             $path = $modelMetadata->getFilename();
 
             if ($modelMDToUp->getId() == $modelMetadata->getId()) {
-                echo "<option selected=\"selected\" value='".$id."'>".$path."</option>\n";
+                echo "<option selected=\"selected\" value='".$id."'>".$path."</option>";
             } else {
-                echo "<option value='".$id."'>".$path."</option>\n";
+                echo "<option value='".$id."'>".$path."</option>";
             }
         }
 
-        echo "</select>\n";
-        echo "</div>\n";
+        echo "</select>";
+        echo "</div>";
 
     } else {
         echo "      <input name=\"modelId\" type=\"hidden\" value=\"".$objectToUp->getModelId()."\"></input>";
@@ -308,9 +308,9 @@ function validateForm()
 
                     foreach($countries as $country) {
                         if ($objectToUp->getCountry()->getCode() == $country->getCode()) {
-                            echo "<option value=\"".$country->getCode()."\" selected=\"selected\">".$country->getName()."</option>\n";
+                            echo "<option value=\"".$country->getCode()."\" selected=\"selected\">".$country->getName()."</option>";
                         } else {
-                            echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>\n";
+                            echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>";
                         }
                        
                     }

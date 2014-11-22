@@ -260,9 +260,9 @@ include '../../inc/header.php';
             $texturesNames = $modelFiles->getTexturesNames();
             $png_file_number = count($texturesNames);
             if ($png_file_number <= 1) {
-                echo $png_file_number." texture file has been submitted:<br/>\n"; // Some eye caviar for the poor scenery maintainers.
+                echo $png_file_number." texture file has been submitted:<br/>"; // Some eye caviar for the poor scenery maintainers.
             } else {
-                echo $png_file_number." texture files have been submitted:<br/>\n";
+                echo $png_file_number." texture files have been submitted:<br/>";
             }
 
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
