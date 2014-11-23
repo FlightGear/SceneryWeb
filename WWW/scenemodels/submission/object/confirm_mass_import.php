@@ -54,7 +54,7 @@ function getModelFromSTG($modelFullPath) {
 
 $step = $_POST['step'];
 
-if ($step == 1) {
+if ($step == 2) {
     // Captcha stuff
     require_once '../../inc/captcha/recaptchalib.php';
 
@@ -366,8 +366,14 @@ if (!$error) {
 if ($step == 1) {
     // Else, allow submitter to proceed
     echo "<p class=\"center ok\">No errors have been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br/>".
-         "Press to button below to finish your submission.<br/><br/>".
-         "<input type='hidden' name='step' value='2'/><input name='submit' type='submit' value='Submit objects' /></p></form>";
+         "Enter captcha and press the button below to finish your submission.</p>";
+
+    // Google Captcha stuff
+    require_once '../../inc/captcha/recaptchalib.php';
+    $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
+    echo "<div style=\"margin: auto;display: table;\">".recaptcha_get_html($publickey)."</div>";
+
+    echo "<p class=\"center ok\"><input type='hidden' name='step' value='2'/><input name='submit' type='submit' value='Submit objects' /></p></form>";
 } else {
     // Proceed on with the request generation
     $request = new RequestMassiveObjectsAdd();
