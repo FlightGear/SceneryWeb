@@ -143,13 +143,11 @@ $(function() {
                              "<option value=\"0\">----</option>";
                              
                         foreach ($modelsGroups as $modelsGroup) {
-                            $name=preg_replace('/&/',"&amp;",$modelsGroup->getName());
-                            $name=preg_replace('/ /',"&nbsp;",$name);
                             echo "<option value=\"".$modelsGroup->getId()."\"";
                             if (isset($modelMD) && $modelsGroup->getId() == $modelMD->getModelsGroup()->getId()) {
                                 echo " selected=\"selected\"";
                             }
-                            echo ">".$name."</option>";
+                            echo ">".$modelsGroup->getName()."</option>";
                         }
                         echo "</select>";
             ?>

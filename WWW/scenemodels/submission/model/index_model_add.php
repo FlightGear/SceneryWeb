@@ -143,12 +143,11 @@ $(function() {
                             $modelsGroups = $modelDaoRO->getModelsGroups();
 
                             foreach ($modelsGroups as $modelsGroup) {
-                                $name = preg_replace('/ /',"&nbsp;", $modelsGroup->getName());
                                 // Selecting static family by default
                                 if($modelsGroup->isStatic()) {
-                                    echo "<option value=\"".$modelsGroup->getId()."\" selected=\"selected\">".$name."</option>";
+                                    echo "<option value=\"".$modelsGroup->getId()."\" selected=\"selected\">".$modelsGroup->getName()."</option>";
                                 } else {
-                                    echo "<option value=\"".$modelsGroup->getId()."\">".$name."</option>";
+                                    echo "<option value=\"".$modelsGroup->getId()."\">".$modelsGroup->getName()."</option>";
                                 }
                             }
                             ?>
