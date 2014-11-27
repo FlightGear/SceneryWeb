@@ -134,13 +134,12 @@ $(function() {
                         $modelsGroups = $modelDaoRO->getModelsGroups();
 
                         // Start the select form
-                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">" .
-                             "<option ";
-                        if (isset($modelMD) && $modelMD->getModelsGroup()->isStatic()) {
-                            echo "selected=\"selected\" ";
+                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">";
+                        if (!isset($modelMD)) {
+                            echo "<option selected=\"selected\" value=\"0\">" .
+                                 "Please select a family</option>" .
+                                 "<option value=\"0\">----</option>";
                         }
-                        echo "value=\"0\">Please select a family</option>" .
-                             "<option value=\"0\">----</option>";
                              
                         foreach ($modelsGroups as $modelsGroup) {
                             echo "<option value=\"".$modelsGroup->getId()."\"";
