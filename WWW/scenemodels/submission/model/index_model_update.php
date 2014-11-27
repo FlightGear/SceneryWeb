@@ -158,10 +158,8 @@ $(function() {
                 </tr>
                 <tr>
                     <td><label for="modelId">File name<em>*</em><span>This is the name of the object, ie as it appears in the .stg file.</span></label></td>
-                    <td>
+                    <td id="form_objects">
                         <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
-
-                        <div id="form_objects"></div>
                     </td>
                 </tr>
                 <tr>
