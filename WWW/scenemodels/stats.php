@@ -179,7 +179,8 @@ require 'inc/header.php';
             pieSliceBorderColor: 'none',
             slices: {20: {color: '#ccc'}},
             sliceVisibilityThreshold: 1/100,
-            legend: { alignment: 'center' }
+            legend: { alignment: 'center' },
+            pieHole: 0.4
         };
 
         var chartPie = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
@@ -314,6 +315,7 @@ require 'inc/header.php';
             [new Date(2013,7,6), 1118056, 3200, 2310 ],
             [new Date(2014,0,5), 1130663, 3566, 2310 ],
             [new Date(2014,6,4), 1176580, 3892, 2310 ],
+            [new Date(2014,10,28), 1178742, 4128, 2310 ],
             [new Date(<?php echo date('Y').",".(date('n')-1).",".date('j')."), ".$objects.", ".$models.", ".$signs; ?> ]
         ]);
 
