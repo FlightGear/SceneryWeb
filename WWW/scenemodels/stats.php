@@ -139,7 +139,6 @@ require 'inc/header.php';
         }
     };
 
-    google.setOnLoadCallback(drawChart);
     function drawChart() {
         var dataPie = google.visualization.arrayToDataTable([
             ['Country', 'Objects'],
@@ -198,8 +197,6 @@ require 'inc/header.php';
         });
         chartPieAuthors.draw(dataPieAuthors, optionsPie);
     };
-
-    google.setOnLoadCallback(drawBars);
     
     function drawBars(sorting) {
         var dataBarCountryObjects = google.visualization.arrayToDataTable([
@@ -339,6 +336,8 @@ require 'inc/header.php';
         );
     };
 
+    google.setOnLoadCallback(drawChart);
+    google.setOnLoadCallback(drawBars);
     google.setOnLoadCallback(drawVisualization);
     google.setOnLoadCallback(drawRegionsMap('world','auto'));
 </script>
