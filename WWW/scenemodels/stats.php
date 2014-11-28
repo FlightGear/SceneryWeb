@@ -16,6 +16,9 @@ require 'inc/header.php';
     var worldmap = 'data1';
 
     function drawRegionsMap() {
+        if (google.visualization === undefined) {
+            return;
+        }
         if (arguments[0]!== 'auto' && arguments[0]) {
             regionId = arguments[0];
         }
