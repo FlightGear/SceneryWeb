@@ -13,9 +13,14 @@ if (isset($_REQUEST['update_choice'])
         && FormChecker::isModelId($_REQUEST['update_choice'])) {
     $id_to_update = stripslashes($_REQUEST['update_choice']);
     $modelMD = $modelDaoRO->getModelMetadata($id_to_update);
+} else if (isset($_REQUEST['modelId'])
+        && FormChecker::isModelId($_REQUEST['modelId'])) {
+    $id_to_update = stripslashes($_REQUEST['modelId']);
+    $modelMD = $modelDaoRO->getModelMetadata($id_to_update);
+} else {
+    exit;
 }
 ?>
-<script type="text/javascript" src="../../inc/js/update_objects.js"></script>
 <script type="text/javascript" src="../../inc/js/check_form.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript" src="../../inc/js/jquery.multifile.js"></script>
@@ -97,11 +102,8 @@ $(function() {
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
 
-<h1>Update a model</h1>
+<h1>Updating model #<?=$id_to_update?></h1>
 
-<p>
-    Through this form you can update existing models in the FlightGear Scenery Database.
-</p>
 <p>
     Hover your mouse over the various field titles (left column) to view some information about what to do with that particular field. Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> for a better understanding of the various requirements.
 </p>
@@ -134,16 +136,11 @@ $(function() {
                         $modelsGroups = $modelDaoRO->getModelsGroups();
 
                         // Start the select form
-                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">";
-                        if (!isset($modelMD)) {
-                            echo "<option selected=\"selected\" value=\"0\">" .
-                                 "Please select a family</option>" .
-                                 "<option value=\"0\">----</option>";
-                        }
+                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"validateTabs();\">";
                              
                         foreach ($modelsGroups as $modelsGroup) {
                             echo "<option value=\"".$modelsGroup->getId()."\"";
-                            if (isset($modelMD) && $modelsGroup->getId() == $modelMD->getModelsGroup()->getId()) {
+                            if ($modelsGroup->getId() == $modelMD->getModelsGroup()->getId()) {
                                 echo " selected=\"selected\"";
                             }
                             echo ">".$modelsGroup->getName()."</option>";
@@ -152,13 +149,7 @@ $(function() {
             ?>
                     </td>
                     <td rowspan="4" style="width: 200px">
-                        <img id="form_objects_thumb" width="200px" src="" alt=""/>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="modelId">File name<em>*</em><span>This is the name of the object, ie as it appears in the .stg file.</span></label></td>
-                    <td id="form_objects">
-                        <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
+                        <img id="form_objects_thumb" width="200px" src="../../modelthumb.php?id=<?=$id_to_update?>" alt=""/>
                     </td>
                 </tr>
                 <tr>
@@ -166,7 +157,7 @@ $(function() {
                         <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($modelMD))?$modelMD->getName():'';?>"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?=$modelMD->getName()?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -233,8 +224,7 @@ $(function() {
                             <?php
                             $authors = $authorDaoRO->getAllAuthors(0, "ALL");
                             foreach($authors as $author) {
-                                if ((isset($modelMD) && $author->getId() == $modelMD->getAuthor()->getId())
-                                        || (!isset($modelMD) && $author->getId() == 1)) {
+                                if ($author->getId() == $modelMD->getAuthor()->getId()) {
                                     echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>";
                                 } else {
                                     echo "<option value=\"".$author->getId()."\">".$author->getName()."</option>";
@@ -263,6 +253,7 @@ $(function() {
                         ?>
                         <br />
                         <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
+                        <input type="hidden" name="modelId" value="<?=$id_to_update?>" />
                         <input type="submit" value="Submit model" />
                     </td>
                 </tr>

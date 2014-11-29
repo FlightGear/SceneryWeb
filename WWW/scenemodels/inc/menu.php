@@ -16,7 +16,7 @@
             <li><a href="/submission/object/index_update.php">Update object geodata</a></li>
             <li class="separator"></li>
             <li><a href="/submission/model/index_model_add.php">Add a new model</a></li>
-            <li><a href="/submission/model/index_model_update.php">Update a model</a></li>
+            <li><a href="/submission/model/index_model_upd_choose.php">Update a model</a></li>
         </ul>
     </li>
     <li class="mainitems">

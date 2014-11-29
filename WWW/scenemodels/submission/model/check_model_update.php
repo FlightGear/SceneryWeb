@@ -410,7 +410,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
     }
     
     $authorId    = $_POST["mo_author"];
-    $mo_shared   = $_POST["model_group_id"];
+    $moGroupId   = $_POST["model_group_id"];
     $modelId     = $_POST["modelId"];
     
     if (!FormChecker::isModelId($modelId)) {
@@ -423,7 +423,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
         $errormsg .= "<li>Please check the model name.</li>";
     }
     
-    if (!FormChecker::isModelGroupId($mo_shared)) {
+    if (!FormChecker::isModelGroupId($moGroupId)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the model group.</li>";
     }
@@ -475,7 +475,7 @@ else {
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $newModel = new Model();
     $newModelMD = $modelFactory->createModelMetadata($modelId, $authorId, $path_to_use,
-            $name, $notes, $mo_shared);
+            $name, $notes, $moGroupId);
     $newModel->setMetadata($newModelMD);
     $newModel->setModelFiles($modelFile);
     $newModel->setThumbnail($thumbFile);
