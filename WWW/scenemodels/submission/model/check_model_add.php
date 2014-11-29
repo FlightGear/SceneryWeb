@@ -107,7 +107,7 @@ $ac3dPath  = $targetPath.$ac3dName;
 ##############################################################################
 
 if ($_FILES['mo_thumbfile']['size'] < 2000000) { // check file size
-    if ($_FILES['mo_thumbfile']['type'] == "image/jpeg" && (show_file_extension(basename($thumbName)) == "jpeg") || (show_file_extension(basename($thumbName)) == "JPEG") || (show_file_extension(basename($thumbName)) == "JPG") || (show_file_extension(basename($thumbName)) == "jpg")) { // check type & extension file
+    if ($_FILES['mo_thumbfile']['type'] == "image/jpeg") { // check type
         if ($_FILES['mo_thumbfile']['error'] != 0) { // If an error is detected
             $fatalerror = true;
             $errormsg .= "<li>There has been an error while uploading the file \"".$thumbName."\".</li>";
@@ -135,7 +135,7 @@ if ($_FILES['mo_thumbfile']['size'] < 2000000) { // check file size
     }
     else {
         $fatalerror = true;
-        $errormsg .= "<li>The file format or extention of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file.</li>";
+        $errormsg .= "<li>The file format of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file.</li>";
     }
 } else {
     $fatalerror = true;
@@ -148,8 +148,7 @@ if ($_FILES['mo_thumbfile']['size'] < 2000000) { // check file size
 if ($_FILES['ac3d_file']['size'] < 2000000) { // check size file
 
     // check type & extension file
-    if (($_FILES['ac3d_file']['type'] == "application/octet-stream" || $_FILES['ac3d_file']['type'] == "application/pkix-attr-cert")
-            && strtolower(show_file_extension(basename($ac3dName))) == "ac") {
+    if (($_FILES['ac3d_file']['type'] == "application/octet-stream" || $_FILES['ac3d_file']['type'] == "application/pkix-attr-cert")) {
 
         if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
             $fatalerror = true;
@@ -176,7 +175,7 @@ if ($_FILES['ac3d_file']['size'] < 2000000) { // check size file
     }
     else {
         $fatalerror = true;
-        $errormsg .= "<li>The format or the extention seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file.</li>";
+        $errormsg .= "<li>The format seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file.</li>";
     }
 }
 else {
@@ -189,7 +188,7 @@ else {
 
 if ($_FILES['xml_file']['name'] != "") { // if file exists
     if ($_FILES['xml_file']['size'] < 2000000) { // check size file
-        if ($_FILES['xml_file']['type'] == "text/xml" && strtolower(show_file_extension(basename($xmlName))) == "xml") { // check type & extension file
+        if ($_FILES['xml_file']['type'] == "text/xml") { // check type
             if ($_FILES['xml_file']['error'] != 0) { // If error is detected
                 $fatalerror = true;
                 $errormsg .= "<li>There has been an error while uploading the file \"".$xmlName."\".</li>";
@@ -215,7 +214,7 @@ if ($_FILES['xml_file']['name'] != "") { // if file exists
         }
         else {
             $fatalerror = true;
-            $errormsg .= "<li>The format or extension of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file.</li>";
+            $errormsg .= "<li>The format of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file.</li>";
         }
     }
     else {
@@ -237,7 +236,7 @@ for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
 
         if ($pngsize < 2000000) { // check size file
 
-            if ($pngType == 'image/png' && strtolower(show_file_extension(basename($pngName))) == "png") { // check type & extension file
+            if ($pngType == 'image/png') { // check type
 
                 if ($pngError != 0) { // If error is detected
                     $fatalerror = true;
@@ -264,7 +263,7 @@ for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
             }
             else {
                 $fatalerror = true;
-                $errormsg .= "<li>The format or extension of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.</li>";
+                $errormsg .= "<li>The format of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.</li>";
             }
         }
         else {
@@ -402,7 +401,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["mo_author"])
     $name        = addslashes(htmlentities(strip_tags($_POST["mo_name"]), ENT_QUOTES));
     $notes       = addslashes(htmlentities(strip_tags($_POST["notes"]), ENT_QUOTES));
     $authorId    = $_POST["mo_author"];
-    $mo_shared   = $_POST["model_group_id"];
+    $moGroupId   = $_POST["model_group_id"];
     
     // If the author was unknown in the DB
     if ($authorId == 1) {
@@ -426,7 +425,7 @@ if (isset($_POST["model_group_id"]) && isset($_POST["mo_author"])
         $errormsg .= "<li>Please check the model name.</li>";
     }
     
-    if (!FormChecker::isModelGroupId($mo_shared)) {
+    if (!FormChecker::isModelGroupId($moGroupId)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the model group.</li>";
     }
@@ -517,7 +516,7 @@ else {
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $objectFactory = new ObjectFactory($objectDaoRO);
     $newModel = new Model();
-    $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $mo_shared);
+    $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $moGroupId);
     if ($authorId != 1) {
         $auEmail = $newModelMD->getAuthor()->getEmail();
     } else {

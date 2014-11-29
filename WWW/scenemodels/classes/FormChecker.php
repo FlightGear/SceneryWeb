@@ -35,6 +35,7 @@ class FormChecker {
         'png_filename' => '/^[a-zA-Z0-9_.-]+\.(png|PNG)$/u',
         'ac3d_filename' => '/^[a-zA-Z0-9_.-]+\.(ac|AC)$/u',
         'xml_filename' => '/^[a-zA-Z0-9_.-]+\.(xml|XML)$/u',
+        'thumb_filename' => '/^[a-zA-Z0-9_.-]+\.(jpg|JPG|jpeg|JPEG)$/u',
         'authorid' => '#^[0-9]{1,3}$#',
         'email' => '/^[0-9a-zA-Z_\-.]+@[0-9a-z_\-]+\.[0-9a-zA-Z_\-.]+$/u',
         'objectid' => '/^[0-9]+$/u',
@@ -168,6 +169,12 @@ class FormChecker {
     // ================================================
     static public function isXMLFilename($filename) {
         return preg_match(self::$regex['xml_filename'], $filename);
+    }
+    
+    // Checks if the given variable is a Thumbnail filename
+    // ================================================
+    static public function isThumbFilename($filename) {
+        return preg_match(self::$regex['thumb_filename'], $filename);
     }
    
     // Checks if the given variable is a filename
