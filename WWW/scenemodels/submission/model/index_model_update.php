@@ -12,14 +12,15 @@ require '../../inc/header.php';
 if (isset($_REQUEST['update_choice'])
         && FormChecker::isModelId($_REQUEST['update_choice'])) {
     $id_to_update = stripslashes($_REQUEST['update_choice']);
-    $modelMD = $modelDaoRO->getModelMetadata($id_to_update);
 } else if (isset($_REQUEST['modelId'])
         && FormChecker::isModelId($_REQUEST['modelId'])) {
     $id_to_update = stripslashes($_REQUEST['modelId']);
-    $modelMD = $modelDaoRO->getModelMetadata($id_to_update);
 } else {
     exit;
 }
+
+$modelMD = $modelDaoRO->getModelMetadata($id_to_update);
+
 ?>
 <script type="text/javascript" src="../../inc/js/check_form.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
