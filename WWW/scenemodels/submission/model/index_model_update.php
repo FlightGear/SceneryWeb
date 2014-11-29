@@ -126,7 +126,7 @@ $(function() {
             </ul>
             <table style="width: 100%;">
                 <tr>
-                    <td><label for="model_group_id">Object's family<em>*</em><span>This is the family name of the object.</span></label></td>
+                    <td><label for="model_group_id">Model's family<em>*</em><span>This is the family name of the object.</span></label></td>
                     <td>
             <?php
 
