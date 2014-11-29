@@ -124,7 +124,7 @@ class EmailContentFactory {
                     "Model name:       ". $newModelMD->getName() ."\r\n" .
                     "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
                     "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=". $request->getSig() ."&email=". $safeContrEmail . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=". $request->getSig() ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

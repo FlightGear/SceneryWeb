@@ -150,7 +150,7 @@ if (!isset($_POST["action"])) {
     $oldModel = $request->getOldModel();
     $oldModelMD = $oldModel->getMetadata();
 
-    $mo_contri_email = htmlentities($_GET["email"]);
+    $mo_contri_email = htmlentities($request->getContributorEmail());
 
 include '../../inc/header.php';
 
