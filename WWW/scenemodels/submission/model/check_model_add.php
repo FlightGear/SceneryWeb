@@ -79,20 +79,19 @@ if (count($exceptions) > 0) {
 }
 
 // Open working directory and set paths
-$tmp_dir = sys_get_temp_dir();
-
 try {
+    $tmp_dir = sys_get_temp_dir();
     $targetPath = $modelChecker->openWorkingDirectory($tmp_dir);
+    
+    if ($xmlName != "") {
+        $xmlPath = $targetPath.$xmlName;
+    }
+    $thumbPath = $targetPath.$thumbName;
+    $ac3dPath  = $targetPath.$ac3dName;
 } catch (Exception $ex) {
     $fatalerror = true;
     $errormsg .= "<li>".$ex->getMessage()."</li>";
 }
-
-if ($xmlName != "") {
-    $xmlPath = $targetPath.$xmlName;
-}
-$thumbPath = $targetPath.$thumbName;
-$ac3dPath  = $targetPath.$ac3dName;
 
 
 ###############################################
@@ -103,123 +102,35 @@ $ac3dPath  = $targetPath.$ac3dName;
 ###############################################
 ###############################################
 
-# STEP 3.1 : UPLOAD THUMBNAIL FILE IN TMP DIRECTORY (Will be removed later on)
+# STEP 3.1 : UPLOAD THUMBNAIL, AC3D AND XML FILES IN TMP DIRECTORY (Will be removed later on)
 ##############################################################################
 
-if ($_FILES['mo_thumbfile']['size'] < 2000000) { // check file size
-    if ($_FILES['mo_thumbfile']['type'] == "image/jpeg") { // check type
-        if ($_FILES['mo_thumbfile']['error'] != 0) { // If an error is detected
-            $fatalerror = true;
-            $errormsg .= "<li>There has been an error while uploading the file \"".$thumbName."\".</li>";
-            switch ($_FILES['mo_thumbfile']['error']) {
-                case 1:
-                    $errormsg .= "<li>The file \"".$thumbName."\" is bigger than this server installation allows.</li>";
-                    break;
-                case 2:
-                    $errormsg .= "<li>The file \"".$thumbName."\" is bigger than this form allows.</li>";
-                    break;
-                case 3:
-                    $errormsg .= "<li>Only part of the file \"".$thumbName."\" was uploaded.</li>";
-                    break;
-                case 4:
-                    $errormsg .= "<li>No file \"".$thumbName."\" was uploaded.</li>";
-                    break;
-            }
-        }
-        else {
-            if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) { // check uploaded file
-                $fatalerror = true;
-                $errormsg .= "<li>There has been an error while moving the file \"".$thumbName."\" on the server.</li>";
-            }
-        }
-    }
-    else {
+$exceptions = $modelChecker->checkAC3DFileArray($_FILES['ac3d_file']) +
+        $modelChecker->checkXMLFileArray($_FILES['xml_file']) +
+        $modelChecker->checkThumbFileArray($_FILES['mo_thumbfile']);
+
+if (count($exceptions) == 0) {
+    // check uploaded file
+    if (isset($xmlPath) && !move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) {
         $fatalerror = true;
-        $errormsg .= "<li>The file format of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file.</li>";
+        $errormsg = "<li>There has been an error while moving the file \"".$xmlName."\" on the server.</li>";
+    }
+    
+    // check upload file
+    if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) {
+        $fatalerror = true;
+        $errormsg .= "<li>There has been an error while moving the file \"".$ac3dName."\" on the server.</li>";
+    }
+    
+    // check uploaded file
+    if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) {
+        $fatalerror = true;
+        $errormsg .= "<li>There has been an error while moving the file \"".$thumbName."\" on the server.</li>";
     }
 } else {
     $fatalerror = true;
-    $errormsg .= "<li>Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes).</li>";
-}
-
-# STEP 3.2 : UPLOAD AC3D FILE IN TMP DIRECTORY
-##############################################
-
-if ($_FILES['ac3d_file']['size'] < 2000000) { // check size file
-
-    // check type & extension file
-    if (($_FILES['ac3d_file']['type'] == "application/octet-stream" || $_FILES['ac3d_file']['type'] == "application/pkix-attr-cert")) {
-
-        if ($_FILES['ac3d_file']['error'] != 0) { // If error is detected
-            $fatalerror = true;
-            $errormsg .= "<li>There has been an error while uploading the file \"".$ac3dName."\".</li>";
-            switch ($_FILES['ac3d_file']['error']){
-                case 1:
-                    $errormsg .= "<li>The file \"".$ac3dName."\" is bigger than this server installation allows.</li>";
-                    break;
-                case 2:
-                    $errormsg .= "<li>The file \"".$ac3dName."\" is bigger than this form allows.</li>";
-                    break;
-                case 3:
-                    $errormsg .= "<li>Only part of the file \"".$ac3dName."\" was uploaded.</li>";
-                    break;
-                case 4:
-                    $errormsg .= "<li>No file \"".$ac3dName."\" was uploaded.</li>";
-                    break;
-            }
-        }
-        else if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) { // check upload file
-            $fatalerror = true;
-            $errormsg .= "<li>There has been an error while moving the file \"".$ac3dName."\" on the server.</li>";
-        }
-    }
-    else {
-        $fatalerror = true;
-        $errormsg .= "<li>The format seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file.</li>";
-    }
-}
-else {
-    $fatalerror = true;
-    $errormsg .= "<li>Sorry, but the size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$_FILES['ac3d_file']['size']." bytes).</li>";
-}
-
-# STEP 3.3 : UPLOAD XML FILE IN TMP DIRECTORY
-#############################################
-
-if ($_FILES['xml_file']['name'] != "") { // if file exists
-    if ($_FILES['xml_file']['size'] < 2000000) { // check size file
-        if ($_FILES['xml_file']['type'] == "text/xml") { // check type
-            if ($_FILES['xml_file']['error'] != 0) { // If error is detected
-                $fatalerror = true;
-                $errormsg .= "<li>There has been an error while uploading the file \"".$xmlName."\".</li>";
-                switch ($_FILES['xml_file']['error']) {
-                    case 1:
-                        $errormsg .= "<li>The file \"".$xmlName."\" is bigger than this server installation allows.</li>";
-                        break;
-                    case 2:
-                        $errormsg .= "<li>The file \"".$xmlName."\" is bigger than this form allows.</li>";
-                        break;
-                    case 3:
-                        $errormsg .= "<li>Only part of the file \"".$xmlName."\" was uploaded.</li>";
-                        break;
-                    case 4:
-                        $errormsg .= "<li>No file \"".$xmlName."\" was uploaded.</li>";
-                        break;
-                }
-            }
-            else if(!move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) { // check uploaded file
-                $fatalerror = true;
-                $errormsg .= "<li>There has been an error while moving the file \"".$xmlName."\" on the server.</li>";
-            }
-        }
-        else {
-            $fatalerror = true;
-            $errormsg .= "<li>The format of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file.</li>";
-        }
-    }
-    else {
-        $fatalerror = true;
-        $errormsg .= "<li>Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$_FILES['xml_file']['size']." bytes).</li>";
+    foreach ($exceptions as $ex) {
+        $errormsg .= "<li>".$ex->getMessage()."</li>";
     }
 }
 

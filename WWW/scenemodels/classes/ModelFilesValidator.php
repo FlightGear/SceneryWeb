@@ -56,7 +56,7 @@ class ModelFilesValidator implements Validator {
         if (isset($this->xmlName)) {
             $xmlPath = $this->folderPath . $this->xmlName;
             if (file_exists($xmlPath)) {
-                $exceptions = array_merge($exceptions, $this->checkXML($xmlPath, $this->ac3dName));
+                $exceptions += $this->checkXML($xmlPath, $this->ac3dName);
             } else {
                 $exceptions[] = new Exception("XML file not found");
             }
@@ -64,7 +64,7 @@ class ModelFilesValidator implements Validator {
 
         // Check AC3D file
         $ac3dPath = $this->folderPath . $this->ac3dName;
-        $exceptions = array_merge($exceptions, $this->checkAC3D($ac3dPath, $this->pngNames));
+        $exceptions += $this->checkAC3D($ac3dPath, $this->pngNames);
 
         // Check textures files
         for ($i=0; $i<12; $i++) {
@@ -72,7 +72,7 @@ class ModelFilesValidator implements Validator {
                 $pngPath  = $this->folderPath . $this->pngNames[$i];
                 $pngName  = $this->pngNames[$i];
 
-                $exceptions = array_merge($exceptions, $this->checkPNG($pngName, $pngPath));
+                $exceptions += $this->checkPNG($pngName, $pngPath);
             }
         }
         

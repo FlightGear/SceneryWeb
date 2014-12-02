@@ -39,6 +39,11 @@ class ModelChecker {
                 $exceptions[] = new Exception("Textures' name must be *.png or *.PNG with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
             }
         }
+        
+        // Check thumbnail filename
+        if (!FormChecker::isThumbFilename($thumbName)) {
+            $exceptions[] = new Exception("Thumbnail name must be *.jpg or *.jpeg with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
+        }
 
         if (count($exceptions) == 0 && 
                 (remove_file_extension($thumbName) != remove_file_extension($ac3dName)."_thumbnail"
@@ -51,19 +56,130 @@ class ModelChecker {
         return $exceptions;
     }
     
-    // Returns the extension of a file sent in parameter
-    // =================================================
-
-    public function showFileExtension($filepath) {
-        preg_match('/[^?]*/', $filepath, $matches);
-        $string = $matches[0];
-        $pattern = preg_split('/\./', $string, -1, PREG_SPLIT_OFFSET_CAPTURE);
-
-        if (count($pattern) > 1) {
-            $filenamepart = $pattern[count($pattern)-1][0];
-            preg_match('/[^?]*/', $filenamepart, $matches);
-            return $matches[0];
+    public function checkXMLFileArray($arrayXML) {
+        $xmlName = $arrayXML['name'];
+        $exceptions = array();
+        
+        // if file does not exist
+        if ($xmlName == "") { 
+            return $exceptions;
         }
+        
+        // check size file
+        if ($arrayXML['size'] >= 2000000) {
+            $exceptions[] = new Exception("Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$arrayXML['size']." bytes).");
+        }
+        
+        // check type
+        if ($arrayXML['type'] != "text/xml") {
+            $exceptions[] = new Exception("The format of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file.");
+        }
+        
+        // If error is detected
+        if ($arrayXML['error'] != 0) {
+
+            switch ($arrayXML['error']) {
+                case 1:
+                    $errormsg = "The file \"".$xmlName."\" is bigger than this server installation allows.";
+                    break;
+                case 2:
+                    $errormsg = "The file \"".$xmlName."\" is bigger than this form allows.";
+                    break;
+                case 3:
+                    $errormsg = "Only part of the file \"".$xmlName."\" was uploaded.";
+                    break;
+                case 4:
+                    $errormsg = "No file \"".$xmlName."\" was uploaded.";
+                    break;
+                default:
+                    $errormsg = "There has been an unknown error while uploading the file \"".$xmlName."\".";
+                    break;
+            }
+
+            $exceptions[] =new Exception($errormsg);
+        }
+        
+        return $exceptions;
+    }
+    
+    public function checkAC3DFileArray($arrayAC) {
+        $ac3dName = $arrayAC['name'];
+        $exceptions = array();
+        
+        // check size file
+        if ($arrayAC['size'] >= 2000000) {
+            $exceptions[] = new Exception("Sorry, but the size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$arrayAC['size']." bytes).");
+        }
+
+        // check type & extension file
+        if (($arrayAC['type'] != "application/octet-stream" && $arrayAC['type'] != "application/pkix-attr-cert")) {
+            $exceptions[] = new Exception("The format seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file.");
+        }
+        
+        // If error is detected
+        if ($arrayAC['error'] != 0) {
+            switch ($arrayAC['error']){
+                case 1:
+                    $errormsg = "The file \"".$ac3dName."\" is bigger than this server installation allows.";
+                    break;
+                case 2:
+                    $errormsg = "The file \"".$ac3dName."\" is bigger than this form allows.";
+                    break;
+                case 3:
+                    $errormsg = "Only part of the file \"".$ac3dName."\" was uploaded.";
+                    break;
+                case 4:
+                    $errormsg = "No file \"".$ac3dName."\" was uploaded.";
+                    break;
+                default:
+                    $errormsg = "There has been an unknown error while uploading the file \"".$ac3dName."\".";
+                break;
+            }
+            
+            $exceptions[] =new Exception($errormsg);
+        }
+        
+        return $exceptions;
+    }
+    
+    public function checkThumbFileArray($arrayThumb) {
+        $thumbName = $arrayThumb['name'];
+        $exceptions = array();
+        
+        // check file size
+        if ($arrayThumb['size'] >= 2000000) {
+            $exceptions[] = new Exception("Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes).");
+        }
+        
+        // check type
+        if ($arrayThumb['type'] != "image/jpeg") { 
+            $exceptions[] = new Exception("The file format of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file.");
+        }
+
+        // If an error is detected
+        if ($arrayThumb['error'] != 0) {
+            switch ($arrayThumb['error']) {
+                case 1:
+                    $errormsg = "The file \"".$thumbName."\" is bigger than this server installation allows.";
+                    break;
+                case 2:
+                    $errormsg = "The file \"".$thumbName."\" is bigger than this form allows.";
+                    break;
+                case 3:
+                    $errormsg = "Only part of the file \"".$thumbName."\" was uploaded.";
+                    break;
+                case 4:
+                    $errormsg = "No file \"".$thumbName."\" was uploaded.";
+                    break;
+                default:
+                    $errormsg = "There has been an unknown error while uploading the file \"".$thumbName."\".";
+                break;
+            }
+            
+            $exceptions[] =new Exception($errormsg);
+        }
+
+        return $exceptions;
     }
     
     /**

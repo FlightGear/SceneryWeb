@@ -48,7 +48,7 @@ class ValidatorsSet {
      */
     public function validate() {
         foreach ($this->validators as $validator) {
-            $this->errors = array_merge($this->errors, $validator->validate());
+            $this->errors += $validator->validate();
         }
         
         return $this->errors;
