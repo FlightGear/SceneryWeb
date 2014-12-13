@@ -58,6 +58,8 @@ function resize(){
 
 function showModel(model){
   loading.style.display = "block";
+  // Consider model crashes after 10 seconds
+  setTimeout('crashed();', 10000);
   viewer.show(model.file, 
               {callback:onLoaded, 
                texturePath:"inc_getfile.php?type=texture&mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>&name="

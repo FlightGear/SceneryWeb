@@ -91,7 +91,8 @@
 
     function showModel(model){
         loading.style.display = "block";
-        setTimeout('crashed();', 10000); // Consider model crashes after 10 seconds
+        // Consider model crashes after 10 seconds
+        setTimeout('crashed();', 10000);
         viewer.show(model.file,
                     {callback:onLoaded,
                      texturePath:"get_model_files.php?type=texture&id=<?php echo rawurlencode($id); ?>&name="
@@ -104,7 +105,7 @@
     
     function crashed() {
         if (loading.style.display === "block") {
-            document.body.innerHTML = "This model takes more than 5 seconds to load. " +
+            document.body.innerHTML = "This model takes more than 10 seconds to load. " +
                                       "The script has been canceled, to prevent it from crashing.";
         }
     }
