@@ -156,8 +156,13 @@ include '../../inc/header.php';
 
 ?>
 
+<p class="center">Request #<?=$request->getId()?></p>
+
 <p class="center">Hi, this is the update model submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/model/index_model_update.php.</p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
+
+<p class="center">Email: <?=$mo_contri_email?></p>
+<p class="center">Comment: <?=$request->getComment()?></p>
 
 <form id="validation" method="post" action="model_update_submission.php" onsubmit="return validateForm();">
 <table>
@@ -176,14 +181,6 @@ include '../../inc/header.php';
         <td>
             <?php echo $newModelMD->getAuthor()->getName()."(".$newModelMD->getAuthor()->getEmail().")"; ?>
             <input type="hidden" name="email" value="<?php echo $newModelMD->getAuthor()->getEmail(); ?>" />
-        </td>
-    </tr>
-    <tr>
-        <td>Contributor's email</td>
-        <td></td>
-        <td>
-            <?php echo $mo_contri_email; ?>
-            <input type="hidden" name="contrib_email" value="<?php echo $mo_contri_email; ?>" />    
         </td>
     </tr>
     <tr>
