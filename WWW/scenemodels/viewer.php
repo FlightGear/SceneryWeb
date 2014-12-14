@@ -36,10 +36,6 @@
     ?>
 
     <script type="text/javascript">
-    function $$(x) {
-        return document.getElementById(x);
-    }
-
     var Models = [
         { file: "get_model_files.php?type=ac&id=<?php echo rawurlencode($id); ?>"}
     ];

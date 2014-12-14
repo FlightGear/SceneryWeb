@@ -108,6 +108,30 @@ $exceptions = $modelChecker->checkAC3DFileArray($_FILES['ac3d_file']) +
         $modelChecker->checkXMLFileArray($_FILES['xml_file']) +
         $modelChecker->checkThumbFileArray($_FILES['mo_thumbfile']);
 
+// PNG Files
+for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
+    if (isset($_FILES['png_file']['name'][$i]) && ($_FILES['png_file']['name'][$i] != '')) {
+        $arrayPNG = array();
+        $arrayPNG['name'] = $_FILES['png_file']['name'][$i];
+        $arrayPNG['type'] = $_FILES['png_file']['type'][$i];
+        $arrayPNG['size'] = $_FILES['png_file']['size'][$i];
+        $arrayPNG['error'] = $_FILES['png_file']['error'][$i];
+        $arrayPNG['tmp_name'] = $_FILES['png_file']['tmp_name'][$i];
+
+        $exceptionsPNG = $modelChecker->checkPNGArray($arrayPNG);
+        
+        // check uploaded file
+        if (count($exceptionsPNG) == 0) {
+            if (!move_uploaded_file($arrayPNG['tmp_name'], $targetPath.$arrayPNG['name'])) {
+                $fatalerror = true;
+                $errormsg .= "<li>There has been an error while moving the file \"".$arrayPNG['name']."\" on the server.</li>"; 
+            }
+        } else {
+            $exceptions += $exceptionsPNG;
+        }
+    }
+}
+
 if (count($exceptions) == 0) {
     // check uploaded file
     if (isset($xmlPath) && !move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) {
@@ -130,56 +154,6 @@ if (count($exceptions) == 0) {
     $fatalerror = true;
     foreach ($exceptions as $ex) {
         $errormsg .= "<li>".$ex->getMessage()."</li>";
-    }
-}
-
-# STEP 3.4 : UPLOAD PNG FILE IN TMP DIRECTORY
-#############################################
-
-for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
-    if (isset($_FILES['png_file']['name'][$i]) && ($_FILES['png_file']['name'][$i] != '')) {
-        $pngName  = $_FILES['png_file']['name'][$i];
-        $pngType  = $_FILES['png_file']['type'][$i];
-        $pngsize  = $_FILES['png_file']['size'][$i];
-        $pngError = $_FILES['png_file']['error'][$i];
-        $pngTmp   = $_FILES['png_file']['tmp_name'][$i];
-
-        if ($pngsize < 2000000) { // check size file
-
-            if ($pngType == 'image/png') { // check type
-
-                if ($pngError != 0) { // If error is detected
-                    $fatalerror = true;
-                    $errormsg .= "<li>There has been an error while uploading the file \"".$pngName."\".</li>";
-                    switch ($pngError) {
-                        case 1:
-                            $errormsg .= "<li>The file \"".$pngName."\" is bigger than this server installation allows.</li>";
-                            break;
-                        case 2:
-                            $errormsg .= "<li>The file \"".$pngName."\" is bigger than this form allows.</li>";
-                            break;
-                        case 3:
-                            $errormsg .= "<li>Only part of the file \"".$pngName."\" was uploaded.</li>";
-                            break;
-                        case 4:
-                            $errormsg .= "<li>No file \"".$pngName."\" was uploaded.</li>";
-                            break;
-                    }
-                }
-                else if (!move_uploaded_file($pngTmp, $targetPath.$pngName)){ // check uploaded file
-                    $fatalerror = true;
-                    $errormsg .= "<li>There has been an error while moving the file \"".$pngName."\" on the server.</li>";
-                }
-            }
-            else {
-                $fatalerror = true;
-                $errormsg .= "<li>The format or extension of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.</li>";
-            }
-        }
-        else {
-            $fatalerror = true;
-            $errormsg .= "<li>Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes).</li>";
-        }
     }
 }
 

@@ -96,7 +96,7 @@ class ModelChecker {
                     break;
             }
 
-            $exceptions[] =new Exception($errormsg);
+            $exceptions[] = new Exception($errormsg);
         }
         
         return $exceptions;
@@ -133,10 +133,10 @@ class ModelChecker {
                     break;
                 default:
                     $errormsg = "There has been an unknown error while uploading the file \"".$ac3dName."\".";
-                break;
+                    break;
             }
             
-            $exceptions[] =new Exception($errormsg);
+            $exceptions[] = new Exception($errormsg);
         }
         
         return $exceptions;
@@ -173,12 +173,53 @@ class ModelChecker {
                     break;
                 default:
                     $errormsg = "There has been an unknown error while uploading the file \"".$thumbName."\".";
-                break;
+                    break;
             }
             
-            $exceptions[] =new Exception($errormsg);
+            $exceptions[] = new Exception($errormsg);
         }
 
+        return $exceptions;
+    }
+    
+    public function checkPNGArray($arrayPNG) {
+        $pngName = $arrayPNG['name'];
+        $exceptions = array();
+        
+        // check size file
+        if ($arrayPNG['size'] >= 2000000) {
+            $exceptions[] = new Exception("Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes).");
+        }
+        
+        // check type
+        if ($arrayPNG['type'] != 'image/png') {
+            $exceptions[] = new Exception("The format of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.");
+        }
+            
+        
+        // If error is detected
+        if ($arrayPNG['error'] != 0) {
+            switch ($arrayPNG['error']) {
+                case 1:
+                    $errormsg = "The file \"".$pngName."\" is bigger than this server installation allows.";
+                    break;
+                case 2:
+                    $errormsg = "The file \"".$pngName."\" is bigger than this form allows.";
+                    break;
+                case 3:
+                    $errormsg = "Only part of the file \"".$pngName."\" was uploaded.";
+                    break;
+                case 4:
+                    $errormsg = "No file \"".$pngName."\" was uploaded.";
+                    break;
+                default:
+                    $errormsg = "There has been an unknown error while uploading the file \"".$pngName."\".";
+                    break;
+            }
+            
+            $exceptions[] = new Exception($errormsg);
+        }
+        
         return $exceptions;
     }
     
