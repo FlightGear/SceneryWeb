@@ -233,7 +233,8 @@ class ModelChecker {
     public function openWorkingDirectory($parentDir) {
         $targetPath = $parentDir . "/static_".random_suffix()."/";
         while (file_exists($targetPath)) {
-            usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
+            // Makes concurrent access impossible: the script has to wait if this directory already exists.
+            usleep(500);
         }
 
         if (!mkdir($targetPath)) {
@@ -244,9 +245,11 @@ class ModelChecker {
     }
     
     public function generateModelFilesPackage($targetDir, $modelFolderPath) {
-        $phar = new PharData($targetDir . '/static.tar');                // Create archive file
-        $phar->buildFromDirectory($modelFolderPath);                        // Fills archive file
-        $phar->compress(Phar::GZ);                                     // Convert archive file to compress file
+        // Create, fill archive file and compress it
+        $phar = new PharData($targetDir . '/static.tar');
+        $phar->buildFromDirectory($modelFolderPath);
+        $phar->compress(Phar::GZ);
+        
         unlink($targetDir . '/static.tar');                              // Delete archive file
         rename($targetDir . '/static.tar.gz', $targetDir.'/static.tgz');   // Rename compress file
 
@@ -254,6 +257,7 @@ class ModelChecker {
         $contents  = fread($handle, filesize($targetDir."/static.tgz"));
         fclose($handle);
         
-        return base64_encode($contents);                    // Dump & encode the file
+        // Dump & encode the file
+        return base64_encode($contents);
     }
 }

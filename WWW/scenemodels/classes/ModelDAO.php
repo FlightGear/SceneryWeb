@@ -100,7 +100,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         
         $row = pg_fetch_assoc($result);
 
-	if (!$row) {
+        if (!$row) {
             throw new Exception("Model ".$modelName." not found!");
         }
         

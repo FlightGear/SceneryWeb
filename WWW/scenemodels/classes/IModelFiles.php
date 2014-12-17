@@ -14,6 +14,9 @@ interface IModelFiles {
 
     public function getACFile();
     
+    /**
+     * Return XML file content, or null if there is no XML
+     */
     public function getXMLFile();
     
     public function getTexturesNames();

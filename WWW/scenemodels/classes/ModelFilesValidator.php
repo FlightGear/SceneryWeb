@@ -56,7 +56,7 @@ class ModelFilesValidator implements Validator {
         if (isset($this->xmlName)) {
             $xmlPath = $this->folderPath . $this->xmlName;
             if (file_exists($xmlPath)) {
-                $exceptions += $this->checkXML($xmlPath, $this->ac3dName);
+                $exceptions += $this->checkXML($xmlPath);
             } else {
                 $exceptions[] = new Exception("XML file not found");
             }
@@ -79,7 +79,7 @@ class ModelFilesValidator implements Validator {
         return $exceptions;
     }
     
-    private function checkXML($xmlPath, $ac3dName) {
+    private function checkXML($xmlPath) {
         $errors = array();
         $this->depth = array();
         $xmlParser = xml_parser_create();
@@ -103,7 +103,7 @@ class ModelFilesValidator implements Validator {
         if (count($errors) == 0) {
             // Check if <path> == $ac3dName
             $xmlcontent = simplexml_load_file($xmlPath);
-            if ($ac3dName != $xmlcontent->path) {
+            if ($this->ac3dName != $xmlcontent->path) {
                 $errors[] = new Exception("The value of the &lt;path&gt; tag in your XML file doesn't match the AC file you provided!");
             }
 
