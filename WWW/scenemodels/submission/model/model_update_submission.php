@@ -156,10 +156,9 @@ include '../../inc/header.php';
 
 ?>
 
-<p class="center">Request #<?=$request->getId()?></p>
+<p class="center">Model UPDATE Request #<?=$request->getId()?></p>
 
-<p class="center">Hi, this is the update model submission form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/model/index_model_update.php.</p>
-<p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
+<p class="center">The following model has passed all (numerous) verifications. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
 <p class="center">Email: <?=$mo_contri_email?></p>
 <p class="center">Comment: <?=$request->getComment()?></p>
@@ -228,15 +227,30 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding XML File</td>
-        <td colspan="2">
+        <td>
+<?php
+    
+            $oldXmlContent = $oldModel->getModelFiles()->getXMLFile();
+            if (!empty($oldXmlContent)) {
+                $geshi = new GeSHi($oldXmlContent, 'xml');
+                $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+                $geshi->set_line_style('background: #fcfcfc;');
+            
+                echo $geshi->parse_code();
+            } else {
+                echo "No XML file.";
+            }
+?>
+        </td>
+        <td>
 <?php
             $xmlContent = $newModelFiles->getXMLFile();
             // Geshi stuff
             if (!empty($xmlContent)) {
-                $language = 'xml';
-                $geshi = new GeSHi($xmlContent, $language);
+                $geshi = new GeSHi($xmlContent, 'xml');
                 $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
                 $geshi->set_line_style('background: #fcfcfc;');
+                
                 echo $geshi->parse_code();
             } else {
                 echo "No XML file submitted.";
