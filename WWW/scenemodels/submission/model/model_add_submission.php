@@ -149,8 +149,7 @@ include '../../inc/header.php';
 
 ?>
 
-<p class="center">Request #<?=$request->getId()?></p>
-<p class="center">Hi, this is the model addition form at http://<?php echo $_SERVER['SERVER_NAME'];?>/submission/model/index_model_add.php.</p>
+<p class="center">Model ADD request #<?=$request->getId()?></p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
 <p class="center">Email: <?=$request->getContributorEmail()?></p>

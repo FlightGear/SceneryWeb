@@ -30,9 +30,9 @@ try {
 if ($action == "check") {
     $page_title = "Automated Objects Pending Requests Form";
     include '../../inc/header.php';
-    echo "<p class=\"center\">Request #". $request->getId()."</p>";
-    echo "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>";
-    echo "<p class=\"center\">Comment: ".$request->getComment()."</p>";
+    echo "<p class=\"center\">Request #". $request->getId()."</p>" .
+         "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>".
+         "<p class=\"center\">Comment: ".$request->getComment()."</p>";
     
     switch (get_class($request)) {
     case "RequestObjectUpdate":
