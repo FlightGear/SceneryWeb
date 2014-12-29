@@ -231,9 +231,7 @@ include '../../inc/header.php';
     <tr>
         <td>Corresponding AC3D File</td>
         <td>
-            <center>
-                <object data="model/index.php?mo_sig=<?=$sig?>" type="text/html" width="720" height="620"/>
-            </center>
+            <object data="model/index.php?mo_sig=<?=$sig?>" type="text/html" width="720" height="620"/>
         </td>
     </tr>
     <tr>
@@ -243,8 +241,7 @@ include '../../inc/header.php';
             $xmlContent = $modelFiles->getXMLFile();
             // Geshi stuff
             if (!empty($xmlContent)) {
-                $language = 'xml';
-                $geshi = new GeSHi($xmlContent, $language);
+                $geshi = new GeSHi($xmlContent, 'xml');
                 $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
                 $geshi->set_line_style('background: #fcfcfc;');
                 echo $geshi->parse_code();
