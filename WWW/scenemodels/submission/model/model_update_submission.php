@@ -281,10 +281,9 @@ include '../../inc/header.php';
                 $height = $tmp[1];
 ?>
                 <a href="<?php echo $texture_file; ?>" rel="lightbox[submission]" />
-                <?php //imagethumb($texture_file) ?>
                 <img src="<?php echo $texture_file_tn; ?>" alt="Texture <?php echo $textureName; ?>" />
 <?php
-                echo $textureName." (Original size: ".$width."x".$height.")</a><br/>";
+                echo $textureName." (Dim: ".$width."x".$height.")</a><br/>";
             }
 ?>
             </center>
