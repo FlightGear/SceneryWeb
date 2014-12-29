@@ -213,16 +213,16 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td colspan="2"><center><a href="model/inc_getfile.php?type=pack&mo_sig=<?php echo $sig; ?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
+        <td colspan="2"><center><a href="model/inc_getfile.php?type=pack&mo_sig=<?=$sig?>">Download the NEW MODEL as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
         <td colspan="2">
             <h3>Original model:</h3>
-            <object data="../../viewer.php?id=<?php echo $oldModelMD->getId(); ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="../../viewer.php?id=<?=$oldModelMD->getId()?>" type="text/html" width="720" height="620"></object>
             <br/>
             <h3>New model:</h3>
-            <object data="model/index.php?mo_sig=<?php echo $sig; ?>" type="text/html" width="720px" height="620px"></object>
+            <object data="model/index.php?mo_sig=<?=$sig?>" type="text/html" width="720" height="620"></object>
         </td>
     </tr>
     <tr>
@@ -260,8 +260,25 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
-        <td colspan="2">
-            <center>
+        <td>
+<?php
+            $texturesNames = $oldModel->getModelFiles()->getTexturesNames();
+            foreach ($texturesNames as $textureName) {
+                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/inc_getfile.php?old=1&type=texture&mo_sig=".$sig."&name=".$textureName;
+                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/submission/model/model/inc_getfile.php?old=1&type=thumbtexture&mo_sig=".$sig."&name=".$textureName;
+
+                $tmp = getimagesize($texture_file);
+                $width  = $tmp[0];
+                $height = $tmp[1];
+?>
+                <a href="<?=$texture_file?>" rel="lightbox[submission]" />
+                <img src="<?=$texture_file_tn?>" alt="Texture <?=$textureName?>" />
+<?php
+                echo $textureName." (Dim: ".$width."x".$height.")</a><br/>";
+            }
+?>
+        </td>
+        <td>
 <?php
             $texturesNames = $newModelFiles->getTexturesNames();
             $png_file_number = count($texturesNames);
@@ -286,7 +303,6 @@ include '../../inc/header.php';
                 echo $textureName." (Dim: ".$width."x".$height.")</a><br/>";
             }
 ?>
-            </center>
         </td>
     </tr>
     <tr>

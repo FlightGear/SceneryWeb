@@ -226,13 +226,13 @@ include '../../inc/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td><center><a href="model/inc_getfile.php?type=pack&mo_sig=<?php echo $sig; ?>">Download the submission as .tar.gz for external viewing.</a></center></td>
+        <td><center><a href="model/inc_getfile.php?type=pack&mo_sig=<?=$sig?>">Download the submission as .tar.gz for external viewing.</a></center></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
         <td>
             <center>
-                <object data="model/index.php?mo_sig=<?php echo $sig; ?>" type="text/html" width="720px" height="620px"/>
+                <object data="model/index.php?mo_sig=<?=$sig?>" type="text/html" width="720" height="620"/>
             </center>
         </td>
     </tr>

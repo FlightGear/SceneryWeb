@@ -56,11 +56,15 @@ if (!empty($_GET['name'])) {
 
 try {
     $request = $requestDaoRO->getRequest($mo_sig);
+    
+    if (isset($_GET['old']) && get_class($request)=="RequestModelUpdate") {
+        $modelfiles = $request->getOldModel()->getModelFiles();
+    } else {
+        $modelfiles = $request->getNewModel()->getModelFiles();
+    }
 } catch (RequestNotFoundException $e) {
     exit;
 }
-
-$modelfiles = $request->getNewModel()->getModelFiles();
 
 switch ($type) {
     case "pack":
