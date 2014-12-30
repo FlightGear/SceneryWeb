@@ -25,7 +25,7 @@
  */
 class FormChecker {
     static public $regex = array(
-        'comment' => "/^[0-9a-z-A-Z\';:!?@\-_\. ]+$/u",
+        'comment' => "/^[0-9a-z-A-Z\';:!?@\-_\. \[\]()]+$/u",
         'stg' => '/^[a-zA-Z0-9\_\.\-\,\/]+$/u',
         'model_filepath' => '/^[a-z0-9_\/.-]$/i',
         'modelid' => '/^[0-9]+$/u',
@@ -44,7 +44,7 @@ class FormChecker {
         'gndelevation' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
         'offset' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
         'heading' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
-        'obtext' => '/^[0-9a-zA-Z_\-. \[\]()]+$/u',
+        'obtext' => '/^[0-9a-zA-Z_\';:\-. \[\]()]+$/u',
         'sig' => '/[0-9a-z]/',
         'pageoffset' => '/^[0-9]+$/u'
        );
