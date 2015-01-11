@@ -1,11 +1,11 @@
 <%
 tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpadding=\"1\" cellspacing=\"1\" rules=\"rows\">"
-lon = req.subprocess_env["GEOIP_LONGITUDE"]
-lat = req.subprocess_env["GEOIP_LATITUDE"]
+lon = req.subprocess_env["GEOIP_LONGITUDE"][0]
+lat = req.subprocess_env["GEOIP_LATITUDE"][0]
 #lon = 006.504496
 #lat = 51.230356
 dims = "width=\"100%\" height=\"450\""
-lightmap = ("<object data=\"http://mapserver.flightgear.org/lightmap/?lon=%s&amp;lat=%s&amp;zoom=12\" %s</object>") % (lon, lat, dims)
+lightmap = ("<object name=\"lightmap\" data=\"http://mapserver.flightgear.org/lightmap/?lon=%s&amp;lat=%s&amp;zoom=12\" %s</object>") % (lon, lat, dims)
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
