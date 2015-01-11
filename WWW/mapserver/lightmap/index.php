@@ -23,10 +23,10 @@
         <script type="text/javascript">
         <!--
 
-//        var lon = <?php print $_REQUEST["lon"]; ?>;
-//        var lat = <?php print $_REQUEST["lat"]; ?>;
-        var lon = <?php print apache_getenv("GEOIP_LONGITUDE"); ?>;
-        var lat = <?php print apache_getenv("GEOIP_LATITUDE"); ?>;
+        var lon = <?php print $_REQUEST["lon"]; ?>;
+        var lat = <?php print $_REQUEST["lat"]; ?>;
+//        var lon = <?php print apache_getenv("GEOIP_LONGITUDE"); ?>;
+//        var lat = <?php print apache_getenv("GEOIP_LATITUDE"); ?>;
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
         var map;
 

@@ -1,11 +1,17 @@
+<%
+tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpadding=\"1\" cellspacing=\"1\" rules=\"rows\">"
+lon = req.subprocess_env["GEOIP_LONGITUDE"]
+lat = req.subprocess_env["GEOIP_LATITUDE"]
+#lon = 006.504496
+#lat = 51.230356
+dims = "width=\"100%\" height=\"450\""
+lightmap = ("<object data=\"http://mapserver.flightgear.org/lightmap/?lon=%s&amp;lat=%s&amp;zoom=12\" %s</object>") % (lon, lat, dims)
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
-<%
-tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpadding=\"1\" cellspacing=\"1\" rules=\"rows\">"
-%>
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -44,7 +50,7 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
     <%= tablehead %>
         <tr>
             <td>
-                <object data="http://mapserver.flightgear.org/lightmap/?lon=-117.12099&amp;lat=32.73356&amp;zoom=12" width="100%" height="450"></object>
+<%=("%s") % (lightmap)%>
             </td>
         </tr>
         <tr>
