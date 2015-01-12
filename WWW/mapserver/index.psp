@@ -6,7 +6,7 @@ lat = req.subprocess_env["GEOIP_LATITUDE"][0]
 #lat = 51.230356
 adims = "style=\"display: block; z-index: 1;\""
 odims = "width=\"100%\" height=\"450\" style=\"z-index: -1; pointer-events: none;\""
-lightmap = ("<a href=\"http://mapserver.flightgear.org/map/?lon=%s&amp;lat=%s&amp;zoom=12\" %s> \
+lightmap = ("<a target=\"_new\" href=\"http://mapserver.flightgear.org/map/?lon=%s&amp;lat=%s&amp;zoom=12\" %s> \
 <object name=\"lightmap\" data=\"http://mapserver.flightgear.org/lightmap/?lon=%s&amp;lat=%s&amp;zoom=12\" %s</object> \
 </a>") % (lon, lat, adims, lon, lat, odims)
 %>
