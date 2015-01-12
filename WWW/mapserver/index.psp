@@ -27,7 +27,7 @@ lightmap = ("<object name=\"lightmap\" data=\"http://mapserver.flightgear.org/li
   <div id="content">  
   <div class="titleback">
     <img src="http://scenery.flightgear.org/img/banner.jpg" alt="Flightgear logo"/>
-  </div>
+  </div>  <!-- titleback -->
   <div id="content2">
 
 <!--    <h3 class="warning">Service unavailable on 2013-10-12 due to database update.</h3> -->
@@ -61,7 +61,7 @@ lightmap = ("<object name=\"lightmap\" data=\"http://mapserver.flightgear.org/li
             </td>
         </tr>
     </table>  
-</div>
+</div>  <!-- paragraph_bloc lightmap -->
 
 <div class="paragraph_bloc">
     <a href="http://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport codes From Wikipedia</a>
@@ -75,7 +75,7 @@ lightmap = ("<object name=\"lightmap\" data=\"http://mapserver.flightgear.org/li
     <br />
     TileCache: <a href="http://mapserver.flightgear.org/tc">http://mapserver.flightgear.org/tc</a>
     (EPSG:900913 !!)
-</div>
+</div>  <!-- paragraph_bloc references -->
 
 <div class="paragraph_bloc">
     <%= tablehead %>
@@ -155,7 +155,7 @@ lightmap = ("<object name=\"lightmap\" data=\"http://mapserver.flightgear.org/li
     </form>
 
   </table>
-</div>
+</div>  <!-- paragraph_bloc tablehead -->
 
 <div class="paragraph_bloc">
   In order to retrieve airfield locations, please use this syntax:<br />
@@ -166,10 +166,10 @@ lightmap = ("<object name=\"lightmap\" data=\"http://mapserver.flightgear.org/li
   Read about the background of the whole effort. The pages are a bit
   outdated but the bottom line is still valid
   <br />
-  <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a></div>
-</div>
+  <a href="http://www.custom-scenery.org/Landcover-DB.212.0.html">Custom-Scenery.org: Landcover DB</a>
+</div>  <!-- paragraph_bloc footer -->
 
-  </div>
-  </div>
+  </div>  <!-- content2 -->
+  </div>  <!-- content -->
   </body>
 </html>
