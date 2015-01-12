@@ -25,8 +25,6 @@
 
         var lon = <?php print $_REQUEST["lon"]; ?>;
         var lat = <?php print $_REQUEST["lat"]; ?>;
-//        var lon = <?php print apache_getenv("GEOIP_LONGITUDE"); ?>;
-//        var lat = <?php print apache_getenv("GEOIP_LATITUDE"); ?>;
         var zoom = <?php print $_REQUEST["zoom"]; ?>;
         var map;
 
@@ -41,18 +39,14 @@
                 maxResolution: 156543.0339,
                 maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
                 controls:[
-                    new OpenLayers.Control.PanZoom(),
                     new OpenLayers.Control.Attribution(),
-                    new OpenLayers.Control.Permalink('permalink'),
-                    new OpenLayers.Control.MouseDefaults()
-                ],
+                    new OpenLayers.Control.Permalink('permalink')
+                ]
             };
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
             map = new OpenLayers.Map('map', options);
 
-            tarmac.setVisibility(false);
-            sceneobject.setVisibility(false);
-            map.addLayers([customscene, v0cover, icubed, tarmac, osmlines, airfield, sceneobject]);
+            map.addLayers([customscene, osmlines, airfield]);
 
             var ll = new OpenLayers.LonLat(lon, lat), zoom;
             ll.transform(projLonLat, projMercator);
