@@ -22,8 +22,8 @@
         <title>FlightGear Land Web Map</title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <meta name="robots" content="index, nofollow" />
-        <meta name="keywords" content="VMap0, VMap1, GSHHS, PGS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
-        <meta name="description" content="TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, PGS, SWBD and NIMA DAFIF Airfield database." />
+        <meta name="keywords" content="VMap0, VMap1, GSHHS, PGS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, UCSD, TelaScience" />
+        <meta name="description" content="UCSD / TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, PGS, SWBD and NIMA DAFIF Airfield database." />
 
         <style type="text/css">
             #map {

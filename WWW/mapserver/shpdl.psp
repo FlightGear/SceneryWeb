@@ -35,10 +35,10 @@ else:
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta name="robots" content="index, nofollow" />
-    <meta name="keywords" content="VMap0, VMap1, GSHHS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, TelaScience" />
-    <meta name="description" content="TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, SWBD and NIMA DAFIF Airfield database." />
+    <meta name="keywords" content="VMap0, VMap1, GSHHS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, UCSD, TelaScience" />
+    <meta name="description" content="UCSD / TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, SWBD and NIMA DAFIF Airfield database." />
     <link rel="stylesheet" href="http://scenery.flightgear.org/css/style.css" type="text/css"/>
-    <title>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</title>
+    <title>UCSD / TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</title>
   </head>
 
   <body style="margin: 0px;" onload="init()">
@@ -51,7 +51,7 @@ else:
 
 <!--    <h3 class="warning">Service temporarily unavailable due to database update.</h3> -->
 
-    <h3>TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</h3>
+    <h3>UCSD / TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</h3>
 
 <!--    <p>
     <%  import time  %>
