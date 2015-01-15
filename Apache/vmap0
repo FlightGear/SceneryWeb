@@ -1,6 +1,7 @@
 <VirtualHost *:80>
     ServerName vmap0.tiles.osgeo.org 
-#    DocumentRoot /var/www/tiles/vmap0
+    ServerAlias vmap0.optiputer.net
+    DocumentRoot /var/www/tiles/vmap0
 
     ScriptAlias /wms /var/www/tiles/vmap0/wms.cgi
     <Directory /var/www/tiles/vmap0>
