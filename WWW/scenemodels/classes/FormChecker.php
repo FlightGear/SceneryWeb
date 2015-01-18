@@ -19,9 +19,11 @@
  */
 
 /**
- * Description of FormChecker
+ * Utility class containing checkers for forms
  *
- * @author julien
+ * @author Julien Nguyen <julien.nguyen3@gmail.com>
+ * @copyright  2014 - FlightGear Team
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 class FormChecker {
     static public $regex = array(
@@ -49,41 +51,60 @@ class FormChecker {
         'pageoffset' => '/^[0-9]+$/u'
        );
 
-    // Checks if the id is a model group id
-    // ================================================
+    /**
+     * Checks if the id is a valid model group id
+     * @param string $idToCheck id to check
+     * @return bool true if the given id is a model group id, false otherwise
+     */
     static public function isModelGroupId($idToCheck) {
         return preg_match(self::$regex['modelgroupid'], $idToCheck);
     }
 
-    // Checks if the id is a model id
-    // ================================================
+    /**
+     * Checks if the id is a valid model id
+     * @param string $idToCheck id to check
+     * @return bool true if the given id is a model id, false otherwise
+     */
     static public function isModelId($idToCheck) {
         return preg_match(self::$regex['modelid'], $idToCheck)
                && $idToCheck > 0;
     }
 
-    // Checks if the name is a model name
-    // ================================================
+    /**
+     * Checks if the name is a valid model name (checks if it has only allowed
+     * characters)
+     * @param string $name name to check
+     * @return bool true if the name is a model name, false otherwise
+     */
     static public function isModelName($name) {
         return preg_match(self::$regex['modelname'], $name);
     }
 
-    // Checks if the id is an object id
-    // ================================================
+    /**
+     * Checks if the id is an valid object id value
+     * @param string $idToCheck
+     * @return bool true if the id can be an object
+     */
     static public function isObjectId($idToCheck) {
         return $idToCheck > 0
                && preg_match(self::$regex['objectid'], $idToCheck);
     }
 
-    // Checks if the id is an author id
-    // ================================================
+    /**
+     * Checks if the id is a valid author id
+     * @param string $idToCheck id to check
+     * @return bool true if the id can be an author id, false otherwise
+     */
     static public function isAuthorId($idToCheck) {
         return $idToCheck > 0
                && preg_match(self::$regex['authorid'], $idToCheck);
     }
 
-    // Checks if the given variable is a latitude
-    // ================================================
+    /**
+     * Checks if the given variable is a valid latitude
+     * @param string $value value to check
+     * @return bool true if the value is a valid latitude, false otherwise
+     */
     static public function isLatitude($value) {
         return strlen($value) <= 20
                && $value <= 90
@@ -91,8 +112,11 @@ class FormChecker {
                && preg_match(self::$regex['long_lat'], $value);
     }
 
-    // Checks if the given variable is a longitude
-    // ================================================
+    /**
+     * Checks if the given variable is a longitude
+     * @param string $value value to check
+     * @return bool
+     */
     static public function isLongitude($value) {
         return strlen($value) <= 20
                && $value <= 180
@@ -100,8 +124,11 @@ class FormChecker {
                && preg_match(self::$regex['long_lat'], $value);
     }
 
-    // Checks if the given variable is a country id
-    // ================================================
+    /**
+     * Checks if the given variable is a country id
+     * @param string $value value to check
+     * @return bool
+     */
     static public function isCountryId($value) {
         return $value != ""
                && preg_match(self::$regex['countryid'], $value);
