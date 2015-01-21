@@ -113,9 +113,9 @@ class FormChecker {
     }
 
     /**
-     * Checks if the given variable is a longitude
+     * Checks if the given variable is a valid longitude
      * @param string $value value to check
-     * @return bool
+     * @return bool true if the value is a valid longitude, false otherwise
      */
     static public function isLongitude($value) {
         return strlen($value) <= 20
@@ -125,24 +125,30 @@ class FormChecker {
     }
 
     /**
-     * Checks if the given variable is a country id
+     * Checks if the given parameter is a valid country id
      * @param string $value value to check
-     * @return bool
+     * @return bool true if the given parameter is a valid country id, false otherwise
      */
     static public function isCountryId($value) {
         return $value != ""
                && preg_match(self::$regex['countryid'], $value);
     }
 
-    // Checks if the given variable is a ground elevation
-    // ================================================
+    /**
+     * Checks if the given variable is a valid ground elevation
+     * @param string $value value to check
+     * @return bool true if the value is a valid ground elevation
+     */
     static public function isGndElevation($value) {
         return strlen($value) <= 20
                && preg_match(self::$regex['gndelevation'], $value);
     }
 
-    // Checks if the given variable is an offset
-    // ================================================
+    /**
+     * Checks if the given variable is a valid offset elevation
+     * @param string $value value to check
+     * @return bool  if the value is a valid offset elevation
+     */
     static public function isOffset($value) {
         return strlen($value) <= 20
                && preg_match(self::$regex['offset'], $value)
@@ -150,7 +156,7 @@ class FormChecker {
                && $value > -1000;
     }
 
-    // Checks if the given variable is a heading
+    // Checks if the given variable is a valid heading
     // ================================================
     static public function isHeading($value) {
         return strlen($value) <= 20
@@ -159,21 +165,21 @@ class FormChecker {
                && $value >= 0;
     }
 
-    // Checks if the given variable is a comment
+    // Checks if the given variable is a valid comment
     // ================================================
     static public function isComment($value) {
         return strlen($value) <= 100
                && preg_match(self::$regex['comment'], $value);
     }
 
-    // Checks if the given variable is an email
+    // Checks if the given variable is a valid email address
     // ================================================
     static public function isEmail($value) {
         return strlen($value) <= 50
                && preg_match(self::$regex['email'], $value);
     }
 
-    // Checks if the given variable is an sig id
+    // Checks if the given variable is a valid sig id
     // ================================================
     static public function isSig($value) {
         return strlen($value) == 64

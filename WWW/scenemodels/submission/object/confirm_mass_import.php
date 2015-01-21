@@ -138,7 +138,7 @@ if (!$error) {
     $tab_lines = array_slice($tab_lines, 0, 100);       // Selects the 100 first elements of the tab (the 100 first lines not blank)
 
     $nb_lines = count($tab_lines);
-    $global_ko = false;                                     // Validates - or no - the right to go further.
+    $global_ko = false;                                 // Validates - or no - the right to go further.
     $cpt_err = 0;                                       // Counts the number of errors.
 
     if ($step == 1) {

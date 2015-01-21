@@ -12,15 +12,28 @@ interface IModelFiles {
 
     public function getPackage();
 
+    /**
+     * Gets AC3D file content
+     * @return string AC file content
+     */
     public function getACFile();
     
     /**
-     * Return XML file content, or null if there is no XML
+     * Gets XML file content, or null if there is no XML
+     * @return string XML file content, or null if there is no XML
      */
     public function getXMLFile();
     
+    /**
+     * Gets an array of all textures filenames
+     * @return array[string] array of filenames
+     */
     public function getTexturesNames();
     
+    /**
+     * Gets the texture content
+     * @param string $filename filename of the texture
+     */
     public function getTexture($filename);
 }
 
