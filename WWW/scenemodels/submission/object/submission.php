@@ -98,8 +98,9 @@ if ($action == "check") {
         $objectToDel = $request->getObjectToDelete();
         $modelMD = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
 
-        echo "<table><tr><th>Longitude</th><th>Latitude</th><th>Country</th><th>Elevation</th><th>Elev. offset</th><th>True orientation</th><th>Model</th><th>Map</th></tr>";
+        echo "<table><tr><th>Obj. ID</th><th>Longitude</th><th>Latitude</th><th>Country</th><th>Elevation</th><th>Elev. offset</th><th>True orientation</th><th>Model</th><th>Map</th></tr>";
         echo "<tr>" .
+             "<td><center>".$objectToDel->getId()."</center></td>" .
              "<td><center>".$objectToDel->getLongitude()."</center></td>" .
              "<td><center>".$objectToDel->getLatitude()."</center></td>" .
              "<td><center>".$objectToDel->getCountry()->getName()."</center></td>" .
