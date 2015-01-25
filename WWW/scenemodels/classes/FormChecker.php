@@ -179,8 +179,11 @@ class FormChecker {
                && preg_match(self::$regex['email'], $value);
     }
 
-    // Checks if the given variable is a valid sig id
-    // ================================================
+    /**
+     * Checks if the given variable is a valid sig id
+     * @param string $value
+     * @return bool
+     */
     static public function isSig($value) {
         return strlen($value) == 64
                && preg_match(self::$regex['sig'], $value);
@@ -216,8 +219,11 @@ class FormChecker {
         return preg_match(self::$regex['filename'], $filename);
     }
    
-    // Checks if the given variable is an obtext
-    // ================================================
+    /**
+     * Checks if the given variable is a valid object text
+     * @param string $value value to check
+     * @return bool true if the value is a valid object text, false otherwise
+     */
     static public function isObtext($value) {
         return strlen($value) > 0
                 && strlen($value) <= 100

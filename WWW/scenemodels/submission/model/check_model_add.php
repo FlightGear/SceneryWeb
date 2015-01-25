@@ -432,9 +432,11 @@ else {
         echo "Want to submit another model or position?<br /> <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/\">Click here to go back to the submission page.</a></p>";
 
         // Sending mail if there is no false and SQL was correctly inserted.
-        date_default_timezone_set('UTC');                                // Sets the time to UTC.
+        // Sets the time to UTC.
+        date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
-        $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));   // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+        // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
+        $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
         $host = gethostbyaddr($ipaddr);
         
         $emailSubmit = EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);

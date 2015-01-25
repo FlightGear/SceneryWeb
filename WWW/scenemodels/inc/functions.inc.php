@@ -2,14 +2,13 @@
 
 // Connects Read Only to the database
 // ==================================
-
 function connect_sphere_r() {
     global $dbhost;
     global $dbname;
     global $dbuser;
     global $dbpass;
     
-    // Connecting silently
+    // Connecting to database
     $resource_r = pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
 
     // If could not connect to the database
@@ -18,14 +17,17 @@ function connect_sphere_r() {
         include "error_page.php";
         exit;
     } else {
-        return $resource_r; // Returning resource_r
+        // Returning connection resource
+        return $resource_r;
     }
 }
 
 
-// Computes the STG heading into a true heading before submission to the database.
-// ===============================================================================
-
+/**
+ * Computes the STG heading into a true heading before submission to the database.
+ * @param float $stg_heading STG heading to convert
+ * @return float true heading
+ */
 function heading_stg_to_true($stg_heading) {
     if ($stg_heading > 180) {
         $true_heading = 540 - $stg_heading;
@@ -36,9 +38,11 @@ function heading_stg_to_true($stg_heading) {
     return $true_heading;
 }
 
-// Computes the true heading into a STG heading (for edition purposes).
-//=====================================================================
-
+/**
+ * Computes the true heading into a STG heading (for edition purposes).
+ * @param float $true_heading true heading to convert
+ * @return float STG heading
+ */
 function heading_true_to_stg($true_heading) {
     if ($true_heading > 180) {
         $stg_heading = 540 - $true_heading;
@@ -61,7 +65,7 @@ function show_file_extension($filepath) {
     if (count($pattern) > 1) {
         $filenamepart = $pattern[count($pattern)-1][0];
         preg_match('/[^?]*/', $filenamepart, $matches);
-        return($matches[0]);
+        return $matches[0];
     }
 }
 

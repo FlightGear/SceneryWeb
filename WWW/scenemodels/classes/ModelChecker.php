@@ -250,8 +250,10 @@ class ModelChecker {
         $phar->buildFromDirectory($modelFolderPath);
         $phar->compress(Phar::GZ);
         
-        unlink($targetDir . '/static.tar');                              // Delete archive file
-        rename($targetDir . '/static.tar.gz', $targetDir.'/static.tgz');   // Rename compress file
+        // Delete archive file
+        unlink($targetDir . '/static.tar');
+        // Rename compress file
+        rename($targetDir . '/static.tar.gz', $targetDir.'/static.tgz');
 
         $handle    = fopen($targetDir."/static.tgz", "r");
         $contents  = fread($handle, filesize($targetDir."/static.tgz"));
