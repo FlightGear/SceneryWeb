@@ -238,7 +238,10 @@ def fn_check_svn(path, file, md5sum):
             os.makedirs(svn_dirpath)
             svnclient.add(svn_dirpath)
         shutil.copy(fullpath, svn_dirpath)
-        svnclient.add(svn_fullpath)
+        try:
+            svnclient.add(svn_fullpath)
+        except:
+            print("Failed to add file %s to SVN" % svn_fullpath)
         svn_newfiles.append(fullpath)
         svn_syncdirs.append(path)
     else:
