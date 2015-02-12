@@ -235,6 +235,7 @@ class EmailContentFactory {
                     "Ground elevation: " .$objectToDel->getGroundElevation(). "\r\n" .
                     "Elevation offset: " .$objectToDel->getElevationOffset(). "\r\n" .
                     "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
+                    "Object ID       : " .$objectToDel->getId(). "\r\n" .
                     "Comment:          " .strip_tags($request->getComment()) . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDel->getLongitude() ."&lat=". $objectToDel->getLatitude() ."&zoom=14\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
