@@ -373,8 +373,8 @@ else:
                 <select name="layer">
                     <option value='cs' [cs_select]> Custom Scenery (layer=cs)
                     <option value='v0' [v0_select]> VMap0 (Ed.5, layer=v0)
-                    <option value='clc00' [clc00_select]> CLC2000v16 (layer=clc00)
-                    <option value='clc06' [clc06_select]> CLC2006v16 (layer=clc06)
+                    <option value='clc00v16' [clc00v16_select]> CLC2000v16 (layer=clc00v16)
+                    <option value='clc06v16' [clc06v16_select]> CLC2006v16 (layer=clc06v16)
                     <option value='osm' [osm_select]> OSM (#CURRENTOSMVERSION#, layer=osm)
                     <option value='apt' [apt_select]> Apt Dat (2013.10, layer=apt)
                 </select>

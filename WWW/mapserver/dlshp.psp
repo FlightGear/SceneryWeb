@@ -24,7 +24,7 @@ db_cur = db_conn.cursor()
 url_params = {}
 url_params['mylayer'] = ("%(layer)s" % form)
 
-validlayers = ['cs', 'v0', 'clc00', 'clc06', 'osm', 'apt']
+validlayers = ['cs', 'v0', 'clc00v16', 'clc06v16', 'osm', 'apt']
 if url_params['mylayer'] not in validlayers:
     exit(1)
 
