@@ -3278,7 +3278,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_urban USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_urban USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3311,7 +3311,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_town USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_town USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3344,7 +3344,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_industrial USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_industrial USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3377,7 +3377,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_transport USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_transport USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3410,7 +3410,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_port USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_port USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3443,7 +3443,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_airport USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_airport USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3476,7 +3476,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_openmining USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_openmining USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3509,7 +3509,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_dump USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_dump USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3542,7 +3542,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_construction USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_construction USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3575,7 +3575,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_greenspace USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_greenspace USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3608,7 +3608,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3641,7 +3641,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_drycrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_drycrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3674,7 +3674,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3707,7 +3707,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_rice USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_rice USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3740,7 +3740,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_vineyard USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_vineyard USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3773,7 +3773,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_orchard USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_orchard USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3806,7 +3806,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_olives USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_olives USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3839,7 +3839,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3872,7 +3872,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3905,7 +3905,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3938,7 +3938,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -3971,7 +3971,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_agroforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_agroforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4004,7 +4004,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4037,7 +4037,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4070,7 +4070,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4103,7 +4103,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_grassland USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_grassland USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4136,7 +4136,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_heath USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_heath USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4169,7 +4169,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4202,7 +4202,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_scrub USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_scrub USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4235,7 +4235,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_sand USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_sand USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4268,7 +4268,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_rock USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_rock USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4301,7 +4301,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_barrencover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_barrencover USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4334,7 +4334,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_burnt USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_burnt USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4367,7 +4367,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_glacier USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_glacier USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4400,7 +4400,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_marsh USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_marsh USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4433,7 +4433,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_bog USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_bog USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4466,7 +4466,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4499,7 +4499,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_saline USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_saline USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4532,7 +4532,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_littoral USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_littoral USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4565,7 +4565,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_watercourse USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_watercourse USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4598,7 +4598,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_lake USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_lake USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4631,7 +4631,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_lagoon USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_lagoon USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4664,7 +4664,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc00_estuary USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc00v16_estuary USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4697,7 +4697,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_urban USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_urban USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4730,7 +4730,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_town USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_town USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4763,7 +4763,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_industrial USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_industrial USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4796,7 +4796,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_transport USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_transport USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4829,7 +4829,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_port USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_port USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4862,7 +4862,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_airport USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_airport USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4895,7 +4895,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_openmining USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_openmining USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4928,7 +4928,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_dump USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_dump USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4961,7 +4961,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_construction USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_construction USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -4994,7 +4994,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_greenspace USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_greenspace USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5027,7 +5027,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_golfcourse USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5060,7 +5060,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_drycrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_drycrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5093,7 +5093,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_irrcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5126,7 +5126,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_rice USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_rice USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5159,7 +5159,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_vineyard USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_vineyard USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5192,7 +5192,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_orchard USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_orchard USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5225,7 +5225,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_olives USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_olives USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5258,7 +5258,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_cropgrass USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5291,7 +5291,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_mixedcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5324,7 +5324,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_complexcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5357,7 +5357,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_naturalcrop USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5390,7 +5390,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_agroforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_agroforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5423,7 +5423,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_deciduousforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5456,7 +5456,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_evergreenforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5489,7 +5489,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_mixedforest USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5522,7 +5522,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_grassland USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_grassland USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5555,7 +5555,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_heath USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_heath USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5588,7 +5588,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_sclerophyllous USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5621,7 +5621,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_scrub USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_scrub USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5654,7 +5654,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_sand USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_sand USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5687,7 +5687,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_rock USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_rock USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5720,7 +5720,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_barrencover USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_barrencover USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5753,7 +5753,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_burnt USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_burnt USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5786,7 +5786,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_glacier USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_glacier USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5819,7 +5819,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_marsh USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_marsh USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5852,7 +5852,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_bog USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_bog USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5885,7 +5885,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_saltmarsh USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5918,7 +5918,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_saline USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_saline USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5951,7 +5951,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_littoral USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_littoral USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -5984,7 +5984,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_watercourse USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_watercourse USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -6017,7 +6017,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_lake USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_lake USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -6050,7 +6050,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_lagoon USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_lagoon USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -6083,7 +6083,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM clc06_estuary USING UNIQUE ogc_fid USING SRID=4326"
+    DATA "wkb_geometry FROM clc06v16_estuary USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
