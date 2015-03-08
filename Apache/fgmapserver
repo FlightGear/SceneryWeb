@@ -14,7 +14,7 @@
     SetEnvIfNoCase User-Agent "^MJ12bot(.*)1\.0\.8" stay_out
     <Location />
         AddOutputFilterByType SUBSTITUTE text/html application/javascript
-        Substitute s/#CURRENTOSMVERSION#/2014-11-26/nq
+        Substitute s/#CURRENTOSMVERSION#/2015-03-07/nq
         Order Allow,Deny
         Deny from env=stay_out
         Allow from all
