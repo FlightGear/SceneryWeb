@@ -219,6 +219,15 @@ def fn_exportModels():
                     fn_check_svn(mopath, filename, md5sum)
     print("Models done")
 
+    sql = "SELECT DISTINCT m.mo_id, g.mg_path, m.mo_path AS fullpath \
+        FROM fgs_objects AS o \
+        LEFT JOIN fgs_models AS m ON o.ob_model = m.mo_id \
+        LEFT JOIN fgs_modelgroups AS g ON m.mo_shared = g.mg_id \
+        WHERE m.mo_shared > 0 \
+            AND ST_Within(o.wkb_geometry, \
+                ST_GeomFromText('POLYGON((-123 37, -121 37, -121 38, -123 38, -123 37))', 4326)) \
+        ORDER BY g.mg_path, m.mo_path;"
+
 def fn_check_svn(path, file, md5sum):
     '''
     Runs once per file.
