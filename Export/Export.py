@@ -175,8 +175,10 @@ def fn_exportCommon():
         SELECT DISTINCT %s FROM fgs_signs \
         UNION \
         SELECT DISTINCT concat('Models/', g.mg_path) AS path \
-        FROM fgs_models AS m, fgs_modelgroups AS g \
-        WHERE m.mo_shared > 0 AND m.mo_shared = g.mg_id \
+        FROM fgs_models AS m \
+        LEFT JOIN fgs_modelgroups AS g \
+            ON m.mo_shared = g.mg_id \
+        WHERE m.mo_shared > 0 \
         ORDER BY path;" % (sqlPath, sqlPath)
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
@@ -186,16 +188,20 @@ def fn_exportCommon():
 def fn_exportModels():
     sql = "SELECT m.mo_id AS id, concat('Objects/', fn_SceneDir(o.wkb_geometry), '/', fn_SceneSubDir(o.wkb_geometry), '/') AS path, \
             m.mo_modelfile AS modelfile \
-        FROM fgs_objects AS o, fgs_models AS m \
+        FROM fgs_objects AS o \
+        LEFT JOIN fgs_models AS m \
+            ON o.ob_model = m.mo_id \
         WHERE LENGTH(m.mo_modelfile) > 15 \
             AND o.ob_valid IS TRUE AND o.ob_tile IS NOT NULL \
-            AND o.ob_model = m.mo_id AND o.ob_gndelev > -9999 AND m.mo_shared = 0 \
+            AND o.ob_gndelev > -9999 AND m.mo_shared = 0 \
         UNION \
         SELECT m.mo_id AS id, concat('Models/', g.mg_path) AS path, \
-            m.mo_modelfile AS modelfile\
-        FROM fgs_models AS m, fgs_modelgroups AS g \
+            m.mo_modelfile AS modelfile \
+        FROM fgs_models AS m \
+        LEFT JOIN fgs_modelgroups AS g \
+            ON m.mo_shared = g.mg_id \
         WHERE LENGTH(m.mo_modelfile) > 15 \
-            AND m.mo_shared > 0 AND m.mo_shared = g.mg_id \
+            AND m.mo_shared > 0 \
         ORDER BY path, id;"
     db_result = fn_pgexec(sql, "r")
     for row in db_result:
@@ -221,8 +227,10 @@ def fn_exportModels():
 
     sql = "SELECT DISTINCT m.mo_id, g.mg_path, m.mo_path AS fullpath \
         FROM fgs_objects AS o \
-        LEFT JOIN fgs_models AS m ON o.ob_model = m.mo_id \
-        LEFT JOIN fgs_modelgroups AS g ON m.mo_shared = g.mg_id \
+        LEFT JOIN fgs_models AS m \
+            ON o.ob_model = m.mo_id \
+        LEFT JOIN fgs_modelgroups AS g \
+            ON m.mo_shared = g.mg_id \
         WHERE m.mo_shared > 0 \
             AND ST_Within(o.wkb_geometry, \
                 ST_GeomFromText('POLYGON((-123 37, -121 37, -121 38, -123 38, -123 37))', 4326)) \
