@@ -158,16 +158,14 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newObjects = $request->getNewObjects();
         
         // Proceed on with the request generation
-        $reqStr = "";
-        $separator = "";
+        $reqArray = array();
+        
         // For each line, add the data content to the request
         foreach ($newObjects as $newObj) {
-            $reqStr .= $separator . $this->serializeObject($newObj);
-
-            $separator = "|||";
+            $reqArray[] = $this->serializeObject($newObj);
         }
-                
-        return $reqStr;
+        
+        return json_encode($reqArray);
     }
     
     private function serializeRequestModelAdd($request) {
@@ -254,8 +252,13 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
             $request = $this->getRequestObjectUpdateFromRow($requestQuery);
         }
 
-        // Add object(s) request
+        // Add object request
         if (strpos($requestQuery,"OBJECT_ADD") === 0) {
+            $request = $this->getRequestMassiveObjectsAddFromRow($requestQuery);
+        }
+        
+        // Add massive objects request
+        if (json_decode($requestQuery) != null) {
             $request = $this->getRequestMassiveObjectsAddFromRow($requestQuery);
         }
         
@@ -342,8 +345,8 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestMassiveObjectsAddFromRow($requestQuery) {
-        // Separating the data based on the ST_PointFromText existence
-        $objRequests = explode("|||", $requestQuery);
+        // Separating the data
+        $objRequests = json_decode($requestQuery);
         $newObjects = array();
         
         foreach ($objRequests as $objRequest) {
