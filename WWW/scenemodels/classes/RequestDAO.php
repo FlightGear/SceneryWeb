@@ -254,7 +254,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
 
         // Add object request
         if (strpos($requestQuery,"OBJECT_ADD") === 0) {
-            $request = $this->getRequestMassiveObjectsAddFromRow($requestQuery);
+            $request = $this->getRequestMassiveObjectsAddFromRow('{'.$requestQuery.'}');
         }
         
         // Add massive objects request
