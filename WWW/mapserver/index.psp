@@ -33,7 +33,7 @@ lightmap = ("<a target=\"_new\" href=\"http://mapserver.flightgear.org/map/?lon=
   </div>  <!-- titleback -->
   <div id="content2">
 
-<!--    <h3 class="warning">Service unavailable on 2013-10-12 due to database update.</h3> -->
+    <h3 class="warning">Service degraded, starting 2015-04-04 late evening (UTC) for approx 24 hours due to database upgrade.</h3>
 
     <h3>UCSD / TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h3>
 
