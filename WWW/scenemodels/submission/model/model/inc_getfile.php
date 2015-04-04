@@ -16,18 +16,18 @@ function displayThumbnail($textureContent) {
     
     if ($width>256) {
         // calculate thumbnail size
-        $new_width = 256;
-        $new_height = floor( $height * $new_width / $width );
+        $newWidth = 256;
+        $newHeight = floor( $height * $newWidth / $width );
 
         // create a new temporary image
-        $tmp_img = imagecreatetruecolor( $new_width, $new_height );
+        $tmpImg = imagecreatetruecolor( $newWidth, $newHeight );
 
         // copy and resize old image into new image 
-        imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+        imagecopyresized( $tmpImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height );
 
         // Display the PNG directly to the browser
-        imagepng($tmp_img);
-        imagedestroy($tmp_img);
+        imagepng($tmpImg);
+        imagedestroy($tmpImg);
     }
     else {
         echo $textureContent;

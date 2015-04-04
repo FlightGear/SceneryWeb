@@ -227,8 +227,6 @@ else if ($action == "Reject") {
 
     $emailSubmit = EmailContentFactory::getObjectRejectedEmailContent($request, $comment);
     $emailSubmit->sendEmail($to, true);
-
-    exit;
 }
 // Sending the visitor elsewhere if he has no idea what he's doing here.
 else {
