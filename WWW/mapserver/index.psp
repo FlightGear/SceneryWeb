@@ -76,6 +76,8 @@ lightmap = ("<a target=\"_new\" href=\"http://mapserver.flightgear.org/map/?lon=
     <br />
     WFS: <a href="http://mapserver.flightgear.org/ms?Service=WFS&amp;Version=1.0.0&amp;request=GetCapabilities">http://mapserver.flightgear.org/ms?Service=WFS&amp;Version=1.0.0&amp;request=GetCapabilities</a>
     <br />
+    WCS: <a href="http://mapserver.flightgear.org/ms?Service=WCS&amp;Version=1.0.0&amp;request=GetCapabilities">http://mapserver.flightgear.org/ms?Service=WCS&amp;Version=1.0.0&amp;request=GetCapabilities</a>
+    <br />
     TileCache: <a href="http://mapserver.flightgear.org/tc">http://mapserver.flightgear.org/tc</a>
     (EPSG:900913 !!)
 </div>  <!-- paragraph_bloc references -->
