@@ -86,6 +86,10 @@ MAP
       "wms_abstract" "This is the UMN MapServer frontend to the FlightGear World Custom Scenery Landcover-DB. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
       "wms_accessconstraints" "none"
       "wms_srs" "EPSG:4326 EPSG:900913"
+      "wms_contactperson" "Martin Spott"
+      "wms_contactorganization" "telascience and ucsd"
+      "wms_contactposition" "grunt"
+      "wms_contactelectronicmailaddres" "martin@mapserver.flightgear.org"
 # Fuer's Europaeische Referenz-System
 #      WMS_SRS "EPSG:3035"
       "wfs_title" "FlightGear Landcover-DB"
