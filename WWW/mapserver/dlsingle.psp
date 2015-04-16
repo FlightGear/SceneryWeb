@@ -74,13 +74,14 @@ if dlarea > 144:
 url_params['ll_geometry'] = ("%(xmin)s %(ymin)s" % form)
 url_params['ur_geometry'] = ("%(xmax)s %(ymax)s" % form)
 url_params['bbox'] = ("%(ll_geometry)s, %(ur_geometry)s" % url_params)
+url_params['client'] = req.get_remote_host(apache.REMOTE_NOLOOKUP)
 
 # After everything's verified, store an entry in the 'download' table for
 # retrieval and execution via the '<basename>.sh' script.
 #
-sql = "INSERT INTO download (wkb_geometry, feature, requestdate, single) VALUES \
+sql = "INSERT INTO download (wkb_geometry, feature, requestdate, ip, single) VALUES \
     (ST_SetSRID('BOX3D(%(ll_geometry)s, %(ur_geometry)s)'::BOX3D, 4326), \
-    '%(mylayer)s', now(), TRUE) \
+    '%(mylayer)s', now(), '%(client)s', TRUE) \
     RETURNING uuid;" % url_params
 
 try:
