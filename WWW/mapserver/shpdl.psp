@@ -64,6 +64,9 @@ else:
     on the fine <a href=http://www.osgeo.org/>OSGeo</a> Wiki and use
     reasonable coordinates in order to avoid nasty error messages.
     </p><p>
+    <b>Caution:</b> Your request including the client IP number will be logged
+    in order to implement abuse prevention measures !
+    </p><p>
     <b>Download area limit:</b> In order to prevent download jobs from
     growing too large, the download area is limited to 144 square-degrees.
     This means that you are permitted to download a 12x12 degree area in
