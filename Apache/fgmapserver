@@ -9,7 +9,7 @@
     ServerAlias 2.flightgear.telascience.org
     ServerAlias 3.flightgear.telascience.org
     ServerAlias 4.flightgear.telascience.org
-    ServerAlias foxtrot.mgras.net
+    Include Terrascenery.inc
 # See if this works - locking out fakes bots ....
     SetEnvIfNoCase User-Agent "^MJ12bot(.*)1\.0\.8" stay_out
     <Location />
