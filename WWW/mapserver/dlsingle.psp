@@ -5,6 +5,9 @@
 #
 #  *Download individual layers*
 #
+#    shpdl.psp -  dlsingle.psp \
+#               \ dlshp.psp     - dlaction.sh
+#
 # Verify input from the web form and store the necessary details in the
 # 'download' database table. Fire 'dlaction.sh' with a reference to the UUID
 # of the respective database entry.

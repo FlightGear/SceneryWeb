@@ -6,6 +6,9 @@
 <!-- *Main public download page*
     Test-URL:
     http://mapserver.flightgear.org/shpdl?xmin=6&xmax=7&ymin=50&ymax=51
+
+    shpdl.psp -  dlsingle.psp \
+               \ dlshp.psp     - dlaction.sh
 -->
 
 <%
@@ -27,10 +30,6 @@ else:
     ymax = '21.26679'
 # end
 %>
-
-<!-- calls 'dlshp.psp'
-     Pythonification into a generic abstraction to download features is
-     still pending ....  -->
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />

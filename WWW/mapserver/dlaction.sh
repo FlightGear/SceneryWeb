@@ -2,6 +2,9 @@
 #
 # called by '<basename>.psp'
 #
+#    shpdl.psp -  dlsingle.psp \
+#               \ dlshp.psp     - dlaction.sh
+#
 # Supply bounding box for 'pgsql2shp' as:
 #   <xmin> <ymin>,<xmax> <ymax>
 
