@@ -71,7 +71,7 @@ url_params['client'] = req.get_remote_host(apache.REMOTE_NOLOOKUP)
 # After everything's verified, store an entry in the 'download' table for
 # retrieval and execution via the '<basename>.sh' script.
 #
-sql = "INSERT INTO download (wkb_geometry, feature, requestdate, ip, single) VALUES \
+sql = "INSERT INTO download (wkb_geometry, feature, date, ip, single) VALUES \
     (ST_SetSRID('BOX3D(%(ll_geometry)s, %(ur_geometry)s)'::BOX3D, 4326), \
     '%(mylayer)s', now(), '%(client)s', FALSE) \
     RETURNING uuid;" % url_params
