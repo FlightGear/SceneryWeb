@@ -17,7 +17,7 @@
 -- Derive center and most frequent runway heading from runway table.
 
 BEGIN TRANSACTION;
-    DROP MATERIALIZED VIEW v_apt_heading;
+    DROP MATERIALIZED VIEW IF EXISTS v_apt_heading;
     -- This resembles a temporary table.
     CREATE MATERIALIZED VIEW v_apt_heading AS (
         WITH h AS (
