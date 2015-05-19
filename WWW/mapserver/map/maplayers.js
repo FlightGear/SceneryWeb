@@ -85,6 +85,13 @@
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
+    var tarmac_n = new OpenLayers.Layer.WMS( "Airfield layouts (experimental)",
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.mapserver.flightgear.org/mc?" ],
+        {layers: 'tarmac_n', transparent: 'true', format: 'image/png'},
+        {isBaseLayer: false}
+    );
+
     var osmtarmac = new OpenLayers.Layer.WMS( "OSM Airfield layouts (#CURRENTOSMVERSION#)",
         [ "http://1.flightgear.telascience.org/mc?",
           "http://2.mapserver.flightgear.org/mc?" ],

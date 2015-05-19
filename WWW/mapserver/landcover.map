@@ -6993,6 +6993,93 @@ MAP
   END # apt_tarmac_water
 
   LAYER
+    NAME apt_n_tarmac_misc
+    TYPE POLYGON
+    STATUS OFF
+    MAXSCALE 1000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_n_tarmac USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "((surface NOT LIKE 'Turf/grass%' AND surface NOT LIKE 'Water%') OR surface LIKE '' OR surface IS NULL)"
+    CLASS
+      NAME "apt_n_tarmac_misc"
+      STYLE
+        COLOR 184 184 184
+      END
+    END
+    METADATA
+      "ows_title" "apt_n_tarmac_misc"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # apt_n_tarmac_misc
+
+  LAYER
+    NAME apt_n_tarmac_grass
+    TYPE POLYGON
+    STATUS OFF
+    MAXSCALE 1000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_n_tarmac USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "surface LIKE 'Turf/grass%'"
+    CLASS
+      NAME "apt_n_tarmac_grass"
+      STYLE
+        COLOR 90 255 90
+      END
+    END
+    METADATA
+      "ows_title" "apt_n_tarmac_grass"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # apt_n_tarmac_grass
+
+  LAYER
+    NAME apt_n_tarmac_water
+    TYPE POLYGON
+    STATUS OFF
+    MAXSCALE 1000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_n_tarmac USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "surface LIKE 'Water%'"
+    CLASS
+      NAME "apt_n_tarmac_water"
+      STYLE
+        COLOR 90 90 255
+      END
+    END
+    METADATA
+      "ows_title" "apt_n_tarmac_water"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # apt_n_tarmac_water
+
+  LAYER
     NAME apt_stopway
     TYPE POLYGON
     STATUS OFF
@@ -7019,6 +7106,34 @@ MAP
       "ows_featureid" "ID"
     END
   END # apt_stopway
+
+  LAYER
+    NAME apt_n_stopway
+    TYPE POLYGON
+    STATUS OFF
+    MAXSCALE 1000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_n_stopway USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "apt_n_stopway_"
+      STYLE
+        COLOR 124 124 124
+      END
+    END
+    METADATA
+      "ows_title" "apt_n_stopway_"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # apt_n_stopway
 
   LAYER
     NAME apt_runway_misc
@@ -7108,6 +7223,93 @@ MAP
   END # apt_runway_water
 
   LAYER
+    NAME apt_n_runway_misc
+    TYPE POLYGON
+    STATUS OFF
+    MAXSCALE 2000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_n_runway USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "((surface NOT LIKE 'Turf/grass%' AND surface NOT LIKE 'Water%') OR surface LIKE '' OR surface IS NULL)"
+    CLASS
+      NAME "apt_n_runway_misc"
+      STYLE
+        COLOR 64 64 64
+      END
+    END
+    METADATA
+      "ows_title" "apt_n_runway_misc"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # apt_n_runway_misc
+
+  LAYER
+    NAME apt_n_runway_grass
+    TYPE POLYGON
+    STATUS OFF
+    MAXSCALE 2000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_n_runway USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "surface LIKE 'Turf/grass%'"
+    CLASS
+      NAME "apt_n_runway_grass"
+      STYLE
+        COLOR 0 255 0
+      END
+    END
+    METADATA
+      "ows_title" "apt_n_runway_grass"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # apt_n_runway_grass
+
+  LAYER
+    NAME apt_n_runway_water
+    TYPE POLYGON
+    STATUS OFF
+    MAXSCALE 2000000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_n_runway USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    FILTER "surface LIKE 'Water%'"
+    CLASS
+      NAME "apt_n_runway_water"
+      STYLE
+        COLOR 0 0 255
+      END
+    END
+    METADATA
+      "ows_title" "apt_n_runway_water"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # apt_n_runway_water
+
+  LAYER
     NAME apt_marking
     TYPE LINE
     STATUS OFF
@@ -7135,6 +7337,35 @@ MAP
       "ows_featureid" "ID"
     END
   END # apt_marking
+
+  LAYER
+    NAME apt_n_marking
+    TYPE LINE
+    STATUS OFF
+    MAXSCALE 20000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM apt_n_marking USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "apt_n_marking_"
+      STYLE
+        COLOR 255 225 90
+        WIDTH 1
+      END
+    END
+    METADATA
+      "ows_title" "apt_n_marking_"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: AptNav. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # apt_n_marking
 
   LAYER
     NAME v0_stream

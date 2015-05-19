@@ -126,6 +126,18 @@
       </http>
    </source>
 
+   <source name="tarmac_n" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>apt_n_tarmac_misc,apt_n_tarmac_grass,apt_n_tarmac_water,apt_n_stopway,apt_n_runway_misc,apt_n_runway_grass,apt_n_runway_water,apt_n_marking</LAYERS>
+         </params>
+      </getmap>
+      <http>
+         <url>http://localhost/ms</url>
+      </http>
+   </source>
+
    <source name="osmtarmac" type="wms">
       <getmap>
          <params>
@@ -338,6 +350,16 @@
 
    <tileset name="tarmac">
       <source>tarmac</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>4 4</metatile>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="tarmac_n">
+      <source>tarmac_n</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>
