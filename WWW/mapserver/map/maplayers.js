@@ -85,10 +85,17 @@
         {attribution: "&copy; <a href='http://www.eea.europa.eu/legal/copyright'>EEA</a>"}
     );
 
-    var tarmac_n = new OpenLayers.Layer.WMS( "Airfield layouts (experimental)",
+    var tarmac810 = new OpenLayers.Layer.WMS( "Airfield layouts (v8.10)",
         [ "http://1.flightgear.telascience.org/mc?",
           "http://2.mapserver.flightgear.org/mc?" ],
-        {layers: 'tarmac_n', transparent: 'true', format: 'image/png'},
+        {layers: 'tarmac810', transparent: 'true', format: 'image/png'},
+        {isBaseLayer: false}
+    );
+
+    var tarmac900 = new OpenLayers.Layer.WMS( "Airfield layouts (v9.00)",
+        [ "http://1.flightgear.telascience.org/mc?",
+          "http://2.mapserver.flightgear.org/mc?" ],
+        {layers: 'tarmac900', transparent: 'true', format: 'image/png'},
         {isBaseLayer: false}
     );
 

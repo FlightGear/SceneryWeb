@@ -115,11 +115,11 @@
       </http>
    </source>
 
-   <source name="tarmac" type="wms">
+   <source name="tarmac900" type="wms">
       <getmap>
          <params>
             <FORMAT>image/png</FORMAT>
-            <LAYERS>apt_tarmac_misc,apt_tarmac_grass,apt_tarmac_water,apt_stopway,apt_runway_misc,apt_runway_grass,apt_runway_water,apt_marking</LAYERS>
+            <LAYERS>apt_tarmac_v900misc,apt_tarmac_v900grass,apt_tarmac_v900water,apt_stopway_v900,apt_runway_v900misc,apt_runway_v900grass,apt_runway_v900water,apt_marking_v900</LAYERS>
          </params>
       </getmap>
       <http>
@@ -127,11 +127,11 @@
       </http>
    </source>
 
-   <source name="tarmac_n" type="wms">
+   <source name="tarmac" type="wms">
       <getmap>
          <params>
             <FORMAT>image/png</FORMAT>
-            <LAYERS>apt_n_tarmac_misc,apt_n_tarmac_grass,apt_n_tarmac_water,apt_n_stopway,apt_n_runway_misc,apt_n_runway_grass,apt_n_runway_water,apt_n_marking</LAYERS>
+            <LAYERS>apt_tarmac_misc,apt_tarmac_grass,apt_tarmac_water,apt_stopway,apt_runway_misc,apt_runway_grass,apt_runway_water,apt_marking</LAYERS>
          </params>
       </getmap>
       <http>
@@ -349,8 +349,8 @@
       <expires>3600</expires>
    </tileset>
 
-   <tileset name="tarmac">
-      <source>tarmac</source>
+   <tileset name="tarmac900">
+      <source>tarmac900</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>
@@ -359,8 +359,8 @@
       <expires>3600</expires>
    </tileset>
 
-   <tileset name="tarmac_n">
-      <source>tarmac_n</source>
+   <tileset name="tarmac">
+      <source>tarmac</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>

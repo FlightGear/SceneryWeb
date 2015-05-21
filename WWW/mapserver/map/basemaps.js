@@ -34,14 +34,7 @@
 //        {type:'png', getURL: get_osm_url, displayOutsideMaxExtent: true, 'buffer':1, transitionEffect: 'resize'}
 //    );
 
-    var tarmac810 = new OpenLayers.Layer.WMS( "Airfield layouts (v8.10)",
-        [ "http://1.flightgear.telascience.org/mc?",
-          "http://2.mapserver.flightgear.org/mc?" ],
-        {layers: 'tarmac810', transparent: 'true', format: 'image/png'},
-        {isBaseLayer: false}
-    );
-
-    var tarmac = new OpenLayers.Layer.WMS( "Airfield layouts (v9.00, 2013.10)",
+    var tarmac = new OpenLayers.Layer.WMS( "Airfield layouts (v10+)",
         [ "http://1.flightgear.telascience.org/mc?",
           "http://2.mapserver.flightgear.org/mc?" ],
         {layers: 'tarmac', transparent: 'true', format: 'image/png'},
