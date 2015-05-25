@@ -67,7 +67,11 @@ try {
     $tmp_dir = sys_get_temp_dir();
     $targetPath = $modelChecker->openWorkingDirectory($tmp_dir);
     
-    
+    if ($xmlName != "") {
+        $xmlPath = $targetPath.$xmlName;
+    }
+    $thumbPath = $targetPath.$thumbName;
+    $ac3dPath  = $targetPath.$ac3dName;
 } catch (Exception $ex) {
     $fatalerror = true;
     $errormsg .= "<li>".$ex->getMessage()."</li>";
