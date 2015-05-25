@@ -19,9 +19,11 @@
  */
 
 /**
- * Description of ModelFactory
+ * ModelFactory class
  *
- * @author Julien Nguyen
+ * @author     Julien Nguyen <julien.nguyen3@gmail.com>
+ * @copyright  2014 - FlightGear Team
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 class ModelFactory {
     
@@ -33,6 +35,16 @@ class ModelFactory {
         $this->authorDaoRo = $authorDaoRo;
     }
     
+    /**
+     * 
+     * @param string $id
+     * @param string $authorId id of the model's author
+     * @param string $filename model filename
+     * @param string $name model name
+     * @param string $desc model description
+     * @param string $modelsGroupId
+     * @return \ModelMetadata
+     */
     public function createModelMetadata($id, $authorId, $filename, $name, $desc, $modelsGroupId) {
         $modelMetadata = new ModelMetadata();
         

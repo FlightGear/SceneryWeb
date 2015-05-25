@@ -38,6 +38,9 @@ if ($action == "check") {
     case "RequestObjectUpdate":
         $oldObject = $request->getOldObject();
         $newObject = $request->getNewObject();
+        
+        $oldObjPos = $oldObject->getPosition();
+        $newObjPos = $newObject->getPosition();
 
         $newModelMD = $modelDaoRO->getModelMetadata($newObject->getModelId());
         $oldModelMD = $modelDaoRO->getModelMetadata($oldObject->getModelId());
@@ -58,15 +61,15 @@ if ($action == "check") {
         echo "<tr><td>Thumbnail</td><td><img src='../../modelthumb.php?id=".$oldModelMD->getId()."' alt=''/></td>".
                 "<td><img src='../../modelthumb.php?id=".$newModelMD->getId()."' alt=''/></td></tr>";
         echo "<tr";
-        if ($oldObject->getLongitude() != $newObject->getLongitude()) {
+        if ($oldObjPos->getLongitude() != $newObjPos->getLongitude()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Longitude</td><td>".$oldObject->getLongitude()."</td><td>".$newObject->getLongitude()."</td></tr>";
+        echo "><td>Longitude</td><td>".$oldObjPos->getLongitude()."</td><td>".$newObjPos->getLongitude()."</td></tr>";
         echo "<tr";
-        if ($oldObject->getLatitude() != $newObject->getLatitude()) {
+        if ($oldObjPos->getLatitude() != $newObjPos->getLatitude()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Latitude</td><td>".$oldObject->getLatitude()."</td><td>".$newObject->getLatitude()."</td></tr>";
+        echo "><td>Latitude</td><td>".$oldObjPos->getLatitude()."</td><td>".$newObjPos->getLatitude()."</td></tr>";
         echo "<tr";
         if ($oldObject->getCountry()->getCode() != $newObject->getCountry()->getCode()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
@@ -88,27 +91,28 @@ if ($action == "check") {
         echo "><td>Heading (STG)</td><td>".heading_true_to_stg($oldObject->getOrientation())." (STG) - ".$oldObject->getOrientation()."(true)</td>".
              "<td>".heading_true_to_stg($newObject->getOrientation())." (STG) - ".$newObject->getOrientation()." (true)</td></tr>";
         
-        echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$oldObject->getLongitude()."&amp;lat=".$oldObject->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td>".
-             "<td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$newObject->getLongitude()."&amp;lat=".$newObject->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>" .
+        echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$oldObjPos->getLongitude()."&amp;lat=".$oldObjPos->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td>".
+             "<td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>" .
              "</tr>";
         break;
         
     case "RequestObjectDelete":
 
         $objectToDel = $request->getObjectToDelete();
+        $objDelPos = $objectToDel->getPosition();
         $modelMD = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
 
         echo "<table><tr><th>Obj. ID</th><th>Longitude</th><th>Latitude</th><th>Country</th><th>Elevation</th><th>Elev. offset</th><th>True orientation</th><th>Model</th><th>Map</th></tr>";
         echo "<tr>" .
              "<td><center>".$objectToDel->getId()."</center></td>" .
-             "<td><center>".$objectToDel->getLongitude()."</center></td>" .
-             "<td><center>".$objectToDel->getLatitude()."</center></td>" .
+             "<td><center>".$objDelPos->getLongitude()."</center></td>" .
+             "<td><center>".$objDelPos->getLatitude()."</center></td>" .
              "<td><center>".$objectToDel->getCountry()->getName()."</center></td>" .
              "<td><center>".$objectToDel->getGroundElevation()."</center></td>" .
              "<td><center>".$objectToDel->getElevationOffset()."</center></td>" .
              "<td><center>".$objectToDel->getOrientation()."</center></td>" .
              "<td><center><a href=\"http://scenemodels.flightgear.org/modelview.php?id=".$modelMD->getId()."\">".$modelMD->getName()."</a></center></td>" .
-             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$objectToDel->getLongitude()."&amp;lat=".$objectToDel->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
+             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$objDelPos->getLongitude()."&amp;lat=".$objDelPos->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
              "</tr>";
         break;
     }

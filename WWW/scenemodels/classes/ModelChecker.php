@@ -25,37 +25,6 @@
  */
 class ModelChecker {
 
-    public function checkFilesNames($ac3dName, $xmlName, $thumbName, array $pngNames) {
-        $exceptions = array();
-        
-        if (!FormChecker::isAC3DFilename($ac3dName)
-                || ($xmlName != "" && !FormChecker::isXMLFilename($xmlName))) {
-            $exceptions[] = new Exception("AC3D and XML name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
-        }
-
-        // Checks PNG Filenames
-        for ($i=0; $i<count($pngNames); $i++) {
-            if (isset($pngNames[$i]) && $pngNames[$i] != "" && !FormChecker::isPNGFilename($pngNames[$i])) {
-                $exceptions[] = new Exception("Textures' name must be *.png or *.PNG with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
-            }
-        }
-        
-        // Check thumbnail filename
-        if (!FormChecker::isThumbFilename($thumbName)) {
-            $exceptions[] = new Exception("Thumbnail name must be *.jpg or *.jpeg with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
-        }
-
-        if (count($exceptions) == 0 && 
-                (remove_file_extension($thumbName) != remove_file_extension($ac3dName)."_thumbnail"
-                || ($xmlName != "" && remove_file_extension($ac3dName) != remove_file_extension($xmlName)))) {
-            $exceptions[] = new Exception("XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$_FILES["xml_file"]['name']."), tower.ac (currently ".$ac3dName."), tower_thumbnail.jpeg (currently ".$thumbName.").");
-            if (substr(remove_file_extension($thumbName), -10) != "_thumbnail") {
-                $exceptions[] = new Exception("The thumbnail file name must end with *_thumbnail.");
-            }
-        }
-        return $exceptions;
-    }
-    
     public function checkXMLFileArray($arrayXML) {
         $xmlName = $arrayXML['name'];
         $exceptions = array();
@@ -261,5 +230,28 @@ class ModelChecker {
         
         // Dump & encode the file
         return base64_encode($contents);
+    }
+    
+    public function dos2Unix($filePath) {
+        // Dos2unix file
+        system('dos2unix '.$filePath);
+    }
+    
+    public function archiveModel($targetPath) {
+        $tmp_dir = sys_get_temp_dir();
+        
+        $phar = new PharData($tmp_dir . '/static.tar');                // Create archive file
+        $phar->buildFromDirectory($targetPath);                        // Fills archive file
+        $phar->compress(Phar::GZ);                                     // Convert archive file to compress file
+        unlink($tmp_dir . '/static.tar');                              // Delete archive file
+        rename($tmp_dir . '/static.tar.gz', $tmp_dir.'/static.tgz');   // Rename compress file
+
+        $handle    = fopen($tmp_dir."/static.tgz", "r");
+        $contents  = fread($handle, filesize($tmp_dir."/static.tgz"));
+        fclose($handle);
+        
+        unlink($tmp_dir . '/static.tgz');
+        
+        return $contents;
     }
 }

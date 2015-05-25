@@ -174,6 +174,7 @@ require '../../inc/header.php';
 
 if (isset($objectToDel)) {
     $modelMDToDel = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
+    $objDelPos = $objectToDel->getPosition();
     echo "<p class=\"center\">You have asked to delete object <a href=\"/objectview.php?id=".$objectToDel->getId()."\">#".$objectToDel->getId()."</a>.</p>";
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -205,11 +206,11 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the WGS84 longitude of the object you want to delete. Has to be between -180.000000 and +180.000000."><label>Longitude</label></span></td>
-            <td colspan="4"><?php echo $objectToDel->getLongitude(); ?></td>
+            <td colspan="4"><?php echo $objDelPos->getLongitude(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the WGS84 latitude of the object you want to delete. Has to be between -90.000000 and +90.000000."><label>Latitude</label></span></td>
-            <td colspan="4"><?php echo $objectToDel->getLatitude(); ?></td>
+            <td colspan="4"><?php echo $objDelPos->getLatitude(); ?></td>
         </tr>
         <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><label>Date/Time of last update</label></span></td>
@@ -239,7 +240,7 @@ function validateForm()
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
             <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = $objectToDel->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
-            <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $objectToDel->getLongitude(); ?>&amp;lat=<?php echo $objectToDel->getLatitude(); ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
+            <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?=$objDelPos->getLongitude()?>&amp;lat=<?=$objDelPos->getLatitude()?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
         <tr>
             <td><span title="Please add a short (max 100 letters) statement why you are deleting this data. This will help the maintainers understand what you are doing. eg: 'I added a static model in replacement, so please delete it'. Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted."><label for="comment">Comment<em>*</em></label></span></td>
@@ -305,6 +306,7 @@ function validateForm()
     $is_first = true; // Just used to put the selected button on the first entry
     foreach ($candidateObjects as $candidateObj) {
         $candidateModelMD = $modelDaoRO->getModelMetadata($candidateObj->getModelId());
+        $candidateObjPos = $candidateObj->getPosition();
 ?>
         <tr>
             <th colspan="5">Object number #<?php echo $candidateObj->getId(); ?></th>
@@ -322,11 +324,11 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the WGS84 longitude of the object you want to update. Has to be between -180.000000 and +180.000000."><label>Longitude</label></span></td>
-            <td colspan="4"><?php $longitude = $candidateObj->getLongitude(); echo $longitude; ?></td>
+            <td colspan="4"><?php $longitude = $candidateObjPos->getLongitude(); echo $longitude; ?></td>
         </tr>
         <tr>
             <td><span title="This is the WGS84 latitude of the object you want to update. Has to be between -90.000000 and +90.000000."><label>Latitude</label></span></td>
-            <td colspan="4"><?php $latitude = $candidateObj->getLatitude(); echo $latitude; ?></td>
+            <td colspan="4"><?php $latitude = $candidateObjPos->getLatitude(); echo $latitude; ?></td>
         </tr>
         <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><label>Date/Time of last update</label></span></td>
@@ -356,7 +358,7 @@ function validateForm()
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
             <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = $candidateObj->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
-            <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $longitude; ?>&amp;lat=<?php echo $latitude; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
+            <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?=$longitude?>&amp;lat=<?=$latitude?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
 <?php
         $is_first = false;

@@ -38,17 +38,18 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
     $i = 1;
     foreach ($request->getNewObjects() as $newObj) {
         $modelMD = $modelDaoRO->getModelMetadata($newObj->getModelId());
+        $newObjPos = $newObj->getPosition();
 
         echo "<tr>" .
              "<td><center>".$i."</center></td>" .
-             "<td><center>".$newObj->getLongitude()."</center></td>" .
-             "<td><center>".$newObj->getLatitude()."</center></td>" .
+             "<td><center>".$newObjPos->getLongitude()."</center></td>" .
+             "<td><center>".$newObjPos->getLatitude()."</center></td>" .
              "<td><center>".$newObj->getCountry()->getName()."</center></td>" .
              "<td><center>".$newObj->getGroundElevation()."</center></td>" .
              "<td><center>".$newObj->getElevationOffset()."</center></td>" .
              "<td><center>".$newObj->getOrientation()."</center></td>" .
              "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></center></td>" .
-             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObj->getLongitude()."&amp;lat=".$newObj->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
+             "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
              "</tr>";
 
         $i++;

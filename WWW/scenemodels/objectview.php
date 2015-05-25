@@ -10,6 +10,7 @@ require 'inc/header.php';
 if (FormChecker::isObjectId($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
     $object = $objectDAO->getObject($id);
+    $objPos = $object->getPosition();
 ?>
 <h1>
 <?php
@@ -31,11 +32,11 @@ if ($object->getDescription() != null) {
     </tr>
     <tr>
         <td>Latitude</td>
-        <td><?php echo $object->getLatitude(); ?></td>
+        <td><?=$objPos->getLatitude()?></td>
     </tr>
     <tr>
         <td>Longitude</td>
-        <td><?php echo $object->getLongitude(); ?></td>
+        <td><?=$objPos->getLongitude()?></td>
     </tr>
     <tr>
         <td>Country</td>
@@ -75,12 +76,12 @@ if ($object->getDescription() != null) {
     </tr>
     <tr>
         <td colspan="3" align="center">
-            <a href="submission/object/check_update.php?id_to_update=<?php echo $id;?>">Update this object</a>
+            <a href="submission/object/check_update.php?id_to_update=<?=$id?>">Update this object</a>
 <?php
     // If the object is static, let not user fix it with a shared script...
     if (!$modelMetadata->getModelsGroup()->isStatic()) {
 ?>
-            &nbsp;| <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $id;?>">Delete this object</a>
+            &nbsp;| <a href="submission/object/check_delete_shared.php?delete_choice=<?=$id?>">Delete this object</a>
 <?php
     }
 ?>
@@ -100,7 +101,7 @@ function showMap() {
     var objectViewer = document.createElement("object");
     objectViewer.width = "100%";
     objectViewer.height = "99%";
-    objectViewer.data = "http://mapserver.flightgear.org/popmap/?lon=<?php echo $object->getLongitude(); ?>&lat=<?php echo $object->getLatitude(); ?>&zoom=14&layers=B0TFTTTTT";
+    objectViewer.data = "http://mapserver.flightgear.org/popmap/?lon=<?=$objPos->getLongitude()?>&lat=<?=$objPos->getLatitude()?>&zoom=14&layers=B0TFTTTTT";
     objectViewer.type = "text/html";
     var map = document.getElementById("map");
     map.innerHTML = "";

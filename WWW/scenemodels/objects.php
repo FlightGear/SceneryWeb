@@ -201,13 +201,14 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
         $objects = $objectDAO->getObjects($pagesize, $offset, $criteria);
         
         foreach ($objects as $object) {
+            $objPos = $object->getPosition();
             $offset = $object->getElevationOffset();
             echo "<tr class=\"object\">\n";
             echo "  <td><a href='objectview.php?id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
                  "  <td>".$object->getDescription()."</td>\n" .
                  "  <td><a href=\"modelview.php?id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
                  "  <td>".$object->getCountry()->getName() ."</td>\n" .
-                 "  <td>".$object->getLatitude()."<br/>".$object->getLongitude()."</td>\n" .
+                 "  <td>".$objPos->getLatitude()."<br/>".$objPos->getLongitude()."</td>\n" .
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$object->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
@@ -219,7 +220,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
                 </a>
 <?php
             }
-            echo "    <a href=\"javascript:popmap(".$object->getLatitude().",".$object->getLongitude().")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\" alt=\"map\"/></a>" .
+            echo "    <a href=\"javascript:popmap(".$objPos->getLatitude().",".$objPos->getLongitude().")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\" alt=\"map\"/></a>" .
                  "  </td>\n" .
                  "</tr>\n";
         }

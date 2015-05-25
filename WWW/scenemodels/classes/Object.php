@@ -14,10 +14,9 @@ class Object {
     
     private $country;
     
-    private $longitude;
-    private $latitude;
     private $dir;
     
+    private $position;
     private $groundElevation;
     private $elevationOffset;
     
@@ -29,6 +28,7 @@ class Object {
     private $groupId;
     
     function __construct() {
+        $this->position = new Position();
     }
     
     public function getId() {
@@ -45,23 +45,6 @@ class Object {
     
     public function setModelId($modelId) {
         $this->modelId = $modelId;
-    }
-    
-    
-    public function getLongitude() {
-        return $this->longitude;
-    }
-    
-    public function setLongitude($longitude) {
-        $this->longitude = $longitude;
-    }
-    
-    public function getLatitude() {
-        return $this->latitude;
-    }
-    
-    public function setLatitude($latitude) {
-        $this->latitude = $latitude;
     }
     
     public function getDir() {
@@ -140,6 +123,10 @@ class Object {
     
     public function setLastUpdated($lastUpdated) {
         $this->lastUpdated = $lastUpdated;
+    }
+    
+    public function getPosition() {
+        return $this->position;
     }
 }
 

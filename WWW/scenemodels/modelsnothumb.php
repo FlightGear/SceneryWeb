@@ -62,9 +62,10 @@ $pagesize = 20;
         if ($modelMetadata->getModelsGroup()->isStatic()) {
             $objects = $objectDaoRO->getObjectsByModel($modelMetadata->getId());
             
-            foreach ($objects as $object) {             
+            foreach ($objects as $object) {
+                $objPos = $object->getPosition();
                 echo "<li>(<a href=\"download/".$object->getDir().".tgz\">".$object->getDir()."</a>) ";
-                echo "<a href=\"javascript:popmap(".$object->getLatitude().",".$object->getLongitude().",13)\">Map</a></li>\n";
+                echo "<a href=\"javascript:popmap(".$objPos->getLatitude().",".$objPos->getLongitude().",13)\">Map</a></li>\n";
             }
         }
 

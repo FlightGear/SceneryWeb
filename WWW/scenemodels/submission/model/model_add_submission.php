@@ -143,7 +143,7 @@ if (!isset($_POST["action"])) {
     $newModel = $request->getNewModel();
     $newModelMD = $newModel->getMetadata();
     $newObj = $request->getNewObject();
-
+    $newObjPos = $newObj->getPosition();
 
 include '../../inc/header.php';
 
@@ -186,17 +186,17 @@ include '../../inc/header.php';
     </tr>
     <tr>
         <td>Latitude</td>
-        <td><?php echo $newObj->getLatitude(); ?></td>
+        <td><?php echo $newObjPos->getLatitude(); ?></td>
     </tr>
     <tr>
         <td>Longitude</td>
-        <td><?php echo $newObj->getLongitude(); ?></td>
+        <td><?php echo $newObjPos->getLongitude(); ?></td>
     </tr>
     <tr>
         <td>Map</td>
         <td>
         <center>
-            <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $newObj->getLongitude(); ?>&amp;lat=<?php echo $newObj->getLatitude(); ?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
+            <object data="http://mapserver.flightgear.org/popmap/?lon=<?=$newObjPos->getLongitude()?>&amp;lat=<?=$newObjPos->getLatitude()?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
         </center>
         </td>
     </tr>

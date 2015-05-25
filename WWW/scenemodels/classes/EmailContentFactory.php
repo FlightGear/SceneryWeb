@@ -219,6 +219,7 @@ class EmailContentFactory {
     static public function getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $request) {
         $safeEmail = $request->getContributorEmail();
         $objectToDel = $request->getObjectToDelete();
+        $objectToDelPos = $objectToDel->getPosition();
         
         $subject = "Object deletion needs validation";
         $message = "We would like to let you know that a new object deletion request is pending (#".$request->getId()."). " .
@@ -231,13 +232,13 @@ class EmailContentFactory {
                     "Family:           " .$modelMD->getModelsGroup()->getName(). "\r\n" .
                     "Model:            " .$modelMD->getName(). "\r\n" .
                     "Ob. text/metadata:" .$objectToDel->getDescription(). "\r\n" .
-                    "Latitude:         " .$objectToDel->getLatitude(). "\r\n" .
-                    "Longitude:        " .$objectToDel->getLongitude(). "\r\n" .
+                    "Latitude:         " .$objectToDelPos->getLatitude(). "\r\n" .
+                    "Longitude:        " .$objectToDelPos->getLongitude(). "\r\n" .
                     "Ground elevation: " .$objectToDel->getGroundElevation(). "\r\n" .
                     "Elevation offset: " .$objectToDel->getElevationOffset(). "\r\n" .
                     "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                     "Comment:          " .strip_tags($request->getComment()) . "\r\n" .
-                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDel->getLongitude() ."&lat=". $objectToDel->getLatitude() ."&zoom=14\r\n\r\n" .
+                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
@@ -245,6 +246,7 @@ class EmailContentFactory {
     
     static public function getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $modelMD) {
         $objectToDel = $request->getObjectToDelete();
+        $objectToDelPos = $objectToDel->getPosition();
         
         $subject = "Object deletion";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object deletion request.\r\n\r\n" .
@@ -252,13 +254,13 @@ class EmailContentFactory {
                    "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           " .$modelMD->getModelsGroup()->getName(). "\r\n" .
                    "Model:            " .$modelMD->getName(). "\r\n" .
-                   "Latitude:         " .$objectToDel->getLatitude(). "\r\n" .
-                   "Longitude:        " .$objectToDel->getLongitude(). "\r\n" .
+                   "Latitude:         " .$objectToDelPos->getLatitude(). "\r\n" .
+                   "Longitude:        " .$objectToDelPos->getLongitude(). "\r\n" .
                    "Ground elevation: " .$objectToDel->getGroundElevation(). "\r\n" .
                    "Elevation offset: " .$objectToDel->getElevationOffset(). "\r\n" .
                    "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                    "Comment:          " .strip_tags($request->getComment()) . "\r\n".
-                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDel->getLongitude() ."&lat=". $objectToDel->getLatitude() ."&zoom=14\r\n\r\n";
+                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n";
         return new EmailContent($subject, self::format($message));
     }
     
@@ -266,6 +268,7 @@ class EmailContentFactory {
         $safeEmail = $request->getContributorEmail();
         $newObjects = $request->getNewObjects();
         $newObject = $newObjects[0];
+        $newObjPos = $newObject->getPosition();
         
         $subject = "Object addition needs validation";
         $message = "We would like to let you know that a new object request is pending (#".$request->getId()."). " .
@@ -276,14 +279,14 @@ class EmailContentFactory {
         $message .= "issued the following request:\r\n\r\n" .
                     "Family:           ". $modelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$modelMD->getModelsGroup()->getId()." ]" . "\r\n" .
                     "Model:            ". $modelMD->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$modelMD->getId()." ]" . "\r\n" .
-                    "Latitude:         ". $newObject->getLatitude() . "\r\n" .
-                    "Longitude:        ". $newObject->getLongitude() . "\r\n" .
+                    "Latitude:         ". $newObjPos->getLatitude() . "\r\n" .
+                    "Longitude:        ". $newObjPos->getLongitude() . "\r\n" .
                     "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
                     "Ground elevation will be automagically computed\r\n" .
                     "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                     "True orientation: ". $newObject->getOrientation() . "\r\n" .
                     "Comment:          ". strip_tags($request->getComment()) . "\r\n" .
-                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
+                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
@@ -292,6 +295,7 @@ class EmailContentFactory {
     static public function getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $modelMD) {
         $newObjects = $request->getNewObjects();
         $newObject = $newObjects[0];
+        $newObjPos = $newObject->getPosition();
         
         $subject = "Object addition";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object addition request.\r\n\r\n" .
@@ -299,8 +303,8 @@ class EmailContentFactory {
                    "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           ". $modelMD->getModelsGroup()->getName() . "\r\n" .
                    "Model:            ". $modelMD->getName() . "\r\n" .
-                   "Latitude:         ". $newObject->getLatitude() . "\r\n" .
-                   "Longitude:        ". $newObject->getLongitude() . "\r\n" .
+                   "Latitude:         ". $newObjPos->getLatitude() . "\r\n" .
+                   "Longitude:        ". $newObjPos->getLongitude() . "\r\n" .
                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
@@ -315,6 +319,8 @@ class EmailContentFactory {
         $safeEmail = $request->getContributorEmail();
         $oldObject = $request->getOldObject();
         $newObject = $request->getNewObject();
+        $oldObjPos = $oldObject->getPosition();
+        $newObjPos = $newObject->getPosition();
         
         $subject = "Object update needs validation";
         $message = "We would like to let you know that an object update request is pending (#".$request->getId()."). " .
@@ -328,12 +334,12 @@ class EmailContentFactory {
                     "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
                     "Model:             ". $oldModelMD->getName() ." => ".$newModelMD->getName()."\r\n" .
                     "[ http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newModelMD->getId()." ]" . "\r\n" .
-                    "Latitude:          ". $oldObject->getLatitude() . "  => ".$newObject->getLatitude()."\r\n" .
-                    "Longitude:         ". $oldObject->getLongitude() . " => ".$newObject->getLongitude()."\r\n" .
+                    "Latitude:          ". $oldObjPos->getLatitude() . "  => ".$newObjPos->getLatitude()."\r\n" .
+                    "Longitude:         ". $oldObjPos->getLongitude() . " => ".$newObjPos->getLongitude()."\r\n" .
                     "Ground elevation:  ". $oldObject->getGroundElevation() . " => ".$newObject->getGroundElevation()."\r\n" .
                     "Elevation offset:  ". $oldObject->getElevationOffset() . " => ".$newObject->getElevationOffset()."\r\n" .
                     "True orientation:  ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
-                    "Map (new position): http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14" . "\r\n" .
+                    "Map (new position): http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14" . "\r\n" .
                     "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
 
@@ -343,6 +349,8 @@ class EmailContentFactory {
     static public function getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $oldModelMD, $newModelMD) {
         $oldObject = $request->getOldObject();
         $newObject = $request->getNewObject();
+        $oldObjPos = $oldObject->getPosition();
+        $newObjPos = $newObject->getPosition();
         
         $subject = "Object update";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object update request." . "\r\n\r\n" .
@@ -353,8 +361,8 @@ class EmailContentFactory {
                    "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                    "Model:             ". $oldModelMD->getName() ." => ".$newModelMD->getName()."\r\n" .
                    "[ http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newModelMD->getId()." ]\r\n" .
-                   "Latitude:          ". $oldObject->getLatitude() . "  => ".$newObject->getLatitude()."\r\n" .
-                   "Longitude:         ". $oldObject->getLongitude() . " => ".$newObject->getLongitude()."\r\n" .
+                   "Latitude:          ". $oldObjPos->getLatitude() . "  => ".$newObjPos->getLatitude()."\r\n" .
+                   "Longitude:         ". $oldObjPos->getLongitude() . " => ".$newObjPos->getLongitude()."\r\n" .
                    "Ground elevation:  ". $oldObject->getGroundElevation() . " => will be recomputed\r\n" .
                    "Elevation offset:  ". $oldObject->getElevationOffset() . " => ".$newObject->getElevationOffset()."\r\n" .
                    "True rientation:   ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
@@ -383,6 +391,7 @@ class EmailContentFactory {
         $contrEmail = $request->getContributorEmail();
         $newModelMD = $request->getNewModel()->getMetadata();
         $newObject = $request->getNewObject();
+        $newObjPos = $newObject->getPosition();
         
         $subject = "3D model import needs validation.";
         $message = "We would like to let you know that a new 3D model request is pending (#".$request->getId()."). " .
@@ -398,12 +407,12 @@ class EmailContentFactory {
         $message .="\r\n" .
                    "Model name:       ". $newModelMD->getName() ."\r\n" .
                    "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
-                   "Latitude:         ". $newObject->getLatitude() . "\r\n" .
-                   "Longitude:        ". $newObject->getLongitude() . "\r\n" .
+                   "Latitude:         ". $newObjPos->getLatitude() . "\r\n" .
+                   "Longitude:        ". $newObjPos->getLongitude() . "\r\n" .
                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
-                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n" .
+                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n" .
                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
@@ -427,6 +436,7 @@ class EmailContentFactory {
     static public function getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request) {
         $newModelMD = $request->getNewModel()->getMetadata();
         $newObject = $request->getNewObject();
+        $newObjPos = $newObject->getPosition();
         
         $subject = "3D model import";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request.\r\n\r\n" .
@@ -437,12 +447,12 @@ class EmailContentFactory {
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
                    "Model name:       ". $newModelMD->getName() ."\r\n" .
                    "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
-                   "Latitude:         ". $newObject->getLatitude() . "\r\n" .
-                   "Longitude:        ". $newObject->getLongitude() . "\r\n" .
+                   "Latitude:         ". $newObjPos->getLatitude() . "\r\n" .
+                   "Longitude:        ". $newObjPos->getLongitude() . "\r\n" .
                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                    "True orientation: ". heading_stg_to_true($newObject->getOrientation()) . "\r\n" .
-                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObject->getLongitude() ."&lat=". $newObject->getLatitude() ."&zoom=14\r\n\r\n";
+                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

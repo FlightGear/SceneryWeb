@@ -19,7 +19,7 @@
  */
 
 /**
- * Description of ObjectFactory
+ * ObjectFactory
  *
  * @author Julien Nguyen
  */
@@ -37,8 +37,8 @@ class ObjectFactory {
         $object = new Object();
         $object->setId($id);
         $object->setModelId($modelId);
-        $object->setLongitude($lon);
-        $object->setLatitude($lat);
+        $object->getPosition()->setLongitude($lon);
+        $object->getPosition()->setLatitude($lat);
         $object->setCountry($country);
         $object->setGroundElevation(-9999);
         $object->setElevationOffset($elevOffset);

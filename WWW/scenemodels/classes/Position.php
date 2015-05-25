@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2014 Flightgear Team
+ * Copyright (C) 2015 FlightGear Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,38 +19,43 @@
  */
 
 /**
- * Set of validators
+ * Position
  *
- * @author Julien Nguyen
+ * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
-class ValidatorsSet {
-    private $validators;
-    private $errors;
+class Position {
+    private $longitude;
+    private $latitude;
     
-    function __construct() {
-        $this->validators = array();
-        $this->errors = array();
+    /**
+     * Gets longitude
+     * @return float longitude
+     */
+    public function getLongitude() {
+        return $this->longitude;
     }
     
     /**
-     * Adds a validator to the actual set.
-     * 
-     * @param Validator $validator
+     * Sets longitude
+     * @param float $longitude
      */
-    public function addValidator($validator) {
-        $this->validators[] = $validator;
+    public function setLongitude($longitude) {
+        $this->longitude = $longitude;
     }
     
     /**
-     * Executes validation for each validators in the set.
-     * 
-     * @return array of errors (empty if no errors)
+     * Gets latitude
+     * @return float latitude
      */
-    public function validate() {
-        foreach ($this->validators as $validator) {
-            $this->errors = array_merge($this->errors, $validator->validate());
-        }
-
-        return $this->errors;
+    public function getLatitude() {
+        return $this->latitude;
+    }
+    
+    /**
+     * Sets latitude
+     * @param float $latitude
+     */
+    public function setLatitude($latitude) {
+        $this->latitude = $latitude;
     }
 }

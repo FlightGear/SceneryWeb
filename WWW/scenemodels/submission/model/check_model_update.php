@@ -46,47 +46,28 @@ require '../../inc/header.php';
 ################################################
 ################################################
 
-if ($_FILES["mo_thumbfile"]['name'] != "" && ($_FILES["ac3d_file"]['name'] != "" || $_FILES["xml_file"]['name'] != "")) {
-    $thumbName = $_FILES["mo_thumbfile"]['name'];
-    $ac3dName  = $_FILES["ac3d_file"]['name'];
-    $xmlName   = $_FILES["xml_file"]['name'];
-}
-else {
-    if ($_FILES["mo_thumbfile"]["name"] == "") {
-        $fatalerror = true;
-        $errormsg .= "<li>You must provide a thumbnail.</li>";
-    }
-    if ($_FILES["ac3d_file"]['name'] == "" && $_FILES["xml_file"]['name'] == "") {
-        $fatalerror = true;
-        $errormsg .= "<li>You must provide at least one model (AC or XML) file.</li>";
-    }
+if (!is_uploaded_file($_FILES['ac3d_file']['tmp_name'])
+        && !is_uploaded_file($_FILES['xml_file']['tmp_name'])) {
+    $fatalerror = true;
+    $errormsg .= "<li>You must provide at least one model (AC or XML) file.</li>";
 }
 
-###########################################################
-###########################################################
-#                                                         #
-# STEP 2 : CHECK IF ALL FILES MATCH THE NAMING CONVENTION #
-#                                                         #
-###########################################################
-###########################################################
-$exceptions = $modelChecker->checkFilesNames($ac3dName, $xmlName, $thumbName, $_FILES["png_file"]["name"]);
-if (count($exceptions) > 0) {
+if (!is_uploaded_file($_FILES['mo_thumbfile']['tmp_name'])) {
     $fatalerror = true;
-    foreach ($exceptions as $ex) {
-        $errormsg .= "<li>".$ex->getMessage()."</li>";
-    }
+    $errormsg .= "<li>You must provide a thumbnail.</li>";
 }
+
+$thumbName = $_FILES["mo_thumbfile"]['name'];
+$ac3dName  = $_FILES["ac3d_file"]['name'];
+$xmlName   = $_FILES["xml_file"]['name'];
+
 
 // Open working directory and set paths
 try {
     $tmp_dir = sys_get_temp_dir();
     $targetPath = $modelChecker->openWorkingDirectory($tmp_dir);
     
-    if ($xmlName != "") {
-        $xmlPath = $targetPath.$xmlName;
-    }
-    $thumbPath = $targetPath.$thumbName;
-    $ac3dPath  = $targetPath.$ac3dName;
+    
 } catch (Exception $ex) {
     $fatalerror = true;
     $errormsg .= "<li>".$ex->getMessage()."</li>";
@@ -157,6 +138,12 @@ if (count($exceptions) == 0) {
     }
 }
 
+if ($xmlName != "") {
+    $xmlPath = $targetPath.$xmlName;
+}
+$thumbPath = $targetPath.$thumbName;
+$ac3dPath  = $targetPath.$ac3dName;
+
 ######################################################
 # IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS #
 ######################################################
@@ -190,14 +177,16 @@ if ($xmlName != "") {
     $modelFilesValidator = ModelFilesValidator::instanceWithAC3DOnly($targetPath, $ac3dName, $_FILES["png_file"]["name"]);
 }
 $thumbValidator = new ThumbValidator($thumbPath);
+$filenamesValidator = new FilenamesValidator($ac3dName, $xmlName, $thumbName, $_FILES["png_file"]["name"]);
 $validatorsSet->addValidator($modelFilesValidator);
 $validatorsSet->addValidator($thumbValidator);
+$validatorsSet->addValidator($filenamesValidator);
 
 $exceptions = $validatorsSet->validate();
 
 
 $path_to_use = $ac3dName;
-if (isset($xmlPath) && file_exists($xmlPath)) {
+if (isset($xmlName)) {
     # If an XML file is used for the model, the mo_path has to point to it, or
     # FG will not render it correctly. Else the .ac file will be used as mo_path.
     $path_to_use = $xmlName;
@@ -208,8 +197,6 @@ if (isset($_POST["modelId"])) {
     $modelToUpdateOld = $modelDaoRO->getModelMetadata($_POST["modelId"]);
     if ($path_to_use != $modelToUpdateOld->getFilename() && path_exists($path_to_use)) {
         $exceptions[] = new Exception("Filename \"".$path_to_use."\" is already used by another model");
-    } else {
-        echo "<p class=\"center\">Your model named ".$path_to_use;
     }
 }
 
@@ -249,28 +236,14 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
     $thumbFile = base64_encode($contents);             // Dump & encode the file
     unlink($thumbPath);                                // Has to be deleted, because it's not put into the .tar.gz
 
-    // Dos2unix on XML
     if (isset($xmlPath)) {
-        $d2u_xml_command  = 'dos2unix '.$xmlPath;
-        system($d2u_xml_command);
+        $modelChecker->dos2Unix($xmlPath);
     }
+    $modelChecker->dos2Unix($ac3dPath);
+    $contents = $modelChecker->archiveModel($targetPath);
 
-    // Dos2Unix on AC3D
-    $d2u_ac3d_command = 'dos2unix '.$ac3dPath;
-    system($d2u_ac3d_command);
-
-    $phar = new PharData($tmp_dir . '/static.tar');                // Create archive file
-    $phar->buildFromDirectory($targetPath);                        // Fills archive file
-    $phar->compress(Phar::GZ);                                     // Convert archive file to compress file
-    unlink($tmp_dir . '/static.tar');                              // Delete archive file
-    rename($tmp_dir . '/static.tar.gz', $tmp_dir.'/static.tgz');   // Rename compress file
-
-    $handle    = fopen($tmp_dir."/static.tgz", "r");
-    $contents  = fread($handle, filesize($tmp_dir."/static.tgz"));
-    fclose($handle);
     $modelFile = base64_encode($contents);                    // Dump & encode the file
 
-    unlink($tmp_dir . '/static.tgz');                         // Delete compress file
     clear_dir($targetPath);                                   // Delete temporary static directory
 }
 
@@ -386,6 +359,7 @@ else {
     try {
         $updatedReq = $requestDaoRW->saveRequest($request);
         
+        echo "<p class=\"center\">Your model named ".$path_to_use.' ';
         echo "has been successfully queued into the FG scenery database model update requests!<br />";
         echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
         echo "The FG community would like to thank you for your contribution!<br />";
