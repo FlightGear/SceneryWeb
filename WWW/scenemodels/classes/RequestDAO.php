@@ -136,12 +136,13 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function serializeRequestObjectUpdate($request) {
         $newObj = $request->getNewObject();
+        $newObjPos = $newObj->getPosition();
         $offset = $newObj->getElevationOffset();
         
         return "OBJECT_UPDATE||" .
                $newObj->getDescription(). "||" . // ob_text
-               $newObj->getLongitude(). "||" . // longitude
-               $newObj->getLatitude(). "||" . // latitude
+               $newObjPos->getLongitude(). "||" . // longitude
+               $newObjPos->getLatitude(). "||" . // latitude
                (empty($offset)?"NULL":$offset). "||" . // elevation offset
                $newObj->getOrientation(). "||" . // orientation
                $newObj->getCountry()->getCode(). "||" . //country
