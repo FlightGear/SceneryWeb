@@ -158,6 +158,7 @@ if (isset($id_to_update)) {
     
     $objectToUp = $objectDaoRO->getObject($id_to_update);
     $modelMDToUp = $modelDaoRO->getModelMetadata($objectToUp->getModelId());
+    $objToUpPos = $objectToUp->getPosition();
 
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
@@ -272,10 +273,10 @@ function validateForm()
             <label for="new_long">Longitude<em>*</em></label></span>
           </td>
           <td>
-            <?=$objectToUp->getLongitude()?>
+            <?=$objToUpPos->getLongitude()?>
           </td>
           <td>
-            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?=$objectToUp->getLongitude()?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-180,180);" />
+            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?=$objToUpPos->getLongitude()?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-180,180);" />
           </td>
         </tr>
         <tr>
@@ -284,10 +285,10 @@ function validateForm()
             <label for="new_lat">Latitude<em>*</em></label></span>
           </td>
           <td>
-            <?=$objectToUp->getLatitude()?>
+            <?=$objToUpPos->getLatitude()?>
           </td>
           <td>
-            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?=$objectToUp->getLatitude()?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-90,90);" />
+            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?=$objToUpPos->getLatitude()?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-90,90);" />
           </td>
         </tr>
         <tr>
