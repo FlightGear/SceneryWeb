@@ -190,7 +190,7 @@ $exceptions = $validatorsSet->validate();
 
 
 $path_to_use = $ac3dName;
-if (isset($xmlName)) {
+if (isset($xmlPath) && file_exists($xmlPath)) {
     # If an XML file is used for the model, the mo_path has to point to it, or
     # FG will not render it correctly. Else the .ac file will be used as mo_path.
     $path_to_use = $xmlName;
