@@ -1,6 +1,6 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 require '../../inc/header.php';
 ?>
 <script type="text/javascript" src="../../inc/js/update_objects.js"></script>

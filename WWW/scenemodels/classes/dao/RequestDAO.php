@@ -1,4 +1,5 @@
 <?php
+namespace dao;
 
 /*
  * Copyright (C) 2014 Flightgear Team
@@ -18,19 +19,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once 'IRequestDAO.php';
-require_once 'Request.php';
-require_once 'RequestMassiveObjectsAdd.php';
-require_once 'RequestModelAdd.php';
-require_once 'RequestModelUpdate.php';
-require_once 'RequestObjectDelete.php';
-require_once 'RequestObjectUpdate.php';
-require_once 'ObjectDAO.php';
-require_once 'ObjectFactory.php';
-require_once 'ModelFactory.php';
-require_once 'ModelFilesTar.php';
-
-require_once 'RequestNotFoundException.php';
 
 /**
  * Request DAO
@@ -89,28 +77,28 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function serializeRequest($request) {
         switch (get_class($request)) {
-        case "RequestObjectUpdate":
+        case "model\RequestObjectUpdate":
             $reqStrContent = $this->serializeRequestObjectUpdate($request);
             break;
         
-        case "RequestObjectDelete":
+        case "model\RequestObjectDelete":
             $reqStrContent = $this->serializeRequestObjectDelete($request);
             break;
         
-        case "RequestMassiveObjectsAdd":
+        case "model\RequestMassiveObjectsAdd":
             $reqStrContent = $this->serializeRequestMassiveObjectsAdd($request);
             break;
         
-        case "RequestModelAdd":
+        case "model\RequestModelAdd":
             $reqStrContent = $this->serializeRequestModelAdd($request);
             break;
         
-        case "RequestModelUpdate":
+        case "model\RequestModelUpdate":
             $reqStrContent = $this->serializeRequestModelUpdate($request);
             break;
         
         default:
-            throw new Exception("Not a request!");
+            throw new \Exception("Not a request!");
         }
         
         $reqArray = array("email"=>$request->getContributorEmail(),
@@ -120,7 +108,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         return json_encode($reqArray);
     }
     
-    private function serializeObject(Object $object) {
+    private function serializeObject(\model\Object $object) {
         $objPos = $object->getPosition();
         $offset = $object->getElevationOffset();
         
@@ -293,17 +281,17 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         // Retrieve MODEL data from query
         // MODEL_ADD||mo_path||mo_author||mo_name||mo_notes||mo_thumbfile||mo_modelfile||mo_shared
         $modelArr = explode("||", $queryModel);
-        $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
+        $modelFactory = new \ModelFactory($this->modelDao, $this->authorDao);
         $modelMD = $modelFactory->createModelMetadata(-1, $modelArr[2], $modelArr[1], $modelArr[3], $modelArr[4], $modelArr[7]);
-        $newModel = new Model();
+        $newModel = new \model\Model();
         $newModel->setMetadata($modelMD);
-        $newModel->setModelFiles(new ModelFilesTar(base64_decode($modelArr[6])));
+        $newModel->setModelFiles(new \ModelFilesTar(base64_decode($modelArr[6])));
         $newModel->setThumbnail(base64_decode($modelArr[5]));
 
         // Retrieve OBJECT data from query
         $newObject = $this->getObjectFromSerialized($queryObj);
         
-        $requestModelAdd = new RequestModelAdd();
+        $requestModelAdd = new \model\RequestModelAdd();
         $requestModelAdd->setNewModel($newModel);
         $requestModelAdd->setNewObject($newObject);
         
@@ -315,20 +303,20 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         // MODEL_UPDATE||path||author||name||notes||thumbfile||modelfile||shared||modelid
         $modelArr = explode("||", $requestQuery);
 
-        $modelFactory = new ModelFactory($this->modelDao, $this->authorDao);
+        $modelFactory = new \ModelFactory($this->modelDao, $this->authorDao);
         $modelMD = $modelFactory->createModelMetadata($modelArr[8],
                 $modelArr[2], $modelArr[1], $modelArr[3],
                 $modelArr[4], $modelArr[7]);
         
-        $newModel = new Model();
+        $newModel = new \model\Model();
         $newModel->setMetadata($modelMD);
-        $newModel->setModelFiles(new ModelFilesTar(base64_decode($modelArr[6])));
+        $newModel->setModelFiles(new \ModelFilesTar(base64_decode($modelArr[6])));
         $newModel->setThumbnail(base64_decode($modelArr[5]));
 
         // Retrieve old model
         $oldModel = $this->modelDao->getModel($modelMD->getId());
         
-        $requestModelUpd = new RequestModelUpdate();
+        $requestModelUpd = new \model\RequestModelUpdate();
         $requestModelUpd->setNewModel($newModel);
         $requestModelUpd->setOldModel($oldModel);
         
@@ -339,7 +327,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         // OBJECT_ADD||ob_text||longitude||latitude||elevation offset||orientation||country||model id
         $objectArr = explode("||", $objectSerialized);
         
-        $objectFactory = new ObjectFactory($this->objectDao);
+        $objectFactory = new \ObjectFactory($this->objectDao);
         
         return $objectFactory->createObject(-1, $objectArr[7],
                $objectArr[2], $objectArr[3], $objectArr[6], 
@@ -356,7 +344,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
             $newObjects[] = $newObject;
         }
         
-        $requestMassObjAdd = new RequestMassiveObjectsAdd();
+        $requestMassObjAdd = new \model\RequestMassiveObjectsAdd();
         $requestMassObjAdd->setNewObjects($newObjects);
         
         return $requestMassObjAdd;
@@ -366,13 +354,13 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         // OBJECT_UPDATE||ob_text||longitude||latitude||elevation offset||orientation||country||model id||ob id
         $objectArr = explode("||", $requestQuery);
         
-        $objectFactory = new ObjectFactory($this->objectDao);
+        $objectFactory = new \ObjectFactory($this->objectDao);
 
         $newObject = $objectFactory->createObject($objectArr[8], $objectArr[7],
                $objectArr[2], $objectArr[3], $objectArr[6], 
                $objectArr[4], $objectArr[5], 1, $objectArr[1]);
 
-        $requestObjUp = new RequestObjectUpdate();
+        $requestObjUp = new \model\RequestObjectUpdate();
         $requestObjUp->setContributorEmail("");
         $requestObjUp->setComment("");
         $requestObjUp->setNewObject($newObject);
@@ -386,7 +374,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $objectArr = explode("||", $requestQuery);
         $objectToDel = $this->objectDao->getObject($objectArr[1]);
 
-        $requestObjDel = new RequestObjectDelete();
+        $requestObjDel = new \model\RequestObjectDelete();
         
         // Not available with actual DAO
         $requestObjDel->setContributorEmail("");

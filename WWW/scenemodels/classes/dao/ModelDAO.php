@@ -10,6 +10,8 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 
+namespace dao;
+
 class ModelDAO extends PgSqlDAO implements IModelDAO {    
     public function addModel($model) {
         $modelMD = $model->getMetadata();
@@ -128,16 +130,16 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     private function getModelFromRow($row) {
         $modelMetadata = $this->getModelMetadataFromRow($row);
         
-        $model = new Model();
+        $model = new \model\Model();
         $model->setMetadata($modelMetadata);
-        $model->setModelFiles(new ModelFilesTar(base64_decode($row["mo_modelfile"])));
+        $model->setModelFiles(new \ModelFilesTar(base64_decode($row["mo_modelfile"])));
         $model->setThumbnail(base64_decode($row["mo_thumbfile"]));
         
         return $model;
     }
     
     private function getModelMetadataFromRow($row) {
-        $author = new Author();
+        $author = new \model\Author();
         $author->setId($row["au_id"]);
         $author->setName($row["au_name"]);
         $author->setEmail($row["au_email"]);
@@ -145,20 +147,20 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
 
         $modelsGroup = $this->getModelsGroupFromRow($row);
         
-        $modelMetadata = new ModelMetadata();
+        $modelMetadata = new \model\ModelMetadata();
         $modelMetadata->setId($row["mo_id"]);
         $modelMetadata->setAuthor($author);
         $modelMetadata->setFilename($row["mo_path"]);
         $modelMetadata->setName($row["mo_name"]);
         $modelMetadata->setDescription($row["mo_notes"]);
         $modelMetadata->setModelsGroup($modelsGroup);
-        $modelMetadata->setLastUpdated(new DateTime($row['mo_modified']));
+        $modelMetadata->setLastUpdated(new \DateTime($row['mo_modified']));
 
         return $modelMetadata;
     }
     
     private function getModelsGroupFromRow($row) {
-        $modelsGroup = new ModelsGroup();
+        $modelsGroup = new \model\ModelsGroup();
         $modelsGroup->setId($row["mg_id"]);
         $modelsGroup->setName($row["mg_name"]);
         $modelsGroup->setPath($row["mg_path"]);
@@ -266,7 +268,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $result = $this->database->query("SELECT mo_modelfile FROM fgs_models WHERE mo_id=".$modelId.";");
         $row = pg_fetch_assoc($result);
         
-        return new ModelFilesTar(base64_decode($row["mo_modelfile"]));
+        return new \ModelFilesTar(base64_decode($row["mo_modelfile"]));
     }
 
     public function getThumbnail($modelId) {

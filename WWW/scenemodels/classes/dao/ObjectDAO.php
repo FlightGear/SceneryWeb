@@ -10,8 +10,10 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 
+namespace dao;
+
 class ObjectDAO extends PgSqlDAO implements IObjectDAO {    
-    public function addObject(Object $obj) {
+    public function addObject(\model\Object $obj) {
         $obOffset = $obj->getElevationOffset();
         $objPos = $obj->getPosition();
         
@@ -23,7 +25,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $result = $this->database->query($query);
         
         if (!$result) {
-            throw new Exception("Adding object failed!");
+            throw new \Exception("Adding object failed!");
         }
         
         $returnRow = pg_fetch_row($result);
@@ -31,7 +33,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         return $obj;
     }
 
-    public function updateObject(Object $object) {
+    public function updateObject(\model\Object $object) {
         $objPos = $object->getPosition();
         
         $query = "UPDATE fgs_objects ".
@@ -44,7 +46,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $result = $this->database->query($query);
         
         if (!$result) {
-            throw new Exception("Updating object failed!");
+            throw new \Exception("Updating object failed!");
         }
     }
     
@@ -52,7 +54,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $result = $this->database->query("DELETE FROM fgs_objects WHERE ob_id=".pg_escape_string($objectId).";");
         
         if (!$result) {
-            throw new Exception("Deleting object id ".$objectId." failed!");
+            throw new \Exception("Deleting object id ".$objectId." failed!");
         }
     }
     
@@ -63,7 +65,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $objectRow = pg_fetch_assoc($result);
         
         if (!$objectRow) {
-            throw new Exception('No object with id '. $objectId. ' was found!');
+            throw new \Exception('No object with id '. $objectId. ' was found!');
         }
         
         return $this->getObjectFromRow($objectRow);
@@ -188,7 +190,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     private function getObjectFromRow($objectRow) {
         $country = $this->getCountryFromRow($objectRow);
         
-        $object = new Object();
+        $object = new \model\Object();
         $object->setId($objectRow["ob_id"]);
         $object->setModelId($objectRow["ob_model"]);
         $object->getPosition()->setLongitude($objectRow["ob_lon"]);
@@ -200,13 +202,13 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $object->setOrientation($objectRow["ob_heading"]);
         $object->setDescription($objectRow["ob_text"]);
         $object->setGroupId($objectRow["ob_group"]);
-        $object->setLastUpdated(new DateTime($objectRow["ob_modified"]));
+        $object->setLastUpdated(new \DateTime($objectRow["ob_modified"]));
         
         return $object;
     }
     
     private function getCountryFromRow($countryRow) {
-        $country = new Country();
+        $country = new \model\Country();
         $country->setCode($countryRow["co_code"]);
         $country->setName($countryRow["co_name"]);
         $country->setCodeThree($countryRow["co_three"]);
@@ -215,7 +217,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     private function getObjectGroupFromRow($objGroupRow) {
-        $objectsGroup = new ObjectsGroup();
+        $objectsGroup = new \model\ObjectsGroup();
         $objectsGroup->setId($objGroupRow["gp_id"]);
         $objectsGroup->setName($objGroupRow["gp_name"]);
         

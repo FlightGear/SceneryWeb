@@ -1,8 +1,8 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -110,7 +110,7 @@ if (isset($model_name)
     }
     
     
-    $request = new RequestObjectUpdate();
+    $request = new \model\RequestObjectUpdate();
     $request->setNewObject($newObject);
     $request->setOldObject($oldObject);
     $request->setContributorEmail($safe_email);

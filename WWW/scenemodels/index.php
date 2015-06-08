@@ -1,7 +1,7 @@
 <?php
 require_once 'autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 
 if (isset($_REQUEST['offset']) && preg_match(FormChecker::$regex['pageoffset'], $_REQUEST['offset'])) {
     $offset = $_REQUEST['offset'];

@@ -5,6 +5,9 @@
  * 
  * @author julien
  */
+
+namespace dao;
+
 interface IRequestDAO {
     /**
      * Gets request using id

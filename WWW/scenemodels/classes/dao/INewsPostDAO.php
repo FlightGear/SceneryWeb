@@ -8,6 +8,8 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 
+namespace dao;
+
 interface INewsPostDAO {
 
     public function addNewsPost($newsPost);

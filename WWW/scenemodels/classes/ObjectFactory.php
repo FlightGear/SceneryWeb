@@ -34,7 +34,7 @@ class ObjectFactory {
             $elevOffset, $orientation, $group, $desc) {
         $country = $this->objectDaoRO->getCountry($countryCode);
         
-        $object = new Object();
+        $object = new \model\Object();
         $object->setId($id);
         $object->setModelId($modelId);
         $object->getPosition()->setLongitude($lon);

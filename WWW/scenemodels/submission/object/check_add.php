@@ -1,8 +1,8 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -141,7 +141,7 @@ if (!$error) {
     
     $newObjects = array();
     $newObjects[] = $newObject;
-    $request = new RequestMassiveObjectsAdd();
+    $request = new \model\RequestMassiveObjectsAdd();
     $request->setNewObjects($newObjects);
     $request->setContributorEmail($safe_email);
     $request->setComment($sent_comment);

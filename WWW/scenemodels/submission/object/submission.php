@@ -1,8 +1,8 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -35,7 +35,7 @@ if ($action == "check") {
          "<p class=\"center\">Comment: ".$request->getComment()."</p>";
     
     switch (get_class($request)) {
-    case "RequestObjectUpdate":
+    case "model\RequestObjectUpdate":
         $oldObject = $request->getOldObject();
         $newObject = $request->getNewObject();
         
@@ -96,7 +96,7 @@ if ($action == "check") {
              "</tr>";
         break;
         
-    case "RequestObjectDelete":
+    case "model\RequestObjectDelete":
 
         $objectToDel = $request->getObjectToDelete();
         $objDelPos = $objectToDel->getPosition();
@@ -137,8 +137,8 @@ if ($action == "check") {
 
 // Check the presence of "action", the presence of "signature", its length (64) and its content.
 if ($action == 'Accept') {
-    $objectDaoRW = DAOFactory::getInstance()->getObjectDaoRW();
-    $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+    $objectDaoRW = \dao\DAOFactory::getInstance()->getObjectDaoRW();
+    $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
     $reqExecutor = new RequestExecutor(null, $objectDaoRW);
 
     // Executes request
@@ -188,7 +188,7 @@ if ($action == 'Accept') {
 
 // If it's not to validate the submission... it's to delete it... check the presence of "action", the presence of "signature", its length (64), its content.
 else if ($action == "Reject") {
-    $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+    $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
     try {
         $resultDel = $requestDaoRW->deleteRequest($sig);

@@ -2,7 +2,7 @@
 
 // Inserting libs
 require_once '../autoload.php';
-$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
+$requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
 
 // Get pending requests
 $requests = $requestDaoRO->getPendingRequests();
@@ -18,27 +18,27 @@ foreach ($requests as $request) {
     $pending_requests .= "=========================================================================================\n";
 
     switch (get_class($request)) {
-    case "RequestObjectUpdate":
+    case "model\RequestObjectUpdate":
         $pending_requests .= "This is an object update request!\n";
         $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$sig."\n";
         break;
 
-    case "RequestObjectDelete":
+    case "model\RequestObjectDelete":
         $pending_requests .= "This is an object deletion request!\n";
         $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$sig."\n";
         break;
 
-    case "RequestMassiveObjectsAdd":
+    case "model\RequestMassiveObjectsAdd":
         $pending_requests .= "This is an object(s) addition request!\n";
         $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=".$sig."\n";
         break;
 
-    case "RequestModelAdd":
+    case "model\RequestModelAdd":
         $pending_requests .= "This is a 3D model addition request!\n";
         $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=".$sig."\n";
         break;
 
-    case "RequestModelUpdate":
+    case "model\RequestModelUpdate":
         $pending_requests .= "This is a 3D model update request!\n";
         $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=".$sig."\n";
         break;

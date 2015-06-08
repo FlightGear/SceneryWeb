@@ -1,4 +1,7 @@
 <?php
+
+namespace dao;
+
 /**
  * Author Data Access Object implementation for PostgreSQL
  *
@@ -8,7 +11,6 @@
  * @copyright  2014 - FlightGear Team
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
- 
 class AuthorDAO extends PgSqlDAO implements IAuthorDAO {
     
     public function addAuthor(Author $author) {
@@ -41,7 +43,7 @@ class AuthorDAO extends PgSqlDAO implements IAuthorDAO {
     }
     
     private function getAuthorFromRow($authorRow) {
-        $author = new Author();
+        $author = new \model\Author();
         $author->setId($authorRow["au_id"]);
         $author->setName($authorRow["au_name"]);
         $author->setEmail($authorRow["au_email"]);

@@ -1,7 +1,7 @@
 <?php
 require_once '../autoload.php';
 
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 require '../inc/header.php';
 ?>
   <h1>RSS Feeds</h1>

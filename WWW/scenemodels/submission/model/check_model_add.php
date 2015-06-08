@@ -1,9 +1,9 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
-$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+$authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
+$requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';
@@ -369,7 +369,7 @@ if ($fatalerror) {
 else {
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
     $objectFactory = new ObjectFactory($objectDaoRO);
-    $newModel = new Model();
+    $newModel = new \model\Model();
     $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $moGroupId);
     if ($authorId != 1) {
         $auEmail = $newModelMD->getAuthor()->getEmail();
@@ -387,7 +387,7 @@ else {
     $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
             $offset, heading_stg_to_true($heading), 1, $name);
 
-    $request = new RequestModelAdd();
+    $request = new \model\RequestModelAdd();
     $request->setNewModel($newModel);
     $request->setNewObject($newObject);
     $request->setContributorEmail($auEmail);

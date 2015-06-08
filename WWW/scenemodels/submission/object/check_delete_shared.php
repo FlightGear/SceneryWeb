@@ -1,8 +1,8 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -56,7 +56,7 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
     $objectToDel = $objectDaoRO->getObject($id_to_delete);
     $modelMD = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
     
-    $request = new RequestObjectDelete();
+    $request = new \model\RequestObjectDelete();
     $request->setObjectToDelete($objectToDel);
     $request->setComment($comment);
     

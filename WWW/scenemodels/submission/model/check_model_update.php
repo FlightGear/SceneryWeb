@@ -1,8 +1,8 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
-$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
+$requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
 # Inserting libs
 require_once '../../inc/captcha/recaptchalib.php';
@@ -334,7 +334,7 @@ if ($fatalerror) {
 }
 else {
     $modelFactory = new ModelFactory($modelDaoRO, $authorDaoRO);
-    $newModel = new Model();
+    $newModel = new \model\Model();
     $newModelMD = $modelFactory->createModelMetadata($modelId, $authorId, $path_to_use,
             $name, $notes, $moGroupId);
     $newModel->setMetadata($newModelMD);
@@ -355,7 +355,7 @@ else {
         $failed_mail = true;
     }
     
-    $request = new RequestModelUpdate();
+    $request = new \model\RequestModelUpdate();
     $request->setNewModel($newModel);
     $request->setContributorEmail($contr_email);
     $request->setComment($sent_comment);

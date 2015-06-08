@@ -1,6 +1,6 @@
 <?php
 require_once 'autoload.php';
-$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
+$authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
 
 require 'inc/header.php';
 

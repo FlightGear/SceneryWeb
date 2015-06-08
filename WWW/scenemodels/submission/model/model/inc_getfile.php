@@ -36,7 +36,7 @@ function displayThumbnail($textureContent) {
 
 // Inserting libs
 require_once '../../../autoload.php';
-$requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
+$requestDaoRO = \dao\DAOFactory::getInstance()->getrequestDaoRO();
 
 $mo_sig = $_GET["mo_sig"];
 $type = $_REQUEST['type'];

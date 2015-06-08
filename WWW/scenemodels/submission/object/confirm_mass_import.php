@@ -1,8 +1,8 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
 // Inserting libs
 require_once '../../inc/functions.inc.php';
@@ -376,7 +376,7 @@ if ($step == 1) {
     echo "<p class=\"center ok\"><input type='hidden' name='step' value='2'/><input name='submit' type='submit' value='Submit objects' /></p></form>";
 } else {
     // Proceed on with the request generation
-    $request = new RequestMassiveObjectsAdd();
+    $request = new \model\RequestMassiveObjectsAdd();
     $request->setNewObjects($newObjects);
     $request->setContributorEmail($safe_email);
     $request->setComment($sent_comment);

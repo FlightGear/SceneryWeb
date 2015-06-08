@@ -1,11 +1,13 @@
 <?php
 
+namespace dao;
+
 class PGDatabase implements Database {
     private $connection;
 
     public function __construct($dbname, $dbhost, $dbuser, $dbpass) {
         $this->connection = pg_connect('dbname='.$dbname.' host='.$dbhost.
-                         ' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
+                         ' user='.$dbuser.' password='.$dbpass.' sslmode=disable port=5433');
     }
     
     public function query($query) {

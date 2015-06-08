@@ -1,6 +1,6 @@
 <?php 
 require_once '../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
 header('Content-type: application/rss+xml');
 $modelMetadatas = $modelDaoRO->getModelMetadatas(0, 50);

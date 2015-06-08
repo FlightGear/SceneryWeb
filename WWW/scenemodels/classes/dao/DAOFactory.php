@@ -1,4 +1,5 @@
 <?php
+namespace dao;
 
 class DAOFactory {
     private static $instance;

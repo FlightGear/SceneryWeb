@@ -1,6 +1,6 @@
 <?php
 require_once '../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
 $page_title = "Automated Scenery Submission Forms";
 require '../inc/header.php';

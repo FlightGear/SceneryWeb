@@ -35,23 +35,23 @@ class RequestExecutor {
     
     public function executeRequest($request) {
         switch (get_class($request)) {
-        case "RequestObjectUpdate":
+        case "model\RequestObjectUpdate":
             $this->executeRequestObjectUpdate($request);
             break;
         
-        case "RequestObjectDelete":
+        case "model\RequestObjectDelete":
             $this->executeRequestObjectDelete($request);
             break;
         
-        case "RequestMassiveObjectsAdd":
+        case "model\RequestMassiveObjectsAdd":
             return $this->executeRequestMassiveObjectsAdd($request);
             break;
         
-        case "RequestModelAdd":
+        case "model\RequestModelAdd":
             return $this->executeRequestModelAdd($request);
             break;
         
-        case "RequestModelUpdate":
+        case "model\RequestModelUpdate":
             $this->executeRequestModelUpdate($request);
             break;
         

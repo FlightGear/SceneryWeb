@@ -3,7 +3,7 @@
 // Inserting libs
 require_once 'inc/functions.inc.php';
 require_once 'autoload.php';
-$objectDAO = DAOFactory::getInstance()->getObjectDaoRO();
+$objectDAO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 
 require 'inc/header.php';
 
@@ -69,7 +69,7 @@ if ($object->getDescription() != null) {
         <td>Model</td>
         <td>
 <?php
-            $modelMetadata= DAOFactory::getInstance()->getModelDaoRO()->getModelMetadata($object->getModelId());
+            $modelMetadata= \dao\DAOFactory::getInstance()->getModelDaoRO()->getModelMetadata($object->getModelId());
             print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$object->getModelId()."\">".$modelMetadata->getFilename()."</a>";
 ?>
         </td>

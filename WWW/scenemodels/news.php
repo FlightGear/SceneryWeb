@@ -1,7 +1,7 @@
 <?php
 require_once 'autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$newsPostDaoRO = DAOFactory::getInstance()->getNewsPostDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$newsPostDaoRO = \dao\DAOFactory::getInstance()->getNewsPostDaoRO();
 
 require 'inc/header.php';
 

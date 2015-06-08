@@ -5,7 +5,7 @@
 
 header("Content-type: image/jpg");
 require_once '../../autoload.php';
-$requestDaoRO = DAOFactory::getInstance()->getrequestDaoRO();
+$requestDaoRO = \dao\DAOFactory::getInstance()->getrequestDaoRO();
 
 if (FormChecker::isSig($_GET["mo_sig"])) {
     $request = $requestDaoRO->getRequest($_GET["mo_sig"]);

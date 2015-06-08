@@ -2,7 +2,7 @@
 
 // Inserting libs
 require_once '../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
 header('Content-Type: text/xml');
 echo "<?xml version=\"1.0\" standalone=\"yes\" ?>\n";

@@ -1,8 +1,9 @@
 <?php
 require_once 'autoload.php';
 
-$modelDAO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDAO = DAOFactory::getInstance()->getObjectDaoRO();
+$modelDAO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDAO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+use \dao\Criterion as Criterion;
 
 require 'inc/header.php';
 

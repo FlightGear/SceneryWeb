@@ -1,4 +1,7 @@
 <?php
+
+namespace model;
+
 /**
  * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */

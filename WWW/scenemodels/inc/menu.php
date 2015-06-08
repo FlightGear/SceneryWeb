@@ -24,7 +24,7 @@
         <ul class="submenus">
             <li><a href="/modelbrowser.php">Browse all</a></li>
 <?php
-            $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+            $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
             $groups = $modelDaoRO->getModelsGroups();          
             
             foreach ($groups as $group) {

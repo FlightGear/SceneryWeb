@@ -19,14 +19,11 @@
  */
 
 
-// Custom class dir
-define('CLASS_DIR', '/classes/');
-
-// Add class dir to include path
-set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.CLASS_DIR);
-
 function my_autoloader($className) {
-    require_once $className . '.php';
+    $namespace=str_replace("\\","/",__NAMESPACE__);
+    $classNameSep=str_replace("\\","/",$className);
+    $class=__DIR__."/classes/".(empty($namespace)?"":$namespace."/").$classNameSep.".php";
+    include_once $class;
 } 
 
 spl_autoload_register('my_autoloader');

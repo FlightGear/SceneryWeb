@@ -1,4 +1,6 @@
 <?php
+namespace dao;
+
 require_once 'PGDatabase.php';
 
 /**

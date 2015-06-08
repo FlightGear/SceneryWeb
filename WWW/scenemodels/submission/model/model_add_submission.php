@@ -1,8 +1,8 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+$requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
 
 require_once '../../inc/functions.inc.php';
 
@@ -32,7 +32,7 @@ if (isset($_POST["action"])) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Reject model") {
-        $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
         try {
             $resultDel = $requestDaoRW->deleteRequest($sig);
@@ -82,9 +82,9 @@ if (isset($_POST["action"])) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Submit model") {
-        $modelDaoRW = DAOFactory::getInstance()->getModelDaoRW();
-        $objectDaoRW = DAOFactory::getInstance()->getObjectDaoRW();
-        $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+        $modelDaoRW = \dao\DAOFactory::getInstance()->getModelDaoRW();
+        $objectDaoRW = \dao\DAOFactory::getInstance()->getObjectDaoRW();
+        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
         $reqExecutor = new RequestExecutor($modelDaoRW, $objectDaoRW);
 
         // Executes request

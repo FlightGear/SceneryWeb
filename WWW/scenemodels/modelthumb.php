@@ -5,7 +5,7 @@ require_once 'autoload.php';
 $id = $_REQUEST['id'];
 
 if (FormChecker::isModelId($id)) {
-    $modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+    $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
     $thumbnail = $modelDaoRO->getThumbnail($id);
     
     header("Content-Disposition: inline; filename=".$id.".jpg");

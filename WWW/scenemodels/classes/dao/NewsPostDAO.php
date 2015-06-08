@@ -10,6 +10,8 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 
+namespace dao;
+
 class NewsPostDAO extends PgSqlDAO implements INewsPostDAO {
 
     public function addNewsPost($newsPost) {
@@ -45,15 +47,15 @@ class NewsPostDAO extends PgSqlDAO implements INewsPostDAO {
     }
     
     private function getNewsPostFromRow($row) {
-        $author = new Author();
+        $author = new \model\Author();
         $author->setId($row["au_id"]);
         $author->setName($row["au_name"]);
         $author->setEmail($row["au_email"]);
         $author->setDescription($row["au_notes"]);
     
-        $newsPost = new NewsPost();
+        $newsPost = new \model\NewsPost();
         $newsPost->setId($row["ne_id"]);
-        $newsPost->setDate(new DateTime($row["ne_timestamp"]));
+        $newsPost->setDate(new \DateTime($row["ne_timestamp"]));
         $newsPost->setAuthor($author);
         $newsPost->setText($row["ne_text"]);
         

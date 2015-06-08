@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 /**
  * Model
  *
@@ -9,7 +11,6 @@
  * @copyright  2014 - FlightGear Team
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
- 
 class Model {
     private $modelMetadata;
     private $modelFiles;

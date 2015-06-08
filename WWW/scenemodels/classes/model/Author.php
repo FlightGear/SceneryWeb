@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 /**
  * Author (for models and news)
  *
@@ -7,7 +9,6 @@
  * @copyright  2014 - FlightGear Team
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
-
 class Author {
     private $authorId;
     private $name;

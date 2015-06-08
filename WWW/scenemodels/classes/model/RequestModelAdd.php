@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Request.php';
+namespace model;
 
 /**
  * Model addition request

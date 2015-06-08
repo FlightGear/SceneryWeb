@@ -1,7 +1,7 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$requestDaoRO = DAOFactory::getInstance()->getRequestDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
 
 if (isset($_REQUEST["mo_sig"]) && FormChecker::isSig($_REQUEST["mo_sig"])) {
     $sig = $_REQUEST["mo_sig"];
@@ -30,7 +30,7 @@ if (isset($_POST["action"])) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Reject model") {
-        $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
         try {
             $resultDel = $requestDaoRW->deleteRequest($sig);
@@ -81,8 +81,8 @@ if (isset($_POST["action"])) {
         // - Send 2 mails
 
     if ($_POST["action"] == "Submit model") {
-        $modelDaoRW = DAOFactory::getInstance()->getModelDaoRW();
-        $requestDaoRW = DAOFactory::getInstance()->getRequestDaoRW();
+        $modelDaoRW = \dao\DAOFactory::getInstance()->getModelDaoRW();
+        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
         $reqExecutor = new RequestExecutor($modelDaoRW, null);
         
         // Executes request

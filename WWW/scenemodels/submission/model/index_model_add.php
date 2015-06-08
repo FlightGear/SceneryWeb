@@ -1,8 +1,8 @@
 <?php
 require_once '../../autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = DAOFactory::getInstance()->getObjectDaoRO();
-$authorDaoRO = DAOFactory::getInstance()->getAuthorDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
+$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+$authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
 
 require_once '../../inc/functions.inc.php';
 $page_title = "Automated Models Submission Form";

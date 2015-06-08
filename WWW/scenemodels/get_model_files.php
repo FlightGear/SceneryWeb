@@ -1,6 +1,6 @@
 <?php
 require_once 'autoload.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
 $id = $_REQUEST['id'];
 $type = $_REQUEST['type'];

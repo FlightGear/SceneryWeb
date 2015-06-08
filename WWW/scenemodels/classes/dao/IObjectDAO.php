@@ -8,15 +8,17 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  */
 
+namespace dao;
+
 interface IObjectDAO {
     /**
      * Adds the given object to database.
      * @param Object $newObject
      * @return object with id
      */
-    public function addObject(Object $newObject);
+    public function addObject(\model\Object $newObject);
 
-    public function updateObject(Object $newObject);
+    public function updateObject(\model\Object $newObject);
     
     public function deleteObject($objectId);
     

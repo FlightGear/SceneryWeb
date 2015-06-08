@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 /**
  * Class representing a group that objects can be identified with.
  */

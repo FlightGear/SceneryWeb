@@ -2,7 +2,7 @@
 $nojs_page = true;
 require_once 'autoload.php';
 require 'inc/header.php';
-$modelDaoRO = DAOFactory::getInstance()->getModelDaoRO();
+$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 ?>
 <h1>Your Javascript is disabled</h1>
 

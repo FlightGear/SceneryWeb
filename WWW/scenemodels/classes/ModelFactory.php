@@ -46,7 +46,7 @@ class ModelFactory {
      * @return \ModelMetadata
      */
     public function createModelMetadata($id, $authorId, $filename, $name, $desc, $modelsGroupId) {
-        $modelMetadata = new ModelMetadata();
+        $modelMetadata = new \model\ModelMetadata();
         
         $author = $this->authorDaoRo->getAuthor($authorId);
         $modelsGroup = $this->modelDaoRo->getModelsGroup($modelsGroupId);
