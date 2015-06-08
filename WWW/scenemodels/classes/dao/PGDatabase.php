@@ -7,7 +7,7 @@ class PGDatabase implements Database {
 
     public function __construct($dbname, $dbhost, $dbuser, $dbpass) {
         $this->connection = pg_connect('dbname='.$dbname.' host='.$dbhost.
-                         ' user='.$dbuser.' password='.$dbpass.' sslmode=disable port=5433');
+                         ' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
     }
     
     public function query($query) {
