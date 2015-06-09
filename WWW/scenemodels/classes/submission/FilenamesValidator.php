@@ -1,4 +1,5 @@
 <?php
+namespace submission;
 
 /*
  * Copyright (C) 2015 FlightGear Team
@@ -51,20 +52,20 @@ class FilenamesValidator implements Validator {
     public function validate() {
         $exceptions = array();
         
-        if (!FormChecker::isAC3DFilename($this->ac3dName)
-                || ($this->xmlName != "" && !FormChecker::isXMLFilename($this->xmlName))) {
+        if (!\FormChecker::isAC3DFilename($this->ac3dName)
+                || ($this->xmlName != "" && !\FormChecker::isXMLFilename($this->xmlName))) {
             $exceptions[] = new Exception("AC3D and XML name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
         }
 
         // Checks PNG Filenames
         for ($i=0; $i<count($this->pngNames); $i++) {
-            if (isset($this->pngNames[$i]) && $this->pngNames[$i] != "" && !FormChecker::isPNGFilename($this->pngNames[$i])) {
+            if (isset($this->pngNames[$i]) && $this->pngNames[$i] != "" && !\FormChecker::isPNGFilename($this->pngNames[$i])) {
                 $exceptions[] = new Exception("Textures' name must be *.png or *.PNG with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
             }
         }
         
         // Check thumbnail filename
-        if (!FormChecker::isThumbFilename($this->thumbName)) {
+        if (!\FormChecker::isThumbFilename($this->thumbName)) {
             $exceptions[] = new Exception("Thumbnail name must be *.jpg or *.jpeg with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
         }
 

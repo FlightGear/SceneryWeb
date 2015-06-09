@@ -167,14 +167,14 @@ if ($fatalerror) {
 ###############################################
 ###############################################
 
-$validatorsSet = new ValidatorsSet();
+$validatorsSet = new \submission\ValidatorsSet();
 if ($xmlName != "") {
-    $modelFilesValidator = ModelFilesValidator::instanceWithXML($targetPath, $xmlName, $ac3dName, $_FILES["png_file"]["name"]);
+    $modelFilesValidator = \submission\ModelFilesValidator::instanceWithXML($targetPath, $xmlName, $ac3dName, $_FILES["png_file"]["name"]);
 } else {
-    $modelFilesValidator = ModelFilesValidator::instanceWithAC3DOnly($targetPath, $ac3dName, $_FILES["png_file"]["name"]);
+    $modelFilesValidator = \submission\ModelFilesValidator::instanceWithAC3DOnly($targetPath, $ac3dName, $_FILES["png_file"]["name"]);
 }
-$thumbValidator = new ThumbValidator($thumbPath);
-$filenamesValidator = new FilenamesValidator($ac3dName, $xmlName, $thumbName, $_FILES["png_file"]["name"]);
+$thumbValidator = new \submission\ThumbValidator($thumbPath);
+$filenamesValidator = new \submission\FilenamesValidator($ac3dName, $xmlName, $thumbName, $_FILES["png_file"]["name"]);
 $validatorsSet->addValidator($modelFilesValidator);
 $validatorsSet->addValidator($thumbValidator);
 $validatorsSet->addValidator($filenamesValidator);

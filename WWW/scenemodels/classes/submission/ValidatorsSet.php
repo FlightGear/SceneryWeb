@@ -1,4 +1,5 @@
 <?php
+namespace submission;
 
 /*
  * Copyright (C) 2014 Flightgear Team
@@ -18,13 +19,39 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once 'Validator.php';
-
 /**
- * Interface for validators.
- * 
+ * Set of validators
+ *
  * @author Julien Nguyen
  */
-interface Validator {
-    function validate();
+class ValidatorsSet {
+    private $validators;
+    private $errors;
+    
+    function __construct() {
+        $this->validators = array();
+        $this->errors = array();
+    }
+    
+    /**
+     * Adds a validator to the actual set.
+     * 
+     * @param Validator $validator
+     */
+    public function addValidator($validator) {
+        $this->validators[] = $validator;
+    }
+    
+    /**
+     * Executes validation for each validators in the set.
+     * 
+     * @return array of errors (empty if no errors)
+     */
+    public function validate() {
+        foreach ($this->validators as $validator) {
+            $this->errors = array_merge($this->errors, $validator->validate());
+        }
+
+        return $this->errors;
+    }
 }

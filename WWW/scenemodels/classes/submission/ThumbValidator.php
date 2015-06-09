@@ -1,7 +1,8 @@
 <?php
+namespace submission;
 
 /*
- * Copyright (C) 2014 julien
+ * Copyright (C) 2014 Flightgear Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,12 +19,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once 'Validator.php';
-
 /**
- * Description of ThumbValidator
+ * Validator for thumbnail checking
  *
- * @author julien
+ * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
 class ThumbValidator implements Validator {
     private $thumbPath;

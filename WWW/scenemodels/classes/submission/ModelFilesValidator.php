@@ -1,4 +1,5 @@
 <?php
+namespace submission;
 
 /*
  * Copyright (C) 2014 Flightgear Team

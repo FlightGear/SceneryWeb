@@ -1,5 +1,5 @@
 <?php
-
+namespace submission;
 /*
  * Copyright (C) 2014 Flightgear Team
  *
@@ -18,21 +18,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace validator;
-
 /**
- * Description of ObjectValidator
- *
- * @author     Julien Nguyen <julien.nguyen3@gmail.com>
+ * Interface for validators.
+ * 
+ * @author Julien Nguyen
  */
-class ObjectValidator implements Validator {
-    
-    private $object;
-    
-    function __construct() {
-    }
-    
-    public function validate() {
-        
-    }
+interface Validator {
+    function validate();
 }

@@ -1,4 +1,5 @@
 <?php
+namespace submission;
 
 /*
  * Copyright (C) 2014 Flightgear Team
@@ -19,38 +20,18 @@
  */
 
 /**
- * Set of validators
+ * Description of ObjectValidator
  *
- * @author Julien Nguyen
+ * @author     Julien Nguyen <julien.nguyen3@gmail.com>
  */
-class ValidatorsSet {
-    private $validators;
-    private $errors;
+class ObjectValidator implements Validator {
+    
+    private $object;
     
     function __construct() {
-        $this->validators = array();
-        $this->errors = array();
     }
     
-    /**
-     * Adds a validator to the actual set.
-     * 
-     * @param Validator $validator
-     */
-    public function addValidator($validator) {
-        $this->validators[] = $validator;
-    }
-    
-    /**
-     * Executes validation for each validators in the set.
-     * 
-     * @return array of errors (empty if no errors)
-     */
     public function validate() {
-        foreach ($this->validators as $validator) {
-            $this->errors = array_merge($this->errors, $validator->validate());
-        }
-
-        return $this->errors;
+        
     }
 }
