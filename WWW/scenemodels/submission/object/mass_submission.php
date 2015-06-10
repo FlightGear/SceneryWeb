@@ -16,7 +16,7 @@ $sig = $_REQUEST["sig"];
 
 try {
     $request = $requestDaoRO->getRequest($sig);
-} catch(RequestNotFoundException $e) {
+} catch(\dao\RequestNotFoundException $e) {
     $page_title = "Automated Objects Addition Request Form";
     $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?<br/>";
     $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
@@ -110,7 +110,7 @@ if (isset($_POST["cancel"])) {
 if (isset($_POST["accept"])) {
     $objectDaoRW = \dao\DAOFactory::getInstance()->getObjectDaoRW();
     $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
-    $reqExecutor = new RequestExecutor(null, $objectDaoRW);
+    $reqExecutor = new \submission\RequestExecutor(null, $objectDaoRW);
 
     // Executes request
     try {
@@ -134,7 +134,7 @@ if (isset($_POST["accept"])) {
     // Delete the entry from the pending query table.
     try {
         $resultDel = $requestDaoRW->deleteRequest($sig);
-    } catch(RequestNotFoundException $e) {
+    } catch(\dao\RequestNotFoundException $e) {
         echo "<p class=\"warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
         include '../../inc/footer.php';
         exit;

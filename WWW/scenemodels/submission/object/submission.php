@@ -18,7 +18,7 @@ $sig = htmlentities($_REQUEST["sig"]);
 // Checking the presence of sig into the database
 try {
     $request = $requestDaoRO->getRequest($sig);
-} catch (RequestNotFoundException $e) {
+} catch (\dao\RequestNotFoundException $e) {
     $page_title = "Automated Objects Pending Requests Form";
     $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
     $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
@@ -139,7 +139,7 @@ if ($action == "check") {
 if ($action == 'Accept') {
     $objectDaoRW = \dao\DAOFactory::getInstance()->getObjectDaoRW();
     $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
-    $reqExecutor = new RequestExecutor(null, $objectDaoRW);
+    $reqExecutor = new \submission\RequestExecutor(null, $objectDaoRW);
 
     // Executes request
     try {
@@ -162,7 +162,7 @@ if ($action == 'Accept') {
     // Delete the entry from the pending query table.
     try {
         $resultDel = $requestDaoRW->deleteRequest($sig);
-    } catch(RequestNotFoundException $e) {
+    } catch(\dao\RequestNotFoundException $e) {
         echo "<p class=\"center warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
         include '../../inc/footer.php';
         exit;
@@ -192,7 +192,7 @@ else if ($action == "Reject") {
 
     try {
         $resultDel = $requestDaoRW->deleteRequest($sig);
-    } catch(RequestNotFoundException $e) {
+    } catch(\dao\RequestNotFoundException $e) {
         $page_title = "Automated Objects Pending Requests Form";
         $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
         $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";

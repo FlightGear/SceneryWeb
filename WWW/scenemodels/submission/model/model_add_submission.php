@@ -14,7 +14,7 @@ if (isset($_REQUEST["mo_sig"]) && FormChecker::isSig($_REQUEST["mo_sig"])) {
 
 try {
     $request = $requestDaoRO->getRequest($sig);
-} catch (RequestNotFoundException $e) {
+} catch (\dao\RequestNotFoundException $e) {
     $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
     $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
     include '../../inc/error_page.php';
@@ -36,7 +36,7 @@ if (isset($_POST["action"])) {
 
         try {
             $resultDel = $requestDaoRW->deleteRequest($sig);
-        } catch(RequestNotFoundException $e) {
+        } catch(\dao\RequestNotFoundException $e) {
             $process_text = "Deleting corresponding pending query.";
             $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
             $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
@@ -85,7 +85,7 @@ if (isset($_POST["action"])) {
         $modelDaoRW = \dao\DAOFactory::getInstance()->getModelDaoRW();
         $objectDaoRW = \dao\DAOFactory::getInstance()->getObjectDaoRW();
         $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
-        $reqExecutor = new RequestExecutor($modelDaoRW, $objectDaoRW);
+        $reqExecutor = new \submission\RequestExecutor($modelDaoRW, $objectDaoRW);
 
         // Executes request
         try {
@@ -106,7 +106,7 @@ if (isset($_POST["action"])) {
         // Delete the entries from the pending query table.
         try {
             $resultDel = $requestDaoRW->deleteRequest($sig);
-        } catch(RequestNotFoundException $e) {
+        } catch(\dao\RequestNotFoundException $e) {
             echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
             include '../../inc/footer.php';
             exit;

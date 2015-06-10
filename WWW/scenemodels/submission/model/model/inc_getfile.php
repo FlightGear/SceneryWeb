@@ -62,7 +62,7 @@ try {
     } else {
         $modelfiles = $request->getNewModel()->getModelFiles();
     }
-} catch (RequestNotFoundException $e) {
+} catch (\dao\RequestNotFoundException $e) {
     exit;
 }
 
