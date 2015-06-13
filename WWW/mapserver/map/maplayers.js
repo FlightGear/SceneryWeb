@@ -86,8 +86,7 @@
     );
 
     var vfpr = new OpenLayers.Layer.WMS( "VFP 3\" DEM",
-        [ "http://1.flightgear.telascience.org/mc?",
-          "http://2.mapserver.flightgear.org/mc?" ],
+        "http://2.flightgear.telascience.org/mc?",
         {layers: 'vfpr', format: 'image/png'},
         {attribution: "&copy; <a href='http://www.viewfinderpanoramas.org/dem3.html'>VFP</a>"}
     );
