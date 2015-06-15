@@ -90,7 +90,7 @@ lightmap = ("<a target=\"_new\" href=\"http://mapserver.flightgear.org/map/?lon=
         <td>Airport code - OpenLayers:</td>
         <td></td>
         <td>  ICAO:</td>
-        <td> <input type="text" size="4" maxlength="4" name="icao" autofocus></td>
+        <td> <input type="text" size="5" maxlength="5" name="icao" autofocus></td>
         <td>  <input type="submit" name="senden" value="ICAO"></td>
       </tr>
     </form>
@@ -118,7 +118,7 @@ lightmap = ("<a target=\"_new\" href=\"http://mapserver.flightgear.org/map/?lon=
         <td>Airport code - MS template view:</td>
         <td></td>
         <td>  ICAO:</td>
-        <td> <input type="text" size="4" maxlength="4" name="icao"/></td>
+        <td> <input type="text" size="5" maxlength="5" name="icao"/></td>
         <td>  <input type="submit" name="senden" value="ICAO"/></td>
       </tr>
     </form>
@@ -152,9 +152,9 @@ lightmap = ("<a target=\"_new\" href=\"http://mapserver.flightgear.org/map/?lon=
     <form method="get" action="http://mapserver.flightgear.org/dist.php">
       <tr>
         <td>  ICAO:</td>
-        <td> <input type="text" size="4" maxlength="4" name="icao1"></td>
+        <td> <input type="text" size="5" maxlength="5" name="icao1"></td>
         <td>  ICAO:</td>
-        <td> <input type="text" size="4" maxlength="4" name="icao2"></td>
+        <td> <input type="text" size="5" maxlength="5" name="icao2"></td>
         <td>  <input type="submit" value="Distance"/>  between two airfields</td>
       </tr>
     </form>

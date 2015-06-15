@@ -35,8 +35,8 @@
 
   print ("      <form method=\"get\" action=\"/dist.php\">");
   print ("      <tr>");
-  print ("        <td>  ICAO:</td><td> <input type=\"text\" size=\"4\" maxlength=\"4\" name=\"icao1\"></td>");
-  print ("        <td>  ICAO:</td><td> <input type=\"text\" size=\"4\" maxlength=\"4\" name=\"icao2\"></td>");
+  print ("        <td>  ICAO:</td><td> <input type=\"text\" size=\"5\" maxlength=\"5\" name=\"icao1\"></td>");
+  print ("        <td>  ICAO:</td><td> <input type=\"text\" size=\"5\" maxlength=\"5\" name=\"icao2\"></td>");
 #  print ("        <td>  <input type=\"submit\" name=\"senden\" value=\"Distance\">  between two airfields</td>");
   print ("        <td>  <input type=\"submit\" value=\"Distance\">  between two airfields</td>");
   print ("      </tr>");
