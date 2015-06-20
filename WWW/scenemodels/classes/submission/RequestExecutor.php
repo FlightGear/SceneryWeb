@@ -57,7 +57,7 @@ class RequestExecutor {
             break;
         
         default:
-            throw new Exception("Not a request!");
+            throw new \Exception("Not a request!");
         }
     }
     

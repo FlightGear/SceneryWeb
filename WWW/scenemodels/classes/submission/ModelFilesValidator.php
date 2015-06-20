@@ -59,7 +59,7 @@ class ModelFilesValidator implements Validator {
             if (file_exists($xmlPath)) {
                 $exceptions += $this->checkXML($xmlPath);
             } else {
-                $exceptions[] = new Exception("XML file not found");
+                $exceptions[] = new \Exception("XML file not found");
             }
         }
 
@@ -90,12 +90,12 @@ class ModelFilesValidator implements Validator {
 
         $fp = fopen($xmlPath, "r");
         if (!$fp) {
-            $errors[] = new Exception("Could not open XML.");
+            $errors[] = new \Exception("Could not open XML.");
         } else {
             while ($data = fread($fp, 4096)) {
                 // check if tags are closed and if <PropertyList> is present
                 if (!xml_parse($xmlParser, $data, feof($fp))) {
-                    $errors[] = new Exception("XML error : ".xml_error_string(xml_get_error_code($xmlParser))." at line ".xml_get_current_line_number($xmlParser));
+                    $errors[] = new \Exception("XML error : ".xml_error_string(xml_get_error_code($xmlParser))." at line ".xml_get_current_line_number($xmlParser));
                 }
             }
             xml_parser_free($xmlParser);
@@ -105,13 +105,13 @@ class ModelFilesValidator implements Validator {
             // Check if <path> == $ac3dName
             $xmlcontent = simplexml_load_file($xmlPath);
             if ($this->ac3dName != $xmlcontent->path) {
-                $errors[] = new Exception("The value of the &lt;path&gt; tag in your XML file doesn't match the AC file you provided!");
+                $errors[] = new \Exception("The value of the &lt;path&gt; tag in your XML file doesn't match the AC file you provided!");
             }
 
             // Check if the file begin with <?xml> tag
             $xmltag = str_replace(array("<", ">"), array("&lt;", "&gt;"), file_get_contents($xmlPath));
             if (!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
-                $errors[] = new Exception("Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;!");
+                $errors[] = new \Exception("Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;!");
             }
         }
         
@@ -150,7 +150,7 @@ class ModelFilesValidator implements Validator {
         $handle = fopen($ac3dPath, 'r');
 
         if (!$handle) {
-            $errors[] = new Exception("The AC file does not exist on the server. Please try to upload it again!");
+            $errors[] = new \Exception("The AC file does not exist on the server. Please try to upload it again!");
             return $errors;
         }
         
@@ -161,7 +161,7 @@ class ModelFilesValidator implements Validator {
 
             // Check if the file begins with the string "AC3D"
             if ($i == 1 && substr($line,0,4) != "AC3D") {
-                $errors[] = new Exception("The AC file does not seem to be a valid AC3D file. The first line must show \"AC3Dx\" with x = version");
+                $errors[] = new \Exception("The AC file does not seem to be a valid AC3D file. The first line must show \"AC3Dx\" with x = version");
             }
 
             // Check if the texture reference matches $pngName
@@ -169,7 +169,7 @@ class ModelFilesValidator implements Validator {
                 $data = preg_replace('#texture "(.+)"$#', '$1', $line);
                 $data = substr($data, 0, -1);
                 if (!in_array($data, $pngNames)) {
-                    $errors[] = new Exception("The texture reference (".$data.") in your AC file at line ".$i." seems to have a different name than the PNG texture(s) file(s) name(s) you provided!");
+                    $errors[] = new \Exception("The texture reference (".$data.") in your AC file at line ".$i." seems to have a different name than the PNG texture(s) file(s) name(s) you provided!");
                 }
             }
             $i++;
@@ -190,16 +190,16 @@ class ModelFilesValidator implements Validator {
 
             // Check if PNG file is a valid PNG file (compare the type file)
             if ($mime != "image/png") {
-                $errors[] = new Exception("Your texture file does not seem to be a PNG file. Please upload a valid PNG file.");
+                $errors[] = new \Exception("Your texture file does not seem to be a PNG file. Please upload a valid PNG file.");
             }
 
             // Check if PNG dimensions are a multiple of ^2
             if (!in_array($height, self::$validDimension) || !in_array($width, self::$validDimension)) {
-                $errors[] = new Exception("The size in pixels of your texture file (".$pngName.") appears not to be a power of 2.");
+                $errors[] = new \Exception("The size in pixels of your texture file (".$pngName.") appears not to be a power of 2.");
             }
         }
         else {
-            $errors[] = new Exception("The texture file does not exist on the server. Please try to upload it again.");
+            $errors[] = new \Exception("The texture file does not exist on the server. Please try to upload it again.");
         }
         
         return $errors;
