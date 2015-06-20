@@ -1,6 +1,4 @@
 <?php
-namespace dao;
-
 /*
  * Copyright (C) 2014 FlightGear Team
  *
@@ -19,11 +17,13 @@ namespace dao;
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+namespace dao;
+
 /**
  * RequestNotFoundException
  *
  * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
-class RequestNotFoundException extends Exception {
+class RequestNotFoundException extends \Exception {
 
 }
