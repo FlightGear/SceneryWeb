@@ -1,7 +1,7 @@
 <?php
 require_once 'autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-require 'inc/header.php';
+require 'view/header.php';
 ?>
 <h1>How to contribute</h1>
 
@@ -168,4 +168,4 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     </ul>
     </p>
 </div>
-<?php require 'inc/footer.php';?>
+<?php require 'view/footer.php';?>

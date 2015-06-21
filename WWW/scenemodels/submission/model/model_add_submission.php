@@ -53,14 +53,14 @@ if (isset($_POST["action"])) {
         
         $comment = $_POST["maintainer_comment"];
 
-        include '../../inc/header.php';
+        include '../../view/header.php';
         echo "<p class=\"center\">Deleting corresponding pending query.</p>";
         echo "<p class=\"center\">";
         echo "Signature found.<br />Now deleting request #". $request->getId()." with comment \"". $comment ."\".</p>";
         echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
         echo "</p>";
 
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
 
         // Sending mail if entry was correctly deleted.
         // Sets the time to UTC.
@@ -98,7 +98,7 @@ if (isset($_POST["action"])) {
             exit;
         }
 
-        include '../../inc/header.php';
+        include '../../view/header.php';
         echo "<p class=\"center\">";
         echo "Signatures found.<br /> Now processing request #".$request->getId().".</p>";
         echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
@@ -108,7 +108,7 @@ if (isset($_POST["action"])) {
             $resultDel = $requestDaoRW->deleteRequest($sig);
         } catch(\dao\RequestNotFoundException $e) {
             echo "<p class=\"center warning\">Sorry, but the pending requests DELETE queries could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p>";
-            include '../../inc/footer.php';
+            include '../../view/footer.php';
             exit;
         }
 
@@ -129,10 +129,10 @@ if (isset($_POST["action"])) {
         $emailSubmit = EmailContentFactory::getAddModelRequestAcceptedEmailContent($dtg, $updatedReq, $comment);
         $emailSubmit->sendEmail($to, true);
 
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
 }
 
 if (!isset($_POST["action"])) {
@@ -145,7 +145,7 @@ if (!isset($_POST["action"])) {
     $newObj = $request->getNewObject();
     $newObjPos = $newObj->getPosition();
 
-include '../../inc/header.php';
+include '../../view/header.php';
 
 ?>
 
@@ -299,5 +299,5 @@ include '../../inc/header.php';
 <p class="center">This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</p>
 <?php
 }
-require '../../inc/footer.php';
+require '../../view/footer.php';
 ?>

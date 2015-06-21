@@ -2,7 +2,7 @@
 require_once '../autoload.php';
 
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-require '../inc/header.php';
+require '../view/header.php';
 ?>
   <h1>RSS Feeds</h1>
   <table>
@@ -18,4 +18,4 @@ require '../inc/header.php';
       </td>
     </tr>
   </table>
-<?php require '../inc/footer.php'; ?>
+<?php require '../view/footer.php'; ?>

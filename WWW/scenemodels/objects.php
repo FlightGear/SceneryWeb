@@ -5,7 +5,7 @@ $modelDAO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDAO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 use \dao\Criterion as Criterion;
 
-require 'inc/header.php';
+require 'view/header.php';
 
 $filter_text="";
 $criteria = array();
@@ -207,7 +207,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
             echo "<tr class=\"object\">\n";
             echo "  <td><a href='objectview.php?id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
                  "  <td>".$object->getDescription()."</td>\n" .
-                 "  <td><a href=\"modelview.php?id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
+                 "  <td><a href=\"app.php?c=Models&a=view&id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
                  "  <td>".$object->getCountry()->getName() ."</td>\n" .
                  "  <td>".$objPos->getLatitude()."<br/>".$objPos->getLongitude()."</td>\n" .
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
@@ -239,4 +239,4 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
     </table>
 </form>
 
-<?php require 'inc/footer.php';?>
+<?php require 'view/footer.php';?>

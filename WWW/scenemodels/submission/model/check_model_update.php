@@ -36,7 +36,7 @@ if (!isset($resp) || !$resp->is_valid) {
 $modelChecker = new ModelChecker();
 
 $page_title = "Automated Models Submission Form";
-require '../../inc/header.php';
+require '../../view/header.php';
 
 ################################################
 ################################################
@@ -162,7 +162,7 @@ if ($fatalerror) {
     if (isset($targetPath)) {
         clear_dir($targetPath);
     }
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     exit;
 }
 
@@ -220,7 +220,7 @@ if (count($exceptions) > 0) {
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
          "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
 
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     clear_dir($targetPath);
     exit;
 }
@@ -328,7 +328,7 @@ if ($fatalerror) {
          "<a href='javascript:history.go(-1)'>Go back and correct your mistakes</a>.<br/><br/>" .
          "You can also ask the <a href=\"http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel\">mailing list</a> " .
          "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     clear_dir($targetPath);
     exit;
 }
@@ -395,5 +395,5 @@ else {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
     }
 }
-require '../../inc/footer.php';
+require '../../view/footer.php';
 ?>

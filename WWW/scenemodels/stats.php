@@ -5,7 +5,7 @@ require_once 'autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 
-require 'inc/header.php';
+require 'view/header.php';
 
 ?>
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
@@ -426,4 +426,4 @@ echo "<p class=\"center\">The database currently contains <a href=\"models.php\"
 
     <div class="clear"></div>
 
-<?php require 'inc/footer.php';?>
+<?php require 'view/footer.php';?>

@@ -100,7 +100,7 @@ class EmailContentFactory {
         }
         $message .= "The corresponding entries will be updated in TerraSync at " .
                 check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list ".
-                "and check the model at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$modelMD->getId()."\r\n\r\n" .
+                "and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$modelMD->getId()."\r\n\r\n" .
                 "Thanks for your help in making FlightGear better!\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
@@ -117,7 +117,7 @@ class EmailContentFactory {
             $message .= "and with email address ".$safeContrEmail." ";
         }
         $message .= "issued the following request:\r\n\r\n" .
-                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
+                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                     "Path:             ". $newModelMD->getFilename() . "\r\n" .
                     "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
                     "Contributor email ". $safeContrEmail ."\r\n" .
@@ -150,7 +150,7 @@ class EmailContentFactory {
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model update request.\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                    "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
-                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
+                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
                    "Contributor email ". $request->getContributorEmail() ."\r\n" .
@@ -167,7 +167,7 @@ class EmailContentFactory {
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), issued a 3D model update request for your model.\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation.\r\n\r\n" .
                    "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
-                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
+                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
                    "Contributor email ". $request->getContributorEmail() ."\r\n" .
@@ -277,8 +277,8 @@ class EmailContentFactory {
             $message .= "and with email address ".$safeEmail." ";
         }
         $message .= "issued the following request:\r\n\r\n" .
-                    "Family:           ". $modelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$modelMD->getModelsGroup()->getId()." ]" . "\r\n" .
-                    "Model:            ". $modelMD->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$modelMD->getId()." ]" . "\r\n" .
+                    "Family:           ". $modelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$modelMD->getModelsGroup()->getId()." ]" . "\r\n" .
+                    "Model:            ". $modelMD->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$modelMD->getId()." ]" . "\r\n" .
                     "Latitude:         ". $newObjPos->getLatitude() . "\r\n" .
                     "Longitude:        ". $newObjPos->getLongitude() . "\r\n" .
                     "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
@@ -331,9 +331,9 @@ class EmailContentFactory {
         $message .= "issued the following request:\r\n\r\n" .
                     "Object #:          ". $oldObject->getId()."\r\n" .
                     "Family:            ". $oldModelMD->getModelsGroup()->getName() ." => ".$newModelMD->getModelsGroup()->getName()."\r\n" .
-                    "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
+                    "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
                     "Model:             ". $oldModelMD->getName() ." => ".$newModelMD->getName()."\r\n" .
-                    "[ http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newModelMD->getId()." ]" . "\r\n" .
+                    "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newModelMD->getId()." ]" . "\r\n" .
                     "Latitude:          ". $oldObjPos->getLatitude() . "  => ".$newObjPos->getLatitude()."\r\n" .
                     "Longitude:         ". $oldObjPos->getLongitude() . " => ".$newObjPos->getLongitude()."\r\n" .
                     "Ground elevation:  ". $oldObject->getGroundElevation() . " => ".$newObject->getGroundElevation()."\r\n" .
@@ -358,9 +358,9 @@ class EmailContentFactory {
                    "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Object #:          ".$oldObject->getId()."\r\n" .
                    "Family:            ". $oldModelMD->getModelsGroup()->getName() ." => ".$newModelMD->getModelsGroup()->getName()."\r\n" .
-                   "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
+                   "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                    "Model:             ". $oldModelMD->getName() ." => ".$newModelMD->getName()."\r\n" .
-                   "[ http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newModelMD->getId()." ]\r\n" .
+                   "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newModelMD->getId()." ]\r\n" .
                    "Latitude:          ". $oldObjPos->getLatitude() . "  => ".$newObjPos->getLatitude()."\r\n" .
                    "Longitude:         ". $oldObjPos->getLongitude() . " => ".$newObjPos->getLongitude()."\r\n" .
                    "Ground elevation:  ". $oldObject->getGroundElevation() . " => will be recomputed\r\n" .
@@ -381,7 +381,7 @@ class EmailContentFactory {
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newModelMD->getId()."\r\n\r\n" .
+        $message .= "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newModelMD->getId()."\r\n\r\n" .
                     "Thanks for your help in making FlightGear better!\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));
@@ -398,7 +398,7 @@ class EmailContentFactory {
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ".
                    "and with email address ".$contrEmail." ".
                    "issued the following request:" . "\r\n\r\n" .
-                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
+                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName();
         if ($newModelMD->getAuthor()->getId() == 1) {
@@ -442,7 +442,7 @@ class EmailContentFactory {
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model import request.\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                    "For reference, the ID of this request is '".$request->getId(). "' (model and object)\r\n\r\n" .
-                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/modelbrowser.php?shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
+                   "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]" . "\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
                    "Model name:       ". $newModelMD->getName() ."\r\n" .

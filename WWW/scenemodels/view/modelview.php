@@ -1,10 +1,5 @@
 <?php
-require_once 'autoload.php';
-
-$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
-
-require 'inc/header.php';
+require 'view/header.php';
 ?>
 
 <script type="text/javascript">
@@ -15,16 +10,11 @@ function popmap(lat,lon,zoom) {
 </script>
 
 <?php
-
-if (FormChecker::isModelId($_REQUEST['id'])) {
-    $id = $_REQUEST['id'];
     
-    $modelMetadata = $modelDaoRO->getModelMetadata($id);
-    
-    echo "<h1>".$modelMetadata->getName()."</h1>";
-    if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescription())>0) {
-        echo "<p>".$modelMetadata->getDescription()."</p>";
-    }
+echo "<h1>".$modelMetadata->getName()."</h1>";
+if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescription())>0) {
+    echo "<p>".$modelMetadata->getDescription()."</p>";
+}
 ?>
 <table>
     <tr>
@@ -40,7 +30,7 @@ if (FormChecker::isModelId($_REQUEST['id'])) {
         <td>Type</td>
         <td>
 <?php
-            print "<a href=\"modelbrowser.php?shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a>";
+            print "<a href=\"app.php?c=Models&a=browse&shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a>";
 ?>
         </td>
     </tr>
@@ -61,8 +51,6 @@ if (FormChecker::isModelId($_REQUEST['id'])) {
         <td><?php print $id; ?></td>
     </tr>
 <?php
-
-    $occurences = $objectDaoRO->countObjectsByModel($id);
 
     echo "<tr>" .
             "<td>Occurrences</td>" .
@@ -107,8 +95,5 @@ function showWebgl() {
 </script>
 
 <?php
-}
-
-require 'inc/footer.php';
-
+include 'view/footer.php';
 ?>

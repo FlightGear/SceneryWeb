@@ -3,7 +3,7 @@ require_once 'autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 
-require "inc/header.php";
+require "view/header.php";
 ?>
 
 <script type="text/javascript">
@@ -57,7 +57,7 @@ $pagesize = 20;
         }
         echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>\n" .
              "<li><b>Last Updated: </b>".$modelMetadata->getLastUpdated()->format("Y-m-d (H:i)")."</li>\n" .
-             "<li><b>Type: </b><a href=\"modelbrowser.php?shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>\n";
+             "<li><b>Type: </b><a href=\"app.php?c=Models&a=browse&shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>\n";
 
         if ($modelMetadata->getModelsGroup()->isStatic()) {
             $objects = $objectDaoRO->getObjectsByModel($modelMetadata->getId());
@@ -69,7 +69,7 @@ $pagesize = 20;
             }
         }
 
-        echo "<li><a href=\"modelview.php?id=".$modelMetadata->getId()."\">View more about this model.</a></li>\n";
+        echo "<li><a href=\"app.php?c=Models&a=view&id=".$modelMetadata->getId()."\">View more about this model.</a></li>\n";
         echo "</ul>";
         echo "</td>\n";
         if (!$odd) {
@@ -91,4 +91,4 @@ $pagesize = 20;
         </td>
     </tr>
   </table>
-<?php require 'inc/footer.php';?>
+<?php require 'view/footer.php';?>

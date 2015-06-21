@@ -6,7 +6,7 @@ $authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
 require_once '../../inc/functions.inc.php';
 
 $page_title = "Automated Models Submission Form";
-require '../../inc/header.php';
+require '../../view/header.php';
     
 // Populate fields when a model id is given in the url
 if (isset($_REQUEST['update_choice'])
@@ -284,4 +284,4 @@ $(document).ready(function(){
     ?>
 });
 </script>
-<?php require '../../inc/footer.php'; ?>
+<?php require '../../view/footer.php'; ?>

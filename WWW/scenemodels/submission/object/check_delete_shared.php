@@ -49,7 +49,7 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
     }
 
     $page_title = "Automated Objects Deletion Form";
-    include '../../inc/header.php';
+    include '../../view/header.php';
 
     echo "<br /><p class=\"center ok\">You have asked to delete object #".$id_to_delete."</p>";
     
@@ -74,7 +74,7 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
         $updatedReq = $requestDaoRW->saveRequest($request);
     } catch (Exception $ex) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
     
@@ -101,7 +101,7 @@ if (isset($step) && $step == 3 && isset($id_to_delete)) {
         $emailSubmit = EmailContentFactory::getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $modelMD);
         $emailSubmit->sendEmail($safe_email, false);
     }
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     exit;
 }
 
@@ -168,7 +168,7 @@ else {
 }
 
 $page_title = "Automated Objects Deletion Form";
-require '../../inc/header.php';
+require '../../view/header.php';
 
 // We have only one result
 
@@ -238,7 +238,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
-            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = $objectToDel->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&a=view&id=<?php $model_id = $objectToDel->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
             <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?=$objDelPos->getLongitude()?>&amp;lat=<?=$objDelPos->getLatitude()?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
@@ -269,7 +269,7 @@ function validateForm()
     </table>
     </form>
 <?php
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
 
     exit;
 }
@@ -356,7 +356,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
-            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php $model_id = $candidateObj->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&a=view&id=<?php $model_id = $candidateObj->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
             <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?=$longitude?>&amp;lat=<?=$latitude?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>
@@ -389,8 +389,8 @@ function validateForm()
     </table>
     </form>
 <?php
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     exit;
 }
-require '../../inc/footer.php';
+require '../../view/footer.php';
 ?>

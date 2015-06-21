@@ -77,7 +77,7 @@ if ($step == 2) {
 }
 
 $page_title = "Automated Objects Massive Import Submission Form";
-require '../../inc/header.php';
+require '../../view/header.php';
 ?>
 <script type ="text/javascript">
 function update_countries(code,n) {
@@ -108,7 +108,7 @@ if (FormChecker::isComment($_POST['comment'])) {
 else {
     echo "<p class=\"center warning\">Comment mismatch!</p>";
     $error = true;
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     exit;
 }
 
@@ -123,7 +123,7 @@ if ($step == 1) {
     if (isset($_POST['stg']) && preg_match(FormChecker::$regex['stg'], $_POST['stg'])) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
         $error = true;
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 
@@ -147,13 +147,13 @@ if (!$error) {
         // Limit the line numbers to
         if ($nb_lines > 100) {
             echo "<p class=\"center warning\">Too many lines submitted: 100 lines maximum per submission!</p>";
-            include '../../inc/footer.php';
+            include '../../view/footer.php';
             exit;
         }
 
         if ($nb_lines < 1) {
             echo "<p class=\"center warning\">Not enough lines were submitted: 1 line minimum per submission!</p>";
-            include '../../inc/footer.php';
+            include '../../view/footer.php';
             exit;
         }
 
@@ -359,7 +359,7 @@ if (!$error) {
             echo "<p class=\"center warning\">".$cpt_err." errors have been found in your submission. Please <a href='javascript:history.go(-1)'>go back</a> and correct or delete the corresponding lines from your submission before submitting again.</p>";
         }
         
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 }
@@ -386,7 +386,7 @@ if ($step == 1) {
     } catch (Exception $ex) {
         // Talking back to submitter.
         echo "<p>Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p>";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 
@@ -413,5 +413,5 @@ if ($step == 1) {
         $emailSubmit->sendEmail($safe_email, false);
     }
 }
-require '../../inc/footer.php';
+require '../../view/footer.php';
 ?>

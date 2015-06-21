@@ -2,7 +2,7 @@
 require_once 'autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
-require 'inc/header.php';
+require 'view/header.php';
 ?>
 <h1>Scenery Downloads</h1>
 <p>
@@ -19,4 +19,4 @@ require 'inc/header.php';
     </ul>
 </p>
 
-<?php require 'inc/footer.php'; ?>
+<?php require 'view/footer.php'; ?>

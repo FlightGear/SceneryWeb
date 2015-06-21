@@ -4,7 +4,7 @@ require_once 'autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
 
-require 'inc/header.php';
+require 'view/header.php';
 
 if (FormChecker::isAuthorId($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
@@ -21,8 +21,8 @@ if (FormChecker::isAuthorId($_REQUEST['id'])) {
     $modelMetadatas = $modelDaoRO->getModelMetadatasByAuthor($id);
     
     foreach ($modelMetadatas as $modelMetadata) {
-        echo "<tr><td style=\"width: 160px\"><a href=\"modelview.php?id=".$modelMetadata->getId()."\"><img src=\"modelthumb.php?id=".$modelMetadata->getId()."\" width=\"160\" alt=\"\"/></a>".
-            "</td><td><p><b>Name:</b> <a href=\"modelview.php?id=".$modelMetadata->getId()."\">".$modelMetadata->getName()."</a></p>".
+        echo "<tr><td style=\"width: 160px\"><a href=\"app.php?c=Models&a=view&id=".$modelMetadata->getId()."\"><img src=\"modelthumb.php?id=".$modelMetadata->getId()."\" width=\"160\" alt=\"\"/></a>".
+            "</td><td><p><b>Name:</b> <a href=\"app.php?c=Models&a=view&id=".$modelMetadata->getId()."\">".$modelMetadata->getName()."</a></p>".
             "<p><b>Path:</b> <a href=\"objects.php?model=".$modelMetadata->getId()."\">".$modelMetadata->getFilename()."</a></p>".
             "<p><b>Last Updated: </b>".$modelMetadata->getLastUpdated()->format("Y-m-d (H:i)")."</p>".
             "</td></tr>";
@@ -31,6 +31,6 @@ if (FormChecker::isAuthorId($_REQUEST['id'])) {
 </table>
 <?php
 }
-require 'inc/footer.php';
+require 'view/footer.php';
 
 ?>

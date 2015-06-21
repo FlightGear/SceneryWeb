@@ -28,7 +28,7 @@ try {
 // length (64) and its content.
 if (isset($_GET["action"]) && $_GET["action"] == "check") {
     $page_title = "Automated Objects Addition Requests Form";
-    include '../../inc/header.php';
+    include '../../view/header.php';
     echo "<p class=\"center\">Request #". $request->getId()."</p>";
     echo "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>";
     echo "<p class=\"center\">Comment: ".$request->getComment()."</p>";
@@ -48,7 +48,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
              "<td><center>".$newObj->getGroundElevation()."</center></td>" .
              "<td><center>".$newObj->getElevationOffset()."</center></td>" .
              "<td><center>".$newObj->getOrientation()."</center></td>" .
-             "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></center></td>" .
+             "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></center></td>" .
              "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
              "</tr>";
 
@@ -68,7 +68,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
     </tr>
     </table>
 <?php
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
 }
 
 // Managing the cancellation of a mass import by DB maintainer.
@@ -85,7 +85,7 @@ if (isset($_POST["cancel"])) {
     }
 
     $page_title = "Automated Objects Addition Request Form";
-    include '../../inc/header.php';
+    include '../../view/header.php';
     echo "<center>Now deleting request #". $request->getId().".</center><br />";
     echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.</p>";
 
@@ -102,7 +102,7 @@ if (isset($_POST["cancel"])) {
     $emailSubmit = EmailContentFactory::getMassImportRequestRejectedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);
 
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     exit;
 }
 
@@ -117,15 +117,15 @@ if (isset($_POST["accept"])) {
         $objsWithId = $reqExecutor->executeRequest($request);
     } catch (Exception $ex) {
         $page_title = "Automated Objects Addition Request Form";
-        include '../../inc/header.php';
+        include '../../view/header.php';
         echo "<p class=\"center\">Now processing request #". $request->getId().".</p><br />";
         echo "<p class=\"warning\">Sorry, but the INSERT query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 
     $page_title = "Automated Objects Addition Request Form";
-    include '../../inc/header.php';
+    include '../../view/header.php';
     echo "<p class=\"center\">Now processing massive add objects request #". $request->getId().".</p><br />";
     echo "<p class=\"center ok\">".count($objsWithId)." objects were added to the database!</p>";
     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
@@ -136,7 +136,7 @@ if (isset($_POST["accept"])) {
         $resultDel = $requestDaoRW->deleteRequest($sig);
     } catch(\dao\RequestNotFoundException $e) {
         echo "<p class=\"warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 
@@ -155,7 +155,7 @@ if (isset($_POST["accept"])) {
     $emailSubmit = EmailContentFactory::getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);
 
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     exit;
 }
 ?>

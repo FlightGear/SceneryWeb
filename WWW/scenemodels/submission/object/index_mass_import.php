@@ -7,7 +7,7 @@ $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 require_once '../../inc/functions.inc.php';
 
 $page_title = "Automated Objects Massive Import Submission Form";
-require '../../inc/header.php';
+require '../../view/header.php';
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -102,5 +102,5 @@ function validateForm()
 </table>
 </form>
 
-<?php require '../../inc/footer.php';
+<?php require '../../view/footer.php';
 ?>

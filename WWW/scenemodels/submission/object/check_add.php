@@ -30,7 +30,7 @@ if (!$resp->is_valid) {
 }
 
 $page_title = "Automated Objects Submission Form";
-require '../../inc/header.php';
+require '../../view/header.php';
 echo "<br />";
 $error = false;
 global $error;
@@ -135,7 +135,7 @@ if (!$error) {
     // Detect if the object is already in the database
     if ($objectDaoRO->checkObjectAlreadyExists($newObject)) {
         echo "<p class=\"warning\">The object already exists in the database!</p>";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
     }
     
     
@@ -178,6 +178,6 @@ if (!$error) {
     }
 }
 
-require '../../inc/footer.php';
+require '../../view/footer.php';
 
 ?>

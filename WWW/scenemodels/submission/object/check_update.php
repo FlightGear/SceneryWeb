@@ -82,7 +82,7 @@ if (isset($model_name)
 
     // Talking back to submitter.
     $page_title = "Automated Objects Update Form";
-    include '../../inc/header.php';
+    include '../../view/header.php';
 
     // Checking that email is valid (if it exists).
     $failed_mail = false;
@@ -120,7 +120,7 @@ if (isset($model_name)
         $updatedReq = $requestDaoRW->saveRequest($request);
     } catch (Exception $e) {
         echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br /></p>";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 
@@ -146,7 +146,7 @@ if (isset($model_name)
         $emailSubmit = EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $oldModelMD, $newModelMD);
         $emailSubmit->sendEmail($safe_email, false);
     }
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     exit;
 }
 
@@ -154,7 +154,7 @@ if (isset($model_name)
 if (isset($id_to_update)) {
     $page_title = "Automated Object Update Form";
     $body_onload = "update_objects();";
-    include '../../inc/header.php';
+    include '../../view/header.php';
     
     $objectToUp = $objectDaoRO->getObject($id_to_update);
     $modelMDToUp = $modelDaoRO->getModelMetadata($objectToUp->getModelId());
@@ -390,7 +390,7 @@ function validateForm()
       </table>
     </form>
 <?php
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
 }
 else {
 
@@ -442,7 +442,7 @@ else {
     // If we have more than one, the user has to choose...
     else {
         $page_title = "Automated Objects Update Form";
-        include '../../inc/header.php';
+        include '../../view/header.php';
     
         echo "<p class=\"center\">".count($objects)." object(s) with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." were found in the database.<br />Please select with the left radio button the one you want to update.</p>";
 
@@ -495,7 +495,7 @@ else {
             </tr>
             <tr>
                 <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
-                <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelview.php?id=<?php echo $object->getModelId(); ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $object->getModelId(); ?>" alt="Thumbnail"/></a></td>
+                <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&a=view&id=<?php echo $object->getModelId(); ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $object->getModelId(); ?>" alt="Thumbnail"/></a></td>
                 <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
                 <td>
                 <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>
@@ -514,7 +514,7 @@ else {
         </table>
         </form>
 <?php
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
     

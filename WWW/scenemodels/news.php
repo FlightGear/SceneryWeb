@@ -3,7 +3,7 @@ require_once 'autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $newsPostDaoRO = \dao\DAOFactory::getInstance()->getNewsPostDaoRO();
 
-require 'inc/header.php';
+require 'view/header.php';
 
 if (isset($_REQUEST['offset']) && preg_match(FormChecker::$regex['pageoffset'], $_REQUEST['offset'])) {
     $offset = $_REQUEST['offset'];
@@ -43,4 +43,4 @@ else {
         </td>
     </tr>
   </table>
-<?php require 'inc/footer.php';?>
+<?php require 'view/footer.php';?>

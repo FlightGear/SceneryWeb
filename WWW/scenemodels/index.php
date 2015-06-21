@@ -9,7 +9,7 @@ if (isset($_REQUEST['offset']) && preg_match(FormChecker::$regex['pageoffset'], 
     $offset = 0;
 }
 
-require 'inc/header.php';
+require 'view/header.php';
 ?>
 
     <h1>FlightGear Scenery Website</h1>
@@ -49,10 +49,10 @@ require 'inc/header.php';
 
         foreach ($models as $model) {
             echo "<tr>" .
-                    "<td><a href=\"modelview.php?id=".$model->getId()."\">".$model->getName()."</a><br/>" .
+                    "<td><a href=\"/app.php?c=Models&a=view&id=".$model->getId()."\">".$model->getName()."</a><br/>" .
                     $model->getLastUpdated()->format("Y-m-d (H:i)"). "</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
-                    "<a href=\"/modelview.php?id=". $model->getId() ."\">" .
+                    "<a href=\"/app.php?c=Models&a=view&id=". $model->getId() ."\">" .
                     "    <img title=\"". $model->getName().' ['.$model->getFilename().']'."\"" .
                     "    src=\"modelthumb.php?id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
@@ -69,4 +69,4 @@ require 'inc/header.php';
     </table>
     <div class="clear"></div>
   
-<?php require 'inc/footer.php';?>
+<?php require 'view/footer.php';?>

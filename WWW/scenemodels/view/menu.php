@@ -22,15 +22,15 @@
     <li class="mainitems">
         <div class="headerlinks"><a href="/models.php">Models</a></div>
         <ul class="submenus">
-            <li><a href="/modelbrowser.php">Browse all</a></li>
+            <li><a href="/app.php?c=Models&a=browse">Browse all</a></li>
 <?php
             $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-            $groups = $modelDaoRO->getModelsGroups();          
+            $groups = $modelDaoRO->getModelsGroups();
             
             foreach ($groups as $group) {
                 $name = preg_replace('/&/',"&amp;", $group->getName());
                 $name = preg_replace('/ /',"&nbsp;", $name);
-                echo "<li><a href=\"/modelbrowser.php?shared=".$group->getId()."\">".$name."</a></li>";
+                echo "<li><a href=\"/app.php?c=Models&a=browse&shared=".$group->getId()."\">".$name."</a></li>";
             }
 ?>
         </ul>

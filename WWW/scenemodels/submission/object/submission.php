@@ -29,7 +29,7 @@ try {
 // Common code, to be performed for both types of checks
 if ($action == "check") {
     $page_title = "Automated Objects Pending Requests Form";
-    include '../../inc/header.php';
+    include '../../view/header.php';
     echo "<p class=\"center\">Request #". $request->getId()."</p>" .
          "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>".
          "<p class=\"center\">Comment: ".$request->getComment()."</p>";
@@ -111,7 +111,7 @@ if ($action == "check") {
              "<td><center>".$objectToDel->getGroundElevation()."</center></td>" .
              "<td><center>".$objectToDel->getElevationOffset()."</center></td>" .
              "<td><center>".$objectToDel->getOrientation()."</center></td>" .
-             "<td><center><a href=\"http://scenemodels.flightgear.org/modelview.php?id=".$modelMD->getId()."\">".$modelMD->getName()."</a></center></td>" .
+             "<td><center><a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$modelMD->getId()."\">".$modelMD->getName()."</a></center></td>" .
              "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$objDelPos->getLongitude()."&amp;lat=".$objDelPos->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
              "</tr>";
         break;
@@ -131,7 +131,7 @@ if ($action == "check") {
     </tr>
     </table>
 <?php
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
     exit;
 }
 
@@ -146,16 +146,16 @@ if ($action == 'Accept') {
         $reqExecutor->executeRequest($request);
     } catch (Exception $ex) {
         $page_title = "Automated Objects Pending Requests Form";
-        include '../../inc/header.php';
+        include '../../view/header.php';
         echo "<p class=\"center\">";
         echo "Now processing request #".$request->getId().".</p><br />";
         echo "<p class=\"center warning\">Sorry, but the INSERT or DELETE or UPDATE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 
     $page_title = "Automated Objects Pending Requests Form";
-    include '../../inc/header.php';
+    include '../../view/header.php';
     echo "<p class=\"center\">Now processing add/update/delete object request #".$request->getId().".</p><br />";
     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
 
@@ -164,7 +164,7 @@ if ($action == 'Accept') {
         $resultDel = $requestDaoRW->deleteRequest($sig);
     } catch(\dao\RequestNotFoundException $e) {
         echo "<p class=\"center warning\">Sorry, but the pending request DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br />";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 
@@ -202,21 +202,21 @@ else if ($action == "Reject") {
 
     if (!$resultDel) {
         $page_title = "Automated Objects Pending Requests Form";
-        include '../../inc/header.php';
+        include '../../view/header.php';
         echo "<p class=\"center\">".
              "Now deleting request #".$request->getId().".</p>".
              "<p class=\"center warning\">Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.</p><br/>";
-        include '../../inc/footer.php';
+        include '../../view/footer.php';
         exit;
     }
 
     $page_title = "Automated Objects Pending Requests Form";
-    include '../../inc/header.php';
+    include '../../view/header.php';
     echo "<p class=\"center\">";
     echo "Now deleting request #".$request->getId().".</p>";
     echo "<p class=\"center ok\">Entry has correctly been deleted from the pending requests table.";
     echo "</p>";
-    include '../../inc/footer.php';
+    include '../../view/footer.php';
 
     // Sending mail if entry was correctly deleted.
     // Sets the time to UTC.

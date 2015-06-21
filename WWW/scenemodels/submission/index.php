@@ -3,7 +3,7 @@ require_once '../autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
 $page_title = "Automated Scenery Submission Forms";
-require '../inc/header.php';
+require '../view/header.php';
 ?>
 
 <h1>FlightGear scenery objects and models submission</h1>
@@ -35,4 +35,4 @@ require '../inc/header.php';
     </tr>
 </table>
 
-<?php require '../inc/footer.php'; ?>
+<?php require '../view/footer.php'; ?>

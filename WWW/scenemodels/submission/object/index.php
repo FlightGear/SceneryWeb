@@ -5,7 +5,7 @@ $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 
 $page_title = "Automated Objects Submission Form";
 $body_onload = "update_objects();";
-include '../../inc/header.php';
+include '../../view/header.php';
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -185,5 +185,5 @@ $(function() {
     </form>
 </div>
 
-<?php include '../../inc/footer.php';
+<?php include '../../view/footer.php';
 ?>

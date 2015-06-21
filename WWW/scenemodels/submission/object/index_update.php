@@ -6,7 +6,7 @@ $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 require_once '../../inc/functions.inc.php';
 
 $page_title = "Automated Objects Update Form";
-require '../../inc/header.php';
+require '../../view/header.php';
 ?>
 
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -53,4 +53,4 @@ function validateForm()
 </table>
 </form>
 
-<?php require '../../inc/footer.php'; ?>
+<?php require '../../view/footer.php'; ?>

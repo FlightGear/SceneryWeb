@@ -5,7 +5,7 @@ require_once 'inc/functions.inc.php';
 require_once 'autoload.php';
 $objectDAO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 
-require 'inc/header.php';
+require 'view/header.php';
 
 if (FormChecker::isObjectId($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
@@ -70,7 +70,7 @@ if ($object->getDescription() != null) {
         <td>
 <?php
             $modelMetadata= \dao\DAOFactory::getInstance()->getModelDaoRO()->getModelMetadata($object->getModelId());
-            print "<a href=\"http://".$_SERVER['SERVER_NAME']."/modelview.php?id=".$object->getModelId()."\">".$modelMetadata->getFilename()."</a>";
+            print "<a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$object->getModelId()."\">".$modelMetadata->getFilename()."</a>";
 ?>
         </td>
     </tr>
@@ -113,5 +113,5 @@ function showMap() {
 <?php
 }
 
-require 'inc/footer.php';
+require 'view/footer.php';
 ?>

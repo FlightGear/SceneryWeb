@@ -1,7 +1,7 @@
 <?php
 require_once '../../autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-require '../../inc/header.php';
+require '../../view/header.php';
 ?>
 <script type="text/javascript" src="../../inc/js/update_objects.js"></script>
 
@@ -52,4 +52,4 @@ require '../../inc/header.php';
     </tr>
 </table>
 </form>
-<?php require '../../inc/footer.php'; ?>
+<?php require '../../view/footer.php'; ?>
