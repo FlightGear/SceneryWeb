@@ -55,7 +55,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $result = $this->database->query($query);
         
         if (!$result) {
-            throw new Exception("Updating model failed!");
+            throw new \Exception("Updating model failed!");
         }
     }
     
@@ -63,7 +63,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $result = $this->database->query("SELECT * FROM fgs_models, fgs_authors, fgs_modelgroups ".
                                          "WHERE mo_id = ".pg_escape_string($modelId)." AND au_id = mo_author AND mg_id = mo_shared");
         if (!$result) {
-            throw new Exception("Model ".$modelId." not found!");
+            throw new \Exception("Model ".$modelId." not found!");
         }
         
         $row = pg_fetch_assoc($result);
@@ -103,7 +103,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $row = pg_fetch_assoc($result);
 
         if (!$row) {
-            throw new Exception("Model ".$modelName." not found!");
+            throw new \Exception("Model ".$modelName." not found!");
         }
         
         return $this->getModelMetadataFromRow($row);
@@ -230,7 +230,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $row = pg_fetch_assoc($result);
         
         if (!$row) {
-            throw new Exception("Models group ".$groupId." not found!");
+            throw new \Exception("Models group ".$groupId." not found!");
         }
         
         return $this->getModelsGroupFromRow($row);
@@ -244,7 +244,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $row = pg_fetch_assoc($result);
         
         if (!$row) {
-            throw new Exception("Models group ".$groupPath." not found!");
+            throw new \Exception("Models group ".$groupPath." not found!");
         }
         
         return $this->getModelsGroupFromRow($row);

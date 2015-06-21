@@ -66,7 +66,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $result = $this->database->query($query);
         
         if (!$result) {
-            throw new Exception("Adding object failed!");
+            throw new \Exception("Adding object failed!");
         }
         
         $returnRow = pg_fetch_row($result);
@@ -270,7 +270,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
             
             return $request;
         } else {
-            throw new Exception("Error reading request: ". $requestQuery);
+            throw new \Exception("Error reading request: ". $requestQuery);
         }
     }
     
