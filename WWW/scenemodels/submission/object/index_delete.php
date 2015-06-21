@@ -3,9 +3,6 @@ require_once '../../autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 
-// Inserting libs
-require_once '../../inc/functions.inc.php';
-
 $page_title = "Automated Objects Deletion Form";
 require '../../inc/header.php';
 ?>
