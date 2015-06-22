@@ -23,37 +23,6 @@ function connect_sphere_r() {
 }
 
 
-/**
- * Computes the STG heading into a true heading before submission to the database.
- * @param float $stg_heading STG heading to convert
- * @return float true heading
- */
-function heading_stg_to_true($stg_heading) {
-    if ($stg_heading > 180) {
-        $true_heading = 540 - $stg_heading;
-    }
-    else {
-        $true_heading = 180 - $stg_heading;
-    }
-    return $true_heading;
-}
-
-/**
- * Computes the true heading into a STG heading (for edition purposes).
- * @param float $true_heading true heading to convert
- * @return float STG heading
- */
-function heading_true_to_stg($true_heading) {
-    if ($true_heading > 180) {
-        $stg_heading = 540 - $true_heading;
-    }
-    else {
-        $stg_heading = 180 - $true_heading;
-    }
-    return $stg_heading;
-}
-
-
 // Returns the extension of a file sent in parameter
 // =================================================
 

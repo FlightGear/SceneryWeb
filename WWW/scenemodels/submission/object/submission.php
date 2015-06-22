@@ -88,8 +88,8 @@ if ($action == "check") {
         if ($oldObject->getOrientation() != $newObject->getOrientation()) {
             echo " style=\"background-color: rgb(255, 200, 0)\"";
         }
-        echo "><td>Heading (STG)</td><td>".heading_true_to_stg($oldObject->getOrientation())." (STG) - ".$oldObject->getOrientation()."(true)</td>".
-             "<td>".heading_true_to_stg($newObject->getOrientation())." (STG) - ".$newObject->getOrientation()." (true)</td></tr>";
+        echo "><td>Heading (STG)</td><td>".\ObjectUtils::headingTrue2STG($oldObject->getOrientation())." (STG) - ".$oldObject->getOrientation()."(true)</td>".
+             "<td>".\ObjectUtils::headingTrue2STG($newObject->getOrientation())." (STG) - ".$newObject->getOrientation()." (true)</td></tr>";
         
         echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$oldObjPos->getLongitude()."&amp;lat=".$oldObjPos->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td>".
              "<td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>" .

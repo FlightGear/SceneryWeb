@@ -98,7 +98,7 @@ if (isset($model_name)
     $oldObject = $objectDaoRO->getObject($id_to_update);
     $newObject = $objectFactory->createObject($id_to_update, $model_name,
             $new_long, $new_lat, $new_country, 
-            $new_offset, heading_stg_to_true($new_orientation), 1, $safe_new_ob_text);
+            $new_offset, \ObjectUtils::headingSTG2True($new_orientation), 1, $safe_new_ob_text);
     
     $oldModelMD = $modelDaoRO->getModelMetadata($oldObject->getModelId());
     $newModelMD = $modelDaoRO->getModelMetadata($model_name);
@@ -336,7 +336,7 @@ function validateForm()
             <span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label for="new_heading">Orientation<em>*</em></label></span>
           </td>
           <td>
-            <?php $actual_orientation = heading_true_to_stg($objectToUp->getOrientation()); echo $actual_orientation; ?>
+            <?php $actual_orientation = \ObjectUtils::headingTrue2STG($objectToUp->getOrientation()); echo $actual_orientation; ?>
           </td>
           <td>
             <input type="text" name="new_heading" id="new_heading" maxlength="7" value="<?php echo $actual_orientation; ?>" onkeyup="checkNumeric(this,0,359.999);" />
@@ -487,7 +487,7 @@ else {
             </tr>
             <tr>
                 <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
-                <td colspan="4"><?=heading_true_to_stg($object->getOrientation())?></td>
+                <td colspan="4"><?=\ObjectUtils::headingTrue2STG($object->getOrientation())?></td>
             </tr>
             <tr>
                 <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>

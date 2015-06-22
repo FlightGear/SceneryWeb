@@ -1,11 +1,7 @@
 <?php
-require_once '../../autoload.php';
-$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
-
 $page_title = "Automated Objects Submission Form";
 $body_onload = "update_objects();";
-include '../../view/header.php';
+include 'view/header.php';
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -54,7 +50,7 @@ $(function() {
 <h1>Automated Objects Submission Form</h1>
 
 <p>
-    This automated form's goal is to ease the submission of objects into the FlightGear Scenery database. There are currently <?php $objects = $objectDaoRO->countObjects(); echo number_format($objects, '0', '', ' ');?> objects in the database. Help us to make it more!<br/>
+    This automated form's goal is to ease the submission of objects into the FlightGear Scenery database. There are currently <?php echo number_format($nbObjects, '0', '', ' ');?> objects in the database. Help us to make it more!<br/>
     Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what recommandations this script is looking for.<br />
     If you need some more help, just place your mouse over the left column (eg "Elevation Offset").
 </p>
@@ -69,16 +65,13 @@ $(function() {
         <li><a href="#tabs-3">3: Submit</a></li>
     </ul>
 
-    <form id="positions" method="post" action="check_add.php" onsubmit="return validateForm();">
+    <form id="positions" method="post" action="app.php?c=AddObjects&a=check" onsubmit="return validateForm();">
         <div id="tabs-1">
             <table>
                 <tr>
                     <td><label for="model_group_id">Object's family<em>*</em><span>This is the family name of the object you want to add.</span></label></td>
                     <td colspan="2">
             <?php
-                        // Show all the families other than the static family
-                        $modelsGroups = $modelDaoRO->getModelsGroups();
-
                         // Start the select form
                         echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">" .
                              "<option selected=\"selected\" value=\"\">Please select a family</option>" .
@@ -129,8 +122,6 @@ $(function() {
                     <td>
                         <select name="ob_country" id="ob_country">
                             <?php
-                                $countries = $objectDaoRO->getCountries();
-                                
                                 foreach($countries as $country) {
                                     echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>";
                                 }
@@ -172,7 +163,7 @@ $(function() {
                     <td colspan="2" class="submit">
             <?php
                         // Google Captcha stuff
-                        require_once '../../inc/captcha/recaptchalib.php';
+                        require_once 'inc/captcha/recaptchalib.php';
                         $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
                         echo recaptcha_get_html($publickey);
             ?>
@@ -185,5 +176,5 @@ $(function() {
     </form>
 </div>
 
-<?php include '../../view/footer.php';
+<?php include 'view/footer.php';
 ?>

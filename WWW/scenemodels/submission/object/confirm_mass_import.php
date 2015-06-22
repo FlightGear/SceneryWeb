@@ -309,7 +309,7 @@ if (!$error) {
 
         if (!$ko) {
             $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
-                        $elevoffset, heading_stg_to_true($orientation), 1, $modelMD->getName());
+                        $elevoffset, \ObjectUtils::headingSTG2True($orientation), 1, $modelMD->getName());
             
             if ($objectDaoRO->checkObjectAlreadyExists($newObject)) {
                 $ko = true;

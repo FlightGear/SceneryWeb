@@ -451,7 +451,7 @@ class EmailContentFactory {
                    "Longitude:        ". $newObjPos->getLongitude() . "\r\n" .
                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
-                   "True orientation: ". heading_stg_to_true($newObject->getOrientation()) . "\r\n" .
+                   "True orientation: ". \ObjectUtils::headingSTG2True($newObject->getOrientation()) . "\r\n" .
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));

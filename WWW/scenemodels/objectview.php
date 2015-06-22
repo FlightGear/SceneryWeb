@@ -59,7 +59,7 @@ if ($object->getDescription() != null) {
     </tr>
     <tr>
         <td>Heading</td>
-        <td><?php echo heading_true_to_stg($object->getOrientation())."&deg; (STG) - ".$object->getOrientation()."&deg; (true)"; ?></td>
+        <td><?php echo \ObjectUtils::headingTrue2STG($object->getOrientation())."&deg; (STG) - ".$object->getOrientation()."&deg; (true)"; ?></td>
     </tr>
     <tr>
         <td>Group</td>

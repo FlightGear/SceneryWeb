@@ -385,7 +385,7 @@ else {
     $newModel->setThumbnail($thumbFile);
     
     $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
-            $offset, heading_stg_to_true($heading), 1, $name);
+            $offset, \ObjectUtils::headingSTG2True($heading), 1, $name);
 
     $request = new \model\RequestModelAdd();
     $request->setNewModel($newModel);

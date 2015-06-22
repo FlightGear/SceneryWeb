@@ -1,7 +1,5 @@
 <?php 
 /**
- * DEPRECATED : use view/error_page.php instead
- * 
  * Error page
  * To use this page, please instantiate the following strings:
  * - $page_title   : page's title
@@ -11,7 +9,7 @@
  *
 **/
 
-require "header.php"; ?>
+require "view/header.php"; ?>
 
 
 <p class="center">
@@ -37,4 +35,4 @@ require "header.php"; ?>
 <p class="center">The FlightGear team.</p>
 
 
-<?php require "footer.php"; ?>
+<?php require "view/footer.php"; ?>

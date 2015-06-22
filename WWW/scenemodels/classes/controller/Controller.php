@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * Copyright (C) 2015 julien
+ * Copyright (C) 2015 FlightGear Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -26,6 +26,29 @@ abstract class Controller {
             return $_REQUEST[$varName];
         } else {
             return null;
+        }
+    }
+    
+    protected function checkCaptcha() {
+        // Captcha stuff
+        require_once 'inc/captcha/recaptchalib.php';
+
+        // Private key is needed for the server-to-Google auth.
+        $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
+        $resp = recaptcha_check_answer ($privatekey,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+        
+        // What happens when the CAPTCHA was entered incorrectly
+        if (!$resp->is_valid) {
+            $page_title = "Automated Objects Submission Form";
+
+            $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
+                 "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
+                 "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+            include 'view/error_page.php';
+            return;
         }
     }
 }

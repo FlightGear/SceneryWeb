@@ -226,7 +226,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
-            <td colspan="4"><?php echo heading_true_to_stg($objectToDel->getOrientation()); ?></td>
+            <td colspan="4"><?php echo \ObjectUtils::headingTrue2STG($objectToDel->getOrientation()); ?></td>
         </tr>
         <tr>
             <td><span title="Object's family (obstruction, ...)."><label>Object's family</label></span></td>
@@ -344,7 +344,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="The orientation of the object you want to delete - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
-            <td colspan="4"><?php echo heading_true_to_stg($candidateObj->getOrientation()); ?></td>
+            <td colspan="4"><?php echo \ObjectUtils::headingTrue2STG($candidateObj->getOrientation()); ?></td>
         </tr>
         <tr>
             <td><span title="Object's family (OBSTRUCTION, LANDMARK, ...)."><label>Object's family</label></span></td>
