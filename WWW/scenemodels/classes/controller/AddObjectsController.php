@@ -58,7 +58,7 @@ class AddObjectsController extends ControllerMenu {
         $countries = $this->objectDaoRO->getCountries();
         $nbObjects = $this->objectDaoRO->countObjects();
 
-        include 'view/submission/add_object_form.php';
+        include 'view/submission/mass_add_object_form.php';
     }
     
     /**

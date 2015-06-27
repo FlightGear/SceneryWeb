@@ -1,13 +1,6 @@
 <?php
-require_once '../../autoload.php';
-$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
-
-// Inserting libs
-require_once '../../inc/functions.inc.php';
-
 $page_title = "Automated Objects Massive Import Submission Form";
-require '../../view/header.php';
+require 'view/header.php';
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -29,7 +22,7 @@ function validateForm()
 <p>
   <b>Foreword:</b> This automated massive import form goal is to ease the submission
   when submitter wants to add a lot of objects positions into FG Scenery database.
-  <br />There are currently <?php echo number_format($objectDaoRO->countObjects(), '0', '', ' ');?> objects in the database.
+  <br />There are currently <?php echo number_format($nbObjects, '0', '', ' ');?> objects in the database.
   Help us to make it more! Simply copy/paste the NEW content of your STG files below.
 </p>
 <p>
@@ -102,5 +95,5 @@ function validateForm()
 </table>
 </form>
 
-<?php require '../../view/footer.php';
+<?php require 'view/footer.php';
 ?>

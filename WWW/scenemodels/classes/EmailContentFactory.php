@@ -310,7 +310,7 @@ class EmailContentFactory {
                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
                    "Comment:          ". strip_tags($request->getComment()) ."\r\n\r\n" .
                    "Please remember to use the massive insertion script should you have many objects to add: ".
-                   "http://".$_SERVER['SERVER_NAME']."/submission/object/index_mass_import.php\r\n\r\n";
+                   "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddObjects&a=massiveform\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

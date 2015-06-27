@@ -11,7 +11,7 @@
         <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
         <ul class="submenus">
             <li><a href="/app.php?c=AddObjects&a=form">Add a new object position</a></li>
-            <li><a href="/submission/object/index_mass_import.php">Massive import of objects</a></li>
+            <li><a href="/app.php?c=AddObjects&a=massiveform">Massive import of objects</a></li>
             <li><a href="/submission/object/index_delete.php">Delete an object position</a></li>
             <li><a href="/submission/object/index_update.php">Update object geodata</a></li>
             <li class="separator"></li>

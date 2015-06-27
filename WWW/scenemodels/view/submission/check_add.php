@@ -80,7 +80,7 @@ if (isset($updatedReq)) {
     echo "Unless it's rejected, it should appear in Terrasync within a few days.<br />";
     echo "The FG community would like to thank you for your contribution!<br />";
     echo "Want to submit another object? <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/object/\">Click here to go back to the submission page.</a><br />";
-    echo "Please remember to use the <a href=\"http://".$_SERVER['SERVER_NAME']."/submission/object/index_mass_import.php\">massive insertion script</a> should you have many objects to add.";
+    echo "Please remember to use the <a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=AddObjects&a=massiveform\">massive insertion script</a> should you have many objects to add.";
     echo "</center>";
 }
 

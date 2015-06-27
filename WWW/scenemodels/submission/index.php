@@ -19,10 +19,10 @@ require '../view/header.php';
             <ul>
                 <li>on objects (eg windturbines, pylons, generic buildings...):</li>
                 <ul>
-                    <li><a href="object/index.php">adding objects</a>.</li>
+                    <li><a href="../app.php?c=AddObjects&a=form">adding objects</a>.</li>
+                    <li><a href="../app.php?c=AddObjects&a=massiveform">massive import of objects</a> (adding tens of lines of objects in one click).</li>
                     <li><a href="object/index_delete.php">deleting objects</a> (delete an existing shared object).</li>
                     <li><a href="object/index_update.php">updating objects</a> (updating position, offset of an object...).</li>
-                    <li><a href="object/index_mass_import.php">massive import of objects</a> (adding tens of lines of objects in one click).</li>
                 </ul>
                 <li>on 3D models (models designed for a specific location, eg Eiffel Tower):</li>
                 <ul>
