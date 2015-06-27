@@ -57,7 +57,7 @@ if (!empty($_GET['name'])) {
 try {
     $request = $requestDaoRO->getRequest($mo_sig);
     
-    if (isset($_GET['old']) && get_class($request)=="RequestModelUpdate") {
+    if (isset($_GET['old']) && get_class($request)=="model\RequestModelUpdate") {
         $modelfiles = $request->getOldModel()->getModelFiles();
     } else {
         $modelfiles = $request->getNewModel()->getModelFiles();
