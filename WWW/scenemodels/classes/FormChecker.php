@@ -29,7 +29,7 @@ class FormChecker {
     static public $regex = array(
         'comment' => "/^[0-9a-z-A-Z\';:!?@\-_\. \[\]()]+$/u",
         'stg' => '/^[a-zA-Z0-9\_\.\-\,\/]+$/u',
-        'model_filepath' => '/^[a-z0-9_\/.-]$/i',
+        'model_filepath' => '/^[a-z0-9_\/.-]+$/i',
         'modelid' => '/^[0-9]+$/u',
         'modelgroupid' => '/^[0-9]+$/',
         'modelname' => '/^[0-9a-zA-Z;!?@\-_\.\(\)\[\]+ ]+$/',
@@ -182,7 +182,7 @@ class FormChecker {
     /**
      * Checks if the given variable is a valid sig id
      * @param string $value
-     * @return bool
+     * @return bool true if value is a sig, false otherwise
      */
     static public function isSig($value) {
         return strlen($value) == 64
@@ -229,5 +229,13 @@ class FormChecker {
                 && strlen($value) <= 100
                 && preg_match(self::$regex['obtext'], $value);
     }
-   
+
+    /**
+     * Checks if the given value is a filepath
+     * @param string $value value to check
+     * @return bool true if the value is a filepath, false otherwise
+     */
+    static public function isFilePath($value) {
+        return preg_match(self::$regex['model_filepath'], $value);
+    }
 }

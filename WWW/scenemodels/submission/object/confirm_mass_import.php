@@ -195,7 +195,7 @@ if (!$error) {
                 }
                 break;
             case 2:  // Checking Shared model (Contains only figures, letters, _/. and must exist in DB)
-                if (!preg_match(FormChecker::$regex['model_filepath'], $value_tag)) {
+                if (\FormChecker::isFilePath($value_tag)) {
 
                     try {
                         $modelMD = getModelFromSTG($value_tag);
@@ -215,7 +215,7 @@ if (!$error) {
 
                 break;
             case 3:  // Checking Longitude, must contain only figures and ., be >-180 and <180, be 20 characters max.
-                if (FormChecker::isLongitude($value_tag)) {
+                if (\FormChecker::isLongitude($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $long = $value_tag;
                 }
@@ -226,7 +226,7 @@ if (!$error) {
                 }
                 break;
             case 4:  // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 20 characters max.
-                if (FormChecker::isLatitude($value_tag)) {
+                if (\FormChecker::isLatitude($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $lat = $value_tag;
                 }
@@ -238,7 +238,7 @@ if (!$error) {
                 break;
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             case 5:  // Checking Elevation, must contain only figures and, be max 20 characters (TODO: can be used to automatically compute offset!!)
-                if (FormChecker::isGndElevation($value_tag)) {
+                if (\FormChecker::isGndElevation($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td>";
                     $gndelev = $value_tag;
                 }
@@ -249,7 +249,7 @@ if (!$error) {
                 }
                 break;
             case 6:  // Checking Orientation, must contain only figures, be >0, be 20 characters max.
-                if (FormChecker::isHeading($value_tag)) {
+                if (\FormChecker::isHeading($value_tag)) {
                     echo "<td><center>".$value_tag."</center></td> ";
                     $orientation = $value_tag;
                 }
@@ -262,7 +262,7 @@ if (!$error) {
 
             case 7:  //If 7 columns, it's the offset. if 8 columns, it's pitch
                 if (count($tab_tags)==7) {
-                    if (FormChecker::isOffset($value_tag)) {
+                    if (\FormChecker::isOffset($value_tag)) {
                         //echo "<td><center>".$value_tag."</center></td>";
                         $elevoffset = $value_tag;
                     }
