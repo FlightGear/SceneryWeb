@@ -28,6 +28,9 @@ namespace controller;
 class AddObjectsController extends ControllerMenu {
     private $objectDaoRO;
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         parent::__construct();
         $this->objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
@@ -58,6 +61,9 @@ class AddObjectsController extends ControllerMenu {
         include 'view/submission/add_object_form.php';
     }
     
+    /**
+     * Check submitted object action
+     */
     public function checkAction() {
         parent::checkCaptcha();
         

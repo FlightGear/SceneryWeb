@@ -35,7 +35,7 @@ interface IModelDAO {
     public function getModelMetadata($modelId);
     
     /**
-     * 
+     * Get model metadata using filename
      * @param string $modelName model name (= filename)
      */
     public function getModelMetadataFromName($modelName);
