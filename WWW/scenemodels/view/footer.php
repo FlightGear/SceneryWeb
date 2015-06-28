@@ -11,7 +11,7 @@
                  date("F d Y H:i", filemtime($filename)) ."&nbsp;-&nbsp;";
         }
 ?>
-        <a href="https://www.gitorious.org/fg/sceneryweb/commits/master">Version info</a> - 
+        <a href="http://mapserver.flightgear.org/git/gitweb.pl?p=sceneryweb">Version info</a> - 
         <a href="../../TOBEDONE">Volunteer?</a> - <a href="../../README">Readme</a> - 
         <a href="../../LICENCE">License</a> - <a href="../../VERSION">History</a> - 
         <a href="http://sphere.telascience.org/webalizer/">Web statistics</a>
