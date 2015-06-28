@@ -2,9 +2,6 @@
 require_once '../../autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
-// Inserting libs
-require_once '../../inc/functions.inc.php';
-
 $page_title = "Automated Objects Update Form";
 require '../../view/header.php';
 ?>

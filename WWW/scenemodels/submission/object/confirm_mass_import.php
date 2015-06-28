@@ -4,10 +4,6 @@ $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
-// Inserting libs
-require_once '../../inc/functions.inc.php';
-
-
 // Checks if models exists in DB from a model name sent in parameter.
 // ==================================================================
 // Model's name is composed of: OBJECT_SHARED Models/

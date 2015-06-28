@@ -6,9 +6,6 @@
 require_once '../autoload.php';
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 
-// Inserting libs
-require_once 'functions.inc.php';
-
 $long = $_GET['lg'];
 $lat = $_GET['lt'];
 

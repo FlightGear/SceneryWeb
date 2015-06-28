@@ -1,7 +1,5 @@
 <?php
 
-// Inserting libs
-require_once 'inc/functions.inc.php';
 require_once 'autoload.php';
 $objectDAO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 

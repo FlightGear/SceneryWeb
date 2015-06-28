@@ -3,8 +3,6 @@ require_once '../../autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
 
-require_once '../../inc/functions.inc.php';
-
 $page_title = "Automated Models Submission Form";
 require '../../view/header.php';
     
