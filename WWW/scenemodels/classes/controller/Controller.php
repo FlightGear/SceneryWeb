@@ -29,6 +29,11 @@ abstract class Controller {
         }
     }
     
+    /**
+     * Check captcha
+     * 
+     * @return bool true if captcha is correct, false otherwise
+     */
     protected function checkCaptcha() {
         // Captcha stuff
         require_once 'inc/captcha/recaptchalib.php';
@@ -40,15 +45,6 @@ abstract class Controller {
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
         
-        // What happens when the CAPTCHA was entered incorrectly
-        if (!$resp->is_valid) {
-            $page_title = "Automated Objects Submission Form";
-
-            $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
-                 "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
-                 "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-            include 'view/error_page.php';
-            return;
-        }
+        return $resp->is_valid;
     }
 }

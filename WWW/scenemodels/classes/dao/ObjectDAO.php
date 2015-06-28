@@ -46,7 +46,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $result = $this->database->query($query);
         
         if (!$result) {
-            throw new \Exception("Updating object failed!");
+            throw new \Exception('Updating object failed!');
         }
     }
     
@@ -54,7 +54,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $result = $this->database->query("DELETE FROM fgs_objects WHERE ob_id=".pg_escape_string($objectId).";");
         
         if (!$result) {
-            throw new \Exception("Deleting object id ".$objectId." failed!");
+            throw new \Exception('Deleting object id '.$objectId.' failed!');
         }
     }
     
@@ -88,7 +88,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $whereClause = $this->generateWhereClauseCriteria($criteria);
         
         if ($whereClause != "") {
-            $whereClause .= " AND"; 
+            $whereClause .= ' AND'; 
         }
     
         $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
@@ -104,8 +104,8 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     public function getObjectsByModel($modelId) {
-        $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects, fgs_countries WHERE ob_model=".pg_escape_string($modelId)." AND ob_country = co_code ".
+        $result = $this->database->query('SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir '.
+                                         "FROM fgs_objects, fgs_countries WHERE ob_model=".pg_escape_string($modelId).' AND ob_country = co_code '.
                                          "ORDER BY ob_modified DESC;");
         $resultArray = array();
                            
@@ -117,15 +117,15 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     public function getObjectsGroup($objectGroupId) {
-        $result = $this->database->query("SELECT gp_id, gp_name FROM fgs_groups ".
-                                         "WHERE gp_id=".pg_escape_string($objectGroupId).";");
+        $result = $this->database->query('SELECT gp_id, gp_name FROM fgs_groups '.
+                                         'WHERE gp_id='.pg_escape_string($objectGroupId).';');
         
         $row = pg_fetch_assoc($result);
         return $this->getObjectGroupFromRow($row);
     }
     
     public function getObjectsGroups() {
-        $result = $this->database->query("SELECT gp_id, gp_name FROM fgs_groups;");
+        $result = $this->database->query('SELECT gp_id, gp_name FROM fgs_groups;');
         
         $resultArray = array();
         

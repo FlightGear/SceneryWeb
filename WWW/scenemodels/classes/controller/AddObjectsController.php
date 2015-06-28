@@ -65,7 +65,16 @@ class AddObjectsController extends ControllerMenu {
      * Check submitted object action
      */
     public function checkAction() {
-        parent::checkCaptcha();
+        // What happens when the CAPTCHA was entered incorrectly
+        if (!parent::checkCaptcha()) {
+            $page_title = "Automated Objects Submission Form";
+
+            $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
+                 "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
+                 "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+            include 'view/error_page.php';
+            return;
+        }
         
         $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
@@ -115,7 +124,7 @@ class AddObjectsController extends ControllerMenu {
         // Checking that orientation exists and is containing only digits, and is >=0 and <=359
         // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
         if (\FormChecker::isHeading($this->getVar('heading'))) {
-            $heading = number_format(pg_escape_string(stripslashes($this->getVar('heading'))),1,'.','');
+            $heading = number_format(stripslashes($this->getVar('heading')),1,'.','');
         }
         else {
             $error = true;
