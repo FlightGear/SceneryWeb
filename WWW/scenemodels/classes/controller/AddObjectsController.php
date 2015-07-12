@@ -78,8 +78,6 @@ class AddObjectsController extends ControllerMenu {
         
         $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
-        $error = false;
-
         $modelId = stripslashes($this->getVar('modelId'));
         $lat = number_format(stripslashes($this->getVar('latitude')),7,'.','');
         $long = number_format(stripslashes($this->getVar('longitude')),7,'.','');
@@ -89,10 +87,7 @@ class AddObjectsController extends ControllerMenu {
         
         $objectValidator = new \submission\ObjectValidator($modelId, $long, $lat, $countryId, $offset, $heading);
         $errors = $objectValidator->validate();
-        // TODO display errors
-        if (count($errors) > 0) {
-            $error = true;
-        }
+       
         
         // Checking that comment exists. Just a small verification as it's not going into DB.
         $inputComment = $this->getVar('comment');
@@ -100,7 +95,7 @@ class AddObjectsController extends ControllerMenu {
             $sent_comment = stripslashes($inputComment);
         }
         else {
-            $error = true;
+            $errors[] = new \Exception("Comment mismatch!");
         }
         
         // Checking that email is valid (if it exists).
@@ -111,7 +106,7 @@ class AddObjectsController extends ControllerMenu {
         }
         
         // If there is no error, insert the object to the pending requests table.
-        if (!$error) {
+        if (count($errors) == 0) {
             $modelMD = $this->getModelDaoRO()->getModelMetadata($modelId);
             $country = $this->objectDaoRO->getCountry($countryId);
             
