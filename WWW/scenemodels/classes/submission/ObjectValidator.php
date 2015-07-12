@@ -2,7 +2,7 @@
 namespace submission;
 
 /*
- * Copyright (C) 2014 Flightgear Team
+ * Copyright (C) 2015 Flightgear Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,18 +20,56 @@ namespace submission;
  */
 
 /**
- * Description of ObjectValidator
+ * Object validator
  *
  * @author     Julien Nguyen <julien.nguyen3@gmail.com>
  */
 class ObjectValidator implements Validator {
     
-    private $object;
+    private $modelId;
+    private $longitude;
+    private $latitude;
+    private $countryId;
+    private $offset;
+    private $heading;
     
-    function __construct() {
+    
+    function __construct($modelId, $longitude, $latitude, $countryId, $offset, $heading) {
+        $this->modelId = $modelId;
+        $this->longitude = $longitude;
+        $this->latitude = $latitude;
+        $this->countryId = $countryId;
+        $this->offset = $offset;
+        $this->heading = $heading;
     }
     
     public function validate() {
+        $exceptions = array();
         
+        if (!\FormChecker::isModelId($this->modelId)) {
+            $exceptions[] = new \Exception("Model ID is wrong!");
+        }
+        
+        if (!\FormChecker::isLatitude($this->latitude)) {
+            $exceptions[] = new \Exception("Latitude is wrong!");
+        }
+        
+        if (!\FormChecker::isLongitude($this->longitude)) {
+            $exceptions[] = new \Exception("Longitude is wrong!");
+        }
+        
+        if (!\FormChecker::isCountryId($this->countryId)) {
+            $exceptions[] = new \Exception("Country ID is wrong!");
+        }
+
+        if (!\FormChecker::isOffset($this->offset)) {
+            $exceptions[] = new \Exception("Elevation offset is wrong!");
+        }
+        
+        if (!\FormChecker::isHeading($this->heading)) {
+            $exceptions[] = new \Exception("Heading is wrong!");
+        }
+
+        return $exceptions;
     }
 }

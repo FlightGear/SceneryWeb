@@ -14,7 +14,7 @@ try {
 } catch (\dao\RequestNotFoundException $e) {
     $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
     $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-    include '../../inc/error_page.php';
+    include '../../view/error_page.php';
     exit;
 }
 
@@ -38,14 +38,14 @@ if (isset($_POST["action"])) {
             $process_text = "Deleting corresponding pending query.";
             $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
             $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
-            include '../../inc/error_page.php';
+            include '../../view/error_page.php';
             exit;
         }
 
         if (!$resultDel) {
             $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request #". $request->getId();
             $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-            include '../../inc/error_page.php';
+            include '../../view/error_page.php';
             exit;
         }
 
@@ -92,7 +92,7 @@ if (isset($_POST["action"])) {
             $process_text = "Signatures found.<br /> Now processing request #". $request->getId();
             $error_text = "Sorry, but the UPDATE queries could not be processed.";
             $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-            include '../inc/error_page.php';
+            include '../../view/error_page.php';
             exit;
         }
         

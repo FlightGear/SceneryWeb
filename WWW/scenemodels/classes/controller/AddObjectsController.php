@@ -79,54 +79,18 @@ class AddObjectsController extends ControllerMenu {
         $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
         $error = false;
-        
-        $inputModelId = $this->getVar('modelId');
-        if (\FormChecker::isModelId($inputModelId)) {
-            $model_id = pg_escape_string(stripslashes($inputModelId));
-            $modelMD = $this->getModelDaoRO()->getModelMetadata($model_id);
-        } else {
-            $error = true;
-        }
-        
-        $inputLat = $this->getVar('latitude');
-        if (\FormChecker::isLatitude($inputLat)) {
-            $lat = number_format(stripslashes($inputLat),7,'.','');
-        } else {
-            $error = true;
-        }
-        
-        $inputLong = $this->getVar('longitude');
-        if (\FormChecker::isLongitude($inputLong)) {
-            $long = number_format(stripslashes($inputLong),7,'.','');
-        } else {
-            $error = true;
-        }
-        
-        // Country.
-        $inputObCountry = $this->getVar('ob_country');
-        if (\FormChecker::isCountryId($inputObCountry)) {
-            $ob_country = $inputObCountry;
-            $country = $this->objectDaoRO->getCountry($ob_country);
-        }
-        else {
-            $error = true;
-        }
 
-
-        // Checking that offset exists and is containing only digits, - or ., is >=-10000 and <=10000 and with correct decimal format.
-        if (\FormChecker::isOffset($this->getVar('offset'))) {
-            $offset = number_format(stripslashes($this->getVar('offset')),2,'.','');
-        }
-        else {
-            $error = true;
-        }
-
-        // Checking that orientation exists and is containing only digits, and is >=0 and <=359
-        // Then converting the STG orientation into the future DB (true) orientation and with correct decimal format.
-        if (\FormChecker::isHeading($this->getVar('heading'))) {
-            $heading = number_format(stripslashes($this->getVar('heading')),1,'.','');
-        }
-        else {
+        $modelId = stripslashes($this->getVar('modelId'));
+        $lat = number_format(stripslashes($this->getVar('latitude')),7,'.','');
+        $long = number_format(stripslashes($this->getVar('longitude')),7,'.','');
+        $countryId = $this->getVar('ob_country');
+        $offset = number_format(stripslashes($this->getVar('offset')),2,'.','');
+        $heading = number_format(stripslashes($this->getVar('heading')),1,'.','');
+        
+        $objectValidator = new \submission\ObjectValidator($modelId, $long, $lat, $countryId, $offset, $heading);
+        $errors = $objectValidator->validate();
+        // TODO display errors
+        if (count($errors) > 0) {
             $error = true;
         }
         
@@ -141,19 +105,18 @@ class AddObjectsController extends ControllerMenu {
         
         // Checking that email is valid (if it exists).
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-        $failed_mail = false;
         $inputEmail = $this->getVar('email');
         if (\FormChecker::isEmail($inputEmail)) {
             $safe_email = htmlentities(stripslashes($inputEmail));
         }
-        else {
-            $failed_mail = true;
-        }
         
         // If there is no error, insert the object to the pending requests table.
         if (!$error) {
+            $modelMD = $this->getModelDaoRO()->getModelMetadata($modelId);
+            $country = $this->objectDaoRO->getCountry($countryId);
+            
             $objectFactory = new \ObjectFactory($this->objectDaoRO);
-            $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
+            $newObject = $objectFactory->createObject(-1, $modelId, $long, $lat, $countryId, 
             $offset, \ObjectUtils::headingSTG2True($heading), 1, $modelMD->getName());
     
             // Detect if the object is already in the database
@@ -167,7 +130,9 @@ class AddObjectsController extends ControllerMenu {
             $newObjects[] = $newObject;
             $request = new \model\RequestMassiveObjectsAdd();
             $request->setNewObjects($newObjects);
-            $request->setContributorEmail($safe_email);
+            if (isset($safe_email)) {
+                $request->setContributorEmail($safe_email);
+            }
             $request->setComment($sent_comment);
             
             
@@ -193,7 +158,7 @@ class AddObjectsController extends ControllerMenu {
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter to tell him that his submission has been sent for validation
-            if (!$failed_mail) {
+            if (isset($safe_email)) {
                 $emailSubmit = \EmailContentFactory::getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $modelMD);
                 $emailSubmit->sendEmail($safe_email, false);
             }
