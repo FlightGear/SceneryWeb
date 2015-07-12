@@ -4,14 +4,15 @@ $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
-// Checks if models exists in DB from a model name sent in parameter.
-// ==================================================================
-// Model's name is composed of: OBJECT_SHARED Models/
-// a mg_path from fgs_modelgroups;
-// a mo_path from fgs_models;
-// ie : Models/Power/windturbine.xml
-// So we have to check that the couple Power/windturbine.xml exists: if both concatenated values are ok, then we're fine.
-
+/**
+ * Checks if models exists in DB from a model name sent in parameter.
+ * @global type $modelDaoRO
+ * @param string $modelFullPath Model's path is composed of:
+ *        OBJECT_SHARED Models/mg_path from fgs_modelgroups/mo_path from fgs_models
+ *        ie : Models/Power/windturbine.xml
+ * @return ModelMetadata
+ * @throws Exception if model is not found
+ */
 function getModelFromSTG($modelFullPath) {
     global $modelDaoRO;
     
@@ -168,13 +169,13 @@ if (!$error) {
     $objectFactory = new ObjectFactory($objectDaoRO);
     $newObjects = array();
     
-    foreach ($tab_lines as $value) { // Now printing the lines...
+    foreach ($tab_lines as $line) { // Now printing the lines...
         $ko = false;
         
         $elevoffset = 0;
         echo "<tr>";
         echo "<td><center>".$i."</center></td>";
-        $tab_tags = explode(" ",$value);
+        $tab_tags = explode(" ", $line);
         $j = 1;
         
         // TODO : Have also to check the number of tab_tags returned!

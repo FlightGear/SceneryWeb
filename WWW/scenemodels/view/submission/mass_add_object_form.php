@@ -20,9 +20,7 @@ function validateForm()
 <h1>Automated Objects Massive Import Submission Form</h1>
 
 <p>
-  <b>Foreword:</b> This automated massive import form goal is to ease the submission
-  when submitter wants to add a lot of objects positions into FG Scenery database.
-  <br />There are currently <?php echo number_format($nbObjects, '0', '', ' ');?> objects in the database.
+  There are currently <?php echo number_format($nbObjects, '0', '', ' ');?> objects in the database.
   Help us to make it more! Simply copy/paste the NEW content of your STG files below.
 </p>
 <p>
@@ -32,7 +30,7 @@ function validateForm()
 <p>Please note that:</p>
 
 <ul class="warning">
-    <li>Only add NEW objects or you will encounter errors!!</li>
+    <li>Only add NEW objects !</li>
     <li>
       Do not insert models not existing in the scenery objects database,
       nor OBJECT_SIGN, nor OBJECT_STATIC lines.
@@ -43,18 +41,12 @@ function validateForm()
       or equivalent natural boundaries within an airport will be accepted.
     </li>
     <li>
-      Use the terrain shipped with FlightGear/Terrasync, and not
-      any custom elevation terrain.
-    </li>
-    <li>
       Pitch or roll information are ignored.
+      <strong>Elevation is ignored. Only offset elevation is used.</strong>
     </li>
     <li>100 lines maximum per submission!</li>
     <li>
       You can copy/paste objects positions coming from different STG files.
-    </li>
-    <li>
-      <strong>Elevation is ignored. Only offset elevation is used.</strong>
     </li>
 </ul>
 
