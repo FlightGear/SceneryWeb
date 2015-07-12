@@ -20,6 +20,9 @@
 
 namespace controller;
 
+/**
+ * Abstract controller
+ */
 abstract class Controller {
     protected function getVar($varName) {
         if (isset($_REQUEST[$varName])) {

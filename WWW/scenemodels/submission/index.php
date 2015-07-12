@@ -26,7 +26,7 @@ require '../view/header.php';
                 </ul>
                 <li>on 3D models (models designed for a specific location, eg Eiffel Tower):</li>
                 <ul>
-                    <li><a href="model/index_model_add.php">adding a new static or shared 3D model</a>.</li>
+                    <li><a href="../app.php?c=AddModel&a=form">adding a new static or shared 3D model</a>.</li>
                     <li><a href="model/index_model_update.php">updating an existing static or shared 3D model</a> (improve 3D model).</li>
                 </ul>
             </ul>

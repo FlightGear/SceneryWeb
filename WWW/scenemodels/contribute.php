@@ -89,7 +89,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
             <li><strong>A 320x240 thumbnail</strong> containing an advantageous view on the model/object as (JPEG) image - this is preferred for a nice representation of your artwork.</li>
             <li><strong>Country</strong> in which the model is located (if known to the author).</li>
             <li>Additional <strong>short comment on the author</strong>.</li>
-            <li>Details are available <a href="submission/model/index_model_add.php">here</a>.</li>
+            <li>Details are available <a href="app.php?c=AddModel&a=form">here</a>.</li>
         </ul>
 
         <h3 id="tips"><a><font color="red">Models best practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
@@ -117,7 +117,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 
         <h3 id="contact"><a><font color="blue">Upload facilities</font></a></h3>
         <ul>
-            <li>Our dedicated webform <a href="submission/model/index_model_add.php">here.</a></li>
+            <li>Our dedicated webform <a href="app.php?c=AddModel&a=form">here.</a></li>
         </ul>
     </div>
 </div>

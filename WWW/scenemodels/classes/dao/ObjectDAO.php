@@ -105,8 +105,8 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     
     public function getObjectsByModel($modelId) {
         $result = $this->database->query('SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir '.
-                                         "FROM fgs_objects, fgs_countries WHERE ob_model=".pg_escape_string($modelId).' AND ob_country = co_code '.
-                                         "ORDER BY ob_modified DESC;");
+                                         'FROM fgs_objects, fgs_countries WHERE ob_model='.pg_escape_string($modelId).' AND ob_country = co_code '.
+                                         'ORDER BY ob_modified DESC;');
         $resultArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
@@ -144,7 +144,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     public function getCountryAt($long, $lat) {
-        $query = "SELECT co_code, co_name, co_three FROM gadm2, fgs_countries " .
+        $query = 'SELECT co_code, co_name, co_three FROM gadm2, fgs_countries ' .
                  "WHERE ST_Within(ST_PointFromText('POINT(".
                  pg_escape_string($long)." ".pg_escape_string($lat).")', 4326), gadm2.wkb_geometry) AND gadm2.iso ILIKE fgs_countries.co_three;";
         $result = $this->database->query($query);
@@ -159,7 +159,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     public function getCountries() {
-        $result = $this->database->query("SELECT * FROM fgs_countries ORDER BY co_name;");
+        $result = $this->database->query('SELECT * FROM fgs_countries ORDER BY co_name;');
         
         $resultArray = array();
                            
