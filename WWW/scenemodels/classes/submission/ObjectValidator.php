@@ -33,9 +33,22 @@ class ObjectValidator implements Validator {
     private $offset;
     private $heading;
     
+    public static function getObjectValidator($modelId, $longitude, $latitude, $countryId, $offset, $heading) {
+        $instance = new self();
+        $instance->setModelId($modelId);
+        $instance->setPosition($longitude, $latitude, $countryId, $offset, $heading);
+        
+        return $instance;
+    }
     
-    function __construct($modelId, $longitude, $latitude, $countryId, $offset, $heading) {
-        $this->modelId = $modelId;
+    public static function getPositionValidator($longitude, $latitude, $countryId, $offset, $heading) {
+        $instance = new self();
+        $instance->setPosition($longitude, $latitude, $countryId, $offset, $heading);
+        
+        return $instance;
+    }
+    
+    private function setPosition($longitude, $latitude, $countryId, $offset, $heading) {
         $this->longitude = $longitude;
         $this->latitude = $latitude;
         $this->countryId = $countryId;
@@ -43,10 +56,14 @@ class ObjectValidator implements Validator {
         $this->heading = $heading;
     }
     
+    private function setModelId($modelId) {
+        $this->modelId = $modelId;
+    }
+    
     public function validate() {
         $exceptions = array();
         
-        if (!\FormChecker::isModelId($this->modelId)) {
+        if (isset($this->modelId) && !\FormChecker::isModelId($this->modelId)) {
             $exceptions[] = new \Exception("Model ID is wrong!");
         }
         

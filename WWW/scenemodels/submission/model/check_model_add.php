@@ -307,44 +307,19 @@ if (!isset($_POST["gpl"])) {
 ###############################################
 ###############################################
 
-if ($_POST["longitude"] != "" && $_POST["latitude"] != "" && $_POST["offset"] != ""
-        && $_POST["heading"] != "" && $_POST["ob_country"] != "") {
-    $longitude = strip_tags($_POST["longitude"]);
-    $latitude  = strip_tags($_POST["latitude"]);
-    $offset    = strip_tags($_POST["offset"]);
-    $heading   = strip_tags($_POST["heading"]);
-    $country   = $_POST["ob_country"];
+$longitude = strip_tags($_POST["longitude"]);
+$latitude  = strip_tags($_POST["latitude"]);
+$offset    = strip_tags($_POST["offset"]);
+$heading   = strip_tags($_POST["heading"]);
+$country   = $_POST["ob_country"];
+$objectValidator = \submission\ObjectValidator::getPositionValidator($longitude, $latitude, $country, $offset, $heading);
+$errors = $objectValidator->validate();
 
-    if (!FormChecker::isLongitude($longitude)) {
-        $fatalerror = true;
-        $errormsg .= "<li>Please check the longitude value (-180 < longitude < 180) and not null.</li>";
+if (count($errors) > 0) {
+    foreach ($errors as $error) {
+        $errormsg .= '<li>'. $error->getMessage() .'</li>';
     }
-
-    if (!FormChecker::isLatitude($latitude)) {
-        $fatalerror = true;
-        $errormsg .= "<li>Please check the latitude value (-90 < latitude < 90) and not null.</li>";
-    }
-
-    if ($offset == '' || $offset == '0') {
-        $offset = 0;
-    } else if (!FormChecker::isOffset($offset)) {
-        $fatalerror = true;
-        $errormsg .= "<li>Please check the offset value (-10000 < offset < 10000).</li>";
-    }
-
-    if (!FormChecker::isHeading($heading)) {
-        $fatalerror = true;
-        $errormsg .= "<li>Please check the heading value (0 < heading < 359.999).</li>";
-    }
-    
-    if (!FormChecker::isCountryId($country)) {
-        $fatalerror = true;
-        $errormsg .= "<li>Please check the country value.</li>";
-    }
-}
-else {
     $fatalerror = true;
-    $errormsg .= "<li>Please fill in all required fields.</li>";
 }
 
 ###############################################

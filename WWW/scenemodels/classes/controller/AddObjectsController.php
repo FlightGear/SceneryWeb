@@ -85,7 +85,7 @@ class AddObjectsController extends ControllerMenu {
         $offset = number_format(stripslashes($this->getVar('offset')),2,'.','');
         $heading = number_format(stripslashes($this->getVar('heading')),1,'.','');
         
-        $objectValidator = new \submission\ObjectValidator($modelId, $long, $lat, $countryId, $offset, $heading);
+        $objectValidator = \submission\ObjectValidator::getObjectValidator($modelId, $long, $lat, $countryId, $offset, $heading);
         $errors = $objectValidator->validate();
        
         
