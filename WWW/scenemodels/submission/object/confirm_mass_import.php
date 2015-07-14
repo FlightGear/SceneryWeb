@@ -87,15 +87,11 @@ function update_countries(code,n) {
 </script>
 <br />
 <?php
-global $error;
 $error = false;
 
 // Checking that email is valid (if it exists).
-$failed_mail = false;
 if (FormChecker::isEmail($_POST['email'])) {
     $safe_email = htmlentities(stripslashes($_POST['email']));
-} else {
-    $failed_mail = true;
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
@@ -110,7 +106,7 @@ else {
 }
 
 if ($step == 1) {
-    if (!$failed_mail) {
+    if (isset($safe_email)) {
         echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
     } else {
         echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
@@ -174,7 +170,7 @@ if (!$error) {
         
         $elevoffset = 0;
         echo "<tr>";
-        echo "<td><center>".$i."</center></td>";
+        echo "<td>".$i."</td>";
         $tab_tags = explode(" ", $line);
         $j = 1;
         
@@ -183,10 +179,10 @@ if (!$error) {
             switch($j) {
             case 1:  // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
                 if (!strcmp($value_tag, "OBJECT_SHARED")) {
-                    echo "<td><center>".$value_tag."</center></td> ";
+                    echo "<td>".$value_tag."</td> ";
                 }
                 else {
-                    echo "<td><p class=\"center warning\">Object type Error!</p></td>";
+                    echo "<td><p class=\"warning\">Object type Error!</p></td>";
                     $ko = true;
                     $cpt_err++;
                 }
@@ -197,15 +193,15 @@ if (!$error) {
                     try {
                         $modelMD = getModelFromSTG($value_tag);
                         $model_id = $modelMD->getId();
-                        echo "<td><center>".$value_tag."</center></td>";
+                        echo "<td>".$value_tag."</td>";
                     } catch (Exception $ex) {
-                        echo "<td><p class=\"center warning\">".$ex->getMessage()."</p></td>";
+                        echo "<td><p class=\"warning\">".$ex->getMessage()."</p></td>";
                         $ko = true;
                         $cpt_err++;
                     }
                 }
                 else {
-                    echo "<td><p class=\"center warning\">Object Error!</p></td>";
+                    echo "<td><p class=\"warning\">Model Error!</p></td>";
                     $ko = true;
                     $cpt_err++;
                 }
@@ -213,22 +209,22 @@ if (!$error) {
                 break;
             case 3:  // Checking Longitude, must contain only figures and ., be >-180 and <180, be 20 characters max.
                 if (\FormChecker::isLongitude($value_tag)) {
-                    echo "<td><center>".$value_tag."</center></td>";
+                    echo "<td>".$value_tag."</td>";
                     $long = $value_tag;
                 }
                 else {
-                    echo "<td><p class=\"center warning\">Longitude Error!</p></td>";
+                    echo "<td><p class=\"warning\">Longitude Error!</p></td>";
                     $ko = true;
                     $cpt_err++;
                 }
                 break;
             case 4:  // Checking Latitude, must contain only figures, - and ., be >-90 and <90, be 20 characters max.
                 if (\FormChecker::isLatitude($value_tag)) {
-                    echo "<td><center>".$value_tag."</center></td>";
+                    echo "<td>".$value_tag."</td>";
                     $lat = $value_tag;
                 }
                 else {
-                    echo "<td><p class=\"center warning\">Latitude Error!</p></td>";
+                    echo "<td><p class=\"warning\">Latitude Error!</p></td>";
                     $ko = true;
                     $cpt_err++;
                 }
@@ -236,22 +232,22 @@ if (!$error) {
             // Should we check that there is no other object declared at this position ? - we don't do it for unitary adding.
             case 5:  // Checking Elevation, must contain only figures and, be max 20 characters (TODO: can be used to automatically compute offset!!)
                 if (\FormChecker::isGndElevation($value_tag)) {
-                    echo "<td><center>".$value_tag."</center></td>";
+                    echo "<td>".$value_tag."</td>";
                     $gndelev = $value_tag;
                 }
                 else {
-                    echo "<td><p class=\"center warning\">Elevation Error!</p></td>";
+                    echo "<td><p class=\"warning\">Elevation Error!</p></td>";
                     $ko = true;
                     $cpt_err++;
                 }
                 break;
             case 6:  // Checking Orientation, must contain only figures, be >0, be 20 characters max.
                 if (\FormChecker::isHeading($value_tag)) {
-                    echo "<td><center>".$value_tag."</center></td> ";
+                    echo "<td>".$value_tag."</td> ";
                     $orientation = $value_tag;
                 }
                 else {
-                    echo "<td><p class=\"center warning\">Orientation Error!</p></td>";
+                    echo "<td><p class=\"warning\">Orientation Error!</p></td>";
                     $ko = true;
                     $cpt_err++;
                 }
@@ -280,19 +276,19 @@ if (!$error) {
             $j++;
         }
 
-        echo "<td><center>".$elevoffset."</center></td> ";
+        echo "<td>".$elevoffset."</td> ";
 
         // Country
         if ($step == 1) {
-            $ob_country = $objectDaoRO->getCountryAt($long, $lat)->getCode();
-            if ($ob_country == "zz") {
+            $countryId = $objectDaoRO->getCountryAt($long, $lat)->getCode();
+            if ($countryId == "zz") {
                 $unknown_country = true;
             }
             echo "<td><select name='ob_country_".$i."' id='ob_country_".$i."' style='width: 100%;'>";
             
             foreach($countries as $country) {
                 echo "<option value=\"".$country->getCode()."\"";
-                if ($country->getCode() == $ob_country) {
+                if ($country->getCode() == $countryId) {
                     echo " selected";
                 }
                 echo ">".$country->getName()."</option>";
@@ -300,12 +296,12 @@ if (!$error) {
 
             echo "</select></td>";
         } else {
-            $ob_country = $_POST['ob_country_'.$i];
-            echo "<td>".$countries[$ob_country]->getName()."</td>";
+            $countryId = $_POST['ob_country_'.$i];
+            echo "<td>".$countries[$countryId]->getName()."</td>";
         }
 
         if (!$ko) {
-            $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $ob_country, 
+            $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $countryId, 
                         $elevoffset, \ObjectUtils::headingSTG2True($orientation), 1, $modelMD->getName());
             
             if ($objectDaoRO->checkObjectAlreadyExists($newObject)) {
@@ -318,7 +314,7 @@ if (!$error) {
                 if ($objectDaoRO->detectNearbyObjects($lat, $long, $model_id)) {
                     echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>"; // Just a warning, not fatal
                 } else {
-                    echo "<td style='background-color: rgb(0, 200, 0); text-align: center;'>OK</td>";
+                    echo "<td style='background-color: rgb(0, 200, 0);'>OK</td>";
                 }
                 
                 $newObjects[] = $newObject;
@@ -326,7 +322,7 @@ if (!$error) {
         }
         else {
             $global_ko = true;
-            echo "<td style='background-color: rgb(200, 0, 0); text-align: center;'>KO</td>"; // Good or not ?
+            echo "<td style='background-color: rgb(200, 0, 0);'>KO</td>"; // Good or not ?
         }
         echo "</tr>";      // Finishes the line.
         $i++;                // Increments the line number.
@@ -405,7 +401,7 @@ if ($step == 1) {
     $emailSubmit->sendEmail("", true);
     
     // Mailing the submitter to tell that his submission has been sent for validation.
-    if (!$failed_mail) {
+    if (isset($safe_email)) {
         $emailSubmit = EmailContentFactory::getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedRequest);
         $emailSubmit->sendEmail($safe_email, false);
     }
