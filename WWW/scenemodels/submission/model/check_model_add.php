@@ -234,11 +234,9 @@ if (file_exists($targetPath) && is_dir($targetPath)) {
         $modelChecker->dos2Unix($xmlPath);
     }
     $modelChecker->dos2Unix($ac3dPath);
-    $contents = $modelChecker->archiveModel($targetPath);
-    
-    $modelFile = base64_encode($contents);                    // Dump & encode the file
+    $modelFile = $modelChecker->archiveModel($targetPath);
 
-    clear_dir($targetPath);                                   // Delete temporary static directory
+    clear_dir($targetPath);                                   // Delete temporary model directory
 }
 
 ###############################################

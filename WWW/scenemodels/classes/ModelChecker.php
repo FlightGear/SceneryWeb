@@ -213,45 +213,35 @@ class ModelChecker {
         return $targetPath;
     }
     
-    public function generateModelFilesPackage($targetDir, $modelFolderPath) {
-        // Create, fill archive file and compress it
-        $phar = new PharData($targetDir . '/static.tar');
-        $phar->buildFromDirectory($modelFolderPath);
-        $phar->compress(Phar::GZ);
-        
-        // Delete archive file
-        unlink($targetDir . '/static.tar');
-        // Rename compress file
-        rename($targetDir . '/static.tar.gz', $targetDir.'/static.tgz');
-
-        $handle    = fopen($targetDir."/static.tgz", "r");
-        $contents  = fread($handle, filesize($targetDir."/static.tgz"));
-        fclose($handle);
-        
-        // Dump & encode the file
-        return base64_encode($contents);
-    }
-    
     public function dos2Unix($filePath) {
         // Dos2unix file
         system('dos2unix '.$filePath);
     }
     
-    public function archiveModel($targetPath) {
-        $tmp_dir = sys_get_temp_dir();
+    /**
+     * Create an base 64 encoded Tar GZ archive from the given model folder path.
+     * @param string $modelFolderPath model
+     * @return base 64 archive of model
+     */
+    public function archiveModel($modelFolderPath) {
+        $tmpDir = sys_get_temp_dir();
         
-        $phar = new PharData($tmp_dir . '/static.tar');                // Create archive file
-        $phar->buildFromDirectory($targetPath);                        // Fills archive file
-        $phar->compress(Phar::GZ);                                     // Convert archive file to compress file
-        unlink($tmp_dir . '/static.tar');                              // Delete archive file
-        rename($tmp_dir . '/static.tar.gz', $tmp_dir.'/static.tgz');   // Rename compress file
+        // Create, fill archive file and compress it
+        $phar = new PharData($tmpDir . '/model.tar');
+        $phar->buildFromDirectory($modelFolderPath);
+        $phar->compress(Phar::GZ);
+        
+        // Delete archive file
+        unlink($tmpDir . '/model.tar');
+        // Rename compress file
+        rename($tmpDir . '/model.tar.gz', $tmpDir.'/model.tgz');
 
-        $handle    = fopen($tmp_dir."/static.tgz", "r");
-        $contents  = fread($handle, filesize($tmp_dir."/static.tgz"));
+        $handle    = fopen($tmpDir."/model.tgz", "r");
+        $contents  = fread($handle, filesize($tmpDir."/model.tgz"));
         fclose($handle);
+        unlink($tmpDir . '/model.tgz');
         
-        unlink($tmp_dir . '/static.tgz');
-        
-        return $contents;
+        // Dump & encode the file
+        return base64_encode($contents);
     }
 }
