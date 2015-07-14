@@ -24,6 +24,7 @@
         <ul class="submenus">
             <li><a href="/app.php?c=Models&a=browse">Browse all</a></li>
 <?php
+            // TODO Compute this group list in controllers
             $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
             $groups = $modelDaoRO->getModelsGroups();
             

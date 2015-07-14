@@ -35,7 +35,7 @@ abstract class Controller {
     /**
      * Check captcha
      * 
-     * @return bool true if captcha is correct, false otherwise
+     * @return response
      */
     protected function checkCaptcha() {
         // Captcha stuff
@@ -48,6 +48,6 @@ abstract class Controller {
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
         
-        return $resp->is_valid;
+        return $resp;
     }
 }

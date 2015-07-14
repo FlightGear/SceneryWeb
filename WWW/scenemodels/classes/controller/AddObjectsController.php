@@ -65,8 +65,9 @@ class AddObjectsController extends ControllerMenu {
      * Check submitted object action
      */
     public function checkAction() {
-        // What happens when the CAPTCHA was entered incorrectly
-        if (!parent::checkCaptcha()) {
+        // Check captcha
+        $resp = parent::checkCaptcha();
+        if (!$resp->is_valid) {
             $page_title = "Automated Objects Submission Form";
 
             $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
