@@ -150,7 +150,7 @@ class AddObjectsController extends ControllerMenu {
             
             try {
                 $updatedReq = $requestDaoRW->saveRequest($request);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $page_title = "Objects addition Form";
                 $error_text = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
                 include 'view/error_page.php';
@@ -247,7 +247,7 @@ class AddObjectsController extends ControllerMenu {
             try {
                 $modelMD = $this->getModelFromSTG($path);
                 $modelId = $modelMD->getId();
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 $errors[] = $ex;
             }
         }
