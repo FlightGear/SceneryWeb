@@ -6,8 +6,7 @@ Features updates (by priority):
 - Make public the AIS PDF to scenemodels export scripts (in Jon's home directory)
 - Ask the submitter to send his name in the forms (Would mandatory mail be sufficient?).
 - Add pitch/roll so they can be, for instance, mass imported [can be added now, but they are not taken into account].
-- When checking massive imports, have to check the number of tab_tags returned to make sure user didn't forget or misformed one (line 146 of
-  confirm_mass_import.php).
+- When checking massive imports, have to check the number of tab_tags returned to make sure user didn't forget or misformed one.
 - Add a possibility to switch from STG heading to true and inversely.
 
 Static objects

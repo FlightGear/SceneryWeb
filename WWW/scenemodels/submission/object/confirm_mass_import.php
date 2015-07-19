@@ -90,12 +90,12 @@ function update_countries(code,n) {
 $error = false;
 
 // Checking that email is valid (if it exists).
-if (FormChecker::isEmail($_POST['email'])) {
+if (\FormChecker::isEmail($_POST['email'])) {
     $safe_email = htmlentities(stripslashes($_POST['email']));
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
-if (FormChecker::isComment($_POST['comment'])) {
+if (\FormChecker::isComment($_POST['comment'])) {
     $sent_comment = htmlentities(stripslashes($_POST['comment']));
 }
 else {
@@ -113,7 +113,7 @@ if ($step == 1) {
     }
     
     // Checking that stg exists and is containing only letters or figures.
-    if (isset($_POST['stg']) && preg_match(FormChecker::$regex['stg'], $_POST['stg'])) {
+    if (isset($_POST['stg']) && FormChecker::isStgLines($_POST['stg'])) {
         echo "<p class=\"center warning\">I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.</p>";
         $error = true;
         include '../../view/footer.php';
@@ -165,9 +165,7 @@ if (!$error) {
     $objectFactory = new ObjectFactory($objectDaoRO);
     $newObjects = array();
     
-    foreach ($tab_lines as $line) { // Now printing the lines...
-        $ko = false;
-        
+    foreach ($tab_lines as $line) { // Now printing the lines...      
         $elevoffset = 0;
         echo "<tr>";
         echo "<td>".$i."</td>";
@@ -178,12 +176,11 @@ if (!$error) {
         foreach ($tab_tags as $value_tag) { 
             switch($j) {
             case 1:  // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
-                if (!strcmp($value_tag, "OBJECT_SHARED")) {
+                if (strcmp($value_tag, "OBJECT_SHARED") == 0) {
                     echo "<td>".$value_tag."</td> ";
                 }
                 else {
                     echo "<td><p class=\"warning\">Object type Error!</p></td>";
-                    $ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -192,17 +189,15 @@ if (!$error) {
 
                     try {
                         $modelMD = getModelFromSTG($value_tag);
-                        $model_id = $modelMD->getId();
+                        $modelId = $modelMD->getId();
                         echo "<td>".$value_tag."</td>";
                     } catch (Exception $ex) {
                         echo "<td><p class=\"warning\">".$ex->getMessage()."</p></td>";
-                        $ko = true;
                         $cpt_err++;
                     }
                 }
                 else {
                     echo "<td><p class=\"warning\">Model Error!</p></td>";
-                    $ko = true;
                     $cpt_err++;
                 }
 
@@ -214,7 +209,6 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"warning\">Longitude Error!</p></td>";
-                    $ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -225,7 +219,6 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"warning\">Latitude Error!</p></td>";
-                    $ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -237,7 +230,6 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"warning\">Elevation Error!</p></td>";
-                    $ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -248,7 +240,6 @@ if (!$error) {
                 }
                 else {
                     echo "<td><p class=\"warning\">Orientation Error!</p></td>";
-                    $ko = true;
                     $cpt_err++;
                 }
                 break;
@@ -261,7 +252,6 @@ if (!$error) {
                     }
                     else {
                         //echo "<td><p class=\"center warning\">Offset Error!</p></td>";
-                        $ko = true;
                         $cpt_err++;
                     }
                 }
@@ -300,18 +290,17 @@ if (!$error) {
             echo "<td>".$countries[$countryId]->getName()."</td>";
         }
 
-        if (!$ko) {
-            $newObject = $objectFactory->createObject(-1, $model_id, $long, $lat, $countryId, 
+        if ($cpt_err == 0) {
+            $newObject = $objectFactory->createObject(-1, $modelId, $long, $lat, $countryId, 
                         $elevoffset, \ObjectUtils::headingSTG2True($orientation), 1, $modelMD->getName());
             
             if ($objectDaoRO->checkObjectAlreadyExists($newObject)) {
-                $ko = true;
                 $global_ko = true;
                 $cpt_err++;
                 echo "<td style='background-color: rgb(200, 0, 0);'>Exists already</td>"; // Fatal error
             // this used to break the backend, testing if it still does
             } else {
-                if ($objectDaoRO->detectNearbyObjects($lat, $long, $model_id)) {
+                if ($objectDaoRO->detectNearbyObjects($lat, $long, $modelId)) {
                     echo "<td style='background-color: rgb(255, 200, 0);'>Nearby object</td>"; // Just a warning, not fatal
                 } else {
                     echo "<td style='background-color: rgb(0, 200, 0);'>OK</td>";

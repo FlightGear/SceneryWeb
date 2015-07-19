@@ -11,10 +11,10 @@ function validateForm()
 {
     var form = document.getElementById("positions");
 
-    if (!checkStringNotDefault(form["longitude"], "") || !checkNumeric(form["longitude"],-180,180) ||
-        !checkStringNotDefault(form["latitude"], "") || !checkNumeric(form["latitude"],-90,90) ||
-        !checkNumeric(form['offset'],-999,999) ||
-        !checkStringNotDefault(form["heading"], "") || !checkNumeric(form['heading'],0,359.999) ||
+    if (!checkStringNotDefault(form["long1"], "") || !checkNumeric(form["long1"],-180,180) ||
+        !checkStringNotDefault(form["lat1"], "") || !checkNumeric(form["lat1"],-90,90) ||
+        !checkNumeric(form['offset1'],-999,999) ||
+        !checkStringNotDefault(form["heading1"], "") || !checkNumeric(form['heading1'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
         (form['email'].value!=="" && !checkEmail(form['email'])))
         return false;
@@ -31,10 +31,10 @@ function validateTabs()
         return false;
     }
     // Tab 2
-    if (form["longitude"].value === "" || !checkNumeric(form["longitude"],-180,180) ||
-        form["latitude"].value === "" || !checkNumeric(form["latitude"],-90,90) ||
-        form["offset"].value === "" || !checkNumeric(form["offset"],-10000,10000) ||
-        form["heading"].value === "" ||  !checkNumeric(form["heading"],0,359.999)) {
+    if (form["long1"].value === "" || !checkNumeric(form["long1"],-180,180) ||
+        form["lat1"].value === "" || !checkNumeric(form["lat1"],-90,90) ||
+        form["offset1"].value === "" || !checkNumeric(form["offset1"],-10000,10000) ||
+        form["heading1"].value === "" ||  !checkNumeric(form["heading1"],0,359.999)) {
         $( "#tabs" ).tabs({ disabled: [2] });
         return false;
     }
@@ -73,7 +73,7 @@ $(function() {
                     <td colspan="2">
             <?php
                         // Start the select form
-                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">" .
+                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(null,'modelId1'); validateTabs();\">" .
                              "<option selected=\"selected\" value=\"\">Please select a family</option>" .
                              "<option value=\"\">----</option>";
                         foreach ($modelsGroups as $modelsGroup) {
@@ -85,7 +85,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="modelId">Model name<em>*</em><span>This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file.</span></label></td>
+                    <td><label for="modelId1">Model name<em>*</em><span>This is the name of the object you want to add, ie the name as it's supposed to appear in the .stg file.</span></label></td>
                     <td id="form_objects">
                         <!--Now everything is done via the Ajax stuff, and the results inserted here.-->
                     </td>
@@ -103,24 +103,24 @@ $(function() {
         <div id="tabs-2">
             <table>
                 <tr>
-                    <td><label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to add. Has to be between -180 and 180.</span></label></td>
+                    <td><label for="long1">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to add. Has to be between -180 and 180.</span></label></td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="13" value="" onkeyup="checkNumeric(form['longitude'],-180,180);update_map('longitude','latitude');validateTabs();" onchange="update_map('longitude','latitude');" />
+                        <input type="text" name="long1" id="longitude" maxlength="13" value="" onkeyup="checkNumeric(form['long1'],-180,180);update_map('long1','lat1');validateTabs();" onchange="update_map('long1','lat1');" />
                     </td>
                     <td rowspan="6" style="width: 300px; height: 225px;">
                         <object id="map" data="http://mapserver.flightgear.org/popmap/?zoom=1&lat=0&lon=0" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="latitude">Latitude<em>*</em><span>This is the WGS84 latitude of the object you want to add. Has to be between -90 and 90.</span></label></td>
+                    <td><label for="lat1">Latitude<em>*</em><span>This is the WGS84 latitude of the object you want to add. Has to be between -90 and 90.</span></label></td>
                     <td>
-                        <input type="text" name="latitude" id="latitude" maxlength="13" value="" onkeyup="checkNumeric(form['latitude'],-90,90);update_country();validateTabs();" onchange="update_map('longitude','latitude');" />
+                        <input type="text" name="lat1" id="latitude" maxlength="13" value="" onkeyup="checkNumeric(form['lat1'],-90,90);update_country();validateTabs();" onchange="update_map('long1','lat1');" />
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="ob_country">Country<em>*</em><span>This is the country where the model is located.</span></label></td>
+                    <td><label for="countryId1">Country<em>*</em><span>This is the country where the model is located.</span></label></td>
                     <td>
-                        <select name="ob_country" id="ob_country">
+                        <select name="countryId1" id="countryId1">
                             <?php
                                 foreach($countries as $country) {
                                     echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>";
@@ -131,16 +131,16 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <label for="offset">Elevation offset<em>*</em><span>This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset.</span></label> (see <a href="../../contribute.php#offset">here</a> for more help)
+                        <label for="offset1">Elevation offset<em>*</em><span>This is the vertical offset (in meters) between your model 'zero' (usually the bottom) and the terrain elevation at the specified coordinates. Use negative numbers to sink it into the ground, positive numbers to make it float, or 0 if there's no offset.</span></label> (see <a href="contribute.php#offset">here</a> for more help)
                     </td>
                     <td>
-                        <input type="text" name="offset" id="offset" maxlength="10" value="0" onkeyup="checkNumeric(form['offset'],-10000,10000);validateTabs();" />
+                        <input type="text" name="offset1" id="offset1" maxlength="10" value="0" onkeyup="checkNumeric(form['offset1'],-10000,10000);validateTabs();" />
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="heading">Orientation<em>*</em><span>The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation.</span></label></td>
+                    <td><label for="heading1">Orientation<em>*</em><span>The orientation (in degrees) for the object you want to add - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation.</span></label></td>
                     <td>
-                        <input type="text" name="heading" id="heading" maxlength="7" value="" onkeyup="checkNumeric(form['heading'],0,359.999);validateTabs();" />
+                        <input type="text" name="heading1" id="heading1" maxlength="7" value="" onkeyup="checkNumeric(form['heading1'],0,359.999);validateTabs();" />
                     </td>
                 </tr>
             </table>

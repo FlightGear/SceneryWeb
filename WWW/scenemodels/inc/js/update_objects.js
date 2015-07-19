@@ -1,4 +1,4 @@
-function update_objects(modelFilename)
+function update_objects(modelFilename, fieldName)
 {
     //retrives information from a php-generated xml
     var url = '/inc/objects_xml.php?mg_id='+document.getElementById('model_group_id').value;
@@ -10,14 +10,18 @@ function update_objects(modelFilename)
        hreq = new ActiveXObject("Microsoft.XMLHTTP");//IE
     }
 
-    hreq.onreadystatechange = function(){changeObjectsList(hreq, modelFilename); };
+    if (typeof fieldName === "undefined") {
+        fieldName = "modelId";
+    }
+
+    hreq.onreadystatechange = function(){changeObjectsList(hreq, modelFilename, fieldName); };
     hreq.open("GET", url, true); //true=asynchronous
     hreq.send(null);
 }
 
-function changeObjectsList(hreq, modelFilename)
+function changeObjectsList(hreq, modelFilename, fieldName)
 {
-    var text="<select name='modelId' id='modelId' onchange='change_thumb();update_model_info();'>";
+    var text="<select name='"+fieldName+"' id='"+fieldName+"' onchange='change_thumb('"+fieldName+"');update_model_info();'>";
 
     // If the request is finished
     if(hreq.readyState === 4)
@@ -40,7 +44,7 @@ function changeObjectsList(hreq, modelFilename)
     text+="</select>";
 
     document.getElementById('form_objects').innerHTML = text;
-    change_thumb();
+    change_thumb(fieldName);
 }
 
 function update_model_info(path)
@@ -81,8 +85,12 @@ function changeModelInfo(hreq, path)
     }
 }
 
-function change_thumb() {
-    document.getElementById('form_objects_thumb').src = "../../modelthumb.php?id="+document.getElementById('modelId').value;  
+function change_thumb(modelIdFieldName) {
+    if (typeof modelIdFieldName === "undefined") {
+        modelIdFieldName = "modelId";
+    }
+    
+    document.getElementById('form_objects_thumb').src = "../../modelthumb.php?id="+document.getElementById(modelIdFieldName).value;  
 }
 
 function update_map(long_id, lat_id) {

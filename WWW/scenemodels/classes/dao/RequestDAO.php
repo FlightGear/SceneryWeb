@@ -42,7 +42,6 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $result = $this->database->query("SELECT spr_id, spr_hash, spr_base64_sqlz ".
                                          "FROM fgs_position_requests ".
                                          "WHERE spr_hash = '". $sig ."';");
-        
         $row = pg_fetch_assoc($result);
         
         if (!$row) {

@@ -60,7 +60,7 @@ function validateForm()
 </ul>
 
 
-<form id="positions" method="post" action="submission/object/confirm_mass_import.php" onsubmit="return validateForm();">
+<form id="positions" method="post" action="app.php?c=AddObjects&a=confirmMass" onsubmit="return validateForm();">
 <table>
     <tr>
         <td style="vertical-align: top;"><label for="stg">Content to add<em>*</em><span>This is the content of the STG file you want to add.</span></label></td>

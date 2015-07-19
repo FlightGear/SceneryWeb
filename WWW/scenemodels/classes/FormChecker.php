@@ -238,4 +238,8 @@ class FormChecker {
     static public function isFilePath($value) {
         return preg_match(self::$regex['model_filepath'], $value);
     }
+    
+    static public function isStgLines($value) {
+        return preg_match(self::$regex['stg'], $value);
+    }
 }
