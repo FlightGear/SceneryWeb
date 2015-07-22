@@ -63,6 +63,9 @@ $unknownCountry = false;
 echo "<table>";
 echo "<tr><th>Line</th><th>Model</th><th>Longitude</th><th>Latitude</th><th>Elev. offset</th><th>Orientation</th><th>Country</th><th>Result</th></tr>";
 
+// Validates - or no - the right to go further.
+$global_ko = false;
+
 foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
     echo '<tr><td>'.$lineNb.'</td>';
 
@@ -95,9 +98,6 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
         echo '<td colspan=\'6\'>'.$objectLineRequest->getStgLine().'</td>';
     }
 
-
-    // Validates - or no - the right to go further.
-    $global_ko = false;
     
     if (count($objectLineRequest->getErrors()) > 0) {
         echo "<td style='background-color: rgb(200, 0, 0);'>";
