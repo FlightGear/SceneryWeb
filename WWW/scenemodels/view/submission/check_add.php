@@ -8,6 +8,13 @@ foreach ($errors as $error) {
     echo '<p class="warning">'. $error->getMessage() .'</p>';
 }
 
+// Email
+if (isset($safe_email)) {
+    echo "<p class=\"ok\">Email: ".$safe_email."</p>";
+} else {
+    echo "<p class=\"warning\">No email was given (not mandatory) or email mismatch!</p>";
+}
+
 // Display objects and their errors
 echo "<table>".
      "<tr><th>#</th><th>Model</th><th>Longitude</th><th>Latitude</th><th>Elev. offset</th><th>Heading</th><th>Country</th><th>Results</th></tr>";
@@ -39,13 +46,6 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
 }
 
 echo "</table>";
-
-// Email
-if (isset($safe_email)) {
-    echo "<p class=\"ok\">Email: ".$safe_email."</p>";
-} else {
-    echo "<p class=\"warning\">No email was given (not mandatory) or email mismatch!</p>";
-}
     
 if (isset($updatedReq)) {
     echo "<br />Your object request has been successfully queued into the FG scenery database update requests!<br />";

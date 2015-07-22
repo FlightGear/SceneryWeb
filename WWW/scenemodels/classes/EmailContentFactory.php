@@ -52,15 +52,15 @@ class EmailContentFactory {
     }
     
     
-    static public function getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $request) {
-        $subject = "Massive object import needs validation";
-        $message = "We would like to let you know that a new objects massive import request is pending. " .
+    static public function getObjectsAddRequestPendingEmailContent($dtg, $ipaddr, $host, $request) {
+        $subject = "Object(s) import needs validation";
+        $message = "We would like to let you know that a new object(s) import request is pending. " .
                    "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
         $contrEmail = $request->getContributorEmail();
         if (!empty($contrEmail)) {
             $message .= "and with email address ".$contrEmail." ";
         }
-        $message .= "issued an objects massive import request (#".$request->getId().").\r\n\r\n" .
+        $message .= "issued an object(s) import request (#".$request->getId().").\r\n\r\n" .
                     "Comment by user: ".strip_tags($request->getComment())."\r\n\r\n" .
                     "Now please click the following link to check and confirm ".
                     "or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."\r\n\r\n";
@@ -68,9 +68,9 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getMassImportRequestRejectedEmailContent($dtg, $request, $comment) {
-        $subject = "Massive object import rejected";
-        $message = "On ".$dtg." UTC, you issued an objects massive import request.\r\n\r\n" .
+    static public function getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment) {
+        $subject = "Object(s) import rejected";
+        $message = "On ".$dtg." UTC, you issued an object(s) import request.\r\n\r\n" .
                    "We are sorry to let you know that this request has been rejected.\r\n\r\n" .
                    "For reference, the ID of this request was '".$request->getId(). "'\r\n\r\n";
         if (!empty($comment)) {
@@ -81,8 +81,8 @@ class EmailContentFactory {
         return new EmailContent($subject, self::format($message));
     }
     
-    static public function getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $request) {
-        $subject = "Massive object import";
+    static public function getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $request) {
+        $subject = "Object(s) import";
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request.\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                    "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n";
@@ -261,57 +261,6 @@ class EmailContentFactory {
                    "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                    "Comment:          " .strip_tags($request->getComment()) . "\r\n".
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n";
-        return new EmailContent($subject, self::format($message));
-    }
-    
-    static public function getObjectAddRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $request) {
-        $safeEmail = $request->getContributorEmail();
-        $newObjects = $request->getNewObjects();
-        $newObject = $newObjects[0];
-        $newObjPos = $newObject->getPosition();
-        
-        $subject = "Object addition needs validation";
-        $message = "We would like to let you know that a new object request is pending (#".$request->getId()."). " .
-                   "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host.") ";
-        if (!empty($safeEmail)) {
-            $message .= "and with email address ".$safeEmail." ";
-        }
-        $message .= "issued the following request:\r\n\r\n" .
-                    "Family:           ". $modelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$modelMD->getModelsGroup()->getId()." ]" . "\r\n" .
-                    "Model:            ". $modelMD->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$modelMD->getId()." ]" . "\r\n" .
-                    "Latitude:         ". $newObjPos->getLatitude() . "\r\n" .
-                    "Longitude:        ". $newObjPos->getLongitude() . "\r\n" .
-                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
-                    "Ground elevation will be automagically computed\r\n" .
-                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
-                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
-                    "Comment:          ". strip_tags($request->getComment()) . "\r\n" .
-                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."\r\n\r\n";
-
-        return new EmailContent($subject, self::format($message));
-    }
-    
-    static public function getObjectAddRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $modelMD) {
-        $newObjects = $request->getNewObjects();
-        $newObject = $newObjects[0];
-        $newObjPos = $newObject->getPosition();
-        
-        $subject = "Object addition";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object addition request.\r\n\r\n" .
-                   "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
-                   "Family:           ". $modelMD->getModelsGroup()->getName() . "\r\n" .
-                   "Model:            ". $modelMD->getName() . "\r\n" .
-                   "Latitude:         ". $newObjPos->getLatitude() . "\r\n" .
-                   "Longitude:        ". $newObjPos->getLongitude() . "\r\n" .
-                   "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
-                   "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
-                   "True orientation: ". $newObject->getOrientation() . "\r\n" .
-                   "Comment:          ". strip_tags($request->getComment()) ."\r\n\r\n" .
-                   "Please remember to use the massive insertion script should you have many objects to add: ".
-                   "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddObjects&a=massiveform\r\n\r\n";
-
         return new EmailContent($subject, self::format($message));
     }
     

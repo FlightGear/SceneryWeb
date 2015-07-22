@@ -99,7 +99,7 @@ if (isset($_POST["cancel"])) {
     $to = $request->getContributorEmail();
     $to = (isset($to)) ? $to : '';
 
-    $emailSubmit = EmailContentFactory::getMassImportRequestRejectedEmailContent($dtg, $request, $comment);
+    $emailSubmit = EmailContentFactory::getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     include '../../view/footer.php';

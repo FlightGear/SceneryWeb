@@ -166,12 +166,12 @@ class AddObjectsController extends ControllerMenu {
             $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
             $host = gethostbyaddr($ipaddr);
             
-            $emailSubmit = \EmailContentFactory::getMassImportRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
+            $emailSubmit = \EmailContentFactory::getObjectsAddRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter to tell that his submission has been sent for validation.
             if (isset($safe_email)) {
-                $emailSubmit = \EmailContentFactory::getMassImportSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedReq);
+                $emailSubmit = \EmailContentFactory::getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedReq);
                 $emailSubmit->sendEmail($safe_email, false);
             }
         }
