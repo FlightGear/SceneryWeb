@@ -5,7 +5,7 @@ require 'view/header.php';
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type ="text/javascript">
 function update_countries(code,n) {
-    for(var i = 1; i < n; i++) {
+    for(var i = 1; i <= n; i++) {
         if (document.getElementById("countryId"+i).value === "zz") {
             document.getElementById("countryId"+i).value=code;
         }
