@@ -129,6 +129,7 @@ class AddObjectsController extends ControllerMenu {
         }
         else {
             $errors[] = new \Exception("Comment mismatch!");
+            $error = true;
         }
         
         // Checking that email is valid (if it exists).

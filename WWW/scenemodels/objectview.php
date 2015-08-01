@@ -74,7 +74,7 @@ if ($object->getDescription() != null) {
     </tr>
     <tr>
         <td colspan="3" align="center">
-            <a href="submission/object/check_update.php?id_to_update=<?=$id?>">Update this object</a>
+            <a href="app.php?c=UpdateObjects&a=updateForm&id_to_update=<?=$id?>">Update this object</a>
 <?php
     // If the object is static, let not user fix it with a shared script...
     if (!$modelMetadata->getModelsGroup()->isStatic()) {

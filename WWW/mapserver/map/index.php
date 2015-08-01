@@ -93,7 +93,7 @@
 
             var content = "<h2>"+feature.attributes.title + "</h2>" +
                 feature.attributes.description;
-            content += "<br/ ><a href='http://scenemodels.flightgear.org/submission/object/check_update.php?id_to_update="+feature.attributes.id+"' target='_blank'>Update</a>";
+            content += "<br/ ><a href='http://scenemodels.flightgear.org/app.php?c=UpdateObjects&a=updateForm&id_to_update="+feature.attributes.id+"' target='_blank'>Update</a>";
             if(feature.attributes.type=="shared") {
                 content += "&nbsp;<a href='http://scenemodels.flightgear.org/submission/object/check_delete_shared.php?delete_choice="+feature.attributes.id+"' target='_blank'>Delete</a>";
             }
