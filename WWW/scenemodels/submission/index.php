@@ -22,7 +22,7 @@ require '../view/header.php';
                     <li><a href="../app.php?c=AddObjects&a=form">adding objects</a>.</li>
                     <li><a href="../app.php?c=AddObjects&a=massiveform">massive import of objects</a> (adding tens of lines of objects in one click).</li>
                     <li><a href="object/index_delete.php">deleting objects</a> (delete an existing shared object).</li>
-                    <li><a href="object/index_update.php">updating objects</a> (updating position, offset of an object...).</li>
+                    <li><a href="../app.php?c=UpdateObjects&a=findform">updating objects</a> (updating position, offset of an object...).</li>
                 </ul>
                 <li>on 3D models (models designed for a specific location, eg Eiffel Tower):</li>
                 <ul>

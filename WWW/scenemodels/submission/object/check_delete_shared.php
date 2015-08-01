@@ -175,7 +175,7 @@ require '../../view/header.php';
 if (isset($objectToDel)) {
     $modelMDToDel = $modelDaoRO->getModelMetadata($objectToDel->getModelId());
     $objDelPos = $objectToDel->getPosition();
-    echo "<p class=\"center\">You have asked to delete object <a href=\"/objectview.php?id=".$objectToDel->getId()."\">#".$objectToDel->getId()."</a>.</p>";
+    echo "<p class=\"center\">You have asked to delete object <a href=\"/app.php?c=Objects&a=view&id=".$objectToDel->getId()."\">#".$objectToDel->getId()."</a>.</p>";
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">

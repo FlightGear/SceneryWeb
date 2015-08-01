@@ -1,32 +1,22 @@
 <?php
-
-require_once 'autoload.php';
-$objectDAO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
-
 require 'view/header.php';
-
-if (FormChecker::isObjectId($_REQUEST['id'])) {
-    $id = $_REQUEST['id'];
-    $object = $objectDAO->getObject($id);
-    $objPos = $object->getPosition();
 ?>
 <h1>
 <?php
 if ($object->getDescription() != null) {
     print $object->getDescription();
 } else {
-    print "FlightGear Scenery Model Directory";
+    print "Object";
 }
+$objPos = $object->getPosition();
 ?>
 </h1>
-
-<input type="hidden" name="id" value="<?php echo (isset($id))?$id:""; ?>" />
 
 <table>
     <tr>
         <td style="width: 320px" rowspan="9"><img src="modelthumb.php?id=<?php echo $object->getModelId(); ?>" alt="Thumbnail"/></td>
         <td style="width: 320px">Unique ID</td>
-        <td><?php echo $id; ?></td>
+        <td><?php echo $object->getId(); ?></td>
     </tr>
     <tr>
         <td>Latitude</td>
@@ -61,25 +51,24 @@ if ($object->getDescription() != null) {
     </tr>
     <tr>
         <td>Group</td>
-        <td><?php echo ("<a href=\"objects.php?group=".$object->getGroupId()."\">".$objectDAO->getObjectsGroup($object->getGroupId())->getName()."</a>"); ?></td>
+        <td><?php echo ("<a href=\"objects.php?group=".$object->getGroupId()."\">".$group->getName()."</a>"); ?></td>
     </tr>
     <tr>
         <td>Model</td>
         <td>
 <?php
-            $modelMetadata= \dao\DAOFactory::getInstance()->getModelDaoRO()->getModelMetadata($object->getModelId());
             print "<a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$object->getModelId()."\">".$modelMetadata->getFilename()."</a>";
 ?>
         </td>
     </tr>
     <tr>
         <td colspan="3" align="center">
-            <a href="app.php?c=UpdateObjects&a=updateForm&id_to_update=<?=$id?>">Update this object</a>
+            <a href="app.php?c=UpdateObjects&a=updateForm&id_to_update=<?=$object->getId()?>">Update this object</a>
 <?php
     // If the object is static, let not user fix it with a shared script...
     if (!$modelMetadata->getModelsGroup()->isStatic()) {
 ?>
-            &nbsp;| <a href="submission/object/check_delete_shared.php?delete_choice=<?=$id?>">Delete this object</a>
+            &nbsp;| <a href="submission/object/check_delete_shared.php?delete_choice=<?=$object->getId()?>">Delete this object</a>
 <?php
     }
 ?>
@@ -109,7 +98,5 @@ function showMap() {
 </script>
 
 <?php
-}
-
 require 'view/footer.php';
 ?>
