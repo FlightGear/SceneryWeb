@@ -54,7 +54,7 @@ echo '<p class=\"center\">Counted a number of '.$nb_lines.' lines submitted.</p>
 echo "Please check the table below carefully, and make sure that your submission was read correctly. We have proposed a country for each object, but this may be incorrect. You can only change the countries on this page. Please <a href='javascript:history.go(-1)'>go back and edit your lines</a> if you would like to edit other things.";
 
 ?>
-<form id="positions" method="post" action="app.php?c=AddObjects&a=check" onsubmit="return validateForm();">
+<form id="positions" method="post" action="app.php?c=AddObjects&amp;a=check" onsubmit="return validateForm();">
 <?php
 
 // Display result table

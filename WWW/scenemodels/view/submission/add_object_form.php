@@ -65,7 +65,7 @@ $(function() {
         <li><a href="#tabs-3">3: Submit</a></li>
     </ul>
 
-    <form id="positions" method="post" action="app.php?c=AddObjects&a=check" onsubmit="return validateForm();">
+    <form id="positions" method="post" action="app.php?c=AddObjects&amp;a=check" onsubmit="return validateForm();">
         <div id="tabs-1">
             <table>
                 <tr>

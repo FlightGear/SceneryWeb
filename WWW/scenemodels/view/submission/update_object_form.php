@@ -46,9 +46,9 @@ function validateForm()
 
 /*]]>*/
 </script>
-    <p class="center">You have asked to update object <?php echo "<a href=\"app.php?c=Objects&a=view&id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
+    <p class="center">You have asked to update object <?php echo "<a href=\"app.php?c=Objects&amp;a=view&amp;id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
 
-    <form id="update" method="post" action="app.php?c=UpdateObjects&a=check" onsubmit="return validateForm();">
+    <form id="update" method="post" action="app.php?c=UpdateObjects&amp;a=check" onsubmit="return validateForm();">
       <table>
         <tr>
           <th></th>

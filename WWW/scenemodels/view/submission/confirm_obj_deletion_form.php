@@ -22,7 +22,7 @@ $page_title = "Automated Objects Deletion Form";
 include 'view/header.php';
 
 $objDelPos = $objectToDel->getPosition();
-    echo "<p class=\"center\">You have asked to delete object <a href=\"/app.php?c=Objects&a=view&id=".$objectToDel->getId()."\">#".$objectToDel->getId()."</a>.</p>";
+    echo "<p class=\"center\">You have asked to delete object <a href=\"/app.php?c=Objects&amp;a=view&amp;id=".$objectToDel->getId()."\">#".$objectToDel->getId()."</a>.</p>";
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -41,7 +41,7 @@ function validateForm()
 
     <ul class="warning">If you want to replace an object which is set as an "OBSTRUCTION" (see the object's family hereunder) by a 3D model, please consider adding the 3D model <b>first</b> - ie before deleting the shared object.</ul>
 
-    <form id="delete_position" method="post" action="app.php?c=DeleteObjects&a=requestForDelete" onsubmit="return validateForm();">
+    <form id="delete_position" method="post" action="app.php?c=DeleteObjects&amp;a=requestForDelete" onsubmit="return validateForm();">
     <table>
         <tr>
             <td><span title="This is the family name of the model's object you want to delete."><label>Object's model family</label></span></td>

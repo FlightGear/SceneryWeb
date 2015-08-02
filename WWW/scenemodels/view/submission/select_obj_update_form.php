@@ -9,7 +9,7 @@ echo "<p class=\"center\">".count($objects)." object(s) with WGS84 coordinates l
 // Starting multi-solutions form
 ?>
 
-<form id="update_position" method="post" action="app.php?c=UpdateObjects&a=updateForm">
+<form id="update_position" method="post" action="app.php?c=UpdateObjects&amp;a=updateForm">
 <table>
 
 <?php
@@ -58,7 +58,7 @@ foreach ($objects as $object) {
     </tr>
     <tr>
         <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>
-        <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&a=view&id=<?php echo $object->getModelId(); ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $object->getModelId(); ?>" alt="Thumbnail"/></a></td>
+        <td><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&amp;a=view&amp;id=<?php echo $object->getModelId(); ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $object->getModelId(); ?>" alt="Thumbnail"/></a></td>
         <td><span title="This is the map around the object you want to update"><a style="cursor: help; ">Map</a></span></td>
         <td>
         <object data="http://mapserver.flightgear.org/popmap/?lon=<?php echo $long; ?>&amp;lat=<?php echo $lat; ?>&amp;zoom=14" type="text/html" width="300" height="225"></object>

@@ -24,7 +24,7 @@ function validateForm()
   <br />There are currently <?php echo $countObjs?> objects in the database.
 </p>
 
-<form id="deletion" method="post" action="app.php?c=DeleteObjects&a=findObjWithPos" onsubmit="return validateForm();">
+<form id="deletion" method="post" action="app.php?c=DeleteObjects&amp;a=findObjWithPos" onsubmit="return validateForm();">
 <table>
     <tr>
         <td><label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to delete. Has to be between -180 and 180.</span></label></td>

@@ -25,7 +25,7 @@ function validateForm()
     Through this form you can update a shared or static object (eg. windturbine, power pylon, Eiffel Tower) at a given location. You can alternatively look for the object on <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/coverage.php">the map</a> if you are unsure of the exact coordinates of the object.
 </p>
 
-<form id="edition" method="post" action="app.php?c=UpdateObjects&a=findObjWithPos" onsubmit="return validateForm();">
+<form id="edition" method="post" action="app.php?c=UpdateObjects&amp;a=findObjWithPos" onsubmit="return validateForm();">
 <table>
     <tr>
         <td><label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object. Has to be between -180 and 180.</span></label></td>
