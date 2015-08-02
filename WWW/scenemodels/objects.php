@@ -205,18 +205,18 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
             $objPos = $object->getPosition();
             $offset = $object->getElevationOffset();
             echo "<tr class=\"object\">\n";
-            echo "  <td><a href='app.php?c=Objects&a=view&id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
+            echo "  <td><a href='app.php?c=Objects&amp;a=view&amp;id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
                  "  <td>".$object->getDescription()."</td>\n" .
-                 "  <td><a href=\"app.php?c=Models&a=view&id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
+                 "  <td><a href=\"app.php?c=Models&amp;a=view&amp;id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
                  "  <td>".$object->getCountry()->getName() ."</td>\n" .
                  "  <td>".$objPos->getLongitude()."<br/>".$objPos->getLatitude()."</td>\n" .
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$object->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
-                 "  <a href=\"app.php?c=UpdateObjects&a=updateForm&id_to_update=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\" alt=\"edit\"/></a>";
+                 "  <a href=\"app.php?c=UpdateObjects&amp;a=updateForm&amp;id_to_update=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\" alt=\"edit\"/></a>";
             if (!$modelDAO->getModelMetadata($object->getModelId())->getModelsGroup()->isStatic()) {
 ?>
-                <a href="app.php?c=DeleteObjects&a=confirmDeleteForm&delete_choice=<?php echo $object->getId(); ?>">
+                <a href="app.php?c=DeleteObjects&amp;a=confirmDeleteForm&amp;delete_choice=<?php echo $object->getId(); ?>">
                     <img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png" alt="delete"/>
                 </a>
 <?php

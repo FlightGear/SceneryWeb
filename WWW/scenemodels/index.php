@@ -24,10 +24,10 @@ require 'view/header.php';
         
         foreach ($objects as $object) {
             echo "<tr>" .
-                    "<td><a href=\"app.php?c=Objects&a=view&id=".$object->getId()."\">".$object->getDescription()."</a><br/>" .
+                    "<td><a href=\"app.php?c=Objects&amp;a=view&amp;id=".$object->getId()."\">".$object->getDescription()."</a><br/>" .
                     $object->getLastUpdated()->format("Y-m-d (H:i)")."</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
-                    "<a href=\"app.php?c=Objects&a=view&id=". $object->getId() . "\">" .
+                    "<a href=\"app.php?c=Objects&amp;a=view&amp;id=". $object->getId() . "\">" .
                     "    <img title=\"". $object->getDescription()."\"" .
                     "    src=\"modelthumb.php?id=". $object->getModelId() . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
@@ -49,10 +49,10 @@ require 'view/header.php';
 
         foreach ($models as $model) {
             echo "<tr>" .
-                    "<td><a href=\"/app.php?c=Models&a=view&id=".$model->getId()."\">".$model->getName()."</a><br/>" .
+                    "<td><a href=\"/app.php?c=Models&amp;a=view&amp;id=".$model->getId()."\">".$model->getName()."</a><br/>" .
                     $model->getLastUpdated()->format("Y-m-d (H:i)"). "</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
-                    "<a href=\"/app.php?c=Models&a=view&id=". $model->getId() ."\">" .
+                    "<a href=\"/app.php?c=Models&amp;a=view&amp;id=". $model->getId() ."\">" .
                     "    <img title=\"". $model->getName().' ['.$model->getFilename().']'."\"" .
                     "    src=\"modelthumb.php?id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .

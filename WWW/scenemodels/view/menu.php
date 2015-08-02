@@ -10,19 +10,19 @@
     <li class="mainitems">
         <div class="headerlinks"><a href="/contribute.php">Contribute</a></div>
         <ul class="submenus">
-            <li><a href="/app.php?c=AddObjects&a=form">Add a new object position</a></li>
-            <li><a href="/app.php?c=AddObjects&a=massiveform">Massive import of objects</a></li>
-            <li><a href="/app.php?c=DeleteObjects&a=findform">Delete an object position</a></li>
-            <li><a href="/app.php?c=UpdateObjects&a=findform">Update object geodata</a></li>
+            <li><a href="/app.php?c=AddObjects&amp;a=form">Add a new object position</a></li>
+            <li><a href="/app.php?c=AddObjects&amp;a=massiveform">Massive import of objects</a></li>
+            <li><a href="/app.php?c=DeleteObjects&amp;a=findform">Delete an object position</a></li>
+            <li><a href="/app.php?c=UpdateObjects&amp;a=findform">Update object geodata</a></li>
             <li class="separator"></li>
-            <li><a href="/app.php?c=AddModel&a=form">Add a new model</a></li>
+            <li><a href="/app.php?c=AddModel&amp;a=form">Add a new model</a></li>
             <li><a href="/submission/model/index_model_upd_choose.php">Update a model</a></li>
         </ul>
     </li>
     <li class="mainitems">
         <div class="headerlinks"><a href="/models.php">Models</a></div>
         <ul class="submenus">
-            <li><a href="/app.php?c=Models&a=browse">Browse all</a></li>
+            <li><a href="/app.php?c=Models&amp;a=browse">Browse all</a></li>
 <?php
             // TODO Compute this group list in controllers
             $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
@@ -31,7 +31,7 @@
             foreach ($groups as $group) {
                 $name = preg_replace('/&/',"&amp;", $group->getName());
                 $name = preg_replace('/ /',"&nbsp;", $name);
-                echo "<li><a href=\"/app.php?c=Models&a=browse&shared=".$group->getId()."\">".$name."</a></li>";
+                echo "<li><a href=\"/app.php?c=Models&amp;a=browse&amp;shared=".$group->getId()."\">".$name."</a></li>";
             }
 ?>
         </ul>
