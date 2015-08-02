@@ -20,9 +20,15 @@
 
 namespace controller;
 
+/**
+ * Controller for object view
+ */
 class ObjectsController extends ControllerMenu {
     private $objectDaoRO;
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         parent::__construct();
         $this->objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();

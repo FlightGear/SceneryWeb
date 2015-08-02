@@ -14,9 +14,9 @@ echo "<p class=\"center\">".count($objects)." object(s) with WGS84 coordinates l
 
 <?php
 // Just used to put the selected button on the first entry
-$i = 1;
+$is_first = true;
 foreach ($objects as $object) {
-    $modelMetadata = $modelDaoRO->getModelMetadata($object->getModelId());
+    $modelMetadata = $modelMetadatas[$object->getModelId()];
 ?>
     <tr>
         <td colspan="5" background="white"><center><b>Object number #<?=$object->getId()?></b></center>
@@ -24,7 +24,7 @@ foreach ($objects as $object) {
     </tr>
     <tr>
         <th rowspan="7">
-            <input type="radio" name="id_to_update" value="<?=$object->getId()?>" <?php echo ($i==1)?"checked=\"checked\"":""; ?> />
+            <input type="radio" name="id_to_update" value="<?=$object->getId()?>" <?php echo ($is_first)?"checked=\"checked\"":""; ?> />
         </th>
         <td><span title="This is the family name of the object you want to update."><label>Object's family</label></span></td>
         <td colspan="4"><?=$modelMetadata->getModelsGroup()->getName()?></td>
@@ -65,7 +65,7 @@ foreach ($objects as $object) {
         </td>
     </tr>
 <?php
-    $i++;
+    $is_first = false;
 }
 ?>
         <tr>

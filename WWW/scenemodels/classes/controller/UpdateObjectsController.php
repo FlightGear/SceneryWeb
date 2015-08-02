@@ -87,6 +87,12 @@ class UpdateObjectsController extends ControllerMenu {
             return;
         }
         
+        $modelMetadatas = array();
+        foreach ($objects as $object) {
+            $modelId = $object->getModelId();
+            $modelMetadatas[$modelId] = $this->getModelDaoRO()->getModelMetadata($modelId);
+        }
+        
         include 'view/submission/select_obj_update_form.php';
     }
     
