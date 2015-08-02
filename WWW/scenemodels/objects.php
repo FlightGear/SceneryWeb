@@ -123,7 +123,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
             <th>Description</th>
             <th>Model<br/>Group</th>
             <th>Country</th>
-            <th>Lat<br/>Lon</th>
+            <th>Lon<br/>Lat</th>
             <th>Ground&nbsp;elev.<br/>Offset (m)</th>
             <th>Heading</th>
             <th>&nbsp;</th>
@@ -177,8 +177,8 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
 ?>
                 </select>
             </th>
-            <th><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/>
-              <br/><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/></th>
+            <th><input type="text" name="lon" size="12" <?php echo "value=\"".$lon."\""; ?>/>
+              <br/><input type="text" name="lat" size="12" <?php echo "value=\"".$lat."\""; ?>/></th>
             <th><input type="text" name="elevation" size="6" <?php echo "value=\"".$elevation."\""; ?>/>
               <br/><input type="text" name="elevoffset" size="6" <?php echo "value=\"".$elevoffset."\""; ?>/></th>
             <th><input type="text" name="heading" size="3" <?php echo "value=\"".$heading."\""; ?>/></th>
@@ -209,7 +209,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
                  "  <td>".$object->getDescription()."</td>\n" .
                  "  <td><a href=\"app.php?c=Models&a=view&id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
                  "  <td>".$object->getCountry()->getName() ."</td>\n" .
-                 "  <td>".$objPos->getLatitude()."<br/>".$objPos->getLongitude()."</td>\n" .
+                 "  <td>".$objPos->getLongitude()."<br/>".$objPos->getLatitude()."</td>\n" .
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$object->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .

@@ -19,12 +19,12 @@ $objPos = $object->getPosition();
         <td><?php echo $object->getId(); ?></td>
     </tr>
     <tr>
-        <td>Latitude</td>
-        <td><?=$objPos->getLatitude()?></td>
-    </tr>
-    <tr>
         <td>Longitude</td>
         <td><?=$objPos->getLongitude()?></td>
+    </tr>
+    <tr>
+        <td>Latitude</td>
+        <td><?=$objPos->getLatitude()?></td>
     </tr>
     <tr>
         <td>Country</td>
