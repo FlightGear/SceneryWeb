@@ -2,10 +2,13 @@
 $page_title = "Automated Objects Deletion Form";
 include 'view/header.php';
 
+$objectToDel = $updatedReq->getObjectToDelete();
+$safeEmail = $updatedReq->getContributorEmail();
+
 echo "<p class=\"center ok\">You have asked to delete object #".$objectToDel->getId()."</p>";
 
-if ($safe_email != null) {
-    echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
+if ($safeEmail != null) {
+    echo "<p class=\"center ok\">Email: ".$safeEmail."</p>";
 }
 
 echo "<p class=\"center\">Your object has been successfully queued into the deletion requests!<br />";
