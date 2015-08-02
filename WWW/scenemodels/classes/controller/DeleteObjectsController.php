@@ -44,7 +44,7 @@ class DeleteObjectsController extends ControllerMenu {
         
         $countObjs = number_format($this->objectDaoRO->countObjects(), '0', '', ' ');
         
-        include 'view/submission/find_obj_delete_form.php';
+        include 'view/submission/object/find_obj_delete_form.php';
     }
     
     /**
@@ -99,7 +99,7 @@ class DeleteObjectsController extends ControllerMenu {
             $objGroups[$groupId] = $this->objectDaoRO->getObjectsGroup($groupId);
         }
         
-        include 'view/submission/select_obj_delete_form.php';
+        include 'view/submission/object/select_obj_delete_form.php';
     }
     
     /**
@@ -126,7 +126,7 @@ class DeleteObjectsController extends ControllerMenu {
         
         $modelMDToDel = $this->getModelDaoRO()->getModelMetadata($objectToDel->getModelId());
         $objGroup = $this->objectDaoRO->getObjectsGroup($objectToDel->getGroupId());
-        include 'view/submission/confirm_obj_deletion_form.php';
+        include 'view/submission/object/confirm_obj_deletion_form.php';
     }
     
     /**
@@ -208,7 +208,7 @@ class DeleteObjectsController extends ControllerMenu {
                 $emailSubmit->sendEmail($safe_email, false);
             }
             
-            include 'view/submission/check_delete.php';
+            include 'view/submission/object/check_delete.php';
         }
     }
 }

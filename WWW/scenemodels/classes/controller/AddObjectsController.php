@@ -47,7 +47,7 @@ class AddObjectsController extends ControllerMenu {
         $countries = $this->objectDaoRO->getCountries();
         $nbObjects = $this->objectDaoRO->countObjects();
 
-        include 'view/submission/add_object_form.php';
+        include 'view/submission/object/add_object_form.php';
     }
     
     public function massiveformAction() {
@@ -58,7 +58,7 @@ class AddObjectsController extends ControllerMenu {
         $countries = $this->objectDaoRO->getCountries();
         $nbObjects = $this->objectDaoRO->countObjects();
 
-        include 'view/submission/mass_add_object_form.php';
+        include 'view/submission/object/mass_add_object_form.php';
     }
     
     /**
@@ -70,7 +70,7 @@ class AddObjectsController extends ControllerMenu {
         if (!$resp->is_valid) {
             $page_title = "Automated Objects Submission Form";
 
-            $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
+            $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
                  "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
                  "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
             include 'view/error_page.php';
@@ -177,7 +177,7 @@ class AddObjectsController extends ControllerMenu {
             }
         }
 
-        include 'view/submission/check_add.php';
+        include 'view/submission/object/check_add.php';
     }
     
     /**
@@ -349,6 +349,6 @@ class AddObjectsController extends ControllerMenu {
             $i++;
         }
         
-        include 'view/submission/mass_add_object_form_confirm.php';
+        include 'view/submission/object/mass_add_object_form_confirm.php';
     }
 }

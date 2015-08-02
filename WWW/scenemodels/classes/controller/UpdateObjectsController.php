@@ -42,7 +42,7 @@ class UpdateObjectsController extends ControllerMenu {
     public function findformAction() {
         parent::menu();
         
-        include 'view/submission/find_obj_update_form.php';
+        include 'view/submission/object/find_obj_update_form.php';
     }
     
     /**
@@ -93,7 +93,7 @@ class UpdateObjectsController extends ControllerMenu {
             $modelMetadatas[$modelId] = $this->getModelDaoRO()->getModelMetadata($modelId);
         }
         
-        include 'view/submission/select_obj_update_form.php';
+        include 'view/submission/object/select_obj_update_form.php';
     }
     
     /**
@@ -107,7 +107,7 @@ class UpdateObjectsController extends ControllerMenu {
         $modelMDToUp = $this->getModelDaoRO()->getModelMetadata($objectToUp->getModelId());
         $countries = $this->objectDaoRO->getCountries();
         
-        include 'view/submission/update_object_form.php';
+        include 'view/submission/object/update_object_form.php';
     }
     
     /**
@@ -214,6 +214,6 @@ class UpdateObjectsController extends ControllerMenu {
             }
         }
         
-        include 'view/submission/check_update.php';
+        include 'view/submission/object/check_update.php';
     }
 }
