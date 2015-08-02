@@ -24,7 +24,7 @@ if (isset($_POST['recaptcha_challenge_field']) && isset($_POST['recaptcha_respon
 // What happens when the CAPTCHA was entered incorrectly
 if (!isset($resp) || !$resp->is_valid) {
     $page_title = "Automated Models Submission Form";
-    $error_text = "<br/>Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>.<br />";
+    $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>.<br />";
     if (isset($resp)) {
         $error_text .= "(reCAPTCHA complained: " . $resp->error . ")<br />";
     }
@@ -46,56 +46,13 @@ require '../../view/header.php';
 ################################################
 ################################################
 
-if (!is_uploaded_file($_FILES['ac3d_file']['tmp_name'])
-        && !is_uploaded_file($_FILES['xml_file']['tmp_name'])) {
-    $fatalerror = true;
-    $errormsg .= "<li>You must provide at least one model (AC or XML) file.</li>";
-}
-
-if (!is_uploaded_file($_FILES['mo_thumbfile']['tmp_name'])) {
-    $fatalerror = true;
-    $errormsg .= "<li>You must provide a thumbnail.</li>";
-}
-
-$thumbName = $_FILES["mo_thumbfile"]['name'];
-$ac3dName  = $_FILES["ac3d_file"]['name'];
-$xmlName   = $_FILES["xml_file"]['name'];
-
-
-// Open working directory and set paths
-try {
-    $tmp_dir = sys_get_temp_dir();
-    $targetPath = $modelChecker->openWorkingDirectory($tmp_dir);
-    
-    if ($xmlName != "") {
-        $xmlPath = $targetPath.$xmlName;
-    }
-    $thumbPath = $targetPath.$thumbName;
-    $ac3dPath  = $targetPath.$ac3dName;
-} catch (Exception $ex) {
-    $fatalerror = true;
-    $errormsg .= "<li>".$ex->getMessage()."</li>";
-}
-
-
-###############################################
-###############################################
-#                                             #
-# STEP 3 : UPLOAD ALL FILES IN TMP DIRECTORY  #
-#                                             #
-###############################################
-###############################################
-
-# STEP 3.1 : UPLOAD THUMBNAIL, AC3D AND XML FILES IN TMP DIRECTORY (Will be removed later on)
-##############################################################################
-
-$exceptions = $modelChecker->checkAC3DFileArray($_FILES['ac3d_file']) +
-        $modelChecker->checkXMLFileArray($_FILES['xml_file']) +
-        $modelChecker->checkThumbFileArray($_FILES['mo_thumbfile']);
+$exceptions = array_merge($modelChecker->checkAC3DFileArray($_FILES['ac3d_file']),
+        array_merge($modelChecker->checkXMLFileArray($_FILES['xml_file']),
+        $modelChecker->checkThumbFileArray($_FILES['mo_thumbfile'])));
 
 // PNG Files
 for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
-    if (isset($_FILES['png_file']['name'][$i]) && ($_FILES['png_file']['name'][$i] != '')) {
+    if (!empty($_FILES['png_file']['name'][$i])) {
         $arrayPNG = array();
         $arrayPNG['name'] = $_FILES['png_file']['name'][$i];
         $arrayPNG['type'] = $_FILES['png_file']['type'][$i];
@@ -104,55 +61,65 @@ for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
         $arrayPNG['tmp_name'] = $_FILES['png_file']['tmp_name'][$i];
 
         $exceptionsPNG = $modelChecker->checkPNGArray($arrayPNG);
-        
-        // check uploaded file
-        if (count($exceptionsPNG) == 0) {
-            if (!move_uploaded_file($arrayPNG['tmp_name'], $targetPath.$arrayPNG['name'])) {
-                $fatalerror = true;
-                $errormsg .= "<li>There has been an error while moving the file \"".$arrayPNG['name']."\" on the server.</li>"; 
+        $exceptions = array_merge($exceptions, $exceptionsPNG);
+    }
+}
+
+# STEP 2 : MOVE THUMBNAIL, AC3D, PNG AND XML FILES IN TMP DIRECTORY (Will be removed later on)
+##############################################################################
+
+if (empty($exceptions)) {
+    $thumbName = $_FILES['mo_thumbfile']['name'];
+    $ac3dName  = $_FILES['ac3d_file']['name'];
+    $xmlName   = $_FILES['xml_file']['name'];
+
+    // Open working directory and set paths
+    try {
+        $tmp_dir = sys_get_temp_dir();
+        $targetPath = $modelChecker->openWorkingDirectory($tmp_dir);
+
+        if (!empty($xmlName)) {
+            $xmlPath = $targetPath.$xmlName;
+            
+            // move XML file to temp dir
+            if (!move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) {
+                $exceptions[] = new \Exception("There has been an error while moving the file \"".$xmlName."\" on the server.");
             }
-        } else {
-            $exceptions += $exceptionsPNG;
         }
-    }
-}
+        $thumbPath = $targetPath.$thumbName;
+        $ac3dPath  = $targetPath.$ac3dName;
 
-if (count($exceptions) == 0) {
-    // check uploaded file
-    if (isset($xmlPath) && !move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) {
-        $fatalerror = true;
-        $errormsg = "<li>There has been an error while moving the file \"".$xmlName."\" on the server.</li>";
-    }
-    
-    // check upload file
-    if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) {
-        $fatalerror = true;
-        $errormsg .= "<li>There has been an error while moving the file \"".$ac3dName."\" on the server.</li>";
-    }
-    
-    // check uploaded file
-    if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) {
-        $fatalerror = true;
-        $errormsg .= "<li>There has been an error while moving the file \"".$thumbName."\" on the server.</li>";
-    }
-} else {
-    $fatalerror = true;
-    foreach ($exceptions as $ex) {
-        $errormsg .= "<li>".$ex->getMessage()."</li>";
-    }
-}
+        // move A3CD file to temp dir
+        if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) {
+            $exceptions[] = new \Exception("There has been an error while moving the file \"".$ac3dName."\" on the server.");
+        }
 
-if ($xmlName != "") {
-    $xmlPath = $targetPath.$xmlName;
+        // move Thumbnail file to temp dir
+        if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) {
+            $exceptions[] = new \Exception("There has been an error while moving the file \"".$thumbName."\" on the server.");
+        }
+
+        // move PNG files to temp dir
+        for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
+            if (!empty($_FILES['png_file']['name'][$i])
+                    && !move_uploaded_file($_FILES['png_file']['tmp_name'][$i], $targetPath.$_FILES['png_file']['name'][$i])) {
+                $exceptions[] = new \Exception("There has been an error while moving the file \"".$_FILES['png_file']['name'][$i]."\" on the server."); 
+            }
+        }
+    } catch (Exception $ex) {
+        $exceptions[] = $ex;
+    }
 }
-$thumbPath = $targetPath.$thumbName;
-$ac3dPath  = $targetPath.$ac3dName;
 
 ######################################################
 # IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS #
 ######################################################
 
-if ($fatalerror) {
+if (!empty($exceptions)) {
+    foreach ($exceptions as $ex) {
+        $errormsg .= "<li>".$ex->getMessage()."</li>";
+    }
+    
     echo "<h2>Oops, something went wrong</h2>" .
          "Error message(s)  : <br/>" .
          "<ul>".$errormsg."</ul><br/>" .
@@ -200,7 +167,7 @@ if (isset($xmlPath) && file_exists($xmlPath)) {
 if (isset($_POST["modelId"])) {
     $modelToUpdateOld = $modelDaoRO->getModelMetadata($_POST["modelId"]);
     if ($path_to_use != $modelToUpdateOld->getFilename() && path_exists($path_to_use)) {
-        $exceptions[] = new Exception("Filename \"".$path_to_use."\" is already used by another model");
+        $exceptions[] = new \Exception("Filename \"".$path_to_use."\" is already used by another model");
     }
 }
 
@@ -208,7 +175,7 @@ if (isset($_POST["modelId"])) {
 # IF ERRORS ARE DETECTED : STOP NOW AND PRINT ERRORS
 ####################################################
 
-if (count($exceptions) > 0) {
+if (!empty($exceptions)) {
     foreach ($exceptions as $ex) {
         $errormsg .= "<li>".$ex->getMessage()."</li>";
     }
@@ -272,22 +239,22 @@ if (isset($_POST["model_group_id"]) && isset($_POST["modelId"])
     $moGroupId   = $_POST["model_group_id"];
     $modelId     = $_POST["modelId"];
     
-    if (!FormChecker::isModelId($modelId)) {
+    if (!\FormChecker::isModelId($modelId)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the original model selected.</li>";
     }
 
-    if (!FormChecker::isModelName($name)) {
+    if (!\FormChecker::isModelName($name)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the model name.</li>";
     }
     
-    if (!FormChecker::isModelGroupId($moGroupId)) {
+    if (!\FormChecker::isModelGroupId($moGroupId)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the model group.</li>";
     }
     
-    if (!FormChecker::isAuthorId($authorId)) {
+    if (!\FormChecker::isAuthorId($authorId)) {
         $fatalerror = true;
         $errormsg .= "<li>Please check the author value.</li>";
     }
@@ -303,7 +270,7 @@ if (!isset($_POST["gpl"])) {
 }
 
 // Checking that comment exists. Just a small verification as it's not going into DB.
-if (FormChecker::isComment($_POST['comment'])) {
+if (\FormChecker::isComment($_POST['comment'])) {
     $sent_comment = htmlentities(stripslashes($_POST['comment']));
 }
 else {
