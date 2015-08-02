@@ -25,7 +25,7 @@ echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>";
     ?>
     <item>
       <link>
-          http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&a=view&id=<?php echo $modelMetadata->getId();?>
+          http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&amp;a=view&amp;id=<?php echo $modelMetadata->getId();?>
       </link>
       <title><![CDATA[<?php echo $modelMetadata->getName()?> ]]></title> 
       <description>
