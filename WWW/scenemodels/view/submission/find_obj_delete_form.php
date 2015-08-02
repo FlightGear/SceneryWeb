@@ -1,10 +1,6 @@
 <?php
-require_once '../../autoload.php';
-$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
-
 $page_title = "Automated Objects Deletion Form";
-require '../../view/header.php';
+require 'view/header.php';
 ?>
 
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -25,10 +21,10 @@ function validateForm()
 
 <p class="center">
   <b>Foreword:</b> This automated form goal is to ease the deletion of objects within FG Scenery database.
-  <br />There are currently <?php echo number_format($objectDaoRO->countObjects(), '0', '', ' ');?> objects in the database.
+  <br />There are currently <?php echo $countObjs?> objects in the database.
 </p>
 
-<form id="deletion" method="post" action="check_delete_shared.php" onsubmit="return validateForm();">
+<form id="deletion" method="post" action="app.php?c=DeleteObjects&a=findObjWithPos" onsubmit="return validateForm();">
 <table>
     <tr>
         <td><label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to delete. Has to be between -180 and 180.</span></label></td>
@@ -50,5 +46,5 @@ function validateForm()
 </table>
 </form>
 
-<?php require '../../view/footer.php';
+<?php require 'view/footer.php';
 ?>

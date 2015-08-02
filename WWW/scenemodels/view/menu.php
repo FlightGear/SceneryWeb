@@ -12,7 +12,7 @@
         <ul class="submenus">
             <li><a href="/app.php?c=AddObjects&a=form">Add a new object position</a></li>
             <li><a href="/app.php?c=AddObjects&a=massiveform">Massive import of objects</a></li>
-            <li><a href="/submission/object/index_delete.php">Delete an object position</a></li>
+            <li><a href="/app.php?c=DeleteObjects&a=findform">Delete an object position</a></li>
             <li><a href="/app.php?c=UpdateObjects&a=findform">Update object geodata</a></li>
             <li class="separator"></li>
             <li><a href="/app.php?c=AddModel&a=form">Add a new model</a></li>

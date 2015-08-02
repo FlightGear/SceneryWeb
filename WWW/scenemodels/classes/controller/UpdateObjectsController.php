@@ -114,6 +114,8 @@ class UpdateObjectsController extends ControllerMenu {
      * Check object update request action
      */
     public function checkAction() {
+        parent::menu();
+        
         // Captcha stuff
         $resp = parent::checkCaptcha();
         if (!$resp->is_valid) {
@@ -158,11 +160,11 @@ class UpdateObjectsController extends ControllerMenu {
             } else {
                 $errors[] = new \Exception('Email mismatch!');
             }
-            
         }
         
-        if (isset($_POST['comment']) && \FormChecker::isComment($_POST['comment'])) {
-            $comment = $_POST['comment'];
+        $inputComment = $this->getVar('comment');
+        if ($inputComment != null && \FormChecker::isComment($inputComment)) {
+            $comment = $inputComment;
         } else {
             $comment = "";
         }

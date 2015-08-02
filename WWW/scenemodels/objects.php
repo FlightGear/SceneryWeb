@@ -216,7 +216,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
                  "  <a href=\"app.php?c=UpdateObjects&a=updateForm&id_to_update=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\" alt=\"edit\"/></a>";
             if (!$modelDAO->getModelMetadata($object->getModelId())->getModelsGroup()->isStatic()) {
 ?>
-                <a href="submission/object/check_delete_shared.php?delete_choice=<?php echo $object->getId(); ?>">
+                <a href="app.php?c=DeleteObjects&a=confirmDeleteForm&delete_choice=<?php echo $object->getId(); ?>">
                     <img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png" alt="delete"/>
                 </a>
 <?php

@@ -68,7 +68,7 @@ $objPos = $object->getPosition();
     // If the object is static, let not user fix it with a shared script...
     if (!$modelMetadata->getModelsGroup()->isStatic()) {
 ?>
-            &nbsp;| <a href="submission/object/check_delete_shared.php?delete_choice=<?=$object->getId()?>">Delete this object</a>
+            &nbsp;| <a href="app.php?c=DeleteObjects&a=confirmDeleteForm&delete_choice=<?=$object->getId()?>">Delete this object</a>
 <?php
     }
 ?>
