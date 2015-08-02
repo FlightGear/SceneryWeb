@@ -124,8 +124,7 @@ function validateForm()
 <?php
         // Google Captcha stuff
         require_once 'inc/captcha/recaptchalib.php';
-        $publickey = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-        echo recaptcha_get_html($publickey);
+        echo recaptcha_get_html(\Config::CAPTCHA_PUBLIC_KEY);
 ?>
             <br />
             <input type="submit" name="submit" value="Forward for deletion!" />
