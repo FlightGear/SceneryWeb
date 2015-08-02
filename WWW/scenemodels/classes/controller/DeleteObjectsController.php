@@ -203,7 +203,7 @@ class DeleteObjectsController extends ControllerMenu {
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter and tell him that his submission has been sent for validation.
-            if (!$safe_email) {
+            if (!empty($safe_email)) {
                 $emailSubmit = \EmailContentFactory::getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $modelMD);
                 $emailSubmit->sendEmail($safe_email, false);
             }

@@ -208,7 +208,7 @@ class UpdateObjectsController extends ControllerMenu {
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter to tell him that his submission has been sent for validation.
-            if (!$safe_email) {
+            if (!empty($safe_email)) {
                 $emailSubmit = \EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $oldModelMD, $newModelMD);
                 $emailSubmit->sendEmail($safe_email, false);
             }
