@@ -19,14 +19,14 @@ require '../view/header.php';
             <ul>
                 <li>on objects (eg windturbines, pylons, generic buildings...):</li>
                 <ul>
-                    <li><a href="../app.php?c=AddObjects&a=form">adding objects</a>.</li>
-                    <li><a href="../app.php?c=AddObjects&a=massiveform">massive import of objects</a> (adding tens of lines of objects in one click).</li>
-                    <li><a href="../app.php?c=DeleteObjects&a=findform">deleting objects</a> (delete an existing shared object).</li>
-                    <li><a href="../app.php?c=UpdateObjects&a=findform">updating objects</a> (updating position, offset of an object...).</li>
+                    <li><a href="../app.php?c=AddObjects&amp;a=form">adding objects</a>.</li>
+                    <li><a href="../app.php?c=AddObjects&amp;a=massiveform">massive import of objects</a> (adding tens of lines of objects in one click).</li>
+                    <li><a href="../app.php?c=DeleteObjects&amp;a=findform">deleting objects</a> (delete an existing shared object).</li>
+                    <li><a href="../app.php?c=UpdateObjects&amp;a=findform">updating objects</a> (updating position, offset of an object...).</li>
                 </ul>
                 <li>on 3D models (models designed for a specific location, eg Eiffel Tower):</li>
                 <ul>
-                    <li><a href="../app.php?c=AddModel&a=form">adding a new static or shared 3D model</a>.</li>
+                    <li><a href="../app.php?c=AddModel&amp;a=form">adding a new static or shared 3D model</a>.</li>
                     <li><a href="model/index_model_update.php">updating an existing static or shared 3D model</a> (improve 3D model).</li>
                 </ul>
             </ul>
