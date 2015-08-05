@@ -68,7 +68,7 @@ class ModelFilesTar implements IModelFiles {
         unlink($targetPath.'/submitted_files.tar.gz');
         
         // Deletes temporary submission directory
-        clear_dir($targetPath);
+        \FileSystemUtils::clearDir($targetPath);
     }
 
     public function getACFile() {

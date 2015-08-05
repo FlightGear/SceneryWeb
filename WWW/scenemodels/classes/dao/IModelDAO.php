@@ -34,11 +34,13 @@ interface IModelDAO {
     
     public function getModelMetadata($modelId);
     
+    public function getModelMetadataFromPath($modelPath);
+    
     /**
-     * Get model metadata using filename
-     * @param string $modelName model name (= filename)
+     * Get model metadata using STG name
+     * @param string $modelName model name (= STG filename)
      */
-    public function getModelMetadataFromName($modelName);
+    public function getModelMetadataFromSTGName($modelName);
     
     public function getModelMetadatas($offset, $pagesize, $criteria, $orderby);
 

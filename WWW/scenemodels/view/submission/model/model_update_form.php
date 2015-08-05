@@ -1,24 +1,6 @@
 <?php
-require_once '../../autoload.php';
-$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-$authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
-
 $page_title = "Automated Models Submission Form";
-require '../../view/header.php';
-    
-// Populate fields when a model id is given in the url
-if (isset($_REQUEST['update_choice'])
-        && FormChecker::isModelId($_REQUEST['update_choice'])) {
-    $id_to_update = stripslashes($_REQUEST['update_choice']);
-} else if (isset($_REQUEST['modelId'])
-        && FormChecker::isModelId($_REQUEST['modelId'])) {
-    $id_to_update = stripslashes($_REQUEST['modelId']);
-} else {
-    exit;
-}
-
-$modelMD = $modelDaoRO->getModelMetadata($id_to_update);
-
+require 'view/header.php';
 ?>
 <script type="text/javascript" src="../../inc/js/check_form.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
@@ -101,7 +83,7 @@ $(function() {
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
 
-<h1>Updating model #<?=$id_to_update?></h1>
+<h1>Updating model #<?=$modelMD->getId()?></h1>
 
 <p>
     Hover your mouse over the various field titles (left column) to view some information about what to do with that particular field. Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> for a better understanding of the various requirements.
@@ -113,7 +95,7 @@ $(function() {
         <li><a href="#tabs-2">2: Submit</a></li>
     </ul>
 
-    <form id="positions" method="post" action="check_model_update.php" enctype="multipart/form-data" onsubmit="return validateForm();">
+    <form id="positions" method="post" action="app.php?c=UpdateModel&amp;a=addRequest" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div id="tabs-1">
             <ul>
                 <li>Add ALL files related to the model, INCLUDING those that you did not change. Any file not included will get lost.</li>
@@ -129,14 +111,8 @@ $(function() {
                 <tr>
                     <td><label for="model_group_id">Model's family<em>*</em><span>This is the family name of the object.</span></label></td>
                     <td>
+                        <select id="model_group_id" name="model_group_id" onchange="validateTabs();">
             <?php
-
-                        // Show all the families other than the static family
-                        $modelsGroups = $modelDaoRO->getModelsGroups();
-
-                        // Start the select form
-                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"validateTabs();\">";
-                             
                         foreach ($modelsGroups as $modelsGroup) {
                             echo "<option value=\"".$modelsGroup->getId()."\"";
                             if ($modelsGroup->getId() == $modelMD->getModelsGroup()->getId()) {
@@ -144,8 +120,8 @@ $(function() {
                             }
                             echo ">".$modelsGroup->getName()."</option>";
                         }
-                        echo "</select>";
             ?>
+                        </select>
                     </td>
                     <td rowspan="4" style="width: 200px">
                         <img id="form_objects_thumb" width="200px" src="../../modelthumb.php?id=<?=$id_to_update?>" alt=""/>
@@ -221,7 +197,6 @@ $(function() {
                     <td>
                         <select name="mo_author" id="mo_author">
                             <?php
-                            $authors = $authorDaoRO->getAllAuthors(0, "ALL");
                             foreach($authors as $author) {
                                 if ($author->getId() == $modelMD->getAuthor()->getId()) {
                                     echo "<option value=\"".$author->getId()."\" selected=\"selected\">".$author->getName()."</option>";
@@ -246,7 +221,7 @@ $(function() {
                         <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
                         <?php
                         // Google Captcha stuff
-                        require_once '../../inc/captcha/recaptchalib.php';
+                        require_once 'inc/captcha/recaptchalib.php';
                         echo recaptcha_get_html(\Config::CAPTCHA_PUBLIC_KEY);
                         ?>
                         <br />
@@ -275,10 +250,8 @@ $(document).ready(function(){
     
     <?php
     // Pre-set model dropdown
-    if (isset($modelMD) && $modelMD->getFilename()) {
-        echo 'update_objects(\''.$modelMD->getFilename().'\');';
-    }
+    echo 'update_objects(\''.$modelMD->getFilename().'\');';
     ?>
 });
 </script>
-<?php require '../../view/footer.php'; ?>
+<?php require 'view/footer.php'; ?>

@@ -21,37 +21,43 @@
 namespace controller;
 
 /**
- * Controller for model addition form
+ * Controller for update model
  *
  * @author Julien Nguyen
  */
-class AddModelController extends ModelRequestController {
-    private $objectDaoRO;
-    private $authorDaoRO;
+class UpdateModelController extends ModelRequestController {
     
+    /**
+     * Constructor
+     */
     public function __construct() {
         parent::__construct();
-        $this->objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
         $this->authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
     }
     
-    /**
-     * Display form action
-     */
-    public function formAction() {
-        parent::menu();
-        
-        // Show all the families other than the static family
-        $modelsGroups = $this->getModelsGroups();
-        $countries = $this->objectDaoRO->getCountries();
-        $nbModels = $this->getModelDaoRO()->countTotalModels();
-        $authors = $this->authorDaoRO->getAllAuthors(0, "ALL");
+    public function selectModelFormAction() {
+        $modelsGroups = $this->getModelDaoRO()->getModelsGroups();
+        include 'view/submission/model/select_model_upd_form.php';
+    }
+    
+    public function modelUpdateFormAction() {
+        // Populate fields when a model id is given in the url
+        if (isset($_REQUEST['modelId'])
+                && \FormChecker::isModelId($_REQUEST['modelId'])) {
+            $id_to_update = stripslashes($_REQUEST['modelId']);
+        } else {
+            return;
+        }
 
-        include 'view/submission/model/add_model_form.php';
+        $modelMD = $this->getModelDaoRO()->getModelMetadata($id_to_update);
+        
+        $modelsGroups = $this->getModelDaoRO()->getModelsGroups();
+        $authors = $this->authorDaoRO->getAllAuthors(0, "ALL");
+        include 'view/submission/model/model_update_form.php';
     }
     
     /**
-     * Check and add new model addition request 
+     * Check and add new model update request 
      */
     public function addRequestAction() {
         $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
@@ -106,49 +112,39 @@ class AddModelController extends ModelRequestController {
         }
 
         // Check if path is already used
-        if ($this->pathExists($path_to_use)) {
-            $exceptions[] = new \Exception("Filename \"".$path_to_use."\" is already used");
+        $modelId = $this->getVar('modelId');
+        if (\FormChecker::isModelId($modelId)) {
+            $modelToUpdateOld = $this->getModelDaoRO()->getModelMetadata($modelId);
+            if ($path_to_use != $modelToUpdateOld->getFilename() && $this->pathExists($path_to_use)) {
+                $exceptions[] = new \Exception("Filename \"".$path_to_use."\" is already used by another model");
+            }
+        } else {
+            $exceptions[] = new \Exception("Please check the original model selected.");
         }
         
         /** STEP 9 : CHECK MODEL INFORMATION */
-        $name      = addslashes(htmlentities(strip_tags($this->getVar('mo_name')), ENT_QUOTES));
-        $notes     = addslashes(htmlentities(strip_tags($this->getVar('notes')), ENT_QUOTES));
+        $name    = addslashes(htmlentities(strip_tags($this->getVar('mo_name')), ENT_QUOTES));
+        $notes   = addslashes(htmlentities(strip_tags($this->getVar('notes')), ENT_QUOTES));
+        $authorId  = $this->getVar('mo_author');
+        $moGroupId = $this->getVar('model_group_id');
+            
         if (empty($notes)) {
-            $notes = "";
+            $notes   = "";
         }
-        
-        $authorId  = $_POST['mo_author'];
-        $moGroupId = $_POST['model_group_id'];
-        
+
         $modelMDValidator = \submission\ModelMetadataValidator::getModelMDValidator($name, $notes, $authorId, $moGroupId);
-
-        /** STEP 10 : CHECK GEOGRAPHICAL INFORMATION */
-        $longitude = strip_tags($this->getVar('longitude'));
-        $latitude  = strip_tags($this->getVar('latitude'));
-        $offset    = strip_tags($this->getVar('offset'));
-        $heading   = strip_tags($this->getVar('heading'));
-        $country   = $this->getVar('ob_country');
-        $objectValidator = \submission\ObjectValidator::getPositionValidator($longitude, $latitude, $country, $offset, $heading);
-
-        $validatorsSet = new \submission\ValidatorsSet();
-        $validatorsSet->addValidator($modelMDValidator);
-        $validatorsSet->addValidator($objectValidator);
- 
-        // If the author was unknown in the DB
-        if ($authorId == 1) {
-            $auEmail = $this->getVar('au_email');
-            $auName = $this->getVar('au_name');
-            $authorValidator = \submission\AuthorValidator::getAuthorValidator($auName, $auEmail);
-            $validatorsSet->addValidator($authorValidator);
-        }
-        
-        $exceptions = array_merge($exceptions, $validatorsSet->validate());
+        $exceptions = array_merge($exceptions, $modelMDValidator->validate());
 
         if (empty($this->getVar('gpl'))) {
             $exceptions[] = new \Exception("You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FlightGear must wear this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.");
         }
 
-        // Display errors if exist
+        // Checking that comment exists. Just a small verification as it's not going into DB.
+        $sent_comment = htmlentities(stripslashes($this->getVar('comment')));
+        if (!\FormChecker::isComment($sent_comment)) {
+            $exceptions[] = new \Exception("Please add a comment to the maintainer.");
+        }
+        
         if (!empty($exceptions)) {
             \FileSystemUtils::clearDir($targetPath);
             $this->displayModelErrors($exceptions);
@@ -165,41 +161,40 @@ class AddModelController extends ModelRequestController {
         \FileSystemUtils::clearDir($targetPath);
         
         $modelFactory = new \ModelFactory($this->getModelDaoRO(), $this->authorDaoRO);
-        $objectFactory = new \ObjectFactory($this->objectDaoRO);
         $newModel = new \model\Model();
-        $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $moGroupId);
-        if ($authorId != 1) {
-            $auEmail = $newModelMD->getAuthor()->getEmail();
-        } else {
-            $author = $newModelMD->getAuthor();
-            $author->setName($auName);
-            $author->setEmail($auEmail);
-            $newModelMD->setAuthor($author);
-        }
-
+        $newModelMD = $modelFactory->createModelMetadata($modelId, $authorId, $path_to_use,
+                $name, $notes, $moGroupId);
         $newModel->setMetadata($newModelMD);
         $newModel->setModelFiles($modelFile);
         $newModel->setThumbnail($thumbFile);
 
-        $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
-                $offset, \ObjectUtils::headingSTG2True($heading), 1, $name);
+        $failed_mail = false;
+        $au_email = $newModelMD->getAuthor()->getEmail();
+        if (empty($au_email)) {
+            $failed_mail = true;
+        }
 
-        $request = new \model\RequestModelAdd();
+        $contr_email = htmlentities(stripslashes($this->getVar('email')));
+        if (!\FormChecker::isEmail($contr_email)) {
+            $failed_mail = true;
+        }
+
+        $request = new \model\RequestModelUpdate();
         $request->setNewModel($newModel);
-        $request->setNewObject($newObject);
-        $request->setContributorEmail($auEmail);
-
+        $request->setContributorEmail($contr_email);
+        $request->setComment($sent_comment);
+        
         try {
             $updatedReq = $requestDaoRW->saveRequest($request);
-            
-            $this->sendEmailsRequestPending($auEmail, $updatedReq);
-            include 'view/submission/model/check_model_add.php';
+
+            $this->sendEmailsRequestPending($updatedReq, $contr_email, $au_email);
+            include 'view/submission/model/check_model_update.php';
         } catch (\Exception $ex) {
             echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
         }
     }
     
-    private function sendEmailsRequestPending($auEmail, $updatedReq) {
+    private function sendEmailsRequestPending($updatedReq, $contrEmail, $auEmail) {
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
         date_default_timezone_set('UTC');
@@ -208,11 +203,19 @@ class AddModelController extends ModelRequestController {
         $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
         $host = gethostbyaddr($ipaddr);
 
-        $emailSubmit = \EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
+        $emailSubmit = \EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
         $emailSubmit->sendEmail("", true);
 
-        // Mailing the submitter to tell him that his submission has been sent for validation
-        $emailSubmitContr = \EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
-        $emailSubmitContr->sendEmail($auEmail, false);
+        if (!empty($contrEmail)) {
+            // Mailing the submitter to tell him that his submission has been sent for validation
+            $emailSubmit = \EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
+            $emailSubmit->sendEmail($contrEmail, false);
+
+            // If the author's email is different from the subbmitter's, an email is also sent to the author
+            if ($auEmail != $contrEmail) {
+                $emailSubmit = \EmailContentFactory::getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $updatedReq);
+                $emailSubmit->sendEmail($auEmail, false);
+            }
+        }
     }
 }

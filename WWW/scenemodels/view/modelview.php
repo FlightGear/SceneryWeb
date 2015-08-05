@@ -66,7 +66,7 @@ if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescr
 ?>
     <tr>
         <td colspan="2">
-            <a href="get_model_files.php?type=pack&id=<?php echo $id; ?>">Download model</a> | <a href="submission/model/index_model_update.php?update_choice=<?php echo $id; ?>">Update model/info</a>
+            <a href="get_model_files.php?type=pack&id=<?php echo $id; ?>">Download model</a> | <a href="app.php?c=UpdateModel&amp;a=modelUpdateForm&amp;modelId=<?php echo $id; ?>">Update model/info</a>
         </td>
     </tr>
     <tr>

@@ -207,7 +207,7 @@ class AddObjectsController extends ControllerMenu {
         $queriedMoPath = $tabPath[$maxTabPath-1];
 
         // Get the model (throw exception if not found)
-        $modelMD = $this->getModelDaoRO()->getModelMetadataFromName($queriedMoPath);
+        $modelMD = $this->getModelDaoRO()->getModelMetadataFromSTGName($queriedMoPath);
 
         // Now proceeding with the family
         // The family path is the string between Models and the object name. Can be multiple.

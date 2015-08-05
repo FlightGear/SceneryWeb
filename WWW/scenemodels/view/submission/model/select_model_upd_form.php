@@ -1,34 +1,22 @@
 <?php
-require_once '../../autoload.php';
-$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-require '../../view/header.php';
+require 'view/header.php';
 ?>
-<script type="text/javascript" src="../../inc/js/update_objects.js"></script>
+<script type="text/javascript" src="inc/js/update_objects.js"></script>
 
 <h1>Choose model to update</h1>
 <p>
     Through this form you can update existing models in the FlightGear Scenery Database.
 </p>
 
-<form id="formChoice" method="get" action="index_model_update.php" enctype="multipart/form-data">
+<form id="formChoice" method="post" action="app.php?c=UpdateModel&amp;a=modelUpdateForm" enctype="multipart/form-data">
 <table style="width: 100%;">
     <tr>
         <td><label for="model_group_id">Model's family<em>*</em><span>This is the family name of the object.</span></label></td>
         <td>
+            <select id="model_group_id" name="model_group_id" onchange="update_objects(); validateTabs();">
+                <option value="0">Please select a family</option>
+                <option value="0">----</option>
 <?php
-
-            // Show all the families other than the static family
-            $modelsGroups = $modelDaoRO->getModelsGroups();
-
-            // Start the select form
-            echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(); validateTabs();\">" .
-                 "<option ";
-            if (isset($modelMD) && $modelMD->getModelsGroup()->isStatic()) {
-                echo "selected=\"selected\" ";
-            }
-            echo "value=\"0\">Please select a family</option>" .
-                 "<option value=\"0\">----</option>";
-
             foreach ($modelsGroups as $modelsGroup) {
                 echo "<option value=\"".$modelsGroup->getId()."\">".$modelsGroup->getName()."</option>";
             }
@@ -52,4 +40,4 @@ require '../../view/header.php';
     </tr>
 </table>
 </form>
-<?php require '../../view/footer.php'; ?>
+<?php require 'view/footer.php'; ?>

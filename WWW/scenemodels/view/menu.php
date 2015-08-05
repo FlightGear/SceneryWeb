@@ -16,7 +16,7 @@
             <li><a href="/app.php?c=UpdateObjects&amp;a=findform">Update object geodata</a></li>
             <li class="separator"></li>
             <li><a href="/app.php?c=AddModel&amp;a=form">Add a new model</a></li>
-            <li><a href="/submission/model/index_model_upd_choose.php">Update a model</a></li>
+            <li><a href="/app.php?c=UpdateModel&amp;a=selectModelForm">Update a model</a></li>
         </ul>
     </li>
     <li class="mainitems">
