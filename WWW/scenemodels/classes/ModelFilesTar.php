@@ -1,7 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/../inc/functions.inc.php';
-
 /**
  * Model files in a TAR format
  *

@@ -4,7 +4,6 @@ $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
 
-require_once '../../inc/functions.inc.php';
 
 if (isset($_REQUEST["mo_sig"]) && FormChecker::isSig($_REQUEST["mo_sig"])) {
     $sig = $_REQUEST["mo_sig"];
@@ -22,8 +21,6 @@ try {
 }
 
 if (isset($_POST["action"])) {
-    // Inserting libs
-    include_once '../../classes/EmailContentFactory.php';
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail

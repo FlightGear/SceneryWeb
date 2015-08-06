@@ -4,8 +4,6 @@ $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
 
-// Inserting libs
-require_once '../../inc/functions.inc.php';
 
 if (!FormChecker::isSig($_REQUEST["sig"])) {
     header("Location: /submission/object/");

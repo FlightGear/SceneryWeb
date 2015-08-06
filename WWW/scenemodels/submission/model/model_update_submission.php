@@ -19,9 +19,6 @@ try {
 }
 
 if (isset($_POST["action"])) {
-    // Inserting libs
-    include_once '../../inc/functions.inc.php';
-    include_once '../../classes/EmailContentFactory.php';
     $page_title = "Automated Models Submission Form";
 
     // Prepare a generic mail
