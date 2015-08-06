@@ -21,7 +21,7 @@
 namespace submission;
 
 /**
- * Description of ModelFilesValidator
+ * Validator for model files
  *
  * @author Julien Nguyen
  */

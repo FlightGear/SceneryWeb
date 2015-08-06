@@ -21,7 +21,7 @@
 namespace submission;
 
 /**
- * ModelMetadataValidator
+ * Validator for model's metadata
  *
  * @author Julien Nguyen
  */
