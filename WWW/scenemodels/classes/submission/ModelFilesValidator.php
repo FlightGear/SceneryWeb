@@ -1,5 +1,4 @@
 <?php
-namespace submission;
 
 /*
  * Copyright (C) 2014 Flightgear Team
@@ -19,6 +18,7 @@ namespace submission;
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+namespace submission;
 
 /**
  * Description of ModelFilesValidator
