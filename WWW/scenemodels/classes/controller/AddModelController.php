@@ -56,15 +56,9 @@ class AddModelController extends ModelRequestController {
     public function addRequestAction() {
         $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
         
-        $resp = parent::checkCaptcha();
+        $resp = $this->checkCaptcha();
         if (!$resp->is_valid) {
-            $page_title = "Automated Models Submission Form";
-            $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>.<br />";
-            if (isset($resp)) {
-                $error_text .= "(reCAPTCHA complained: " . $resp->error . ")<br />";
-            }
-            $error_text .= "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-            include 'view/error_page.php';
+            $this->displayCaptchaError($resp);
             return;
         }
         
@@ -111,15 +105,15 @@ class AddModelController extends ModelRequestController {
         }
         
         /** STEP 9 : CHECK MODEL INFORMATION */
-        $name      = addslashes(htmlentities(strip_tags($this->getVar('mo_name')), ENT_QUOTES));
-        $notes     = addslashes(htmlentities(strip_tags($this->getVar('notes')), ENT_QUOTES));
+        $name    = addslashes(htmlentities(strip_tags($this->getVar('mo_name')), ENT_QUOTES));
+        $notes   = addslashes(htmlentities(strip_tags($this->getVar('notes')), ENT_QUOTES));
+        $authorId  = $this->getVar('mo_author');
+        $moGroupId = $this->getVar('model_group_id');
+            
         if (empty($notes)) {
             $notes = "";
         }
-        
-        $authorId  = $_POST['mo_author'];
-        $moGroupId = $_POST['model_group_id'];
-        
+
         $modelMDValidator = \submission\ModelMetadataValidator::getModelMDValidator($name, $notes, $authorId, $moGroupId);
 
         /** STEP 10 : CHECK GEOGRAPHICAL INFORMATION */
@@ -195,7 +189,10 @@ class AddModelController extends ModelRequestController {
             $this->sendEmailsRequestPending($auEmail, $updatedReq);
             include 'view/submission/model/check_model_add.php';
         } catch (\Exception $ex) {
-            echo "<p class=\"center\">Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.</p><br />";
+            $page_title = "Automated Models Submission Form";
+            $error_text = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.";
+            include 'view/error_page.php';
+            return;
         }
     }
     

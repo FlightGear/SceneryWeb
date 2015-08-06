@@ -50,4 +50,13 @@ abstract class Controller {
         
         return $resp;
     }
+    
+    protected function displayCaptchaError($resp) {
+        $page_title = "Automated Submission Form";
+
+        $error_text = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
+                 "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
+                 "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+        include 'view/error_page.php';
+    }
 }
