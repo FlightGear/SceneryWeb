@@ -312,12 +312,16 @@ class AddObjectsController extends RequestController {
             return;
         }
         
-        $tab_lines = explode("\n", $_POST['stg']);          // Exploding lines by carriage return (\n) in submission input.
-        $tab_lines = array_map('trim', $tab_lines);         // Trim lines.
-        $tab_lines = array_filter($tab_lines);              // Removing blank lines.
-        $tab_lines = array_slice($tab_lines, 0, 100);       // Selects the 100 first elements of the tab (the 100 first lines not blank)
+        // Exploding lines by carriage return (\n) in submission input.
+        $tabLines = explode("\n", $_POST['stg']);
+        // Trim lines.
+        $tabLines = array_map('trim', $tabLines);
+        // Removing blank lines.
+        $tabLines = array_filter($tabLines);
+        // Selects the 100 first elements of the tab (the 100 first lines not blank)
+        $tabLines = array_slice($tabLines, 0, 100);
 
-        $nb_lines = count($tab_lines);
+        $nb_lines = count($tabLines);
         
         if ($nb_lines < 1) {
             $page_title = "Automated Objects Mass Import Submission Form";
@@ -333,7 +337,7 @@ class AddObjectsController extends RequestController {
         $modelMDs = array();
 
         // Check each line
-        foreach ($tab_lines as $line) {
+        foreach ($tabLines as $line) {
             $objLineReq = $this->createObjectLineRequest($line, $objectFactory);
             if ($objLineReq->getObject() != null) {
                 $modelId = $objLineReq->getObject()->getModelId();
