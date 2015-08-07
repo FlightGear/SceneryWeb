@@ -147,7 +147,7 @@ class AddObjectsController extends RequestController {
             try {
                 $updatedReq = $requestDaoRW->saveRequest($request);
             } catch (\Exception $e) {
-                $page_title = "Objects addition Form";
+                $pageTitle = "Objects addition Form";
                 $errorText = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
                 include 'view/error_page.php';
                 return;
@@ -305,7 +305,7 @@ class AddObjectsController extends RequestController {
         
         // Checking that stg exists and is containing only letters or figures.
         if (isset($_POST['stg']) && \FormChecker::isStgLines($_POST['stg'])) {
-            $page_title = "Automated Objects Mass Import Submission Form";
+            $pageTitle = "Automated Objects Mass Import Submission Form";
 
             $errorText = "I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.";
             include 'view/error_page.php';
@@ -324,7 +324,7 @@ class AddObjectsController extends RequestController {
         $nb_lines = count($tabLines);
         
         if ($nb_lines < 1) {
-            $page_title = "Automated Objects Mass Import Submission Form";
+            $pageTitle = "Automated Objects Mass Import Submission Form";
             
             $errorText = "Not enough lines were submitted: 1 line minimum per submission!";
             include 'view/error_page.php';

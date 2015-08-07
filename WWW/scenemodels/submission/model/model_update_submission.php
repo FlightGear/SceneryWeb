@@ -19,7 +19,7 @@ try {
 }
 
 if (isset($_POST["action"])) {
-    $page_title = "Automated Models Submission Form";
+    $pageTitle = "Automated Models Submission Form";
 
     // Prepare a generic mail
     // If $action=reject
@@ -139,7 +139,7 @@ if (!isset($_POST["action"])) {
     include_once '../../inc/geshi/geshi.php';
 
 
-    $page_title = "Automated Models Submission Form";
+    $pageTitle = "Automated Models Submission Form";
 
     // Working on the model, now
     $newModel = $request->getNewModel();

@@ -1,5 +1,5 @@
 <?php
-$page_title = "Automated Objects Deletion Form";
+$pageTitle = "Automated Objects Deletion Form";
 require 'view/header.php';
 ?>
 

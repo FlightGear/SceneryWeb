@@ -1,6 +1,6 @@
 <?php
 /**
-* To change the title, create a $page_title string variable before including this file
+* To change the title, create a $pageTitle string variable before including this file
 * To change body onload, create a $body_onload string variable before including this file
 */
 ?>
@@ -12,7 +12,7 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="http://scenery.flightgear.org/css/style.css" type="text/css"/>
     <link rel="stylesheet" href="http://scenery.flightgear.org/css/lightbox.css" type="text/css"/>
-    <title><?php echo (isset($page_title))?$page_title:"FlightGear Scenery and Mapserver Website";?></title>
+    <title><?php echo (isset($pageTitle))?$pageTitle:"FlightGear Scenery and Mapserver Website";?></title>
 
     <?php
     if(!isset($nojs_page)) {

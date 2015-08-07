@@ -21,7 +21,7 @@ try {
 }
 
 if (isset($_POST["action"])) {
-    $page_title = "Automated Models Submission Form";
+    $pageTitle = "Automated Models Submission Form";
 
     // Prepare a generic mail
     // If $action=reject
@@ -135,7 +135,7 @@ if (isset($_POST["action"])) {
 if (!isset($_POST["action"])) {
     // Inserting libs
     include_once '../../inc/geshi/geshi.php';
-    $page_title = "Model Submission Form";
+    $pageTitle = "Model Submission Form";
     
     $newModel = $request->getNewModel();
     $newModelMD = $newModel->getMetadata();

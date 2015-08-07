@@ -2,7 +2,7 @@
 require_once 'autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
-$page_title = "FlightGear World Scenery v2.10.0";
+$pageTitle = "FlightGear World Scenery v2.10.0";
 require 'view/header.php';
 ?>
 <br />

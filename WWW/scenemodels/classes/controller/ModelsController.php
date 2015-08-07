@@ -63,7 +63,7 @@ class ModelsController extends ControllerMenu {
             
             include 'view/modelview.php';
         } else {
-            $page_title = "Model ID not valid";
+            $pageTitle = "Model ID not valid";
             $errorText = "Sorry, but the model ID you are asking is not valid.";
             include 'view/error_page.php';
         }

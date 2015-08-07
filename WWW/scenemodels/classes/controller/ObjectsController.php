@@ -45,7 +45,7 @@ class ObjectsController extends ControllerMenu {
             $group = $this->objectDaoRO->getObjectsGroup($object->getGroupId());
             include 'view/objectview.php';
         } else {
-            $page_title = "Object ID not valid";
+            $pageTitle = "Object ID not valid";
             $errorText = "Sorry, but the object ID you are asking is not valid.";
             include 'view/error_page.php';
         }

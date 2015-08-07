@@ -1,5 +1,5 @@
 <?php
-$page_title = "Automated Objects Submission Form";
+$pageTitle = "Automated Objects Submission Form";
 $body_onload = "update_objects();";
 include 'view/header.php';
 ?>

@@ -4,7 +4,7 @@
  * 
  * Error page
  * To use this page, please instantiate the following strings:
- * - $page_title   : page's title
+ * - $pageTitle   : page's title
  * - $process_text : contains the actual process
  * - $errorText   : contains the error message
  * - $advise_text  : contains advise about what to about to correct the error

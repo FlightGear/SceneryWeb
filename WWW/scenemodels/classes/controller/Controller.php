@@ -52,7 +52,7 @@ abstract class Controller {
     }
     
     protected function displayCaptchaError($resp) {
-        $page_title = "Automated Submission Form";
+        $pageTitle = "Automated Submission Form";
 
         $errorText = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
                  "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".

@@ -19,7 +19,7 @@
  */
 
 
-$page_title = "Automated Object Update Form";
+$pageTitle = "Automated Object Update Form";
 $body_onload = "update_objects();";
 include 'view/header.php';
 

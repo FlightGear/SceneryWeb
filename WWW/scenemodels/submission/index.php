@@ -2,7 +2,7 @@
 require_once '../autoload.php';
 $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 
-$page_title = "Automated Scenery Submission Forms";
+$pageTitle = "Automated Scenery Submission Forms";
 require '../view/header.php';
 ?>
 

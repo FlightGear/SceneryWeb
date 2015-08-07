@@ -1,5 +1,5 @@
 <?php
-$page_title = "Automated Models Submission Form";
+$pageTitle = "Automated Models Submission Form";
 require 'view/header.php';
 ?>
 

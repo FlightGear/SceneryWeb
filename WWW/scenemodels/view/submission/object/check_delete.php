@@ -1,5 +1,5 @@
 <?php
-$page_title = "Automated Objects Deletion Form";
+$pageTitle = "Automated Objects Deletion Form";
 include 'view/header.php';
 
 $objectToDel = $updatedReq->getObjectToDelete();

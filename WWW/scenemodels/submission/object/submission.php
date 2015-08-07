@@ -16,7 +16,7 @@ $sig = htmlentities($_REQUEST["sig"]);
 try {
     $request = $requestDaoRO->getRequest($sig);
 } catch (\dao\RequestNotFoundException $e) {
-    $page_title = "Automated Objects Pending Requests Form";
+    $pageTitle = "Automated Objects Pending Requests Form";
     $errorText = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
     $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
     include '../../inc/error_page.php';
@@ -25,7 +25,7 @@ try {
 
 // Common code, to be performed for both types of checks
 if ($action == "check") {
-    $page_title = "Automated Objects Pending Requests Form";
+    $pageTitle = "Automated Objects Pending Requests Form";
     include '../../view/header.php';
     echo "<p class=\"center\">Request #". $request->getId()."</p>" .
          "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>".
@@ -142,7 +142,7 @@ if ($action == 'Accept') {
     try {
         $reqExecutor->executeRequest($request);
     } catch (Exception $ex) {
-        $page_title = "Automated Objects Pending Requests Form";
+        $pageTitle = "Automated Objects Pending Requests Form";
         include '../../view/header.php';
         echo "<p class=\"center\">";
         echo "Now processing request #".$request->getId().".</p><br />";
@@ -151,7 +151,7 @@ if ($action == 'Accept') {
         exit;
     }
 
-    $page_title = "Automated Objects Pending Requests Form";
+    $pageTitle = "Automated Objects Pending Requests Form";
     include '../../view/header.php';
     echo "<p class=\"center\">Now processing add/update/delete object request #".$request->getId().".</p><br />";
     echo "<p class=\"center ok\">This query has been successfully processed into the FG scenery database! It should be taken into account in Terrasync within a few days. Thanks for your control!</p><br />";
@@ -190,7 +190,7 @@ else if ($action == "Reject") {
     try {
         $resultDel = $requestDaoRW->deleteRequest($sig);
     } catch(\dao\RequestNotFoundException $e) {
-        $page_title = "Automated Objects Pending Requests Form";
+        $pageTitle = "Automated Objects Pending Requests Form";
         $errorText = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
         $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
         include '../../inc/error_page.php';
@@ -198,7 +198,7 @@ else if ($action == "Reject") {
     }
 
     if (!$resultDel) {
-        $page_title = "Automated Objects Pending Requests Form";
+        $pageTitle = "Automated Objects Pending Requests Form";
         include '../../view/header.php';
         echo "<p class=\"center\">".
              "Now deleting request #".$request->getId().".</p>".
@@ -207,7 +207,7 @@ else if ($action == "Reject") {
         exit;
     }
 
-    $page_title = "Automated Objects Pending Requests Form";
+    $pageTitle = "Automated Objects Pending Requests Form";
     include '../../view/header.php';
     echo "<p class=\"center\">";
     echo "Now deleting request #".$request->getId().".</p>";

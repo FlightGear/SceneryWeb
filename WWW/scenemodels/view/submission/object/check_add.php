@@ -1,6 +1,6 @@
 <?php
 
-$page_title = "Automated Objects Submission Form";
+$pageTitle = "Automated Objects Submission Form";
 require 'view/header.php';
 
 // Display errors if exist

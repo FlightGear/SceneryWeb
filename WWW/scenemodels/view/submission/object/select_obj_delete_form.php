@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-$page_title = "Automated Objects Deletion Form";
+$pageTitle = "Automated Objects Deletion Form";
 include 'view/header.php';
 
 ?>

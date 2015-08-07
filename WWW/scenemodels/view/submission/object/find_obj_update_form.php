@@ -1,5 +1,5 @@
 <?php
-$page_title = "Automated Objects Update Form";
+$pageTitle = "Automated Objects Update Form";
 require 'view/header.php';
 ?>
 

@@ -72,7 +72,7 @@ class DeleteObjectsController extends RequestController {
         }
         
         if ($error) {
-            $page_title = "Automated Objects Deletion Form";
+            $pageTitle = "Automated Objects Deletion Form";
             // $errorText is defined above
             include 'view/error_page.php';
             return;
@@ -83,7 +83,7 @@ class DeleteObjectsController extends RequestController {
 
         // We have no result
         if (count($candidateObjects) == 0) {
-            $page_title = "Automated Objects Deletion Form";
+            $pageTitle = "Automated Objects Deletion Form";
             $errorText = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
             include 'view/error_page.php';
             return;
@@ -108,7 +108,7 @@ class DeleteObjectsController extends RequestController {
     public function confirmDeleteFormAction() {
         $objToDelId = $this->getVar('delete_choice');
         if (!\FormChecker::isObjectId($objToDelId)) {
-            $page_title = "Automated Objects Deletion Form";
+            $pageTitle = "Automated Objects Deletion Form";
             $errorText = "Sorry, but the object you want to delete does not have a valid ID.";
             include 'view/error_page.php';
             return;
@@ -118,7 +118,7 @@ class DeleteObjectsController extends RequestController {
         try {
             $objectToDel = $this->objectDaoRO->getObject($objToDelId);
         } catch (Exception $e) {
-            $page_title = 'Automated Objects Deletion Form';
+            $pageTitle = 'Automated Objects Deletion Form';
             $errorText = 'Sorry, but no object with id '.$objToDelId.' was found.';
             include 'view/error_page.php';
             return;
@@ -142,7 +142,7 @@ class DeleteObjectsController extends RequestController {
     
         $objToDelId = $this->getVar('delete_choice');
         if (!\FormChecker::isObjectId($objToDelId)) {
-            $page_title = "Automated Objects Deletion Form";
+            $pageTitle = "Automated Objects Deletion Form";
             $errorText = "Sorry, but the object you want to delete does not have a valid ID.";
             include 'view/error_page.php';
             return;
