@@ -12,7 +12,7 @@ if (isset($_REQUEST["mo_sig"]) && FormChecker::isSig($_REQUEST["mo_sig"])) {
 try {
     $request = $requestDaoRO->getRequest($sig);
 } catch (\dao\RequestNotFoundException $e) {
-    $error_text = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+    $errorText = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
     $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
     include '../../view/error_page.php';
     exit;
@@ -33,7 +33,7 @@ if (isset($_POST["action"])) {
             $resultDel = $requestDaoRW->deleteRequest($sig);
         } catch(\dao\RequestNotFoundException $e) {
             $process_text = "Deleting corresponding pending query.";
-            $error_text   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+            $errorText   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
             $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
             include '../../view/error_page.php';
             exit;
@@ -41,7 +41,7 @@ if (isset($_POST["action"])) {
 
         if (!$resultDel) {
             $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request #". $request->getId();
-            $error_text   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+            $errorText   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
             include '../../view/error_page.php';
             exit;
         }
@@ -87,7 +87,7 @@ if (isset($_POST["action"])) {
             $reqExecutor->executeRequest($request);
         } catch (Exception $ex) {
             $process_text = "Signatures found.<br /> Now processing request #". $request->getId();
-            $error_text = "Sorry, but the UPDATE queries could not be processed.";
+            $errorText = "Sorry, but the UPDATE queries could not be processed.";
             $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
             include '../../view/error_page.php';
             exit;

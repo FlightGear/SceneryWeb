@@ -4,7 +4,7 @@
  * To use this page, please instantiate the following strings:
  * - $page_title   : page's title
  * - $process_text : contains the actual process
- * - $error_text   : contains the error message
+ * - $errorText   : contains the error message
  * - $advise_text  : contains advise about what to about to correct the error
  *
 **/
@@ -21,7 +21,7 @@ require "view/header.php"; ?>
 </p>
 
 <p class="center warning">
-<?php echo $error_text;?>
+<?php echo $errorText;?>
 </p>
 
 <p class="center">

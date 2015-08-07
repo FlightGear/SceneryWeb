@@ -17,7 +17,7 @@ try {
     $request = $requestDaoRO->getRequest($sig);
 } catch (\dao\RequestNotFoundException $e) {
     $page_title = "Automated Objects Pending Requests Form";
-    $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
+    $errorText = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
     $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
     include '../../inc/error_page.php';
     exit;
@@ -191,7 +191,7 @@ else if ($action == "Reject") {
         $resultDel = $requestDaoRW->deleteRequest($sig);
     } catch(\dao\RequestNotFoundException $e) {
         $page_title = "Automated Objects Pending Requests Form";
-        $error_text = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
+        $errorText = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
         $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
         include '../../inc/error_page.php';
         exit;

@@ -17,7 +17,7 @@ function connect_sphere_r() {
 
     // If could not connect to the database
     if ($resource_r == '0') {
-        $error_text = "We're sorry, but an error has occurred while connecting to the database.";
+        $errorText = "We're sorry, but an error has occurred while connecting to the database.";
         include "error_page.php";
         exit;
     } else {

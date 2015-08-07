@@ -53,7 +53,7 @@ class DeleteObjectsController extends RequestController {
     public function findObjWithPosAction() {
         parent::menu();
         
-        $error_text = "";
+        $errorText = "";
         $error = false;
 
         $lat = number_format(stripslashes($_POST['latitude']),7,'.','');
@@ -61,19 +61,19 @@ class DeleteObjectsController extends RequestController {
         
         // Checking that latitude exists, is of good length and is containing only digits, - or ., is >=-90 and <=90 and with correct decimal format.
         if (!\FormChecker::isLatitude($lat)) {
-            $error_text .= "Latitude mismatch!<br/>";
+            $errorText .= "Latitude mismatch!<br/>";
             $error = true;
         }
 
         // Checking that longitude exists, if of good length and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
         if (!\FormChecker::isLongitude($long)) {
-            $error_text .= "Longitude mismatch!<br/>";
+            $errorText .= "Longitude mismatch!<br/>";
             $error = true;
         }
         
         if ($error) {
             $page_title = "Automated Objects Deletion Form";
-            // $error_text is defined above
+            // $errorText is defined above
             include 'view/error_page.php';
             return;
         }
@@ -84,7 +84,7 @@ class DeleteObjectsController extends RequestController {
         // We have no result
         if (count($candidateObjects) == 0) {
             $page_title = "Automated Objects Deletion Form";
-            $error_text = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
+            $errorText = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
             include 'view/error_page.php';
             return;
         }
@@ -109,7 +109,7 @@ class DeleteObjectsController extends RequestController {
         $objToDelId = $this->getVar('delete_choice');
         if (!\FormChecker::isObjectId($objToDelId)) {
             $page_title = "Automated Objects Deletion Form";
-            $error_text = "Sorry, but the object you want to delete does not have a valid ID.";
+            $errorText = "Sorry, but the object you want to delete does not have a valid ID.";
             include 'view/error_page.php';
             return;
         }
@@ -119,7 +119,7 @@ class DeleteObjectsController extends RequestController {
             $objectToDel = $this->objectDaoRO->getObject($objToDelId);
         } catch (Exception $e) {
             $page_title = 'Automated Objects Deletion Form';
-            $error_text = 'Sorry, but no object with id '.$objToDelId.' was found.';
+            $errorText = 'Sorry, but no object with id '.$objToDelId.' was found.';
             include 'view/error_page.php';
             return;
         }
@@ -143,7 +143,7 @@ class DeleteObjectsController extends RequestController {
         $objToDelId = $this->getVar('delete_choice');
         if (!\FormChecker::isObjectId($objToDelId)) {
             $page_title = "Automated Objects Deletion Form";
-            $error_text = "Sorry, but the object you want to delete does not have a valid ID.";
+            $errorText = "Sorry, but the object you want to delete does not have a valid ID.";
             include 'view/error_page.php';
             return;
         }

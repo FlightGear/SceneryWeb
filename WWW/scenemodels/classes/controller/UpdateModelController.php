@@ -185,7 +185,7 @@ class UpdateModelController extends ModelRequestController {
             include 'view/submission/model/check_model_update.php';
         } catch (\Exception $ex) {
             $page_title = "Automated Models Submission Form";
-            $error_text = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.";
+            $errorText = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.";
             include 'view/error_page.php';
             return;
         }

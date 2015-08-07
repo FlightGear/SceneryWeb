@@ -54,24 +54,24 @@ class UpdateObjectsController extends RequestController {
         $error = false;
 
         // Checking that latitude and longitude are correct
-        $error_text = "";
+        $errorText = "";
         $long = number_format(stripslashes($this->getVar('longitude')),7,'.','');
         $lat = number_format(stripslashes($this->getVar('latitude')),7,'.','');
         if (!\FormChecker::isLatitude($lat)) {
-            $error_text .= "Latitude mismatch!<br/>";
+            $errorText .= "Latitude mismatch!<br/>";
             $error = true;
         }
 
         // Checking that longitude exists and is containing only digits, - or ., is >=-180 and <=180 and with correct decimal format.
         if (!\FormChecker::isLongitude($long)) {
-            $error_text .= "Longitude mismatch!<br/>";
+            $errorText .= "Longitude mismatch!<br/>";
             $error = true;
         }
 
 
         if ($error) {
             $page_title = "Automated Objects Update Form";
-            // $error_text is defined above
+            // $errorText is defined above
             include 'view/error_page.php';
             return;
         }
@@ -81,7 +81,7 @@ class UpdateObjectsController extends RequestController {
 
         if (count($objects) == 0) {
             $page_title  = "Automated Objects Update Form";
-            $error_text  = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
+            $errorText  = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
             $advise_text = "Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
             include 'view/error_page.php';
             return;
@@ -138,7 +138,7 @@ class UpdateObjectsController extends RequestController {
             $id_to_update = $this->getVar('id_to_update');
         } else {
             $page_title = 'Automated Objects Update Form';
-            $error_text = 'Object ID is wrong';
+            $errorText = 'Object ID is wrong';
             include 'view/error_page.php';
             return;
         }
@@ -184,7 +184,7 @@ class UpdateObjectsController extends RequestController {
             try {
                 $updatedReq = $requestDaoRW->saveRequest($request);
             } catch (Exception $e) {
-                $error_text = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.";
+                $errorText = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.";
                 include 'view/error_page.php';
                 return;
             }
