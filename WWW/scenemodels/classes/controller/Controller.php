@@ -43,12 +43,10 @@ abstract class Controller {
 
         // Private key is needed for the server-to-Google auth.
         $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-        $resp = recaptcha_check_answer ($privatekey,
+        return recaptcha_check_answer ($privatekey,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
-        
-        return $resp;
     }
     
     protected function displayCaptchaError($resp) {

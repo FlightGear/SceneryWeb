@@ -47,8 +47,8 @@ class ModelFilesTar implements IModelFiles {
                 $file = $targetPath.'/submitted_files.tar.gz';     // Defines the destination file
                 file_put_contents($file, $archive);                // Writes the content of $file into submitted_files.tar.gz
 
-                $detar_command = 'tar xvzf '.$targetPath.'/submitted_files.tar.gz -C '.$targetPath. '> /dev/null';
-                system($detar_command);
+                $detarCommand = 'tar xvzf '.$targetPath.'/submitted_files.tar.gz -C '.$targetPath. '> /dev/null';
+                system($detarCommand);
             }
         } else {
             error_log("Impossible to create ".$targetPath." directory!");

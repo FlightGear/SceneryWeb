@@ -28,12 +28,12 @@ class FileSystemUtils {
     // =====================================
 
     public static function clearDir($folder) {
-        $opened_dir = opendir($folder);
-        if (!$opened_dir) {
+        $openedDir = opendir($folder);
+        if (!$openedDir) {
             return;
         }
 
-        while ($file = readdir($opened_dir)) {
+        while ($file = readdir($openedDir)) {
             if ($file == '.' || $file == '..') {
                 continue;
             }
@@ -49,7 +49,7 @@ class FileSystemUtils {
             }
         }
 
-        closedir($opened_dir);
+        closedir($openedDir);
         return rmdir($folder);
     }
 }
