@@ -25,7 +25,7 @@ namespace controller;
  *
  * @author Julien Nguyen
  */
-class AddObjectsController extends ControllerMenu {
+class AddObjectsController extends RequestController {
     private $objectDaoRO;
 
     /**

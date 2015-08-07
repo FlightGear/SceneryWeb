@@ -1,7 +1,7 @@
 function update_objects(modelFilename, fieldName)
 {
     //retrives information from a php-generated xml
-    var url = '/inc/objects_xml.php?mg_id='+document.getElementById('model_group_id').value;
+    var url = 'app.php?c=Request&a=getGroupModelsMDXML&mg_id='+document.getElementById('model_group_id').value;
 
     var hreq = null;
     if(window.XMLHttpRequest){//firefox, chrome,...

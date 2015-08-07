@@ -25,7 +25,7 @@ namespace controller;
  *
  * @author Julien Nguyen
  */
-class DeleteObjectsController extends ControllerMenu {
+class DeleteObjectsController extends RequestController {
     private $objectDaoRO;
     
     /**

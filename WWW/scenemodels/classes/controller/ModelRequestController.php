@@ -25,7 +25,7 @@ namespace controller;
  *
  * @author Julien Nguyen
  */
-class ModelRequestController extends ControllerMenu {
+class ModelRequestController extends RequestController {
     private $modelChecker;
     
     public function __construct() {

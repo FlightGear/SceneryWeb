@@ -18,48 +18,20 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace model;
+namespace controller;
 
 /**
- * Description of ObjectLineRequest
+ * Description of RequestController
  *
  * @author Julien Nguyen
  */
-class ObjectLineRequest {
-    private $object = null;
-    private $errors;
-    private $warnings;
-    private $stgLine;
+class RequestController extends ControllerMenu {
     
-    function getObject() {
-        return $this->object;
-    }
-
-    function getErrors() {
-        return $this->errors;
-    }
-
-    function getWarnings() {
-        return $this->warnings;
-    }
-
-    function getStgLine() {
-        return $this->stgLine;
-    }
-
-    function setObject($object) {
-        $this->object = $object;
-    }
-
-    function setErrors($errors) {
-        $this->errors = $errors;
-    }
-
-    function setWarnings($warnings) {
-        $this->warnings = $warnings;
-    }
-
-    function setStgLine($stgLine) {
-        $this->stgLine = $stgLine;
+    public function getGroupModelsMDXMLAction() {
+        $mgId = $this->getVar('mg_id');
+        if (!empty($mgId)) {
+            $modelMDs = $this->getModelDaoRO()->getModelMetadatasByGroup($mgId, 0, "ALL", "mo_path", "ASC");
+            include 'view/submission/models_xml.php';
+        }
     }
 }
