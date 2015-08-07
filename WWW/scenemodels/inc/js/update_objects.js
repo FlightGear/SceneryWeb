@@ -50,7 +50,7 @@ function changeObjectsList(hreq, modelFilename, fieldName)
 function update_model_info(path)
 {
     //retrives information from a php-generated xml
-    var url = '/inc/model_info_xml.php?mo_id='+document.getElementById('modelId').value;
+    var url = 'app.php?c=Request&a=getModelInfoXML&mo_id='+document.getElementById('modelId').value;
 
     var hreq = null;
     if(window.XMLHttpRequest){//firefox, chrome,...

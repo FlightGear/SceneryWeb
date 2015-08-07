@@ -34,4 +34,13 @@ class RequestController extends ControllerMenu {
             include 'view/submission/models_xml.php';
         }
     }
+    
+    public function getModelInfoXMLAction() {
+        $moId = $this->getVar('mo_id');
+        
+        if (!empty($moId)) {
+            $modelMD = $this->getModelDaoRO()->getModelMetadata($moId);
+            include 'view/submission/model_info_xml.php';
+        }
+    }
 }
