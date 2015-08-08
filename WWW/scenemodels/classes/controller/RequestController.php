@@ -43,4 +43,13 @@ class RequestController extends ControllerMenu {
             include 'view/submission/model_info_xml.php';
         }
     }
+    
+    public function getCountryCodeAtXMLAction() {
+        $long = $this->getVar('lg');
+        $lat = $this->getVar('lt');
+        
+        $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
+        $code = $objectDaoRO->getCountryAt($long, $lat)->getCode();
+        include 'view/submission/country_xml.php';
+    }
 }

@@ -19,18 +19,21 @@
  */
 
 /**
- * FileSystemUtils
+ * Utils for FileSystem operation
  *
  * @author Julien Nguyen
  */
 class FileSystemUtils {
-    // Deletes a directory sent in parameter
-    // =====================================
 
+    /**
+     * Deletes a directory sent in parameter.
+     * @param string $folder folder to delete.
+     * @return boolean true if the deletion is successful, false otherwise.
+     */
     public static function clearDir($folder) {
         $openedDir = opendir($folder);
         if (!$openedDir) {
-            return;
+            return false;
         }
 
         while ($file = readdir($openedDir)) {
