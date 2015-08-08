@@ -38,14 +38,14 @@ function validateForm() {
 <br />
 <?php
 
-if (!isset($sent_comment)) {
+if (!isset($sentComment)) {
     echo "<p class=\"center warning\">Comment mismatch!</p>";
     include 'view/footer.php';
     exit;
 }
 
-if (isset($safe_email)) {
-    echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
+if (isset($safeEmail)) {
+    echo "<p class=\"center ok\">Email: ".$safeEmail."</p>";
 } else {
     echo "<p class=\"center warning\">No email was given (not mandatory) or email mismatch!</p>";
 }
@@ -131,10 +131,10 @@ if ($unknownCountry) {
 }
 echo "</table>";
 
-echo "<b>Your comment:</b> ".$sent_comment."<br/>" .
-     "<b>Your email:</b> ".$safe_email."<br/>" .
-     "<input type='hidden' name='email' id='email' value='".$safe_email."'/>" .
-     "<input type='hidden' name='comment' id='comment' value='".$sent_comment."'/>";
+echo "<b>Your comment:</b> ".$sentComment."<br/>" .
+     "<b>Your email:</b> ".$safeEmail."<br/>" .
+     "<input type='hidden' name='email' id='email' value='".$safeEmail."'/>" .
+     "<input type='hidden' name='comment' id='comment' value='".$sentComment."'/>";
 
 if ($global_ko) { // If errors have been found...
     echo "<p class=\"center warning\">Errors have been found in your submission. Please <a href='javascript:history.go(-1)'>go back</a> and correct or delete the corresponding lines from your submission before submitting again.</p>";

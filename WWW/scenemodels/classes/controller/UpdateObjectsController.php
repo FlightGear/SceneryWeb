@@ -146,11 +146,11 @@ class UpdateObjectsController extends RequestController {
         $objectValidator = \submission\ObjectValidator::getObjectValidator($modelId, $new_long, $new_lat, $new_country, $new_offset, $new_orientation);
         $errors = $objectValidator->validate();
         
-        $safe_email = null;
+        $safeEmail = null;
         $inputEmail = $this->getVar('email');
         if ($inputEmail != null) {
             if (\FormChecker::isEmail($inputEmail)) {
-                $safe_email = htmlentities(stripslashes($this->getVar('email')));
+                $safeEmail = htmlentities(stripslashes($this->getVar('email')));
             } else {
                 $errors[] = new \Exception('Email mismatch!');
             }
@@ -178,7 +178,7 @@ class UpdateObjectsController extends RequestController {
             $request = new \model\RequestObjectUpdate();
             $request->setNewObject($newObject);
             $request->setOldObject($oldObject);
-            $request->setContributorEmail($safe_email);
+            $request->setContributorEmail($safeEmail);
             $request->setComment($comment);
 
             try {
@@ -202,9 +202,9 @@ class UpdateObjectsController extends RequestController {
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter to tell him that his submission has been sent for validation.
-            if (!empty($safe_email)) {
+            if (!empty($safeEmail)) {
                 $emailSubmit = \EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $oldModelMD, $newModelMD);
-                $emailSubmit->sendEmail($safe_email, false);
+                $emailSubmit->sendEmail($safeEmail, false);
             }
         }
         

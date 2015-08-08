@@ -150,11 +150,11 @@ class DeleteObjectsController extends RequestController {
         
         $errors = array();
 
-        $safe_email = null;
+        $safeEmail = null;
         $inputEmail = $this->getVar('email');
         if ($inputEmail != null) {
             if (\FormChecker::isEmail($inputEmail)) {
-                $safe_email = htmlentities(stripslashes($this->getVar('email')));
+                $safeEmail = htmlentities(stripslashes($this->getVar('email')));
             } else {
                 $errors[] = new \Exception('Email mismatch!');
             }
@@ -175,7 +175,7 @@ class DeleteObjectsController extends RequestController {
             $request = new \model\RequestObjectDelete();
             $request->setObjectToDelete($objectToDel);
             $request->setComment($comment);
-            $request->setContributorEmail($safe_email);
+            $request->setContributorEmail($safeEmail);
 
             try {
                 $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
@@ -199,9 +199,9 @@ class DeleteObjectsController extends RequestController {
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter and tell him that his submission has been sent for validation.
-            if (!empty($safe_email)) {
+            if (!empty($safeEmail)) {
                 $emailSubmit = \EmailContentFactory::getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $modelMD);
-                $emailSubmit->sendEmail($safe_email, false);
+                $emailSubmit->sendEmail($safeEmail, false);
             }
             
             include 'view/submission/object/check_delete.php';

@@ -4,8 +4,8 @@ $pageTitle = "Automated Objects Update Form";
 include 'view/header.php';
 
 // Display email if exists
-if ($safe_email != null) {
-    echo "<p class=\"center ok\">Email: ".$safe_email."</p>";
+if ($safeEmail != null) {
+    echo "<p class=\"center ok\">Email: ".$safeEmail."</p>";
 }
 ?>
 <p class="center">Your update request has been successfully queued into the FG scenery update requests!<br />

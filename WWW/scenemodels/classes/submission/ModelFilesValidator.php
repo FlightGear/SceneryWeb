@@ -145,7 +145,7 @@ class ModelFilesValidator implements Validator {
         $this->depth[$parserInt]--;
     }
     
-    private function checkAC3D($ac3dPath, $pngNames) {
+    private function checkAC3D($ac3dPath, $texturesNames) {
         $errors = array();
         $handle = fopen($ac3dPath, 'r');
 
@@ -164,11 +164,11 @@ class ModelFilesValidator implements Validator {
                 $errors[] = new \Exception("The AC file does not seem to be a valid AC3D file. The first line must show \"AC3Dx\" with x = version");
             }
 
-            // Check if the texture reference matches $pngName
+            // Check if the texture reference matches $texturesNames
             if (preg_match('#^texture#', $line)) {
                 $data = preg_replace('#texture "(.+)"$#', '$1', $line);
                 $data = substr($data, 0, -1);
-                if (!in_array($data, $pngNames)) {
+                if (!in_array($data, $texturesNames)) {
                     $errors[] = new \Exception("The texture reference (".$data.") in your AC file at line ".$i." seems to have a different name than the PNG texture(s) file(s) name(s) you provided!");
                 }
             }

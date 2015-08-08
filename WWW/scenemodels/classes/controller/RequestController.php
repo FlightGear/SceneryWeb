@@ -21,7 +21,7 @@
 namespace controller;
 
 /**
- * Description of RequestController
+ * Common RequestController
  *
  * @author Julien Nguyen
  */
@@ -35,6 +35,9 @@ class RequestController extends ControllerMenu {
         }
     }
     
+    /**
+     * Get model information Action.
+     */
     public function getModelInfoXMLAction() {
         $moId = $this->getVar('mo_id');
         
@@ -44,6 +47,9 @@ class RequestController extends ControllerMenu {
         }
     }
     
+    /**
+     * Get country code at given position Action.
+     */
     public function getCountryCodeAtXMLAction() {
         $long = $this->getVar('lg');
         $lat = $this->getVar('lt');

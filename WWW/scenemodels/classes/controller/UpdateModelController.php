@@ -134,8 +134,8 @@ class UpdateModelController extends ModelRequestController {
         }
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
-        $sent_comment = htmlentities(stripslashes($this->getVar('comment')));
-        if (!\FormChecker::isComment($sent_comment)) {
+        $sentComment = htmlentities(stripslashes($this->getVar('comment')));
+        if (!\FormChecker::isComment($sentComment)) {
             $exceptions[] = new \Exception("Please add a comment to the maintainer.");
         }
         
@@ -176,7 +176,7 @@ class UpdateModelController extends ModelRequestController {
         $request = new \model\RequestModelUpdate();
         $request->setNewModel($newModel);
         $request->setContributorEmail($contr_email);
-        $request->setComment($sent_comment);
+        $request->setComment($sentComment);
         
         try {
             $updatedReq = $requestDaoRW->saveRequest($request);

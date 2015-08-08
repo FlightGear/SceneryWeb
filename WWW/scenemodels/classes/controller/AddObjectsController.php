@@ -120,7 +120,7 @@ class AddObjectsController extends RequestController {
         // Checking that comment exists. Just a small verification as it's not going into DB.
         $inputComment = stripslashes($this->getVar('comment'));
         if ($inputComment != '' && \FormChecker::isComment($inputComment)) {
-            $sent_comment = $inputComment;
+            $sentComment = $inputComment;
         }
         else {
             $errors[] = new \Exception("Comment mismatch!");
@@ -131,7 +131,7 @@ class AddObjectsController extends RequestController {
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
         $inputEmail = $this->getVar('email');
         if (\FormChecker::isEmail($inputEmail)) {
-            $safe_email = htmlentities(stripslashes($inputEmail));
+            $safeEmail = htmlentities(stripslashes($inputEmail));
         }
         
         // If there is no error, insert the object to the pending requests table.
@@ -139,10 +139,10 @@ class AddObjectsController extends RequestController {
             
             $request = new \model\RequestMassiveObjectsAdd();
             $request->setNewObjects($newObjects);
-            if (isset($safe_email)) {
-                $request->setContributorEmail($safe_email);
+            if (isset($safeEmail)) {
+                $request->setContributorEmail($safeEmail);
             }
-            $request->setComment($sent_comment);
+            $request->setComment($sentComment);
             
             try {
                 $updatedReq = $requestDaoRW->saveRequest($request);
@@ -166,9 +166,9 @@ class AddObjectsController extends RequestController {
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter to tell that his submission has been sent for validation.
-            if (isset($safe_email)) {
+            if (isset($safeEmail)) {
                 $emailSubmit = \EmailContentFactory::getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedReq);
-                $emailSubmit->sendEmail($safe_email, false);
+                $emailSubmit->sendEmail($safeEmail, false);
             }
         }
 
@@ -295,12 +295,12 @@ class AddObjectsController extends RequestController {
     function confirmMassAction() {
         // Checking that email is valid (if it exists).
         if (\FormChecker::isEmail($this->getVar('email'))) {
-            $safe_email = htmlentities(stripslashes($this->getVar('email')));
+            $safeEmail = htmlentities(stripslashes($this->getVar('email')));
         }
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
         if (\FormChecker::isComment($this->getVar('comment'))) {
-            $sent_comment = htmlentities(stripslashes($this->getVar('comment')));
+            $sentComment = htmlentities(stripslashes($this->getVar('comment')));
         }
         
         // Checking that stg exists and is containing only letters or figures.

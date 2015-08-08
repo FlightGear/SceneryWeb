@@ -9,8 +9,8 @@ foreach ($errors as $error) {
 }
 
 // Email
-if (isset($safe_email)) {
-    echo "<p class=\"ok\">Email: ".$safe_email."</p>";
+if (isset($safeEmail)) {
+    echo "<p class=\"ok\">Email: ".$safeEmail."</p>";
 } else {
     echo "<p class=\"warning\">No email was given (not mandatory) or email mismatch!</p>";
 }
