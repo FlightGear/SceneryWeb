@@ -61,7 +61,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
         <td colspan="9" class="submit">
             <input type="hidden" name="sig" value="<?php echo $sig;?>" />
             <input type="submit" name="accept" value="Accept object(s)" />
-            <input type="submit" name="cancel" value="Reject!" />
+            <input type="submit" name="reject" value="Reject!" />
         </td>
     </tr>
     </table>
@@ -69,8 +69,8 @@ if (isset($_GET["action"]) && $_GET["action"] == "check") {
     include '../../view/footer.php';
 }
 
-// Managing the cancellation of a mass import by DB maintainer.
-if (isset($_POST["cancel"])) {
+// Managing the rejection of a mass import by DB maintainer.
+if (isset($_POST["reject"])) {
     $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
     $resultDel = $requestDaoRW->deleteRequest($sig);
 

@@ -124,7 +124,7 @@ class EmailContentFactory {
                     "Model name:       ". $newModelMD->getName() ."\r\n" .
                     "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
                     "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=". $request->getSig() ."\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/app.php?c=UpdateModelValidator&a=viewRequest&sig=". $request->getSig() ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -362,7 +362,7 @@ class EmailContentFactory {
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n" .
-                   "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $request->getSig() . "\r\n\r\n";
+                   "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddModelValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

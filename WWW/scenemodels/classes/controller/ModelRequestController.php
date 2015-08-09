@@ -21,7 +21,7 @@
 namespace controller;
 
 /**
- * Description of ModelRequestController
+ * Common controller for model request controllers
  *
  * @author Julien Nguyen
  */

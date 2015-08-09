@@ -30,7 +30,7 @@
 
 <script type="text/javascript">
 var Models = [
-  { file: "inc_getfile.php?type=ac&mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>"}
+  { file: "<?php echo $ac3DFile; ?>"}
 ];
 
 var canvas, details, loading, viewer, current;
@@ -62,7 +62,7 @@ function showModel(model){
   setTimeout('crashed();', 10000);
   viewer.show(model.file, 
               {callback:onLoaded, 
-               texturePath:"inc_getfile.php?type=texture&mo_sig=<?php echo rawurlencode($_GET['mo_sig']); ?>&name="
+               texturePath:"<?php echo $texturePrefix; ?>"
               });
 };
 

@@ -19,7 +19,7 @@ try {
     $pageTitle = "Automated Objects Pending Requests Form";
     $errorText = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
     $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
-    include '../../inc/error_page.php';
+    include '../../view/error_page.php';
     exit;
 }
 
@@ -121,8 +121,8 @@ if ($action == "check") {
                 <input type="hidden" name="sig" value="<?php echo $sig;?>"/>
                 Comment : <input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter"/><br/>
 
-                <input type="submit" name="action" value="Accept" />
-                <input type="submit" name="action" value="Reject" />
+                <input type="submit" name="accept" value="Accept" />
+                <input type="submit" name="reject" value="Reject" />
             </form>
         </td>
     </tr>

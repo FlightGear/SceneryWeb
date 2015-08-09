@@ -35,12 +35,12 @@ foreach ($requests as $request) {
 
     case "model\RequestModelAdd":
         $pending_requests .= "This is a 3D model addition request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddModelValidator&a=viewRequest&sig=".$sig."\n";
         break;
 
     case "model\RequestModelUpdate":
         $pending_requests .= "This is a 3D model update request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=UpdateModelValidator&a=viewRequest&sig=".$sig."\n";
         break;
     }
 }

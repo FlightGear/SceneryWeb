@@ -32,20 +32,22 @@ class ModelFilesTar implements IModelFiles {
     /**
      * Extracts a tgz file into a temporary directory and returns its path.
      * @param type $archive
-     * @return string
+     * @return string directory path
      */
     private function openTGZ($archive) {
         // Managing possible concurrent accesses on the maintainer side.
         $targetPath = sys_get_temp_dir() .'/submission_'.rand();
 
+        // Makes concurrent access impossible: the script has to wait if this directory already exists.
         while (file_exists($targetPath)) {
-            usleep(500);    // Makes concurrent access impossible: the script has to wait if this directory already exists.
+            usleep(500);
         }
 
         if (mkdir($targetPath)) {
             if (file_exists($targetPath) && is_dir($targetPath)) {
-                $file = $targetPath.'/submitted_files.tar.gz';     // Defines the destination file
-                file_put_contents($file, $archive);                // Writes the content of $file into submitted_files.tar.gz
+                // Writes the content of $file into submitted_files.tar.gz
+                $file = $targetPath.'/submitted_files.tar.gz';
+                file_put_contents($file, $archive);                
 
                 $detarCommand = 'tar xvzf '.$targetPath.'/submitted_files.tar.gz -C '.$targetPath. '> /dev/null';
                 system($detarCommand);
