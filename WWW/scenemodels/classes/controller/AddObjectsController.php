@@ -225,7 +225,7 @@ class AddObjectsController extends RequestController {
         $objectLineRequest->setStgLine($line);
 
         $elevoffset = 0;
-        $tab_tags = explode(" ", $line);
+        $lineValues = explode(" ", $line);
 
         $errors = array();
         $warnings = array();
@@ -233,12 +233,12 @@ class AddObjectsController extends RequestController {
         // TODO : Have also to check the number of tab_tags returned!
 
         // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
-        if (strcmp($tab_tags[0], "OBJECT_SHARED") != 0) {
+        if (strcmp($lineValues[0], "OBJECT_SHARED") != 0) {
             $errors[] = new \Exception("Only OBJECT_SHARED is supported!");
         }
 
         // Checking model (Contains only figures, letters, _/. and must exist in DB)
-        $path = $tab_tags[1];
+        $path = $lineValues[1];
         if (\FormChecker::isFilePath($path)) {
             try {
                 $modelMD = $this->getModelFromSTG($path);
@@ -252,20 +252,20 @@ class AddObjectsController extends RequestController {
         }
 
         // Longitude
-        $long = $tab_tags[2];
+        $long = $lineValues[2];
 
         // Latitude
-        $lat = $tab_tags[3];
+        $lat = $lineValues[3];
 
         // Elevation (TODO: can be used to automatically compute offset!!)
         //$gndelev = $value_tag;
 
         // Orientation
-        $orientation = $tab_tags[5];
+        $orientation = $lineValues[5];
 
         //If 7 columns, it's the offset. if 8 columns, it's pitch
-        if (count($tab_tags) == 7) {
-            $elevoffset = $tab_tags[6];
+        if (count($lineValues) == 7) {
+            $elevoffset = $lineValues[6];
         }
 
         // Country

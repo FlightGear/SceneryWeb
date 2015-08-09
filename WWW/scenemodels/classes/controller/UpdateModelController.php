@@ -44,12 +44,12 @@ class UpdateModelController extends ModelRequestController {
         // Populate fields when a model id is given in the url
         if (isset($_REQUEST['modelId'])
                 && \FormChecker::isModelId($_REQUEST['modelId'])) {
-            $id_to_update = stripslashes($_REQUEST['modelId']);
+            $idToUpdate = stripslashes($_REQUEST['modelId']);
         } else {
             return;
         }
 
-        $modelMD = $this->getModelDaoRO()->getModelMetadata($id_to_update);
+        $modelMD = $this->getModelDaoRO()->getModelMetadata($idToUpdate);
         
         $modelsGroups = $this->getModelDaoRO()->getModelsGroups();
         $authors = $this->authorDaoRO->getAllAuthors(0, "ALL");
@@ -163,8 +163,8 @@ class UpdateModelController extends ModelRequestController {
         $newModel->setThumbnail($thumbFile);
 
         $failed_mail = false;
-        $au_email = $newModelMD->getAuthor()->getEmail();
-        if (empty($au_email)) {
+        $auEmail = $newModelMD->getAuthor()->getEmail();
+        if (empty($auEmail)) {
             $failed_mail = true;
         }
 
@@ -181,7 +181,7 @@ class UpdateModelController extends ModelRequestController {
         try {
             $updatedReq = $requestDaoRW->saveRequest($request);
 
-            $this->sendEmailsRequestPending($updatedReq, $contr_email, $au_email);
+            $this->sendEmailsRequestPending($updatedReq, $contr_email, $auEmail);
             include 'view/submission/model/check_model_update.php';
         } catch (\Exception $ex) {
             $pageTitle = "Automated Models Submission Form";

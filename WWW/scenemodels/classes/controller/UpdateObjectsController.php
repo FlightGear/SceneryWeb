@@ -102,8 +102,8 @@ class UpdateObjectsController extends RequestController {
     public function updateFormAction() {
         parent::menu();
         
-        $id_to_update = $this->getVar('id_to_update');
-        $objectToUp = $this->objectDaoRO->getObject($id_to_update);
+        $idToUpdate = $this->getVar('id_to_update');
+        $objectToUp = $this->objectDaoRO->getObject($idToUpdate);
         $modelMDToUp = $this->getModelDaoRO()->getModelMetadata($objectToUp->getModelId());
         $countries = $this->objectDaoRO->getCountries();
         
@@ -135,7 +135,7 @@ class UpdateObjectsController extends RequestController {
         $safe_new_ob_text = htmlentities(stripslashes($this->getVar('new_ob_text')));
         
         if (\FormChecker::isObjectId($this->getVar('id_to_update'))) {
-            $id_to_update = $this->getVar('id_to_update');
+            $idToUpdate = $this->getVar('id_to_update');
         } else {
             $pageTitle = 'Automated Objects Update Form';
             $errorText = 'Object ID is wrong';
@@ -167,8 +167,8 @@ class UpdateObjectsController extends RequestController {
         // Final step to edition
         if (count($errors) == 0) {
             $objectFactory = new \ObjectFactory($this->objectDaoRO);
-            $oldObject = $this->objectDaoRO->getObject($id_to_update);
-            $newObject = $objectFactory->createObject($id_to_update, $modelId,
+            $oldObject = $this->objectDaoRO->getObject($idToUpdate);
+            $newObject = $objectFactory->createObject($idToUpdate, $modelId,
                     $new_long, $new_lat, $new_country, 
                     $new_offset, \ObjectUtils::headingSTG2True($new_orientation), 1, $safe_new_ob_text);
 

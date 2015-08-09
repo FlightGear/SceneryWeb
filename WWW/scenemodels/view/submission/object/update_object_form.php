@@ -46,7 +46,7 @@ function validateForm()
 
 /*]]>*/
 </script>
-    <p class="center">You have asked to update object <?php echo "<a href=\"app.php?c=Objects&amp;a=view&amp;id=".$id_to_update."\">#".$id_to_update."</a>";?>.</p>
+    <p class="center">You have asked to update object <?php echo "<a href=\"app.php?c=Objects&amp;a=view&amp;id=".$idToUpdate."\">#".$idToUpdate."</a>";?>.</p>
 
     <form id="update" method="post" action="app.php?c=UpdateObjects&amp;a=check" onsubmit="return validateForm();">
       <table>
@@ -55,7 +55,7 @@ function validateForm()
           <th>Current value</th>
           <th>New value</th>
         </tr>
-        <input type="hidden" name="id_to_update" value="<?php echo $id_to_update; ?>" />
+        <input type="hidden" name="id_to_update" value="<?php echo $idToUpdate; ?>" />
         <tr>
           <td>
             <span title="This is the family name of the object you want to update."><label for="model_group_id">Object's family<em>*</em></label></span>

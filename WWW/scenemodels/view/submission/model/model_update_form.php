@@ -124,7 +124,7 @@ $(function() {
                         </select>
                     </td>
                     <td rowspan="4" style="width: 200px">
-                        <img id="form_objects_thumb" width="200px" src="../../modelthumb.php?id=<?=$id_to_update?>" alt=""/>
+                        <img id="form_objects_thumb" width="200px" src="../../modelthumb.php?id=<?=$idToUpdate?>" alt=""/>
                     </td>
                 </tr>
                 <tr>
@@ -226,7 +226,7 @@ $(function() {
                         ?>
                         <br />
                         <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
-                        <input type="hidden" name="modelId" value="<?=$id_to_update?>" />
+                        <input type="hidden" name="modelId" value="<?=$idToUpdate?>" />
                         <input type="submit" value="Submit model" />
                     </td>
                 </tr>
