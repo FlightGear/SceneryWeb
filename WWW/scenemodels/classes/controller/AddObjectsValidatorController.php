@@ -21,26 +21,36 @@
 namespace controller;
 
 /**
- * Description of ObjectValidatorController
+ * AddObjectsValidatorController
  *
  * @author Julien Nguyen
  */
-class ObjectValidatorController extends ValidatorController {
+class AddObjectsValidatorController extends ValidatorController {
     public function viewRequestAction() {
         $request = $this->getRequest();
+        
         if ($request != null) {
-            include 'view/submission/object/validator/object_submission.php';
+            $modelMDs[] = array();
+            foreach ($request->getNewObjects() as $newObj) {
+                $id = $newObj->getModelId();
+                $modelMDs[$id] = $this->getModelDaoRO()->getModelMetadata($id);
+            }
+            
+            include 'view/submission/object/validator/view_add_objects_request.php';
         }
     }
     
     protected function sendRejectedRequestEmails($request, $comment) {
         // Sending mail if entry was correctly deleted.
+        // Sets the time to UTC.
+        date_default_timezone_set('UTC');
+        $dtg = date('l jS \of F Y h:i:s A');
 
         // email destination
         $to = $request->getContributorEmail();
         $to = (isset($to)) ? $to : '';
 
-        $emailSubmit = \EmailContentFactory::getObjectRejectedEmailContent($request, $comment);
+        $emailSubmit = \EmailContentFactory::getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment);
         $emailSubmit->sendEmail($to, true);
     }
     
@@ -54,7 +64,7 @@ class ObjectValidatorController extends ValidatorController {
         $to = $request->getContributorEmail();
         $to = (isset($to)) ? $to : '';
 
-        $emailSubmit = \EmailContentFactory::getObjectRequestAcceptedEmailContent($request, $comment);
+        $emailSubmit = \EmailContentFactory::getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment);
         $emailSubmit->sendEmail($to, true);
     }
 }

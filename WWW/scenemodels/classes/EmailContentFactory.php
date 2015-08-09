@@ -63,7 +63,7 @@ class EmailContentFactory {
         $message .= "issued an object(s) import request (#".$request->getId().").\r\n\r\n" .
                     "Comment by user: ".strip_tags($request->getComment())."\r\n\r\n" .
                     "Now please click the following link to check and confirm ".
-                    "or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."\r\n\r\n";
+                    "or reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=AddObjectsValidator&a=viewRequest&sig=". $request->getSig() ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }

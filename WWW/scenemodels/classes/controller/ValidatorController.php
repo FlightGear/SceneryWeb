@@ -25,7 +25,7 @@ namespace controller;
  *
  * @author Julien Nguyen
  */
-abstract class ValidatorController extends Controller {
+abstract class ValidatorController extends ControllerMenu {
     protected function getRequest() {
         $sig = $this->getVar('sig');
         if (empty($sig) || !\FormChecker::isSig($sig)) {

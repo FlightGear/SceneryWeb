@@ -30,7 +30,7 @@ foreach ($requests as $request) {
 
     case "model\RequestMassiveObjectsAdd":
         $pending_requests .= "This is an object(s) addition request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddObjectsValidator&a=viewRequest&sig=".$sig."\n";
         break;
 
     case "model\RequestModelAdd":

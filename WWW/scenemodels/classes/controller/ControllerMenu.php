@@ -28,15 +28,15 @@ class ControllerMenu extends Controller {
         $this->modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
     }
 
-    public function getModelDaoRO() {
+    protected function getModelDaoRO() {
         return $this->modelDaoRO;
     }
     
-    public function getModelsGroups() {
+    protected function getModelsGroups() {
         return $this->modelsGroups;
     }
     
-    public function menu() {
+    protected function menu() {
         $this->modelsGroups = $this->modelDaoRO->getModelsGroups();
     }
 }
