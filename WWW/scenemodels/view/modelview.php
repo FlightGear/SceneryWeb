@@ -83,7 +83,7 @@ function showWebgl() {
     var objectViewer = document.createElement("object");
     objectViewer.width = "100%";
     objectViewer.height = "99%";
-    objectViewer.data = "viewer.php?id=<?php echo $id; ?>";
+    objectViewer.data = "app.php?c=Models&a=modelViewer&id=<?php echo $id; ?>";
     objectViewer.type = "text/html";
     var webgl = document.getElementById("webgl");
     webgl.innerHTML = "";

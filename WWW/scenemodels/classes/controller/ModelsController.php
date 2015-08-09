@@ -68,4 +68,15 @@ class ModelsController extends ControllerMenu {
             include 'view/error_page.php';
         }
     }
+    
+    public function modelViewerAction() {
+        $id = $this->getVar('id');
+        if (empty($id) || !\FormChecker::isModelId($id)) {
+            return;
+        }
+        
+        $ac3DFile = "get_model_files.php?type=ac&id=".$id;
+        $texturePrefix = 'get_model_files.php?type=texture&id='.$id.'&name=';
+        include 'view/model_viewer.php';
+    }
 }

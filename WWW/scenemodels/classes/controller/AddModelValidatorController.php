@@ -82,7 +82,7 @@ class AddModelValidatorController extends ValidatorController {
         
         $ac3DFile = "app.php?c=AddModelValidator&a=getNewModelAC3D&sig=".$sig;
         $texturePrefix = 'app.php?c=AddModelValidator&a=getNewModelTexture&sig='.$sig.'&name=';
-        include 'view/submission/model/validator/model_viewer.php';
+        include 'view/model_viewer.php';
     }
     
     

@@ -82,7 +82,7 @@ class UpdateModelValidatorController extends ValidatorController {
         
         $ac3DFile = "app.php?c=UpdateModelValidator&a=getNewModelAC3D&sig=".$sig;
         $texturePrefix = 'app.php?c=UpdateModelValidator&a=getNewModelTexture&sig='.$sig.'&name=';
-        include 'view/submission/model/validator/model_viewer.php';
+        include 'view/model_viewer.php';
     }
     
     public function getOldModelTextureAction() {

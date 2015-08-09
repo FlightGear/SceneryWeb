@@ -28,16 +28,9 @@
     <script type="text/javascript" src="inc/hangar/polyfill.js"></script>
     <script type="text/javascript" src="inc/hangar/viewer.js"></script>
 
-    <?php
-    require_once 'autoload.php';
-    if (FormChecker::isModelId($_REQUEST['id'])) {
-        $id = $_REQUEST['id'];
-    }
-    ?>
-
     <script type="text/javascript">
     var Models = [
-        { file: "get_model_files.php?type=ac&id=<?php echo rawurlencode($id); ?>"}
+        { file: "<?php echo $ac3DFile; ?>"}
     ];
 
     var canvas, details, loading, viewer, current, gl;
@@ -91,7 +84,7 @@
         setTimeout('crashed();', 10000);
         viewer.show(model.file,
                     {callback:onLoaded,
-                     texturePath:"get_model_files.php?type=texture&id=<?php echo rawurlencode($id); ?>&name="
+                     texturePath:"<?php echo $texturePrefix; ?>"
                     });
     };
 

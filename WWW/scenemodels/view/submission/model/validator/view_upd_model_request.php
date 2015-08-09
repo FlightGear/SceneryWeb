@@ -102,7 +102,7 @@ include 'view/header.php';
         <td>Corresponding AC3D File</td>
         <td colspan="2">
             <h3>Original model:</h3>
-            <object data="viewer.php?id=<?=$oldModelMD->getId()?>" type="text/html" width="720" height="620"></object>
+            <object data="app.php?c=Models&a=modelViewer&amp;id=<?=$oldModelMD->getId()?>" type="text/html" width="720" height="620"></object>
             <br/>
             <h3>New model:</h3>
             <object data="app.php?c=UpdateModelValidator&amp;a=modelViewer&sig=<?=$sig?>" type="text/html" width="720" height="620"></object>
