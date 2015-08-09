@@ -17,8 +17,8 @@ try {
 } catch(\dao\RequestNotFoundException $e) {
     $pageTitle = "Automated Objects Addition Request Form";
     $errorText = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?<br/>";
-    $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
-    include '../../inc/error_page.php';
+    $adviseText = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
+    include '../../view/error_page.php';
     exit;
 }
 
@@ -76,9 +76,9 @@ if (isset($_POST["reject"])) {
 
     if (!$resultDel) {
         $pageTitle = "Automated Objects Addition Request Form";
-        $process_text = "Now deleting request #". $request->getId().".";
+        $processText = "Now deleting request #". $request->getId().".";
         $errorText = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
-        include '../../inc/error_page.php';
+        include '../../view/error_page.php';
         exit;
     }
 
@@ -97,7 +97,7 @@ if (isset($_POST["reject"])) {
     $to = $request->getContributorEmail();
     $to = (isset($to)) ? $to : '';
 
-    $emailSubmit = EmailContentFactory::getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment);
+    $emailSubmit = \EmailContentFactory::getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     include '../../view/footer.php';
@@ -113,7 +113,7 @@ if (isset($_POST["accept"])) {
     // Executes request
     try {
         $objsWithId = $reqExecutor->executeRequest($request);
-    } catch (Exception $ex) {
+    } catch (\Exception $ex) {
         $pageTitle = "Automated Objects Addition Request Form";
         include '../../view/header.php';
         echo "<p class=\"center\">Now processing request #". $request->getId().".</p><br />";

@@ -38,7 +38,7 @@ abstract class ValidatorController extends Controller {
             
         } catch (\dao\RequestNotFoundException $e) {
             $errorText = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-            $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+            $adviseText = "Else, please report to fg-devel ML or FG Scenery forum.";
             include 'view/error_page.php';
             return null;
         }
@@ -62,7 +62,7 @@ abstract class ValidatorController extends Controller {
             $updatedReq = $reqExecutor->executeRequest($request);
         } catch (\Exception $ex) {
             $errorText = "Sorry, but the INSERT queries could not be processed.";
-            $advise_text = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+            $adviseText = "Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
             include 'view/error_page.php';
             return;
         }
@@ -94,15 +94,15 @@ abstract class ValidatorController extends Controller {
         try {
             $resultDel = $requestDaoRW->deleteRequest($sig);
         } catch(\dao\RequestNotFoundException $e) {
-            $process_text = "Deleting corresponding pending query.";
+            $processText = "Deleting corresponding pending query.";
             $errorText   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
-            $advise_text  = "Else, please report to fg-devel ML or FG Scenery forum.";
+            $adviseText  = "Else, please report to fg-devel ML or FG Scenery forum.";
             include 'view/error_page.php';
             return;
         }
 
         if (!$resultDel) {
-            $process_text = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request #". $request->getId();
+            $processText = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request #". $request->getId();
             $errorText   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
             include 'view/error_page.php';
             return;

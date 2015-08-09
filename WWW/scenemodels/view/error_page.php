@@ -3,9 +3,9 @@
  * Error page
  * To use this page, please instantiate the following strings:
  * - $pageTitle   : page's title
- * - $process_text : contains the actual process
+ * - $processText : contains the actual process
  * - $errorText   : contains the error message
- * - $advise_text  : contains advise about what to about to correct the error
+ * - $adviseText  : contains advise about what to about to correct the error
  *
 **/
 
@@ -14,8 +14,8 @@ require "view/header.php"; ?>
 
 <p class="center">
 <?php 
-    if(isset($process_text)) {
-        echo $process_text;
+    if(isset($processText)) {
+        echo $processText;
     }
 ?>
 </p>
@@ -26,8 +26,8 @@ require "view/header.php"; ?>
 
 <p class="center">
 <?php 
-    if(isset($advise_text)) {
-        echo $advise_text;
+    if(isset($adviseText)) {
+        echo $adviseText;
     }
 ?>
 </p>

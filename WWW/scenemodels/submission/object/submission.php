@@ -4,7 +4,7 @@ $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 $requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
 
-if (!FormChecker::isSig($_REQUEST["sig"]) || !isset($_REQUEST["action"])) {
+if (!\FormChecker::isSig($_REQUEST["sig"]) || !isset($_REQUEST["action"])) {
     header("Location: /submission/object/");
     exit;
 }
@@ -18,7 +18,7 @@ try {
 } catch (\dao\RequestNotFoundException $e) {
     $pageTitle = "Automated Objects Pending Requests Form";
     $errorText = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been validated by someone else?";
-    $advise_text = "Else, please report to fg-devel ML or FG Scenery forum.";
+    $adviseText = "Else, please report to fg-devel ML or FG Scenery forum.";
     include '../../view/error_page.php';
     exit;
 }
@@ -141,7 +141,7 @@ if ($action == 'Accept') {
     // Executes request
     try {
         $reqExecutor->executeRequest($request);
-    } catch (Exception $ex) {
+    } catch (\Exception $ex) {
         $pageTitle = "Automated Objects Pending Requests Form";
         include '../../view/header.php';
         echo "<p class=\"center\">";
@@ -177,7 +177,7 @@ if ($action == 'Accept') {
     $to = $request->getContributorEmail();
     $to = (isset($to)) ? $to : '';
 
-    $emailSubmit = EmailContentFactory::getObjectRequestAcceptedEmailContent($request, $comment);
+    $emailSubmit = \EmailContentFactory::getObjectRequestAcceptedEmailContent($request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     exit;
@@ -192,8 +192,8 @@ else if ($action == "Reject") {
     } catch(\dao\RequestNotFoundException $e) {
         $pageTitle = "Automated Objects Pending Requests Form";
         $errorText = "Sorry but the request you are asking for does not exist into the database. Maybe it has already been treated by someone else?";
-        $advise_text = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
-        include '../../inc/error_page.php';
+        $adviseText = "Else, please report to the devel mailing list or <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a>.";
+        include '../../view/error_page.php';
         exit;
     }
 
@@ -226,7 +226,7 @@ else if ($action == "Reject") {
     $to = $request->getContributorEmail();
     $to = (isset($to)) ? $to : '';
 
-    $emailSubmit = EmailContentFactory::getObjectRejectedEmailContent($request, $comment);
+    $emailSubmit = \EmailContentFactory::getObjectRejectedEmailContent($request, $comment);
     $emailSubmit->sendEmail($to, true);
 }
 // Sending the visitor elsewhere if he has no idea what he's doing here.

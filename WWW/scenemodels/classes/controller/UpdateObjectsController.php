@@ -82,7 +82,7 @@ class UpdateObjectsController extends RequestController {
         if (count($objects) == 0) {
             $pageTitle  = "Automated Objects Update Form";
             $errorText  = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
-            $advise_text = "Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
+            $adviseText = "Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
             include 'view/error_page.php';
             return;
         }
