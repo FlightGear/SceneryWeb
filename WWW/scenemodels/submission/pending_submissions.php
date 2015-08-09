@@ -20,12 +20,12 @@ foreach ($requests as $request) {
     switch (get_class($request)) {
     case "model\RequestObjectUpdate":
         $pending_requests .= "This is an object update request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=".$sig."\n";
         break;
 
     case "model\RequestObjectDelete":
         $pending_requests .= "This is an object deletion request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=".$sig."\n";
         break;
 
     case "model\RequestMassiveObjectsAdd":

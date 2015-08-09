@@ -44,6 +44,14 @@ abstract class ValidatorController extends Controller {
         }
     }
     
+    public function actionOnRequestAction() {
+        if (isset($_POST["reject"])) {
+            $this->rejectRequestAction();
+        } else if (isset($_POST["accept"])) {
+            $this->validateRequestAction();
+        }
+    }
+    
     public function validateRequestAction() {
         $request = $this->getRequest();
         $sig = $request->getSig();

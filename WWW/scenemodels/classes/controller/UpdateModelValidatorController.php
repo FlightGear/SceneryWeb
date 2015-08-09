@@ -34,15 +34,7 @@ class UpdateModelValidatorController extends ValidatorController {
             include 'view/submission/model/validator/view_upd_model_request.php';
         }
     }
-    
-    public function actionOnRequestAction() {
-        if (isset($_POST["reject"])) {
-            $this->rejectRequestAction();
-        } else if (isset($_POST["accept"])) {
-            $this->validateRequestAction();
-        }
-    }
-    
+
     protected function sendAcceptedRequestEmails($request, $comment) {
         // Sending mail if SQL was correctly inserted and entry deleted.
         // Sets the time to UTC.

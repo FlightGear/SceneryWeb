@@ -150,7 +150,7 @@ if (isset($_POST["accept"])) {
     $to = $request->getContributorEmail();
     $to = (isset($to)) ? $to : '';
 
-    $emailSubmit = EmailContentFactory::getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment);
+    $emailSubmit = \EmailContentFactory::getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment);
     $emailSubmit->sendEmail($to, true);
 
     include '../../view/footer.php';

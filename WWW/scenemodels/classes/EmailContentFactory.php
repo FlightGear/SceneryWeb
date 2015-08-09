@@ -239,7 +239,7 @@ class EmailContentFactory {
                     "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                     "Comment:          " .strip_tags($request->getComment()) . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -290,7 +290,7 @@ class EmailContentFactory {
                     "True orientation:  ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
                     "Map (new position): http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14" . "\r\n" .
                     "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
