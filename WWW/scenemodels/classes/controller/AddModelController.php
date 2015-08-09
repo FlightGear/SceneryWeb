@@ -94,14 +94,14 @@ class AddModelController extends ModelRequestController {
         $exceptions = $this->checkFiles($targetPath, $xmlName, $ac3dName, $thumbName);
         
         // If an XML file is used for the model, the mo_path has to point to it, otherwise use AC3D
-        $path_to_use = $ac3dName;
+        $pathToUse = $ac3dName;
         if (!empty($xmlName)) {
-            $path_to_use = $xmlName;
+            $pathToUse = $xmlName;
         }
 
         // Check if path is already used
-        if ($this->pathExists($path_to_use)) {
-            $exceptions[] = new \Exception("Filename \"".$path_to_use."\" is already used");
+        if ($this->pathExists($pathToUse)) {
+            $exceptions[] = new \Exception("Filename \"".$pathToUse."\" is already used");
         }
         
         /** STEP 9 : CHECK MODEL INFORMATION */
@@ -161,7 +161,7 @@ class AddModelController extends ModelRequestController {
         $modelFactory = new \ModelFactory($this->getModelDaoRO(), $this->authorDaoRO);
         $objectFactory = new \ObjectFactory($this->objectDaoRO);
         $newModel = new \model\Model();
-        $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $path_to_use, $name, $notes, $moGroupId);
+        $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $pathToUse, $name, $notes, $moGroupId);
         if ($authorId != 1) {
             $auEmail = $newModelMD->getAuthor()->getEmail();
         } else {

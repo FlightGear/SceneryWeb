@@ -21,7 +21,7 @@
 namespace controller;
 
 /**
- * Description of UpdateModelValidatorController
+ * Controller for update model request validation
  *
  * @author Julien Nguyen
  */

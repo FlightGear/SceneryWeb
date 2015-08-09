@@ -100,17 +100,17 @@ class UpdateModelController extends ModelRequestController {
         $exceptions = $this->checkFiles($targetPath, $xmlName, $ac3dName, $thumbName);
         
         // If an XML file is used for the model, the mo_path has to point to it, otherwise use AC3D
-        $path_to_use = $ac3dName;
+        $pathToUse = $ac3dName;
         if (!empty($xmlName)) {
-            $path_to_use = $xmlName;
+            $pathToUse = $xmlName;
         }
 
         // Check if path is already used
         $modelId = $this->getVar('modelId');
         if (\FormChecker::isModelId($modelId)) {
             $modelToUpdateOld = $this->getModelDaoRO()->getModelMetadata($modelId);
-            if ($path_to_use != $modelToUpdateOld->getFilename() && $this->pathExists($path_to_use)) {
-                $exceptions[] = new \Exception("Filename \"".$path_to_use."\" is already used by another model");
+            if ($pathToUse != $modelToUpdateOld->getFilename() && $this->pathExists($pathToUse)) {
+                $exceptions[] = new \Exception("Filename \"".$pathToUse."\" is already used by another model");
             }
         } else {
             $exceptions[] = new \Exception("Please check the original model selected.");
@@ -156,7 +156,7 @@ class UpdateModelController extends ModelRequestController {
         
         $modelFactory = new \ModelFactory($this->getModelDaoRO(), $this->authorDaoRO);
         $newModel = new \model\Model();
-        $newModelMD = $modelFactory->createModelMetadata($modelId, $authorId, $path_to_use,
+        $newModelMD = $modelFactory->createModelMetadata($modelId, $authorId, $pathToUse,
                 $name, $notes, $moGroupId);
         $newModel->setMetadata($newModelMD);
         $newModel->setModelFiles($modelFile);
