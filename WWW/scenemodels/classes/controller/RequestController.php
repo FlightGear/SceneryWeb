@@ -29,7 +29,7 @@ class RequestController extends ControllerMenu {
     
     public function getGroupModelsMDXMLAction() {
         $mgId = $this->getVar('mg_id');
-        if (!empty($mgId)) {
+        if (\FormChecker::isModelGroupId($mgId)) {
             $modelMDs = $this->getModelDaoRO()->getModelMetadatasByGroup($mgId, 0, "ALL", "mo_path", "ASC");
             include 'view/submission/models_xml.php';
         }
