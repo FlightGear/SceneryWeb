@@ -17,8 +17,7 @@ function validateForm()
 
     if (!checkNumeric(form["longitude"],-180,180) ||
         !checkNumeric(form["latitude"],-90,90) ||
-        form["mo_name"].value === "" ||
-        !checkComment(form["mo_name"]) ||
+        form["mo_name"].value === "" || !checkComment(form["mo_name"]) ||
         !checkNumeric(form["offset"],-999,999) ||
         !checkNumeric(form["heading"],0,359.999) ||
         !checkComment(form["notes"]))

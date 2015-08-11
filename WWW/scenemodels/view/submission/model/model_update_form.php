@@ -15,13 +15,7 @@ function validateForm()
 {
     var form = document.getElementById("positions");
 
-    if (!checkNumeric(form["longitude"],-180,180) ||
-        !checkNumeric(form["latitude"],-90,90) ||
-        form["mo_name"].value === "" ||
-        !checkComment(form["mo_name"]) ||
-        !checkNumeric(form["gndelev"],-10000,10000) ||
-        !checkNumeric(form["offset"],-10000,10000) ||
-        !checkNumeric(form["heading"],0,359.999) ||
+    if (form["mo_name"].value === "" || !checkComment(form["mo_name"]) ||
         !checkComment(form["notes"]) ||
         !checkComment(form["comment"]) ||
         !checkEmail(form["email"]))
@@ -36,6 +30,7 @@ function validateTabs()
     // Tab 1
     if (!checkComment(form["mo_name"]) ||
             form["mo_name"].value === "" ||
+            !checkComment(form["notes"]) ||
             !ac3DSelected ||
             !thumbSelected ||
             form["comment"].value === "") {
