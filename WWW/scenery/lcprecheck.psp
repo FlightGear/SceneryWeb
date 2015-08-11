@@ -17,22 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-import psycopg2
-co = req.subprocess_env["GEOIP_COUNTRY_CODE"]
-lon = req.subprocess_env["GEOIP_LONGITUDE"]
-lat = req.subprocess_env["GEOIP_LATITUDE"]
-
-db_params = {"host":"localhost", "port":"5432", "database":"landcover", "user":"webuser"}
-db_conn = psycopg2.connect(**db_params)
-db_cur = db_conn.cursor()
-
-sql = ("SELECT url FROM ts_proxies \
-        WHERE valid IS TRUE \
-        ORDER BY wkb_geometry <-> ST_SetSRID(ST_MakePoint(%s, %s), 4326) ASC \
-        LIMIT 1;") % (lon, lat)
-
-db_cur.execute(sql)
-db_result = db_cur.fetchall()
-url = str(db_result[0][0])
+string = "I'm here"
 %>
-<%=("%s") % (url)%>
+
+<%= string %>
