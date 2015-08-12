@@ -17,7 +17,52 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-string = "I'm here"
+from tempfile import NamedTemporaryFile
+from pyspatialite import dbapi2 as db
+
+upload = form.getfirst('lcsubmit').value
+
+# Apparently SQLite works on real files only  :-(
+fhandle = NamedTemporaryFile("w+b", delete=True)
+fhandle.write(upload)
+fhandle.seek(0)
+
+try:
+    db_conn = db.connect(fhandle.name)
+    mesg = "Connected to database."
+except:
+    mesg = "Cannot connect to database."
+db_cur = db_conn.cursor()
+
+def fn_pgexec(sql):
+    try:
+        db_cur.execute(sql)
+    except:
+        mesg = "Cannot execute SQL statement."
+    return db_cur
+
+# testing library versions
+sql = "SELECT sqlite_version(), spatialite_version()"
+fn_pgexec(sql)
+db_result = db_cur.fetchone()
+mesg = "> SQLite v%s, Spatialite v%s" % (db_result[0], db_result[1])
+
+# testing for geometry
+sql = "SELECT f_table_name, f_geometry_column FROM geometry_columns;"
+fn_pgexec(sql)
+db_result = db_cur.fetchall()
+db_rowcount = len(db_result)
+if db_rowcount == 1:
+    for row in db_result:
+        mesg = "Table name: %s, geometry column: %s" % (row[0], row[1])
+else:
+    mesg = "Database file should contain exactly one geometry table, \
+        but this one has %s !" % db_rowcount
+
+db_cur.close
+db_conn.close
+fhandle.close()
+
 %>
 
-<%= string %>
+<%= mesg %>
