@@ -42,10 +42,10 @@ def fn_pgexec(sql):
     return db_cur
 
 # testing library versions
-sql = "SELECT sqlite_version(), spatialite_version()"
-fn_pgexec(sql)
-db_result = db_cur.fetchone()
-mesg += "# SQLite v%s, Spatialite v%s<br>" % (db_result[0], db_result[1])
+#sql = "SELECT sqlite_version(), spatialite_version()"
+#fn_pgexec(sql)
+#db_result = db_cur.fetchone()
+#mesg += "# SQLite v%s, Spatialite v%s<br>" % (db_result[0], db_result[1])
 
 # testing for geometry
 sql = "SELECT f_table_name, f_geometry_column, coord_dimension, srid FROM geometry_columns;"
@@ -68,14 +68,14 @@ if db_rowcount == 1:
     try:
         db_cur.execute(sql)
 
-        sql = "SELECT DISTINCT COUNT(*), cat FROM %s GROUP BY cat ORDER BY cat;" % tabname
+        sql = "SELECT DISTINCT cat, COUNT(*) FROM %s GROUP BY cat ORDER BY cat;" % tabname
         fn_pgexec(sql)
         db_result = db_cur.fetchall()
-        mesg += "<br><table>"
+        mesg += "<table>"
         for row in db_result:
-            count = row[0]
-            cat = row[1]
-            mesg += "<tr><td>Feature count: %s</td><td>feature type: %s</td></tr>" % (count, cat)
+            cat = row[0]
+            count = row[1]
+            mesg += "<tr><td>Feature type: %s</td><td>feature count: %s</td></tr>" % (cat, count)
         mesg += "<table><br>"
 
     except:
