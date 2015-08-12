@@ -52,7 +52,10 @@ tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpaddin
             <td align="center">
                 <form id="submission" method="post" action="/lcprecheck.psp" enctype="multipart/form-data">
                 <p style="border:1px solid; padding: 5px;">
-                    <label for="lcsubmit">Choose a SpatiaLite database file<span>This file should contain exactly one geometry table.</span></label>
+                    <label for="lcsubmit">Choose a SpatiaLite database file
+                        <span>This file should contain exactly one geometry table
+                            and *must* contain at least a geometry colum
+                            *plus* a category ('cat') column.</span></label>
                     <input type="file" name="lcsubmit" id="lcsubmit" size="50" accept="text/*" />
                 </p>
                 <input type="submit" value="Upload SpatiaLite" />

@@ -29,34 +29,60 @@ fhandle.seek(0)
 
 try:
     db_conn = db.connect(fhandle.name)
-    mesg = "Connected to database."
+    mesg = "Connected to database.<br>"
 except:
-    mesg = "Cannot connect to database."
+    mesg = "Cannot connect to database.<br>"
 db_cur = db_conn.cursor()
 
 def fn_pgexec(sql):
     try:
         db_cur.execute(sql)
     except:
-        mesg = "Cannot execute SQL statement."
+        mesg += "Cannot execute SQL statement.<br>"
     return db_cur
 
 # testing library versions
 sql = "SELECT sqlite_version(), spatialite_version()"
 fn_pgexec(sql)
 db_result = db_cur.fetchone()
-mesg = "> SQLite v%s, Spatialite v%s" % (db_result[0], db_result[1])
+mesg += "# SQLite v%s, Spatialite v%s<br>" % (db_result[0], db_result[1])
 
 # testing for geometry
-sql = "SELECT f_table_name, f_geometry_column FROM geometry_columns;"
+sql = "SELECT f_table_name, f_geometry_column, coord_dimension, srid FROM geometry_columns;"
 fn_pgexec(sql)
 db_result = db_cur.fetchall()
 db_rowcount = len(db_result)
 if db_rowcount == 1:
-    for row in db_result:
-        mesg = "Table name: %s, geometry column: %s" % (row[0], row[1])
+    tabname = db_result[0][0]
+    colname = db_result[0][1]
+    dims = db_result[0][2]
+    srid = db_result[0][3]
+    mesg += "<br><table>\
+                <tr><td>Table name:</td><td>%s</td></tr>\
+                <tr><td>geometry column:</td><td>%s</td></tr>\
+                <tr><td>dimension:</td><td>%s</td></tr>\
+                <tr><td>SRID:</td><td>%s</td></tr>\
+            </table><br>" % (tabname, colname, dims, srid)
+
+    sql = "SELECT DISTINCT cat FROM %s;" % tabname
+    try:
+        db_cur.execute(sql)
+
+        sql = "SELECT DISTINCT COUNT(*), cat FROM %s GROUP BY cat ORDER BY cat;" % tabname
+        fn_pgexec(sql)
+        db_result = db_cur.fetchall()
+        mesg += "<br><table>"
+        for row in db_result:
+            count = row[0]
+            cat = row[1]
+            mesg += "<tr><td>Feature count: %s</td><td>feature type: %s</td></tr>" % (count, cat)
+        mesg += "<table><br>"
+
+    except:
+        mesg += "<br>Your table is missing the category ('cat') column !"
+
 else:
-    mesg = "Database file should contain exactly one geometry table, \
+    mesg += "Database file should contain exactly one geometry table, <br>\
         but this one has %s !" % db_rowcount
 
 db_cur.close
