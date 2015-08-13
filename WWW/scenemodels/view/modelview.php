@@ -50,11 +50,10 @@ if (!empty($modelMetadata->getDescription())) {
         <td>Model ID</td>
         <td><?php print $id; ?></td>
     </tr>
+    <tr>
+        <td>Occurrences</td>
+        <td>
 <?php
-
-    echo "<tr>" .
-            "<td>Occurrences</td>" .
-            "<td>";
         if ($occurences > 0) {
             echo "<a href=\"objects.php?model=".$id."\">".$occurences;
             echo $occurences > 1 ? " objects" : " object";
@@ -62,11 +61,12 @@ if (!empty($modelMetadata->getDescription())) {
         } else {
             echo "0 object";
         }
-    echo "</tr>";
 ?>
+        </td>
+    </tr>
     <tr>
         <td colspan="2">
-            <a href="get_model_files.php?type=pack&id=<?php echo $id; ?>">Download model</a> | <a href="app.php?c=UpdateModel&amp;a=modelUpdateForm&amp;modelId=<?php echo $id; ?>">Update model/info</a>
+            <a href="get_model_files.php?type=pack&amp;id=<?php echo $id; ?>">Download model</a> | <a href="app.php?c=UpdateModel&amp;a=modelUpdateForm&amp;modelId=<?php echo $id; ?>">Update model/info</a>
         </td>
     </tr>
     <tr>
