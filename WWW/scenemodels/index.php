@@ -29,7 +29,7 @@ require 'view/header.php';
                     "<td style=\"width: 100px; padding: 0px;\">".
                     "<a href=\"app.php?c=Objects&amp;a=view&amp;id=". $object->getId() . "\">" .
                     "    <img title=\"". $object->getDescription()."\"" .
-                    "    src=\"modelthumb.php?id=". $object->getModelId() . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
+                    "    src=\"app.php?c=Models&amp;a=thumbnail&amp;id=". $object->getModelId() . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
                     "</td>" .
@@ -54,7 +54,7 @@ require 'view/header.php';
                     "<td style=\"width: 100px; padding: 0px;\">".
                     "<a href=\"/app.php?c=Models&amp;a=view&amp;id=". $model->getId() ."\">" .
                     "    <img title=\"". $model->getName().' ['.$model->getFilename().']'."\"" .
-                    "    src=\"modelthumb.php?id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
+                    "    src=\"app.php?c=Models&amp;a=thumbnail&amp;id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
                     "</td>" .

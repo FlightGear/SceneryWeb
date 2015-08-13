@@ -41,7 +41,7 @@ $pagesize = 10;
     foreach ($modelMetadatas as $modelMetadata) {
         echo "<tr>\n" .
              "<td style=\"width: 320px\">\n" .
-             "<a href=\"app.php?c=Models&amp;a=view&amp;id=".$modelMetadata->getId()."\"><img src=\"modelthumb.php?id=".$modelMetadata->getId()."\" alt=\"Model ".$modelMetadata->getId()."\"/></a>\n" .
+             "<a href=\"app.php?c=Models&amp;a=view&amp;id=".$modelMetadata->getId()."\"><img src=\"app.php?c=Models&amp;a=thumbnail&amp;id=".$modelMetadata->getId()."\" alt=\"Model ".$modelMetadata->getId()."\"/></a>\n" .
              "</td>\n" .
              "<td>\n" .
              "<ul class=\"table\">" .

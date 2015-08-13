@@ -86,7 +86,7 @@ include 'view/header.php';
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><img src="modelthumb.php?id=<?php echo $oldModelMD->getId() ?>" alt="Thumbnail"/></td>
+        <td><img src="app.php?c=Models&amp;a=thumbnail&amp;id=<?php echo $oldModelMD->getId() ?>" alt="Thumbnail"/></td>
         <td><img src="app.php?c=UpdateModelValidator&amp;a=getNewModelThumb&amp;sig=<?=$sig?>" alt="Thumbnail"/></td>
     </tr>
 <?php

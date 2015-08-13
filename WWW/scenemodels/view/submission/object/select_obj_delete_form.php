@@ -102,7 +102,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>
-            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&amp;a=view&amp;id=<?php $model_id = $candidateObj->getModelId(); echo $model_id; ?>"><img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/modelthumb.php?id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
+            <td><center><a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/app.php?c=Models&amp;a=view&amp;id=<?php $model_id = $candidateObj->getModelId(); echo $model_id; ?>"><img src="app.php?c=Models&amp;a=thumbnail&amp;id=<?php echo $model_id; ?>" alt="Thumbnail"/></a></center></td>
             <td><center><span title="This is the map around the object you want to delete"><label>Map</label></span></center></td>
             <td><center><object data="http://mapserver.flightgear.org/popmap/?lon=<?=$longitude?>&amp;lat=<?=$latitude?>&amp;zoom=14" type="text/html" width="300" height="225"></object></center></td>
         </tr>

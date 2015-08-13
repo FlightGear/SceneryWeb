@@ -90,7 +90,7 @@ function change_thumb(modelIdFieldName) {
         modelIdFieldName = "modelId";
     }
     
-    document.getElementById('form_objects_thumb').src = "../../modelthumb.php?id="+document.getElementById(modelIdFieldName).value;  
+    document.getElementById('form_objects_thumb').src = "app.php?c=Models&a=thumbnail&id="+document.getElementById(modelIdFieldName).value;  
 }
 
 function update_map(long_id, lat_id) {

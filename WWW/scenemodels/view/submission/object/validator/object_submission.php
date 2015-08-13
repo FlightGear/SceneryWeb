@@ -32,8 +32,8 @@ case "model\RequestObjectUpdate":
         echo " style=\"background-color: rgb(255, 200, 0)\"";
     }
     echo "><td>Object's model</td><td>".$oldModelMD->getName()."</td><td>".$newModelMD->getName()."</td></tr>";
-    echo "<tr><td>Thumbnail</td><td><img src='modelthumb.php?id=".$oldModelMD->getId()."' alt=''/></td>".
-            "<td><img src='../../modelthumb.php?id=".$newModelMD->getId()."' alt=''/></td></tr>";
+    echo "<tr><td>Thumbnail</td><td><img src='app.php?c=Models&amp;a=thumbnail&amp;id=".$oldModelMD->getId()."' alt=''/></td>".
+            "<td><img src='app.php?c=Models&amp;a=thumbnail&amp;id=".$newModelMD->getId()."' alt=''/></td></tr>";
     echo "<tr";
     if ($oldObjPos->getLongitude() != $newObjPos->getLongitude()) {
         echo " style=\"background-color: rgb(255, 200, 0)\"";

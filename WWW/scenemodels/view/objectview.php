@@ -14,7 +14,7 @@ $objPos = $object->getPosition();
 
 <table>
     <tr>
-        <td style="width: 320px" rowspan="9"><img src="modelthumb.php?id=<?php echo $object->getModelId(); ?>" alt="Thumbnail"/></td>
+        <td style="width: 320px" rowspan="9"><img src="app.php?c=Models&amp;a=thumbnail&amp;id=<?php echo $object->getModelId(); ?>" alt="Thumbnail"/></td>
         <td style="width: 320px">Unique ID</td>
         <td><?php echo $object->getId(); ?></td>
     </tr>

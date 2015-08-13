@@ -69,6 +69,9 @@ class ModelsController extends ControllerMenu {
         }
     }
     
+    /**
+     * Display model WebGL viewer action
+     */
     public function modelViewerAction() {
         $id = $this->getVar('id');
         if (empty($id) || !\FormChecker::isModelId($id)) {
@@ -78,5 +81,20 @@ class ModelsController extends ControllerMenu {
         $ac3DFile = "get_model_files.php?type=ac&id=".$id;
         $texturePrefix = 'get_model_files.php?type=texture&id='.$id.'&name=';
         include 'view/model_viewer.php';
+    }
+    
+    public function thumbnailAction() {
+        $id = $this->getVar('id');
+        if (\FormChecker::isModelId($id)) {
+            $thumbnail = $this->getModelDaoRO()->getThumbnail($id);
+            header("Content-type: image/jpg");
+            header("Content-Disposition: inline; filename=".$id.".jpg");
+
+            if ($thumbnail != "") {
+                echo $thumbnail;
+            } else {
+                readfile("http://scenery.flightgear.org/img/nothumb.jpg");
+            }
+        }
     }
 }

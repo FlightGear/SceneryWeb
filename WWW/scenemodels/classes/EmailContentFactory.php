@@ -1,5 +1,4 @@
 <?php
-require_once 'EmailContent.php';
 
 /*
  * Copyright (C) 2014 - FlightGear Team

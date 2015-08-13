@@ -119,7 +119,7 @@ $(function() {
                         </select>
                     </td>
                     <td rowspan="4" style="width: 200px">
-                        <img id="form_objects_thumb" width="200px" src="../../modelthumb.php?id=<?=$idToUpdate?>" alt=""/>
+                        <img id="form_objects_thumb" width="200px" src="app.php?c=Models&amp;a=thumbnail&amp;id=<?=$idToUpdate?>" alt=""/>
                     </td>
                 </tr>
                 <tr>

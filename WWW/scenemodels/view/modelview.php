@@ -18,7 +18,7 @@ if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescr
 ?>
 <table>
     <tr>
-        <td style="width: 320px" rowspan="7"><img src="modelthumb.php?id=<?php print $modelMetadata->getId(); ?>" alt=""/></td>
+        <td style="width: 320px" rowspan="7"><img src="app.php?c=Models&amp;a=thumbnail&amp;id=<?php print $modelMetadata->getId(); ?>" alt=""/></td>
         <td>File name</td>
         <td>
 <?php
