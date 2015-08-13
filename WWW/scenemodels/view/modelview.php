@@ -12,7 +12,7 @@ function popmap(lat,lon,zoom) {
 <?php
     
 echo "<h1>".$modelMetadata->getName()."</h1>";
-if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescription())>0) {
+if (!empty($modelMetadata->getDescription())) {
     echo "<p>".$modelMetadata->getDescription()."</p>";
 }
 ?>
@@ -29,9 +29,9 @@ if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescr
     <tr>
         <td>Type</td>
         <td>
-<?php
-            print "<a href=\"app.php?c=Models&a=browse&shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a>";
-?>
+            <a href="app.php?c=Models&amp;a=browse&amp;shared=<?php echo $modelMetadata->getModelsGroup()->getId()?>">
+                <?php echo $modelMetadata->getModelsGroup()->getName()?>
+            </a>
         </td>
     </tr>
     <tr>

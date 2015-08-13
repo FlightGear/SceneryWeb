@@ -57,7 +57,7 @@ $objPos = $object->getPosition();
         <td>Model</td>
         <td>
 <?php
-            print "<a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$object->getModelId()."\">".$modelMetadata->getFilename()."</a>";
+            print "<a href=\"app.php?c=Models&a=view&id=".$object->getModelId()."\">".$modelMetadata->getFilename()."</a>";
 ?>
         </td>
     </tr>
