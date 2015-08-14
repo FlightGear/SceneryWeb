@@ -76,6 +76,14 @@ if (!empty($modelMetadata->getDescription())) {
             </div>
         </td>
     </tr>
+    <tr>
+        <td align="center" colspan="3" id="contentInfo">
+            <a onclick="showModelContentInfo()">Show model content information</a>
+            <table id="filesInfos" style="display: none;">
+                <tr><th>Filename</th><th>Size</th></tr>
+            </table>
+        </td>
+    </tr>
 </table>
 
 <script type="text/javascript">
@@ -91,6 +99,21 @@ function showWebgl() {
     webgl.style.textAlign = "center";
     webgl.appendChild(objectViewer);
     document.getElementById("webglTd").innerHTML += "AC3D viewer powered by Hangar - Juan Mellado. Read <a href=\"http://en.wikipedia.org/wiki/Webgl\">here to learn about WebGL</a>.";
+}
+
+function showModelContentInfo() {
+    $.ajax({
+        url: 'app.php?c=Models&a=contentFilesInfos&id=<?php echo $id; ?>',
+        context: document.body
+    }).done(function(xml) {
+        $(xml).find("file").each(function(){
+            var name=$(this).find('name').text();
+            var size=$(this).find('size').text();
+            $("#filesInfos").append("<tr><td>"+name+"</td><td>"+size+" b</td></tr>");
+        });
+        
+        $("#filesInfos").toggle();
+    });
 }
 </script>
 

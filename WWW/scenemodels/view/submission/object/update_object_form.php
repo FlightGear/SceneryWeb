@@ -20,7 +20,7 @@
 
 
 $pageTitle = "Automated Object Update Form";
-$body_onload = "update_objects();";
+$body_onload = "update_models();";
 include 'view/header.php';
 
 $objToUpPos = $objectToUp->getPosition();
@@ -72,7 +72,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
     $modelsGroups = $modelDaoRO->getModelsGroups();
 
     // Start the select form
-    echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects();\">";
+    echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_models();\">";
     foreach ($modelsGroups as $modelsGroup) {
         $name = preg_replace('/ /',"&nbsp;",$modelsGroup->getName());
         if ($id_family == $modelsGroup->getId()) {

@@ -49,8 +49,11 @@ class ModelFilesTar implements IModelFiles {
                 $file = $targetPath.'/submitted_files.tar.gz';
                 file_put_contents($file, $archive);                
 
-                $detarCommand = 'tar xvzf '.$targetPath.'/submitted_files.tar.gz -C '.$targetPath. '> /dev/null';
+                $detarCommand = 'tar xvzf '.$file.' -C '.$targetPath. '> /dev/null';
                 system($detarCommand);
+                
+                // Deletes compressed file
+                unlink($file);
             }
         } else {
             error_log("Impossible to create ".$targetPath." directory!");
@@ -61,16 +64,17 @@ class ModelFilesTar implements IModelFiles {
     
     /**
      * Close a temporary directory opened for a tgz file.
-     * @param type $targetPath
+     * @param string $targetPath
      */
     private function closeTGZ($targetPath) {
-        // Deletes compressed file
-        unlink($targetPath.'/submitted_files.tar.gz');
-        
         // Deletes temporary submission directory
         \FileSystemUtils::clearDir($targetPath);
     }
 
+    /**
+     * Gets the content of the AC3D file.
+     * @return AC3D file content.
+     */
     public function getACFile() {
         $targetPath = $this->openTGZ($this->modelfile);
         $dir = opendir($targetPath);
@@ -89,6 +93,10 @@ class ModelFilesTar implements IModelFiles {
         return $content;
     }
     
+    /**
+     * Gets the content of the XML file.
+     * @return XML file content.
+     */
     public function getXMLFile() {
         $targetPath = $this->openTGZ($this->modelfile);
         $dir = opendir($targetPath);
@@ -142,6 +150,28 @@ class ModelFilesTar implements IModelFiles {
         return $content;
     }
 
+    public function getModelFilesInfos() {
+        $filesInfos = array();
+        $targetPath = $this->openTGZ($this->modelfile);
+        $dir = opendir($targetPath);
+
+        while ($filename = readdir($dir)) {
+            $filepath = $targetPath."/".$filename;
+            
+            if (is_dir($filepath)) {
+                continue;
+            }
+            
+            $fileinfo = new \model\ModelFileInfo();
+            $fileinfo->setFilename($filename);
+            $fileinfo->setSize(filesize($filepath));
+            $filesInfos[] = $fileinfo;
+        }
+        
+        $this->closeTGZ($targetPath);
+        
+        return $filesInfos;
+    }
 }
 
 ?>

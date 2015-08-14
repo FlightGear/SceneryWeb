@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Automated Objects Submission Form";
-$body_onload = "update_objects();";
+$body_onload = "update_models();";
 include 'view/header.php';
 ?>
 <script src="/inc/js/update_objects.js" type ="text/javascript"></script>
@@ -73,7 +73,7 @@ $(function() {
                     <td colspan="2">
             <?php
                         // Start the select form
-                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_objects(null,'modelId1'); validateTabs();\">" .
+                        echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_models(null,'modelId1'); validateTabs();\">" .
                              "<option selected=\"selected\" value=\"\">Please select a family</option>" .
                              "<option value=\"\">----</option>";
                         foreach ($modelsGroups as $modelsGroup) {

@@ -1,45 +1,29 @@
-function update_objects(modelFilename, fieldName)
+function update_models(modelFilename, fieldName)
 {
-    //retrives information from a php-generated xml
-    var url = 'app.php?c=Request&a=getGroupModelsMDXML&mg_id='+document.getElementById('model_group_id').value;
-
-    var hreq = null;
-    if(window.XMLHttpRequest){//firefox, chrome,...
-       hreq = new XMLHttpRequest();
-    } else {
-       hreq = new ActiveXObject("Microsoft.XMLHTTP");//IE
-    }
-
-    if (typeof fieldName === "undefined") {
-        fieldName = "modelId";
-    }
-
-    hreq.onreadystatechange = function(){changeObjectsList(hreq, modelFilename, fieldName); };
-    hreq.open("GET", url, true); //true=asynchronous
-    hreq.send(null);
+    $.ajax({
+        url: 'app.php?c=Request&a=getGroupModelsMDXML&mg_id='+document.getElementById('model_group_id').value,
+        context: document.body
+    }).done(function(xml) {
+        if (typeof fieldName === "undefined") {
+            fieldName = "modelId";
+        }
+        changeModelsList(xml, modelFilename, fieldName);
+    });
 }
 
-function changeObjectsList(hreq, modelFilename, fieldName)
+function changeModelsList(xml, modelFilename, fieldName)
 {
     var text="<select name='"+fieldName+"' id='"+fieldName+"' onchange='change_thumb('"+fieldName+"');update_model_info();'>";
 
-    // If the request is finished
-    if(hreq.readyState === 4)
-    {
-        var models=hreq.responseXML.getElementsByTagName("model");
-
-        for(i=0; i<models.length; i++)
-        {
-            var object=models[i];
-            var id=object.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-            var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-            text+="<option value='"+id+"'";
-            if(modelFilename == name) {
-                text+= " selected=\"selected\"";
-            }
-            text+=">"+name+"</option>";
+    $(xml).find("model").each(function(){
+        var id=$(this).find('id').text();
+        var name=$(this).find('name').text();
+        text+="<option value='"+id+"'";
+        if(modelFilename === name) {
+            text+= " selected=\"selected\"";
         }
-    }
+        text+=">"+name+"</option>";
+    });
 
     text+="</select>";
 

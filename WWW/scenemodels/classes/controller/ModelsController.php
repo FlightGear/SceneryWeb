@@ -83,6 +83,9 @@ class ModelsController extends ControllerMenu {
         include 'view/model_viewer.php';
     }
     
+    /**
+     * Gets model thumbnail
+     */
     public function thumbnailAction() {
         $id = $this->getVar('id');
         if (\FormChecker::isModelId($id)) {
@@ -95,6 +98,15 @@ class ModelsController extends ControllerMenu {
             } else {
                 readfile("http://scenery.flightgear.org/img/nothumb.jpg");
             }
+        }
+    }
+    
+    public function contentFilesInfosAction() {
+        $id = $this->getVar('id');
+        if (\FormChecker::isModelId($id)) {
+            $modelfiles = $this->getModelDaoRO()->getModelFiles($id);
+            $filesInfos = $modelfiles->getModelFilesInfos();
+            include 'view/files_infos_xml.php';
         }
     }
 }

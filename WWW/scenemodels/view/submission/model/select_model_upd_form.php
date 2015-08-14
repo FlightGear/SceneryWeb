@@ -13,7 +13,7 @@ require 'view/header.php';
     <tr>
         <td><label for="model_group_id">Model's family<em>*</em><span>This is the family name of the object.</span></label></td>
         <td>
-            <select id="model_group_id" name="model_group_id" onchange="update_objects(); validateTabs();">
+            <select id="model_group_id" name="model_group_id" onchange="update_models(); validateTabs();">
                 <option value="0">Please select a family</option>
                 <option value="0">----</option>
 <?php

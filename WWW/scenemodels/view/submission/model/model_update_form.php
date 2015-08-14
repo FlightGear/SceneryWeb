@@ -242,11 +242,6 @@ $(document).ready(function(){
             $('input[type="submit"]').attr('disabled','disabled');
         }
     });
-    
-    <?php
-    // Pre-set model dropdown
-    echo 'update_objects(\''.$modelMD->getFilename().'\');';
-    ?>
 });
 </script>
 <?php require 'view/footer.php'; ?>
