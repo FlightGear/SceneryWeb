@@ -27,7 +27,7 @@ class FormatUtils {
     /**
      * Formats size display
      * @param int $size size in bytes
-     * @param type $precision
+     * @param int $precision
      * @return string formatted size.
      */
     static public function formatBytes($size, $precision = 2) {

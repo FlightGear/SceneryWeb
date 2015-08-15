@@ -16,7 +16,8 @@ function validateForm()
         !checkNumeric(form['offset1'],-999,999) ||
         !checkStringNotDefault(form["heading1"], "") || !checkNumeric(form['heading1'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!=="" && !checkEmail(form['email'])))
+        (form['email'].value!=="" && !checkEmail(form['email'])) ||
+        !checkStringNotDefault(form["recaptcha_response_field"], ""))
         return false;
 }
 

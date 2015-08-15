@@ -18,7 +18,8 @@ function validateForm()
     if (form["mo_name"].value === "" || !checkComment(form["mo_name"]) ||
         !checkComment(form["notes"]) ||
         !checkComment(form["comment"]) ||
-        !checkEmail(form["email"]))
+        !checkEmail(form["email"]) ||
+        form["recaptcha_response_field"].value === "")
         return false;
 }
 

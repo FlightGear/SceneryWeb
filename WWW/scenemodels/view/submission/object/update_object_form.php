@@ -40,7 +40,8 @@ function validateForm()
         !checkStringNotDefault(form["new_heading"], "") || !checkNumeric(form['new_heading'],0,359.999) ||
         !checkComment(form['new_ob_text']) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!=="" && !checkEmail(form['email'])))
+        (form['email'].value!=="" && !checkEmail(form['email'])) ||
+        !checkStringNotDefault(form["recaptcha_response_field"], ""))
         return false;
 }
 

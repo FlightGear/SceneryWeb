@@ -32,7 +32,8 @@ function validateForm()
     var form = document.getElementById("delete_position");
 
     if (!checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-            (form['email'].value!=="" && !checkEmail(form['email'])))
+            (form['email'].value!=="" && !checkEmail(form['email'])) ||
+            !checkStringNotDefault(form["recaptcha_response_field"], ""))
         return false;
 
 }
