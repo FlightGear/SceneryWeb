@@ -23,7 +23,7 @@ else {
     foreach ($newsPosts as $newsPost) {
         echo "<div class=\"paragraph_bloc\">\n" .
              "<div class=\"header\">\n" .
-             "<div class=\"newsdate\">".$newsPost->getDate()->format("Y-m-d (H:i)")."</div>\n" .
+             "<div class=\"newsdate\">".\FormatUtils::formatDateTime($newsPost->getDate())."</div>\n" .
              "<div class=\"newsnormal\">by</div>" .
              "<div class=\"newsauthor\"><a href=\"author.php?id=".$newsPost->getAuthor()->getId()."\">".$newsPost->getAuthor()->getName()."</a></div>" .
              "<div class=\"clear\"></div></div>\n" .

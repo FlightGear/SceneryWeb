@@ -51,7 +51,7 @@ $pagesize = 10;
             echo "<li><b>Notes:</b> ".$modelMetadata->getDescription()."</li>\n";
         }
         echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>\n" .
-             "<li><b>Last Updated: </b>".$modelMetadata->getLastUpdated()->format("Y-m-d (H:i)")."</li>\n" .
+             "<li><b>Last Updated: </b>".\FormatUtils::formatDateTime($modelMetadata->getLastUpdated())."</li>\n" .
              "<li><b>Type: </b><a href=\"app.php?c=Models&amp;a=browse&amp;shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>\n";
 
         if ($modelMetadata->getModelsGroup()->isStatic()) {

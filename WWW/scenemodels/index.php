@@ -25,7 +25,7 @@ require 'view/header.php';
         foreach ($objects as $object) {
             echo "<tr>" .
                     "<td><a href=\"app.php?c=Objects&amp;a=view&amp;id=".$object->getId()."\">".$object->getDescription()."</a><br/>" .
-                    $object->getLastUpdated()->format("Y-m-d (H:i)")."</td>" .
+                    \FormatUtils::formatDateTime($object->getLastUpdated())."</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
                     "<a href=\"app.php?c=Objects&amp;a=view&amp;id=". $object->getId() . "\">" .
                     "    <img title=\"". $object->getDescription()."\"" .
@@ -50,7 +50,7 @@ require 'view/header.php';
         foreach ($models as $model) {
             echo "<tr>" .
                     "<td><a href=\"/app.php?c=Models&amp;a=view&amp;id=".$model->getId()."\">".$model->getName()."</a><br/>" .
-                    $model->getLastUpdated()->format("Y-m-d (H:i)"). "</td>" .
+                    \FormatUtils::formatDateTime($model->getLastUpdated()). "</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
                     "<a href=\"/app.php?c=Models&amp;a=view&amp;id=". $model->getId() ."\">" .
                     "    <img title=\"". $model->getName().' ['.$model->getFilename().']'."\"" .

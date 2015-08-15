@@ -37,7 +37,7 @@ foreach ($objects as $object) {
     <tr>
         <td><span title="This is the last update or submission date/time of the corresponding object.">
         <label>Date/Time of last update</label></span></td>
-        <td colspan="4"><?=$object->getLastUpdated()->format("Y-m-d (H:i)")?></td>
+        <td colspan="4"><?=\FormatUtils::formatDateTime($object->getLastUpdated())?></td>
     </tr>
     <tr>
         <td><span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">

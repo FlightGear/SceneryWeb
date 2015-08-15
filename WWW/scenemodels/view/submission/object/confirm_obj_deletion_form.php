@@ -61,7 +61,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the last update or submission date/time of the corresponding object."><label>Date/Time of last update</label></span></td>
-            <td colspan="4"><?php echo $objectToDel->getLastUpdated()->format("Y-m-d (H:i)"); ?></td>
+            <td colspan="4"><?php echo \FormatUtils::formatDateTime($objectToDel->getLastUpdated()); ?></td>
         </tr>
         <tr>
             <td><span title="This is the ground elevation (in meters) of the position where the object you want to delete is located. Warning: if your model is sunk into the ground, the Elevation offset field is set below."><label>Elevation</label></span></td>

@@ -48,7 +48,7 @@ if (!empty($modelMetadata->getDescription())) {
     </tr>
     <tr>
         <td>Last updated</td>
-        <td><?php print $modelMetadata->getLastUpdated()->format("Y-m-d (H:i)"); ?></td>
+        <td><?php print \FormatUtils::formatDateTime($modelMetadata->getLastUpdated()); ?></td>
     </tr>
     <tr>
         <td>Model ID</td>

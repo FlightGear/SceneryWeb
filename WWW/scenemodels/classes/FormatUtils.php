@@ -24,10 +24,20 @@
  * @author Julien Nguyen
  */
 class FormatUtils {
+    /**
+     * Formats size display
+     * @param int $size size in bytes
+     * @param type $precision
+     * @return string formatted size.
+     */
     static public function formatBytes($size, $precision = 2) {
-        $base = log($size, 1024);
-        $suffixes = array('bytes', 'kB', 'Mb', 'Gb', 'Tb');
+        $suffixes = array('bytes', 'kB', 'MB');
+        $base = min(log($size, 1024), count($suffixes)-1);
 
         return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
+    }
+    
+    static public function formatDateTime($datetime) {
+        return $datetime->format("Y-m-d (H:i)");
     }
 }
