@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2015 FlightGear Team
  *
  * This program is free software; you can redistribute it and/or
@@ -18,15 +18,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-header('Content-Type: text/xml');
+/**
+ * FormatUtils
+ *
+ * @author Julien Nguyen
+ */
+class FormatUtils {
+    static public function formatBytes($size, $precision = 2) {
+        $base = log($size, 1024);
+        $suffixes = array('bytes', 'kB', 'Mb', 'Gb', 'Tb');
 
-?>
-<?xml version="1.0" standalone="yes" ?>
-<files>
-<?php
-    foreach ($filesInfos as $fileInfo) {
-        echo '<file><name>'.$fileInfo->getFilename().'</name>'.
-                '<size>'.\FormatUtils::formatBytes($fileInfo->getSize()).'</size></file>';
+        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
     }
-?>
-</files>
+}

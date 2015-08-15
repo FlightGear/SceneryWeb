@@ -72,13 +72,13 @@ if (!empty($modelMetadata->getDescription())) {
     <tr>
         <td align="center" colspan="3" id="webglTd">
             <div id="webgl" style="resize: vertical; overflow: auto;">
-                <a onclick="showWebgl()">Show 3D preview in WebGL</a>
+                <a onclick="showWebgl(<?php echo $id; ?>)">Show 3D preview in WebGL</a>
             </div>
         </td>
     </tr>
     <tr>
         <td align="center" colspan="3" id="contentInfo">
-            <a onclick="showModelContentInfo()">Show model content information</a>
+            <a id="infoLink" onclick="showModelContentInfo(<?php echo $id; ?>)">Show model content information</a>
             <table id="filesInfos" style="display: none;">
                 <tr><th>Filename</th><th>Size</th></tr>
             </table>
@@ -87,11 +87,11 @@ if (!empty($modelMetadata->getDescription())) {
 </table>
 
 <script type="text/javascript">
-function showWebgl() {
+function showWebgl(id) {
     var objectViewer = document.createElement("object");
     objectViewer.width = "100%";
     objectViewer.height = "99%";
-    objectViewer.data = "app.php?c=Models&a=modelViewer&id=<?php echo $id; ?>";
+    objectViewer.data = "app.php?c=Models&a=modelViewer&id="+id;
     objectViewer.type = "text/html";
     var webgl = document.getElementById("webgl");
     webgl.innerHTML = "";
@@ -101,17 +101,18 @@ function showWebgl() {
     document.getElementById("webglTd").innerHTML += "AC3D viewer powered by Hangar - Juan Mellado. Read <a href=\"http://en.wikipedia.org/wiki/Webgl\">here to learn about WebGL</a>.";
 }
 
-function showModelContentInfo() {
+function showModelContentInfo(id) {
     $.ajax({
-        url: 'app.php?c=Models&a=contentFilesInfos&id=<?php echo $id; ?>',
+        url: 'app.php?c=Models&a=contentFilesInfos&id='+id,
         context: document.body
     }).done(function(xml) {
         $(xml).find("file").each(function(){
             var name=$(this).find('name').text();
             var size=$(this).find('size').text();
-            $("#filesInfos").append("<tr><td>"+name+"</td><td>"+size+" b</td></tr>");
+            $("#filesInfos").append("<tr><td>"+name+"</td><td>"+size+"</td></tr>");
         });
         
+        $("#infoLink").toggle();
         $("#filesInfos").toggle();
     });
 }
