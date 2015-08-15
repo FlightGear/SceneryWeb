@@ -1,7 +1,11 @@
 <?php
 require 'view/header.php';
 ?>
-
+<style>
+td.sizecol {
+    text-align: right;
+}
+</style>
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
     popup = window.open("http://mapserver.flightgear.org/popmap?zoom="+zoom+"&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
@@ -109,7 +113,7 @@ function showModelContentInfo(id) {
         $(xml).find("file").each(function(){
             var name=$(this).find('name').text();
             var size=$(this).find('size').text();
-            $("#filesInfos").append("<tr><td>"+name+"</td><td>"+size+"</td></tr>");
+            $("#filesInfos").append("<tr><td>"+name+"</td><td class='sizecol'>"+size+"</td></tr>");
         });
         
         $("#infoLink").toggle();
