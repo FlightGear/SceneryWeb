@@ -32,9 +32,10 @@ class FormatUtils {
      */
     static public function formatBytes($size, $precision = 2) {
         $suffixes = array('bytes', 'kB', 'MB');
-        $base = min(log($size, 1024), count($suffixes)-1);
+        $base = log($size, 1024);
+        $pow = min(floor($base), count($suffixes)-1);
 
-        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
+        return round(pow(1024, $base - $pow), $precision) . ' ' . $suffixes[$pow];
     }
     
     static public function formatDateTime($datetime) {
