@@ -20,8 +20,8 @@ require 'view/header.php';
 ?>
             <a href="/app.php?c=Models&a=view&id=<?php echo $modelMetadata->getId();?>">
             <img title="<?php echo $modelMetadata->getName().' ['.$modelMetadata->getFilename().']';?>"
-                src="modelthumb.php?id=<?php echo $modelMetadata->getId();?>" width="100" height="75"
-                onmouseover="showtrail('modelthumb.php?id=<?php echo $modelMetadata->getId();?>','','','1',5,322);"
+                src="app.php?c=Models&amp;a=thumbnail&amp;id=<?php echo $modelMetadata->getId();?>" width="100" height="75"
+                onmouseover="showtrail('app.php?c=Models&a=thumbnail&id=<?php echo $modelMetadata->getId();?>','','','1',5,322);"
                 onmouseout="hidetrail();"
                 alt="" />
         </a>

@@ -1,45 +1,29 @@
-function update_objects(modelFilename, fieldName)
+function update_models(modelFilename, fieldName)
 {
-    //retrives information from a php-generated xml
-    var url = '/inc/objects_xml.php?mg_id='+document.getElementById('model_group_id').value;
-
-    var hreq = null;
-    if(window.XMLHttpRequest){//firefox, chrome,...
-       hreq = new XMLHttpRequest();
-    } else {
-       hreq = new ActiveXObject("Microsoft.XMLHTTP");//IE
-    }
-
-    if (typeof fieldName === "undefined") {
-        fieldName = "modelId";
-    }
-
-    hreq.onreadystatechange = function(){changeObjectsList(hreq, modelFilename, fieldName); };
-    hreq.open("GET", url, true); //true=asynchronous
-    hreq.send(null);
+    $.ajax({
+        url: 'app.php?c=Request&a=getGroupModelsMDXML&mg_id='+document.getElementById('model_group_id').value,
+        context: document.body
+    }).done(function(xml) {
+        if (typeof fieldName === "undefined") {
+            fieldName = "modelId";
+        }
+        changeModelsList(xml, modelFilename, fieldName);
+    });
 }
 
-function changeObjectsList(hreq, modelFilename, fieldName)
+function changeModelsList(xml, modelFilename, fieldName)
 {
     var text="<select name='"+fieldName+"' id='"+fieldName+"' onchange='change_thumb('"+fieldName+"');update_model_info();'>";
 
-    // If the request is finished
-    if(hreq.readyState === 4)
-    {
-        var models=hreq.responseXML.getElementsByTagName("model");
-
-        for(i=0; i<models.length; i++)
-        {
-            var object=models[i];
-            var id=object.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-            var name=object.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-            text+="<option value='"+id+"'";
-            if(modelFilename == name) {
-                text+= " selected=\"selected\"";
-            }
-            text+=">"+name+"</option>";
+    $(xml).find("model").each(function(){
+        var id=$(this).find('id').text();
+        var name=$(this).find('name').text();
+        text+="<option value='"+id+"'";
+        if(modelFilename === name) {
+            text+= " selected=\"selected\"";
         }
-    }
+        text+=">"+name+"</option>";
+    });
 
     text+="</select>";
 
@@ -50,7 +34,7 @@ function changeObjectsList(hreq, modelFilename, fieldName)
 function update_model_info(path)
 {
     //retrives information from a php-generated xml
-    var url = '/inc/model_info_xml.php?mo_id='+document.getElementById('modelId').value;
+    var url = 'app.php?c=Request&a=getModelInfoXML&mo_id='+document.getElementById('modelId').value;
 
     var hreq = null;
     if(window.XMLHttpRequest){//firefox, chrome,...
@@ -90,7 +74,7 @@ function change_thumb(modelIdFieldName) {
         modelIdFieldName = "modelId";
     }
     
-    document.getElementById('form_objects_thumb').src = "../../modelthumb.php?id="+document.getElementById(modelIdFieldName).value;  
+    document.getElementById('form_objects_thumb').src = "app.php?c=Models&a=thumbnail&id="+document.getElementById(modelIdFieldName).value;  
 }
 
 function update_map(long_id, lat_id) {
@@ -108,7 +92,7 @@ function update_country() {
     
     if (longitude!=="" && latitude!=="") {
         //retrieves information from a php-generated xml
-        var url = '/inc/country_xml.php?lg='+longitude+"&lt="+latitude;
+        var url = '/app.php?c=Request&amp;a=getCountryCodeAtXML&lg='+longitude+"&lt="+latitude;
 
         var hreq = null;
         if(window.XMLHttpRequest){//firefox, chrome,...

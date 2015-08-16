@@ -1,6 +1,4 @@
 <?php
-namespace submission;
-
 /*
  * Copyright (C) 2015 FlightGear Team
  *
@@ -18,6 +16,8 @@ namespace submission;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+namespace submission;
 
 /**
  * Filenames validator to check if filenames respect the naming convention
@@ -70,14 +70,19 @@ class FilenamesValidator implements Validator {
         }
 
         if (count($exceptions) == 0 && 
-                (remove_file_extension($this->thumbName) != remove_file_extension($this->ac3dName)."_thumbnail"
-                || ($this->xmlName != "" && remove_file_extension($this->ac3dName) != remove_file_extension($this->xmlName)))) {
+                ($this->nameWithoutExtension($this->thumbName) != $this->nameWithoutExtension($this->ac3dName)."_thumbnail"
+                || ($this->xmlName != "" && $this->nameWithoutExtension($this->ac3dName) != $this->nameWithoutExtension($this->xmlName)))) {
             $exceptions[] = new \Exception("XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$this->xmlName."), tower.ac (currently ".$this->ac3dName."), tower_thumbnail.jpeg (currently ".$this->thumbName.").");
-            if (substr(remove_file_extension($this->thumbName), -10) != "_thumbnail") {
+            
+            if (substr($this->nameWithoutExtension($this->thumbName), -10) != "_thumbnail") {
                 $exceptions[] = new \Exception("The thumbnail file name must end with *_thumbnail.");
             }
         }
         
         return $exceptions;
+    }
+    
+    private function nameWithoutExtension($path) {
+        return pathinfo($path, PATHINFO_FILENAME);
     }
 }

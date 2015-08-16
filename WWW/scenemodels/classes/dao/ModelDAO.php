@@ -89,24 +89,27 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         return $this->getModelMetadataFromRow($row);
     }
     
-    public function getModelMetadataFromName($modelName) {
-        // Explodes the fields of the string separated by /
-        $tabPath = explode("/",$modelName);
-        // Returns the last field value.
-        $queriedModelPath = pg_escape_string($tabPath[count($tabPath)-1]);
-        
+    public function getModelMetadataFromPath($modelPath) {
         $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
-                                         "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
-                                         "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_path = '".$queriedModelPath."' AND au_id = mo_author AND mg_id = mo_shared");
-        
+                                   "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
+                                   "FROM fgs_models, fgs_authors, fgs_modelgroups ".
+                                   "WHERE mo_path='".pg_escape_string($modelPath)."' AND au_id = mo_author AND mg_id = mo_shared;");
         $row = pg_fetch_assoc($result);
-
+        
         if (!$row) {
-            throw new \Exception("Model ".$modelName." not found!");
+            throw new \Exception("Model ".$modelPath." not found!");
         }
         
         return $this->getModelMetadataFromRow($row);
+    }
+    
+    public function getModelMetadataFromSTGName($modelName) {
+        // Explodes the fields of the string separated by /
+        $tabPath = explode("/",$modelName);
+        // Returns the last field value.
+        $queriedModelPath = $tabPath[count($tabPath)-1];
+        
+        return $this->getModelMetadataFromPath($queriedModelPath);
     }
     
     public function countTotalModels() {

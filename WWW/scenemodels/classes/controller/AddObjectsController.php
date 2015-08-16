@@ -25,7 +25,7 @@ namespace controller;
  *
  * @author Julien Nguyen
  */
-class AddObjectsController extends ControllerMenu {
+class AddObjectsController extends RequestController {
     private $objectDaoRO;
 
     /**
@@ -47,7 +47,7 @@ class AddObjectsController extends ControllerMenu {
         $countries = $this->objectDaoRO->getCountries();
         $nbObjects = $this->objectDaoRO->countObjects();
 
-        include 'view/submission/add_object_form.php';
+        include 'view/submission/object/add_object_form.php';
     }
     
     public function massiveformAction() {
@@ -58,7 +58,7 @@ class AddObjectsController extends ControllerMenu {
         $countries = $this->objectDaoRO->getCountries();
         $nbObjects = $this->objectDaoRO->countObjects();
 
-        include 'view/submission/mass_add_object_form.php';
+        include 'view/submission/object/mass_add_object_form.php';
     }
     
     /**
@@ -66,14 +66,9 @@ class AddObjectsController extends ControllerMenu {
      */
     public function checkAction() {
         // Check captcha
-        $resp = parent::checkCaptcha();
+        $resp = $this->checkCaptcha();
         if (!$resp->is_valid) {
-            $page_title = "Automated Objects Submission Form";
-
-            $error_text = "<br />Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
-                 "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
-                 "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-            include 'view/error_page.php';
+            $this->displayCaptchaError($resp);
             return;
         }
         
@@ -125,17 +120,18 @@ class AddObjectsController extends ControllerMenu {
         // Checking that comment exists. Just a small verification as it's not going into DB.
         $inputComment = stripslashes($this->getVar('comment'));
         if ($inputComment != '' && \FormChecker::isComment($inputComment)) {
-            $sent_comment = $inputComment;
+            $sentComment = $inputComment;
         }
         else {
             $errors[] = new \Exception("Comment mismatch!");
+            $error = true;
         }
         
         // Checking that email is valid (if it exists).
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
         $inputEmail = $this->getVar('email');
         if (\FormChecker::isEmail($inputEmail)) {
-            $safe_email = htmlentities(stripslashes($inputEmail));
+            $safeEmail = htmlentities(stripslashes($inputEmail));
         }
         
         // If there is no error, insert the object to the pending requests table.
@@ -143,16 +139,16 @@ class AddObjectsController extends ControllerMenu {
             
             $request = new \model\RequestMassiveObjectsAdd();
             $request->setNewObjects($newObjects);
-            if (isset($safe_email)) {
-                $request->setContributorEmail($safe_email);
+            if (isset($safeEmail)) {
+                $request->setContributorEmail($safeEmail);
             }
-            $request->setComment($sent_comment);
+            $request->setComment($sentComment);
             
             try {
                 $updatedReq = $requestDaoRW->saveRequest($request);
             } catch (\Exception $e) {
-                $page_title = "Objects addition Form";
-                $error_text = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
+                $pageTitle = "Objects addition Form";
+                $errorText = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.<br />";
                 include 'view/error_page.php';
                 return;
             }
@@ -170,13 +166,13 @@ class AddObjectsController extends ControllerMenu {
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter to tell that his submission has been sent for validation.
-            if (isset($safe_email)) {
+            if (isset($safeEmail)) {
                 $emailSubmit = \EmailContentFactory::getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedReq);
-                $emailSubmit->sendEmail($safe_email, false);
+                $emailSubmit->sendEmail($safeEmail, false);
             }
         }
 
-        include 'view/submission/check_add.php';
+        include 'view/submission/object/check_add.php';
     }
     
     /**
@@ -206,7 +202,7 @@ class AddObjectsController extends ControllerMenu {
         $queriedMoPath = $tabPath[$maxTabPath-1];
 
         // Get the model (throw exception if not found)
-        $modelMD = $this->getModelDaoRO()->getModelMetadataFromName($queriedMoPath);
+        $modelMD = $this->getModelDaoRO()->getModelMetadataFromSTGName($queriedMoPath);
 
         // Now proceeding with the family
         // The family path is the string between Models and the object name. Can be multiple.
@@ -229,7 +225,7 @@ class AddObjectsController extends ControllerMenu {
         $objectLineRequest->setStgLine($line);
 
         $elevoffset = 0;
-        $tab_tags = explode(" ", $line);
+        $lineValues = explode(" ", $line);
 
         $errors = array();
         $warnings = array();
@@ -237,12 +233,12 @@ class AddObjectsController extends ControllerMenu {
         // TODO : Have also to check the number of tab_tags returned!
 
         // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
-        if (strcmp($tab_tags[0], "OBJECT_SHARED") != 0) {
+        if (strcmp($lineValues[0], "OBJECT_SHARED") != 0) {
             $errors[] = new \Exception("Only OBJECT_SHARED is supported!");
         }
 
         // Checking model (Contains only figures, letters, _/. and must exist in DB)
-        $path = $tab_tags[1];
+        $path = $lineValues[1];
         if (\FormChecker::isFilePath($path)) {
             try {
                 $modelMD = $this->getModelFromSTG($path);
@@ -256,20 +252,20 @@ class AddObjectsController extends ControllerMenu {
         }
 
         // Longitude
-        $long = $tab_tags[2];
+        $long = $lineValues[2];
 
         // Latitude
-        $lat = $tab_tags[3];
+        $lat = $lineValues[3];
 
         // Elevation (TODO: can be used to automatically compute offset!!)
         //$gndelev = $value_tag;
 
         // Orientation
-        $orientation = $tab_tags[5];
+        $orientation = $lineValues[5];
 
         //If 7 columns, it's the offset. if 8 columns, it's pitch
-        if (count($tab_tags) == 7) {
-            $elevoffset = $tab_tags[6];
+        if (count($lineValues) == 7) {
+            $elevoffset = $lineValues[6];
         }
 
         // Country
@@ -299,34 +295,38 @@ class AddObjectsController extends ControllerMenu {
     function confirmMassAction() {
         // Checking that email is valid (if it exists).
         if (\FormChecker::isEmail($this->getVar('email'))) {
-            $safe_email = htmlentities(stripslashes($this->getVar('email')));
+            $safeEmail = htmlentities(stripslashes($this->getVar('email')));
         }
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
         if (\FormChecker::isComment($this->getVar('comment'))) {
-            $sent_comment = htmlentities(stripslashes($this->getVar('comment')));
+            $sentComment = htmlentities(stripslashes($this->getVar('comment')));
         }
         
         // Checking that stg exists and is containing only letters or figures.
         if (isset($_POST['stg']) && \FormChecker::isStgLines($_POST['stg'])) {
-            $page_title = "Automated Objects Mass Import Submission Form";
+            $pageTitle = "Automated Objects Mass Import Submission Form";
 
-            $error_text = "I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.";
+            $errorText = "I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.";
             include 'view/error_page.php';
             return;
         }
         
-        $tab_lines = explode("\n", $_POST['stg']);          // Exploding lines by carriage return (\n) in submission input.
-        $tab_lines = array_map('trim', $tab_lines);         // Trim lines.
-        $tab_lines = array_filter($tab_lines);              // Removing blank lines.
-        $tab_lines = array_slice($tab_lines, 0, 100);       // Selects the 100 first elements of the tab (the 100 first lines not blank)
+        // Exploding lines by carriage return (\n) in submission input.
+        $tabLines = explode("\n", $_POST['stg']);
+        // Trim lines.
+        $tabLines = array_map('trim', $tabLines);
+        // Removing blank lines.
+        $tabLines = array_filter($tabLines);
+        // Selects the 100 first elements of the tab (the 100 first lines not blank)
+        $tabLines = array_slice($tabLines, 0, 100);
 
-        $nb_lines = count($tab_lines);
+        $nb_lines = count($tabLines);
         
         if ($nb_lines < 1) {
-            $page_title = "Automated Objects Mass Import Submission Form";
+            $pageTitle = "Automated Objects Mass Import Submission Form";
             
-            $error_text = "Not enough lines were submitted: 1 line minimum per submission!";
+            $errorText = "Not enough lines were submitted: 1 line minimum per submission!";
             include 'view/error_page.php';
             exit;
         }
@@ -337,7 +337,7 @@ class AddObjectsController extends ControllerMenu {
         $modelMDs = array();
 
         // Check each line
-        foreach ($tab_lines as $line) {
+        foreach ($tabLines as $line) {
             $objLineReq = $this->createObjectLineRequest($line, $objectFactory);
             if ($objLineReq->getObject() != null) {
                 $modelId = $objLineReq->getObject()->getModelId();
@@ -348,6 +348,6 @@ class AddObjectsController extends ControllerMenu {
             $i++;
         }
         
-        include 'view/submission/mass_add_object_form_confirm.php';
+        include 'view/submission/object/mass_add_object_form_confirm.php';
     }
 }

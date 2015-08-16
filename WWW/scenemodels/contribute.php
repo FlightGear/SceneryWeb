@@ -89,7 +89,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
             <li><strong>A 320x240 thumbnail</strong> containing an advantageous view on the model/object as (JPEG) image - this is preferred for a nice representation of your artwork.</li>
             <li><strong>Country</strong> in which the model is located (if known to the author).</li>
             <li>Additional <strong>short comment on the author</strong>.</li>
-            <li>Details are available <a href="app.php?c=AddModel&a=form">here</a>.</li>
+            <li>Details are available <a href="app.php?c=AddModel&amp;a=form">here</a>.</li>
         </ul>
 
         <h3 id="tips"><a><font color="red">Models best practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
@@ -117,7 +117,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
 
         <h3 id="contact"><a><font color="blue">Upload facilities</font></a></h3>
         <ul>
-            <li>Our dedicated webform <a href="app.php?c=AddModel&a=form">here.</a></li>
+            <li>Our dedicated webform <a href="app.php?c=AddModel&amp;a=form">here.</a></li>
         </ul>
     </div>
 </div>
@@ -157,7 +157,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         your object sitting on the ground, <strong>but with 200 meters as object AGL elevation</strong>! That's why the offset is so important.
         </li>
         <li>Chimneys are objects where offsets are frequently used, but it's also the case if you want to put an object above another one.
-        For instance, <a href="objectview.php?id=3294183">this Mercedes star</a> (no ad intended here) sits on top of <a href="objectview.php?id=3294182">this building</a>.
+        For instance, <a href="app.php?c=Objects&amp;a=view&amp;id=3294183">this Mercedes star</a> (no ad intended here) sits on top of <a href="app.php?c=Objects&amp;a=view&amp;id=3294182">this building</a>.
         So the star and the building have the same ground elevation (227.0 meters above MSL), but the star has an offset of 48 meters. 48 meters is the positive offset,
         corresponding to the height of the building on which it sits. During the next elevation computation, elevation may become another one (228 or 230), but the offset
         will stay the same and the star will always be sitting on its building, and the submitter has just nothing to change!
@@ -166,6 +166,5 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
         For those wondering, the offset is applied on export by TerraSync, which computes the (easy) operation ELEV+OFFSET (whether offset is positive or negative) and puts the result into the STG file.
         </li>
     </ul>
-    </p>
 </div>
 <?php require 'view/footer.php';?>

@@ -1,5 +1,4 @@
 <?php
-require_once 'EmailContent.php';
 
 /*
  * Copyright (C) 2014 - FlightGear Team
@@ -45,7 +44,7 @@ class EmailContentFactory {
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
+        $message .= "The corresponding entries will be added in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
                     "Thanks for your help in making FlightGear better!\r\n\r\n";
         
         return new EmailContent($subject, self::format($message));
@@ -63,7 +62,7 @@ class EmailContentFactory {
         $message .= "issued an object(s) import request (#".$request->getId().").\r\n\r\n" .
                     "Comment by user: ".strip_tags($request->getComment())."\r\n\r\n" .
                     "Now please click the following link to check and confirm ".
-                    "or reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=". $request->getSig() ."\r\n\r\n";
+                    "or reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=AddObjectsValidator&a=viewRequest&sig=". $request->getSig() ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -99,7 +98,7 @@ class EmailContentFactory {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
         $message .= "The corresponding entries will be updated in TerraSync at " .
-                check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list ".
+                self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list ".
                 "and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$modelMD->getId()."\r\n\r\n" .
                 "Thanks for your help in making FlightGear better!\r\n\r\n";
 
@@ -124,7 +123,7 @@ class EmailContentFactory {
                     "Model name:       ". $newModelMD->getName() ."\r\n" .
                     "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
                     "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=". $request->getSig() ."\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/app.php?c=UpdateModelValidator&a=viewRequest&sig=". $request->getSig() ."\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -184,7 +183,7 @@ class EmailContentFactory {
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be deleted, added or updated in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
+        $message .= "The corresponding entries will be deleted, added or updated in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
                     "Please don't forget to use the massive import form rather than the single one if you have many objects to add!\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));
@@ -239,7 +238,7 @@ class EmailContentFactory {
                     "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                     "Comment:          " .strip_tags($request->getComment()) . "\r\n" .
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -290,7 +289,7 @@ class EmailContentFactory {
                     "True orientation:  ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
                     "Map (new position): http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14" . "\r\n" .
                     "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n" .
-                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=". $request->getSig() . "\r\n\r\n";
+                    "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -330,7 +329,7 @@ class EmailContentFactory {
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be added in TerraSync at " . check_terrasync_update_passed() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newModelMD->getId()."\r\n\r\n" .
+        $message .= "The corresponding entries will be added in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newModelMD->getId()."\r\n\r\n" .
                     "Thanks for your help in making FlightGear better!\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));
@@ -362,7 +361,7 @@ class EmailContentFactory {
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n" .
-                   "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=". $request->getSig() . "\r\n\r\n";
+                   "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddModelValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
     }
@@ -404,5 +403,17 @@ class EmailContentFactory {
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n";
 
         return new EmailContent($subject, self::format($message));
+    }
+    
+    /**
+     * Return the time for the next TerraSync update
+     * @return time
+     */
+    static private function getNextTerrasyncUpdateTime() {
+        $time = "12:30";
+        if (strtotime(gmdate("H:i", time())) > strtotime($time)) {
+            return $time."Z tomorrow";
+        }
+        return $time."Z today";
     }
 }

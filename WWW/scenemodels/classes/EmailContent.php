@@ -19,7 +19,7 @@
  */
 
 /**
- * Description of EmailContent
+ * Email content
  *
  * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */

@@ -24,12 +24,12 @@ require 'view/header.php';
         
         foreach ($objects as $object) {
             echo "<tr>" .
-                    "<td><a href=\"objectview.php?id=".$object->getId()."\">".$object->getDescription()."</a><br/>" .
-                    $object->getLastUpdated()->format("Y-m-d (H:i)")."</td>" .
+                    "<td><a href=\"app.php?c=Objects&amp;a=view&amp;id=".$object->getId()."\">".$object->getDescription()."</a><br/>" .
+                    \FormatUtils::formatDateTime($object->getLastUpdated())."</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
-                    "<a href=\"/objectview.php?id=". $object->getId() . "\">" .
+                    "<a href=\"app.php?c=Objects&amp;a=view&amp;id=". $object->getId() . "\">" .
                     "    <img title=\"". $object->getDescription()."\"" .
-                    "    src=\"modelthumb.php?id=". $object->getModelId() . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
+                    "    src=\"app.php?c=Models&amp;a=thumbnail&amp;id=". $object->getModelId() . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
                     "</td>" .
@@ -49,12 +49,12 @@ require 'view/header.php';
 
         foreach ($models as $model) {
             echo "<tr>" .
-                    "<td><a href=\"/app.php?c=Models&a=view&id=".$model->getId()."\">".$model->getName()."</a><br/>" .
-                    $model->getLastUpdated()->format("Y-m-d (H:i)"). "</td>" .
+                    "<td><a href=\"/app.php?c=Models&amp;a=view&amp;id=".$model->getId()."\">".$model->getName()."</a><br/>" .
+                    \FormatUtils::formatDateTime($model->getLastUpdated()). "</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
-                    "<a href=\"/app.php?c=Models&a=view&id=". $model->getId() ."\">" .
+                    "<a href=\"/app.php?c=Models&amp;a=view&amp;id=". $model->getId() ."\">" .
                     "    <img title=\"". $model->getName().' ['.$model->getFilename().']'."\"" .
-                    "    src=\"modelthumb.php?id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
+                    "    src=\"app.php?c=Models&amp;a=thumbnail&amp;id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
                     "</td>" .

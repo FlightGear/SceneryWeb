@@ -20,27 +20,27 @@ foreach ($requests as $request) {
     switch (get_class($request)) {
     case "model\RequestObjectUpdate":
         $pending_requests .= "This is an object update request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=".$sig."\n";
         break;
 
     case "model\RequestObjectDelete":
         $pending_requests .= "This is an object deletion request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/submission.php?action=check&sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=".$sig."\n";
         break;
 
     case "model\RequestMassiveObjectsAdd":
         $pending_requests .= "This is an object(s) addition request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/object/mass_submission.php?action=check&sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddObjectsValidator&a=viewRequest&sig=".$sig."\n";
         break;
 
     case "model\RequestModelAdd":
         $pending_requests .= "This is a 3D model addition request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_add_submission.php?mo_sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddModelValidator&a=viewRequest&sig=".$sig."\n";
         break;
 
     case "model\RequestModelUpdate":
         $pending_requests .= "This is a 3D model update request!\n";
-        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/submission/model/model_update_submission.php?mo_sig=".$sig."\n";
+        $pending_requests .= "http://".$_SERVER['SERVER_NAME']."/app.php?c=UpdateModelValidator&a=viewRequest&sig=".$sig."\n";
         break;
     }
 }

@@ -1,0 +1,73 @@
+<%
+#
+# Copyright (C) 2015 Martin Spott - Martin (at) flightgear (dot) org
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+
+tablehead = "<table style=\"border-style: solid; border-width: 1px;\" cellpadding=\"1\" cellspacing=\"1\" rules=\"rows\">"
+%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="VMap0, VMap1, GSHHS, SWBD, DAFIF, ICAO, PostgreSQL, PostGIS, Mapserver, OGC, FlightGear, OSGeo, UCSD, TelaScience" />
+    <meta name="description" content="UCSD / TelaScience / OSGeo / FlightGear Landcover / land use database consisting of different datasets fom VMap0, VMap1, GSHHS, SWBD and NIMA DAFIF Airfield database." />
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <title>UCSD / TelaScience / OSGeo / FlightGear Landcover Database Mapserver</title>
+  </head>
+
+  <body style="margin: 0px;" onload="init()">
+
+  <div id="content">
+  <div class="titleback">
+    <img src="/img/banner.jpg" alt="Flightgear logo"/>
+  </div>  <!-- titleback -->
+  <div id="content2">
+
+<!--    <h3 class="warning">Service degraded, starting 2015-04-04 late evening (UTC) for approx 24 hours due to database upgrade.</h3> -->
+
+    <h3>UCSD / TelaScience / OSGeo / FlightGear Landcover Database Mapserver</h3>
+
+<div class="paragraph_bloc">
+    <%= tablehead %>
+        <tr>
+            <td align="center">
+                <form id="submission" method="post" action="/lcprecheck.psp" enctype="multipart/form-data">
+                <p style="border:1px solid; padding: 5px;">
+                    <label for="lcsubmit">Choose a SpatiaLite database file
+                        <span>This file should contain exactly one geometry table
+                            and *must* contain at least a geometry colum
+                            *plus* a category ('cat') column.</span></label>
+                    <input type="file" name="lcsubmit" id="lcsubmit" size="50" accept="text/*" />
+                </p>
+                <input type="submit" value="Upload SpatiaLite" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>  <!-- paragraph_bloc lightmap -->
+
+
+
+  </div>  <!-- content2 -->
+  </div>  <!-- content -->
+  </body>
+</html>

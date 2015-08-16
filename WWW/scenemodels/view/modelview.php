@@ -1,7 +1,11 @@
 <?php
 require 'view/header.php';
 ?>
-
+<style>
+td.sizecol {
+    text-align: right;
+}
+</style>
 <script type="text/javascript">
 function popmap(lat,lon,zoom) {
     popup = window.open("http://mapserver.flightgear.org/popmap?zoom="+zoom+"&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
@@ -12,13 +16,13 @@ function popmap(lat,lon,zoom) {
 <?php
     
 echo "<h1>".$modelMetadata->getName()."</h1>";
-if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescription())>0) {
+if (!empty($modelMetadata->getDescription())) {
     echo "<p>".$modelMetadata->getDescription()."</p>";
 }
 ?>
 <table>
     <tr>
-        <td style="width: 320px" rowspan="7"><img src="modelthumb.php?id=<?php print $modelMetadata->getId(); ?>" alt=""/></td>
+        <td style="width: 320px" rowspan="7"><img src="app.php?c=Models&amp;a=thumbnail&amp;id=<?php print $modelMetadata->getId(); ?>" alt=""/></td>
         <td>File name</td>
         <td>
 <?php
@@ -29,9 +33,9 @@ if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescr
     <tr>
         <td>Type</td>
         <td>
-<?php
-            print "<a href=\"app.php?c=Models&a=browse&shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a>";
-?>
+            <a href="app.php?c=Models&amp;a=browse&amp;shared=<?php echo $modelMetadata->getModelsGroup()->getId()?>">
+                <?php echo $modelMetadata->getModelsGroup()->getName()?>
+            </a>
         </td>
     </tr>
     <tr>
@@ -44,17 +48,16 @@ if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescr
     </tr>
     <tr>
         <td>Last updated</td>
-        <td><?php print $modelMetadata->getLastUpdated()->format("Y-m-d (H:i)"); ?></td>
+        <td><?php print \FormatUtils::formatDateTime($modelMetadata->getLastUpdated()); ?></td>
     </tr>
     <tr>
         <td>Model ID</td>
         <td><?php print $id; ?></td>
     </tr>
+    <tr>
+        <td>Occurrences</td>
+        <td>
 <?php
-
-    echo "<tr>" .
-            "<td>Occurrences</td>" .
-            "<td>";
         if ($occurences > 0) {
             echo "<a href=\"objects.php?model=".$id."\">".$occurences;
             echo $occurences > 1 ? " objects" : " object";
@@ -62,28 +65,37 @@ if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescr
         } else {
             echo "0 object";
         }
-    echo "</tr>";
 ?>
+        </td>
+    </tr>
     <tr>
         <td colspan="2">
-            <a href="get_model_files.php?type=pack&id=<?php echo $id; ?>">Download model</a> | <a href="submission/model/index_model_update.php?update_choice=<?php echo $id; ?>">Update model/info</a>
+            <a href="get_model_files.php?type=pack&amp;id=<?php echo $id; ?>">Download model</a> | <a href="app.php?c=UpdateModel&amp;a=modelUpdateForm&amp;modelId=<?php echo $id; ?>">Update model/info</a>
         </td>
     </tr>
     <tr>
         <td align="center" colspan="3" id="webglTd">
             <div id="webgl" style="resize: vertical; overflow: auto;">
-                <a onclick="showWebgl()">Show 3D preview in WebGL</a>
+                <a onclick="showWebgl(<?php echo $id; ?>)">Show 3D preview in WebGL</a>
             </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" colspan="3" id="contentInfo">
+            <a id="infoLink" onclick="showModelContentInfo(<?php echo $id; ?>)">Show model content information</a>
+            <table id="filesInfos" style="display: none;">
+                <tr><th>Filename</th><th>Size</th></tr>
+            </table>
         </td>
     </tr>
 </table>
 
 <script type="text/javascript">
-function showWebgl() {
+function showWebgl(id) {
     var objectViewer = document.createElement("object");
     objectViewer.width = "100%";
     objectViewer.height = "99%";
-    objectViewer.data = "viewer.php?id=<?php echo $id; ?>";
+    objectViewer.data = "app.php?c=Models&a=modelViewer&id="+id;
     objectViewer.type = "text/html";
     var webgl = document.getElementById("webgl");
     webgl.innerHTML = "";
@@ -91,6 +103,22 @@ function showWebgl() {
     webgl.style.textAlign = "center";
     webgl.appendChild(objectViewer);
     document.getElementById("webglTd").innerHTML += "AC3D viewer powered by Hangar - Juan Mellado. Read <a href=\"http://en.wikipedia.org/wiki/Webgl\">here to learn about WebGL</a>.";
+}
+
+function showModelContentInfo(id) {
+    $.ajax({
+        url: 'app.php?c=Models&a=contentFilesInfos&id='+id,
+        context: document.body
+    }).done(function(xml) {
+        $(xml).find("file").each(function(){
+            var name=$(this).find('name').text();
+            var size=$(this).find('size').text();
+            $("#filesInfos").append("<tr><td>"+name+"</td><td class='sizecol'>"+size+"</td></tr>");
+        });
+        
+        $("#infoLink").toggle();
+        $("#filesInfos").toggle();
+    });
 }
 </script>
 

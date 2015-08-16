@@ -1,7 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/../inc/functions.inc.php';
-
 /**
  * Model files in a TAR format
  *
@@ -21,63 +19,122 @@ class ModelFilesTar implements IModelFiles {
     public function getPackage() {
         return $this->modelfile;
     }
+    
+    /**
+     * Returns the extension of a file sent in parameter
+     * @param string $filepath file path.
+     * @return string extension.
+     */
+    private function showFileExtension($filepath) {
+        return pathinfo($filepath, PATHINFO_EXTENSION);
+    }
 
+    /**
+     * Extracts a tgz file into a temporary directory and returns its path.
+     * @param type $archive
+     * @return string directory path
+     */
+    private function openTGZ($archive) {
+        // Managing possible concurrent accesses on the maintainer side.
+        $targetPath = sys_get_temp_dir() .'/submission_'.rand();
+
+        // Makes concurrent access impossible: the script has to wait if this directory already exists.
+        while (file_exists($targetPath)) {
+            usleep(500);
+        }
+
+        if (mkdir($targetPath)) {
+            if (file_exists($targetPath) && is_dir($targetPath)) {
+                // Writes the content of $file into submitted_files.tar.gz
+                $file = $targetPath.'/submitted_files.tar.gz';
+                file_put_contents($file, $archive);                
+
+                $detarCommand = 'tar xvzf '.$file.' -C '.$targetPath. '> /dev/null';
+                system($detarCommand);
+                
+                // Deletes compressed file
+                unlink($file);
+            }
+        } else {
+            error_log("Impossible to create ".$targetPath." directory!");
+        }
+
+        return $targetPath;
+    }
+    
+    /**
+     * Close a temporary directory opened for a tgz file.
+     * @param string $targetPath
+     */
+    private function closeTGZ($targetPath) {
+        // Deletes temporary submission directory
+        \FileSystemUtils::clearDir($targetPath);
+    }
+
+    /**
+     * Gets the content of the AC3D file.
+     * @return AC3D file content.
+     */
     public function getACFile() {
-        $targetPath = open_tgz($this->modelfile);
+        $targetPath = $this->openTGZ($this->modelfile);
         $dir = opendir($targetPath);
         $content = null;
 
         while ($file = readdir($dir)) {
-            if (show_file_extension($file) == "ac") {
+            if ($this->showFileExtension($file) == 'ac') {
                 $filepath = $targetPath."/".$file;
                 $content = file_get_contents($filepath);
                 break;
             }
         }
         
-        close_tgz($targetPath);
+        $this->closeTGZ($targetPath);
         
         return $content;
     }
     
+    /**
+     * Gets the content of the XML file.
+     * @return XML file content.
+     */
     public function getXMLFile() {
-        $targetPath = open_tgz($this->modelfile);
+        $targetPath = $this->openTGZ($this->modelfile);
         $dir = opendir($targetPath);
         $content = null;
         
         while ($file = readdir($dir)) {
-            if (show_file_extension($file) == "xml") {
+            if ($this->showFileExtension($file) == 'xml') {
                 $filepath = $targetPath."/".$file;
                 $content = file_get_contents($filepath);
                 break;
             }
         }
         
-        close_tgz($targetPath);
+        $this->closeTGZ($targetPath);
         
         return $content;
     }
     
     public function getTexturesNames() {
-        $targetPath = open_tgz($this->modelfile);
+        $targetPath = $this->openTGZ($this->modelfile);
         $dir = opendir($targetPath);
         
         $names = array();
         
         while ($filename = readdir($dir)) {
-            $extension = show_file_extension($filename);
-            if ($extension == "png" || $extension == "rgb") {
+            $extension = $this->showFileExtension($filename);
+            if ($extension == 'png' || $extension == 'rgb') {
                 $names[] = $filename;
             }
         }
         
-        close_tgz($targetPath);
+        $this->closeTGZ($targetPath);
         
         return $names;
     }
     
     public function getTexture($filename) {
-        $targetPath = open_tgz($this->modelfile);
+        $targetPath = $this->openTGZ($this->modelfile);
         $dir = opendir($targetPath);
 
         while ($file = readdir($dir)) {
@@ -88,11 +145,33 @@ class ModelFilesTar implements IModelFiles {
             }
         }
         
-        close_tgz($targetPath);
+        $this->closeTGZ($targetPath);
         
         return $content;
     }
 
+    public function getModelFilesInfos() {
+        $filesInfos = array();
+        $targetPath = $this->openTGZ($this->modelfile);
+        $dir = opendir($targetPath);
+
+        while ($filename = readdir($dir)) {
+            $filepath = $targetPath."/".$filename;
+            
+            if (is_dir($filepath)) {
+                continue;
+            }
+            
+            $fileinfo = new \model\ModelFileInfo();
+            $fileinfo->setFilename($filename);
+            $fileinfo->setSize(filesize($filepath));
+            $filesInfos[] = $fileinfo;
+        }
+        
+        $this->closeTGZ($targetPath);
+        
+        return $filesInfos;
+    }
 }
 
 ?>

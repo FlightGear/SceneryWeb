@@ -63,7 +63,50 @@ class ModelsController extends ControllerMenu {
             
             include 'view/modelview.php';
         } else {
-            //error
+            $pageTitle = "Model ID not valid";
+            $errorText = "Sorry, but the model ID you are asking is not valid.";
+            include 'view/error_page.php';
+        }
+    }
+    
+    /**
+     * Display model WebGL viewer action
+     */
+    public function modelViewerAction() {
+        $id = $this->getVar('id');
+        if (empty($id) || !\FormChecker::isModelId($id)) {
+            return;
+        }
+        
+        $ac3DFile = "get_model_files.php?type=ac&id=".$id;
+        $texturePrefix = 'get_model_files.php?type=texture&id='.$id.'&name=';
+        include 'view/model_viewer.php';
+    }
+    
+    /**
+     * Gets model thumbnail
+     */
+    public function thumbnailAction() {
+        $id = $this->getVar('id');
+        if (\FormChecker::isModelId($id)) {
+            $thumbnail = $this->getModelDaoRO()->getThumbnail($id);
+            header("Content-type: image/jpg");
+            header("Content-Disposition: inline; filename=".$id.".jpg");
+
+            if ($thumbnail != "") {
+                echo $thumbnail;
+            } else {
+                readfile("http://scenery.flightgear.org/img/nothumb.jpg");
+            }
+        }
+    }
+    
+    public function contentFilesInfosAction() {
+        $id = $this->getVar('id');
+        if (\FormChecker::isModelId($id)) {
+            $modelfiles = $this->getModelDaoRO()->getModelFiles($id);
+            $filesInfos = $modelfiles->getModelFilesInfos();
+            include 'view/files_infos_xml.php';
         }
     }
 }
