@@ -3,7 +3,7 @@ session_start();
 $TG_BIN = '/home/martin/terragear/bin';
 $WWW_ROOT = '/home/fgscenery/TGBuild';
 $TMP_ROOT = '/home/fgscenery/TGBuild';
-$URL = 'http://scenery.flightgear.org/tgweb';
+$URL = 'http://scenery.flightgear.org/TGBuild';
 
 // Cleaning directories first
 shell_exec('find '.$WWW_ROOT.' -name *.zip -type f -mmin +15 -delete');
