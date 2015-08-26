@@ -38,7 +38,7 @@ fgscenery = os.path.expanduser("~fgscenery")
 statusfilepath = os.path.join(martin, ".exportstatus")
 workdir = os.path.join(fgscenery, "Dump")
 fg_scenery = os.path.join(fgscenery, "Terrascenery")
-svn_root = "http://terrascenery.googlecode.com/svn/trunk/data/Scenery"
+svn_root = "file://%s/SVN/terrascenery/trunk/data/Scenery" % martin
 
 try:
     statusfile = open(statusfilepath, "r")
