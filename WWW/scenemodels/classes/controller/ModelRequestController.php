@@ -34,9 +34,15 @@ class ModelRequestController extends RequestController {
     }
     
     protected function checkFilesArray() {
-        $exceptions = array_merge($this->modelChecker->checkAC3DFileArray($_FILES['ac3d_file']),
-        array_merge($this->modelChecker->checkXMLFileArray($_FILES['xml_file']),
-        $this->modelChecker->checkThumbFileArray($_FILES['mo_thumbfile'])));
+        if (isset($_FILES['xml_file'])) {
+            $exceptions = array_merge($this->modelChecker->checkAC3DFileArray($_FILES['ac3d_file']),
+                array_merge($this->modelChecker->checkXMLFileArray($_FILES['xml_file']),
+                $this->modelChecker->checkThumbFileArray($_FILES['mo_thumbfile'])));
+        } else {
+            $exceptions = array_merge($this->modelChecker->checkAC3DFileArray($_FILES['ac3d_file']),
+                $this->modelChecker->checkThumbFileArray($_FILES['mo_thumbfile']));
+        }
+        
 
         // PNG Files
         for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {

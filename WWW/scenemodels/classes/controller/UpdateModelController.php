@@ -74,7 +74,11 @@ class UpdateModelController extends ModelRequestController {
         /** STEP 2 : MOVE THUMBNAIL, AC3D, PNG AND XML FILES IN TMP DIRECTORY (Will be removed later on) */
         $thumbName = $_FILES['mo_thumbfile']['name'];
         $ac3dName  = $_FILES['ac3d_file']['name'];
-        $xmlName   = $_FILES['xml_file']['name'];
+        if (isset($_FILES['xml_file'])) {
+            $xmlName = $_FILES['xml_file']['name']; 
+        } else {
+            $xmlName = null;
+        }
         
         if (empty($exceptions)) {
             try {
