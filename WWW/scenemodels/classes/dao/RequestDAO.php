@@ -38,10 +38,23 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $this->authorDao = $authorDAO;
     }
     
-    public function getRequest($sig) {
+    public function getRequest($id) {
         $result = $this->database->query("SELECT spr_id, spr_hash, spr_base64_sqlz ".
                                          "FROM fgs_position_requests ".
-                                         "WHERE spr_hash = '". $sig ."';");
+                                         "WHERE spr_id = ". pg_escape_string($id) .";");
+        $row = pg_fetch_assoc($result);
+        
+        if (!$row) {
+            throw new RequestNotFoundException('No request with id '. $id. ' was found!');
+        }
+        
+        return $this->getRequestFromRow($row);
+    }
+    
+    public function getRequestFromSig($sig) {
+        $result = $this->database->query("SELECT spr_id, spr_hash, spr_base64_sqlz ".
+                                         "FROM fgs_position_requests ".
+                                         "WHERE spr_hash = '". pg_escape_string($sig) ."';");
         $row = pg_fetch_assoc($result);
         
         if (!$row) {
@@ -194,7 +207,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     public function deleteRequest($sig) {
         // Checking the presence of sig into the database
-        $result = $this->database->query("SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
+        $result = $this->database->query("SELECT 1 FROM fgs_position_requests WHERE spr_hash = '". pg_escape_string($sig) ."';");
         $row = pg_fetch_assoc($result);
         // If not ok...
         if (!$row) {
@@ -202,7 +215,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         }
         
         // Delete the entry from the pending query table.
-        $resultdel = $this->database->query("DELETE FROM fgs_position_requests WHERE spr_hash = '". $sig ."';");
+        $resultdel = $this->database->query("DELETE FROM fgs_position_requests WHERE spr_hash = '". pg_escape_string($sig) ."';");
 
         return $resultdel != FALSE;
     }
