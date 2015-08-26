@@ -54,13 +54,8 @@ class AddModelController extends ModelRequestController {
      * Check and add new model addition request 
      */
     public function addRequestAction() {
-        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
-        
-        $resp = $this->checkCaptcha();
-        if (!$resp->is_valid) {
-            $this->displayCaptchaError($resp);
-            return;
-        }
+        /** If ajax check is true, return errors only, request is not saved */
+        $ajaxCheck = $this->getVar('ajaxCheck') == 1;
         
         /** STEP 1 : CHECK IF ALL FILES WERE RECEIVED */
         $exceptions = $this->checkFilesArray();
@@ -86,7 +81,7 @@ class AddModelController extends ModelRequestController {
                 \FileSystemUtils::clearDir($targetPath);
             }
             
-            $this->displayModelErrors($exceptions);
+            $this->displayModelErrors($exceptions, $ajaxCheck);
             return;
         }
         
@@ -145,7 +140,7 @@ class AddModelController extends ModelRequestController {
         // Display errors if exist
         if (!empty($exceptions)) {
             \FileSystemUtils::clearDir($targetPath);
-            $this->displayModelErrors($exceptions);
+            $this->displayModelErrors($exceptions, $ajaxCheck);
             return;
         }
         
@@ -178,22 +173,45 @@ class AddModelController extends ModelRequestController {
         $newObject = $objectFactory->createObject(-1, -1, $longitude, $latitude, $country, 
                 $offset, \ObjectUtils::headingSTG2True($heading), 1, $name);
 
-        $request = new \model\RequestModelAdd();
-        $request->setNewModel($newModel);
-        $request->setNewObject($newObject);
-        $request->setContributorEmail($auEmail);
+        // Check captcha
+        $resp = $this->checkCaptcha();
+        if (!$resp->is_valid) {
+            $this->displayCaptchaError($resp);
+            return;
+        }
 
+        // Save request and send emails
         try {
-            $updatedReq = $requestDaoRW->saveRequest($request);
-            
+            $updatedReq = $this->addRequest($newModel, $newObject, $auEmail);
+
             $this->sendEmailsRequestPending($auEmail, $updatedReq);
-            include 'view/submission/model/check_model_add.php';
+            $this->displaySuccess($updatedReq, $ajaxCheck);
+
         } catch (\Exception $ex) {
             $pageTitle = "Automated Models Submission Form";
             $errorText = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.";
             include 'view/error_page.php';
             return;
         }
+    }
+    
+    private function displaySuccess($updatedReq, $ajaxCheck) {
+        if ($ajaxCheck) {
+            include 'view/submission/model/model_success_xml.php';
+        } else {
+            include 'view/submission/model/model_add_queued.php';
+        }
+    }
+    
+    private function addRequest($newModel, $newObject, $auEmail) {
+        $request = new \model\RequestModelAdd();
+        $request->setNewModel($newModel);
+        $request->setNewObject($newObject);
+        $request->setContributorEmail($auEmail);
+        
+        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
+        
+        return $requestDaoRW->saveRequest($request);
     }
     
     private function sendEmailsRequestPending($auEmail, $updatedReq) {
@@ -211,5 +229,12 @@ class AddModelController extends ModelRequestController {
         // Mailing the submitter to tell him that his submission has been sent for validation
         $emailSubmitContr = \EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
         $emailSubmitContr->sendEmail($auEmail, false);
+    }
+    
+    public function successAction() {
+        $id = $this->getVar('id');
+        $requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
+        $updatedReq = $requestDaoRO->getRequest($id);
+        include 'view/submission/model/model_add_queued.php';
     }
 }

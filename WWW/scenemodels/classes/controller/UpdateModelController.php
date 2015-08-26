@@ -182,7 +182,7 @@ class UpdateModelController extends ModelRequestController {
             $updatedReq = $requestDaoRW->saveRequest($request);
 
             $this->sendEmailsRequestPending($updatedReq, $contr_email, $auEmail);
-            include 'view/submission/model/check_model_update.php';
+            include 'view/submission/model/model_update_queued.php';
         } catch (\Exception $ex) {
             $pageTitle = "Automated Models Submission Form";
             $errorText = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.";

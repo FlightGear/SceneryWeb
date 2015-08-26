@@ -107,7 +107,15 @@ class ModelRequestController extends RequestController {
         return $validatorsSet->validate();
     }
     
-    protected function displayModelErrors($errors) {
+    protected function displayModelErrors($errors, $xml = false) {
+        if ($xml) {
+            include 'view/submission/model/model_errors_xml.php';
+        } else {
+            $this->displayModelErrorsHTML($errors);
+        }
+    }
+    
+    private function displayModelErrorsHTML($errors) {
         include 'view/header.php';
         $errormsg = "";
         foreach ($errors as $error) {
@@ -122,7 +130,6 @@ class ModelRequestController extends RequestController {
              "or the <a href=\"http://www.flightgear.org/forums/viewtopic.php?f=5&t=14671\">forum</a> for help!";
 
         include 'view/footer.php';
-        return;
     }
     
     protected function prepareThumbFile($thumbPath) {

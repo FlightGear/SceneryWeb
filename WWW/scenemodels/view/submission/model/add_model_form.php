@@ -23,6 +23,69 @@ function validateForm()
         !checkComment(form["notes"]) ||
         form["recaptcha_response_field"].value === "")
         return false;
+    
+    try {
+        return ajaxSubmit();
+    } catch(err) {
+        alert(err.message);
+        return false;
+    }
+    
+}
+
+function ajaxSubmit() {
+    if (!("FormData" in window)) {
+        // FormData is not supported; use default submission process
+        return true;
+    }
+    
+    // Prepare form
+    var fd = new FormData();
+    $('input[type="file"]').each(function() {
+        var name = $(this)[0].name;
+        jQuery.each($(this)[0].files, function(i, file) {
+            fd.append(name, file);
+        });
+    });
+
+    var other_data = $('#positions').serializeArray();
+    $.each(other_data,function(key,input){
+        fd.append(input.name,input.value);
+    });
+    
+    // Send form
+    $.ajax({
+        url: 'app.php?c=AddModel&a=addRequest&ajaxCheck=1',
+        data: fd,
+        async: false,
+        processData: false,
+        contentType: false,
+        type: "POST",
+        timeout: 10000
+    }).done(function(xml) {
+        
+        var errors = $(xml).find("error");
+
+        if (errors.length > 0) {
+            text = "<ul>";
+            errors.each(function(){
+                var errorText=$(this).text();
+                text+="<li>"+errorText+"</li>";
+            });
+            text += "</ul>";
+
+            $( "#submit-dialog-errors" ).html(text);
+            $( "#submit-dialog" ).dialog( "open" );
+        } else {
+            var requestId = $(xml).find("requestId").text();
+            window.location = "app.php?c=AddModel&a=success&id="+requestId;
+        }
+    }).fail(function(jqXHR, textStatus){
+        // If Ajax fails, use normal submit
+        return true;
+    });
+    
+    return false;
 }
 
 function validateTabs()
@@ -92,11 +155,37 @@ $(function() {
             $("#newAuthorEmail").hide();
         }
     });
+    
+    $( "#submit-dialog" ).dialog({
+        draggable: false,
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Ok": function() {
+                $( "#submit-dialog" ).dialog( "close" );
+            }
+        },
+        close: function() {
+            $( "#submit-dialog-errors" ).html( "" );
+        }
+    });
+    $("#submit-dialog").css("display","none");
+    
+    // Temporary FIX
+    $('.ui-button-text').each(function(i){
+        $(this).html($(this).parent().attr('text'))
+    })
 });
 /*]]>*/
 </script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" type="text/css"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+
+<div id="submit-dialog">
+    <div id="submit-dialog-errors"></div>
+    Please correct the models directly in your computer and submit again
+    (no need to reselect them!)
+</div>
 
 
 <h1>Submit a model</h1>

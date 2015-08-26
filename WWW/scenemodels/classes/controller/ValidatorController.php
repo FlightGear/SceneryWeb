@@ -34,7 +34,7 @@ abstract class ValidatorController extends ControllerMenu {
         
         try {
             $requestDaoRO = \dao\DAOFactory::getInstance()->getRequestDaoRO();
-            return $requestDaoRO->getRequest($sig);
+            return $requestDaoRO->getRequestFromSig($sig);
             
         } catch (\dao\RequestNotFoundException $e) {
             $errorText = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
