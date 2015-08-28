@@ -41,7 +41,7 @@ $query.= "LIMIT 400";
                 "type":"<?php echo is_shared_or_static($row["ob_id"]);?>",
                 "heading": <?php echo $row["ob_heading"];?>,
                 "title": "Object #<?php echo $row["ob_id"];?> - <?php echo $row["ob_text"];?>",
-                "description": "<a href='http://scenemodels.flightgear.org/app.php?c=Objects&a=view&id=<?php echo $row["ob_id"];?>' target='_blank'><img src='http://scenemodels.flightgear.org/modelthumb.php?id=<?php echo $row["ob_model"];?>' alt=''/></a>"
+                "description": "<a href='http://scenemodels.flightgear.org/app.php?c=Objects&a=view&id=<?php echo $row["ob_id"];?>' target='_blank'><img src='http://scenemodels.flightgear.org/app.php?c=Models&a=thumbnail&id=<?php echo $row["ob_model"];?>' alt=''/></a>"
             },
             "geometry":{
                 "type": "Point","coordinates": [<?php echo $row["ob_lon"];?>, <?php echo $row["ob_lat"];?>]
