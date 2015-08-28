@@ -13,7 +13,7 @@ function update_models(modelFilename, fieldName)
 
 function changeModelsList(xml, modelFilename, fieldName)
 {
-    var text="<select name='"+fieldName+"' id='"+fieldName+"' onchange='change_thumb('"+fieldName+"');update_model_info();'>";
+    var text="<select name='"+fieldName+"' id='"+fieldName+"' onchange='change_thumb(\""+fieldName+"\");update_model_info();'>";
 
     $(xml).find("model").each(function(){
         var id=$(this).find('id').text();
