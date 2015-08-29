@@ -127,7 +127,7 @@ class UpdateModelController extends ModelRequestController {
         $moGroupId = $this->getVar('model_group_id');
             
         if (empty($notes)) {
-            $notes   = "";
+            $notes = "";
         }
 
         $modelMDValidator = \submission\ModelMetadataValidator::getModelMDValidator($name, $notes, $authorId, $moGroupId);
@@ -141,6 +141,11 @@ class UpdateModelController extends ModelRequestController {
         $sentComment = htmlentities(stripslashes($this->getVar('comment')));
         if (!\FormChecker::isComment($sentComment)) {
             $exceptions[] = new \Exception("Please add a comment to the maintainer.");
+        }
+        
+        $contrEmail = htmlentities(stripslashes($this->getVar('email')));
+        if (!\FormChecker::isEmail($contrEmail)) {
+            $exceptions[] = new \Exception("Your email is mandatory.");
         }
         
         if (!empty($exceptions)) {
@@ -165,27 +170,19 @@ class UpdateModelController extends ModelRequestController {
         $newModel->setMetadata($newModelMD);
         $newModel->setModelFiles($modelFile);
         $newModel->setThumbnail($thumbFile);
-
-        $failed_mail = false;
-        $auEmail = $newModelMD->getAuthor()->getEmail();
-        if (empty($auEmail)) {
-            $failed_mail = true;
-        }
-
-        $contr_email = htmlentities(stripslashes($this->getVar('email')));
-        if (!\FormChecker::isEmail($contr_email)) {
-            $failed_mail = true;
-        }
+        
+        $oldModel = $this->getModelDaoRO()->getModel($modelId);
 
         $request = new \model\RequestModelUpdate();
         $request->setNewModel($newModel);
-        $request->setContributorEmail($contr_email);
+        $request->setContributorEmail($contrEmail);
         $request->setComment($sentComment);
+        $request->setOldModel($oldModel);
         
         try {
             $updatedReq = $requestDaoRW->saveRequest($request);
 
-            $this->sendEmailsRequestPending($updatedReq, $contr_email, $auEmail);
+            $this->sendEmailsRequestPending($updatedReq);
             include 'view/submission/model/model_update_queued.php';
         } catch (\Exception $ex) {
             $pageTitle = "Automated Models Submission Form";
@@ -195,7 +192,7 @@ class UpdateModelController extends ModelRequestController {
         }
     }
     
-    private function sendEmailsRequestPending($updatedReq, $contrEmail, $auEmail) {
+    private function sendEmailsRequestPending($updatedReq) {
         // Sending mail if there is no false and SQL was correctly inserted.
         // Sets the time to UTC.
         date_default_timezone_set('UTC');
@@ -207,6 +204,8 @@ class UpdateModelController extends ModelRequestController {
         $emailSubmit = \EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
         $emailSubmit->sendEmail("", true);
 
+        $contrEmail = $updatedReq->getContributorEmail();
+        $auEmail = $updatedReq->getOldModel()->getMetadata()->getAuthor()->getEmail();
         if (!empty($contrEmail)) {
             // Mailing the submitter to tell him that his submission has been sent for validation
             $emailSubmit = \EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
