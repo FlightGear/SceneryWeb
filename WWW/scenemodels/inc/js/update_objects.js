@@ -86,9 +86,9 @@ function update_map(long_id, lat_id) {
 }
 
 
-function update_country() {
-    var longitude = document.getElementById('longitude').value;
-    var latitude = document.getElementById('latitude').value;
+function update_country(long_id, lat_id) {
+    var longitude = document.getElementById(long_id).value;
+    var latitude = document.getElementById(lat_id).value;
     
     if (longitude!=="" && latitude!=="") {
         //retrieves information from a php-generated xml
