@@ -80,6 +80,12 @@ class UpdateModelController extends ModelRequestController {
             $xmlName = null;
         }
         
+        if (isset($_FILES["png_file"])) {
+            $pngNames = $_FILES["png_file"]["name"];
+        } else {
+            $pngNames = array();
+        }
+        
         if (empty($exceptions)) {
             try {
                 // Open working directory
@@ -101,7 +107,7 @@ class UpdateModelController extends ModelRequestController {
         }
         
         /** STEP 4 : CHECK FILES */
-        $exceptions = $this->checkFiles($targetPath, $xmlName, $ac3dName, $thumbName);
+        $exceptions = $this->checkFiles($targetPath, $xmlName, $ac3dName, $thumbName, $pngNames);
         
         // If an XML file is used for the model, the mo_path has to point to it, otherwise use AC3D
         $pathToUse = $ac3dName;

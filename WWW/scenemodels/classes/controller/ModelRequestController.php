@@ -45,17 +45,19 @@ class ModelRequestController extends RequestController {
         
 
         // PNG Files
-        for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
-            if (!empty($_FILES['png_file']['name'][$i])) {
-                $arrayPNG = array();
-                $arrayPNG['name'] = $_FILES['png_file']['name'][$i];
-                $arrayPNG['type'] = $_FILES['png_file']['type'][$i];
-                $arrayPNG['size'] = $_FILES['png_file']['size'][$i];
-                $arrayPNG['error'] = $_FILES['png_file']['error'][$i];
-                $arrayPNG['tmp_name'] = $_FILES['png_file']['tmp_name'][$i];
+        if (isset($_FILES['png_file'])) {
+            for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
+                if (!empty($_FILES['png_file']['name'][$i])) {
+                    $arrayPNG = array();
+                    $arrayPNG['name'] = $_FILES['png_file']['name'][$i];
+                    $arrayPNG['type'] = $_FILES['png_file']['type'][$i];
+                    $arrayPNG['size'] = $_FILES['png_file']['size'][$i];
+                    $arrayPNG['error'] = $_FILES['png_file']['error'][$i];
+                    $arrayPNG['tmp_name'] = $_FILES['png_file']['tmp_name'][$i];
 
-                $exceptionsPNG = $this->modelChecker->checkPNGArray($arrayPNG);
-                $exceptions = array_merge($exceptions, $exceptionsPNG);
+                    $exceptionsPNG = $this->modelChecker->checkPNGArray($arrayPNG);
+                    $exceptions = array_merge($exceptions, $exceptionsPNG);
+                }
             }
         }
         
@@ -86,26 +88,28 @@ class ModelRequestController extends RequestController {
         }
 
         // move PNG files to temp dir
-        for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
-            if (!empty($_FILES['png_file']['name'][$i])
-                    && !move_uploaded_file($_FILES['png_file']['tmp_name'][$i], $targetPath.$_FILES['png_file']['name'][$i])) {
-                $exceptions[] = new \Exception("There has been an error while moving the file \"".$_FILES['png_file']['name'][$i]."\" on the server."); 
+        if (isset($_FILES['png_file'])) {
+            for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
+                if (!empty($_FILES['png_file']['name'][$i])
+                        && !move_uploaded_file($_FILES['png_file']['tmp_name'][$i], $targetPath.$_FILES['png_file']['name'][$i])) {
+                    $exceptions[] = new \Exception("There has been an error while moving the file \"".$_FILES['png_file']['name'][$i]."\" on the server."); 
+                }
             }
         }
         
         return $exceptions;
     }
     
-    protected function checkFiles($targetPath, $xmlName, $ac3dName, $thumbName) {
+    protected function checkFiles($targetPath, $xmlName, $ac3dName, $thumbName, $pngNames) {
         /** STEP 4 : CHECK FILES */
         $validatorsSet = new \submission\ValidatorsSet();
         if (!empty($xmlName) != "") {
-            $modelFilesValidator = \submission\ModelFilesValidator::instanceWithXML($targetPath, $xmlName, $ac3dName, $_FILES["png_file"]["name"]);
+            $modelFilesValidator = \submission\ModelFilesValidator::instanceWithXML($targetPath, $xmlName, $ac3dName, $pngNames);
         } else {
-            $modelFilesValidator = \submission\ModelFilesValidator::instanceWithAC3DOnly($targetPath, $ac3dName, $_FILES["png_file"]["name"]);
+            $modelFilesValidator = \submission\ModelFilesValidator::instanceWithAC3DOnly($targetPath, $ac3dName, $pngNames);
         }
         $thumbValidator = new \submission\ThumbValidator($targetPath.$thumbName);
-        $filenamesValidator = new \submission\FilenamesValidator($ac3dName, $xmlName, $thumbName, $_FILES["png_file"]["name"]);
+        $filenamesValidator = new \submission\FilenamesValidator($ac3dName, $xmlName, $thumbName, $pngNames);
         $validatorsSet->addValidator($modelFilesValidator);
         $validatorsSet->addValidator($thumbValidator);
         $validatorsSet->addValidator($filenamesValidator);
