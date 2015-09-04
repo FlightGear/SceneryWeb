@@ -192,7 +192,7 @@ class AddObjectsController extends RequestController {
 
         // Checking that the label "Model" is correct
         if (strcmp($tabPath[0],"Models") != 0) {
-            throw new Exception("Bad model label!");
+            throw new \Exception("Model path should begin with \"Models\"!");
         }
 
         // Counts the number of fields.
