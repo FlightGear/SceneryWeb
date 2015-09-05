@@ -6860,7 +6860,7 @@ MAP
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
-    FILTER "surface LIKE 'Water%'"
+    FILTER "surface LIKE 'Water%' OR atype = 1"
     CLASS
       NAME "apt_runway_v810water"
       STYLE
@@ -7091,7 +7091,7 @@ MAP
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
-    FILTER "surface LIKE 'Water%'"
+    FILTER "surface LIKE 'Water%' OR atype = 1"
     CLASS
       NAME "apt_runway_v900water"
       STYLE
@@ -7322,7 +7322,7 @@ MAP
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
-    FILTER "surface LIKE 'Water%'"
+    FILTER "surface LIKE 'Water%' OR atype = 1"
     CLASS
       NAME "apt_runway_water"
       STYLE
