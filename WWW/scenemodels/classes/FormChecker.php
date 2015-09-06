@@ -206,12 +206,6 @@ class FormChecker {
     static public function isXMLFilename($filename) {
         return preg_match(self::$regex['xml_filename'], $filename);
     }
-    
-    // Checks if the given variable is a Thumbnail filename
-    // ================================================
-    static public function isThumbFilename($filename) {
-        return preg_match(self::$regex['thumb_filename'], $filename);
-    }
    
     // Checks if the given variable is a filename
     // ================================================

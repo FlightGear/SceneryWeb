@@ -77,10 +77,7 @@ $(function() {
           validateTabs();
         },
         afterFileAppend: function(element, value, master_element) {
-          if (value.indexOf("_thumbnail.jpg", value.length - 14) === -1 && value.indexOf("_thumbnail.jpeg", value.length - 14) === -1) {
-              alert("The thumbnail name must end with _thumbnail");
-              thumbSelected = false;
-          } else if (value !== "") {
+          if (value !== "") {
               thumbSelected = true;
           }
 
@@ -151,13 +148,13 @@ $(function() {
     <form id="positions" method="post" action="app.php?c=AddModel&amp;a=addRequest" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div id="tabs-1">
             <ul>
-                <li>Files have to share a common name, for instance: modelname.ac, modelname.xml, modelname.png and modelname_thumbnail.jpg (the _thumbnail extension is required).</li>
+                <li>Files have to share a common name, for instance: modelname.ac, modelname.xml and modelname.png.</li>
                 <li>Please do not group separate buildings into one AC file. The terrain elevation is subject to updates, so this could lead to inaccuracies.</li>
                 <li>Do not add trees or flat surfaces (such as soccer fields) into your AC file.</li>
                 <li>PNG resolution must be a power of 2 in width and height.</li>
                 <li>If you have multiple textures, name them modelname1.png, modelname2.png etc.</li>
                 <li>XML file must start with a classic XML header, such as: &lt;?xml version="1.0" encoding="UTF-8" ?&gt;. See <a href="TheNameOfYourACFile.xml">here</a> for a quick example. Only include XML if necessary for the model.</li>
-                <li>The thumbnail must be in JPEG and 320*240 resolution. Filename must end on _thumbnail.</li>
+                <li>The thumbnail must be in JPEG and 320*240 resolution.</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">
                 <tr>
@@ -221,7 +218,7 @@ $(function() {
                 </tr>
                 <tr>
                     <td>
-                        <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em><span>This is a nice picture representing your model in FlightGear in the best way (eg: tower_thumbnail.jpeg). The filename must end on _thumbnail.</span></label>
+                        <label for="mo_thumbfile">320x240 JPEG thumbnail<em>*</em><span>This is a nice picture representing your model in FlightGear in the best way.</span></label>
                     </td>
                     <td>
                         <input type="file" name="mo_thumbfile" id="mo_thumbfile" />

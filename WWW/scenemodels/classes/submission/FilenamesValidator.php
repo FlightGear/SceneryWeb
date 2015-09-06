@@ -31,20 +31,17 @@ class FilenamesValidator implements Validator {
     private $ac3dName;
     private $xmlName;
     private $pngNames;
-    private $thumbName;
     
     /**
      * Constructor
      * 
      * @param type $ac3dName AC3D filename
      * @param type $xmlName XML filename
-     * @param type $thumbName thumbnail filename
      * @param array $pngNames array of png filenames
      */
-    public function __construct($ac3dName, $xmlName, $thumbName, array $pngNames) {
+    public function __construct($ac3dName, $xmlName, array $pngNames) {
         $this->xmlName = $xmlName;
         $this->ac3dName = $ac3dName;
-        $this->thumbName = $thumbName;
         $this->pngNames = $pngNames;
     }
     
@@ -63,20 +60,10 @@ class FilenamesValidator implements Validator {
                 $exceptions[] = new \Exception("Textures' name must be *.png or *.PNG with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
             }
         }
-        
-        // Check thumbnail filename
-        if (!\FormChecker::isThumbFilename($this->thumbName)) {
-            $exceptions[] = new \Exception("Thumbnail name must be *.jpg or *.jpeg with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
-        }
 
         if (count($exceptions) == 0 && 
-                ($this->nameWithoutExtension($this->thumbName) != $this->nameWithoutExtension($this->ac3dName)."_thumbnail"
-                || ($this->xmlName != "" && $this->nameWithoutExtension($this->ac3dName) != $this->nameWithoutExtension($this->xmlName)))) {
-            $exceptions[] = new \Exception("XML, AC and thumbnail file <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$this->xmlName."), tower.ac (currently ".$this->ac3dName."), tower_thumbnail.jpeg (currently ".$this->thumbName.").");
-            
-            if (substr($this->nameWithoutExtension($this->thumbName), -10) != "_thumbnail") {
-                $exceptions[] = new \Exception("The thumbnail file name must end with *_thumbnail.");
-            }
+                $this->xmlName != "" && $this->nameWithoutExtension($this->ac3dName) != $this->nameWithoutExtension($this->xmlName)) {
+            $exceptions[] = new \Exception("XML and AC files <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$this->xmlName."), tower.ac (currently ".$this->ac3dName.")).");
         }
         
         return $exceptions;

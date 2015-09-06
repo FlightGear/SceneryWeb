@@ -109,7 +109,7 @@ class ModelRequestController extends RequestController {
             $modelFilesValidator = \submission\ModelFilesValidator::instanceWithAC3DOnly($targetPath, $ac3dName, $pngNames);
         }
         $thumbValidator = new \submission\ThumbValidator($targetPath.$thumbName);
-        $filenamesValidator = new \submission\FilenamesValidator($ac3dName, $xmlName, $thumbName, $pngNames);
+        $filenamesValidator = new \submission\FilenamesValidator($ac3dName, $xmlName, $pngNames);
         $validatorsSet->addValidator($modelFilesValidator);
         $validatorsSet->addValidator($thumbValidator);
         $validatorsSet->addValidator($filenamesValidator);
