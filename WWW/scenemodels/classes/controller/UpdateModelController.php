@@ -217,8 +217,8 @@ class UpdateModelController extends ModelRequestController {
             $emailSubmit = \EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
             $emailSubmit->sendEmail($contrEmail, false);
 
-            // If the author's email is different from the subbmitter's, an email is also sent to the author
-            if ($auEmail != $contrEmail) {
+            // If the author's email is different from the submitter's, an email is also sent to the author
+            if (\FormChecker::isEmail($auEmail) && $auEmail != $contrEmail) {
                 $emailSubmit = \EmailContentFactory::getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $updatedReq);
                 $emailSubmit->sendEmail($auEmail, false);
             }
