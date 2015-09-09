@@ -12,15 +12,16 @@ function ajaxSubmit(formId, checkURL, successURLPrefix) {
     }
     
     // Prepare form
+    var form = $('#'+formId);
     var fd = new FormData();
-    $('input[type="file"]').each(function() {
+    form.find('input[type="file"]').each(function() {
         var name = $(this)[0].name;
         jQuery.each($(this)[0].files, function(i, file) {
             fd.append(name, file);
         });
     });
 
-    var other_data = $('#'+formId).serializeArray();
+    var other_data = form.serializeArray();
     $.each(other_data,function(key,input){
         fd.append(input.name,input.value);
     });
