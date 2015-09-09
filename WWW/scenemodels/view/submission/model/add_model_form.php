@@ -4,7 +4,6 @@ require 'view/header.php';
 ?>
 <script type="text/javascript" src="/inc/js/update_objects.js"></script>
 <script type="text/javascript" src="/inc/js/check_form.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript" src="/inc/js/jquery.multifile.js"></script>
 <script type="text/javascript" src="/inc/js/submit.js"></script>
 <script type="text/javascript">
