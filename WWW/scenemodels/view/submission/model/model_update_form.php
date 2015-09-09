@@ -21,6 +21,10 @@ function validateForm()
         !checkEmail(form["email"]) ||
         form["recaptcha_response_field"].value === "")
         return false;
+    
+    return !ajaxSubmit("positions",
+            "app.php?c=UpdateModel&a=addRequest&ajaxCheck=1",
+            "app.php?c=UpdateModel&a=success&id=");
 }
 
 function validateTabs()
@@ -70,6 +74,26 @@ $(function() {
           validateTabs();
         }
     });
+    
+    $( "#submit-dialog" ).dialog({
+        draggable: false,
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Ok": function() {
+                $( "#submit-dialog" ).dialog( "close" );
+            }
+        },
+        close: function() {
+            $( "#submit-dialog-errors" ).html( "" );
+        }
+    });
+    $("#submit-dialog").css("display","none");
+    
+    // Temporary FIX
+    $('.ui-button-text').each(function(i){
+        $(this).html($(this).parent().attr('text'));
+    });
 });
 /*]]>*/
 </script>
@@ -77,6 +101,13 @@ $(function() {
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
 
 <h1>Updating model #<?=$modelMD->getId()?></h1>
+
+<div id="loadingScreen"></div>
+<div id="submit-dialog">
+    <div id="submit-dialog-errors"></div>
+    Please correct the models directly in your computer and submit again
+    (no need to reselect them!)
+</div>
 
 <p>
     Hover your mouse over the various field titles (left column) to view some information about what to do with that particular field. Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> for a better understanding of the various requirements.
