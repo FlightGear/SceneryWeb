@@ -32,9 +32,9 @@ function ajaxSubmit(formId, checkURL, successURLPrefix) {
     $.ajax({
         url: checkURL,
         data: fd,
-        async: false,
         processData: false,
         contentType: false,
+        dataType: "xml",
         type: "POST",
         timeout: 10000
     }).done(function(xml) {
@@ -55,13 +55,13 @@ function ajaxSubmit(formId, checkURL, successURLPrefix) {
             var requestId = $(xml).find("requestId").text();
             window.location = successURLPrefix+requestId;
         }
+        
+        closeWaitingDialog();
     }).fail(function(jqXHR, textStatus){
         // If Ajax fails, use normal submit
         closeWaitingDialog();
         return false;
     });
-    
-    closeWaitingDialog();
     
     return true;
 }
