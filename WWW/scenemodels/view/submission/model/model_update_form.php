@@ -74,26 +74,6 @@ $(function() {
           validateTabs();
         }
     });
-    
-    $( "#submit-dialog" ).dialog({
-        draggable: false,
-        autoOpen: false,
-        modal: true,
-        buttons: {
-            "Ok": function() {
-                $( "#submit-dialog" ).dialog( "close" );
-            }
-        },
-        close: function() {
-            $( "#submit-dialog-errors" ).html( "" );
-        }
-    });
-    $("#submit-dialog").css("display","none");
-    
-    // Temporary FIX
-    $('.ui-button-text').each(function(i){
-        $(this).html($(this).parent().attr('text'));
-    });
 });
 /*]]>*/
 </script>

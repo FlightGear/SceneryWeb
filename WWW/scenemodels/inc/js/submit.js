@@ -88,6 +88,28 @@ $(document).ready(function() {
             $('body').css('overflow','auto');
         }
     });
+    
+    $("#submit-dialog").dialog({
+        draggable: false,
+        autoOpen: false,
+        modal: true,
+        width: 460,
+        minHeight: 50,
+        buttons: {
+            "Ok": function() {
+                $("#submit-dialog").dialog("close");
+            }
+        },
+        close: function() {
+            $( "#submit-dialog-errors" ).html("");
+        }
+    });
+    $("#submit-dialog").css("display","none");
+
+    // Temporary FIX
+    $('.ui-button-text').each(function(i){
+        $(this).html($(this).parent().attr('text'));
+    });
 });
 function waitingDialog() {
     $("#loadingScreen").html('Please wait...');
