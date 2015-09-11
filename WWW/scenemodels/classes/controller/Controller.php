@@ -49,12 +49,18 @@ abstract class Controller {
                                 $_POST["recaptcha_response_field"]);
     }
     
-    protected function displayCaptchaError($resp) {
-        $pageTitle = "Automated Submission Form";
+    protected function displayCaptchaError($resp, $xml = false) {
+        if ($xml) {
+            $errors = array();
+            $errors[] = new \Exception("The CAPTCHA is not correct. Please refresh it and try again.");
+            include 'view/submission/errors_xml.php';
+        } else {
+            $pageTitle = "Automated Submission Form";
 
-        $errorText = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
-                 "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
-                 "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
-        include 'view/error_page.php';
+            $errorText = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
+                     "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
+                     "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
+            include 'view/error_page.php';
+        }
     }
 }

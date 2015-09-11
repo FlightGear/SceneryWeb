@@ -186,7 +186,7 @@ class AddModelController extends ModelRequestController {
         // Check captcha
         $resp = $this->checkCaptcha();
         if (!$resp->is_valid) {
-            $this->displayCaptchaError($resp);
+            $this->displayCaptchaError($resp, $ajaxCheck);
             return;
         }
 

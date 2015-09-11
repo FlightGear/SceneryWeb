@@ -175,7 +175,7 @@ class UpdateModelController extends ModelRequestController {
         
         $resp = $this->checkCaptcha();
         if (!$resp->is_valid) {
-            $this->displayCaptchaError($resp);
+            $this->displayCaptchaError($resp, $ajaxCheck);
             return;
         }
         

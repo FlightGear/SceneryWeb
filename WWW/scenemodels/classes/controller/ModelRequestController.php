@@ -119,7 +119,7 @@ class ModelRequestController extends RequestController {
     
     protected function displayModelErrors($errors, $xml = false) {
         if ($xml) {
-            include 'view/submission/model/model_errors_xml.php';
+            include 'view/submission/errors_xml.php';
         } else {
             $this->displayModelErrorsHTML($errors);
         }
