@@ -9141,8 +9141,8 @@ MAP
     CLASS
       NAME "osm_river"
       STYLE
-        COLOR 173 209 239
-        WIDTH 5
+        COLOR 90 160 160
+        WIDTH 8
       END
     END
     METADATA
@@ -9171,8 +9171,8 @@ MAP
     CLASS
       NAME "osm_canal"
       STYLE
-        COLOR 173 209 239
-        WIDTH 6
+        COLOR 90 160 160
+        WIDTH 7
       END
     END
     METADATA
@@ -9201,8 +9201,8 @@ MAP
     CLASS
       NAME "osm_stream"
       STYLE
-        COLOR 173 209 239
-        WIDTH 4
+        COLOR 90 160 160
+        WIDTH 6
       END
     END
     METADATA
@@ -9231,8 +9231,8 @@ MAP
     CLASS
       NAME "osm_drain"
       STYLE
-        COLOR 173 209 239
-        WIDTH 2
+        COLOR 90 160 160
+        WIDTH 5
       END
     END
     METADATA
