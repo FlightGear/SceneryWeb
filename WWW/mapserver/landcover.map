@@ -9125,6 +9125,33 @@ MAP
   END # osm_light_rail
 
   LAYER
+    NAME osm_naturalwater
+    TYPE POLYGON
+    STATUS OFF
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM osm_naturalwater USING UNIQUE osm_id USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "osm_naturalwater"
+      STYLE
+        COLOR 90 160 160
+      END
+    END
+    METADATA
+      "ows_title" "osm_naturalwater"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # osm_naturalwater
+
+  LAYER
     NAME osm_river
     TYPE LINE
     STATUS OFF
@@ -9155,34 +9182,31 @@ MAP
   END # osm_river
 
   LAYER
-    NAME osm_canal
-    TYPE LINE
+    NAME osm_riverbank
+    TYPE POLYGON
     STATUS OFF
-    MAXSCALE 100000
-    SYMBOLSCALE 10000
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM osm_canal USING UNIQUE osm_id USING SRID=4326"
+    DATA "wkb_geometry FROM osm_riverbank USING UNIQUE osm_id USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
     EXTENT -180 -90 180 90
     CLASS
-      NAME "osm_canal"
+      NAME "osm_riverbank"
       STYLE
         COLOR 90 160 160
-        WIDTH 7
       END
     END
     METADATA
-      "ows_title" "osm_canal"
+      "ows_title" "osm_riverbank"
       "ows_extent" "-180 -90 180 90"
-      "ows_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_abstract" "FlightGear Landcover-DB - Source: World Custom Scenery Project. See http://wiki.osgeo.org/wiki/LandcoverDB_CS_Detail for more information."
       "ows_include_items" "all"
       "ows_featureid" "ID"
     END
-  END # osm_canal
+  END # osm_riverbank
 
   LAYER
     NAME osm_stream
@@ -9215,6 +9239,36 @@ MAP
   END # osm_stream
 
   LAYER
+    NAME osm_canal
+    TYPE LINE
+    STATUS OFF
+    MAXSCALE 100000
+    SYMBOLSCALE 10000
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM osm_canal USING UNIQUE osm_id USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "osm_canal"
+      STYLE
+        COLOR 90 160 160
+        WIDTH 7
+      END
+    END
+    METADATA
+      "ows_title" "osm_canal"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: VMap0. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # osm_canal
+
+  LAYER
     NAME osm_drain
     TYPE LINE
     STATUS OFF
@@ -9243,6 +9297,33 @@ MAP
       "ows_featureid" "ID"
     END
   END # osm_drain
+
+  LAYER
+    NAME osm_coastline
+    TYPE LINE
+    STATUS OFF
+    CONNECTION "dbname=landcover user=webuser"
+    CONNECTIONTYPE postgis
+#    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "wkb_geometry FROM osm_coastline USING UNIQUE ogc_fid USING SRID=4326"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    EXTENT -180 -90 180 90
+    CLASS
+      NAME "osm_coastline"
+      STYLE
+        COLOR 90 160 160
+      END
+    END
+    METADATA
+      "ows_title" "osm_coastline"
+      "ows_extent" "-180 -90 180 90"
+      "ows_abstract" "FlightGear Landcover-DB - Source: OSM. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
+      "ows_include_items" "all"
+      "ows_featureid" "ID"
+    END
+  END # osm_coastline
 
   LAYER
     NAME osm_runway
@@ -9332,33 +9413,6 @@ MAP
       "ows_featureid" "ID"
     END
   END # osm_apron
-
-  LAYER
-    NAME osm_coastline
-    TYPE LINE
-    STATUS OFF
-    CONNECTION "dbname=landcover user=webuser"
-    CONNECTIONTYPE postgis
-#    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM osm_coastline USING UNIQUE ogc_fid USING SRID=4326"
-    PROJECTION
-      "init=epsg:4326"
-    END
-    EXTENT -180 -90 180 90
-    CLASS
-      NAME "osm_coastline"
-      STYLE
-        COLOR 90 160 160
-      END
-    END
-    METADATA
-      "ows_title" "osm_coastline"
-      "ows_extent" "-180 -90 180 90"
-      "ows_abstract" "FlightGear Landcover-DB - Source: OSM. See http://wiki.osgeo.org/index.php/Geodata_Repository#PostGIS_serving_vector_data for more information."
-      "ows_include_items" "all"
-      "ows_featureid" "ID"
-    END
-  END # osm_coastline
 
   LAYER
     NAME osm_roadcover

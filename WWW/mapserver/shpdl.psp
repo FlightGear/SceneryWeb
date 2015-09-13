@@ -269,9 +269,11 @@ else:
                 <option value='osm_rail' [osm_rail_select]> osm_rail
                 <option value='osm_tram' [osm_tram_select]> osm_tram
                 <option value='osm_light_rail' [osm_light_rail_select]> osm_light_rail
+                <option value='osm_naturalwater' [osm_naturalwater_select]> osm_naturalwater
                 <option value='osm_river' [osm_river_select]> osm_river
-                <option value='osm_canal' [osm_canal_select]> osm_canal
+                <option value='osm_riverbank' [osm_riverbank_select]> osm_riverbank
                 <option value='osm_stream' [osm_stream_select]> osm_stream
+                <option value='osm_canal' [osm_canal_select]> osm_canal
                 <option value='osm_drain' [osm_drain_select]> osm_drain
                 <option value='osm_coastline' [osm_coastline_select]> osm_coastline
                 <option value=''>-- SRTM:
