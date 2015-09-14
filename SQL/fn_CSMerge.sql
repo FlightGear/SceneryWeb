@@ -51,9 +51,9 @@ AS $BODY$
         intest varchar;
         delobj varchar;
         diffobj varchar;
-        testmulti varchar;
-        unrollmulti varchar;
-        delmulti varchar;
+--        testmulti varchar;
+--        unrollmulti varchar;
+--        delmulti varchar;
         backdiff varchar;
         newcslayers varchar := 'SELECT DISTINCT pglayer FROM newcs_full ORDER BY pglayer;';
         addnewlayer varchar;
@@ -61,7 +61,7 @@ AS $BODY$
         within bool;
         cslayer record;
         ogcfid record;
-        multifid record;
+--        multifid record;
         pglayer record;
     BEGIN
         DROP TABLE IF EXISTS newcs_hole;
@@ -86,20 +86,20 @@ AS $BODY$
                     EXECUTE intest INTO within;
                     CASE WHEN within IS FALSE THEN
                         DROP TABLE IF EXISTS newcs_diff;
-                        diffobj := concat('CREATE TABLE newcs_diff AS SELECT ST_MakeValid(ST_Difference((SELECT ST_MakeValid(wkb_geometry) FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM newcs_hole))) AS wkb_geometry;');
---                        RAISE NOTICE '%', diffobj;
+                        diffobj := concat('CREATE TABLE newcs_diff AS SELECT (ST_Dump(ST_MakeValid(ST_Difference((SELECT ST_MakeValid(wkb_geometry) FROM ', quote_ident(cslayer.f_table_name), ' WHERE ogc_fid = ', ogcfid.ogc_fid, '), (SELECT wkb_geometry FROM newcs_hole))))).geom AS wkb_geometry;');
+                        RAISE NOTICE '%', diffobj;
                         EXECUTE diffobj;
                         ALTER TABLE newcs_diff ADD COLUMN ogc_fid serial NOT NULL;
                         ALTER TABLE newcs_diff ADD CONSTRAINT "enforce_valid_wkb_geometry" CHECK (ST_IsValid(wkb_geometry));
-                        testmulti := 'SELECT ogc_fid FROM newcs_diff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL;';
-                        FOR multifid IN
-                            EXECUTE testmulti
-                        LOOP
-                            unrollmulti := concat('INSERT INTO newcs_diff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM newcs_diff WHERE ogc_fid = ', multifid.ogc_fid, ');');
-                            delmulti := concat('DELETE FROM newcs_diff WHERE ogc_fid = ', multifid.ogc_fid, ';');
-                            EXECUTE unrollmulti;
-                            EXECUTE delmulti;
-                        END LOOP;
+--                        testmulti := 'SELECT ogc_fid FROM newcs_diff WHERE ST_NumGeometries(wkb_geometry) IS NOT NULL;';
+--                        FOR multifid IN
+--                            EXECUTE testmulti
+--                        LOOP
+--                            unrollmulti := concat('INSERT INTO newcs_diff (wkb_geometry) (SELECT ST_GeometryN(wkb_geometry, generate_series(1, ST_NumGeometries(wkb_geometry))) AS wkb_geometry FROM newcs_diff WHERE ogc_fid = ', multifid.ogc_fid, ');');
+--                            delmulti := concat('DELETE FROM newcs_diff WHERE ogc_fid = ', multifid.ogc_fid, ';');
+--                            EXECUTE unrollmulti;
+--                            EXECUTE delmulti;
+--                        END LOOP;
                         backdiff := concat('INSERT INTO ', quote_ident(cslayer.f_table_name), ' (wkb_geometry) (SELECT wkb_geometry FROM newcs_diff);');
 --                        RAISE NOTICE '%', backdiff;
                         EXECUTE backdiff;
