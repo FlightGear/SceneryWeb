@@ -16,15 +16,15 @@ foreach ($request->getNewObjects() as $newObj) {
     $newObjPos = $newObj->getPosition();
 
     echo "<tr>" .
-         "<td><center>".$i."</center></td>" .
-         "<td><center>".$newObjPos->getLongitude()."</center></td>" .
-         "<td><center>".$newObjPos->getLatitude()."</center></td>" .
-         "<td><center>".$newObj->getCountry()->getName()."</center></td>" .
-         "<td><center>".$newObj->getGroundElevation()."</center></td>" .
-         "<td><center>".$newObj->getElevationOffset()."</center></td>" .
-         "<td><center>".$newObj->getOrientation()."</center></td>" .
-         "<td><center><a href='http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></center></td>" .
-         "<td><center><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;zoom=14\">Map</a></center></td>" .
+         "<td>".$i."</td>" .
+         "<td>".$newObjPos->getLongitude()."</td>" .
+         "<td>".$newObjPos->getLatitude()."</td>" .
+         "<td>".$newObj->getCountry()->getName()."</td>" .
+         "<td>".$newObj->getGroundElevation()."</td>" .
+         "<td>".$newObj->getElevationOffset()."</td>" .
+         "<td>".$newObj->getOrientation()."</td>" .
+         "<td><a href='http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></td>" .
+         "<td><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;zoom=14\">Map</a></td>" .
          "</tr>";
 
     $i++;
