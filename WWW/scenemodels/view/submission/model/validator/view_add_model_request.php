@@ -77,9 +77,7 @@ include 'view/header.php';
     <tr>
         <td>Map</td>
         <td>
-        <center>
             <object data="http://mapserver.flightgear.org/popmap/?lon=<?=$newObjPos->getLongitude()?>&amp;lat=<?=$newObjPos->getLatitude()?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
-        </center>
         </td>
     </tr>
     <tr>
@@ -100,7 +98,7 @@ include 'view/header.php';
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>
-        <td><center><img src="app.php?c=AddModelValidator&amp;a=getNewModelThumb&amp;sig=<?=$sig?>" alt="Thumbnail"/></center></td>
+        <td><img src="app.php?c=AddModelValidator&amp;a=getNewModelThumb&amp;sig=<?=$sig?>" alt="Thumbnail"/></td>
     </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
@@ -108,7 +106,7 @@ include 'view/header.php';
 ?>
     <tr>
         <td>Download</td>
-        <td><center><a href="app.php?c=AddModelValidator&amp;a=getNewModelPack&sig=<?=$sig?>">Download the submission as .tar.gz for external viewing.</a></center></td>
+        <td><a href="app.php?c=AddModelValidator&amp;a=getNewModelPack&sig=<?=$sig?>">Download the submission as .tar.gz for external viewing.</a></td>
     </tr>
     <tr>
         <td>Corresponding AC3D File</td>
@@ -136,7 +134,6 @@ include 'view/header.php';
     <tr>
         <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
         <td>
-            <center>
 <?php
             $texturesNames = $modelFiles->getTexturesNames();
             $png_file_number = count($texturesNames);
@@ -161,7 +158,6 @@ include 'view/header.php';
                 echo $textureName." (Dim: ".$width."x".$height.")</a><br/>";
             }
 ?>
-            </center>
         </td>
     </tr>
     <tr>
