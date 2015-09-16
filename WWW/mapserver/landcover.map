@@ -9131,7 +9131,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM osm_naturalwater USING UNIQUE osm_id USING SRID=4326"
+    DATA "wkb_geometry FROM osm_naturalwater USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
@@ -9188,7 +9188,7 @@ MAP
     CONNECTION "dbname=landcover user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "wkb_geometry FROM osm_riverbank USING UNIQUE osm_id USING SRID=4326"
+    DATA "wkb_geometry FROM osm_riverbank USING UNIQUE ogc_fid USING SRID=4326"
     PROJECTION
       "init=epsg:4326"
     END
