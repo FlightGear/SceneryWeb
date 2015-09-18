@@ -103,7 +103,7 @@ function validateForm()
 <?php
     // Google Captcha stuff
     require_once 'inc/captcha/recaptchalib.php';
-    echo recaptcha_get_html(\Config::CAPTCHA_PUBLIC_KEY);
+    echo recaptcha_get_html(\Config::getCaptchaPublicKey());
 ?>
             <br />
             <input name="delete_choice" type="hidden" value="<?php echo $objectToDel->getId(); ?>" />

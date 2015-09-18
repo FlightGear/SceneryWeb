@@ -149,7 +149,7 @@ echo "<p class=\"center ok\">No errors have been found in your submission, all f
 
 // Google Captcha stuff
 require_once 'inc/captcha/recaptchalib.php';
-echo "<div style=\"margin: auto;display: table;\">".recaptcha_get_html(\Config::CAPTCHA_PUBLIC_KEY)."</div>";
+echo "<div style=\"margin: auto;display: table;\">".recaptcha_get_html(\Config::getCaptchaPublicKey())."</div>";
 
 echo "<p class=\"center ok\"><input name='submit' type='submit' value='Submit objects' /></p></form>";
 

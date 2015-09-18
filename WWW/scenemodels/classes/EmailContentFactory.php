@@ -44,7 +44,7 @@ class EmailContentFactory {
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be added in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
+        $message .= "The corresponding entries will be added in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: ".Config::getTerrasyncDataUpdServerURL()."\r\n\r\n" .
                     "Thanks for your help in making FlightGear better!\r\n\r\n";
         
         return new EmailContent($subject, self::format($message));
@@ -98,7 +98,7 @@ class EmailContentFactory {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
         $message .= "The corresponding entries will be updated in TerraSync at " .
-                self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list ".
+                self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: ".Config::getTerrasyncDataUpdServerURL()." ".
                 "and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$modelMD->getId()."\r\n\r\n" .
                 "Thanks for your help in making FlightGear better!\r\n\r\n";
 
@@ -183,7 +183,7 @@ class EmailContentFactory {
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be deleted, added or updated in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list\r\n\r\n" .
+        $message .= "The corresponding entries will be deleted, added or updated in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: ".Config::getTerrasyncDataUpdServerURL()."\r\n\r\n" .
                     "Please don't forget to use the massive import form rather than the single one if you have many objects to add!\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));
@@ -329,7 +329,7 @@ class EmailContentFactory {
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
-        $message .= "The corresponding entries will be added in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: http://code.google.com/p/terrascenery/source/list and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newModelMD->getId()."\r\n\r\n" .
+        $message .= "The corresponding entries will be added in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: ".Config::getTerrasyncDataUpdServerURL()." and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newModelMD->getId()."\r\n\r\n" .
                     "Thanks for your help in making FlightGear better!\r\n\r\n";
             
         return new EmailContent($subject, self::format($message));

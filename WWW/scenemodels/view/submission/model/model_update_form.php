@@ -226,7 +226,7 @@ $(function() {
                         <?php
                         // Google Captcha stuff
                         require_once 'inc/captcha/recaptchalib.php';
-                        echo recaptcha_get_html(\Config::CAPTCHA_PUBLIC_KEY);
+                        echo recaptcha_get_html(\Config::getCaptchaPublicKey());
                         ?>
                         <br />
                         <input type="hidden" name="MAX_FILE_SITE" value="2000000" />

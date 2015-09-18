@@ -244,7 +244,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
 <?php
     // Google Captcha stuff
     require_once 'inc/captcha/recaptchalib.php';
-    echo recaptcha_get_html(\Config::CAPTCHA_PUBLIC_KEY);
+    echo recaptcha_get_html(\Config::getCaptchaPublicKey());
 ?>
             <input type="submit" name="submit" value="Update this object!" />
             <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>
