@@ -25,9 +25,13 @@
  */
 class Config {
     private static $CAPTCHA_PUBLIC_KEY = "6Len6skSAAAAAB1mCVkP3H8sfqqDiWbgjxOmYm_4";
-    private static $TERRASYNC_DATA_UPD_SERVER = "http://scenery.flightgear.org/websvn/log.php?repname=repos+1&path=%2F&&isdir=1";
+    private static $TERRASYNC_DATA_UPD_SERVER_URL = "http://scenery.flightgear.org/websvn/log.php?repname=repos+1&path=%2F&&isdir=1";
     
     public static function getCaptchaPublicKey() {
         return self::$CAPTCHA_PUBLIC_KEY;
+    }
+    
+    public static function getTerrasyncDataUpdServerURL() {
+        return self::$TERRASYNC_DATA_UPD_SERVER_URL;
     }
 }
