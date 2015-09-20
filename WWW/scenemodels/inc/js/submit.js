@@ -35,8 +35,7 @@ function ajaxSubmit(formId, checkURL, successURLPrefix) {
         processData: false,
         contentType: false,
         dataType: "xml",
-        type: "POST",
-        timeout: 10000
+        type: "POST"
     }).done(function(xml) {
         
         var errors = $(xml).find("error");
@@ -59,6 +58,7 @@ function ajaxSubmit(formId, checkURL, successURLPrefix) {
         closeWaitingDialog();
     }).fail(function(jqXHR, textStatus){
         // If Ajax fails, use normal submit
+        alert("An error occured: " + textStatus);
         closeWaitingDialog();
         return false;
     });
