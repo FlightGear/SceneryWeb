@@ -61,7 +61,7 @@ AS $BODY$
         pglayer record;
     BEGIN
         DROP TABLE IF EXISTS newcs_hole;
-        CREATE TABLE newcs_hole AS SELECT ST_Collect(wkb_geometry) AS wkb_geometry FROM newcs_collect;
+        CREATE TABLE newcs_hole AS SELECT ST_MakeValid(ST_Collect(wkb_geometry)) AS wkb_geometry FROM newcs_collect;
         ALTER TABLE newcs_hole ADD COLUMN ogc_fid serial NOT NULL;
         ALTER TABLE newcs_hole ADD CONSTRAINT "enforce_dims_wkb_geometry" CHECK (ST_NDims(wkb_geometry) = 2);
         ALTER TABLE newcs_hole ADD CONSTRAINT "enforce_geotype_wkb_geometry" CHECK (GeometryType(wkb_geometry) = 'MULTIPOLYGON'::text);
