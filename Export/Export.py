@@ -52,9 +52,10 @@ except:
     statusfile.flush()
 
     pghost = "eclipse.optiputer.net"
+    pgport = 5433
     pgdatabase = "scenemodels"
     pguser = "martin"
-    db_params = {"host":pghost, "database":pgdatabase, "user":pguser}
+    db_params = {"host":pghost, "port":pgport, "database":pgdatabase, "user":pguser}
 
     # Save this for later use by subprocesses like:
     #    mySubproc = os.path.join(basedir, "mySubproc")

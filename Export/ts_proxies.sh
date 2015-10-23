@@ -17,11 +17,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 PGHOST=eclipse.optiputer.net
+PGPORT=5433
 PGDATABASE=scenemodels
 FG_SCENERY=/home/fgscenery/Terrascenery
 
 LYNX="/usr/bin/lynx -connect_timeout=5 -read_timeout=5"
-PSQL="/usr/bin/psql -h ${PGHOST} -d ${PGDATABASE}"
+PSQL="/usr/bin/psql -h ${PGHOST} -p ${PGPORT} -d ${PGDATABASE}"
 
 for ID in `${PSQL} -tA -c "SELECT ogc_fid FROM ts_proxies;"`; do
     URL=`${PSQL} -tA -c "SELECT url FROM ts_proxies WHERE ogc_fid = ${ID};"`  # trailing slash !
