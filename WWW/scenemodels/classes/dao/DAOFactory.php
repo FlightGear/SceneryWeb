@@ -9,18 +9,20 @@ class DAOFactory {
     
     private function getDBReadOnly() {
         global $dbhost;
+        global $dbport;
         global $dbname;
         global $dbuser;
         global $dbpass;
-        return new PGDatabase($dbname, $dbhost, $dbuser, $dbpass);
+        return new PGDatabase($dbname, $dbhost, $dbport, $dbuser, $dbpass);
     }
     
     private function getDBReadWrite() {
         global $rwhost;
+        global $rwport;
         global $rwname;
         global $rwuser;
         global $rwpass;
-        return new PGDatabase($rwname, $rwhost, $rwuser, $rwpass);
+        return new PGDatabase($rwname, $rwhost, $rwport, $rwuser, $rwpass);
     }
     
     public static function getInstance() {

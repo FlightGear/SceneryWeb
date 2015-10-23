@@ -8,12 +8,13 @@ $objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
 // ==================================
 function connect_sphere_r() {
     global $dbhost;
+    global $dbport;
     global $dbname;
     global $dbuser;
     global $dbpass;
     
     // Connecting to database
-    $resource_r = pg_connect('dbname='.$dbname.' host='.$dbhost.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
+    $resource_r = pg_connect('dbname='.$dbname.' host='.$dbhost.' port='.$dbport.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
 
     // If could not connect to the database
     if ($resource_r == '0') {

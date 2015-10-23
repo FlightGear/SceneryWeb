@@ -5,8 +5,8 @@ namespace dao;
 class PGDatabase implements Database {
     private $connection;
 
-    public function __construct($dbname, $dbhost, $dbuser, $dbpass) {
-        $this->connection = pg_connect('dbname='.$dbname.' host='.$dbhost.
+    public function __construct($dbname, $dbhost, $dbport, $dbuser, $dbpass) {
+        $this->connection = pg_connect('dbname='.$dbname.' host='.$dbhost.' port='.$dbport.
                          ' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
     }
     
