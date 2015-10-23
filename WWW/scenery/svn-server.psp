@@ -22,7 +22,7 @@ co = req.subprocess_env["GEOIP_COUNTRY_CODE"]
 lon = req.subprocess_env["GEOIP_LONGITUDE"]
 lat = req.subprocess_env["GEOIP_LATITUDE"]
 
-db_params = {"host":"localhost", "port":"5432", "database":"landcover", "user":"webuser"}
+db_params = {"host":"localhost", "port":"5432", "database":"scenemodels", "user":"webuser"}
 db_conn = psycopg2.connect(**db_params)
 db_cur = db_conn.cursor()
 
