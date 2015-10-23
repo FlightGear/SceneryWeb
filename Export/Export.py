@@ -52,7 +52,7 @@ except:
     statusfile.flush()
 
     pghost = "eclipse.optiputer.net"
-    pgdatabase = "landcover"
+    pgdatabase = "scenemodels"
     pguser = "martin"
     db_params = {"host":pghost, "database":pgdatabase, "user":pguser}
 

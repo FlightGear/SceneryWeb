@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 PGHOST=eclipse.optiputer.net
-PGDATABASE=landcover
+PGDATABASE=scenemodels
 FG_SCENERY=/home/fgscenery/Terrascenery
 
 LYNX="/usr/bin/lynx -connect_timeout=5 -read_timeout=5"
