@@ -16,6 +16,9 @@
 
 -- Dump all .stg-rows for a given tile
 
+-- NOTE: Make sure the locale settings in general and the
+-- number formatting in particular are set to "en_US.UTF-8" !
+
 CREATE OR REPLACE FUNCTION fn_DumpStgRows(integer)
     RETURNS setof text
 AS $$
