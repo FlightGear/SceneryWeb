@@ -9,3 +9,4 @@ Disallow: /map
 Disallow: /lightmap
 Disallow: /loc.php
 Disallow: /dist.php
+Disallow: /websvn
