@@ -10107,7 +10107,7 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "dbname=landcover user=webuser"
+    CONNECTION "dbname=scenemodels user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA 'wkb_geometry FROM fgs_objects, fgs_models USING UNIQUE fgs_objects.ob_id USING SRID=4326'
@@ -10148,7 +10148,7 @@ MAP
     STATUS OFF
     MAXSCALE 2000000
     LABELMAXSCALE 1000000
-    CONNECTION "dbname=landcover user=webuser"
+    CONNECTION "dbname=scenemodels user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA 'wkb_geometry FROM fgs_objects, fgs_models USING UNIQUE fgs_objects.ob_id USING SRID=4326'
@@ -10189,7 +10189,7 @@ MAP
     STATUS OFF
     MAXSCALE 30000
 #    SYMBOLSCALE 10000
-    CONNECTION "dbname=landcover user=webuser"
+    CONNECTION "dbname=scenemodels user=webuser"
     CONNECTIONTYPE postgis
 #    PROCESSING "CLOSE_CONNECTION=DEFER"
     DATA "wkb_geometry FROM fgs_signs USING UNIQUE si_id USING SRID=4326"
