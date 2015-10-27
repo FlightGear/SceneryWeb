@@ -51,7 +51,7 @@ except:
     statusfile.write("running\n")
     statusfile.flush()
 
-    pghost = "eclipse.optiputer.net"
+    pghost = "localhost"
     pgport = 5433
     pgdatabase = "scenemodels"
     pguser = "martin"
