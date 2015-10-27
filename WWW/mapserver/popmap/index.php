@@ -90,6 +90,9 @@
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 1;
             map = new OpenLayers.Map('map', options);
 
+            tarmac.setVisibility(false);
+            osmlines.setVisibility(false);
+
             map.addLayers([bingaerial, mapnik, tarmac, osmlines, wmsobjects, jsonobjects, wmssigns]);
 
             jsonobjects.events.on({
