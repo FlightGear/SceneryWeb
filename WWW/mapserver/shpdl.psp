@@ -67,6 +67,7 @@ else:
   <div id="content2">
 
 <!--    <h3 class="warning">Service temporarily unavailable due to database update.</h3> -->
+    <h3 class="warning">Service degraded due to disk failure.</h3>
 
     <h3>UCSD / TelaScience / OSGeo / FlightGear Landcover Database Shapefile Download</h3>
 
