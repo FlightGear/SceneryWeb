@@ -86,7 +86,7 @@ function update_map(long_id, lat_id) {
 }
 
 
-function update_country(long_id, lat_id) {
+function update_country(long_id, lat_id, country_id) {
     var longitude = document.getElementById(long_id).value;
     var latitude = document.getElementById(lat_id).value;
     
@@ -101,19 +101,19 @@ function update_country(long_id, lat_id) {
            hreq = new ActiveXObject("Microsoft.XMLHTTP");//IE
         }
 
-        hreq.onreadystatechange = function(){update_country_aux(hreq); };
+        hreq.onreadystatechange = function(){update_country_aux(hreq, country_id); };
         hreq.open("GET", url, true); //true=asynchronous
         hreq.send(null);
     }
 }
 
-function update_country_aux(hreq)
+function update_country_aux(hreq, country_id)
 {
     if (hreq.readyState == 4) //checks that the request is finished       
     {
         var country=hreq.responseXML.getElementsByTagName("country")[0].childNodes[0].nodeValue;
 
-        var ddl = document.getElementById('ob_country');
+        var ddl = document.getElementById(country_id);
         
         for (var i = 0; i < ddl.options.length; i++)
         {

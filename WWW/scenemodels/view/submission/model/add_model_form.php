@@ -217,7 +217,7 @@ $(function() {
                         <label for="longitude">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to add. Has to be between -180 and 180 and not 0.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="update_map('longitude','latitude');" onkeyup="checkNumeric(this,-180,180);update_country('longitude','latitude');validateTabs();" />
+                        <input type="text" name="longitude" id="longitude" maxlength="11" value="" onchange="update_map('longitude','latitude');" onkeyup="checkNumeric(this,-180,180);update_country('longitude','latitude','ob_country');validateTabs();" />
                     </td>
                     <td rowspan="6" style="width: 300px; height: 225px;">
                         <object id="map" data="http://mapserver.flightgear.org/popmap/?zoom=1&lat=0&lon=0" type="text/html" width="300" height="225"></object>
@@ -228,7 +228,7 @@ $(function() {
                         <label for="latitude">Latitude<em>*</em><span>This is the WGS84 latitude of the object you want to add. Has to be between -90 and 90 and not 0.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="update_map('longitude','latitude');" onkeyup="checkNumeric(this,-90,90);update_country('longitude','latitude');validateTabs();" />
+                        <input type="text" name="latitude" id="latitude" maxlength="10" value="" onchange="update_map('longitude','latitude');" onkeyup="checkNumeric(this,-90,90);update_country('longitude','latitude','ob_country');validateTabs();" />
                     </td>
                 </tr>
                 <tr>
