@@ -49,11 +49,11 @@ class EmailContent {
         $headers .= "From: " . $from . "\r\n";
         if ($backend) {
             // Setting maintainers (will have to be moved somewhere on sphere)
-            //include "/home/ojacq/.maintainers";
-            //$headers .= $maintainers;
+            include "/home/ojacq/.maintainers";
+            $headers .= $maintainers;
         }
         $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
 error_log($this->message);
-        //mail($to, $this->subject, $this->message, $headers);
+        mail($to, $this->subject, $this->message, $headers);
     }
 }
