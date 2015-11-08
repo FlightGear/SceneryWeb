@@ -233,11 +233,11 @@ class AddModelController extends ModelRequestController {
         $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
         $host = gethostbyaddr($ipaddr);
 
-        $emailSubmit = \EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
+        $emailSubmit = \email\EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
         $emailSubmit->sendEmail("", true);
 
         // Mailing the submitter to tell him that his submission has been sent for validation
-        $emailSubmitContr = \EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
+        $emailSubmitContr = \email\EmailContentFactory::getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
         $emailSubmitContr->sendEmail($auEmail, false);
     }
     

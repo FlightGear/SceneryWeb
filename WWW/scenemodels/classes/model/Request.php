@@ -3,6 +3,7 @@
 namespace model;
 
 /**
+ * Request
  * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
 abstract class Request {

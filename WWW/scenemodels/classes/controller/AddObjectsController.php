@@ -162,12 +162,12 @@ class AddObjectsController extends RequestController {
             $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
             $host = gethostbyaddr($ipaddr);
             
-            $emailSubmit = \EmailContentFactory::getObjectsAddRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
+            $emailSubmit = \email\EmailContentFactory::getObjectsAddRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter to tell that his submission has been sent for validation.
             if (isset($safeEmail)) {
-                $emailSubmit = \EmailContentFactory::getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedReq);
+                $emailSubmit = \email\EmailContentFactory::getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $updatedReq);
                 $emailSubmit->sendEmail($safeEmail, false);
             }
         }

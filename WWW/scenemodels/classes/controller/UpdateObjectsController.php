@@ -198,12 +198,12 @@ class UpdateObjectsController extends RequestController {
             $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
             $host = gethostbyaddr($ipaddr);
 
-            $emailSubmit = \EmailContentFactory::getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $oldModelMD, $newModelMD, $updatedReq);
+            $emailSubmit = \email\EmailContentFactory::getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $oldModelMD, $newModelMD, $updatedReq);
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter to tell him that his submission has been sent for validation.
             if (!empty($safeEmail)) {
-                $emailSubmit = \EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $oldModelMD, $newModelMD);
+                $emailSubmit = \email\EmailContentFactory::getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $oldModelMD, $newModelMD);
                 $emailSubmit->sendEmail($safeEmail, false);
             }
         }

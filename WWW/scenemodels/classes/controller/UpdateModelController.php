@@ -221,19 +221,19 @@ class UpdateModelController extends ModelRequestController {
         $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
         $host = gethostbyaddr($ipaddr);
 
-        $emailSubmit = \EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
+        $emailSubmit = \email\EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
         $emailSubmit->sendEmail("", true);
 
         $contrEmail = $updatedReq->getContributorEmail();
         $auEmail = $updatedReq->getOldModel()->getMetadata()->getAuthor()->getEmail();
         if (!empty($contrEmail)) {
             // Mailing the submitter to tell him that his submission has been sent for validation
-            $emailSubmit = \EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
+            $emailSubmit = \email\EmailContentFactory::getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq);
             $emailSubmit->sendEmail($contrEmail, false);
 
             // If the author's email is different from the submitter's, an email is also sent to the author
             if (\FormChecker::isEmail($auEmail) && $auEmail != $contrEmail) {
-                $emailSubmit = \EmailContentFactory::getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $updatedReq);
+                $emailSubmit = \email\EmailContentFactory::getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $updatedReq);
                 $emailSubmit->sendEmail($auEmail, false);
             }
         }

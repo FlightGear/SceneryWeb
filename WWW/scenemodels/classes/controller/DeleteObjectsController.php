@@ -195,12 +195,12 @@ class DeleteObjectsController extends RequestController {
             $ipaddr = stripslashes($_SERVER['REMOTE_ADDR']);
             $host   = gethostbyaddr($ipaddr);
 
-            $emailSubmit = \EmailContentFactory::getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $updatedReq);
+            $emailSubmit = \email\EmailContentFactory::getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $updatedReq);
             $emailSubmit->sendEmail("", true);
 
             // Mailing the submitter and tell him that his submission has been sent for validation.
             if (!empty($safeEmail)) {
-                $emailSubmit = \EmailContentFactory::getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $modelMD);
+                $emailSubmit = \email\EmailContentFactory::getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $updatedReq, $modelMD);
                 $emailSubmit->sendEmail($safeEmail, false);
             }
             

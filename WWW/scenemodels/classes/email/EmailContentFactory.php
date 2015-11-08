@@ -18,14 +18,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+namespace email;
+
 /**
- * Description of EmailContentFactory
+ * EmailContentFactory
  *
  * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
 class EmailContentFactory {
 
-    static private function format($bodyMessage) {
+    static protected function format($bodyMessage) {
         $message = "Hi,\r\n\r\n".
                    $bodyMessage.
                    "Sincerely,\r\n\r\n" .
@@ -185,22 +187,6 @@ class EmailContentFactory {
         }
         $message .= "The corresponding entries will be deleted, added or updated in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: ".Config::getTerrasyncDataUpdServerURL()."\r\n\r\n" .
                     "Please don't forget to use the massive import form rather than the single one if you have many objects to add!\r\n\r\n";
-            
-        return new \email\EmailContent($subject, self::format($message));
-    }
-    
-    static public function getPendingRequestsEmailContent($pendingRequests) {
-        $subject = "Pending requests";
-        $message = "We would like to give you an overview of the remaining pending requests.\r\n\r\n" .
-                   $pendingRequests . "\r\n" .
-                   "They should be somewhere in your mails. Please check again.\r\n\r\n";
-            
-        return new \email\EmailContent($subject, self::format($message));
-    }
-    
-    static public function getPendingRequestsNoneEmailContent() {
-        $subject = "Pending requests";
-        $message = "There are currently no pending requests. Well done! Hopefully some more will come soon ;-).\r\n\r\n";
             
         return new \email\EmailContent($subject, self::format($message));
     }

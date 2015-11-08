@@ -32,6 +32,11 @@ interface IRequestDAO {
     
     public function deleteRequest($id);
     
+    /**
+     * Get pending requests.
+     * @return array with "ok" entry which is an array with still valid
+     *      requests, and an "failed" with invalid requests.
+     */
     public function getPendingRequests();
 }
 ?>

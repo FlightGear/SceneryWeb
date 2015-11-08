@@ -47,7 +47,7 @@ class UpdateModelValidatorController extends ValidatorController {
         $to = (isset($to)) ? $to : '';
 
         // Email to contributor
-        $emailSubmit = \EmailContentFactory::getModelUpdateRequestAcceptedEmailContent($dtg, $request, $comment);
+        $emailSubmit = \email\EmailContentFactory::getModelUpdateRequestAcceptedEmailContent($dtg, $request, $comment);
         $emailSubmit->sendEmail($to, true);
     }
     
@@ -62,7 +62,7 @@ class UpdateModelValidatorController extends ValidatorController {
         $to = (isset($to)) ? $to : '';
 
         // Email to contributor
-        $emailSubmit = \EmailContentFactory::getModelUpdateRequestRejectedEmailContent($dtg, $request, $comment);
+        $emailSubmit = \email\EmailContentFactory::getModelUpdateRequestRejectedEmailContent($dtg, $request, $comment);
         $emailSubmit->sendEmail($to, true);
     }
     

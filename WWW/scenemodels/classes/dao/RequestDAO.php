@@ -225,14 +225,20 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
                                          "FROM fgs_position_requests ".
                                          "ORDER BY spr_id ASC;");
         $resultArray = array();
+        $okArray = array();
+        $failedArray = array();
                            
         while ($row = pg_fetch_assoc($result)) {
             try {
-                $resultArray[] = $this->getRequestFromRow($row);
+                $okArray[] = $this->getRequestFromRow($row);
             } catch (\Exception $ex) {
                 error_log("Error with request ".$row['spr_id'].": ". $ex->getMessage());
+                $failedArray[] = new \model\RequestError($row['spr_id'], $row['spr_hash'], $ex->getMessage());
             }
         }
+        
+        $resultArray["ok"] = $okArray;
+        $resultArray["failed"] = $failedArray;
         
         return $resultArray;
     }

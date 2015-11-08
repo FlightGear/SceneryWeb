@@ -50,7 +50,7 @@ class AddObjectsValidatorController extends ValidatorController {
         $to = $request->getContributorEmail();
         $to = (isset($to)) ? $to : '';
 
-        $emailSubmit = \EmailContentFactory::getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment);
+        $emailSubmit = \email\EmailContentFactory::getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment);
         $emailSubmit->sendEmail($to, true);
     }
     
@@ -64,7 +64,7 @@ class AddObjectsValidatorController extends ValidatorController {
         $to = $request->getContributorEmail();
         $to = (isset($to)) ? $to : '';
 
-        $emailSubmit = \EmailContentFactory::getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment);
+        $emailSubmit = \email\EmailContentFactory::getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment);
         $emailSubmit->sendEmail($to, true);
     }
 }
