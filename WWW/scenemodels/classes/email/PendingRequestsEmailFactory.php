@@ -75,7 +75,7 @@ class PendingRequestsEmailFactory extends EmailContentFactory {
                    "These are invalid requests :\r\n" .
                    $invalidReqText . "\r\n\r\n" .
                    "They should be somewhere in your mails. Please check again.\r\n\r\n";
-        echo $message;
+
         return new \email\EmailContent($subject, self::format($message));
     }
     
