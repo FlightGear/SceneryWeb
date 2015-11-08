@@ -47,7 +47,7 @@ class EmailContentFactory {
         $message .= "The corresponding entries will be added in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: ".Config::getTerrasyncDataUpdServerURL()."\r\n\r\n" .
                     "Thanks for your help in making FlightGear better!\r\n\r\n";
         
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     
@@ -64,7 +64,7 @@ class EmailContentFactory {
                     "Now please click the following link to check and confirm ".
                     "or reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=AddObjectsValidator&a=viewRequest&sig=". $request->getSig() ."\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment) {
@@ -77,7 +77,7 @@ class EmailContentFactory {
         }
         $message .= "Please do not let this stop you from sending us corrected object locations or models.\r\n\r\n";
         
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $request) {
@@ -85,7 +85,7 @@ class EmailContentFactory {
         $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request.\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                    "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n";
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getModelUpdateRequestAcceptedEmailContent($dtg, $request, $comment) {
@@ -102,7 +102,7 @@ class EmailContentFactory {
                 "and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$modelMD->getId()."\r\n\r\n" .
                 "Thanks for your help in making FlightGear better!\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $request) {
@@ -125,7 +125,7 @@ class EmailContentFactory {
                     "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/app.php?c=UpdateModelValidator&a=viewRequest&sig=". $request->getSig() ."\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getModelUpdateRequestRejectedEmailContent($dtg, $request, $comment) {
@@ -140,7 +140,7 @@ class EmailContentFactory {
         }
         $message .=  "Please do not let this stop you from sending us an improved version of this model or other models.\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request) {
@@ -156,7 +156,7 @@ class EmailContentFactory {
                    "Model name:       ". $newModelMD->getName() ."\r\n" .
                    "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
                    "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n";
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getModelUpdateRequestSentForValidationAuthorEmailContent($dtg, $ipaddr, $host, $request) {
@@ -174,7 +174,7 @@ class EmailContentFactory {
                    "Description:      ". strip_tags($newModelMD->getDescription()) ."\r\n" .
                    "Comment by user:  ". strip_tags($request->getComment()) . "\r\n\r\n";
             
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getObjectRequestAcceptedEmailContent($request, $comment) {
@@ -186,7 +186,7 @@ class EmailContentFactory {
         $message .= "The corresponding entries will be deleted, added or updated in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: ".Config::getTerrasyncDataUpdServerURL()."\r\n\r\n" .
                     "Please don't forget to use the massive import form rather than the single one if you have many objects to add!\r\n\r\n";
             
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getPendingRequestsEmailContent($pendingRequests) {
@@ -195,14 +195,14 @@ class EmailContentFactory {
                    $pendingRequests . "\r\n" .
                    "They should be somewhere in your mails. Please check again.\r\n\r\n";
             
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getPendingRequestsNoneEmailContent() {
         $subject = "Pending requests";
         $message = "There are currently no pending requests. Well done! Hopefully some more will come soon ;-).\r\n\r\n";
             
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getObjectRejectedEmailContent($request, $comment) {
@@ -212,7 +212,7 @@ class EmailContentFactory {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
         
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getObjectDeleteRequestPendingEmailContent($dtg, $ipaddr, $host, $modelMD, $request) {
@@ -240,7 +240,7 @@ class EmailContentFactory {
                     "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getObjectDeleteRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $modelMD) {
@@ -260,7 +260,7 @@ class EmailContentFactory {
                    "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                    "Comment:          " .strip_tags($request->getComment()) . "\r\n".
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n";
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $oldModelMD, $newModelMD, $request) {
@@ -291,7 +291,7 @@ class EmailContentFactory {
                     "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getObjectUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request, $oldModelMD, $newModelMD) {
@@ -316,7 +316,7 @@ class EmailContentFactory {
                    "True rientation:   ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
                    "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getAddModelRequestAcceptedEmailContent($dtg, $request, $comment) {
@@ -332,7 +332,7 @@ class EmailContentFactory {
         $message .= "The corresponding entries will be added in TerraSync at " . self::getNextTerrasyncUpdateTime() . ". You can follow TerraSync's data update at the following url: ".Config::getTerrasyncDataUpdServerURL()." and check the model at http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newModelMD->getId()."\r\n\r\n" .
                     "Thanks for your help in making FlightGear better!\r\n\r\n";
             
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $request) {
@@ -363,7 +363,7 @@ class EmailContentFactory {
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n" .
                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddModelValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getAddModelRequestRejectedEmailContent($dtg, $request, $comment) {
@@ -378,7 +378,7 @@ class EmailContentFactory {
         }
         $message .=  "Please do not let this stop you from sending us an improved version of this model or other models." . "\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     static public function getAddModelRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request) {
@@ -402,7 +402,7 @@ class EmailContentFactory {
                    "True orientation: ". \ObjectUtils::headingSTG2True($newObject->getOrientation()) . "\r\n" .
                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n";
 
-        return new EmailContent($subject, self::format($message));
+        return new \email\EmailContent($subject, self::format($message));
     }
     
     /**

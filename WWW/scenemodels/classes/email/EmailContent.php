@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+namespace email;
+
 /**
  * Email content
  *
@@ -47,11 +49,11 @@ class EmailContent {
         $headers .= "From: " . $from . "\r\n";
         if ($backend) {
             // Setting maintainers (will have to be moved somewhere on sphere)
-            include "/home/ojacq/.maintainers";
-            $headers .= $maintainers;
+            //include "/home/ojacq/.maintainers";
+            //$headers .= $maintainers;
         }
         $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-
-        mail($to, $this->subject, $this->message, $headers);
+error_log($this->message);
+        //mail($to, $this->subject, $this->message, $headers);
     }
 }
