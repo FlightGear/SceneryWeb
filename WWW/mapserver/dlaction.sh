@@ -66,7 +66,7 @@ DumpSingleLayer() {
         TABLE=${2}
     fi
     ${PGSQL2SHP} -f ${DUMPDIR}/${1}.shp \
-        -h ${PGHOST} -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
+        -h ${PGHOST} -p 5433 -u ${PGUSER} -g wkb_geometry -b -r ${PGDATABASE} \
         "SELECT * FROM ${TABLE} \
             WHERE wkb_geometry && \
             (SELECT wkb_geometry FROM download WHERE uuid = '${UUID}') ${3}"
