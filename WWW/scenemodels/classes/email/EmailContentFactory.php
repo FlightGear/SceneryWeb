@@ -84,7 +84,7 @@ class EmailContentFactory {
     
     static public function getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $request) {
         $subject = "Object(s) import";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a mass submission request.\r\n\r\n" .
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a object(s) addition request.\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
                    "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n";
         return new \email\EmailContent($subject, self::format($message));
