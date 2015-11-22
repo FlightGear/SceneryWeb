@@ -16,17 +16,17 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     public function addModel($model) {
         $modelMD = $model->getMetadata();
         
-        $query  = "INSERT INTO fgs_models ";
+        $query  = 'INSERT INTO fgs_models ';
         $query .= "(mo_id, mo_path, mo_author, mo_name, mo_notes, mo_thumbfile, mo_modelfile, mo_shared) ";
         $query .= "VALUES (";
         $query .= "DEFAULT, ";             // mo_id
-        $query .= "'".$modelMD->getFilename()."', ";  // mo_path
-        $query .= $modelMD->getAuthor()->getId().", ";          // mo_author
-        $query .= "'".$modelMD->getName()."', ";         // mo_name
-        $query .= "'".$modelMD->getDescription()."', ";        // mo_notes
+        $query .= "'".pg_escape_string($modelMD->getFilename())."', ";  // mo_path
+        $query .= pg_escape_string($modelMD->getAuthor()->getId()).", ";          // mo_author
+        $query .= "'".pg_escape_string($modelMD->getName())."', ";         // mo_name
+        $query .= "'".pg_escape_string($modelMD->getDescription())."', ";        // mo_notes
         $query .= "'".base64_encode($model->getThumbnail())."', ";    // mo_thumbfile
         $query .= "'".base64_encode($model->getModelFiles()->getPackage())."', ";    // mo_modelfile
-        $query .= $modelMD->getModelsGroup()->getId();              // mo_shared
+        $query .= pg_escape_string($modelMD->getModelsGroup()->getId());              // mo_shared
         $query .= ") ";
         $query .= "RETURNING mo_id";
         
@@ -42,20 +42,20 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     public function updateModel($model) {
         $modelMD = $model->getMetadata();
         
-        $query  = "UPDATE fgs_models ";
-        $query .= "SET mo_path = '".$modelMD->getFilename()."', ".
-                  "mo_author = ".$modelMD->getAuthor()->getId().", ".
-                  "mo_name = '".$modelMD->getName()."', ".
-                  "mo_notes = '".$modelMD->getDescription()."', ".
+        $query  = 'UPDATE fgs_models ';
+        $query .= "SET mo_path = '".pg_escape_string($modelMD->getFilename())."', ".
+                  "mo_author = ".pg_escape_string($modelMD->getAuthor()->getId()).", ".
+                  "mo_name = '".pg_escape_string($modelMD->getName())."', ".
+                  "mo_notes = '".pg_escape_string($modelMD->getDescription())."', ".
                   "mo_thumbfile = '".base64_encode($model->getThumbnail())."', ".
                   "mo_modelfile = '".base64_encode($model->getModelFiles()->getPackage())."', ".
-                  "mo_shared = ".$modelMD->getModelsGroup()->getId();
+                  "mo_shared = ".pg_escape_string($modelMD->getModelsGroup()->getId());
         $query .= " WHERE mo_id = ".$modelMD->getId();
         
         $result = $this->database->query($query);
         
         if (!$result) {
-            throw new \Exception("Updating model failed!");
+            throw new \Exception('Updating model failed!');
         }
     }
     
@@ -63,7 +63,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $result = $this->database->query("SELECT * FROM fgs_models, fgs_authors, fgs_modelgroups ".
                                          "WHERE mo_id = ".pg_escape_string($modelId)." AND au_id = mo_author AND mg_id = mo_shared");
         if (!$result) {
-            throw new \Exception("Model ".$modelId." not found!");
+            throw new \Exception('Model '.$modelId.' not found!');
         }
         
         $row = pg_fetch_assoc($result);
@@ -80,10 +80,10 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function getModelMetadata($modelId){
-        $result = $this->database->query("SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, ".
-                                         "mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes ".
-                                         "FROM fgs_models, fgs_authors, fgs_modelgroups ".
-                                         "WHERE mo_id = ".pg_escape_string($modelId)." AND au_id = mo_author AND mg_id = mo_shared");
+        $result = $this->database->query('SELECT mo_id, mo_path, mo_name, mo_notes, mo_modified, '.
+                                         'mg_id, mg_name, mg_path, au_id, au_name, au_email, au_notes '.
+                                         'FROM fgs_models, fgs_authors, fgs_modelgroups '.
+                                         'WHERE mo_id = '.pg_escape_string($modelId).' AND au_id = mo_author AND mg_id = mo_shared');
         $row = pg_fetch_assoc($result);
         
         return $this->getModelMetadataFromRow($row);
@@ -97,7 +97,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         $row = pg_fetch_assoc($result);
         
         if (!$row) {
-            throw new \Exception("Model ".$modelPath." not found!");
+            throw new \Exception('Model '.$modelPath.' not found!');
         }
         
         return $this->getModelMetadataFromRow($row);
@@ -105,7 +105,7 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     
     public function getModelMetadataFromSTGName($modelName) {
         // Explodes the fields of the string separated by /
-        $tabPath = explode("/",$modelName);
+        $tabPath = explode('/',$modelName);
         // Returns the last field value.
         $queriedModelPath = $tabPath[count($tabPath)-1];
         
@@ -113,21 +113,21 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     }
     
     public function countTotalModels() {
-        $result = $this->database->query("SELECT COUNT(*) AS number " .
-                                        "FROM fgs_models;");
+        $result = $this->database->query('SELECT COUNT(*) AS number ' .
+                                        'FROM fgs_models;');
         $row = pg_fetch_assoc($result);
         
-        return $row["number"];
+        return $row['number'];
     }
     
     public function countModelsNoThumb() {
-        $result = $this->database->query("SELECT COUNT(*) AS number " .
-                                         "FROM fgs_models " .
-                                         "WHERE mo_thumbfile IS NULL;");
+        $result = $this->database->query('SELECT COUNT(*) AS number ' .
+                                         'FROM fgs_models ' .
+                                         'WHERE mo_thumbfile IS NULL;');
                                          
         $row = pg_fetch_assoc($result);
         
-        return $row["number"];
+        return $row['number'];
     }
     
     private function getModelFromRow($row) {
@@ -135,27 +135,27 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
         
         $model = new \model\Model();
         $model->setMetadata($modelMetadata);
-        $model->setModelFiles(new \ModelFilesTar(base64_decode($row["mo_modelfile"])));
-        $model->setThumbnail(base64_decode($row["mo_thumbfile"]));
+        $model->setModelFiles(new \ModelFilesTar(base64_decode($row['mo_modelfile'])));
+        $model->setThumbnail(base64_decode($row['mo_thumbfile']));
         
         return $model;
     }
     
     private function getModelMetadataFromRow($row) {
         $author = new \model\Author();
-        $author->setId($row["au_id"]);
-        $author->setName($row["au_name"]);
-        $author->setEmail($row["au_email"]);
-        $author->setDescription($row["au_notes"]);
+        $author->setId($row['au_id']);
+        $author->setName($row['au_name']);
+        $author->setEmail($row['au_email']);
+        $author->setDescription($row['au_notes']);
 
         $modelsGroup = $this->getModelsGroupFromRow($row);
         
         $modelMetadata = new \model\ModelMetadata();
-        $modelMetadata->setId($row["mo_id"]);
+        $modelMetadata->setId($row['mo_id']);
         $modelMetadata->setAuthor($author);
-        $modelMetadata->setFilename($row["mo_path"]);
-        $modelMetadata->setName($row["mo_name"]);
-        $modelMetadata->setDescription($row["mo_notes"]);
+        $modelMetadata->setFilename($row['mo_path']);
+        $modelMetadata->setName($row['mo_name']);
+        $modelMetadata->setDescription($row['mo_notes']);
         $modelMetadata->setModelsGroup($modelsGroup);
         $modelMetadata->setLastUpdated(new \DateTime($row['mo_modified']));
 
@@ -164,9 +164,9 @@ class ModelDAO extends PgSqlDAO implements IModelDAO {
     
     private function getModelsGroupFromRow($row) {
         $modelsGroup = new \model\ModelsGroup();
-        $modelsGroup->setId($row["mg_id"]);
-        $modelsGroup->setName($row["mg_name"]);
-        $modelsGroup->setPath($row["mg_path"]);
+        $modelsGroup->setId($row['mg_id']);
+        $modelsGroup->setName($row['mg_name']);
+        $modelsGroup->setPath($row['mg_path']);
         
         return $modelsGroup;
     }

@@ -91,9 +91,9 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
             $whereClause .= ' AND'; 
         }
     
-        $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects, fgs_countries WHERE $whereClause ob_country = co_code ".
-                                         "ORDER BY ".pg_escape_string($orderby)." ".pg_escape_string($order)." LIMIT ".pg_escape_string($pagesize)." OFFSET ".pg_escape_string($offset).";");
+        $result = $this->database->query('SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir '.
+                                         'FROM fgs_objects, fgs_countries WHERE '.$whereClause.' ob_country = co_code '.
+                                         'ORDER BY '.pg_escape_string($orderby).' '.pg_escape_string($order).' LIMIT '.pg_escape_string($pagesize).' OFFSET '.pg_escape_string($offset).';');
         $resultArray = array();
         
         while ($row = pg_fetch_assoc($result)) {
@@ -152,7 +152,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $row = pg_fetch_assoc($result);
         // If not found, return Unknown
         if (!$row) {
-            return $this->getCountry("zz");
+            return $this->getCountry('zz');
         }
         
         return $this->getCountryFromRow($row);
@@ -172,54 +172,54 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     public function countObjects() {
-        $result = $this->database->query("SELECT count(*) AS number FROM fgs_objects;");
+        $result = $this->database->query('SELECT count(*) AS number FROM fgs_objects;');
         $row = pg_fetch_assoc($result);
         
-        return $row["number"];
+        return $row['number'];
     }
     
     public function countObjectsByModel($modelId) {
-        $result = $this->database->query("SELECT COUNT(*) AS number " .
-                                        "FROM fgs_objects " .
-                                        "WHERE ob_model=".pg_escape_string($modelId).";");
+        $result = $this->database->query('SELECT COUNT(*) AS number ' .
+                                        'FROM fgs_objects ' .
+                                        'WHERE ob_model='.pg_escape_string($modelId).';');
         $row = pg_fetch_assoc($result);
         
-        return $row["number"];
+        return $row['number'];
     }
     
     private function getObjectFromRow($objectRow) {
         $country = $this->getCountryFromRow($objectRow);
         
         $object = new \model\Object();
-        $object->setId($objectRow["ob_id"]);
-        $object->setModelId($objectRow["ob_model"]);
-        $object->getPosition()->setLongitude($objectRow["ob_lon"]);
-        $object->getPosition()->setLatitude($objectRow["ob_lat"]);
-        $object->setDir($objectRow["ob_dir"]);
+        $object->setId($objectRow['ob_id']);
+        $object->setModelId($objectRow['ob_model']);
+        $object->getPosition()->setLongitude($objectRow['ob_lon']);
+        $object->getPosition()->setLatitude($objectRow['ob_lat']);
+        $object->setDir($objectRow['ob_dir']);
         $object->setCountry($country);
-        $object->setGroundElevation($objectRow["ob_gndelev"]);
-        $object->setElevationOffset($objectRow["ob_elevoffset"]);
-        $object->setOrientation($objectRow["ob_heading"]);
-        $object->setDescription($objectRow["ob_text"]);
-        $object->setGroupId($objectRow["ob_group"]);
-        $object->setLastUpdated(new \DateTime($objectRow["ob_modified"]));
+        $object->setGroundElevation($objectRow['ob_gndelev']);
+        $object->setElevationOffset($objectRow['ob_elevoffset']);
+        $object->setOrientation($objectRow['ob_heading']);
+        $object->setDescription($objectRow['ob_text']);
+        $object->setGroupId($objectRow['ob_group']);
+        $object->setLastUpdated(new \DateTime($objectRow['ob_modified']));
         
         return $object;
     }
     
     private function getCountryFromRow($countryRow) {
         $country = new \model\Country();
-        $country->setCode($countryRow["co_code"]);
-        $country->setName($countryRow["co_name"]);
-        $country->setCodeThree($countryRow["co_three"]);
+        $country->setCode($countryRow['co_code']);
+        $country->setName($countryRow['co_name']);
+        $country->setCodeThree($countryRow['co_three']);
         
         return $country;
     }
     
     private function getObjectGroupFromRow($objGroupRow) {
         $objectsGroup = new \model\ObjectsGroup();
-        $objectsGroup->setId($objGroupRow["gp_id"]);
-        $objectsGroup->setName($objGroupRow["gp_name"]);
+        $objectsGroup->setId($objGroupRow['gp_id']);
+        $objectsGroup->setName($objGroupRow['gp_name']);
         
         return $objectsGroup;
     }
@@ -230,16 +230,17 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         // Querying...
         $query = "SELECT count(*) AS number FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".pg_escape_string($objPos->getLongitude())." ".pg_escape_string($objPos->getLatitude()).")', 4326) AND ";
         if ($object->getElevationOffset() == 0) {
-            $query .= "ob_elevoffset IS NULL ";
+            $query .= 'ob_elevoffset IS NULL ';
         } else {
-            $query .= "ob_elevoffset = ".$object->getElevationOffset()." ";
+            $query .= 'ob_elevoffset = '.$object->getElevationOffset().' ';
         }
-        $query .= "AND ob_heading = ".$object->getOrientation()." AND ob_model = ".$object->getModelId().";";
+        $query .= 'AND ob_heading = '.pg_escape_string($object->getOrientation()).
+                ' AND ob_model = '.pg_escape_string($object->getModelId()).';';
         
         $result = $this->database->query($query);
         $row = pg_fetch_assoc($result);
 
-        return $row["number"] > 0;
+        return $row['number'] > 0;
     }
     
     public function detectNearbyObjects($lat, $lon, $obModelId, $dist = 15) {

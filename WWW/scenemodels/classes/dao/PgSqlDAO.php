@@ -39,24 +39,24 @@ abstract class PgSqlDAO {
         switch($op) {
         case Criterion::OPERATION_LIKE:
             $clause = $criterion->getVarName() 
-                . " LIKE "
+                . ' LIKE '
                 . "'%" . pg_escape_string($criterion->getValue()) . "%'";
             break;
         case Criterion::OPERATION_LIKE_BEGIN:
             $clause = $criterion->getVarName() 
-                . " LIKE "
+                . ' LIKE '
                 . "'" . pg_escape_string($criterion->getValue()) . "%'";
             break;
         case Criterion::OPERATION_LIKE_END:
             $clause = $criterion->getVarName() 
-                . " LIKE "
+                . ' LIKE '
                 . "'%" . pg_escape_string($criterion->getValue()) . "'";
             break;
         default:
             $clause = $criterion->getVarName();
             
             if ($criterion->getValue() == NULL) {
-                $clause .= " IS NULL";
+                $clause .= ' IS NULL';
                 
             } else {
                 $clause .= $op;
