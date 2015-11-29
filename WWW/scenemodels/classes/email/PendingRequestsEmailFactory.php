@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2015 julien
+ * Copyright (C) 2015 FlightGear Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,9 +21,9 @@
 namespace email;
 
 /**
- * Description of PendingRequestsEmailFactory
+ * Email content factory for pending requests
  *
- * @author julien
+ * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
 class PendingRequestsEmailFactory extends EmailContentFactory {
     static public function getPendingRequestsEmailContent($requests, $invalidRequests) {
@@ -71,10 +71,12 @@ class PendingRequestsEmailFactory extends EmailContentFactory {
         }
         
         $message = "We would like to give you an overview of the remaining pending requests.\r\n\r\n" .
-                   $pendingRequests . "\r\n\r\n" .
-                   "These are invalid requests :\r\n" .
-                   $invalidReqText . "\r\n\r\n" .
-                   "They should be somewhere in your mails. Please check again.\r\n\r\n";
+                   $pendingRequests . "\r\n\r\n";
+        if (count($invalidRequests) > 0) {
+            $message .= "These are invalid requests :\r\n" .
+                    $invalidReqText . "\r\n\r\n";
+        }
+        $message .= "They should be somewhere in your mails. Please check again.\r\n\r\n";
 
         return new \email\EmailContent($subject, self::format($message));
     }
