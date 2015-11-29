@@ -21,7 +21,7 @@ namespace dao;
 
 
 /**
- * Request DAO
+ * Request DAO implementation for PostGreSQL
  *
  * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
@@ -70,7 +70,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $zippedQuery = gzcompress($reqStr,8);
         $encodedReqStr = base64_encode($zippedQuery);
         
-        $shaToCompute = "<".microtime()."><".$_SERVER["REMOTE_ADDR"]."><".$encodedReqStr.">";
+        $shaToCompute = '<'.microtime().'><'.$_SERVER['REMOTE_ADDR'].'><'.$encodedReqStr.'>';
         $sig = hash('sha256', $shaToCompute);
         
         $query = "INSERT INTO fgs_position_requests (spr_id, spr_hash, spr_base64_sqlz) VALUES (DEFAULT, '".$sig."', '".$encodedReqStr."') RETURNING spr_id;";
@@ -89,33 +89,39 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function serializeRequest($request) {
         switch (get_class($request)) {
-        case "model\RequestObjectUpdate":
+        case 'model\RequestObjectUpdate':
+            $type = 'OBJECT_UPDATE';
             $reqStrContent = $this->serializeRequestObjectUpdate($request);
             break;
         
-        case "model\RequestObjectDelete":
+        case 'model\RequestObjectDelete':
+            $type = 'OBJECT_DELETE';
             $reqStrContent = $this->serializeRequestObjectDelete($request);
             break;
         
-        case "model\RequestMassiveObjectsAdd":
+        case 'model\RequestMassiveObjectsAdd':
+            $type = 'OBJECTS_ADD';
             $reqStrContent = $this->serializeRequestMassiveObjectsAdd($request);
             break;
         
-        case "model\RequestModelAdd":
+        case 'model\RequestModelAdd':
+            $type = 'MODEL_ADD';
             $reqStrContent = $this->serializeRequestModelAdd($request);
             break;
         
-        case "model\RequestModelUpdate":
+        case 'model\RequestModelUpdate':
+            $type = 'MODEL_UPDATE';
             $reqStrContent = $this->serializeRequestModelUpdate($request);
             break;
         
         default:
-            throw new \Exception("Not a request!");
+            throw new \Exception('Not a request!');
         }
         
-        $reqArray = array("email"=>$request->getContributorEmail(),
-                     "comment"=>$request->getComment(),
-                     "content"=>$reqStrContent);
+        $reqArray = array('type'=>$type,
+                     'email'=>$request->getContributorEmail(),
+                     'comment'=>$request->getComment(),
+                     'content'=>$reqStrContent);
         
         return json_encode($reqArray);
     }
@@ -124,14 +130,15 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $objPos = $object->getPosition();
         $offset = $object->getElevationOffset();
         
-        return "OBJECT_ADD||" .
-               $object->getDescription(). "||" . // ob_text
-               $objPos->getLongitude(). "||" . // longitude
-               $objPos->getLatitude(). "||" . // latitude
-               (empty($offset)?"NULL":$offset). "||" . // elevation offset
-               $object->getOrientation(). "||" . // orientation
-               $object->getCountry()->getCode(). "||" . //country
-               $object->getModelId(); // model id
+        $addReqArray = array('description'=>$object->getDescription(),
+                     'longitude'=>$objPos->getLongitude(),
+                     'latitude'=>$objPos->getLatitude(),
+                     'offset'=>(empty($offset)?'NULL':$offset),
+                     'orientation'=>$object->getOrientation(),
+                     'country'=>$object->getCountry()->getCode(),
+                     'modelId'=>$object->getModelId());
+        
+        return json_encode($addReqArray);
     }
     
     private function serializeRequestObjectUpdate($request) {
@@ -139,21 +146,24 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newObjPos = $newObj->getPosition();
         $offset = $newObj->getElevationOffset();
         
-        return "OBJECT_UPDATE||" .
-               $newObj->getDescription(). "||" . // ob_text
-               $newObjPos->getLongitude(). "||" . // longitude
-               $newObjPos->getLatitude(). "||" . // latitude
-               (empty($offset)?"NULL":$offset). "||" . // elevation offset
-               $newObj->getOrientation(). "||" . // orientation
-               $newObj->getCountry()->getCode(). "||" . //country
-               $newObj->getModelId(). "||" . // model id
-               $newObj->getId(); // ob_id
+        $updReqArray = array('description'=>$newObj->getDescription(),
+                     'longitude'=>$newObjPos->getLongitude(),
+                     'latitude'=>$newObjPos->getLatitude(),
+                     'offset'=>(empty($offset)?'NULL':$offset),
+                     'orientation'=>$newObj->getOrientation(),
+                     'country'=>$newObj->getCountry()->getCode(),
+                     'modelId'=>$newObj->getModelId(),
+                     'objectId'=>$newObj->getId());
+        
+        return json_encode($updReqArray);
     }
     
     private function serializeRequestObjectDelete($request) {
         $objToDel = $request->getObjectToDelete();
         
-        return "OBJECT_DELETE||".$objToDel->getId();
+        $delReqArray = array("objId"=>$objToDel->getId());
+        
+        return json_encode($delReqArray);
     }
     
     private function serializeRequestMassiveObjectsAdd($request) {
@@ -175,34 +185,34 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
         $newModelMD = $newModel->getMetadata();
         $newObject = $request->getNewObject();
         
-        $moQuery  = "MODEL_ADD||";
-        $moQuery .= $newModelMD->getFilename()."||";        // mo_path
-        $moQuery .= $newModelMD->getAuthor()->getId()."||"; // mo_author
-        $moQuery .= $newModelMD->getName()."||";            // mo_name
-        $moQuery .= $newModelMD->getDescription()."||";     // mo_notes
-        $moQuery .= $newModel->getThumbnail()."||";         // mo_thumbfile
-        $moQuery .= $newModel->getModelFiles()."||";        // mo_modelfile
-        $moQuery .= $newModelMD->getModelsGroup()->getId(); // mo_shared
+        $moReqArray = array('filename'=>$newModelMD->getFilename(),
+                     'author'=>$newModelMD->getAuthor()->getId(),
+                     'name'=>$newModelMD->getName(),
+                     'description'=>$newModelMD->getDescription(),
+                     'thumbnail'=>$newModel->getThumbnail(),
+                     'modelfiles'=>$newModel->getModelFiles(),
+                     'modelgroup'=>$newModelMD->getModelsGroup()->getId());
 
         // Serialize object
         $obQuery = $this->serializeObject($newObject);
 
-        return $moQuery."|||".$obQuery;
+        return json_encode($moReqArray)."|||".$obQuery;
     }
     
     private function serializeRequestModelUpdate($request) {
         $newModel = $request->getNewModel();
         $newModelMD = $newModel->getMetadata();
         
-        return "MODEL_UPDATE||".
-               $newModelMD->getFilename()."||".             // mo_path
-               $newModelMD->getAuthor()->getId()."||".      // mo_author
-               $newModelMD->getName()."||".                 // mo_name
-               $newModelMD->getDescription()."||".          // mo_notes
-               $newModel->getThumbnail()."||".              // mo_thumbfile
-               $newModel->getModelFiles()."||".             // mo_modelfile
-               $newModelMD->getModelsGroup()->getId()."||". // mo_shared
-               $newModelMD->getId();                        // mo_id
+        $moReqArray = array('filename'=>$newModelMD->getFilename(),
+                     'author'=>$newModelMD->getAuthor()->getId(),
+                     'name'=>$newModelMD->getName(),
+                     'description'=>$newModelMD->getDescription(),
+                     'thumbnail'=>$newModel->getThumbnail(),
+                     'modelfiles'=>$newModel->getModelFiles(),
+                     'modelgroup'=>$newModelMD->getModelsGroup()->getId(),
+                     'modelid'=>$newModelMD->getId());
+        
+        return json_encode($moReqArray);
     }
     
     public function deleteRequest($sig) {
@@ -221,9 +231,9 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     public function getPendingRequests() {
-        $result = $this->database->query("SELECT spr_id, spr_hash, spr_base64_sqlz ".
-                                         "FROM fgs_position_requests ".
-                                         "ORDER BY spr_id ASC;");
+        $result = $this->database->query('SELECT spr_id, spr_hash, spr_base64_sqlz '.
+                                         'FROM fgs_position_requests '.
+                                         'ORDER BY spr_id ASC;');
         $resultArray = array();
         $okArray = array();
         $failedArray = array();
@@ -232,79 +242,78 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
             try {
                 $okArray[] = $this->getRequestFromRow($row);
             } catch (\Exception $ex) {
-                error_log("Error with request ".$row['spr_id'].": ". $ex->getMessage());
+                error_log('Error with request '.$row['spr_id'].': '. $ex->getMessage());
                 $failedArray[] = new \model\RequestError($row['spr_id'], $row['spr_hash'], $ex->getMessage());
             }
         }
         
-        $resultArray["ok"] = $okArray;
-        $resultArray["failed"] = $failedArray;
+        $resultArray['ok'] = $okArray;
+        $resultArray['failed'] = $failedArray;
         
         return $resultArray;
     }
     
     private function getRequestFromRow($requestRow) {
         // Decoding in Base64. Dezipping the Base64'd request.
-        $requestJson = gzuncompress(base64_decode($requestRow["spr_base64_sqlz"]));
+        $requestJson = gzuncompress(base64_decode($requestRow['spr_base64_sqlz']));
         
         $requestArray = json_decode($requestJson, true);
-        $requestQuery = $requestArray["content"];
+        $requestType = $requestArray['type'];
+        $requestQuery = $requestArray['content'];
         
         // Delete object request
-        if (strpos($requestQuery,"OBJECT_DELETE") === 0) {
+        if ($requestType == 'OBJECT_DELETE') {
             $request = $this->getRequestObjectDeleteFromRow($requestQuery);
         }
         
         // Update object request
-        if (strpos($requestQuery,"OBJECT_UPDATE") === 0) {
+        if ($requestType == 'OBJECT_UPDATE') {
             $request = $this->getRequestObjectUpdateFromRow($requestQuery);
         }
 
-        // Add object request
-        if (strpos($requestQuery,"OBJECT_ADD") === 0) {
-            $request = $this->getRequestMassiveObjectsAddFromRow('["'.$requestQuery.'"]');
-        }
-        
-        // Add massive objects request
-        if (json_decode($requestQuery) != null) {
+        // Add objects request
+        if ($requestType == 'OBJECTS_ADD') {
             $request = $this->getRequestMassiveObjectsAddFromRow($requestQuery);
         }
         
         // Add model request
-        if (strpos($requestQuery,"MODEL_ADD") === 0) {
+        if ($requestType == 'MODEL_ADD') {
             $request = $this->getRequestModelAddFromRow($requestQuery);
         }
         
         // Update model request
-        if (strpos($requestQuery,"MODEL_UPDATE") === 0) {
+        if ($requestType == 'MODEL_UPDATE') {
             $request = $this->getRequestModelUpdateFromRow($requestQuery);
         }
         
         if (isset($request)) {
-            $request->setId($requestRow["spr_id"]);
-            $request->setSig($requestRow["spr_hash"]);
-            $request->setComment($requestArray["comment"]);
-            $request->setContributorEmail($requestArray["email"]);
+            $request->setId($requestRow['spr_id']);
+            $request->setSig($requestRow['spr_hash']);
+            $request->setComment($requestArray['comment']);
+            $request->setContributorEmail($requestArray['email']);
             
             return $request;
         } else {
-            throw new \Exception("Error reading request: ". $requestQuery);
+            throw new \Exception('Error reading request: '. $requestQuery);
         }
     }
     
     private function getRequestModelAddFromRow($requestQuery) {
-        $queryModel = substr($requestQuery, 0, strpos($requestQuery, "|||OBJECT_ADD"));
-        $queryObj = strstr($requestQuery, "OBJECT_ADD");
+        $reqArr = explode("|||", $requestQuery);
+        
+        $queryModel = $reqArr[0];
+        $queryObj = $reqArr[1];
 
         // Retrieve MODEL data from query
-        // MODEL_ADD||mo_path||mo_author||mo_name||mo_notes||mo_thumbfile||mo_modelfile||mo_shared
-        $modelArr = explode("||", $queryModel);
+        $modelArr = json_decode($queryModel, true);
+        
         $modelFactory = new \ModelFactory($this->modelDao, $this->authorDao);
-        $modelMD = $modelFactory->createModelMetadata(-1, $modelArr[2], $modelArr[1], $modelArr[3], $modelArr[4], $modelArr[7]);
+        $modelMD = $modelFactory->createModelMetadata(-1, $modelArr['author'],
+                $modelArr['filename'], $modelArr['name'],$modelArr['description'], $modelArr['modelgroup']);
         $newModel = new \model\Model();
         $newModel->setMetadata($modelMD);
-        $newModel->setModelFiles(new \ModelFilesTar(base64_decode($modelArr[6])));
-        $newModel->setThumbnail(base64_decode($modelArr[5]));
+        $newModel->setModelFiles(new \ModelFilesTar(base64_decode($modelArr['modelfiles'])));
+        $newModel->setThumbnail(base64_decode($modelArr['thumbnail']));
 
         // Retrieve OBJECT data from query
         $newObject = $this->getObjectFromSerialized($queryObj);
@@ -318,18 +327,17 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function getRequestModelUpdateFromRow($requestQuery) {
         // Retrieve data from query
-        // MODEL_UPDATE||path||author||name||notes||thumbfile||modelfile||shared||modelid
-        $modelArr = explode("||", $requestQuery);
+        $modelArr = json_decode($requestQuery, true);
 
         $modelFactory = new \ModelFactory($this->modelDao, $this->authorDao);
-        $modelMD = $modelFactory->createModelMetadata($modelArr[8],
-                $modelArr[2], $modelArr[1], $modelArr[3],
-                $modelArr[4], $modelArr[7]);
+        $modelMD = $modelFactory->createModelMetadata($modelArr['modelid'],
+                $modelArr['author'], $modelArr['filename'], $modelArr['name'],
+                $modelArr['description'], $modelArr['modelgroup']);
         
         $newModel = new \model\Model();
         $newModel->setMetadata($modelMD);
-        $newModel->setModelFiles(new \ModelFilesTar(base64_decode($modelArr[6])));
-        $newModel->setThumbnail(base64_decode($modelArr[5]));
+        $newModel->setModelFiles(new \ModelFilesTar(base64_decode($modelArr['modelfiles'])));
+        $newModel->setThumbnail(base64_decode($modelArr['thumbnail']));
 
         // Retrieve old model
         $oldModel = $this->modelDao->getModel($modelMD->getId());
@@ -342,19 +350,17 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getObjectFromSerialized($objectSerialized) {
-        // OBJECT_ADD||ob_text||longitude||latitude||elevation offset||orientation||country||model id
-        $objectArr = explode("||", $objectSerialized);
-        
         $objectFactory = new \ObjectFactory($this->objectDao);
+        $addReqArray = json_decode($objectSerialized, true);
         
-        return $objectFactory->createObject(-1, $objectArr[7],
-               $objectArr[2], $objectArr[3], $objectArr[6], 
-               $objectArr[4], $objectArr[5], 1, $objectArr[1]);
+        return $objectFactory->createObject(-1, $addReqArray['modelId'],
+               $addReqArray['longitude'], $addReqArray['latitude'], $addReqArray['country'], 
+               $addReqArray['offset'], $addReqArray['orientation'], 1, $addReqArray['description']);
     }
     
     private function getRequestMassiveObjectsAddFromRow($requestQuery) {
         // Separating the data
-        $objRequests = json_decode($requestQuery);
+        $objRequests = json_decode($requestQuery, true);
         $newObjects = array();
         
         foreach ($objRequests as $objRequest) {
@@ -369,34 +375,31 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     }
     
     private function getRequestObjectUpdateFromRow($requestQuery) {
-        // OBJECT_UPDATE||ob_text||longitude||latitude||elevation offset||orientation||country||model id||ob id
-        $objectArr = explode("||", $requestQuery);
-        
         $objectFactory = new \ObjectFactory($this->objectDao);
+        $updReqArray = json_decode($requestQuery, true);
 
-        $newObject = $objectFactory->createObject($objectArr[8], $objectArr[7],
-               $objectArr[2], $objectArr[3], $objectArr[6], 
-               $objectArr[4], $objectArr[5], 1, $objectArr[1]);
+        $newObject = $objectFactory->createObject($updReqArray['objectId'], $updReqArray['modelId'],
+               $updReqArray['longitude'], $updReqArray['latitude'], $updReqArray['country'], 
+               $updReqArray['offset'], $updReqArray['orientation'], 1, $updReqArray['description']);
 
         $requestObjUp = new \model\RequestObjectUpdate();
-        $requestObjUp->setContributorEmail("");
-        $requestObjUp->setComment("");
+        $requestObjUp->setContributorEmail('');
+        $requestObjUp->setComment('');
         $requestObjUp->setNewObject($newObject);
-        $requestObjUp->setOldObject($this->objectDao->getObject($objectArr[8]));
+        $requestObjUp->setOldObject($this->objectDao->getObject($updReqArray['objectId']));
         
         return $requestObjUp;
     }
     
     private function getRequestObjectDeleteFromRow($requestQuery) {
-        // OBJECT_DELETE||ob_id
-        $objectArr = explode("||", $requestQuery);
-        $objectToDel = $this->objectDao->getObject($objectArr[1]);
+        $delRequestArray = json_decode($requestQuery, true);
+        $objectToDel = $this->objectDao->getObject($delRequestArray['objId']);
 
         $requestObjDel = new \model\RequestObjectDelete();
         
         // Not available with actual DAO
-        $requestObjDel->setContributorEmail("");
-        $requestObjDel->setComment("");
+        $requestObjDel->setContributorEmail('');
+        $requestObjDel->setComment('');
         
         $requestObjDel->setObjectToDelete($objectToDel);
 

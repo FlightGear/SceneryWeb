@@ -21,7 +21,7 @@
 namespace email;
 
 /**
- * EmailContentFactory
+ * Email content factory
  *
  * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
@@ -40,9 +40,9 @@ class EmailContentFactory {
     
     static public function getObjectsAddRequestAcceptedEmailContent($dtg, $request, $comment) {
         $subject = "Object(s) import accepted";
-        $message = "On ".$dtg." UTC, you issued an object(s) import request.\r\n\r\n" .
-                   "We are glad to let you know that this request has been accepted!\r\n\r\n" .
-                   "For reference, the ID of this request was '".$request->getId(). "'\r\n\r\n";
+        $message = "On ".$dtg." UTC, you issued an object(s) import request (#".$request->getId().").\r\n\r\n" .
+                   "We are glad to let you know that this request has been accepted!\r\n\r\n";
+
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -71,9 +71,9 @@ class EmailContentFactory {
     
     static public function getObjectsAddRequestRejectedEmailContent($dtg, $request, $comment) {
         $subject = "Object(s) import rejected";
-        $message = "On ".$dtg." UTC, you issued an object(s) import request.\r\n\r\n" .
-                   "We are sorry to let you know that this request has been rejected.\r\n\r\n" .
-                   "For reference, the ID of this request was '".$request->getId(). "'\r\n\r\n";
+        $message = "On ".$dtg." UTC, you issued an object(s) import request (#".$request->getId().").\r\n\r\n" .
+                   "We are sorry to let you know that this request has been rejected.\r\n\r\n";
+
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -84,9 +84,9 @@ class EmailContentFactory {
     
     static public function getObjectsAddSentForValidationEmailContent($ipaddr, $host, $dtg, $request) {
         $subject = "Object(s) import";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a object(s) addition request.\r\n\r\n" .
-                   "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n";
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a object(s) addition request (#".$request->getId().").\r\n\r\n" .
+                   "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n";
+
         return new \email\EmailContent($subject, self::format($message));
     }
     
