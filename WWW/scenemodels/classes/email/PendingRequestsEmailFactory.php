@@ -67,7 +67,7 @@ class PendingRequestsEmailFactory extends EmailContentFactory {
         $invalidReqText = "";
         foreach ($invalidRequests as $invalidReq) {
             $invalidReqText .= "Request #".$invalidReq->getId()." is invalid! ".$invalidReq->getComment()."\n";
-            $invalidReqText .= "To delete it, click: http://".$_SERVER['SERVER_NAME']."/app.php?c=GenericValidator&a=rejectRequest&sig=".$sig."\r\n\r\n";
+            $invalidReqText .= "To delete it, click: http://".$_SERVER['SERVER_NAME']."/app.php?c=GenericValidator&a=rejectRequest&sig=".$invalidReq->getSig()."\r\n\r\n";
         }
         
         $message = "We would like to give you an overview of the remaining pending requests.\r\n\r\n" .
