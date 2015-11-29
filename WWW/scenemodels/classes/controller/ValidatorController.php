@@ -23,7 +23,7 @@ namespace controller;
 /**
  * Common controller for validator
  *
- * @author Julien Nguyen
+ * @author Julien Nguyen <julien.nguyen3@gmail.com>
  */
 abstract class ValidatorController extends ControllerMenu {
     protected function getRequest() {
@@ -40,7 +40,7 @@ abstract class ValidatorController extends ControllerMenu {
             $errorText = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
             $adviseText = "Else, please report to fg-devel ML or FG Scenery forum.";
             include 'view/error_page.php';
-            return null;
+            return;
         }
     }
     
@@ -92,12 +92,13 @@ abstract class ValidatorController extends ControllerMenu {
     
     public function rejectRequestAction() {
         $request = $this->getRequest();
-        $sig = $request->getSig();
-        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
-        
+
         if ($request == null) {
             return;
         }
+        
+        $sig = $request->getSig();
+        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
 
         try {
             $resultDel = $requestDaoRW->deleteRequest($sig);

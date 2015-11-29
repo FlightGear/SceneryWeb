@@ -32,4 +32,33 @@ class GenericValidatorController extends ValidatorController {
     protected function sendAcceptedRequestEmails($request, $comment) {
         // TODO
     }
+    
+    public function rejectRequestAction() {
+        $sig = $this->getVar('sig');
+        $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
+
+        try {
+            $resultDel = $requestDaoRW->deleteRequest($sig);
+        } catch(\dao\RequestNotFoundException $e) {
+            $processText = "Deleting corresponding pending query.";
+            $errorText   = "Sorry but the requests you are asking for do not exist into the database. Maybe they have already been validated by someone else?";
+            $adviseText  = "Else, please report to fg-devel ML or FG Scenery forum.";
+            include 'view/error_page.php';
+            return;
+        }
+
+        if (!$resultDel) {
+            $processText = "Deleting corresponding pending query.<br/>Signature found.<br /> Now deleting request #". $request->getId();
+            $errorText   = "Sorry, but the DELETE query could not be processed. Please ask for help on the <a href=\"http://www.flightgear.org/forums/viewforum.php?f=5\">Scenery forum</a> or on the devel list.";
+            include 'view/error_page.php';
+            return;
+        }
+
+        //$comment = $_POST["maintainer_comment"];
+
+        include 'view/submission/reject_submission.php';
+
+        //$this->sendRejectedRequestEmails($request, $comment);
+
+    }
 }
