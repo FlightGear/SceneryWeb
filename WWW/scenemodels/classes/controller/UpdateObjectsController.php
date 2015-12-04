@@ -156,7 +156,7 @@ class UpdateObjectsController extends RequestController {
             }
         }
         
-        $inputComment = $this->getVar('comment');
+        $inputComment = htmlspecialchars($this->getVar('comment'));
         if ($inputComment != null && \FormChecker::isComment($inputComment)) {
             $comment = $inputComment;
         } else {

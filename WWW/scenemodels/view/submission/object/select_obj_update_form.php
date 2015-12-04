@@ -30,9 +30,9 @@ foreach ($objects as $object) {
         <td colspan="4"><?=$modelMetadata->getModelsGroup()->getName()?></td>
     </tr>
     <tr>
-        <td><span title="This is the model name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
+        <td><span title="This is the model name of the object you want to update.">
         <label>Model name</label></span></td>
-        <td colspan="4"><?=$modelMetadata->getName()?></td>
+        <td colspan="4"><?=htmlspecialchars($modelMetadata->getName())?></td>
     </tr>
     <tr>
         <td><span title="This is the last update or submission date/time of the corresponding object.">
@@ -54,7 +54,7 @@ foreach ($objects as $object) {
     </tr>
     <tr>
         <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
-        <td colspan="4"><?=$object->getDescription()?></td>
+        <td colspan="4"><?=htmlspecialchars($object->getDescription())?></td>
     </tr>
     <tr>
         <td><span title="This is the picture of the object you want to update"><label>Picture</label></span></td>

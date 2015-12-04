@@ -50,7 +50,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="This is the model name of the object you want to delete, ie the name as it's supposed to appear in the .stg file."><label>Model name</label></span></td>
-            <td colspan="4"><?php echo $modelMDToDel->getName(); ?></td>
+            <td colspan="4"><?php echo htmlspecialchars($modelMDToDel->getName()); ?></td>
         </tr>
         <tr>
             <td><span title="This is the WGS84 longitude of the object you want to delete. Has to be between -180.000000 and +180.000000."><label>Longitude</label></span></td>
@@ -82,7 +82,7 @@ function validateForm()
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
-            <td colspan="4"><?php echo $objectToDel->getDescription(); ?></td>
+            <td colspan="4"><?php echo htmlspecialchars($objectToDel->getDescription()); ?></td>
         </tr>
         <tr>
             <td><span title="This is the picture of the object you want to delete"><label>Picture</label></span></td>

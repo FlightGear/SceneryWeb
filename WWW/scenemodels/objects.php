@@ -206,7 +206,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
             $offset = $object->getElevationOffset();
             echo "<tr class=\"object\">\n";
             echo "  <td><a href='app.php?c=Objects&amp;a=view&amp;id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
-                 "  <td>".$object->getDescription()."</td>\n" .
+                 "  <td>".htmlspecialchars($object->getDescription())."</td>\n" .
                  "  <td><a href=\"app.php?c=Models&amp;a=view&amp;id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
                  "  <td>".$object->getCountry()->getName() ."</td>\n" .
                  "  <td>".$objPos->getLongitude()."<br/>".$objPos->getLatitude()."</td>\n" .

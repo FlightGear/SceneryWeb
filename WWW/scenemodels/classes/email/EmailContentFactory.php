@@ -93,9 +93,8 @@ class EmailContentFactory {
     static public function getModelUpdateRequestAcceptedEmailContent($dtg, $request, $comment) {
         $modelMD = $request->getNewModel()->getMetadata();
         $subject = "3D model update accepted";
-        $message = "On ".$dtg." UTC, you issued a 3D model update request.\r\n\r\n" .
-                   "We are glad to let you know that this request has been accepted!\r\n\r\n" .
-                   "For reference, the ID of this request is '".$request->getId(). "' and it is named '". $modelMD->getName() ."'.\r\n\r\n";
+        $message = "On ".$dtg." UTC, you issued a 3D model update request (#".$request->getId(). " named '". $modelMD->getName() ."').\r\n\r\n" .
+                   "We are glad to let you know that this request has been accepted!\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -134,9 +133,8 @@ class EmailContentFactory {
         $newModelMD = $request->getNewModel()->getMetadata();
         
         $subject = "3D model update rejected";
-        $message = "On ".$dtg." UTC, you issued a 3D model update request.\r\n\r\n" .
-                   "We are sorry to let you know that this request has been rejected.\r\n\r\n" .
-                   "For reference, the ID of this request was '".$request->getId(). "' and it was named '". $newModelMD->getName() ."'.\r\n\r\n";
+        $message = "On ".$dtg." UTC, you issued a 3D model update request (#".$request->getId(). " named '". $newModelMD->getName() ."').\r\n\r\n" .
+                   "We are sorry to let you know that this request has been rejected.\r\n\r\n";
         if (!empty($comment)) {
             $message .= "The screener left a comment for you: '" . $comment . "'\r\n\r\n";
         }
@@ -148,9 +146,8 @@ class EmailContentFactory {
     static public function getModelUpdateRequestSentForValidationEmailContent($dtg, $ipaddr, $host, $request) {
         $newModelMD = $request->getNewModel()->getMetadata();
         $subject = "3D model update request";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model update request.\r\n\r\n" .
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued a 3D model update request (#".$request->getId().").\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
@@ -165,9 +162,8 @@ class EmailContentFactory {
         $newModelMD = $request->getNewModel()->getMetadata();
         
         $subject = "3D model update request";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), issued a 3D model update request for your model.\r\n\r\n" .
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), issued a 3D model update request for your model (#".$request->getId(). ").\r\n\r\n" .
                    "We would like to let you know that this request has been sent for validation.\r\n\r\n" .
-                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           ". $newModelMD->getModelsGroup()->getName() . "\r\n" . "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .
                    "Path:             ". $newModelMD->getFilename() . "\r\n" .
                    "Author:           ". $newModelMD->getAuthor()->getName() ."\r\n" .
@@ -234,9 +230,8 @@ class EmailContentFactory {
         $objectToDelPos = $objectToDel->getPosition();
         
         $subject = "Object deletion";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object deletion request.\r\n\r\n" .
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object deletion request (#".$request->getId(). ").\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed.\r\n\r\n" .
-                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Family:           " .$modelMD->getModelsGroup()->getName(). "\r\n" .
                    "Model:            " .$modelMD->getName(). "\r\n" .
                    "Latitude:         " .$objectToDelPos->getLatitude(). "\r\n" .
@@ -287,9 +282,8 @@ class EmailContentFactory {
         $newObjPos = $newObject->getPosition();
         
         $subject = "Object update";
-        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object update request." . "\r\n\r\n" .
+        $message = "On ".$dtg." UTC, someone from the IP address ".$ipaddr." (".$host."), which is thought to be you, issued an object update request (#".$request->getId().")." . "\r\n\r\n" .
                    "We would like to let you know that this request was sent for validation. Allow up to a few days for your request to be processed." . "\r\n\r\n" .
-                   "For reference, the ID of this request is '".$request->getId(). "'\r\n\r\n" .
                    "Object #:          ".$oldObject->getId()."\r\n" .
                    "Family:            ". $oldModelMD->getModelsGroup()->getName() ." => ".$newModelMD->getModelsGroup()->getName()."\r\n" .
                    "[ http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=browse&shared=".$newModelMD->getModelsGroup()->getId()." ]\r\n" .

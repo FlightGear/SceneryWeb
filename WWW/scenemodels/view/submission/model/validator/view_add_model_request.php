@@ -60,11 +60,11 @@ include 'view/header.php';
     </tr>
     <tr>
         <td>Full Name</td>
-        <td><?php echo $newModelMD->getName(); ?></td>
+        <td><?php echo htmlspecialchars($newModelMD->getName()); ?></td>
     </tr>
     <tr>
         <td>Notes</td>
-        <td><?php echo $newModelMD->getDescription(); ?></td>
+        <td><?php echo htmlspecialchars($newModelMD->getDescription()); ?></td>
     </tr>
     <tr>
         <td>Latitude</td>

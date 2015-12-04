@@ -15,9 +15,9 @@ function popmap(lat,lon,zoom) {
 
 <?php
     
-echo "<h1>".$modelMetadata->getName()."</h1>";
+echo "<h1>".htmlspecialchars($modelMetadata->getName())."</h1>";
 if (!empty($modelMetadata->getDescription())) {
-    echo "<p>".$modelMetadata->getDescription()."</p>";
+    echo "<p>".htmlspecialchars($modelMetadata->getDescription())."</p>";
 }
 ?>
 <table>

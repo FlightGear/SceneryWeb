@@ -21,7 +21,7 @@
 include 'view/header.php';
 echo "<p class=\"center\">Deleting corresponding pending query.</p>";
 echo "<p class=\"center\">";
-echo "Signature found.<br />Now deleting request #". $request->getId()." with comment \"". $comment ."\".</p>";
+echo "Signature found.<br />Now deleting request #". $request->getId()." with comment \"". htmlspecialchars($comment) ."\".</p>";
 echo "<p class=\"center ok\">Entries have correctly been deleted from the pending requests table.";
 echo "</p>";
 

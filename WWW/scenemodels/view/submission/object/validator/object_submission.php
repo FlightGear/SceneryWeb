@@ -4,7 +4,7 @@ $pageTitle = "Automated Objects Pending Requests Form";
 include 'view/header.php';
 echo "<p class=\"center\">Request #". $request->getId()."</p>" .
      "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>".
-     "<p class=\"center\">Comment: ".$request->getComment()."</p>";
+     "<p class=\"center\">Comment: ".htmlspecialchars($request->getComment())."</p>";
 
 $sig = $request->getSig();
 
@@ -26,12 +26,12 @@ case "model\RequestObjectUpdate":
     if ($oldObject->getDescription() != $newObject->getDescription()) {
         echo " style=\"background-color: rgb(255, 200, 0)\"";
     }
-    echo "><td>Description</td><td>".$oldObject->getDescription()."</td><td>".$newObject->getDescription()."</td></tr>";
+    echo "><td>Description</td><td>".htmlspecialchars($oldObject->getDescription())."</td><td>".htmlspecialchars($newObject->getDescription())."</td></tr>";
     echo "<tr";
     if ($oldModelMD->getId() != $newModelMD->getId()) {
         echo " style=\"background-color: rgb(255, 200, 0)\"";
     }
-    echo "><td>Object's model</td><td>".$oldModelMD->getName()."</td><td>".$newModelMD->getName()."</td></tr>";
+    echo "><td>Object's model</td><td>".htmlspecialchars($oldModelMD->getName())."</td><td>".htmlspecialchars($newModelMD->getName())."</td></tr>";
     echo "<tr><td>Thumbnail</td><td><img src='app.php?c=Models&amp;a=thumbnail&amp;id=".$oldModelMD->getId()."' alt=''/></td>".
             "<td><img src='app.php?c=Models&amp;a=thumbnail&amp;id=".$newModelMD->getId()."' alt=''/></td></tr>";
     echo "<tr";
@@ -85,7 +85,7 @@ case "model\RequestObjectDelete":
          "<td>".$objectToDel->getGroundElevation()."</td>" .
          "<td>".$objectToDel->getElevationOffset()."</td>" .
          "<td>".$objectToDel->getOrientation()."</td>" .
-         "<td><a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&amp;a=view&amp;id=".$modelMD->getId()."\">".$modelMD->getName()."</a></td>" .
+         "<td><a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&amp;a=view&amp;id=".$modelMD->getId()."\">".htmlspecialchars($modelMD->getName())."</a></td>" .
          "<td><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$objDelPos->getLongitude()."&amp;lat=".$objDelPos->getLatitude()."&amp;zoom=14\">Map</a></td>" .
          "</tr>";
     break;

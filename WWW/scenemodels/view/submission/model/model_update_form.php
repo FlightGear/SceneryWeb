@@ -136,7 +136,7 @@ $(function() {
                         <label for="mo_name">Model name<em>*</em><span>Please add a short (max 100 letters) name of your model (eg : Cornet antenna radome - Brittany - France).</span></label>
                     </td>
                     <td>
-                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?=$modelMD->getName()?>"/>
+                        <input type="text" name="mo_name" id="mo_name" maxlength="100" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?=htmlspecialchars($modelMD->getName())?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -144,7 +144,7 @@ $(function() {
                         <label for="notes">Model description<span>Please add a short statement giving more details on this data. eg: The Cite des Telecoms, colocated with the cornet radome, is a telecommunications museum.</span></label>
                     </td>
                     <td>
-                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php echo (isset($modelMD))?$modelMD->getDescription():'';?>"/>
+                        <input type="text" name="notes" id="notes" maxlength="500" style="width: 100%" onkeyup="checkComment(this);validateTabs();" value="<?php htmlspecialchars($modelMD->getDescription());?>"/>
                     </td>
                 </tr>
                 <tr>

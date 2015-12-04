@@ -4,7 +4,7 @@ require 'view/header.php';
 <h1>
 <?php
 if ($object->getDescription() != null) {
-    print $object->getDescription();
+    print htmlspecialchars($object->getDescription());
 } else {
     print "Object";
 }

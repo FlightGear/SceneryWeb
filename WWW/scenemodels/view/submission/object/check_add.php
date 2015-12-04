@@ -24,7 +24,7 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
     if ($objectLineRequest->getObject() != null) {
         $object = $objectLineRequest->getObject();
 
-        echo '<td>'.$modelMDs[$object->getModelId()]->getName().'</td>'.
+        echo '<td>'.htmlspecialchars($modelMDs[$object->getModelId()]->getName()).'</td>'.
              '<td>'.$object->getPosition()->getLongitude().'</td>'.
              '<td>'.$object->getPosition()->getLatitude().'</td>'.
              '<td>'.$object->getElevationOffset().'</td>'.

@@ -39,20 +39,20 @@ $pagesize = 10;
     $modelMetadatas = $modelDaoRO->getModelMetadatas($offset, $pagesize);
     
     foreach ($modelMetadatas as $modelMetadata) {
-        echo "<tr>\n" .
-             "<td style=\"width: 320px\">\n" .
-             "<a href=\"app.php?c=Models&amp;a=view&amp;id=".$modelMetadata->getId()."\"><img src=\"app.php?c=Models&amp;a=thumbnail&amp;id=".$modelMetadata->getId()."\" alt=\"Model ".$modelMetadata->getId()."\"/></a>\n" .
-             "</td>\n" .
-             "<td>\n" .
+        echo "<tr>" .
+             "<td style=\"width: 320px\">" .
+             "<a href=\"app.php?c=Models&amp;a=view&amp;id=".$modelMetadata->getId()."\"><img src=\"app.php?c=Models&amp;a=thumbnail&amp;id=".$modelMetadata->getId()."\" alt=\"Model ".$modelMetadata->getId()."\"/></a>" .
+             "</td>" .
+             "<td>" .
              "<ul class=\"table\">" .
-             "<li><b>Name:</b> ".$modelMetadata->getName()."</li>\n" .
-             "<li><b>Path:</b> ".$modelMetadata->getFilename()."</li>\n";
-        if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescription())>0) {
-            echo "<li><b>Notes:</b> ".$modelMetadata->getDescription()."</li>\n";
+             "<li><b>Name:</b> ".htmlspecialchars($modelMetadata->getName())."</li>" .
+             "<li><b>Path:</b> ".$modelMetadata->getFilename()."</li>";
+        if (strlen($modelMetadata->getDescription())>0) {
+            echo "<li><b>Notes:</b> ".htmlspecialchars($modelMetadata->getDescription())."</li>";
         }
-        echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>\n" .
-             "<li><b>Last Updated: </b>".\FormatUtils::formatDateTime($modelMetadata->getLastUpdated())."</li>\n" .
-             "<li><b>Type: </b><a href=\"app.php?c=Models&amp;a=browse&amp;shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>\n";
+        echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>" .
+             "<li><b>Last Updated: </b>".\FormatUtils::formatDateTime($modelMetadata->getLastUpdated())."</li>" .
+             "<li><b>Type: </b><a href=\"app.php?c=Models&amp;a=browse&amp;shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>";
 
         if ($modelMetadata->getModelsGroup()->isStatic()) {
             $objects = $objectDaoRO->getObjectsByModel($modelMetadata->getId());
@@ -60,14 +60,14 @@ $pagesize = 10;
             foreach ($objects as $object) {
                 $objPos = $object->getPosition();
                 echo "<li>(<a href=\"download/".$object->getDir().".tgz\">".$object->getDir()."</a>) ";
-                echo "<a href=\"javascript:popmap(".$objPos->getLatitude().",".$objPos->getLongitude().",13)\">Map</a></li>\n";
+                echo "<a href=\"javascript:popmap(".$objPos->getLatitude().",".$objPos->getLongitude().",13)\">Map</a></li>";
             }
         }
 
-        echo "<li><a href=\"app.php?c=Models&amp;a=view&amp;id=".$modelMetadata->getId()."\">View more about this model.</a></li>\n";
+        echo "<li><a href=\"app.php?c=Models&amp;a=view&amp;id=".$modelMetadata->getId()."\">View more about this model.</a></li>";
         echo "</ul>";
-        echo "</td>\n";
-        echo "</tr>\n";
+        echo "</td>";
+        echo "</tr>";
     }
 ?>
     <tr class="bottom">

@@ -19,7 +19,7 @@ require 'view/header.php';
         foreach ($modelMetadatas as $modelMetadata) {
 ?>
             <a href="/app.php?c=Models&a=view&id=<?php echo $modelMetadata->getId();?>">
-            <img title="<?php echo $modelMetadata->getName().' ['.$modelMetadata->getFilename().']';?>"
+            <img title="<?php echo htmlspecialchars($modelMetadata->getName()).' ['.$modelMetadata->getFilename().']';?>"
                 src="app.php?c=Models&amp;a=thumbnail&amp;id=<?php echo $modelMetadata->getId();?>" width="100" height="75"
                 onmouseover="showtrail('app.php?c=Models&a=thumbnail&id=<?php echo $modelMetadata->getId();?>','','','1',5,322);"
                 onmouseout="hidetrail();"

@@ -151,7 +151,7 @@ class ModelRequestController extends RequestController {
     
     protected function prepareModelFile($targetPath, $xmlName, $ac3dName) {
         if (!empty($xmlName)) {
-            $this->modelChecker->dos2Unix($targetPath, $xmlName);
+            $this->modelChecker->dos2Unix($targetPath.$xmlName);
         }
         $this->modelChecker->dos2Unix($targetPath.$ac3dName);
         

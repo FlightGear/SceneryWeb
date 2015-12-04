@@ -32,8 +32,6 @@ $newModelMD = $newModel->getMetadata();
 $oldModel = $request->getOldModel();
 $oldModelMD = $oldModel->getMetadata();
 
-$mo_contri_email = htmlentities($request->getContributorEmail());
-
 include 'view/header.php';
 
 ?>
@@ -42,8 +40,8 @@ include 'view/header.php';
 
 <p class="center">The following model has passed all (numerous) verifications. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
-<p class="center">Email: <?=$mo_contri_email?></p>
-<p class="center">Comment: <?=$request->getComment()?></p>
+<p class="center">Email: <?=htmlspecialchars($request->getContributorEmail())?></p>
+<p class="center">Comment: <?=htmlspecialchars($request->getComment())?></p>
 
 <form id="validation" method="post" action="app.php?c=UpdateModelValidator&amp;a=actionOnRequest" onsubmit="return validateForm();">
 <table>
@@ -76,13 +74,13 @@ include 'view/header.php';
     </tr>
     <tr>
         <td>Full Name</td>
-        <td><?php echo $oldModelMD->getName(); ?></td>
-        <td><?php echo $newModelMD->getName(); ?></td>
+        <td><?php echo htmlspecialchars($oldModelMD->getName()); ?></td>
+        <td><?php echo htmlspecialchars($newModelMD->getName()); ?></td>
     </tr>
     <tr>
         <td>Notes</td>
-        <td><?php echo $oldModelMD->getDescription(); ?></td>
-        <td><?php echo $newModelMD->getDescription(); ?></td>
+        <td><?php echo htmlspecialchars($oldModelMD->getDescription()); ?></td>
+        <td><?php echo htmlspecialchars($newModelMD->getDescription()); ?></td>
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>

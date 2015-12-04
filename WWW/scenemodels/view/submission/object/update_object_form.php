@@ -128,7 +128,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
 
 } else {
     echo "      <input name=\"modelId\" type=\"hidden\" value=\"".$objectToUp->getModelId()."\"></input>";
-    echo $modelMDToUp->getName();
+    echo htmlspecialchars($modelMDToUp->getName());
 }
 ?>
           </td>
@@ -208,7 +208,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
         </tr>
         <tr>
             <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>
-            <td><?=$objectToUp->getDescription()?></td>
+            <td><?=htmlspecialchars($objectToUp->getDescription())?></td>
             <td>
                 <input type="text" name="new_ob_text" id="new_ob_text" size="50" maxlength="100" value="<?=$objectToUp->getDescription()?>" onkeyup="checkComment(this);" />
             </td>

@@ -38,12 +38,6 @@ function validateForm() {
 <br />
 <?php
 
-if (!isset($sentComment)) {
-    echo "<p class=\"center warning\">Comment mismatch!</p>";
-    include 'view/footer.php';
-    exit;
-}
-
 if (isset($safeEmail)) {
     echo "<p class=\"center ok\">Email: ".$safeEmail."</p>";
 } else {
@@ -72,7 +66,7 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
     if ($objectLineRequest->getObject() != null) {
         $object = $objectLineRequest->getObject();
 
-        echo '<td><input type="hidden" name="modelId'.$lineNb.'" value="'.$object->getModelId().'"/>'.$modelMDs[$object->getModelId()]->getName().'</td>'.
+        echo '<td><input type="hidden" name="modelId'.$lineNb.'" value="'.$object->getModelId().'"/>'.htmlspecialchars($modelMDs[$object->getModelId()]->getName()).'</td>'.
              '<td><input type="text" size="10" name="long'.$lineNb.'" value="'.$object->getPosition()->getLongitude().'"/></td>'.
              '<td><input type="text" size="10" name="lat'.$lineNb.'" value="'.$object->getPosition()->getLatitude().'"/></td>'.
              '<td><input type="text" size="10" name="offset'.$lineNb.'" value="'.$object->getElevationOffset().'"/></td>'.
@@ -85,14 +79,14 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
         echo "<td><select name='countryId".$lineNb."' id='countryId".$lineNb."' style='width: 100%;'>";
 
         foreach($countries as $country) {
-            echo "<option value=\"".$country->getCode()."\"";
+            echo '<option value="'.$country->getCode().'"';
             if ($country->getCode() == $object->getCountry()->getCode()) {
-                echo " selected";
+                echo ' selected';
             }
-            echo ">".$country->getName()."</option>";
+            echo '>'.$country->getName().'</option>';
         }
 
-        echo "</select></td>";
+        echo '</select></td>';
 
     } else {
         echo '<td colspan=\'6\'>'.$objectLineRequest->getStgLine().'</td>';
@@ -127,9 +121,9 @@ if ($unknownCountry) {
     foreach($countries as $country) {
         echo "<option value=\"".$country->getCode()."\">".$country->getName()."</option>";
     }
-    echo "</select></td><td></td></tr>";
+    echo '</select></td><td></td></tr>';
 }
-echo "</table>";
+echo '</table>';
 
 echo "<b>Your comment:</b> ".$sentComment."<br/>" .
      "<b>Your email:</b> ".$safeEmail."<br/>" .

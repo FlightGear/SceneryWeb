@@ -5,7 +5,7 @@ echo "<?xml version=\"1.0\" standalone=\"yes\" ?>\n";
 
 // Showing the results.
 echo "<model><name>"
-     .$modelMD->getName()
+     .htmlspecialchars($modelMD->getName())
      ."</name><notes>"
      .htmlspecialchars($modelMD->getDescription())
      ."</notes><author>"

@@ -300,7 +300,7 @@ class AddObjectsController extends RequestController {
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
         if (\FormChecker::isComment($this->getVar('comment'))) {
-            $sentComment = htmlentities(stripslashes($this->getVar('comment')));
+            $sentComment = htmlspecialchars(stripslashes($this->getVar('comment')));
         }
         
         // Checking that stg exists and is containing only letters or figures.
@@ -346,6 +346,14 @@ class AddObjectsController extends RequestController {
             
             $objectLinesRequests[$i] = $objLineReq;
             $i++;
+        }
+        
+        if (!isset($sentComment)) {
+            $pageTitle = "Automated Objects Mass Import Submission Form";
+            
+            $errorText = "Comment mismatch!";
+            include 'view/error_page.php';
+            exit;
         }
         
         include 'view/submission/object/mass_add_object_form_confirm.php';

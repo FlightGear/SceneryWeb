@@ -4,7 +4,7 @@ $pageTitle = "Automated Objects Addition Requests Form";
 include 'view/header.php';
 echo "<p class=\"center\">Request #". $request->getId()."</p>";
 echo "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>";
-echo "<p class=\"center\">Comment: ".$request->getComment()."</p>";
+echo "<p class=\"center\">Comment: ".htmlspecialchars($request->getComment())."</p>";
 
 $sig = $request->getSig();
 
@@ -23,7 +23,7 @@ foreach ($request->getNewObjects() as $newObj) {
          "<td>".$newObj->getGroundElevation()."</td>" .
          "<td>".$newObj->getElevationOffset()."</td>" .
          "<td>".$newObj->getOrientation()."</td>" .
-         "<td><a href='http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newObj->getModelId()."' target='_blank'>".$modelMD->getName()."</a></td>" .
+         "<td><a href='http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newObj->getModelId()."' target='_blank'>".htmlspecialchars($modelMD->getName())."</a></td>" .
          "<td><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;zoom=14\">Map</a></td>" .
          "</tr>";
 

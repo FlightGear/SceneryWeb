@@ -46,18 +46,18 @@ $pagesize = 20;
     $odd = true;
     foreach ($modelMetadatas as $modelMetadata) {
         if ($odd) {
-            echo "<tr>\n";
+            echo "<tr>";
         }
-        echo "<td>\n" .
+        echo "<td>" .
              "<ul class=\"table\">" .
-             "<li><b>Name:</b> ".$modelMetadata->getName()."</li>\n" .
-             "<li><b>Path:</b> ".$modelMetadata->getFilename()."</li>\n";
-        if ($modelMetadata->getDescription() !== NULL && strlen($modelMetadata->getDescription())>0) {
-            echo "<li><b>Notes:</b> ".$modelMetadata->getDescription()."</li>\n";
+             "<li><b>Name:</b> ".htmlspecialchars($modelMetadata->getName())."</li>" .
+             "<li><b>Path:</b> ".$modelMetadata->getFilename()."</li>";
+        if (strlen($modelMetadata->getDescription())>0) {
+            echo "<li><b>Notes:</b> ".htmlspecialchars($modelMetadata->getDescription())."</li>";
         }
-        echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>\n" .
-             "<li><b>Last Updated: </b>".\FormatUtils::formatDateTime($modelMetadata->getLastUpdated())."</li>\n" .
-             "<li><b>Type: </b><a href=\"app.php?c=Models&a=browse&shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>\n";
+        echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>" .
+             "<li><b>Last Updated: </b>".\FormatUtils::formatDateTime($modelMetadata->getLastUpdated())."</li>" .
+             "<li><b>Type: </b><a href=\"app.php?c=Models&a=browse&shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>";
 
         if ($modelMetadata->getModelsGroup()->isStatic()) {
             $objects = $objectDaoRO->getObjectsByModel($modelMetadata->getId());
@@ -65,18 +65,18 @@ $pagesize = 20;
             foreach ($objects as $object) {
                 $objPos = $object->getPosition();
                 echo "<li>(<a href=\"download/".$object->getDir().".tgz\">".$object->getDir()."</a>) ";
-                echo "<a href=\"javascript:popmap(".$objPos->getLatitude().",".$objPos->getLongitude().",13)\">Map</a></li>\n";
+                echo "<a href=\"javascript:popmap(".$objPos->getLatitude().",".$objPos->getLongitude().",13)\">Map</a></li>";
             }
         }
 
-        echo "<li><a href=\"app.php?c=Models&a=view&id=".$modelMetadata->getId()."\">View more about this model.</a></li>\n";
+        echo "<li><a href=\"app.php?c=Models&a=view&id=".$modelMetadata->getId()."\">View more about this model.</a></li>";
         echo "</ul>";
-        echo "</td>\n";
-        if (!$odd) {
-            echo "</tr>\n";
-            $odd = true;
-        } else {
+        echo "</td>";
+        if ($odd) {
             $odd = false;
+        } else {
+            echo "</tr>";
+            $odd = true;
         }
     }
 ?>
