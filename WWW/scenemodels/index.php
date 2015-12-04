@@ -24,11 +24,11 @@ require 'view/header.php';
         
         foreach ($objects as $object) {
             echo "<tr>" .
-                    "<td><a href=\"app.php?c=Objects&amp;a=view&amp;id=".$object->getId()."\">".$object->getDescription()."</a><br/>" .
+                    "<td><a href=\"app.php?c=Objects&amp;a=view&amp;id=".$object->getId()."\">".htmlspecialchars($object->getDescription())."</a><br/>" .
                     \FormatUtils::formatDateTime($object->getLastUpdated())."</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
                     "<a href=\"app.php?c=Objects&amp;a=view&amp;id=". $object->getId() . "\">" .
-                    "    <img title=\"". $object->getDescription()."\"" .
+                    "    <img title=\"". htmlspecialchars($object->getDescription())."\"" .
                     "    src=\"app.php?c=Models&amp;a=thumbnail&amp;id=". $object->getModelId() . "\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
@@ -49,11 +49,11 @@ require 'view/header.php';
 
         foreach ($models as $model) {
             echo "<tr>" .
-                    "<td><a href=\"/app.php?c=Models&amp;a=view&amp;id=".$model->getId()."\">".$model->getName()."</a><br/>" .
+                    "<td><a href=\"/app.php?c=Models&amp;a=view&amp;id=".$model->getId()."\">".htmlspecialchars($model->getName())."</a><br/>" .
                     \FormatUtils::formatDateTime($model->getLastUpdated()). "</td>" .
                     "<td style=\"width: 100px; padding: 0px;\">".
                     "<a href=\"/app.php?c=Models&amp;a=view&amp;id=". $model->getId() ."\">" .
-                    "    <img title=\"". $model->getName().' ['.$model->getFilename().']'."\"" .
+                    "    <img title=\"". htmlspecialchars($model->getName()).' ['.$model->getFilename().']'."\"" .
                     "    src=\"app.php?c=Models&amp;a=thumbnail&amp;id=". $model->getId() ."\" width=\"100\" height=\"75\" style=\"vertical-align: middle\"" .
                     "    alt=\"\" />" .
                     "</a>" .
