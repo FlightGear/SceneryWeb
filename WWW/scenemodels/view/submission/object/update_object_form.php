@@ -96,11 +96,7 @@ else {
             <span title="This is the model name of the object you want to update, ie the name as it's supposed to appear in the .stg file.">
             <label for="modelId">Model name<em>*</em></label></span>
           </td>
-          <td>
-<?php
-    echo $modelMDToUp->getName();
-?>
-          </td>
+          <td><?php echo htmlspecialchars($modelMDToUp->getName());?></td>
           <td>
 <?php
 
