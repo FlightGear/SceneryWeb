@@ -125,10 +125,10 @@ if ($unknownCountry) {
 }
 echo '</table>';
 
-echo "<b>Your comment:</b> ".$sentComment."<br/>" .
+echo "<b>Your comment:</b> ".htmlspecialchars($sentComment)."<br/>" .
      "<b>Your email:</b> ".$safeEmail."<br/>" .
      "<input type='hidden' name='email' id='email' value='".$safeEmail."'/>" .
-     "<input type='hidden' name='comment' id='comment' value='".$sentComment."'/>";
+     "<input type='hidden' name='comment' id='comment' value='".htmlspecialchars($sentComment)."'/>";
 
 if ($global_ko) { // If errors have been found...
     echo "<p class=\"center warning\">Errors have been found in your submission. Please <a href='javascript:history.go(-1)'>go back</a> and correct or delete the corresponding lines from your submission before submitting again.</p>";

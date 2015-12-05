@@ -55,8 +55,8 @@ class UpdateObjectsController extends RequestController {
 
         // Checking that latitude and longitude are correct
         $errorText = "";
-        $long = number_format(stripslashes($this->getVar('longitude')),7,'.','');
-        $lat = number_format(stripslashes($this->getVar('latitude')),7,'.','');
+        $long = number_format($this->getVar('longitude'),7,'.','');
+        $lat = number_format($this->getVar('latitude'),7,'.','');
         if (!\FormChecker::isLatitude($lat)) {
             $errorText .= "Latitude mismatch!<br/>";
             $error = true;
@@ -132,7 +132,7 @@ class UpdateObjectsController extends RequestController {
         $new_country = $this->getVar('new_country');
         $new_offset = $this->getVar('new_offset');
         $new_orientation = $this->getVar('new_heading');
-        $safe_new_ob_text = htmlentities(stripslashes($this->getVar('new_ob_text')));
+        $safe_new_ob_text = $this->getVar('new_ob_text');
         
         if (\FormChecker::isObjectId($this->getVar('id_to_update'))) {
             $idToUpdate = $this->getVar('id_to_update');
@@ -156,7 +156,7 @@ class UpdateObjectsController extends RequestController {
             }
         }
         
-        $inputComment = htmlspecialchars($this->getVar('comment'));
+        $inputComment = $this->getVar('comment');
         if ($inputComment != null && \FormChecker::isComment($inputComment)) {
             $comment = $inputComment;
         } else {
@@ -195,7 +195,7 @@ class UpdateObjectsController extends RequestController {
             $dtg = date('l jS \of F Y h:i:s A');
 
             // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-            $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
+            $ipaddr = $_SERVER["REMOTE_ADDR"];
             $host = gethostbyaddr($ipaddr);
 
             $emailSubmit = \email\EmailContentFactory::getObjectUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $oldModelMD, $newModelMD, $updatedReq);

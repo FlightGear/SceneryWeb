@@ -121,8 +121,8 @@ class UpdateModelController extends ModelRequestController {
         }
         
         /** STEP 9 : CHECK MODEL INFORMATION */
-        $name    = addslashes(htmlentities(strip_tags($this->getVar('mo_name')), ENT_QUOTES));
-        $notes   = addslashes(htmlentities(strip_tags($this->getVar('notes')), ENT_QUOTES));
+        $name    = $this->getVar('mo_name');
+        $notes   = $this->getVar('notes');
         $authorId  = $this->getVar('mo_author');
         $moGroupId = $this->getVar('model_group_id');
             
@@ -138,7 +138,7 @@ class UpdateModelController extends ModelRequestController {
         }
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
-        $sentComment = htmlentities(stripslashes($this->getVar('comment')));
+        $sentComment = $this->getVar('comment');
         if (!\FormChecker::isComment($sentComment)) {
             $exceptions[] = new \Exception("Please add a comment to the maintainer.");
         }
@@ -218,7 +218,7 @@ class UpdateModelController extends ModelRequestController {
         date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
         // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-        $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
+        $ipaddr = $_SERVER["REMOTE_ADDR"];
         $host = gethostbyaddr($ipaddr);
 
         $emailSubmit = \email\EmailContentFactory::getModelUpdateRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);

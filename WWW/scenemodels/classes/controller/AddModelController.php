@@ -110,8 +110,8 @@ class AddModelController extends ModelRequestController {
         }
         
         /** STEP 9 : CHECK MODEL INFORMATION */
-        $name    = addslashes(htmlentities(strip_tags($this->getVar('mo_name')), ENT_QUOTES));
-        $notes   = addslashes(htmlentities(strip_tags($this->getVar('notes')), ENT_QUOTES));
+        $name    = $this->getVar('mo_name');
+        $notes   = $this->getVar('notes');
         $authorId  = $this->getVar('mo_author');
         $moGroupId = $this->getVar('model_group_id');
             
@@ -230,7 +230,7 @@ class AddModelController extends ModelRequestController {
         date_default_timezone_set('UTC');
         $dtg = date('l jS \of F Y h:i:s A');
         // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-        $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
+        $ipaddr = $_SERVER["REMOTE_ADDR"];
         $host = gethostbyaddr($ipaddr);
 
         $emailSubmit = \email\EmailContentFactory::getAddModelRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);

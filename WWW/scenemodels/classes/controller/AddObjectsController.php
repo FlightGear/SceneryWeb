@@ -159,7 +159,7 @@ class AddObjectsController extends RequestController {
             $dtg = date('l jS \of F Y h:i:s A');
 
             // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-            $ipaddr = htmlentities(stripslashes($_SERVER["REMOTE_ADDR"]));
+            $ipaddr = $_SERVER["REMOTE_ADDR"]);
             $host = gethostbyaddr($ipaddr);
             
             $emailSubmit = \email\EmailContentFactory::getObjectsAddRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
@@ -300,7 +300,7 @@ class AddObjectsController extends RequestController {
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
         if (\FormChecker::isComment($this->getVar('comment'))) {
-            $sentComment = htmlspecialchars(stripslashes($this->getVar('comment')));
+            $sentComment = $this->getVar('comment');
         }
         
         // Checking that stg exists and is containing only letters or figures.

@@ -18,7 +18,6 @@ function chkNumeric(objName, minval, maxval)
     var checkOK = numbers+ "-.";
     var checkStr = objName;
     var allValid = true;
-    //var decPoints = 0;
     var allNum = "";
 
     for (i = 0;  i < checkStr.value.length;  i++)
@@ -72,24 +71,8 @@ function checkComment(textfield)
 
 function chkComment(checkStr)
 {
-    var checkOK = numbers + letters + ";!?@-_.\(\)[]+ ";
     var allValid = true;
-    var allNum = "";
-
-    for (i = 0;  i < checkStr.length;  i++)
-    {
-        ch = checkStr.charAt(i);
-        for (j = 0;  j < checkOK.length;  j++)
-            if (ch == checkOK.charAt(j))
-                break;
-        if (j == checkOK.length)
-        {
-            allValid = false;
-            break;
-        }
-    }
-
-    return allValid;
+    return checkStr.indexOf("|") === -1;
 }
 
 function checkEmail(emailfield)
