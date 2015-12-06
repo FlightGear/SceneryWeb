@@ -5,7 +5,7 @@ $modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
 header('Content-type: application/rss+xml');
 $modelMetadatas = $modelDaoRO->getModelMetadatas(0, 50);
 
-echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>";
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 ?>
 <rss version="2.0">
   <channel>
