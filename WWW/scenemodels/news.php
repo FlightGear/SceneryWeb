@@ -25,7 +25,7 @@ else {
              "<div class=\"header\">\n" .
              "<div class=\"newsdate\">".\FormatUtils::formatDateTime($newsPost->getDate())."</div>\n" .
              "<div class=\"newsnormal\">by</div>" .
-             "<div class=\"newsauthor\"><a href=\"author.php?id=".$newsPost->getAuthor()->getId()."\">".$newsPost->getAuthor()->getName()."</a></div>" .
+             "<div class=\"newsauthor\"><a href=\"app.php?c=Authors&amp;a=view&amp;id=".$newsPost->getAuthor()->getId()."\">".$newsPost->getAuthor()->getName()."</a></div>" .
              "<div class=\"clear\"></div></div>\n" .
              "<div class=\"body\">".$newsPost->getText()."</div>\n" .
              "</div>\n";

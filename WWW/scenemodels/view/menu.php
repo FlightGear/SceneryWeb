@@ -40,7 +40,7 @@
         <div class="headerlinks"><a href="/objects.php">Objects</a></div>
     </li>
     <li class="mainitems">
-        <div class="headerlinks"><a href="/authors.php">Authors</a></div>
+        <div class="headerlinks"><a href="/app.php?c=Authors&amp;a=browse">Authors</a></div>
     </li>
     <li class="mainitems">
         <div class="headerlinks"><a href="/mapserver.php">Mapserver</a></div>

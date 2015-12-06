@@ -42,7 +42,7 @@ if (!empty($modelMetadata->getDescription())) {
         <td>Author</td>
         <td>
 <?php
-            print "<a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a>";
+            print "<a href=\"app.php?c=Authors&amp;a=view&amp;id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a>";
 ?>
         </td>
     </tr>

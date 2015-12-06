@@ -55,7 +55,7 @@ $pagesize = 20;
         if (strlen($modelMetadata->getDescription())>0) {
             echo "<li><b>Notes:</b> ".htmlspecialchars($modelMetadata->getDescription())."</li>";
         }
-        echo "<li><b>Author: </b><a href=\"author.php?id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>" .
+        echo "<li><b>Author: </b><a href=\"app.php?c=Authors&amp;a=view&amp;id=".$modelMetadata->getAuthor()->getId()."\">".$modelMetadata->getAuthor()->getName()."</a></li>" .
              "<li><b>Last Updated: </b>".\FormatUtils::formatDateTime($modelMetadata->getLastUpdated())."</li>" .
              "<li><b>Type: </b><a href=\"app.php?c=Models&a=browse&shared=".$modelMetadata->getModelsGroup()->getId()."\">".$modelMetadata->getModelsGroup()->getName()."</a></li>";
 
