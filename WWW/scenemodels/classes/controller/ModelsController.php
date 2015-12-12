@@ -78,8 +78,8 @@ class ModelsController extends ControllerMenu {
             return;
         }
         
-        $ac3DFile = "get_model_files.php?type=ac&id=".$id;
-        $texturePrefix = 'get_model_files.php?type=texture&id='.$id.'&name=';
+        $ac3DFile = "app.php?c=Models&a=getAC3D&id=".$id;
+        $texturePrefix = 'app.php?c=Models&a=getTexture&id='.$id.'&name=';
         include 'view/model_viewer.php';
     }
     
@@ -102,11 +102,47 @@ class ModelsController extends ControllerMenu {
     }
     
     public function contentFilesInfosAction() {
-        $id = $this->getVar('id');
-        if (\FormChecker::isModelId($id)) {
-            $modelfiles = $this->getModelDaoRO()->getModelFiles($id);
+        $modelfiles = $this->getModelFiles();
+        if ($modelfiles != null) {
             $filesInfos = $modelfiles->getModelFilesInfos();
             include 'view/files_infos_xml.php';
         }
+    }
+    
+    public function getAC3DAction() {
+        $modelfiles = $this->getModelFiles();
+        if ($modelfiles != null) {
+            header("Content-type: application/octet-stream");
+            echo $modelfiles->getACFile();
+        }
+    }
+    
+    public function getPackageAction() {
+        $id = $this->getVar('id');
+        if (\FormChecker::isModelId($id)) {
+            $modelfiles = $this->getModelDaoRO()->getModelFiles($id);
+            header("Content-type: application/x-gtar");
+            header("Content-Disposition: inline; filename=".$id.".tgz");
+            echo $modelfiles->getPackage();
+        }
+    }
+    
+    public function getTextureAction() {
+        $modelfiles = $this->getModelFiles();
+        $dir_array = preg_split("/\//", $this->getVar('name'));
+        $filename = $dir_array[count($dir_array)-1];
+        
+        header("Content-type: image/png");
+        echo $modelfiles->getTexture($filename);
+    }
+    
+    private function getModelFiles() {
+        $modelfiles = null;
+        $id = $this->getVar('id');
+        if (\FormChecker::isModelId($id)) {
+            $modelfiles = $this->getModelDaoRO()->getModelFiles($id);
+        }
+        
+        return $modelfiles;
     }
 }

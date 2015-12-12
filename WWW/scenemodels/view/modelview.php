@@ -70,7 +70,7 @@ if (!empty($modelMetadata->getDescription())) {
     </tr>
     <tr>
         <td colspan="2">
-            <a href="get_model_files.php?type=pack&amp;id=<?php echo $id; ?>">Download model</a> | <a href="app.php?c=UpdateModel&amp;a=modelUpdateForm&amp;modelId=<?php echo $id; ?>">Update model/info</a>
+            <a href="app.php?c=Models&amp;a=getPackage&amp;id=<?php echo $id; ?>">Download model</a> | <a href="app.php?c=UpdateModel&amp;a=modelUpdateForm&amp;modelId=<?php echo $id; ?>">Update model/info</a>
         </td>
     </tr>
     <tr>

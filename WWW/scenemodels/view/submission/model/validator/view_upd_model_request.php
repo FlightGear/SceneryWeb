@@ -93,7 +93,7 @@ include 'view/header.php';
 ?>
     <tr>
         <td>Download</td>
-         <td><a href="get_model_files.php?type=pack&id=<?=$oldModelMD->getId()?>">Download OLD MODEL as .tar.gz</a></td>
+         <td><a href="app.php?c=Models&a=getPackage&amp;id=<?=$oldModelMD->getId()?>">Download OLD MODEL as .tar.gz</a></td>
         <td><a href="app.php?c=UpdateModelValidator&amp;a=getNewModelPack&sig=<?=$sig?>">Download NEW MODEL as .tar.gz</a></td>
     </tr>
     <tr>
