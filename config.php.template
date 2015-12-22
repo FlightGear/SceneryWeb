@@ -1,0 +1,14 @@
+// copy this as config.php and provide valid username/password
+<?php
+  $dbhost="localhost";
+  $dbport="5432";
+  $dbname="scenemodels";
+  $dbuser="<UsernameWithReadPriviledges>";
+  $dbpass="<Secret>";
+
+  $rwhost="localhost";
+  $rwport="5433";
+  $rwname="scenemodels";
+  $rwuser="<UsernameWithWritePriviledges>";
+  $rwpass="<Secret>";
+?>
