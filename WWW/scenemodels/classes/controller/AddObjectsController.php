@@ -159,7 +159,7 @@ class AddObjectsController extends RequestController {
             $dtg = date('l jS \of F Y h:i:s A');
 
             // Retrieving the IP address of the submitter (takes some time to resolve the IP address though).
-            $ipaddr = $_SERVER["REMOTE_ADDR"]);
+            $ipaddr = $_SERVER["REMOTE_ADDR"];
             $host = gethostbyaddr($ipaddr);
             
             $emailSubmit = \email\EmailContentFactory::getObjectsAddRequestPendingEmailContent($dtg, $ipaddr, $host, $updatedReq);
