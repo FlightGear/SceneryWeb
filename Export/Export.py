@@ -33,12 +33,10 @@ import re
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
 
-martin = os.path.expanduser("~martin")
-fgscenery = os.path.expanduser("~fgscenery")
-statusfilepath = os.path.join(martin, ".exportstatus")
-workdir = os.path.join(fgscenery, "Dump")
-fg_scenery = os.path.join(fgscenery, "Terrascenery")
-svn_root = "file://%s/SVN/terrascenery/trunk/data/Scenery" % martin
+statusfilepath = "/home/terrascenery/.exportstatus"
+workdir =  "/home/terrascenery/Dump"
+fg_scenery = "/home/terrascenery/checkout"
+svn_root = "file:///home/terrascenery/repo/trunk/data/Scenery"
 
 try:
     statusfile = open(statusfilepath, "r")
@@ -52,9 +50,9 @@ except:
     statusfile.flush()
 
     pghost = "localhost"
-    pgport = 5433
+    pgport = 5432
     pgdatabase = "scenemodels"
-    pguser = "martin"
+    pguser = "updateuser"
     db_params = {"host":pghost, "port":pgport, "database":pgdatabase, "user":pguser}
 
     # Save this for later use by subprocesses like:
@@ -73,7 +71,7 @@ except:
     svn_changefiles = []
     svn_syncdirs = []
     gl_diffcount = 0
-    svnclient = pysvn.Client(os.path.join(martin, ".subversion"))
+    svnclient = pysvn.Client("/home/terrascenery/.subversion")
 
     svn_info = svnclient.info(fg_scenery)
     #print("SVN root: %s" % svn_info.url)
@@ -115,14 +113,12 @@ except:
                 print("Cannot write to DB.")
 
     def fn_updateElevations():
-        fg_home = os.path.join(martin, "terragear")
-        fg_root = os.path.join(martin, "live", "fgdata-3.0.0")
-        fgelev = os.path.join(martin, "bin", "fgelev")
+        fgelev =  "/home/terrascenery/bin/fgelev"
 
         fgenv = dict(os.environ)
-        fgenv["FG_HOME"] = fg_home
-        fgenv["FG_ROOT"] = fg_root
-        fgenv["FG_SCENERY"] = fg_scenery
+        fgenv["FG_ROOT"] = "/home/terrascenery/data"
+        fgenv["FG_SCENERY"] = "/home/terrascenery/checkout/"
+        fgenv["LD_LIBRARY_PATH"] = "/home/terrascenery/lib64/"
 
         sql = "UPDATE fgs_objects SET ob_elevoffset = NULL where ob_elevoffset = 0;"
         fn_pgexec(sql, "w")
@@ -142,7 +138,7 @@ except:
             db_result = fn_pgexec(sql, "r")
             num_rows = len(db_result)
             print("Updating %s object(s)" % num_rows)
-            ePipe = Popen(["nice", "-n", "19", fgelev], env=fgenv, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+            ePipe = Popen(["nice", "-n", "19", fgelev], env=fgenv, stdin=PIPE, stdout=PIPE, stderr=None)
             for row in db_result:
                 obj = "%s %s %s\n" % (row['ob_id'],row['st_x'],row['st_y'])
                 ePipe.stdin.write(obj)
@@ -354,7 +350,7 @@ except:
         distfileobj.close()
 
     # End of update period for current export
-    sql = "INSERT INTO fgs_timestamp (id, stamp) VALUES (1, now());"
+    sql = "DELETE FROM fgs_timestamp WHERE id = 1; INSERT INTO fgs_timestamp (id, stamp) VALUES (1, now());"
     fn_pgexec(sql, "w")
 
     # Dirs to export
@@ -430,7 +426,7 @@ except:
     if num_changefiles > 0:
         svn_changelist = sorted(set(svn_changefiles))
         print("### Files differing from SVN")
-        dupes = open(os.path.join(martin, "WWW", "dupes.txt"), "w")
+        dupes = open(os.path.join("/home/terrascenery/dupes.txt"), "w")
         for changefile in svn_changelist:
             print("    %s" % changefile)
             if not re.match(r".*\.stg$", changefile):
@@ -449,6 +445,9 @@ except:
             splitpath = syncdir.split(os.sep)
             commitdir = os.path.join(splitpath[0], splitpath[1])
             commitmsg = "%s %s" % (commitdir, datestr)
+            if gl_debug is True:
+                print("svn commit", fg_scenery, commitdir, commitmsg )
+
             try:
                 svnclient.checkin([os.path.join(fg_scenery, commitdir)], commitmsg)
             except:
@@ -458,8 +457,8 @@ except:
         print("### Someting strange going on here .... ###")
 
     # Pack
-    print("### Packing Global Objects and Models ....")
-    fn_pack()
+#    print("### Packing Global Objects and Models ....")
+#    fn_pack()
 
     # Requires major fixing before use !
     #./download-map.pl
@@ -476,11 +475,11 @@ except:
     statusfile.write("successful\n")
     statusfile.flush()
 
-    Notice = "Subject: Export Finished"
-    Recipient = "martin@localhost"
+#    Notice = "Subject: Export Finished"
+#    Recipient = "martin@localhost"
 
-    mailPipe = Popen(["/usr/sbin/sendmail", "-bm", "-oi", Recipient], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-    mailStdout = mailPipe.communicate(input=str(Notice))[0]
+#    mailPipe = Popen(["/usr/sbin/sendmail", "-bm", "-oi", Recipient], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+#    mailStdout = mailPipe.communicate(input=str(Notice))[0]
 
     db_cur.close
     db_conn.close
