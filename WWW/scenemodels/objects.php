@@ -213,15 +213,15 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$object->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
-                 "  <a href=\"app.php?c=UpdateObjects&amp;a=updateForm&amp;id_to_update=".$object->getId()."\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/edit.png\" alt=\"edit\"/></a>";
+                 "  <a href=\"app.php?c=UpdateObjects&amp;a=updateForm&amp;id_to_update=".$object->getId()."\"><img class=\"icon\" src=\"/img/icons/edit.png\" alt=\"edit\"/></a>";
             if (!$modelDAO->getModelMetadata($object->getModelId())->getModelsGroup()->isStatic()) {
 ?>
                 <a href="app.php?c=DeleteObjects&amp;a=confirmDeleteForm&amp;delete_choice=<?php echo $object->getId(); ?>">
-                    <img class="icon" src="http://scenery.flightgear.org/img/icons/delete.png" alt="delete"/>
+                    <img class="icon" src="/img/icons/delete.png" alt="delete"/>
                 </a>
 <?php
             }
-            echo "    <a href=\"javascript:popmap(".$objPos->getLatitude().",".$objPos->getLongitude().")\"><img class=\"icon\" src=\"http://scenery.flightgear.org/img/icons/world.png\" alt=\"map\"/></a>" .
+            echo "    <a href=\"javascript:popmap(".$objPos->getLatitude().",".$objPos->getLongitude().")\"><img class=\"icon\" src=\"/img/icons/world.png\" alt=\"map\"/></a>" .
                  "  </td>\n" .
                  "</tr>\n";
         }

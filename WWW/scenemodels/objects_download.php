@@ -23,7 +23,7 @@ require 'view/header.php';
 
 
 <div class="center">
-<img src="http://scenery.flightgear.org/img/download.png" width="720"
+<img src="/img/download.png" width="720"
      height="450" usemap="#map" alt="Map"/>
 <map name="map" id="map">
 <area shape="rect" coords="360,200,380,225" href="/download/GlobalObjects.tgz" alt="GlobalObjects.tgz  3.97 Mb  10/15/2005"/>

@@ -10,8 +10,8 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="http://scenery.flightgear.org/css/style.css" type="text/css"/>
-    <link rel="stylesheet" href="http://scenery.flightgear.org/css/lightbox.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/lightbox.css" type="text/css"/>
     <title><?php echo (isset($pageTitle))?$pageTitle:"FlightGear Scenery and Mapserver Website";?></title>
 
     <?php
@@ -42,7 +42,7 @@
 
     <div id="content">  
         <div class="titleback">
-            <img src="http://scenery.flightgear.org/img/banner.jpg" alt="Flightgear logo"/>
+            <img src="/img/banner.jpg" alt="Flightgear logo"/>
         </div>
 
         <?php require 'menu.php';?>

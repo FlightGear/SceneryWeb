@@ -96,7 +96,7 @@ class ModelsController extends ControllerMenu {
             if ($thumbnail != "") {
                 echo $thumbnail;
             } else {
-                readfile("http://scenery.flightgear.org/img/nothumb.jpg");
+                readfile("http://scenemodels.flightgear.org/img/nothumb.jpg");
             }
         }
     }

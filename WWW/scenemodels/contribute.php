@@ -143,7 +143,7 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
     Quite a lot of people are not using the offset parameter, or don't understand why it
     sits for. The picture below is there to give a small overview of its use, with a
     usual example within FG.
-    <p class="center"><img src="http://scenery.flightgear.org/img/understanding_offset.png" alt="Understanding offset"/></p>
+    <p class="center"><img src="/img/understanding_offset.png" alt="Understanding offset"/></p>
     In this example, we use a chimney. The chimney available as shared objects are quite high by default, in order to be
     useable in a lot of situation. Imagine if we had to create one chimney of a given height per situation.
     <ul>

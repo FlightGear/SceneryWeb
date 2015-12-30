@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8"> 
-    <link rel="stylesheet" href="http://scenery.flightgear.org/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <style type="text/css">
         #canvas {
             height: 100%;
