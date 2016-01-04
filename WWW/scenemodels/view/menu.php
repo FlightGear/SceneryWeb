@@ -42,12 +42,13 @@
     <li class="mainitems">
         <div class="headerlinks"><a href="/app.php?c=Authors&amp;a=browse">Authors</a></div>
     </li>
-    <li class="mainitems">
+    <!-- mapserver unusable for now -->
+    <!--li class="mainitems">
         <div class="headerlinks"><a href="/mapserver.php">Mapserver</a></div>
         <ul class="submenus">
             <li><a href="http://mapserver.flightgear.org/shpdl/">Download shapefiles</a></li>
         </ul>
-    </li>
+    </li-->
     <li class="mainitems">
         <div class="headerlinks"><a href="/download.php">Download</a></div>
         <ul class="submenus">

@@ -111,7 +111,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
 ?>
 <script type="text/javascript">
   function popmap(lat,lon) {
-    popup = window.open("http://mapserver.flightgear.org/popmap?zoom=12&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
+    popup = window.open("/map?z=12&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
     popup.focus();
   }
 </script>

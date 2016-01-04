@@ -65,8 +65,8 @@ case "model\RequestObjectUpdate":
     echo "><td>Heading (STG)</td><td>".\ObjectUtils::headingTrue2STG($oldObject->getOrientation())." (STG) - ".$oldObject->getOrientation()."(true)</td>".
          "<td>".\ObjectUtils::headingTrue2STG($newObject->getOrientation())." (STG) - ".$newObject->getOrientation()." (true)</td></tr>";
 
-    echo "<tr><td>Map</td><td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$oldObjPos->getLongitude()."&amp;lat=".$oldObjPos->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td>".
-         "<td><object data=\"http://mapserver.flightgear.org/popmap/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;zoom=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>" .
+    echo "<tr><td>Map</td><td><object data=\"/map/?lon=".$oldObjPos->getLongitude()."&amp;lat=".$oldObjPos->getLatitude()."&amp;z=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td>".
+         "<td><object data=\"/map/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;z=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>" .
          "</tr>";
     break;
 
@@ -86,7 +86,7 @@ case "model\RequestObjectDelete":
          "<td>".$objectToDel->getElevationOffset()."</td>" .
          "<td>".$objectToDel->getOrientation()."</td>" .
          "<td><a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&amp;a=view&amp;id=".$modelMD->getId()."\">".htmlspecialchars($modelMD->getName())."</a></td>" .
-         "<td><a href=\"http://mapserver.flightgear.org/popmap/?lon=".$objDelPos->getLongitude()."&amp;lat=".$objDelPos->getLatitude()."&amp;zoom=14\">Map</a></td>" .
+         "<td><a href=\"/map/?lon=".$objDelPos->getLongitude()."&amp;lat=".$objDelPos->getLatitude()."&amp;z=14\">Map</a></td>" .
          "</tr>";
     break;
 }

@@ -219,7 +219,7 @@ class EmailContentFactory {
                     "Elevation offset: " .$objectToDel->getElevationOffset(). "\r\n" .
                     "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                     "Comment:          " .strip_tags($request->getComment()) . "\r\n" .
-                    "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n" .
+                    "Map:              http://scenemodels.flightgear.org/map/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&z=14\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
         return new \email\EmailContent($subject, self::format($message));
@@ -240,7 +240,7 @@ class EmailContentFactory {
                    "Elevation offset: " .$objectToDel->getElevationOffset(). "\r\n" .
                    "True orientation: " .$objectToDel->getOrientation(). "\r\n" .
                    "Comment:          " .strip_tags($request->getComment()) . "\r\n".
-                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&zoom=14\r\n\r\n";
+                   "Map:              http://scenemodels.flightgear.org/map/?lon=". $objectToDelPos->getLongitude() ."&lat=". $objectToDelPos->getLatitude() ."&z=14\r\n\r\n";
         return new \email\EmailContent($subject, self::format($message));
     }
     
@@ -268,7 +268,7 @@ class EmailContentFactory {
                     "Ground elevation:  ". $oldObject->getGroundElevation() . " => ".$newObject->getGroundElevation()."\r\n" .
                     "Elevation offset:  ". $oldObject->getElevationOffset() . " => ".$newObject->getElevationOffset()."\r\n" .
                     "True orientation:  ". $oldObject->getOrientation() . " => ".$newObject->getOrientation()."\r\n" .
-                    "Map (new position): http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14" . "\r\n" .
+                    "Map (new position): http://scenemodels.flightgear.org/map/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&z=14" . "\r\n" .
                     "Comment:           ". strip_tags($request->getComment()) ."\r\n\r\n" .
                     "Now please click the following link to view and confirm/reject the submission: http://".$_SERVER['SERVER_NAME']."/app.php?c=ObjectValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
@@ -340,7 +340,7 @@ class EmailContentFactory {
                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                    "True orientation: ". $newObject->getOrientation() . "\r\n" .
-                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n" .
+                   "Map:              http://scenemodels.flightgear.org/map/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&z=14\r\n\r\n" .
                    "Now please click the following link to view and confirm/reject the submission: " . "http://".$_SERVER['SERVER_NAME']."/app.php?c=AddModelValidator&a=viewRequest&sig=". $request->getSig() . "\r\n\r\n";
 
         return new \email\EmailContent($subject, self::format($message));
@@ -380,7 +380,7 @@ class EmailContentFactory {
                    "Country:          ". $newObject->getCountry()->getName() . "\r\n" .
                    "Elevation offset: ". $newObject->getElevationOffset() . "\r\n" .
                    "True orientation: ". \ObjectUtils::headingSTG2True($newObject->getOrientation()) . "\r\n" .
-                   "Map:              http://mapserver.flightgear.org/popmap/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&zoom=14\r\n\r\n";
+                   "Map:              http://scenemodels.flightgear.org/map/?lon=". $newObjPos->getLongitude() ."&lat=". $newObjPos->getLatitude() ."&z=14\r\n\r\n";
 
         return new \email\EmailContent($subject, self::format($message));
     }

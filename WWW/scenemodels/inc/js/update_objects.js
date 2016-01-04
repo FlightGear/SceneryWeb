@@ -82,7 +82,7 @@ function update_map(long_id, lat_id) {
     var latitude = document.getElementById(lat_id).value;
 
     if(longitude!=="" && latitude!=="")
-        document.getElementById('map').data = "http://mapserver.flightgear.org/popmap/?zoom=13&lat="+latitude+"&lon="+longitude;
+        document.getElementById('map').data = "/map/?z=13&lat="+latitude+"&lon="+longitude;
 }
 
 

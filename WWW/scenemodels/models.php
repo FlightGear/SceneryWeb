@@ -17,7 +17,7 @@ $pagesize = 10;
 
 <script type="text/javascript">
   function popmap(lat,lon,zoom) {
-    popup = window.open("http://mapserver.flightgear.org/popmap?zoom="+zoom+"&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
+    popup = window.open("/map?z="+zoom+"&lat="+lat+"&lon="+lon, "map", "height=500,width=500,scrollbars=no,resizable=no");
     popup.focus();
   }
 </script>

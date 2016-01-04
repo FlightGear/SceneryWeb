@@ -77,7 +77,7 @@ include 'view/header.php';
     <tr>
         <td>Map</td>
         <td>
-            <object data="http://mapserver.flightgear.org/popmap/?lon=<?=$newObjPos->getLongitude()?>&amp;lat=<?=$newObjPos->getLatitude()?>&amp;zoom=14" type="text/html" width="320" height="240"></object>
+            <object data="/map/?lon=<?=$newObjPos->getLongitude()?>&amp;lat=<?=$newObjPos->getLatitude()?>&amp;z=14" type="text/html" width="320" height="240"></object>
         </td>
     </tr>
     <tr>
