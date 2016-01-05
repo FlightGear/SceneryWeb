@@ -88,6 +88,7 @@ html, body, #map {
                                        + "&n=" + bounds.getNorth() 
                                        + "&s=" + bounds.getSouth(); 
 
+            if( map.getZoom() > 10 ) {
                 var jqxhr = $.get(url).done(function(data) {
                     self.clearLayers();
                     self.addData.call(self, data);
@@ -95,7 +96,7 @@ html, body, #map {
                     console.log('failed to load scenemodels data');
                 }).always(function() {
                 });
-
+              }
           },
 
         });
