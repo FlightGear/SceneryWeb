@@ -85,5 +85,5 @@ for row in db_result:
               }
     reply['features'].append(feature)
 
-print json.dumps(reply)
+print json.dumps(reply, separators=(',',':'))
 
