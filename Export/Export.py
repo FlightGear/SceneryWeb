@@ -127,6 +127,17 @@ def fn_exportModels():
     fn_error("Models done")
 
 
+def fn_md5_of_file(fname):
+    hash = hashlib.md5()
+    try:
+        with open(fname, "rb") as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                hash.update(chunk)
+    except:
+        pass
+
+    return hash.hexdigest()
+
 def fn_exportStgRows():
     '''
     Fetch the entire file content as a single string.
@@ -151,10 +162,16 @@ def fn_exportStgRows():
             mkdir_p( os.path.join(fg_scenery, obpath))
             # the full stg file name
             stgfullpath = os.path.join(fg_scenery, obpath, stgfile)
-            stgobj = open(stgfullpath, "w")
             stgstring = "%s\n" % db_stg[0][0]
-            stgobj.write(stgstring)
-            stgobj.close()
+            # compare new content with file content
+            newmd5 = hashlib.md5(stgstring).hexdigest()
+            curmd5 = fn_md5_of_file(stgfullpath)
+            if  newmd5 != curmd5:
+                print stgfullpath
+                stgobj = open(stgfullpath, "w")
+                stgobj.write(stgstring)
+                stgobj.close()
+
     fn_error("Stg-Files done")
 
 print("### Exporting Models ....")
