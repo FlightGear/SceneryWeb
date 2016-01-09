@@ -13,9 +13,9 @@ require 'view/header.php';
         <li><a href="scenery_download.php">Terrain and objects </a>: but <strong>the objects are not up-to-date</strong></li>
         <li><a href="objects_download.php">Objects</a>: <strong>only</strong> the latest up-to-date objects</li>
         <ul>
-            <li><a href="/download/GlobalObjects.tgz">Global objects </a>: contains all objects in the world.</li>
+            <li><a href="http://flightgear.sourceforge.net/scenery/GlobalObjects.tgz">Global objects </a>: contains all objects in the world.</li>
         </ul>
-        <li><a href="/download/SharedModels.tgz">Shared models</a>: eg. windturbines, jetways, trees. This file is <strong>*REQUIRED*</strong> if you want to see all the objects, and should be unpacked in your $FG_ROOT directory.</li>
+        <li><a href="http://flightgear.sourceforge.net/scenery/SharedModels.tgz">Shared models</a>: eg. windturbines, jetways, trees. This file is <strong>*REQUIRED*</strong> if you want to see all the objects, and should be unpacked in your $FG_ROOT directory.</li>
     </ul>
 </p>
 
