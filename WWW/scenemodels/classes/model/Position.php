@@ -12,6 +12,7 @@ namespace model;
 class Position {
     private $longitude;
     private $latitude;
+    private $orientation;
     
     /**
      * Gets longitude
@@ -43,5 +44,17 @@ class Position {
      */
     public function setLatitude($latitude) {
         $this->latitude = $latitude;
+    }
+    
+    /**
+     * Gets true orientation
+     * @return true orientation
+     */
+    public function getOrientation() {
+        return $this->orientation;
+    }
+    
+    public function setOrientation($orientation) {
+        $this->orientation = $orientation;
     }
 }

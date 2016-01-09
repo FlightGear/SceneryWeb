@@ -59,11 +59,11 @@ case "model\RequestObjectUpdate":
     echo "><td>Elevation offset</td><td>".$oldObject->getElevationOffset()."</td><td>".$newObject->getElevationOffset()."</td></tr>";
 
     echo "<tr";
-    if ($oldObject->getOrientation() != $newObject->getOrientation()) {
+    if ($oldObjPos->getOrientation() != $newObjPos->getOrientation()) {
         echo " style=\"background-color: rgb(255, 200, 0)\"";
     }
-    echo "><td>Heading (STG)</td><td>".\ObjectUtils::headingTrue2STG($oldObject->getOrientation())." (STG) - ".$oldObject->getOrientation()."(true)</td>".
-         "<td>".\ObjectUtils::headingTrue2STG($newObject->getOrientation())." (STG) - ".$newObject->getOrientation()." (true)</td></tr>";
+    echo "><td>Heading (STG)</td><td>".\ObjectUtils::headingTrue2STG($oldObjPos->getOrientation())." (STG) - ".$oldObjPos->getOrientation()."(true)</td>".
+         "<td>".\ObjectUtils::headingTrue2STG($newObjPos->getOrientation())." (STG) - ".$newObjPos->getOrientation()." (true)</td></tr>";
 
     echo "<tr><td>Map</td><td><object data=\"/map/?lon=".$oldObjPos->getLongitude()."&amp;lat=".$oldObjPos->getLatitude()."&amp;z=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td>".
          "<td><object data=\"/map/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;z=14\" type=\"text/html\" width=\"100%\" height=\"240\"></object></td></tr>" .
@@ -84,7 +84,7 @@ case "model\RequestObjectDelete":
          "<td>".$objectToDel->getCountry()->getName()."</td>" .
          "<td>".$objectToDel->getGroundElevation()."</td>" .
          "<td>".$objectToDel->getElevationOffset()."</td>" .
-         "<td>".$objectToDel->getOrientation()."</td>" .
+         "<td>".$objDelPos->getOrientation()."</td>" .
          "<td><a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&amp;a=view&amp;id=".$modelMD->getId()."\">".htmlspecialchars($modelMD->getName())."</a></td>" .
          "<td><a href=\"/map/?lon=".$objDelPos->getLongitude()."&amp;lat=".$objDelPos->getLatitude()."&amp;z=14\">Map</a></td>" .
          "</tr>";

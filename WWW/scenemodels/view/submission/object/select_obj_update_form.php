@@ -17,6 +17,7 @@ echo "<p class=\"center\">".count($objects)." object(s) with WGS84 coordinates l
 $is_first = true;
 foreach ($objects as $object) {
     $modelMetadata = $modelMetadatas[$object->getModelId()];
+    $objectPos = $object->getPosition();
 ?>
     <tr>
         <td colspan="5" background="white"><center><b>Object number #<?=$object->getId()?></b></center>
@@ -50,7 +51,7 @@ foreach ($objects as $object) {
     </tr>
     <tr>
         <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
-        <td colspan="4"><?=\ObjectUtils::headingTrue2STG($object->getOrientation())?></td>
+        <td colspan="4"><?=\ObjectUtils::headingTrue2STG($objectPos->getOrientation())?></td>
     </tr>
     <tr>
         <td><span title="The current text (metadata) shipped with the object. Can be generic, or specific (obstruction, for instance)."><label>Description</label></span></td>

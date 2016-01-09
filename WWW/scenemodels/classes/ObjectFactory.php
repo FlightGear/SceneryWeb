@@ -42,7 +42,7 @@ class ObjectFactory {
         $object->setCountry($country);
         $object->setGroundElevation(-9999);
         $object->setElevationOffset($elevOffset);
-        $object->setOrientation($orientation);
+        $object->getPosition()->setOrientation($orientation);
         $object->setDescription($desc);
         $object->setGroupId($group);
         

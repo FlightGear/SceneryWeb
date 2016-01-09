@@ -22,7 +22,7 @@ foreach ($request->getNewObjects() as $newObj) {
          "<td>".$newObj->getCountry()->getName()."</td>" .
          "<td>".$newObj->getGroundElevation()."</td>" .
          "<td>".$newObj->getElevationOffset()."</td>" .
-         "<td>".$newObj->getOrientation()."</td>" .
+         "<td>".$newObjPos->getOrientation()."</td>" .
          "<td><a href='http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&a=view&id=".$newObj->getModelId()."' target='_blank'>".htmlspecialchars($modelMD->getName())."</a></td>" .
          "<td><a href=\"/map/?lon=".$newObjPos->getLongitude()."&amp;lat=".$newObjPos->getLatitude()."&amp;z=14\">Map</a></td>" .
          "</tr>";

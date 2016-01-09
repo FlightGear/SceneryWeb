@@ -211,7 +211,7 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
                  "  <td>".$object->getCountry()->getName() ."</td>\n" .
                  "  <td>".$objPos->getLongitude()."<br/>".$objPos->getLatitude()."</td>\n" .
                  "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
-                 "  <td>".$object->getOrientation()."</td>\n" .
+                 "  <td>".$objPos->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
                  "  <a href=\"app.php?c=UpdateObjects&amp;a=updateForm&amp;id_to_update=".$object->getId()."\"><img class=\"icon\" src=\"/img/icons/edit.png\" alt=\"edit\"/></a>";
             if (!$modelDAO->getModelMetadata($object->getModelId())->getModelsGroup()->isStatic()) {

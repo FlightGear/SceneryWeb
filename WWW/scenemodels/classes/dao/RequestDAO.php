@@ -134,7 +134,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
                      'longitude'=>$objPos->getLongitude(),
                      'latitude'=>$objPos->getLatitude(),
                      'offset'=>(empty($offset)?'NULL':$offset),
-                     'orientation'=>$object->getOrientation(),
+                     'orientation'=>$objPos->getOrientation(),
                      'country'=>$object->getCountry()->getCode(),
                      'modelId'=>$object->getModelId());
         
@@ -150,7 +150,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
                      'longitude'=>$newObjPos->getLongitude(),
                      'latitude'=>$newObjPos->getLatitude(),
                      'offset'=>(empty($offset)?'NULL':$offset),
-                     'orientation'=>$newObj->getOrientation(),
+                     'orientation'=>$newObjPos->getOrientation(),
                      'country'=>$newObj->getCountry()->getCode(),
                      'modelId'=>$newObj->getModelId(),
                      'objectId'=>$newObj->getId());

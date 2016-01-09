@@ -47,7 +47,7 @@ $objPos = $object->getPosition();
     </tr>
     <tr>
         <td>Heading</td>
-        <td><?php echo \ObjectUtils::headingTrue2STG($object->getOrientation())."&deg; (STG) - ".$object->getOrientation()."&deg; (true)"; ?></td>
+        <td><?php echo \ObjectUtils::headingTrue2STG($objPos->getOrientation())."&deg; (STG) - ".$objPos->getOrientation()."&deg; (true)"; ?></td>
     </tr>
     <tr>
         <td>Group</td>

@@ -94,7 +94,7 @@ include 'view/header.php';
     </tr>
     <tr>
         <td>True DB orientation</td>
-        <td><?php echo $newObj->getOrientation(); ?></td>
+        <td><?php echo $newObjPos->getOrientation(); ?></td>
     </tr>
     <tr>
         <td>Corresponding Thumbnail</td>

@@ -21,8 +21,6 @@ class Object {
     private $groundElevation;
     private $elevationOffset;
     
-    private $orientation;
-    
     private $lastUpdated;
     
     private $description;
@@ -83,20 +81,7 @@ class Object {
     public function setElevationOffset($elevationOffset) {
         $this->elevationOffset = $elevationOffset;
     }
-    
-    /**
-     * Gets true orientation
-     * @return true orientation
-     */
-    public function getOrientation() {
-        return $this->orientation;
-    }
-    
-    public function setOrientation($orientation) {
-        $this->orientation = $orientation;
-    }
-    
-    
+
     /**
      * Gets object's description
      * @return object's description string

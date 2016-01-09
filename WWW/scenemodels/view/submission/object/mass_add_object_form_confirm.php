@@ -65,12 +65,13 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
 
     if ($objectLineRequest->getObject() != null) {
         $object = $objectLineRequest->getObject();
+        $objPos = $object->getPosition();
 
         echo '<td><input type="hidden" name="modelId'.$lineNb.'" value="'.$object->getModelId().'"/>'.htmlspecialchars($modelMDs[$object->getModelId()]->getName()).'</td>'.
-             '<td><input type="text" size="10" name="long'.$lineNb.'" value="'.$object->getPosition()->getLongitude().'"/></td>'.
-             '<td><input type="text" size="10" name="lat'.$lineNb.'" value="'.$object->getPosition()->getLatitude().'"/></td>'.
+             '<td><input type="text" size="10" name="long'.$lineNb.'" value="'.$objPos->getLongitude().'"/></td>'.
+             '<td><input type="text" size="10" name="lat'.$lineNb.'" value="'.$objPos->getLatitude().'"/></td>'.
              '<td><input type="text" size="10" name="offset'.$lineNb.'" value="'.$object->getElevationOffset().'"/></td>'.
-             '<td><input type="text" size="10" name="heading'.$lineNb.'" value="'.\ObjectUtils::headingTrue2STG($object->getOrientation()).'"/></td>';
+             '<td><input type="text" size="10" name="heading'.$lineNb.'" value="'.\ObjectUtils::headingTrue2STG($objPos->getOrientation()).'"/></td>';
 
 
         if ($object->getCountry()->getCode() == "zz") {

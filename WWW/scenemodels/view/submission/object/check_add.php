@@ -23,12 +23,13 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
 
     if ($objectLineRequest->getObject() != null) {
         $object = $objectLineRequest->getObject();
+        $objPos = $object->getPosition();
 
         echo '<td>'.htmlspecialchars($modelMDs[$object->getModelId()]->getName()).'</td>'.
-             '<td>'.$object->getPosition()->getLongitude().'</td>'.
-             '<td>'.$object->getPosition()->getLatitude().'</td>'.
+             '<td>'.$objPos->getLongitude().'</td>'.
+             '<td>'.$objPos->getLatitude().'</td>'.
              '<td>'.$object->getElevationOffset().'</td>'.
-             '<td>'.\ObjectUtils::headingTrue2STG($object->getOrientation()).'</td>'.
+             '<td>'.\ObjectUtils::headingTrue2STG($objPos->getOrientation()).'</td>'.
              '<td>'.$object->getCountry()->getName().'</td>';
     } else {
         echo '<td colspan="6"></td>';
