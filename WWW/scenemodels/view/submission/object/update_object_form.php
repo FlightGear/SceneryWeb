@@ -185,10 +185,10 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
             <label for="new_offset">Elevation Offset<em>*</em></label> (see <a href="../../contribute.php#offset">here</a> for more help)</span>
           </td>
           <td>
-            <?=$objectToUp->getElevationOffset()?>
+            <?=$objToUpPos->getElevationOffset()?>
           </td>
           <td>
-            <input type="text" name="new_offset" id="new_offset" maxlength="10" value="<?=$objectToUp->getElevationOffset()?>" onkeyup="checkNumeric(this,-10000,10000);" />
+            <input type="text" name="new_offset" id="new_offset" maxlength="10" value="<?=$objToUpPos->getElevationOffset()?>" onkeyup="checkNumeric(this,-10000,10000);" />
           </td>
         </tr>
         <tr>

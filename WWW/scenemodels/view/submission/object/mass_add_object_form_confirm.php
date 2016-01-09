@@ -70,7 +70,7 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
         echo '<td><input type="hidden" name="modelId'.$lineNb.'" value="'.$object->getModelId().'"/>'.htmlspecialchars($modelMDs[$object->getModelId()]->getName()).'</td>'.
              '<td><input type="text" size="10" name="long'.$lineNb.'" value="'.$objPos->getLongitude().'"/></td>'.
              '<td><input type="text" size="10" name="lat'.$lineNb.'" value="'.$objPos->getLatitude().'"/></td>'.
-             '<td><input type="text" size="10" name="offset'.$lineNb.'" value="'.$object->getElevationOffset().'"/></td>'.
+             '<td><input type="text" size="10" name="offset'.$lineNb.'" value="'.$objPos->getElevationOffset().'"/></td>'.
              '<td><input type="text" size="10" name="heading'.$lineNb.'" value="'.\ObjectUtils::headingTrue2STG($objPos->getOrientation()).'"/></td>';
 
 

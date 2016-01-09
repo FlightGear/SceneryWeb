@@ -128,7 +128,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     
     private function serializeObject(\model\Object $object) {
         $objPos = $object->getPosition();
-        $offset = $object->getElevationOffset();
+        $offset = $objPos->getElevationOffset();
         
         $addReqArray = array('description'=>$object->getDescription(),
                      'longitude'=>$objPos->getLongitude(),
@@ -144,7 +144,7 @@ class RequestDAO extends PgSqlDAO implements IRequestDAO {
     private function serializeRequestObjectUpdate($request) {
         $newObj = $request->getNewObject();
         $newObjPos = $newObj->getPosition();
-        $offset = $newObj->getElevationOffset();
+        $offset = $newObjPos->getElevationOffset();
         
         $updReqArray = array('description'=>$newObj->getDescription(),
                      'longitude'=>$newObjPos->getLongitude(),

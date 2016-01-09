@@ -39,11 +39,11 @@ $objPos = $object->getPosition();
     </tr>
     <tr>
         <td>Ground elevation</td>
-        <td><?php echo $object->getGroundElevation(); ?> m</td>
+        <td><?php echo $objPos->getGroundElevation(); ?> m</td>
     </tr>
     <tr>
         <td>Elevation offset</td>
-        <td><?php echo $object->getElevationOffset(); ?> m</td>
+        <td><?php echo $objPos->getElevationOffset(); ?> m</td>
     </tr>
     <tr>
         <td>Heading</td>

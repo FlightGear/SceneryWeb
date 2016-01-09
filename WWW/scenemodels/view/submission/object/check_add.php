@@ -28,7 +28,7 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
         echo '<td>'.htmlspecialchars($modelMDs[$object->getModelId()]->getName()).'</td>'.
              '<td>'.$objPos->getLongitude().'</td>'.
              '<td>'.$objPos->getLatitude().'</td>'.
-             '<td>'.$object->getElevationOffset().'</td>'.
+             '<td>'.$objPos->getElevationOffset().'</td>'.
              '<td>'.\ObjectUtils::headingTrue2STG($objPos->getOrientation()).'</td>'.
              '<td>'.$object->getCountry()->getName().'</td>';
     } else {

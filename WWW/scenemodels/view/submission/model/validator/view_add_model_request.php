@@ -86,11 +86,11 @@ include 'view/header.php';
     </tr>
     <tr>
         <td>Ground Elevation</td>
-        <td><?php echo $newObj->getGroundElevation(); ?></td>
+        <td><?php echo $newObjPos->getGroundElevation(); ?></td>
     </tr>
     <tr>
         <td>Elevation offset</td>
-        <td><?php echo $newObj->getElevationOffset(); ?></td>
+        <td><?php echo $newObjPos->getElevationOffset(); ?></td>
     </tr>
     <tr>
         <td>True DB orientation</td>

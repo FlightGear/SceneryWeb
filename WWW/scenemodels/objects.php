@@ -203,14 +203,14 @@ if (isset($_REQUEST['description']) && preg_match('/^[A-Za-z0-9 \-\.\,]+$/u',$_R
         
         foreach ($objects as $object) {
             $objPos = $object->getPosition();
-            $offset = $object->getElevationOffset();
+            $offset = $objPos->getElevationOffset();
             echo "<tr class=\"object\">\n";
             echo "  <td><a href='app.php?c=Objects&amp;a=view&amp;id=".$object->getId()."'>#".$object->getId()."</a></td>\n" .
                  "  <td>".htmlspecialchars($object->getDescription())."</td>\n" .
                  "  <td><a href=\"app.php?c=Models&amp;a=view&amp;id=".$object->getModelId()."\">".$modelPaths[$object->getModelId()]."</a><br/>".$groups[$object->getGroupId()]."</td>\n" .
                  "  <td>".$object->getCountry()->getName() ."</td>\n" .
                  "  <td>".$objPos->getLongitude()."<br/>".$objPos->getLatitude()."</td>\n" .
-                 "  <td>".$object->getGroundElevation()."<br/>".$offset."</td>\n" .
+                 "  <td>".$objPos->getGroundElevation()."<br/>".$offset."</td>\n" .
                  "  <td>".$objPos->getOrientation()."</td>\n" .
                  "  <td style=\"width: 58px; text-align: center\">\n" .
                  "  <a href=\"app.php?c=UpdateObjects&amp;a=updateForm&amp;id_to_update=".$object->getId()."\"><img class=\"icon\" src=\"/img/icons/edit.png\" alt=\"edit\"/></a>";

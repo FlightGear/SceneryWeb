@@ -40,8 +40,8 @@ class ObjectFactory {
         $object->getPosition()->setLongitude($lon);
         $object->getPosition()->setLatitude($lat);
         $object->setCountry($country);
-        $object->setGroundElevation(-9999);
-        $object->setElevationOffset($elevOffset);
+        $object->getPosition()->setGroundElevation(-9999);
+        $object->getPosition()->setElevationOffset($elevOffset);
         $object->getPosition()->setOrientation($orientation);
         $object->setDescription($desc);
         $object->setGroupId($group);

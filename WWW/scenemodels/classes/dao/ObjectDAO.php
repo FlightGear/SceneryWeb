@@ -14,8 +14,8 @@ namespace dao;
 
 class ObjectDAO extends PgSqlDAO implements IObjectDAO {    
     public function addObject(\model\Object $obj) {
-        $obOffset = $obj->getElevationOffset();
         $objPos = $obj->getPosition();
+        $obOffset = $objPos->getElevationOffset();
         
         $query = "INSERT INTO fgs_objects (ob_id, ob_text, wkb_geometry, ob_gndelev, ob_elevoffset, ob_heading, ob_country, ob_model, ob_group) ".
                 "VALUES (DEFAULT, '".pg_escape_string($obj->getDescription())."', ST_PointFromText('POINT(".pg_escape_string($objPos->getLongitude())." ".pg_escape_string($objPos->getLatitude()).")', 4326), -9999, ".
@@ -40,7 +40,7 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
                  "SET ob_text=$$".pg_escape_string($object->getDescription())."$$, ".
                  "wkb_geometry=ST_PointFromText('POINT(".pg_escape_string($objPos->getLongitude())." ".pg_escape_string($objPos->getLatitude()).")', 4326),".
                  "ob_country='".pg_escape_string($object->getCountry()->getCode())."',".
-                 "ob_gndelev=-9999, ob_elevoffset=".pg_escape_string($object->getElevationOffset()).", ob_heading=".pg_escape_string($objPos->getOrientation()).", ob_model=".pg_escape_string($object->getModelId()).", ob_group=1 ".
+                 "ob_gndelev=-9999, ob_elevoffset=".pg_escape_string($objPos->getElevationOffset()).", ob_heading=".pg_escape_string($objPos->getOrientation()).", ob_model=".pg_escape_string($object->getModelId()).", ob_group=1 ".
                  "WHERE ob_id=".pg_escape_string($object->getId()).";";
         
         $result = $this->database->query($query);
@@ -197,8 +197,8 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         $object->getPosition()->setLatitude($objectRow['ob_lat']);
         $object->setDir($objectRow['ob_dir']);
         $object->setCountry($country);
-        $object->setGroundElevation($objectRow['ob_gndelev']);
-        $object->setElevationOffset($objectRow['ob_elevoffset']);
+        $object->getPosition()->setGroundElevation($objectRow['ob_gndelev']);
+        $object->getPosition()->setElevationOffset($objectRow['ob_elevoffset']);
         $object->getPosition()->setOrientation($objectRow['ob_heading']);
         $object->setDescription($objectRow['ob_text']);
         $object->setGroupId($objectRow['ob_group']);
@@ -229,10 +229,10 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
         
         // Querying...
         $query = "SELECT count(*) AS number FROM fgs_objects WHERE wkb_geometry = ST_PointFromText('POINT(".pg_escape_string($objPos->getLongitude())." ".pg_escape_string($objPos->getLatitude()).")', 4326) AND ";
-        if ($object->getElevationOffset() == 0) {
+        if ($objPos->getElevationOffset() == 0) {
             $query .= 'ob_elevoffset IS NULL ';
         } else {
-            $query .= 'ob_elevoffset = '.$object->getElevationOffset().' ';
+            $query .= 'ob_elevoffset = '.$objPos->getElevationOffset().' ';
         }
         $query .= 'AND ob_heading = '.pg_escape_string($objPos->getOrientation()).
                 ' AND ob_model = '.pg_escape_string($object->getModelId()).';';

@@ -18,8 +18,6 @@ class Object {
     private $dir;
     
     private $position;
-    private $groundElevation;
-    private $elevationOffset;
     
     private $lastUpdated;
     
@@ -60,26 +58,6 @@ class Object {
     
     public function setCountry($country) {
         $this->country = $country;
-    }
-
-    public function getGroundElevation() {
-        return $this->groundElevation;
-    }
-    
-    public function setGroundElevation($groundElevation) {
-        $this->groundElevation = $groundElevation;
-    }
-    
-    public function getElevationOffset() {
-        if (!$this->elevationOffset) {
-            return 0;
-        } else {
-            return $this->elevationOffset;
-        }
-    }
-    
-    public function setElevationOffset($elevationOffset) {
-        $this->elevationOffset = $elevationOffset;
     }
 
     /**

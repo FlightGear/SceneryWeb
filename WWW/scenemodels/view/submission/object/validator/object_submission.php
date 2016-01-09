@@ -51,12 +51,12 @@ case "model\RequestObjectUpdate":
     echo "><td>Country</td><td>".$oldObject->getCountry()->getName()."</td><td>".$newObject->getCountry()->getName()."</td></tr>";
 
     echo "<tr style=\"background-color: rgb(255, 200, 0)\">";
-    echo "<td>Elevation</td><td>".$oldObject->getGroundElevation()."</td><td>Will be recalculated</td></tr>";
+    echo "<td>Elevation</td><td>".$oldObjPos->getGroundElevation()."</td><td>Will be recalculated</td></tr>";
     echo "<tr";
-    if ($oldObject->getElevationOffset() != $newObject->getElevationOffset()) {
+    if ($oldObjPos->getElevationOffset() != $newObjPos->getElevationOffset()) {
         echo " style=\"background-color: rgb(255, 200, 0)\"";
     }
-    echo "><td>Elevation offset</td><td>".$oldObject->getElevationOffset()."</td><td>".$newObject->getElevationOffset()."</td></tr>";
+    echo "><td>Elevation offset</td><td>".$oldObjPos->getElevationOffset()."</td><td>".$newObjPos->getElevationOffset()."</td></tr>";
 
     echo "<tr";
     if ($oldObjPos->getOrientation() != $newObjPos->getOrientation()) {
@@ -82,8 +82,8 @@ case "model\RequestObjectDelete":
          "<td>".$objDelPos->getLongitude()."</td>" .
          "<td>".$objDelPos->getLatitude()."</td>" .
          "<td>".$objectToDel->getCountry()->getName()."</td>" .
-         "<td>".$objectToDel->getGroundElevation()."</td>" .
-         "<td>".$objectToDel->getElevationOffset()."</td>" .
+         "<td>".$objDelPos->getGroundElevation()."</td>" .
+         "<td>".$objDelPos->getElevationOffset()."</td>" .
          "<td>".$objDelPos->getOrientation()."</td>" .
          "<td><a href=\"http://".$_SERVER['SERVER_NAME']."/app.php?c=Models&amp;a=view&amp;id=".$modelMD->getId()."\">".htmlspecialchars($modelMD->getName())."</a></td>" .
          "<td><a href=\"/map/?lon=".$objDelPos->getLongitude()."&amp;lat=".$objDelPos->getLatitude()."&amp;z=14\">Map</a></td>" .

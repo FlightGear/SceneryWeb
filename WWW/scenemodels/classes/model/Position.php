@@ -13,6 +13,8 @@ class Position {
     private $longitude;
     private $latitude;
     private $orientation;
+    private $groundElevation;
+    private $elevationOffset;
     
     /**
      * Gets longitude
@@ -56,5 +58,25 @@ class Position {
     
     public function setOrientation($orientation) {
         $this->orientation = $orientation;
+    }
+    
+    public function getGroundElevation() {
+        return $this->groundElevation;
+    }
+    
+    public function setGroundElevation($groundElevation) {
+        $this->groundElevation = $groundElevation;
+    }
+    
+    public function getElevationOffset() {
+        if (!$this->elevationOffset) {
+            return 0;
+        } else {
+            return $this->elevationOffset;
+        }
+    }
+    
+    public function setElevationOffset($elevationOffset) {
+        $this->elevationOffset = $elevationOffset;
     }
 }

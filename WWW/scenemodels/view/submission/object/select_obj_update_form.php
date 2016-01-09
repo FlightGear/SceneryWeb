@@ -43,11 +43,11 @@ foreach ($objects as $object) {
     <tr>
         <td><span title="This is the ground elevation (in meters) of the position where the object you want to update is located. Warning : if your model is sunk into the ground, the Elevation offset field is set below.">
         <label>Elevation</label></span></td>
-        <td colspan="4"><?=$object->getGroundElevation()?></td>
+        <td colspan="4"><?=$objectPos->getGroundElevation()?></td>
     </tr>
     <tr>
         <td><span title="This is the offset (in meters) between your model 'zero' and the elevation at the considered place (ie if it is sunk into the ground)."><label>Elevation Offset</label></span></td>
-        <td colspan="4"><?=$object->getElevationOffset()?></td>
+        <td colspan="4"><?=$objectPos->getElevationOffset()?></td>
     </tr>
     <tr>
         <td><span title="The orientation of the object you want to update - as it appears in the STG file (this is NOT the true heading). Let 0 if there is no specific orientation."><label>Orientation</label></span></td>
