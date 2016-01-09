@@ -54,8 +54,8 @@
         <ul class="submenus">
             <li><a href="/objects_download.php">Download latest scenery objects</a></li>
             <li><a href="/scenery_download.php">Download scenery objects &amp; terrain</a></li>
-            <li><a href="http://flightgear.sourceforge.net/scenery/GlobalObjects.tgz">Global objects</a></li>
-            <li><a href="http://flightgear.sourceforge.net/scenery/SharedModels.tgz">Shared models</a></li>
+            <li><a href="http://sourceforge.net/projects/flightgear/files/scenery/GlobalObjects.tgz/download">Global objects</a></li>
+            <li><a href="http://sourceforge.net/projects/flightgear/files/scenery/SharedModels.tgz/download">Shared models</a></li>
         </ul>
     </li>
     <li class="mainitems">
