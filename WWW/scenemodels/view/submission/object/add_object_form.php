@@ -106,7 +106,7 @@ $(function() {
                 <tr>
                     <td><label for="long1">Longitude<em>*</em><span>This is the WGS84 longitude of the object you want to add. Has to be between -180 and 180.</span></label></td>
                     <td>
-                        <input type="text" name="long1" id="long1" maxlength="13" value="" onkeyup="checkNumeric(form['long1'],-180,180);validateTabs();" onchange="update_map('long1','lat1');update_country('long1','lat1','countryId1');" />
+                        <input type="text" name="long1" id="long1" maxlength="13" value="<?php echo $defaultLon;?>" onkeyup="checkNumeric(form['long1'],-180,180);validateTabs();" onchange="update_map('long1','lat1');update_country('long1','lat1','countryId1');" />
                     </td>
                     <td rowspan="6" style="width: 300px; height: 225px;">
                         <object id="map" data="/map/?z=1&lat=0&lon=0" type="text/html" width="300" height="225"></object>
@@ -115,7 +115,7 @@ $(function() {
                 <tr>
                     <td><label for="lat1">Latitude<em>*</em><span>This is the WGS84 latitude of the object you want to add. Has to be between -90 and 90.</span></label></td>
                     <td>
-                        <input type="text" name="lat1" id="lat1" maxlength="13" value="" onkeyup="checkNumeric(form['lat1'],-90,90);validateTabs();" onchange="update_map('long1','lat1');update_country('long1','lat1','countryId1');" />
+                        <input type="text" name="lat1" id="lat1" maxlength="13" value="<?php echo $defaultLat;?>" onkeyup="checkNumeric(form['lat1'],-90,90);validateTabs();" onchange="update_map('long1','lat1');update_country('long1','lat1','countryId1');" />
                     </td>
                 </tr>
                 <tr>

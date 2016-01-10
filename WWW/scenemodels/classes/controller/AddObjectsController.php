@@ -46,6 +46,16 @@ class AddObjectsController extends RequestController {
         $modelsGroups = $this->getModelsGroups();
         $countries = $this->objectDaoRO->getCountries();
         $nbObjects = $this->objectDaoRO->countObjects();
+        
+        $defaultLat = "";
+        if (\FormChecker::isLatitude($this->getVar('lat'))) {
+            $defaultLat = $this->getVar('lat');
+        }
+        
+        $defaultLon = "";
+        if (\FormChecker::isLongitude($this->getVar('lon'))) {
+            $defaultLon = $this->getVar('lon');
+        }
 
         include 'view/submission/object/add_object_form.php';
     }
