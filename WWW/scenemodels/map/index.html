@@ -46,7 +46,7 @@ html, body, #map {
             contextmenuItems: [{
 		      text: 'Get coordinates',
 		      callback: function(e) { 
-                          window.prompt('Copy to clipboard: Ctrl+C, Enter', e.latlng ); 
+                          window.prompt('Copy to clipboard: Ctrl+C, Enter', e.latlng.lng.toFixed(6) + ' ' + e.latlng.lat.toFixed(6) ); 
                       },
 	      }, {
 		      text: 'Center map here',
@@ -58,6 +58,7 @@ html, body, #map {
         var osm_layer = L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             {
+                minZoom : 3,
                 maxZoom : 18,
                 attribution : 'Map data &copy; <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> contributors'
             }).addTo(map);
@@ -90,8 +91,7 @@ html, body, #map {
                       return '';
                     }
                     if( feature.properties.model_id )
-                      popupContent += '<div><img width="160" height="120" alt="Model Thumbnail" src="/app.php?c=Models&a=thumbnail&id=' + feature.properties.model_id + '"></img>'
-                    popupContent += '</div>';
+                      popupContent += '<div><img width="160" height="120" alt="Model Thumbnail" src="/app.php?c=Models&a=thumbnail&id=' + feature.properties.model_id + '"></img></div>'
                     popupContent += '<ul>';
                     popupContent += makePopupContentPropertyEntry('Title', feature.properties, 'title' );
                     popupContent += makePopupContentPropertyEntry('Heading', feature.properties, 'heading' );
@@ -127,6 +127,16 @@ html, body, #map {
                     console.log('failed to load scenemodels data');
                 }).always(function() {
                 });
+              } else {
+                // make a grid of 200x200px for the map and display number
+                // of objects instead of individual objects per grid
+                var bounds = map.getBounds();
+                var mapWidth = $('#map').width();
+                var mapHeight = $('#map').height();
+                var gridSizeX = Math.floor(mapWidth/200);
+                var gridSizeY = Math.floor(mapHeight/200);
+                var degPerPixelX = (bounds.getEast()-bounds.getWest())/mapWidth;
+                var degPerPixelY = (bounds.getNorth()-bounds.getSouth())/mapWidth;
               }
           },
 
@@ -138,6 +148,69 @@ html, body, #map {
 
         var scenemodelsLayer = L.scenemodelsLayer({
         }).addTo(map);
+
+        L.SignsLayer = L.GeoJSON.extend({
+          options : {
+            pointToLayer : function(feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 3,
+                    fillColor: 'yellow',
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8,
+                });
+            },
+
+            onEachFeature : function(feature, layer) {
+                var popupContent = "";
+                popupContent += "<a href='http://scenery.flightgear.org/map/?lat=" + feature.geometry.coordinates[1] +
+                                                                            "&lon=" + feature.geometry.coordinates[0] +
+                                                                            "&z=13&obj=" + feature.properties.model_id + "'>permalink</a>";
+                if (feature.properties) {
+                    popupContent += '<div><span>Sign: </span><span>' + feature.properties.definition;
+                    popupContent += '<div><span>Heading: </span><span>' + feature.properties.heading;
+                    popupContent += '<div><span>Elevation: </span><span>' + feature.properties.gndelev;
+                }
+
+                layer.bindPopup(popupContent);
+            },
+          },
+
+          onAdd : function(map) {
+            L.GeoJSON.prototype.onAdd.call(this, map);
+            this.refresh(map);
+          },
+
+          refresh: function(map) {
+            var self = this;
+            var bounds = map.getBounds();
+            var url = "/svc/getsigns?w=" + bounds.getWest() 
+                                       + "&e=" + bounds.getEast() 
+                                       + "&n=" + bounds.getNorth() 
+                                       + "&s=" + bounds.getSouth(); 
+
+            if( map.getZoom() > 13 ) {
+                var jqxhr = $.get(url).done(function(data) {
+                    self.clearLayers();
+                    self.addData.call(self, data);
+                }).fail(function() {
+                    console.log('failed to load scenemodels data');
+                }).always(function() {
+                });
+              }
+          },
+
+        });
+
+        L.signsLayer = function(options) {
+          return new L.SignsLayer(null, options);
+        }
+
+        var signsLayer = L.signsLayer({
+        }).addTo(map);
+
+    
 
         var baseLayers = {
             "Openstreetmap": osm_layer,
@@ -169,6 +242,7 @@ html, body, #map {
 
         map.on( "moveend", function(e) {
           scenemodelsLayer.refresh( map );
+          signsLayer.refresh( map );
         });
 
     </script>
