@@ -223,11 +223,9 @@ $(function() {
                 <tr>
                     <td colspan="2" class="submit">
                         <input type="checkbox" name="gpl"/> I accept to release all my contribution under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU GENERAL PUBLIC LICENSE Version 2, June 1991.</a><br/>
-                        <?php
-                        // Google Captcha stuff
-                        require_once 'inc/captcha/recaptchalib.php';
-                        echo recaptcha_get_html(\Config::getCaptchaPublicKey());
-                        ?>
+<?php
+                        require_once 'view/captcha_form.php';
+?>
                         <br />
                         <input type="hidden" name="MAX_FILE_SITE" value="2000000" />
                         <input type="hidden" name="modelId" value="<?=$idToUpdate?>" />

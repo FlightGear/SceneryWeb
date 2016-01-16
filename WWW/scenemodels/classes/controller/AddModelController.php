@@ -184,9 +184,8 @@ class AddModelController extends ModelRequestController {
                 $offset, \ObjectUtils::headingSTG2True($heading), 1, $name);
 
         // Check captcha
-        $resp = $this->checkCaptcha();
-        if (!$resp->is_valid) {
-            $this->displayCaptchaError($resp, $ajaxCheck);
+        if (!$this->checkCaptcha()) {
+            $this->displayCaptchaError($ajaxCheck);
             return;
         }
 

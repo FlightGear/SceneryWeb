@@ -101,9 +101,7 @@ function validateForm()
         <tr>
             <td colspan="4" class="submit">
 <?php
-    // Google Captcha stuff
-    require_once 'inc/captcha/recaptchalib.php';
-    echo recaptcha_get_html(\Config::getCaptchaPublicKey());
+            require 'view/captcha_form.php';
 ?>
             <br />
             <input name="delete_choice" type="hidden" value="<?php echo $objectToDel->getId(); ?>" />

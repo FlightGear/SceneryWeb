@@ -117,9 +117,8 @@ class UpdateObjectsController extends RequestController {
         parent::menu();
         
         // Captcha stuff
-        $resp = $this->checkCaptcha();
-        if (!$resp->is_valid) {
-            $this->displayCaptchaError($resp);
+        if (!$this->checkCaptcha()) {
+            $this->displayCaptchaError();
             return;
         }
         

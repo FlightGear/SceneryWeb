@@ -134,9 +134,9 @@ class DeleteObjectsController extends RequestController {
      */
     public function requestForDeleteAction() {
         parent::menu();
-        $resp = $this->checkCaptcha();
-        if (!$resp->is_valid) {
-            $this->displayCaptchaError($resp);
+
+        if (!$this->checkCaptcha()) {
+            $this->displayCaptchaError();
             return;
         }
     

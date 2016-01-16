@@ -76,9 +76,8 @@ class AddObjectsController extends RequestController {
      */
     public function checkAction() {
         // Check captcha
-        $resp = $this->checkCaptcha();
-        if (!$resp->is_valid) {
-            $this->displayCaptchaError($resp);
+        if (!$this->checkCaptcha()) {
+            $this->displayCaptchaError();
             return;
         }
         

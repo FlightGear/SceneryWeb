@@ -162,11 +162,9 @@ $(function() {
                 </tr>
                 <tr>
                     <td colspan="2" class="submit">
-            <?php
-                        // Google Captcha stuff
-                        require_once 'inc/captcha/recaptchalib.php';
-                        echo recaptcha_get_html(\Config::getCaptchaPublicKey());
-            ?>
+<?php
+                        require_once 'view/captcha_form.php';
+?>
                         <br />
                         <input type="submit" value="Submit position" />
                     </td>

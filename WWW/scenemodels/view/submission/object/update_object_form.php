@@ -238,9 +238,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
         <tr>
           <td colspan="3" class="submit">
 <?php
-    // Google Captcha stuff
-    require_once 'inc/captcha/recaptchalib.php';
-    echo recaptcha_get_html(\Config::getCaptchaPublicKey());
+            require 'view/captcha_form.php';
 ?>
             <input type="submit" name="submit" value="Update this object!" />
             <input type="button" name="cancel" value="Cancel - Do not update!" onclick="history.go(-1)"/>

@@ -122,9 +122,7 @@ function validateForm()
             <td colspan="5" class="submit">
             <input name="step" type="hidden" value="3" />
 <?php
-        // Google Captcha stuff
-        require_once 'inc/captcha/recaptchalib.php';
-        echo recaptcha_get_html(\Config::getCaptchaPublicKey());
+            require 'view/captcha_form.php';
 ?>
             <br />
             <input type="submit" name="submit" value="Forward for deletion!" />

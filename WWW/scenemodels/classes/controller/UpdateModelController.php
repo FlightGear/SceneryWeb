@@ -173,9 +173,8 @@ class UpdateModelController extends ModelRequestController {
         
         $oldModel = $this->getModelDaoRO()->getModel($modelId);
         
-        $resp = $this->checkCaptcha();
-        if (!$resp->is_valid) {
-            $this->displayCaptchaError($resp, $ajaxCheck);
+        if (!$this->checkCaptcha()) {
+            $this->displayCaptchaError($ajaxCheck);
             return;
         }
         

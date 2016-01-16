@@ -68,6 +68,11 @@ class Position {
         $this->groundElevation = $groundElevation;
     }
     
+    /**
+     * Get the elevation offset.
+     * and ground elevation.
+     * @return int elevation offset
+     */
     public function getElevationOffset() {
         if (!$this->elevationOffset) {
             return 0;

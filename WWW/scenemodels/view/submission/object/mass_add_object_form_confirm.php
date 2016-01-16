@@ -142,9 +142,9 @@ if ($global_ko) { // If errors have been found...
 echo "<p class=\"center ok\">No errors have been found in your submission, all fields have been checked and seem to be OK to be proceeded.<br/>".
      "Enter captcha and press the button below to finish your submission.</p>";
 
-// Google Captcha stuff
-require_once 'inc/captcha/recaptchalib.php';
-echo "<div style=\"margin: auto;display: table;\">".recaptcha_get_html(\Config::getCaptchaPublicKey())."</div>";
+echo "<div style=\"margin: auto;display: table;\">";
+require 'view/captcha_form.php';
+echo "</div>";
 
 echo "<p class=\"center ok\"><input name='submit' type='submit' value='Submit objects' /></p></form>";
 

@@ -38,18 +38,24 @@ abstract class Controller {
      * @return response
      */
     protected function checkCaptcha() {
-        // Captcha stuff
-        require_once 'inc/captcha/recaptchalib.php';
+        if (\Config::isCaptchaEnabled()) {
+            // Captcha stuff
+            require_once 'inc/captcha/recaptchalib.php';
 
-        // Private key is needed for the server-to-Google auth.
-        $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
-        return recaptcha_check_answer ($privatekey,
+            // Private key is needed for the server-to-Google auth.
+            $privatekey = "6Len6skSAAAAACnlhKXCda8vzn01y6P9VbpA5iqi";
+            $resp = recaptcha_check_answer ($privatekey,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
+            
+            return $resp->is_valid;
+        }
+        
+        return true;
     }
     
-    protected function displayCaptchaError($resp, $xml = false) {
+    protected function displayCaptchaError($xml = false) {
         if ($xml) {
             $errors = array();
             $errors[] = new \Exception("The CAPTCHA is not correct. Please refresh it and try again.");
@@ -58,7 +64,7 @@ abstract class Controller {
             $pageTitle = "Automated Submission Form";
 
             $errorText = "Sorry but the reCAPTCHA wasn't entered correctly. <a href='javascript:history.go(-1)'>Go back and try it again</a>" .
-                     "<br />(reCAPTCHA complained: " . $resp->error . ")<br />".
+                     "<br />".
                      "Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href=\"http://en.wikipedia.org/wiki/Captcha\">here</a>.";
             include 'view/error_page.php';
         }
