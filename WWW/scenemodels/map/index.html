@@ -70,7 +70,7 @@ html, body, #map {
           options : {
             pointToLayer : function(feature, latlng) {
                 var color = feature.properties.shared > 0 ? '#ff1010' : '#1010ff';
-                return L.circleMarker(latlng, {
+                var marker = L.circleMarker(latlng, {
                     radius: 4,
                     fillColor: color,
                     color: "#000",
@@ -78,6 +78,7 @@ html, body, #map {
                     opacity: 1,
                     fillOpacity: 0.8,
                 });
+                return marker;
             },
 
             onEachFeature : function(feature, layer) {
@@ -113,15 +114,15 @@ html, body, #map {
 
           refresh: function(map) {
             var self = this;
+            self.clearLayers();
             var bounds = map.getBounds();
             var url = "/svc/getobjects?w=" + bounds.getWest() 
                                        + "&e=" + bounds.getEast() 
                                        + "&n=" + bounds.getNorth() 
                                        + "&s=" + bounds.getSouth(); 
 
-            if( map.getZoom() > 10 ) {
+            if( map.getZoom() > 12 ) {
                 var jqxhr = $.get(url).done(function(data) {
-                    self.clearLayers();
                     self.addData.call(self, data);
                 }).fail(function() {
                     console.log('failed to load scenemodels data');
@@ -185,6 +186,7 @@ html, body, #map {
           refresh: function(map) {
             var self = this;
             var bounds = map.getBounds();
+            self.clearLayers();
             var url = "/svc/getsigns?w=" + bounds.getWest() 
                                        + "&e=" + bounds.getEast() 
                                        + "&n=" + bounds.getNorth() 
@@ -192,7 +194,6 @@ html, body, #map {
 
             if( map.getZoom() > 13 ) {
                 var jqxhr = $.get(url).done(function(data) {
-                    self.clearLayers();
                     self.addData.call(self, data);
                 }).fail(function() {
                     console.log('failed to load scenemodels data');
@@ -220,6 +221,7 @@ html, body, #map {
 
         var overlays = {
             "Scenemodels": scenemodelsLayer,
+            "Signs": signsLayer,
         }
 
         L.control.layers(baseLayers, overlays).addTo(map);
