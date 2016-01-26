@@ -12,7 +12,7 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="stylesheet" href="/css/lightbox.css" type="text/css"/>
-    <title><?php echo (isset($pageTitle))?$pageTitle:"FlightGear Scenery and Mapserver Website";?></title>
+    <title><?php echo (isset($pageTitle))?$pageTitle:"FlightGear Scenery Website";?></title>
 
     <?php
     if(!isset($nojs_page)) {
