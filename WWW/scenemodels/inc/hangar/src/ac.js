@@ -345,21 +345,31 @@ AC.Surface.prototype.teselate = function(object, refs){
 AC.Surface.prototype.calculateNormal = function(object){
   var v = object.vertices,
       i = this.indices,
-      i1 = i[0] * 3,
-      i2 = i[1] * 3,
-      i3 = i[2] * 3,
-      v1x = v[i2]     - v[i1],
-      v1y = v[i2 + 1] - v[i1 + 1],
-      v1z = v[i2 + 2] - v[i1 + 2],
-      v2x = v[i3]     - v[i1],
-      v2y = v[i3 + 1] - v[i1 + 1],
-      v2z = v[i3 + 2] - v[i1 + 2],
-      nx = v1y * v2z - v2y * v1z,
-      ny = v1z * v2x - v2z * v1x,
-      nz = v1x * v2y - v2x * v1y,
-      mod = Math.sqrt(nx * nx + ny * ny + nz * nz);
+      wnx = 0,
+      wny = 0,
+      wnz = 0;
+      
+  for (var j=2; j<i.length; ++j) {
+      var i1 = i[j-2] * 3,
+        i2 = i[j-1] * 3,
+        i3 = i[j] * 3,
+        v1x = v[i2]     - v[i1],
+        v1y = v[i2 + 1] - v[i1 + 1],
+        v1z = v[i2 + 2] - v[i1 + 2],
+        v2x = v[i3]     - v[i1],
+        v2y = v[i3 + 1] - v[i1 + 1],
+        v2z = v[i3 + 2] - v[i1 + 2],
+        nx = v1y * v2z - v2y * v1z,
+        ny = v1z * v2x - v2z * v1x,
+        nz = v1x * v2y - v2x * v1y;
+        
+        wnx += nx;
+        wny += ny;
+        wnz += nz;
+  }  
 
-  this.normal = [nx, ny, nz, mod];
+  var mod = Math.sqrt(wnx * wnx + wny * wny + wnz * wnz);
+  this.normal = [wnx/mod, wny/mod, wnz/mod, mod];
   
   return mod > 1e-10;
 };
