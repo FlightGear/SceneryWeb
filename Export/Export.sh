@@ -86,6 +86,10 @@ find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;
 echo "Adding new files to svn"
 svn add --force --parents --depth infinity Objects Models || exit $?
 
+echo "creating directory index files"
+`dirname $0`/CreateDirectoryIndexes.py Models
+`dirname $0`/CreateDirectoryIndexes.py Objects
+
 echo "committing to svn"
 svn ci -m "$TIMESTAMP" Models Objects || exit $?
 
