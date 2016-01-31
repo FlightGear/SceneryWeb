@@ -26,8 +26,8 @@ dirindex = ".dirindex"
 
 ########################################################################
 
-def fn_md5_of_file(fname):
-    hash = hashlib.md5()
+def fn_hash_of_file(fname):
+    hash = hashlib.sha1()
     try:
         with open(fname, "rb") as f:
             for chunk in iter(lambda: f.read(4096), b""):
@@ -54,25 +54,22 @@ def fn_create_directory_index( path ):
     # create dirindex first
     for child in os.listdir("."):
       if os.path.isfile(child) and child != dirindex:
-        print( "f:" + child + ":" + str(int(os.stat(child).st_mtime)) + ":" + fn_md5_of_file(child), file=dirindexFile )
+        print( "f:" + child  + ":" + fn_hash_of_file(child), file=dirindexFile )
       elif os.path.isdir(child) and child != ".svn":
-        print( "d:" + child + ":" + str(int(os.stat(child).st_mtime)) + ":", file=dirindexFile )
-
-
-    # process subdirs
-    for child in os.listdir("."):
-      if os.path.isdir(child) and child != ".svn":
-        fn_create_directory_index(child)
+        print( "d:" + child + ":" +  ":" + fn_create_directory_index(child), file=dirindexFile )
 
     dirindexFile.close()
+    dirindexHash =  fn_hash_of_file(dirindex)
     os.chdir(cwd)
+    return dirindexHash
 
 ########################################################################
 
 if len(sys.argv) < 2:
-    print("usage: " + sys.argv[0] + " path " + str(len(sys.argv)))
+    print("usage: " + sys.argv[0] + " path [path ..]")
     sys.exit("terminated.");
     
-fn_create_directory_index(sys.argv[1])
+for i in range(1,len(sys.argv)):
+    fn_create_directory_index(sys.argv[i])
   
 ########################################################################
