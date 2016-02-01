@@ -1,0 +1,65 @@
+#!/usr/bin/python
+#getobjects: webservice to get scene models within a bounding box
+#
+#Written by Torsten Dreyer, started January 2016
+#Copyright 2016 Torsten Dreyer
+#
+#Thanks to Martin Spott for preparing the ground of Scenemodels
+#Without him, all this would not be possible.
+#
+#This file is part of FlightGear.
+#
+#FlightGear is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 2 of the License, or
+#(at your option) any later version.
+#
+#FlightGear is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with FlightGear.  If not, see <http://www.gnu.org/licenses/>.
+
+import cgi, sys
+import psycopg2, psycopg2.extras
+import re, json
+
+#import cgitb
+#cgitb.enable()
+
+pghost = "localhost"
+pgport = 5432
+pgdatabase = "landcover"
+pguser = "webuser"
+db_params = {"host":pghost, "port":pgport, "database":pgdatabase, "user":pguser}
+db_conn = psycopg2.connect(**db_params)
+db_cursor = db_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+print "Content-Type: application/json"
+print
+
+sql = "select ST_AsGeoJSON(wkb_geometry) as rwy from apt_runway where icao=UPPER('%s');"
+
+#print "{}\n";
+arguments = cgi.FieldStorage()
+if 'icao' not in arguments:
+    print( '{}' )
+    sys.exit()
+
+icao = arguments['icao'].value
+if not re.match("^[A-Za-z0-9]*$", icao ):
+    print( '{}' )
+    sys.exit()
+
+db_cursor.execute( sql % (icao) )
+
+reply = { 'type': 'GeometryCollection', 'geometries': [] }
+
+db_result = db_cursor.fetchall()
+for row in db_result:
+    reply['geometries'].append(json.loads(str(row['rwy'])));
+
+print json.dumps(reply, separators=(',',':'))
+

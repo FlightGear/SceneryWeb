@@ -40,6 +40,7 @@ html, body, #map {
         var lat = getRequestParameter('lat') || 0;
         var lon = getRequestParameter('lon') || 0;
         var zoom = getRequestParameter('z') || 3;
+        var icao = getRequestParameter('icao');
 
         var map = L.map('map', {
             contextmenu: true,
@@ -246,6 +247,26 @@ html, body, #map {
           scenemodelsLayer.refresh( map );
           signsLayer.refresh( map );
         });
+
+        if( icao ) {
+            var url = "/svc/getapt?icao=" + icao;
+            var jqxhr = $.get(url).done(function(data) {
+              var geoJson = L.geoJson( data, {
+                style: {
+                  'color': '#404040',
+                  'weight': 2,
+                  'opacity': 0.5,
+                  'fill': true,
+                  'fillColor': '#c0c0c0',
+                  'fillOpacity': 0.5,
+                },
+              }).addTo(map);
+              map.fitBounds(geoJson.getBounds());
+            }).fail(function() {
+              console.log('failed to load airport layout');
+            }).always(function() {
+            });
+        }
 
     </script>
 </body>
