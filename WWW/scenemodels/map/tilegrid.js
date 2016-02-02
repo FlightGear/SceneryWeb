@@ -23,8 +23,18 @@ L.TileGrid = L.LayerGroup.extend({
 			weight: 1
 		},
 		
+		// Path style for the tile lines
+		tileStyle: {
+			stroke: true,
+			color: 'blue',
+			opacity: 0.6,
+			weight: 1
+		},
+		
 		// Redraw on move or moveend
-		redraw: 'move'
+		redraw: 'move',
+
+                minHeightForTiles: 1.5,
 	},
 
 	initialize: function (options) {
@@ -52,10 +62,32 @@ L.TileGrid = L.LayerGroup.extend({
 
 	redraw: function () {
 		// pad the bounds to make sure we draw the lines a little longer
-		this._bounds = this._map.getBounds().pad(0.1);
+                var b = this._map.getBounds();
+                var drawTiles = (b.getNorth() - b.getSouth() < this.options.minHeightForTiles );
+
+		this._bounds = b.pad(0.1);
 
 		var grid = [];
 		var i;
+
+
+                if( drawTiles ) {
+                  var high = this._snap(this._bounds.getNorth(),1/8);
+                  var low = this._snap(this._bounds.getSouth(),1/8);
+                  for( ; low <= high; low += 1/8 ) {
+			grid.push(this._horizontalLine(low, this.options.tileStyle));
+
+                        var right = this._snap(this._bounds.getEast(),this._tileWidth(low));
+                        var left = this._snap(this._bounds.getWest(),this._tileWidth(low));
+                        for( ; left <= right; left += this._tileWidth(low) ) {
+  		          var line= L.polyline([
+			    [low+1/8, left],
+			    [low, left]
+		          ], this.options.tileStyle);
+                          grid.push( line );
+                        }
+                  }
+                }
 
 		var latLines = this._latLines();
 		for (i in latLines) {
@@ -124,17 +156,17 @@ L.TileGrid = L.LayerGroup.extend({
 		return bounds.getWest() < 0 && bounds.getEast() > 0;
 	},
 
-	_verticalLine: function (lng) {
+	_verticalLine: function (lng, opts) {
 		return new L.Polyline([
 			[this._bounds.getNorth(), lng],
 			[this._bounds.getSouth(), lng]
-		], this.options.lineStyle);
+		], opts || this.options.lineStyle);
 	},
-	_horizontalLine: function (lat) {
+	_horizontalLine: function (lat, opts) {
 		return new L.Polyline([
 			[lat, this._bounds.getWest()],
 			[lat, this._bounds.getEast()]
-		], this.options.lineStyle);
+		], opts || this.options.lineStyle);
 	},
 
 	_snap: function (num, gridSize) {
@@ -194,6 +226,18 @@ L.TileGrid = L.LayerGroup.extend({
 			sec: sec
 		};
 	},
+
+        _tileWidth: function(lat) {
+          lat = Math.abs(lat);
+          if( lat < 22 ) return 1.0/8.0;
+          if( lat < 62 ) return 1.0/4.0;
+          if( lat < 76 ) return 1.0/2.0;
+          if( lat < 83 ) return 1.0/1.0;
+          if( lat < 86 ) return 2.0/1.0;
+          if( lat < 88 ) return 4.0/1.0;
+          if( lat < 89 ) return 8.0/1.0;
+          return 360.0;
+        },
 
 	formatCoord: function (num, axis, style) {
 		if (!style) {
