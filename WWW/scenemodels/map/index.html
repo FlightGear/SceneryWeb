@@ -116,7 +116,9 @@ html, body, #map {
                     popupContent += '</ul>';
                 }
 
-                layer.bindPopup(popupContent);
+                layer.bindPopup(popupContent, {
+                    autoPan: false
+                });
             },
           },
 
