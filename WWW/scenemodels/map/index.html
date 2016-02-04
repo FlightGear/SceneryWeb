@@ -29,16 +29,33 @@ html, body, #map {
 .leaflet-grid-label .lng {
 	text-shadow: -2px 0 #FFFFFF, 0 2px #FFFFFF, 2px 0 #FFFFFF, 0 -2px #FFFFFF;
 }
+
+.airport-info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
     </style>
 </head>
 <body>
     <div id="map"></div>
+    <div id="airport-info">
+      <label>Airport:
+        <input type="text" maxlength="5" size="4" data-bind="value: airportId">
+      </label>
+    </div>
+
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://mrmufflon.github.io/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3.min.js"></script>
     <script src="http://aratcliffe.github.io/Leaflet.contextmenu/dist/leaflet.contextmenu.js"></script>
     <script src="tilegrid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
 
     <script>
 
@@ -263,10 +280,36 @@ html, body, #map {
           signsLayer.refresh( map );
         });
 
-        if( icao ) {
-            var url = "/svc/getapt?icao=" + icao;
+        var airportInfo = L.control({
+          position: 'topleft',
+        });
+
+        airportInfo.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'airport-info');
+            this._div.innerHTML = "<div data-bind='component: \"AirportInfo\"'></div>";
+            return this._div;
+        };
+
+        airportInfo.addTo(map);
+
+
+        var ViewModel = function() {
+          var self = this;
+        }
+
+        var ArportInfoViewModel = function() {
+          var self = this;
+          var geoJson = null;
+
+          self.valid = ko.observable(false);
+          self.airportId = ko.observable("");
+          self.airportId.subscribe(function(newValue) {
+            if( geoJson ) map.removeLayer( geoJson );
+            geoJson = null;
+
+            var url = "/svc/getapt?icao=" + newValue;
             var jqxhr = $.get(url).done(function(data) {
-              var geoJson = L.geoJson( data, {
+              geoJson = L.geoJson( data, {
                 style: {
                   'color': '#404040',
                   'weight': 2,
@@ -281,7 +324,15 @@ html, body, #map {
               console.log('failed to load airport layout');
             }).always(function() {
             });
+          });
+          if( icao ) self.airportId( icao );
         }
+
+        ko.components.register('AirportInfo', {
+          template: { element: 'airport-info' },
+          viewModel: ArportInfoViewModel,
+        });
+        ko.applyBindings( new ViewModel, document.getElementById('map') );
 
     </script>
 </body>
