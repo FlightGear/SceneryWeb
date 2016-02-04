@@ -101,7 +101,7 @@ html, body, #map {
                                                                             "&z=13&obj=" + feature.properties.model_id + "'>permalink</a>";
                 if (feature.properties) {
                     function makePopupContentPropertyEntry(title,props,key) {
-                      if(key in props)  return '<li>' + title + ':' + props[key] + '</li>';
+                      if(key in props)  return '<li>' + title + ': ' + props[key] + '</li>';
                       return '';
                     }
                     if( feature.properties.model_id )
@@ -112,7 +112,8 @@ html, body, #map {
                     popupContent += makePopupContentPropertyEntry('Ground Elevation', feature.properties, 'gndelev' );
                     popupContent += makePopupContentPropertyEntry('Elevation Offset', feature.properties, 'elevoffset' );
                     popupContent += makePopupContentPropertyEntry('Shared', feature.properties, 'shared' );
-                    popupContent += makePopupContentPropertyEntry('STG', feature.properties, 'stg' );
+                    popupContent += 
+                       '<li>STG: <a target="_blank" href="http://flightgear.sourceforge.net/scenery/' + feature.properties.stg + '">' + feature.properties.stg +  '</a></li>';
                     popupContent += '</ul>';
                 }
 
