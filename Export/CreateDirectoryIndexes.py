@@ -23,6 +23,7 @@ import os, sys, io, errno
 import hashlib
 
 dirindex = ".dirindex"
+DIRINDEXVERSION = 1
 
 ########################################################################
 
@@ -39,7 +40,7 @@ def fn_hash_of_file(fname):
 
 ########################################################################
 
-def fn_create_directory_index( path ):
+def fn_create_directory_index( path, parent ):
     cwd = os.getcwd()
 
     try:
@@ -50,13 +51,15 @@ def fn_create_directory_index( path ):
 
 
     dirindexFile = open(dirindex, 'w')
+    print( "version:" + str(DIRINDEXVERSION), file=dirindexFile )
+    print( "path:" + parent, file=dirindexFile );
 
     # create dirindex first
     for child in os.listdir("."):
       if os.path.isfile(child) and child != dirindex:
-        print( "f:" + child  + ":" + fn_hash_of_file(child), file=dirindexFile )
+        print( "f:" + child  + ":" + fn_hash_of_file(child) + ":" + str(os.stat(child).st_size), file=dirindexFile )
       elif os.path.isdir(child) and child != ".svn":
-        print( "d:" + child + ":" +  ":" + fn_create_directory_index(child), file=dirindexFile )
+        print( "d:" + child + ":" + fn_create_directory_index(child,os.path.join(parent,child)), file=dirindexFile )
 
     dirindexFile.close()
     dirindexHash =  fn_hash_of_file(dirindex)
@@ -66,10 +69,9 @@ def fn_create_directory_index( path ):
 ########################################################################
 
 if len(sys.argv) < 2:
-    print("usage: " + sys.argv[0] + " path [path ..]")
+    print("usage: " + sys.argv[0] + " path [parent]")
     sys.exit("terminated.");
-    
-for i in range(1,len(sys.argv)):
-    fn_create_directory_index(sys.argv[i])
-  
+
+fn_create_directory_index(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else "")
+
 ########################################################################
