@@ -7,6 +7,11 @@ include 'view/header.php';
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
+window.onload = function() {
+  update_map('long1','lat1');
+  update_country('long1','lat1','countryId1');
+}
+
 function validateForm()
 {
     var form = document.getElementById("positions");
