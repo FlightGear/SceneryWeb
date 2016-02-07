@@ -79,16 +79,16 @@ done
 echo "Running Export.py"
 `dirname $0`/Export.py
 
+echo "creating directory index files"
+`dirname $0`/CreateDirectoryIndexes.py Models Models
+`dirname $0`/CreateDirectoryIndexes.py Objects Objects
+
 echo "Fixing permissions"
 find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;
 find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;
 
 echo "Adding new files to svn"
 svn add --force --parents --depth infinity Objects Models || exit $?
-
-echo "creating directory index files"
-`dirname $0`/CreateDirectoryIndexes.py Models
-`dirname $0`/CreateDirectoryIndexes.py Objects
 
 echo "committing to svn"
 svn ci -m "$TIMESTAMP" Models Objects || exit $?
