@@ -55,8 +55,47 @@ html, body, #map {
   stroke: #ff1010;
 }
 
+.procedure-list { 
+ list-style-type: none;
+  padding-left: 1em;
+  margin: 0;
+}
+  
+.procedure-entry {
+  cursor: pointer;
+  color: #777;
+} 
+
+.pe-add-new {
+  color: #aaa;
+}
+
+.procedure-entry .procedure-buttons {
+  display: none;
+  position: absolute;
+  right: 5px;
+}
+
+.procedure-entry:hover{
+  color: white;
+  background-color: #777;
+  position: relative;
+}
+
+.procedure-entry:hover .procedure-buttons{
+  display: inline;
+}   
+
+.airport-info h5 {
+  margin-top: 0;
+  margin-bottom: 0.5ex;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
     </style>
 </head>
+
 <body>
     <div id="map"></div>
     <div id="airport-info">
@@ -64,7 +103,22 @@ html, body, #map {
         <input type="text" maxlength="5" size="4" data-bind="value: airportId">
       </label>
       <div data-bind="visible: procedures().length">
-        <h4>Procedures</h4>
+        <h5 data-bind="click: clickApproach">Approach</h5>
+        <h5 data-bind="click: clickSid">SID</h5>
+        <h5 data-bind="click: clickStar">STAR</h5>
+        <ul class="procedure-list" data-bind="visible: starExpanded">
+          <!-- ko foreach: procedures -->
+          <li class="procedure-entry" data-bind="if: type() == 'Star'">
+            <span data-bind="text: name"></span>
+          </li>
+          <!-- /ko -->
+          <li class="procedure-entry pe-add-new">
+            <span>add new</span>
+          </li>
+        </ul>
+        <h5 data-bind="click: clickSidTransition">SID Transition</h5>
+        <h5 data-bind="click: clickStarTransition">STAR Transition</h5>
+        <h5 data-bind="click: clickRwyTransition">RWY Transition</h5>
       </div>
     </div>
 
@@ -429,6 +483,66 @@ html, body, #map {
           });
 
           self.procedures = ko.observableArray([]);
+
+          self.approachExpanded = ko.observable(false);
+          self.clickApproach = function() {
+            self.approachExpanded(!self.approachExpanded());
+            self.sidExpanded(false);
+            self.starExpanded(false);
+            self.sidTransitionExpanded(false);
+            self.starTransitionExpanded(false);
+            self.rwyTransitionExpanded(false);
+          }
+
+          self.sidExpanded = ko.observable(false);
+          self.clickSid = function() {
+            self.approachExpanded(false);
+            self.sidExpanded(!self.sidExpanded());
+            self.starExpanded(false);
+            self.sidTransitionExpanded(false);
+            self.starTransitionExpanded(false);
+            self.rwyTransitionExpanded(false);
+          }
+
+          self.starExpanded = ko.observable(false);
+          self.clickStar = function() {
+            self.approachExpanded(false);
+            self.sidExpanded(false);
+            self.starExpanded(!self.starExpanded());
+            self.sidTransitionExpanded(false);
+            self.starTransitionExpanded(false);
+            self.rwyTransitionExpanded(false);
+          }
+
+          self.sidTransitionExpanded = ko.observable(false);
+          self.clickSidTransition = function() {
+            self.approachExpanded(false);
+            self.sidExpanded(false);
+            self.starExpanded(false);
+            self.sidTransitionExpanded(!self.sidTransitionExpanded());
+            self.starTransitionExpanded(false);
+            self.rwyTransitionExpanded(false);
+          }
+
+          self.starTransitionExpanded = ko.observable(false);
+          self.clickStarTransition = function() {
+            self.approachExpanded(false);
+            self.sidExpanded(false);
+            self.starExpanded(false);
+            self.sidTransitionExpanded(false);
+            self.starTransitionExpanded(!self.starTransitionExpanded());
+            self.rwyTransitionExpanded(false);
+          }
+
+          self.rwyTransitionExpanded = ko.observable(false);
+          self.clickRwyTransition = function() {
+            self.approachExpanded(false);
+            self.sidExpanded(false);
+            self.starExpanded(false);
+            self.sidTransitionExpanded(false);
+            self.starTransitionExpanded(false);
+            self.rwyTransitionExpanded(!self.rwyTransitionExpanded());
+          }
 
           if( icao ) self.airportId( icao );
         }
