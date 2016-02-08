@@ -63,6 +63,9 @@ html, body, #map {
       <label>Airport:
         <input type="text" maxlength="5" size="4" data-bind="value: airportId">
       </label>
+      <div data-bind="visible: procedures().length">
+        <h4>Procedures</h4>
+      </div>
     </div>
 
 
@@ -369,19 +372,35 @@ html, body, #map {
           var self = this;
         }
 
+        var ProcedureViewModel = function( props ) {
+          var self = this;
+          props = props || {
+            id: -1,
+            name: 'unnamed procedure',
+            runways: 'All',
+            type: 'Star',
+          }
+
+          self.id = props.id;
+          self.name = ko.observable(props.name);
+          self.runways = ko.observable(props.runways);
+          self.type = ko.observable(props.type);
+        }
+
         var ArportInfoViewModel = function() {
           var self = this;
           var geoJson = null;
 
-          self.valid = ko.observable(false);
           self.airportId = ko.observable("");
           self.airportId.subscribe(function(newValue) {
+
             if( geoJson ) map.removeLayer( geoJson );
             geoJson = null;
+            self.procedures.removeAll();
 
             var url = "/svc/getapt?icao=" + newValue;
             var jqxhr = $.get(url).done(function(data) {
-              geoJson = L.geoJson( data, {
+              geoJson = L.geoJson( data.runwaysGeometry, {
                 style: {
                   'color': '#404040',
                   'weight': 2,
@@ -392,11 +411,25 @@ html, body, #map {
                 },
               }).addTo(map);
               map.fitBounds(geoJson.getBounds());
+
+              if( data.procedures ) {
+                var ps = [];
+                data.procedures.forEach( function(p) {
+                  ps.push( new ProcedureViewModel(p) );
+                });
+                self.procedures( ps );
+              }
+
+              console.log(ko.toJSON(self));
+
             }).fail(function() {
               console.log('failed to load airport layout');
             }).always(function() {
             });
           });
+
+          self.procedures = ko.observableArray([]);
+
           if( icao ) self.airportId( icao );
         }
 

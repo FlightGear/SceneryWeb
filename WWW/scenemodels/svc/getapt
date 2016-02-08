@@ -31,7 +31,7 @@ import re, json
 
 pghost = "localhost"
 pgport = 5432
-pgdatabase = "landcover"
+pgdatabase = "scenemodels"
 pguser = "webuser"
 db_params = {"host":pghost, "port":pgport, "database":pgdatabase, "user":pguser}
 db_conn = psycopg2.connect(**db_params)
@@ -55,11 +55,30 @@ if not re.match("^[A-Za-z0-9]*$", icao ):
 
 db_cursor.execute( sql % (icao) )
 
-reply = { 'type': 'GeometryCollection', 'geometries': [] }
+runwaysGeometry = { 'type': 'GeometryCollection', 'geometries': [] }
+reply = { 'runwaysGeometry': runwaysGeometry, 'procedures': [] }
+
 
 db_result = db_cursor.fetchall()
 for row in db_result:
-    reply['geometries'].append(json.loads(str(row['rwy'])));
+    runwaysGeometry['geometries'].append(json.loads(str(row['rwy'])));
+
+sql = "SELECT pr_id, pr_runways, pr_name, pr_type \
+         FROM fgs_procedures \
+         WHERE pr_airport = UPPER('%s');"
+
+db_cursor.execute( sql % (icao) )
+
+db_result = db_cursor.fetchall()
+for row in db_result:
+    procedure  = {
+                  'id': row['pr_id'],
+                  'runways': row['pr_runways'],
+                  'name': row['pr_name'],
+                  'type': row['pr_type'],
+                 }
+    reply['procedures'].append(procedure)
+
 
 print json.dumps(reply, separators=(',',':'))
 
