@@ -39,6 +39,22 @@ html, body, #map {
   border-radius: 5px;
 }
 
+.object-marker-static circle {
+  stroke: #1010ff;
+}
+
+.object-marker-static line {
+  stroke: #1010ff;
+}
+
+.object-marker-shared circle {
+  stroke: #ff1010;
+}
+
+.object-marker-shared line {
+  stroke: #ff1010;
+}
+
     </style>
 </head>
 <body>
@@ -69,6 +85,8 @@ html, body, #map {
         var zoom = getRequestParameter('z') || 3;
         var icao = getRequestParameter('icao');
 
+        var ObjectToMove = null;
+
         var map = L.map('map', {
             contextmenu: true,
             contextmenuItems: [{
@@ -77,9 +95,25 @@ html, body, #map {
                           window.prompt('Copy to clipboard: Ctrl+C, Enter', e.latlng.lng.toFixed(6) + ' ' + e.latlng.lat.toFixed(6) ); 
                       },
 	      }, {
+		      text: 'Get bounds',
+		      callback: function(e) { 
+                          var b = map.getBounds();
+                          window.prompt('Copy to clipboard: Ctrl+C, Enter', b.getSouth().toFixed(6) +  ' ' + b.getWest().toFixed(6) +' ' + b.getNorth().toFixed(6) +' ' + b.getEast().toFixed(6) ); 
+                      },
+	      }, {
 		      text: 'Center map here',
 		      callback: function(e) { map.panTo(e.latlng); },
-	      }, 
+	      }, {
+		      text: 'Move marked object here',
+		      callback: function(e) { console.log(ObjectToMove, e.latlng); },
+	      }, {
+		      text: 'Place new object here',
+		      callback: function(e) { 
+                        var url = "http://scenemodels.flightgear.org/app.php?c=AddObjects&a=form&lat=" 
+                                 + e.latlng.lat.toFixed(6) + "&lon=" + e.latlng.lng.toFixed(6);
+                        window.open(url, "_blank" );
+                      },
+	      }
 	      ]
         }).setView([lat, lon], zoom);
 
@@ -96,9 +130,37 @@ html, body, #map {
         maxZoom: 18,
         });
 
+       function parse(str) {
+           var args = [].slice.call(arguments, 1),
+               i = 0;
+
+           return str.replace(/%s/g, function() {
+               return args[i++];
+           });
+        }
+
+        var markerSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet">' +
+                        '<circle cx="50" cy="50" r="25" stroke="black" fill="none" stroke-width="3" />' +
+                        '<g id="arrow" transform="rotate(%s 50 50)">' +
+                        '<line x1="50" y1="50" x2="50" y2="2" stroke="black" stroke-width="3" stroke-linecap="round"/>' +
+                        '<line x1="40" y1="20" x2="50" y2="2" stroke="black" stroke-width="3" stroke-linecap="round"/>' +
+                        '<line x1="60" y1="20" x2="50" y2="2" stroke="black" stroke-width="3" stroke-linecap="round"/>' +
+                        '</g>' +
+                        '</svg>';
+
         L.ScenemodelsLayer = L.GeoJSON.extend({
           options : {
             pointToLayer : function(feature, latlng) {
+                
+                var marker = L.marker(latlng, {
+                    icon: L.divIcon({
+                      className: feature.properties.shared > 0 ? 'object-marker-shared' : 'object-marker-static',
+                      html: parse(markerSvg, feature.properties.heading),
+                      iconSize: [ 32, 32 ],
+                      iconAnchor: [ 16, 16 ],
+                    }),
+                });
+/*
                 var color = feature.properties.shared > 0 ? '#ff1010' : '#1010ff';
                 var marker = L.circleMarker(latlng, {
                     radius: 4,
@@ -107,7 +169,17 @@ html, body, #map {
                     weight: 1,
                     opacity: 1,
                     fillOpacity: 0.8,
+
+                    contextmenu: true,
+                    contextmenuItems: [{
+                        text: 'Move object (experimental)',
+                        callback: function(e) {
+                          ObjectToMove = feature.properties.id;
+                          console.log("move item", feature.properties.id);
+                        },
+                    }, ]
                 });
+*/
                 return marker;
             },
 
