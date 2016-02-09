@@ -30,6 +30,11 @@ $objToUpPos = $objectToUp->getPosition();
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
+window.onload = function() {
+  update_map('new_long','new_lat');
+  update_country('new_long','new_lat','new_country');
+}
+
 function validateForm()
 {
     var form = document.getElementById("update");
@@ -70,6 +75,7 @@ $id_family = $modelMDToUp->getModelsGroup()->getId();
 
 if (!$modelMDToUp->getModelsGroup()->isStatic()) {
     // Show all the families other than the static family
+    // TODO move it to controller layer
     $modelsGroups = $modelDaoRO->getModelsGroups();
 
     // Start the select form
@@ -104,8 +110,9 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
 
     echo "<div id=\"form_objects\">";
     echo "    <select name='modelId' id='modelId' onchange='change_thumb()'>";
-
-    $modelMetadatas = $modelDaoRO->getModelMetadatasByGroup($id_family, 0, "ALL");
+    
+    // TODO move it to controller layer
+    $modelMetadatas = $modelDaoRO->getModelMetadatasByGroup($id_family, 0, "ALL", "mo_path");
 
     // Showing the results.
     foreach ($modelMetadatas as $modelMetadata) {
@@ -138,7 +145,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
             <?=$objToUpPos->getLongitude()?>
           </td>
           <td>
-            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?=$objToUpPos->getLongitude()?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-180,180);" />
+            <input type="text" name="new_long" id="new_long" maxlength="13" value="<?php echo $defaultLon;?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-180,180);" />
           </td>
         </tr>
         <tr>
@@ -150,7 +157,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
             <?=$objToUpPos->getLatitude()?>
           </td>
           <td>
-            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?=$objToUpPos->getLatitude()?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-90,90);" />
+            <input type="text" name="new_lat" id="new_lat" maxlength="13" value="<?php echo $defaultLat;?>" onchange="update_map('new_long','new_lat');" onkeyup="checkNumeric(this,-90,90);" />
           </td>
         </tr>
         <tr>

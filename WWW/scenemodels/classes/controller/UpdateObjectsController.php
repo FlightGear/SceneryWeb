@@ -104,8 +104,19 @@ class UpdateObjectsController extends RequestController {
         
         $idToUpdate = $this->getVar('id_to_update');
         $objectToUp = $this->objectDaoRO->getObject($idToUpdate);
+        $objToUpPos = $objectToUp->getPosition();
         $modelMDToUp = $this->getModelDaoRO()->getModelMetadata($objectToUp->getModelId());
         $countries = $this->objectDaoRO->getCountries();
+        
+        $defaultLat = $objToUpPos->getLatitude();
+        if (\FormChecker::isLatitude($this->getVar('lat'))) {
+            $defaultLat = $this->getVar('lat');
+        }
+        
+        $defaultLon = $objToUpPos->getLongitude();
+        if (\FormChecker::isLongitude($this->getVar('lon'))) {
+            $defaultLon = $this->getVar('lon');
+        }
         
         include 'view/submission/object/update_object_form.php';
     }
