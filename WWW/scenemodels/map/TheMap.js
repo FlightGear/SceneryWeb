@@ -15,6 +15,47 @@ function() {
 
 
         var SelectedObject = null;
+        var measureStart = null;
+        var measureInfo = L.control({
+          position: 'bottomleft',
+        });
+        measureInfo.onAdd = function (map) {
+          this._div = L.DomUtil.create('div', 'leaflet-control-coordinates');
+          this.update(0,0);
+          return this._div;
+        };
+        measureInfo.update = function(distance,heading) {
+          this._div.innerHTML = "<div><span>Distance: " + distance.toFixed(2) + "m</span><span> Heading: " + heading.toFixed(0) + "</span></div>";
+        }
+        measureLine = L.polyline([L.latLng(0,0), L.latLng(0,0)], { color: 'magenta' });
+ 
+
+        function measureMouseListener (e) {
+          function toRadians(d) {
+            return d * Math.PI / 180;
+          }
+          function toDegrees(d) {
+            return d * 180 / Math.PI;
+          }
+
+          var from = measureStart.getLatLng();
+          var to = e.latlng;
+          var dist = from.distanceTo( to );
+
+          // source:  http://www.movable-type.co.uk/scripts/latlong.html
+          var φ1 = toRadians(from.lat);
+          var φ2 = toRadians(to.lat);
+          var λ1 = toRadians(from.lng);
+          var λ2 = toRadians(to.lng);
+
+          var y = Math.sin(λ2-λ1) * Math.cos(φ2);
+          var x = Math.cos(φ1)*Math.sin(φ2) -
+                  Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+          var brng = toDegrees(Math.atan2(y, x));
+
+          measureInfo.update(dist,brng);
+          measureLine.setLatLngs( [ from, to ] );
+        }
 
         var map = L.map('map', {
             contextmenu: true,
@@ -44,6 +85,22 @@ function() {
                         var url = "http://scenemodels.flightgear.org/app.php?c=AddObjects&a=form&lat=" 
                                  + e.latlng.lat.toFixed(6) + "&lon=" + e.latlng.lng.toFixed(6);
                         window.open(url, "_blank" );
+                      },
+	      }, {
+		      text: 'Measure (toggle)',
+		      callback: function(e) { 
+                        if( measureStart ) {
+                          map.removeLayer( measureStart );
+                          measureInfo.removeFrom(map);
+                          map.removeLayer( measureLine );
+                          measureStart = null;
+                          map.off( "mousemove", measureMouseListener );
+                        } else {
+                          measureStart = L.marker( e.latlng ).addTo(map);
+                          measureInfo.addTo(map);
+                          measureLine.addTo(map);
+                          map.on( "mousemove", measureMouseListener );
+                        }
                       },
 	      }
 	      ]
@@ -99,26 +156,6 @@ function() {
                         },
                     }, ]
                 });
-/*
-                var color = feature.properties.shared > 0 ? '#ff1010' : '#1010ff';
-                var marker = L.circleMarker(latlng, {
-                    radius: 4,
-                    fillColor: color,
-                    color: "#000",
-                    weight: 1,
-                    opacity: 1,
-                    fillOpacity: 0.8,
-
-                    contextmenu: true,
-                    contextmenuItems: [{
-                        text: 'Move object (experimental)',
-                        callback: function(e) {
-                          SelectedObject = feature.properties.id;
-                          console.log("move item", feature.properties.id);
-                        },
-                    }, ]
-                });
-*/
                 return marker;
             },
 
@@ -278,6 +315,7 @@ function() {
             labelTemplateLat:"Lat: {y}",
             labelTemplateLng:"Lng: {x}"
         }).addTo(map);
+
         L.control.coordinates({
             position:"bottomleft",
             useDMS:true,
