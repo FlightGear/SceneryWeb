@@ -58,7 +58,7 @@ east = float(arguments['e'].value)
 west = float(arguments['w'].value)
 north = float(arguments['n'].value)
 south = float(arguments['s'].value)
-db_cursor.execute( sql % (west,south,west,north,east,north,east,south,west,south) )
+db_cursor.execute( sql, (west,south,west,north,east,north,east,south,west,south) )
 
 reply = { 'type': 'FeatureCollection', 'features': [] }
 

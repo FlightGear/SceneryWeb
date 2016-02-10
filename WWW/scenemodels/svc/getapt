@@ -24,7 +24,7 @@
 
 import cgi, sys
 import psycopg2, psycopg2.extras
-import re, json
+import re, json, os
 
 #import cgitb
 #cgitb.enable()
@@ -37,48 +37,84 @@ db_params = {"host":pghost, "port":pgport, "database":pgdatabase, "user":pguser}
 db_conn = psycopg2.connect(**db_params)
 db_cursor = db_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
+################ Handle GET Request ##############################
+def handleGet():
+
+  arguments = cgi.FieldStorage()
+  if 'icao' not in arguments:
+      return ''
+
+  icao = arguments['icao'].value
+  if not re.match("^[A-Za-z0-9]*$", icao ):
+      return ''
+
+  sql = "select ST_AsGeoJSON(wkb_geometry) as rwy from apt_runway where icao=UPPER(%s);"
+  db_cursor.execute( sql, (icao,) )
+
+  runwaysGeometry = { 'type': 'GeometryCollection', 'geometries': [] }
+  reply = { 'runwaysGeometry': runwaysGeometry, 'procedures': [] }
+
+  db_result = db_cursor.fetchall()
+  for row in db_result:
+      runwaysGeometry['geometries'].append(json.loads(str(row['rwy'])));
+
+  sql = "SELECT pr_id, pr_runways, pr_name, pr_type \
+           FROM fgs_procedures \
+           WHERE pr_airport = UPPER(%s);"
+
+  db_cursor.execute( sql, (icao,) )
+
+  db_result = db_cursor.fetchall()
+  for row in db_result:
+      procedure  = {
+                    'id': row['pr_id'],
+                    'runways': row['pr_runways'],
+                    'name': row['pr_name'],
+                    'type': row['pr_type'],
+                   }
+      reply['procedures'].append(procedure)
+
+  return json.dumps(reply, separators=(',',':'))
+
+
+################ Insert new procedure ##############################
+def newProcedure( props ):
+  sql = "INSERT INTO fgs_procedures (pr_id,pr_airport,pr_name,pr_type,pr_runways) \
+           VALUES (DEFAULT,UPPER(%s),%s,%s,%s);"
+  data = (
+   props['icao'],
+   props['name'],
+   props['type'],
+   props['runways'],)
+
+  db_cursor.execute( sql, data )
+  db_conn.commit()
+
+################ Handle POST Request ##############################
+def handlePost():
+  request = json.load(sys.stdin);
+  if request['command'] == 'newProcedure':
+    newProcedure( request );
+
+  return json.dumps({ 'status': 'ok' })
+
 print "Content-Type: application/json"
+# disable CORS for now
+#print "Access-Control-Allow-Origin: *"
+#print "Access-Control-Allow-Methods: OPTIONS, GET, POST"
+#print "Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token"
+
 print
 
-sql = "select ST_AsGeoJSON(wkb_geometry) as rwy from apt_runway where icao=UPPER('%s');"
+if os.environ['REQUEST_METHOD'] == 'GET':
+  print handleGet()
 
-#print "{}\n";
-arguments = cgi.FieldStorage()
-if 'icao' not in arguments:
-    print( '{}' )
-    sys.exit()
+elif os.environ['REQUEST_METHOD'] == 'POST':
+  print handlePost()
 
-icao = arguments['icao'].value
-if not re.match("^[A-Za-z0-9]*$", icao ):
-    print( '{}' )
-    sys.exit()
+elif os.environ['REQUEST_METHOD'] == 'OPTIONS':
+  pass
 
-db_cursor.execute( sql % (icao) )
-
-runwaysGeometry = { 'type': 'GeometryCollection', 'geometries': [] }
-reply = { 'runwaysGeometry': runwaysGeometry, 'procedures': [] }
-
-
-db_result = db_cursor.fetchall()
-for row in db_result:
-    runwaysGeometry['geometries'].append(json.loads(str(row['rwy'])));
-
-sql = "SELECT pr_id, pr_runways, pr_name, pr_type \
-         FROM fgs_procedures \
-         WHERE pr_airport = UPPER('%s');"
-
-db_cursor.execute( sql % (icao) )
-
-db_result = db_cursor.fetchall()
-for row in db_result:
-    procedure  = {
-                  'id': row['pr_id'],
-                  'runways': row['pr_runways'],
-                  'name': row['pr_name'],
-                  'type': row['pr_type'],
-                 }
-    reply['procedures'].append(procedure)
-
-
-print json.dumps(reply, separators=(',',':'))
-
+# silently ignore other methods
+else:
+  pass
