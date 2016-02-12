@@ -1,4 +1,4 @@
-    <div id="airport-info">
+    <div id="airport-info" data-bind="visible: showAirportInfo">
       <label>Airport:
         <input type="text" maxlength="5" size="4" data-bind="value: airportId">
       </label>
@@ -9,11 +9,21 @@
         <ul class="procedure-list" data-bind="visible: starExpanded">
           <!-- ko foreach: procedures -->
           <li class="procedure-entry" data-bind="if: type() == 'Star'">
-            <span data-bind="text: name"></span>
+            <span data-bind="text: name, click: clickProcedure"></span>
+            <ul class="procedure-waypoint-list" data-bind="visible: expanded">
+              <!-- ko foreach: waypoints -->
+              <li class="procedure-waypoint-entry">
+                <span data-bind="text: name, click: clickWaypoint"></span>
+              </li>
+              <!-- /ko -->
+              <li class="procedure-waypoint-entry pwe-add-new">
+                <span data-bind="click: addWpt">add WPT</span>
+              </li>
+            </ul>
           </li>
           <!-- /ko -->
           <li class="procedure-entry pe-add-new">
-            <span data-bind="click: addNew">add new</span>
+            <span data-bind="click: addProcedure">add Procedure</span>
           </li>
         </ul>
         <h5 data-bind="click: clickSidTransition">SID Transition</h5>
@@ -25,4 +35,3 @@
 <script type="text/html" id="inplace-editor-template">
   <input style="width: 8em" >
 </script>
-

@@ -1,9 +1,58 @@
 define([
-        'knockout', 'text!./AirportInfo.html', 'TheMap', 'jquery'
-], function(ko, htmlString, map, jquery) {
+        'knockout', 'text!./AirportInfo.html', 'TheMap', 'jquery', 'WaypointDialog'
+], function(ko, htmlString, map, jquery, WaypointDialog ) {
+
+        var waypointDialog = new WaypointDialog();
+ 
+        var proceduresLayer = L.layerGroup().addTo( map );
+
+        var WaypointViewModel = function( props ) {
+          var self = this;
+          props = props || {};
+
+          self.name = ko.observable( props.name );
+          self.type = ko.observable( props.type );
+          self.position = ko.observable( props.latlng );
+          if( props.lat && props.lng ) {
+            self.position( [ props.lat, props.lng ] );
+          }
+
+          self.clickWaypoint = function() {
+            waypointDialog.show( {
+              name: self.name(),
+              type: self.type(),
+              latlng: self.position(),
+            }, function( props ) {
+              jquery.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/svc/getapt',
+                data: JSON.stringify({
+                    'command' : 'updateWaypoint',
+                    'id_token' : '',
+                    'id': self.id,
+                    'name': props.name,
+                    'type': props.type,
+                    'lat': props.latlng[0],
+                    'lng': props.latlng[1],
+                }),
+              })
+              .done(function() {
+                self.name( props.name );
+                self.type( props.type );
+                self.position( props.latlng );
+              })
+              .fail(function() {
+                  console.log('failed to save waypoint data');
+              });
+            });
+          }
+        }
 
         var ProcedureViewModel = function( props ) {
           var self = this;
+          var polyline = L.polyline([]);
+
           props = props || {
             id: -1,
             name: 'unnamed procedure',
@@ -15,9 +64,63 @@ define([
           self.name = ko.observable(props.name);
           self.runways = ko.observable(props.runways);
           self.type = ko.observable(props.type);
+          self.waypoints = ko.observableArray([]);
+          self.expanded = ko.observable(false);
 
-          self.valueEdit = function( val, evt ) {
+          self.waypoints.subscribe( function(newValue) {
+            var latlngs = [];
+            newValue.forEach( function(wpt) {
+              latlngs.push( wpt.position() );
+            });
+            polyline.setLatLngs( latlngs );
+          });
+
+          self.expanded.subscribe( function(newValue) {
+            if( newValue ) {
+              polyline.addTo( map );
+              if( polyline.getLatLngs().length > 1 )
+                map.fitBounds(polyline.getBounds());
+            } else map.removeLayer( polyline );
+          });
+
+          props.waypoints.forEach( function(wpt) {
+            self.waypoints.push( new WaypointViewModel(wpt) );
+          });
+
+          self.clickProcedure = function( val, evt ) {
+            self.expanded( !self.expanded());
           }
+
+          self.addWpt = function( val, evt ) {
+            waypointDialog.setProcedureName( self.name() );
+            waypointDialog.show( {
+              name: '',
+              type: '',
+              latlng: [ '', '' ],
+            }, function( props ) {
+              jquery.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/svc/getapt',
+                data: JSON.stringify({
+                    'command' : 'newWaypoint',
+                    'id_token' : '',
+                    'procedure': self.id,
+                    'name': props.name,
+                    'type': props.type,
+                    'lat': props.latlng[0],
+                    'lng': props.latlng[1],
+                }),
+              })
+              .done(function() {
+                  self.waypoints.push( new WaypointViewModel( props ) );
+              })
+              .fail(function() {
+                  console.log('failed to save waypoint data');
+              });
+            }); // show
+          }
+
         }
 
         var ViewModel = function(params) {
@@ -31,7 +134,6 @@ define([
           });
 
           function loadAirport(icao) {
-console.log("load ", icao );
 
             if( geoJson ) map.removeLayer( geoJson );
             geoJson = null;
@@ -65,9 +167,10 @@ console.log("load ", icao );
             });
           }
 
+          self.showAirportInfo = ko.observable(true);
           self.procedures = ko.observableArray([]);
 
-          self.addNew = function( obj, evt ) {
+          self.addProcedure = function( obj, evt ) {
 
             var inplaceEditor = jquery(jquery('#inplace-editor-template').html());
 
@@ -85,13 +188,13 @@ console.log("load ", icao );
                 var val = val.trim();
                 var jqxhr = jquery.post('/svc/getapt', JSON.stringify({
                     'command' : 'newProcedure',
+                    'id_token' : '',
                     'icao': self.airportId(),
                     'name': val,
                     'type': 'Star',
                     'runways': 'All',
                 })).done(function(data){
                      // trigger a data reload
-console.log("trigger load");
                      loadAirport(self.airportId());
                 });
            }

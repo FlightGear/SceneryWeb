@@ -1,7 +1,7 @@
 define(
-  ['leaflet-tilegrid', 'leaflet-coordinates', 'leaflet-contextmenu' ], 
+  ['jquery', 'leaflet-tilegrid', 'leaflet-coordinates', 'leaflet-contextmenu' ], 
 
-function() {
+function(jquery) {
 
         function getRequestParameter(name) {
            if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
@@ -110,7 +110,7 @@ function() {
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             {
                 minZoom : 3,
-                maxZoom : 18,
+                maxZoom : 19,
                 attribution : 'Map data &copy; <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> contributors'
             }).addTo(map);
 
