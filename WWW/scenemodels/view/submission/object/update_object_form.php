@@ -75,9 +75,7 @@ $id_family = $modelMDToUp->getModelsGroup()->getId();
 
 if (!$modelMDToUp->getModelsGroup()->isStatic()) {
     // Show all the families other than the static family
-    // TODO move it to controller layer
-    $modelsGroups = $modelDaoRO->getModelsGroups();
-
+    
     // Start the select form
     echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_models();\">";
     foreach ($modelsGroups as $modelsGroup) {

@@ -107,6 +107,7 @@ class UpdateObjectsController extends RequestController {
         $objToUpPos = $objectToUp->getPosition();
         $modelMDToUp = $this->getModelDaoRO()->getModelMetadata($objectToUp->getModelId());
         $countries = $this->objectDaoRO->getCountries();
+        $modelsGroups = $this->getModelDaoRO()->getModelsGroups();
         
         $defaultLat = $objToUpPos->getLatitude();
         if (\FormChecker::isLatitude($this->getVar('lat'))) {
