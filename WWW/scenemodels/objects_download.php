@@ -26,8 +26,6 @@ require 'view/header.php';
 <img src="/img/download.png" width="720"
      height="450" usemap="#map" alt="Map"/>
 <map name="map" id="map">
-<area shape="rect" coords="360,200,380,225" href="http://sourceforge.net/projects/flightgear/files/scenery/GlobalObjects.tgz/download" alt="GlobalObjects.tgz  3.97 Mb  10/15/2005"/>
-<area shape="rect" coords="360,200,380,225" href="http://sourceforge.net/projects/flightgear/files/scenery/SharedModels.tgz/download" alt="SharedModels.tgz  0.71 Mb  10/15/2005"/>
 <area shape="rect" coords="360,200,380,225" href="http://flightgear.sourceforge.net/scenery/e000n00.tgz" alt="e000n00.tgz  0.00 Mb  10/15/2005"/>
 <area shape="rect" coords="360,175,380,200" href="http://flightgear.sourceforge.net/scenery/e000n10.tgz" alt="e000n10.tgz  0.00 Mb  10/15/2005"/>
 <area shape="rect" coords="360,150,380,175" href="http://flightgear.sourceforge.net/scenery/e000n20.tgz" alt="e000n20.tgz  0.00 Mb  10/15/2005"/>
