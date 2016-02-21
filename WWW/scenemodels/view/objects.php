@@ -82,6 +82,11 @@ require 'view/header.php';
                 $prev = $offset-$pagesize;
                 $next = $offset+$pagesize;
 
+                $filter_text = "&amp;model=".$model."&amp;groupid=".$groupid."&amp;elevation=".$elevation.
+                    "&amp;elevoffset=".$elevoffset."&amp;heading=".$heading.
+                    "&amp;lat=".$lat."&amp;lon=".$lon.
+                    "&amp;country=".$countryId."&amp;description=".$description;
+                
                 if ($prev >= 0) {
                     echo "<a href=\"app.php?c=Objects&amp;a=search&amp;filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
                 }

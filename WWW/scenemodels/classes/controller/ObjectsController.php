@@ -53,7 +53,6 @@ class ObjectsController extends ControllerMenu {
     }
     
     public function searchAction() {
-        $filter_text="";
         $criteria = array();
         $pagesize = 20;
         
@@ -64,8 +63,6 @@ class ObjectsController extends ControllerMenu {
 
         $model = $this->getVar('model');
         if ($model != null && \FormChecker::isModelId($model)){
-            $filter_text .= "&amp;model=".$model;
-
             $criteria[] = new Criterion("ob_model", Criterion::OPERATION_EQ, $model, Criterion::INTTYPE);
         } else {
             $model = "";
@@ -73,8 +70,6 @@ class ObjectsController extends ControllerMenu {
 
         $groupid = $this->getVar('groupid');
         if ($groupid != null && \FormChecker::isModelGroupId($groupid)){
-            $filter_text .= "&amp;groupid=".$groupid;
-
             $criteria[] = new Criterion("ob_group", Criterion::OPERATION_EQ, $groupid, Criterion::INTTYPE);
         } else {
             $groupid = "";
@@ -84,7 +79,6 @@ class ObjectsController extends ControllerMenu {
         if ($elevation != null && \FormChecker::isGndElevation($elevation)){
             $min = $elevation-25;
             $max = $elevation+25;
-            $filter_text .= "&amp;elevation=".$elevation;
 
             $criteria[] = new Criterion("ob_gndelev", Criterion::OPERATION_GT, $min, Criterion::INTTYPE);
             $criteria[] = new Criterion("ob_gndelev", Criterion::OPERATION_LT, $max, Criterion::INTTYPE);
@@ -96,7 +90,6 @@ class ObjectsController extends ControllerMenu {
         if ($elevoffset != null && \FormChecker::isOffset($elevoffset)){
             $min = $elevoffset-25;
             $max = $elevoffset+25;
-            $filter_text .= "&amp;elevoffset=".$elevoffset;
 
             $criteria[] = new Criterion("ob_elevoffset", Criterion::OPERATION_GT, $min, Criterion::INTTYPE);
             $criteria[] = new Criterion("ob_elevoffset", Criterion::OPERATION_LT, $max, Criterion::INTTYPE);
@@ -108,7 +101,6 @@ class ObjectsController extends ControllerMenu {
         if ($heading != null && \FormChecker::isHeading($heading)){
             $min = $heading-5;
             $max = $heading+5;
-            $filter_text .= "&amp;heading=".$heading;
 
             $criteria[] = new Criterion("ob_heading", Criterion::OPERATION_GT, $min, Criterion::INTTYPE);
             $criteria[] = new Criterion("ob_heading", Criterion::OPERATION_LT, $max, Criterion::INTTYPE);
@@ -118,8 +110,6 @@ class ObjectsController extends ControllerMenu {
 
         $lat = $this->getVar('lat');
         if ($lat != null && \FormChecker::isLatitude($lat)){
-            $filter_text .= "&amp;lat=".$lat;
-
             $criteria[] = new Criterion("CAST (ST_Y(wkb_geometry) AS text)", Criterion::OPERATION_LIKE_BEGIN, $lat, Criterion::INTTYPE);
         } else {
             $lat = "";
@@ -127,8 +117,6 @@ class ObjectsController extends ControllerMenu {
 
         $lon = $this->getVar('lon');
         if ($lon != null && \FormChecker::isLongitude($lon)){
-            $filter_text .= "&amp;lon=".$lon;
-
             $criteria[] = new Criterion("CAST (ST_X(wkb_geometry) AS text)", Criterion::OPERATION_LIKE_BEGIN, $lon, Criterion::INTTYPE);
         } else {
             $lon = "";
@@ -136,8 +124,6 @@ class ObjectsController extends ControllerMenu {
 
         $countryId = $this->getVar('country');
         if ($countryId != null && \FormChecker::isCountryId($countryId)){
-            $filter_text .= "&amp;country=".$countryId;
-
             $criteria[] = new Criterion("ob_country", Criterion::OPERATION_EQ, $countryId, Criterion::STRINGTYPE);
         } else {
             $countryId = "";
@@ -145,8 +131,6 @@ class ObjectsController extends ControllerMenu {
 
         $description = $this->getVar('description');
         if ($description != null && \FormChecker::isObtext($description)){
-            $filter_text .= "&amp;description=".$description;
-
             $criteria[] = new Criterion("ob_text", Criterion::OPERATION_LIKE, $_REQUEST['description'], Criterion::STRINGTYPE);
         } else {
             $description = "";
