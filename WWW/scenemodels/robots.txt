@@ -3,5 +3,4 @@ Disallow: /submission/
 Disallow: /tmp/
 Disallow: /svc/
 Disallow: /update/
-Disallow: /objects.php
 Disallow: /app.php

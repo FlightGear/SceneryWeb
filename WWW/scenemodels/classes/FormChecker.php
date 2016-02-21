@@ -57,7 +57,7 @@ class FormChecker {
      * @return bool true if the given id is a model group id, false otherwise
      */
     static public function isModelGroupId($idToCheck) {
-        return preg_match(self::$regex['modelgroupid'], $idToCheck);
+        return preg_match(self::$regex['modelgroupid'], $idToCheck) && $idToCheck>0;
     }
 
     /**

@@ -59,7 +59,7 @@ if (!empty($modelMetadata->getDescription())) {
         <td>
 <?php
         if ($occurences > 0) {
-            echo "<a href=\"objects.php?model=".$id."\">".$occurences;
+            echo "<a href=\"app.php?c=Objects&amp;a=search&amp;model=".$id."\">".$occurences;
             echo $occurences > 1 ? " objects" : " object";
             echo "</a>";
         } else {

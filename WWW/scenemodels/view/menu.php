@@ -37,7 +37,7 @@
         </ul>
     </li>
     <li class="mainitems">
-        <div class="headerlinks"><a href="/objects.php">Objects</a></div>
+        <div class="headerlinks"><a href="/app.php?c=Objects&amp;a=search">Objects</a></div>
     </li>
     <li class="mainitems">
         <div class="headerlinks"><a href="/app.php?c=Authors&amp;a=browse">Authors</a></div>

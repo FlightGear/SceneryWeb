@@ -45,7 +45,7 @@ require 'view/header.php';
 ?>
         <tr class="bottom">
             <td colspan="2" align="center">
-                <a href="objects.php">More recently updated objects</a>
+                <a href="app.php?c=Objects&amp;a=search">More recently updated objects</a>
             </td>
         </tr>
     </table>
