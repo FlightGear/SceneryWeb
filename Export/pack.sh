@@ -17,9 +17,9 @@ done
 cd "$OUTPUTDIR"
 
 echo "rsyncing 10x10 tarballs"
-rsync -av --checksum [ew][01][0-9]0[ns][0-9]0.tgz torstendreyer,flightgear@web.sourceforge.net:htdocs/scenery/
+rsync -a [ew][01][0-9]0[ns][0-9]0.tgz web.sourceforge.net:htdocs/scenery/
 
 echo "rsyncing GlobalObjects.tgz and SharedModels.tgz"
-rsync -av --checksum GlobalObjects.tgz SharedModels.tgz torstendreyer,flightgear@web.sourceforge.net:/home/frs/project/flightgear/scenery/
+rsync -a GlobalObjects.tgz SharedModels.tgz web.sourceforge.net:/home/frs/project/flightgear/scenery/
 
 popd

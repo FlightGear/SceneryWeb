@@ -93,7 +93,7 @@ svn add --force --parents --depth infinity Objects Models || exit $?
 echo "committing to svn"
 svn ci -m "$TIMESTAMP" Models Objects || exit $?
 
-rsync -av --checksum  --delete Models Objects torstendreyer,flightgear@web.sourceforge.net:htdocs/scenery/
+rsync -a --checksum --delete Models Objects web.sourceforge.net:htdocs/scenery/
 
 `dirname $0`/pack.sh
 
