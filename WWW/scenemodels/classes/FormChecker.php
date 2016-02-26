@@ -32,6 +32,7 @@ class FormChecker {
         'model_filepath' => '/^[a-z0-9_\/.-]+$/i',
         'modelid' => '/^[0-9]+$/u',
         'modelgroupid' => '/^[0-9]+$/',
+        'objgroupid' => '/^[1-9][0-9]*$/',
         'modelname' => '/^[^|]+$/',
         'filename' => '/^[a-zA-Z0-9_.-]*$/u',
         'png_filename' => '/^[a-zA-Z0-9_.-]+\.(png|PNG)$/u',
@@ -57,7 +58,11 @@ class FormChecker {
      * @return bool true if the given id is a model group id, false otherwise
      */
     static public function isModelGroupId($idToCheck) {
-        return preg_match(self::$regex['modelgroupid'], $idToCheck) && $idToCheck>0;
+        return preg_match(self::$regex['modelgroupid'], $idToCheck);
+    }
+    
+    static public function isObjectGroupId($idToCheck) {
+        return preg_match(self::$regex['objgroupid'], $idToCheck);
     }
 
     /**

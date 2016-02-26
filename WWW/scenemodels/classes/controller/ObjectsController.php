@@ -69,7 +69,7 @@ class ObjectsController extends ControllerMenu {
         }
 
         $groupid = $this->getVar('groupid');
-        if ($groupid != null && \FormChecker::isModelGroupId($groupid)){
+        if ($groupid != null && \FormChecker::isObjectGroupId($groupid)){
             $criteria[] = new Criterion("ob_group", Criterion::OPERATION_EQ, $groupid, Criterion::INTTYPE);
         } else {
             $groupid = "";
