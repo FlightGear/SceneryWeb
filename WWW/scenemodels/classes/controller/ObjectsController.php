@@ -147,6 +147,6 @@ class ObjectsController extends ControllerMenu {
                     $this->getModelDaoRO()->getModelMetadata($object->getModelId())->getModelsGroup()->isStatic();
         }
         
-        include 'view/objects.php'; 
+        include 'view/objects.php';
     }
 }
