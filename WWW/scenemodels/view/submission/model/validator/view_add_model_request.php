@@ -103,14 +103,6 @@ include 'view/header.php';
             <td>
 <?php
             $texturesNames = $modelFiles->getTexturesNames();
-            $png_file_number = count($texturesNames);
-            if ($png_file_number <= 1) {
-                echo $png_file_number." texture file has been submitted:<br/>"; // Some eye caviar for the poor scenery maintainers.
-            } else {
-                echo $png_file_number." texture files have been submitted:<br/>";
-            }
-
-            // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             foreach ($texturesNames as $textureName) {
                 $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/app.php?c=AddModelValidator&a=getNewModelTexture&sig=".$sig."&name=".$textureName;
                 $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/app.php?c=AddModelValidator&a=getNewModelTextureTN&sig=".$sig."&name=".$textureName;
@@ -157,7 +149,7 @@ include 'view/header.php';
             <td><?php echo $newObjPos->getOrientation(); ?></td>
         </tr>
     </table>
-    <h3>Your decision</h3>
+    <h3>Conclusion</h3>
     <table>
         <tr>
             <td>Leave a comment to the submitter</td>
