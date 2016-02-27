@@ -37,86 +37,53 @@ include 'view/header.php';
 <p class="center">Email: <?=$request->getContributorEmail()?></p>
 
 <form id="validation" method="post" action="app.php?c=AddModelValidator&amp;a=actionOnRequest" onsubmit="return validateForm();">
-<table>
-    <tr>
-        <th>Data</th>
-        <th>Value</th>
-    </tr>
-    <tr>
-        <td>Author</td>
-        <td><?php echo ($newModelMD->getAuthor()->getId() != 1)?$newModelMD->getAuthor()->getName():"<strong>Unknown! must be added first!</strong>"; ?></td>
-    </tr>
-    <tr>
-        <td>Email</td>
-        <td><?php echo $request->getContributorEmail(); ?></td>
-    </tr>
-    <tr>
-        <td>Family</td>
-        <td><?php echo $newModelMD->getModelsGroup()->getName(); ?></td>
-    </tr>
-    <tr>
-        <td>Proposed Path Name</td>
-        <td><?php echo $newModelMD->getFilename(); ?></td>
-    </tr>
-    <tr>
-        <td>Full Name</td>
-        <td><?php echo htmlspecialchars($newModelMD->getName()); ?></td>
-    </tr>
-    <tr>
-        <td>Notes</td>
-        <td><?php echo htmlspecialchars($newModelMD->getDescription()); ?></td>
-    </tr>
-    <tr>
-        <td>Latitude</td>
-        <td><?php echo $newObjPos->getLatitude(); ?></td>
-    </tr>
-    <tr>
-        <td>Longitude</td>
-        <td><?php echo $newObjPos->getLongitude(); ?></td>
-    </tr>
-    <tr>
-        <td>Map</td>
-        <td>
-            <object data="/map/?lon=<?=$newObjPos->getLongitude()?>&amp;lat=<?=$newObjPos->getLatitude()?>&amp;z=14" type="text/html" width="320" height="240"></object>
-        </td>
-    </tr>
-    <tr>
-        <td>Country</td>
-        <td><?php echo $newObj->getCountry()->getName(); ?></td>
-    </tr>
-    <tr>
-        <td>Ground Elevation</td>
-        <td><?php echo $newObjPos->getGroundElevation(); ?></td>
-    </tr>
-    <tr>
-        <td>Elevation offset</td>
-        <td><?php echo $newObjPos->getElevationOffset(); ?></td>
-    </tr>
-    <tr>
-        <td>True DB orientation</td>
-        <td><?php echo $newObjPos->getOrientation(); ?></td>
-    </tr>
-    <tr>
-        <td>Corresponding Thumbnail</td>
-        <td><img src="app.php?c=AddModelValidator&amp;a=getNewModelThumb&amp;sig=<?=$sig?>" alt="Thumbnail"/></td>
-    </tr>
+    <h3>New model information</h3>
+    <table>
+        <tr>
+            <th>Data</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Author</td>
+            <td><?php echo ($newModelMD->getAuthor()->getId() != 1)?$newModelMD->getAuthor()->getName(). " (".$request->getContributorEmail().")":"<strong>Unknown! must be added first!</strong>"; ?></td>
+        </tr>
+        <tr>
+            <td>Family</td>
+            <td><?php echo $newModelMD->getModelsGroup()->getName(); ?></td>
+        </tr>
+        <tr>
+            <td>Proposed Path Name</td>
+            <td><?php echo $newModelMD->getFilename(); ?></td>
+        </tr>
+        <tr>
+            <td>Full Name</td>
+            <td><?php echo htmlspecialchars($newModelMD->getName()); ?></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><?php echo htmlspecialchars($newModelMD->getDescription()); ?></td>
+        </tr>
+        <tr>
+            <td>Corresponding Thumbnail</td>
+            <td><img src="app.php?c=AddModelValidator&amp;a=getNewModelThumb&amp;sig=<?=$sig?>" alt="Thumbnail"/></td>
+        </tr>
 <?php
     // Now (hopefully) trying to manage the AC3D + XML + PNG texture files stuff
     $modelFiles = $newModel->getModelFiles();
 ?>
-    <tr>
-        <td>Download</td>
-        <td><a href="app.php?c=AddModelValidator&amp;a=getNewModelPack&sig=<?=$sig?>">Download the submission as .tar.gz for external viewing.</a></td>
-    </tr>
-    <tr>
-        <td>Corresponding AC3D File</td>
-        <td>
-            <object data="app.php?c=AddModelValidator&amp;a=modelViewer&sig=<?=$sig?>" type="text/html" width="720" height="620"/>
-        </td>
-    </tr>
-    <tr>
-        <td>Corresponding XML File</td>
-        <td>
+        <tr>
+            <td>Download</td>
+            <td><a href="app.php?c=AddModelValidator&amp;a=getNewModelPack&sig=<?=$sig?>">Download the submission as .tar.gz for external viewing.</a></td>
+        </tr>
+        <tr>
+            <td>Corresponding AC3D File</td>
+            <td>
+                <object data="app.php?c=AddModelValidator&amp;a=modelViewer&sig=<?=$sig?>" type="text/html" width="720" height="620"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Corresponding XML File</td>
+            <td>
 <?php
             $xmlContent = $modelFiles->getXMLFile();
             // Geshi stuff
@@ -129,11 +96,11 @@ include 'view/header.php';
                 echo "No XML file submitted.";
             }
 ?>
-        </td>
-    </tr>
-    <tr>
-        <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Corresponding PNG Texture Files<br />(click on the pictures to get them bigger)</td>
+            <td>
 <?php
             $texturesNames = $modelFiles->getTexturesNames();
             $png_file_number = count($texturesNames);
@@ -158,21 +125,53 @@ include 'view/header.php';
                 echo $textureName." (Dim: ".$width."x".$height.")</a><br/>";
             }
 ?>
-        </td>
-    </tr>
-    <tr>
-        <td>Leave a comment to the submitter</td>
-        <td><input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter"/></td>
-    </tr>
-    <tr>
-        <td>Action</td>
-        <td class="submit">
-            <input type="hidden" name="sig" value="<?php echo $sig; ?>" />
-            <input type="submit" name="accept" value="Submit model" />
-            <input type="submit" name="reject" value="Reject model" />
-        </td>
-    </tr>
-</table>
+            </td>
+        </tr>
+    </table>
+    <h3>Object position</h3>
+    <table>
+        <tr>
+            <td>Latitude</td>
+            <td><?php echo $newObjPos->getLatitude(); ?></td>
+        </tr>
+        <tr>
+            <td>Longitude</td>
+            <td><?php echo $newObjPos->getLongitude(); ?></td>
+        </tr>
+        <tr>
+            <td>Map</td>
+            <td>
+                <object data="/map/?lon=<?=$newObjPos->getLongitude()?>&amp;lat=<?=$newObjPos->getLatitude()?>&amp;z=14" type="text/html" width="320" height="240"></object>
+            </td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td><?php echo $newObj->getCountry()->getName(); ?></td>
+        </tr>
+        <tr>
+            <td>Elevation offset</td>
+            <td><?php echo $newObjPos->getElevationOffset(); ?></td>
+        </tr>
+        <tr>
+            <td>True DB orientation</td>
+            <td><?php echo $newObjPos->getOrientation(); ?></td>
+        </tr>
+    </table>
+    <h3>Your decision</h3>
+    <table>
+        <tr>
+            <td>Leave a comment to the submitter</td>
+            <td><input type="text" name="maintainer_comment" size="85" placeholder="Drop a comment to the submitter"/></td>
+        </tr>
+        <tr>
+            <td>Action</td>
+            <td class="submit">
+                <input type="hidden" name="sig" value="<?php echo $sig; ?>" />
+                <input type="submit" name="accept" value="Submit model" />
+                <input type="submit" name="reject" value="Reject model" />
+            </td>
+        </tr>
+    </table>
 </form>
 <p class="center">This tool uses part of the following software: gl-matrix, by Brandon Jones, and Hangar, by Juan Mellado.</p>
 <?php

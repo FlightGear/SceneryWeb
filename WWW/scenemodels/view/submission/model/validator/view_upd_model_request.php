@@ -51,15 +51,14 @@ include 'view/header.php';
         <th>New Value</th>
     </tr>
     <tr>
-        <td>Author (Email)</td>
+        <td>Author</td>
         <td>
             <?php
-            echo $oldModelMD->getAuthor()->getName() . "(".$oldModelMD->getAuthor()->getEmail().")";
+            echo $oldModelMD->getAuthor()->getName() ." (".$oldModelMD->getAuthor()->getEmail().")";
             ?>
         </td>
         <td>
-            <?php echo $newModelMD->getAuthor()->getName()."(".$newModelMD->getAuthor()->getEmail().")"; ?>
-            <input type="hidden" name="email" value="<?php echo $newModelMD->getAuthor()->getEmail(); ?>" />
+            <?php echo $newModelMD->getAuthor()->getName()." (".$newModelMD->getAuthor()->getEmail().")"; ?>
         </td>
     </tr>
     <tr>
@@ -78,7 +77,7 @@ include 'view/header.php';
         <td><?php echo htmlspecialchars($newModelMD->getName()); ?></td>
     </tr>
     <tr>
-        <td>Notes</td>
+        <td>Description</td>
         <td><?php echo htmlspecialchars($oldModelMD->getDescription()); ?></td>
         <td><?php echo htmlspecialchars($newModelMD->getDescription()); ?></td>
     </tr>
