@@ -128,7 +128,7 @@ $(function() {
                         </select>
                     </td>
                     <td rowspan="4" style="width: 200px">
-                        <img id="form_objects_thumb" width="200px" src="app.php?c=Models&amp;a=thumbnail&amp;id=<?=$idToUpdate?>" alt=""/>
+                        <img id="form_objects_thumb" style="width: 200px" src="app.php?c=Models&amp;a=thumbnail&amp;id=<?=$idToUpdate?>" alt=""/>
                     </td>
                 </tr>
                 <tr>
@@ -151,7 +151,7 @@ $(function() {
                     <td>
                         <label for="ac3d_file">AC3D file<em>*</em><span >This is the AC3D file of your model (eg: tower.ac).</span></label>
                     </td>
-                    <td colspan="2">
+                    <td>
                         <input type="file" name="ac3d_file" id="ac3d_file" />
                     </td>
                 </tr>

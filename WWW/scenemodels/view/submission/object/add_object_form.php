@@ -76,7 +76,7 @@ $(function() {
             <table>
                 <tr>
                     <td><label for="model_group_id">Object's family<em>*</em><span>This is the family name of the object you want to add.</span></label></td>
-                    <td colspan="2">
+                    <td>
             <?php
                         // Start the select form
                         echo "<select id=\"model_group_id\" name=\"model_group_id\" onchange=\"update_models(null,'modelId1'); validateTabs();\">" .
@@ -97,9 +97,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        Model thumbnail
-                    </td>
+                    <td>Model thumbnail</td>
                     <td>
                         <img id="form_objects_thumb" src="" alt=""/>
                     </td>

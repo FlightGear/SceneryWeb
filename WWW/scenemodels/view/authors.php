@@ -15,7 +15,7 @@ require 'view/header.php';
     foreach ($authors as $author){
         echo "<tr>" .
                  "<td style=\"width: 25%\">\n" .
-                     "<b><a href=\"app.php?c=Authors&amp;a=view&amp;id=".$author->getId()."\">".$author->getName()."</a><b/>" .
+                     "<b><a href=\"app.php?c=Authors&amp;a=view&amp;id=".$author->getId()."\">".$author->getName()."</a></b>" .
                  "</td>" .
                  "<td>".$author->getDescription()."</td>" .
              "</tr>";
