@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Automated Objects Deletion Form";
+$pageTitle = "Objects deletion form";
 require 'view/header.php';
 ?>
 
@@ -17,10 +17,10 @@ function validateForm()
 /*]]>*/
 </script>
 
-<h1>Positions Automated Deletion Form</h1>
+<h1>Objects deletion form</h1>
 
 <p class="center">
-  <b>Foreword:</b> This automated form goal is to ease the deletion of objects within FG Scenery database.
+  <b>Foreword:</b> This form's goal is to ease the deletion of objects within FG Scenery database.
   <br />There are currently <?php echo $countObjs?> objects in the database.
 </p>
 

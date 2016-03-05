@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Automated Objects Massive Import Submission Form";
+$pageTitle = "Objects massive addition form";
 require 'view/header.php';
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>

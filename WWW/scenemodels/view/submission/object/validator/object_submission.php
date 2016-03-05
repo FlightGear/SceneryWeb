@@ -1,6 +1,6 @@
 <?php
 
-$pageTitle = "Automated Objects Pending Requests Form";
+$pageTitle = "Objects pending requests form";
 include 'view/header.php';
 echo "<p class=\"center\">Request #". $request->getId()."</p>" .
      "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>".

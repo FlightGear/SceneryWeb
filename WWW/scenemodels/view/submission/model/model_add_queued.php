@@ -1,6 +1,6 @@
 <?php
 
-$pageTitle = "Automated Models Submission Form";
+$pageTitle = "Models addition form";
 include 'view/header.php';
 ?>
 

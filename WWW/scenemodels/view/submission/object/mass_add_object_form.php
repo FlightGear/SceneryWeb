@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Automated Objects Massive Import Submission Form";
+$pageTitle = "Objects massive addition form";
 require 'view/header.php';
 ?>
 <script src="/inc/js/check_form.js" type="text/javascript"></script>
@@ -17,7 +17,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-<h1>Automated Objects Massive Import Submission Form</h1>
+<h1>Objects massive addition form</h1>
 
 <p>
   There are currently <?php echo number_format($nbObjects, '0', '', ' ');?> objects in the database.

@@ -24,7 +24,7 @@
 include_once 'inc/geshi/geshi.php';
 
 
-$pageTitle = "Automated Models Submission Form";
+$pageTitle = "Models update form";
 
 // Working on the model, now
 $newModel = $request->getNewModel();

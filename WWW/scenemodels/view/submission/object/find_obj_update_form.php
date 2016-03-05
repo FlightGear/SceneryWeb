@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Automated Objects Update Form";
+$pageTitle = "Objects update form";
 require 'view/header.php';
 ?>
 
@@ -19,7 +19,7 @@ function validateForm()
 /*]]>*/
 </script>
 
-<h1>Objects Automated Update Form</h1>
+<h1>Objects update form</h1>
 
 <p>
     Through this form you can update a shared or static object (eg. windturbine, power pylon, Eiffel Tower) at a given location. You can alternatively look for the object on <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/coverage.php">the map</a> if you are unsure of the exact coordinates of the object.

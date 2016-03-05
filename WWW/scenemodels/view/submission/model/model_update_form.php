@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Automated Models Submission Form";
+$pageTitle = "Models update form";
 require 'view/header.php';
 ?>
 <script type="text/javascript" src="/inc/js/check_form.js"></script>

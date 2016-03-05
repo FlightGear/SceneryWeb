@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Automated Models Submission Form";
+$pageTitle = "Models addition form";
 require 'view/header.php';
 ?>
 <script type="text/javascript" src="/inc/js/update_objects.js"></script>
@@ -110,7 +110,7 @@ $(function() {
 <h1>Submit a model</h1>
 
 <p>
-    This automated form goal is to ease the submission of static and shared 3D models into the FlightGear scenery database.
+    This form goal is to ease the submission of static and shared 3D models into the FlightGear scenery database.
     There are currently <?php echo number_format($nbModels, '0', '', ' '); ?> unique models in <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/models.php">our database</a>. Help us to make it more!
 </p>
 <p>

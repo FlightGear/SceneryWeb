@@ -1,6 +1,6 @@
 <?php
 
-$pageTitle = "Automated Objects Addition Requests Form";
+$pageTitle = "Objects addition requests form";
 include 'view/header.php';
 echo "<p class=\"center\">Request #". $request->getId()."</p>";
 echo "<p class=\"center\">Email: ".$request->getContributorEmail()."</p>";

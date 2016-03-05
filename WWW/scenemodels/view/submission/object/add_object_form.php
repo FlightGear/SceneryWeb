@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Automated Objects Submission Form";
+$pageTitle = "Objects addition form";
 $body_onload = "update_models();";
 include 'view/header.php';
 ?>
@@ -53,10 +53,10 @@ $(function() {
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" type="text/css"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
 
-<h1>Automated Objects Submission Form</h1>
+<h1>Objects addition form</h1>
 
 <p>
-    This automated form's goal is to ease the submission of objects into the FlightGear Scenery database. There are currently <?php echo number_format($nbObjects, '0', '', ' ');?> objects in the database. Help us to make it more!<br/>
+    This form's goal is to ease the submission of objects into the FlightGear Scenery database. There are currently <?php echo number_format($nbObjects, '0', '', ' ');?> objects in the database. Help us to make it more!<br/>
     Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what recommandations this script is looking for.<br />
     If you need some more help, just place your mouse over the left column (eg "Elevation Offset").
 </p>

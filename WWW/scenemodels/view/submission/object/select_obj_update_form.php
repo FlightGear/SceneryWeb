@@ -1,7 +1,7 @@
 <?php
 // If we have more than one object, the user has to choose...
 
-$pageTitle = "Automated Objects Update Form";
+$pageTitle = "Objects update form";
 include 'view/header.php';
 
 echo "<p class=\"center\">".count($objects)." object(s) with WGS84 coordinates longitude: ".$long.", latitude: ".$lat." were found in the database.<br />Please select with the left radio button the one you want to update.</p>";

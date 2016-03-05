@@ -1,6 +1,6 @@
 <?php
 // Talking back to submitter.
-$pageTitle = "Automated Objects Update Form";
+$pageTitle = "Objects update form";
 include 'view/header.php';
 
 // Display email if exists
