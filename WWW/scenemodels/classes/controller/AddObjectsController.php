@@ -100,7 +100,7 @@ class AddObjectsController extends RequestController {
             $objectValidator = \submission\ObjectValidator::getObjectValidator($modelId, $long, $lat, $countryId, $offset, $heading);
             $objErrors = $objectValidator->validate();
             
-            if (count($objErrors) == 0) {
+            if (empty($objErrors)) {
                 $modelMD = $this->getModelDaoRO()->getModelMetadata($modelId);
                 $modelMDs[$modelId] = $modelMD;
 
@@ -283,7 +283,7 @@ class AddObjectsController extends RequestController {
         $objectValidator = \submission\ObjectValidator::getObjectValidator($modelId, $long, $lat, $countryId, $elevoffset, $orientation);
         $errors = array_merge($errors, $objectValidator->validate());
 
-        if (count($errors) == 0) {
+        if (empty($errors)) {
             $newObject = $objectFactory->createObject(-1, $modelId, $long, $lat, $countryId, 
                         $elevoffset, \ObjectUtils::headingSTG2True($orientation), 1, $modelMD->getName());
             $objectLineRequest->setObject($newObject);

@@ -36,7 +36,7 @@ class ModelsController extends ControllerMenu {
         $offset = $this->getVar('offset');
         $pagesize = 99;
         
-        if ($offset == null) {
+        if ($offset == null || !preg_match(\FormChecker::$regex['pageoffset'],$offset)) {
             $offset = 0;
         }
         
@@ -50,6 +50,26 @@ class ModelsController extends ControllerMenu {
         }
         
         include 'view/modelbrowser.php';
+    }
+    
+    public function browseRecentAction() {
+        $offset = $this->getVar('offset');
+        if($offset == null || !preg_match(\FormChecker::$regex['pageoffset'],$offset)){
+            $offset=0;
+        }
+
+        $pagesize = 10;
+        
+        $modelMetadatas = $this->getModelDaoRO()->getModelMetadatas($offset, $pagesize);
+        
+        $objectsByModel = array();
+        foreach ($modelMetadatas as $modelMetadata) {
+            if ($modelMetadata->getModelsGroup()->isStatic()) {
+                $objectsByModel[$modelMetadata->getName()] = $this->objectDaoRO->getObjectsByModel($modelMetadata->getId());
+            }
+        }
+        
+        include 'view/models.php';
     }
     
     /**

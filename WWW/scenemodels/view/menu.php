@@ -20,7 +20,7 @@
         </ul>
     </li>
     <li class="mainitems">
-        <div class="headerlinks"><a href="/models.php">Models</a></div>
+        <div class="headerlinks"><a href="/app.php?c=Models&amp;a=browseRecent">Models</a></div>
         <ul class="submenus">
             <li><a href="/app.php?c=Models&amp;a=browse">Browse all</a></li>
 <?php

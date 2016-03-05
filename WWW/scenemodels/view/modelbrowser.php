@@ -1,6 +1,7 @@
 <?php
 require 'view/header.php';
 ?>
+<script src="inc/js/image_trail.js" type="text/javascript"></script>
 
 <h1><?php echo $title;?></h1>
 <table>
@@ -12,8 +13,6 @@ require 'view/header.php';
     </tr>
     <tr>
         <td>
-        <script type="text/javascript">var noPicture = false</script>
-        <script src="inc/js/image_trail.js" type="text/javascript"></script>
         <div id="trailimageid" style="position:absolute;z-index:10000;overflow:visible"></div>
 <?php
         foreach ($modelMetadatas as $modelMetadata) {

@@ -101,7 +101,7 @@ class ModelFilesValidator implements Validator {
             xml_parser_free($xmlParser);
         }
 
-        if (count($errors) == 0) {
+        if (empty($errors)) {
             // Check if <path> == $ac3dName
             $xmlcontent = simplexml_load_file($xmlPath);
             if ($this->ac3dName != $xmlcontent->path) {

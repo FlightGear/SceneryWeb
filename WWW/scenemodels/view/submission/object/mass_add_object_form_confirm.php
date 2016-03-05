@@ -94,7 +94,7 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
     }
 
     
-    if (count($objectLineRequest->getErrors()) > 0) {
+    if (!empty($objectLineRequest->getErrors())) {
         echo "<td style='background-color: rgb(200, 0, 0);'>";
         foreach ($objectLineRequest->getErrors() as $error) {
             echo $error->getMessage()."<br/>";
@@ -102,7 +102,7 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
         echo "</td>";
 
         $global_ko = true;
-    } else if (count($objectLineRequest->getWarnings()) > 0) {
+    } else if (!empty($objectLineRequest->getWarnings())) {
         echo "<td style='background-color: rgb(255, 200, 0);'>";
         foreach ($objectLineRequest->getWarnings() as $warning) {
             echo $warning->getMessage()."<br/>";
@@ -131,7 +131,8 @@ echo "<b>Your comment:</b> ".htmlspecialchars($sentComment)."<br/>" .
      "<input type='hidden' name='email' id='email' value='".$safeEmail."'/>" .
      "<input type='hidden' name='comment' id='comment' value='".htmlspecialchars($sentComment)."'/>";
 
-if ($global_ko) { // If errors have been found...
+// If errors have been found...
+if ($global_ko) {
     echo "<p class=\"center warning\">Errors have been found in your submission. Please <a href='javascript:history.go(-1)'>go back</a> and correct or delete the corresponding lines from your submission before submitting again.</p>";
 
     include 'view/footer.php';

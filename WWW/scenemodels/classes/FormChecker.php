@@ -58,11 +58,11 @@ class FormChecker {
      * @return bool true if the given id is a model group id, false otherwise
      */
     static public function isModelGroupId($idToCheck) {
-        return preg_match(self::$regex['modelgroupid'], $idToCheck);
+        return preg_match(static::$regex['modelgroupid'], $idToCheck);
     }
     
     static public function isObjectGroupId($idToCheck) {
-        return preg_match(self::$regex['objgroupid'], $idToCheck);
+        return preg_match(static::$regex['objgroupid'], $idToCheck);
     }
 
     /**
@@ -71,7 +71,7 @@ class FormChecker {
      * @return bool true if the given id is a model id, false otherwise
      */
     static public function isModelId($idToCheck) {
-        return preg_match(self::$regex['modelid'], $idToCheck)
+        return preg_match(static::$regex['modelid'], $idToCheck)
                && $idToCheck > 0;
     }
 
@@ -82,7 +82,7 @@ class FormChecker {
      * @return bool true if the name is a model name, false otherwise
      */
     static public function isModelName($name) {
-        return preg_match(self::$regex['modelname'], $name);
+        return preg_match(static::$regex['modelname'], $name);
     }
 
     /**
@@ -92,7 +92,7 @@ class FormChecker {
      */
     static public function isObjectId($idToCheck) {
         return $idToCheck > 0
-               && preg_match(self::$regex['objectid'], $idToCheck);
+               && preg_match(static::$regex['objectid'], $idToCheck);
     }
 
     /**
@@ -102,7 +102,7 @@ class FormChecker {
      */
     static public function isAuthorId($idToCheck) {
         return $idToCheck > 0
-               && preg_match(self::$regex['authorid'], $idToCheck);
+               && preg_match(static::$regex['authorid'], $idToCheck);
     }
 
     /**
@@ -114,7 +114,7 @@ class FormChecker {
         return strlen($value) <= 20
                && $value <= 90
                && $value >= -90
-               && preg_match(self::$regex['long_lat'], $value);
+               && preg_match(static::$regex['long_lat'], $value);
     }
 
     /**
@@ -126,7 +126,7 @@ class FormChecker {
         return strlen($value) <= 20
                && $value <= 180
                && $value >= -180
-               && preg_match(self::$regex['long_lat'], $value);
+               && preg_match(static::$regex['long_lat'], $value);
     }
 
     /**
@@ -136,7 +136,7 @@ class FormChecker {
      */
     static public function isCountryId($value) {
         return $value != ""
-               && preg_match(self::$regex['countryid'], $value);
+               && preg_match(static::$regex['countryid'], $value);
     }
 
     /**
@@ -146,7 +146,7 @@ class FormChecker {
      */
     static public function isGndElevation($value) {
         return strlen($value) <= 20
-               && preg_match(self::$regex['gndelevation'], $value);
+               && preg_match(static::$regex['gndelevation'], $value);
     }
 
     /**
@@ -156,7 +156,7 @@ class FormChecker {
      */
     static public function isOffset($value) {
         return strlen($value) <= 20
-               && preg_match(self::$regex['offset'], $value)
+               && preg_match(static::$regex['offset'], $value)
                && $value < 1000
                && $value > -1000;
     }
@@ -165,7 +165,7 @@ class FormChecker {
     // ================================================
     static public function isHeading($value) {
         return strlen($value) <= 20
-               && preg_match(self::$regex['heading'], $value)
+               && preg_match(static::$regex['heading'], $value)
                && $value < 360
                && $value >= 0;
     }
@@ -174,14 +174,14 @@ class FormChecker {
     // ================================================
     static public function isComment($value) {
         return strlen($value) <= 100
-               && preg_match(self::$regex['comment'], $value);
+               && preg_match(static::$regex['comment'], $value);
     }
 
     // Checks if the given variable is a valid email address
     // ================================================
     static public function isEmail($value) {
         return strlen($value) <= 50
-               && preg_match(self::$regex['email'], $value);
+               && preg_match(static::$regex['email'], $value);
     }
 
     /**
@@ -191,31 +191,31 @@ class FormChecker {
      */
     static public function isSig($value) {
         return strlen($value) == 64
-               && preg_match(self::$regex['sig'], $value);
+               && preg_match(static::$regex['sig'], $value);
     }
    
     // Checks if the given variable is a AC3D filename
     // ================================================
     static public function isAC3DFilename($filename) {
-        return preg_match(self::$regex['ac3d_filename'], $filename);
+        return preg_match(static::$regex['ac3d_filename'], $filename);
     }
    
     // Checks if the given variable is a PNG filename
     // ================================================
     static public function isPNGFilename($filename) {
-        return preg_match(self::$regex['png_filename'], $filename);
+        return preg_match(static::$regex['png_filename'], $filename);
     }
    
     // Checks if the given variable is a XML filename
     // ================================================
     static public function isXMLFilename($filename) {
-        return preg_match(self::$regex['xml_filename'], $filename);
+        return preg_match(static::$regex['xml_filename'], $filename);
     }
    
     // Checks if the given variable is a filename
     // ================================================
     static public function isFilename($filename) {
-        return preg_match(self::$regex['filename'], $filename);
+        return preg_match(static::$regex['filename'], $filename);
     }
    
     /**
@@ -226,7 +226,7 @@ class FormChecker {
     static public function isObtext($value) {
         return strlen($value) > 0
                 && strlen($value) <= 100
-                && preg_match(self::$regex['obtext'], $value);
+                && preg_match(static::$regex['obtext'], $value);
     }
 
     /**
@@ -235,10 +235,10 @@ class FormChecker {
      * @return bool true if the value is a filepath, false otherwise
      */
     static public function isFilePath($value) {
-        return preg_match(self::$regex['model_filepath'], $value);
+        return preg_match(static::$regex['model_filepath'], $value);
     }
     
     static public function isStgLines($value) {
-        return preg_match(self::$regex['stg'], $value);
+        return preg_match(static::$regex['stg'], $value);
     }
 }

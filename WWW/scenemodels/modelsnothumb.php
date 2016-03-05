@@ -72,12 +72,10 @@ $pagesize = 20;
         echo "<li><a href=\"app.php?c=Models&a=view&id=".$modelMetadata->getId()."\">View more about this model.</a></li>";
         echo "</ul>";
         echo "</td>";
-        if ($odd) {
-            $odd = false;
-        } else {
+        if (!$odd) {
             echo "</tr>";
-            $odd = true;
         }
+        $odd = !$odd;
     }
 ?>
     <tr class="bottom">

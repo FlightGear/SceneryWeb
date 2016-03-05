@@ -21,7 +21,7 @@ abstract class PgSqlDAO {
      */
     protected function generateWhereClauseCriteria($criteria) {
         $whereClause = "";
-        if (isset($criteria) && count($criteria)>0) {
+        if (isset($criteria) && !empty($criteria)) {
             $whereClause = "";
             $and = '';
             foreach ($criteria as $criterion) {

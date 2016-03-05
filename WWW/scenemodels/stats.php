@@ -231,7 +231,7 @@ require 'view/header.php';
             pg_result_seek($result,0);
             $i = 0;
             $list = "";
-            while ($row = pg_fetch_assoc($result) and $i < 20) {
+            while ($row = pg_fetch_assoc($result) && $i < 20) {
                 $country = rtrim($row['co_name']);
                 if ($country != "Unknown") {
                     $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
@@ -254,7 +254,7 @@ require 'view/header.php';
         
             $i = 0;
             $list = "";
-            while ($row = pg_fetch_assoc($result) and $i < 20) {
+            while ($row = pg_fetch_assoc($result) && $i < 20) {
                 $country = rtrim($row['co_name']);
                 if ($country != "Unknown") {
                     $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
@@ -372,7 +372,7 @@ require 'view/header.php';
 <h1>FlightGear Scenery Statistics</h1>
 <?php
 
-echo "<p class=\"center\">The database currently contains <a href=\"models.php\">".number_format($models, '0', '', ',')." models</a> placed in the scenery as <a href=\"app.php?c=Objects&amp;a=search\">".number_format($objects, '0', '', ',')." seperate objects</a>, plus ".number_format($signs, '0', '', ',')." taxiway signs.</p>\n";
+echo "<p class=\"center\">The database currently contains <a href=\"app.php?c=Models&amp;a=browseRecent\">".number_format($models, '0', '', ',')." models</a> placed in the scenery as <a href=\"app.php?c=Objects&amp;a=search\">".number_format($objects, '0', '', ',')." seperate objects</a>, plus ".number_format($signs, '0', '', ',')." taxiway signs.</p>\n";
 ?>
     
     <table class="left">

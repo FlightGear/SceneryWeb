@@ -72,7 +72,7 @@ class DeleteObjectsController extends RequestController {
         }
         
         if ($error) {
-            $pageTitle = "Automated Objects Deletion Form";
+            $pageTitle = "Objects deletion form";
             // $errorText is defined above
             include 'view/error_page.php';
             return;
@@ -82,8 +82,8 @@ class DeleteObjectsController extends RequestController {
         $candidateObjects = $this->objectDaoRO->getObjectsAt($long, $lat);
 
         // We have no result
-        if (count($candidateObjects) == 0) {
-            $pageTitle = "Automated Objects Deletion Form";
+        if (empty($candidateObjects)) {
+            $pageTitle = "Objects deletion form";
             $errorText = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.". Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
             include 'view/error_page.php';
             return;
@@ -168,7 +168,7 @@ class DeleteObjectsController extends RequestController {
         }
         
         // Final step to edition
-        if (count($errors) == 0) {
+        if (empty($errors)) {
             $objectToDel = $this->objectDaoRO->getObject($objToDelId);
             $modelMD = $this->getModelDaoRO()->getModelMetadata($objectToDel->getModelId());
 

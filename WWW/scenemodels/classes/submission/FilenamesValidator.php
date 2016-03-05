@@ -61,7 +61,7 @@ class FilenamesValidator implements Validator {
             }
         }
 
-        if (count($exceptions) == 0 && 
+        if (empty($exceptions) && 
                 $this->xmlName != "" && $this->nameWithoutExtension($this->ac3dName) != $this->nameWithoutExtension($this->xmlName)) {
             $exceptions[] = new \Exception("XML and AC files <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$this->xmlName."), tower.ac (currently ".$this->ac3dName.")).");
         }

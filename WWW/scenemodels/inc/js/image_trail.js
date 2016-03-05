@@ -92,11 +92,7 @@ function followmouse(e){
 
     if (typeof e != "undefined"){
         if (docwidth - e.pageX < itemWidth + 50){
-            if (noPicture == "yes") {
-                xcoord = e.pageX - xcoord - itemWidth; // Move to the left side of the cursor
-            } else {
-                xcoord = e.pageX - xcoord - itemWidth; // Move to the left side of the cursor
-            }
+            xcoord = e.pageX - xcoord - itemWidth; // Move to the left side of the cursor
         } else {
             xcoord += e.pageX;
         }
@@ -108,11 +104,7 @@ function followmouse(e){
 
     } else if (typeof window.event != "undefined"){
         if (docwidth - event.clientX < itemWidth + 50){
-            if (noPicture == "yes") {
-                xcoord = event.clientX + truebody().scrollLeft - xcoord - itemWidth; // Move to the left side of the cursor
-            } else {
-                xcoord = event.clientX + truebody().scrollLeft - xcoord - itemWidth; // Move to the left side of the cursor
-            }
+            xcoord = event.clientX + truebody().scrollLeft - xcoord - itemWidth; // Move to the left side of the cursor
         } else {
             xcoord += truebody().scrollLeft+event.clientX
         }

@@ -68,7 +68,7 @@ require 'view/header.php';
 ?>
         <tr class="bottom">
             <td colspan="2" align="center">
-                <a href="models.php">More recently updated models</a>
+                <a href="app.php?c=Models&amp;a=browseRecent">More recently updated models</a>
             </td>
         </tr>
     </table>

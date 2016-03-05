@@ -31,7 +31,7 @@ $objPos = $object->getPosition();
         <td><?php
             $country = $object->getCountry();
             if ($country->getCode() != "zz" && ""!=$country->getCode()) {
-                echo ("<a href=\"app.php?c=Objects&amp;a=search&amp;country=".$country->getCode()."\">".$country->getName()."</a>");
+                echo "<a href=\"app.php?c=Objects&amp;a=search&amp;country=".$country->getCode()."\">".$country->getName()."</a>";
             } else {
                 echo $country->getName();
             }
@@ -51,7 +51,7 @@ $objPos = $object->getPosition();
     </tr>
     <tr>
         <td>Group</td>
-        <td><?php echo ("<a href=\"app.php?c=Objects&amp;a=search&amp;group=".$object->getGroupId()."\">".$group->getName()."</a>"); ?></td>
+        <td><?php echo "<a href=\"app.php?c=Objects&amp;a=search&amp;group=".$object->getGroupId()."\">".$group->getName()."</a>"; ?></td>
     </tr>
     <tr>
         <td>Model</td>

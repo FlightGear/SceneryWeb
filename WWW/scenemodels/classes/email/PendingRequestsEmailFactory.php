@@ -72,7 +72,7 @@ class PendingRequestsEmailFactory extends EmailContentFactory {
         
         $message = "We would like to give you an overview of the remaining pending requests.\r\n\r\n" .
                    $pendingRequests . "\r\n\r\n";
-        if (count($invalidRequests) > 0) {
+        if (!empty($invalidRequests)) {
             $message .= "These are invalid requests :\r\n" .
                     $invalidReqText . "\r\n\r\n";
         }

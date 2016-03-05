@@ -79,7 +79,7 @@ class UpdateObjectsController extends RequestController {
         // Let's see in the database if something exists at this position
         $objects = $this->objectDaoRO->getObjectsAt($long, $lat);
 
-        if (count($objects) == 0) {
+        if (empty($objects)) {
             $pageTitle  = "Automated Objects Update Form";
             $errorText  = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
             $adviseText = "Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
@@ -176,7 +176,7 @@ class UpdateObjectsController extends RequestController {
         
 
         // Final step to edition
-        if (count($errors) == 0) {
+        if (empty($errors)) {
             $objectFactory = new \ObjectFactory($this->objectDaoRO);
             $oldObject = $this->objectDaoRO->getObject($idToUpdate);
             $newObject = $objectFactory->createObject($idToUpdate, $modelId,

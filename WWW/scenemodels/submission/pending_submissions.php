@@ -13,7 +13,7 @@ $invalidRequests = $requestsArray["failed"];
 date_default_timezone_set('UTC');
 $dtg = date('l jS \of F Y h:i:s A');
 
-if (count($requests) > 0 || count($invalidRequests) > 0) {
+if (!empty($requests) || !empty($invalidRequests)) {
     $emailSubmit = \email\PendingRequestsEmailFactory::getPendingRequestsEmailContent($requests, $invalidRequests);
 } else {
     $emailSubmit = \email\PendingRequestsEmailFactory::getPendingRequestsNoneEmailContent();

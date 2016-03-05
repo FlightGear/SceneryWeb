@@ -35,7 +35,7 @@ foreach ($objectLinesRequests as $lineNb => $objectLineRequest) {
         echo '<td colspan="6"></td>';
     }
     
-    if (count($objectLineRequest->getErrors()) > 0) {
+    if (!empty($objectLineRequest->getErrors())) {
         echo "<td style='background-color: rgb(200, 0, 0);'>";
         foreach ($objectLineRequest->getErrors() as $error) {
             echo $error->getMessage()."<br/>";

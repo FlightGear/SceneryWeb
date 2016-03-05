@@ -42,7 +42,7 @@ class FileSystemUtils {
             }
 
             if (is_dir($folder."/".$file)) {
-                $r = $this->clear_dir($folder."/".$file);
+                $r = static::clearDir($folder."/".$file);
             } else {
                 $r = @unlink($folder."/".$file);
             }
