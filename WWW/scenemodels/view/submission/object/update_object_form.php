@@ -225,7 +225,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
             <td><object id="map" data="/map/?lon=<?php echo $objToUpPos->getLongitude(); ?>&amp;lat=<?php echo $objToUpPos->getLatitude(); ?>&amp;z=14" type="text/html" width="100%" height="225"></object></td>
         </tr>
         <tr>
-          <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it. Only alphanumerical, colon, semi colon, question and exclamation mark, arobace, minus, underscore, antislash and point are granted.">
+          <td><span title="Please add a short (max 100 letters) statement why you are updating this data. This will help the maintainers understand what you are doing. eg: this model was misplaced, so I'm updating it.">
             <label for="comment">Comment<em>*</em></label></span>
           </td>
           <td colspan="2">

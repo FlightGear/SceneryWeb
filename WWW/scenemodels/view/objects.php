@@ -12,7 +12,7 @@ require 'view/header.php';
     <input type="hidden" name="c" value="Objects"/>
     <input type="hidden" name="a" value="search"/>
     <table>
-        <tr valign="bottom">
+        <tr style="vertical-align:bottom">
             <th>ID</th>
             <th>Description</th>
             <th>Model<br/>Group</th>
@@ -22,9 +22,9 @@ require 'view/header.php';
             <th>Heading</th>
             <th>&nbsp;</th>
         </tr>
-        <tr valign="bottom">
+        <tr style="vertical-align:bottom">
             <th>&nbsp;</th>
-            <th><input type="text" name="description" size="12" <?php echo "value=\"".$description."\""; ?>/></th>
+            <th><input type="text" name="description" size="12" value="<?php echo $description; ?>"/></th>
             <th>
                 <select name="model" style="font-size: 0.7em; width: 100%">
                     <option value="0"></option>
@@ -121,7 +121,7 @@ require 'view/header.php';
         }
 ?>
         <tr class="bottom">
-            <td colspan="7" align="center">
+            <td colspan="8" align="center">
 <?php
                 if ($prev >= 0) {
                     echo "<a href=\"app.php?c=Objects&amp;a=search&amp;filter=Filter&amp;offset=".$prev . $filter_text."\">Prev</a> | ";
