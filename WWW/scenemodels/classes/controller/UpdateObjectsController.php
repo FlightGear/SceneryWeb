@@ -70,7 +70,7 @@ class UpdateObjectsController extends RequestController {
 
 
         if ($error) {
-            $pageTitle = "Automated Objects Update Form";
+            $pageTitle = "Objects update form";
             // $errorText is defined above
             include 'view/error_page.php';
             return;
@@ -80,7 +80,7 @@ class UpdateObjectsController extends RequestController {
         $objects = $this->objectDaoRO->getObjectsAt($long, $lat);
 
         if (empty($objects)) {
-            $pageTitle  = "Automated Objects Update Form";
+            $pageTitle  = "Objects update form";
             $errorText  = "Sorry, but no object was found at position longitude: ".$long.", latitude: ".$lat.".";
             $adviseText = "Please <a href='javascript:history.go(-1)'>go back and check your position</a> (see in the relevant STG file).";
             include 'view/error_page.php';
@@ -145,10 +145,9 @@ class UpdateObjectsController extends RequestController {
         $new_orientation = $this->getVar('new_heading');
         $safe_new_ob_text = $this->getVar('new_ob_text');
         
-        if (\FormChecker::isObjectId($this->getVar('id_to_update'))) {
-            $idToUpdate = $this->getVar('id_to_update');
-        } else {
-            $pageTitle = 'Automated Objects Update Form';
+        $idToUpdate = $this->getVar('id_to_update');
+        if (!\FormChecker::isObjectId($idToUpdate)) {
+            $pageTitle = 'Objects update Form';
             $errorText = 'Object ID is wrong';
             include 'view/error_page.php';
             return;

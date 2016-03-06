@@ -108,7 +108,7 @@ class DeleteObjectsController extends RequestController {
     public function confirmDeleteFormAction() {
         $objToDelId = $this->getVar('delete_choice');
         if (!\FormChecker::isObjectId($objToDelId)) {
-            $pageTitle = "Automated Objects Deletion Form";
+            $pageTitle = "Objects deletion form";
             $errorText = "Sorry, but the object you want to delete does not have a valid ID.";
             include 'view/error_page.php';
             return;
@@ -118,7 +118,7 @@ class DeleteObjectsController extends RequestController {
         try {
             $objectToDel = $this->objectDaoRO->getObject($objToDelId);
         } catch (Exception $e) {
-            $pageTitle = 'Automated Objects Deletion Form';
+            $pageTitle = 'Objects deletion Form';
             $errorText = 'Sorry, but no object with id '.$objToDelId.' was found.';
             include 'view/error_page.php';
             return;
@@ -142,7 +142,7 @@ class DeleteObjectsController extends RequestController {
     
         $objToDelId = $this->getVar('delete_choice');
         if (!\FormChecker::isObjectId($objToDelId)) {
-            $pageTitle = "Automated Objects Deletion Form";
+            $pageTitle = "Objects deletion form";
             $errorText = "Sorry, but the object you want to delete does not have a valid ID.";
             include 'view/error_page.php';
             return;

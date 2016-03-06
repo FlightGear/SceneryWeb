@@ -314,7 +314,7 @@ class AddObjectsController extends RequestController {
         
         // Checking that stg exists and is containing only letters or figures.
         if (isset($_POST['stg']) && \FormChecker::isStgLines($_POST['stg'])) {
-            $pageTitle = "Automated Objects Mass Import Submission Form";
+            $pageTitle = "Objects addition form";
 
             $errorText = "I'm sorry, but it seems that the content of your STG file is not correct (bad characters?). Please check again.";
             include 'view/error_page.php';
@@ -333,7 +333,7 @@ class AddObjectsController extends RequestController {
         $nb_lines = count($tabLines);
         
         if ($nb_lines < 1) {
-            $pageTitle = "Automated Objects Mass Import Submission Form";
+            $pageTitle = "Objects addition form";
             
             $errorText = "Not enough lines were submitted: 1 line minimum per submission!";
             include 'view/error_page.php';
@@ -358,7 +358,7 @@ class AddObjectsController extends RequestController {
         }
         
         if (!isset($sentComment)) {
-            $pageTitle = "Automated Objects Mass Import Submission Form";
+            $pageTitle = "Objects addition form";
             
             $errorText = "Comment mismatch!";
             include 'view/error_page.php';

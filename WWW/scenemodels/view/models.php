@@ -11,7 +11,7 @@ require 'view/header.php';
 </script>
 
 <h1>FlightGear Scenery Model Directory</h1>
-
+  <p><a href="rss/models.php"><img src="img/icons/rss.png"> Subscribe to recent models feed</a></p>
   <table>
     <tr class="bottom">
         <td colspan="2" align="center">

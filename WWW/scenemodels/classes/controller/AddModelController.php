@@ -197,7 +197,7 @@ class AddModelController extends ModelRequestController {
             $this->displaySuccess($updatedReq, $ajaxCheck);
 
         } catch (\Exception $ex) {
-            $pageTitle = "Automated Models Submission Form";
+            $pageTitle = "Models addition form";
             $errorText = "Sorry, but the query could not be processed. Please ask for help on the <a href='http://www.flightgear.org/forums/viewforum.php?f=5'>Scenery forum</a> or on the devel list.";
             include 'view/error_page.php';
             return;
