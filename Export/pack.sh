@@ -14,12 +14,15 @@ for f in Objects/[ew][01][0-9]0[ns][0-9]0; do
   tar --create --owner=root --group=root --gzip --file "$OUTPUTDIR/$(basename $f).tgz" "$f"
 done
 
+echo "Creating Release Scenery Pack"
+tar --create --owner=root --group=root --gzip --file $OUTPUTDIR/lebl.tgz Terrain/e000n40/e00[12]n4[12] Objects/e000n40/e00[12]n4[12] Airports Models
+
 cd "$OUTPUTDIR"
 
 echo "rsyncing 10x10 tarballs"
 rsync -a [ew][01][0-9]0[ns][0-9]0.tgz web.sourceforge.net:htdocs/scenery/
 
-echo "rsyncing GlobalObjects.tgz and SharedModels.tgz"
-rsync -a GlobalObjects.tgz SharedModels.tgz web.sourceforge.net:/home/frs/project/flightgear/scenery/
+echo "rsyncing GlobalObjects.tgz and SharedModels.tgz and Release Scenery Pack"
+rsync -a GlobalObjects.tgz SharedModels.tgz lebl.tgz web.sourceforge.net:/home/frs/project/flightgear/scenery/
 
 popd
