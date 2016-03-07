@@ -72,6 +72,6 @@ if len(sys.argv) < 2:
     print("usage: " + sys.argv[0] + " path [parent]")
     sys.exit("terminated.");
 
-fn_create_directory_index(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else "")
+print( fn_create_directory_index(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else "") )
 
 ########################################################################
