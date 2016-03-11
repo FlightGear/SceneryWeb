@@ -24,7 +24,7 @@ require 'view/header.php';
     <h1>FlightGear Scenery Website</h1>
 
     <p>Welcome to the <a href="http://www.flightgear.org">FlightGear</a> scenery website!</p>
-    <p>This website is used to share common tools and data for all FlightGear scenery related items. It also features webforms to help gathering 3D models and objects positions all around the world. You can here contribute to FlightGear scenery by adding objects in your favorite place. Please don't hesitate, your help is welcomed!</p>
+    <p>This website is used to share common tools and data for all FlightGear scenery related items. It also features webforms to help gathering 3D models and objects positions all around the world. You can here contribute to FlightGear scenery by adding objects in your favorite place. Please don't hesitate, your help is welcomed! If you have not already done so, please consider <a href="https://scenery.flightgear.org/">using https to connect</a>.</p>
   
     <table class="left">
         <tr><th colspan="2">Recently updated objects</th></tr>
