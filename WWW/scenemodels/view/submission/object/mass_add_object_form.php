@@ -24,8 +24,8 @@ function validateForm()
   Help us to make it more! Simply copy/paste the NEW content of your STG files below.
 </p>
 <p>
-  Please read <a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/contribute.php">this page</a>
-  in order to understand what recommandations this script is looking for.
+  Please read <a href="https://<?php echo $_SERVER['SERVER_NAME']; ?>/contribute.php">this page</a>
+  in order to understand what recommendations this script is looking for.
 </p>
 <p>Please note that:</p>
 

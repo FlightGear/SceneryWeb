@@ -9,7 +9,7 @@ require '../view/header.php';
 <h1>FlightGear scenery objects and models submission</h1>
 
 <p>
-    Please read <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what items those forms are looking for. All submissions are being followed and logged, so <b>DO NOT TAKE THIS</b> as a sandbox.
+    Please read <a href="//<?php echo $_SERVER['SERVER_NAME'];?>/contribute.php">this page</a> in order to understand what items those forms are looking for. All submissions are being followed and logged, so <b>DO NOT TAKE THIS</b> as a sandbox.
 </p>
 
 <table>
@@ -30,7 +30,7 @@ require '../view/header.php';
                     <li><a href="../app.php?c=UpdateModel&amp;a=selectModelForm">updating an existing static or shared 3D model</a> (improve 3D model).</li>
                 </ul>
             </ul>
-            Comments or contributions propositions are always welcome through the usual channels (<a href="http://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel">devel list</a>, <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&amp;t=14671">forum</a>).
+            Comments or contributions propositions are always welcome through the usual channels (<a href="https://sourceforge.net/mailarchive/forum.php?forum_name=flightgear-devel">devel list</a>, <a href="http://www.flightgear.org/forums/viewtopic.php?f=5&amp;t=14671">forum</a>).
         </td>
     </tr>
 </table>
