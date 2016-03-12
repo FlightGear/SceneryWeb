@@ -338,6 +338,7 @@ require 'view/header.php';
             [new Date(2014,0,5), 1130663, 3566, 2310 ],
             [new Date(2014,6,4), 1176580, 3892, 2310 ],
             [new Date(2014,10,28), 1178742, 4128, 2310 ],
+            [new Date(2016,03,12), 1220822, 5190, 2383],
             [new Date(<?php echo date('Y').",".(date('n')-1).",".date('j')."), ".$objects.", ".$models.", ".$signs; ?> ]
         ]);
 
