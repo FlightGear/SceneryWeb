@@ -59,7 +59,7 @@ class EmailContent {
             }
         }
         $headers .= "X-Mailer: PHP-" . phpversion() . "\r\n";
-error_log($this->message);
+//error_log($this->message);
         mail($to, $this->subject, $this->message, $headers);
     }
 }
