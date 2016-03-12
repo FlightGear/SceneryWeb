@@ -31,6 +31,23 @@ include 'view/header.php';
 
 ?>
 
+<script type="text/javascript">
+var lastAction;
+$(document).ready(function () {
+    // when a submit button is clicked, put its name into the action hidden field
+    $("input[type='submit']").click(function () {lastAction = this.name; });
+});    
+
+function validateForm() {
+    if (lastAction === 'accept' && $("input[name='au_add']:checked").length === 0) {
+        alert("Please choose if the new author should be added.");
+        return false;
+    }
+    
+    return true;
+}    
+</script>
+
 <p class="center">Model ADD request #<?=$request->getId()?></p>
 <p class="center">The following model has passed all (numerous) verifications by the forementionned script. It should be fine to validate it. However, it's always sane to eye-check it.</p>
 
@@ -45,7 +62,16 @@ include 'view/header.php';
         </tr>
         <tr>
             <td>Author</td>
-            <td><?php echo ($newModelMD->getAuthor()->getId() != 1)?$newModelMD->getAuthor()->getName(). " (".$request->getContributorEmail().")":"<strong>Unknown! must be added first!</strong>"; ?></td>
+            <td>
+<?php 
+    echo $newModelMD->getAuthor()->getName().' ('.$newModelMD->getAuthor()->getEmail().")";
+    if ($newModelMD->getAuthor()->getId() == 1) {
+        echo ' - <strong>New author!</strong>';
+        echo '<input type="radio" name="au_add" value="true"/> Add this author';
+        echo '<input type="radio" name="au_add" value="false"/> Ignore';
+    }
+?>
+            </td>
         </tr>
         <tr>
             <td>Family</td>

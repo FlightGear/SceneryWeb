@@ -28,10 +28,12 @@ namespace submission;
 class RequestExecutor {
     private $modelDAO;
     private $objectDAO;
+    private $authorDAO;
     
-    public function __construct($modelDAO, $objectDAO) {
+    public function __construct($modelDAO, $objectDAO, $authorDAO) {
         $this->modelDAO = $modelDAO;
         $this->objectDAO = $objectDAO;
+        $this->authorDAO = $authorDAO;
     }
     
     public function executeRequest($request) {
@@ -83,6 +85,14 @@ class RequestExecutor {
     
     private function executeRequestModelAdd($request) {
         $newModel = $request->getNewModel();
+        
+        $newAuthor = $request->getNewAuthor();
+        // If it is a new author
+        if ($newAuthor != null) {
+            $newAuthorWithId = $this->authorDAO->addAuthor($newAuthor);
+            $newModel->getMetadata()->setAuthor($newAuthorWithId);
+        }
+        
         $newModelWithId = $this->modelDAO->addModel($newModel);
         
         $newObject = $request->getNewObject();

@@ -78,6 +78,22 @@ class AddModelValidatorController extends ValidatorController {
     }
     
     
-    
+    /**
+     * Validation action
+     */
+    public function validateRequestAction() {
+        $request = $this->getRequest();
+        if ($request == null) {
+            return;
+        }
+        
+        // Check if the new author must be added.
+        $mustAddAuthor = $this->getVar('au_add');
+        if ($mustAddAuthor == "false") {
+            $request->setNewAuthor(null);
+        }
+        
+        $this->validateRequest($request);
+    }
     
 }

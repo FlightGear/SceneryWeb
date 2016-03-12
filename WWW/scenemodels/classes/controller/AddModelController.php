@@ -167,13 +167,15 @@ class AddModelController extends ModelRequestController {
         $objectFactory = new \ObjectFactory($this->objectDaoRO);
         $newModel = new \model\Model();
         $newModelMD = $modelFactory->createModelMetadata(-1, $authorId, $pathToUse, $name, $notes, $moGroupId);
+        $newAuthor = null;
+        
         if ($authorId != 1) {
             $auEmail = $newModelMD->getAuthor()->getEmail();
         } else {
-            $author = $newModelMD->getAuthor();
-            $author->setName($auName);
-            $author->setEmail($auEmail);
-            $newModelMD->setAuthor($author);
+            $newAuthor = $newModelMD->getAuthor();
+            $newAuthor->setName($auName);
+            $newAuthor->setEmail($auEmail);
+            $newModelMD->setAuthor($newAuthor);
         }
 
         $newModel->setMetadata($newModelMD);
@@ -191,7 +193,7 @@ class AddModelController extends ModelRequestController {
 
         // Save request and send emails
         try {
-            $updatedReq = $this->addRequest($newModel, $newObject, $auEmail);
+            $updatedReq = $this->addRequest($newModel, $newObject, $newAuthor, $auEmail);
 
             $this->sendEmailsRequestPending($auEmail, $updatedReq);
             $this->displaySuccess($updatedReq, $ajaxCheck);
@@ -212,10 +214,11 @@ class AddModelController extends ModelRequestController {
         }
     }
     
-    private function addRequest($newModel, $newObject, $auEmail) {
+    private function addRequest($newModel, $newObject, $newAuthor, $auEmail) {
         $request = new \model\RequestModelAdd();
         $request->setNewModel($newModel);
         $request->setNewObject($newObject);
+        $request->setNewAuthor($newAuthor);
         $request->setContributorEmail($auEmail);
         
         $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();

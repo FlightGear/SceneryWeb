@@ -12,6 +12,7 @@ namespace model;
 class RequestModelAdd extends Request {
     private $newModel;
     private $newObject;
+    private $newAuthor;
     
     public function getNewModel() {
         return $this->newModel;
@@ -27,6 +28,14 @@ class RequestModelAdd extends Request {
     
     public function setNewObject($newObject) {
         $this->newObject = $newObject;
+    }
+    
+    public function getNewAuthor() {
+        return $this->newAuthor;
+    }
+    
+    public function setNewAuthor($newAuthor) {
+        $this->newAuthor = $newAuthor;
     }
 }
 

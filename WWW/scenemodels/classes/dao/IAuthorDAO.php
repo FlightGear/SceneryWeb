@@ -10,9 +10,9 @@ namespace dao;
  */
 interface IAuthorDAO {
 
-    public function addAuthor(Author $author);
+    public function addAuthor(\model\Author $author);
 
-    public function updateAuthor(Author $author);
+    public function updateAuthor(\model\Author $author);
     
     public function getAuthor($authorId);
     

@@ -13,11 +13,24 @@ namespace dao;
  */
 class AuthorDAO extends PgSqlDAO implements IAuthorDAO {
     
-    public function addAuthor(Author $author) {
-        //TODO
+    public function addAuthor(\model\Author $author) {
+        $query  = 'INSERT INTO fgs_authors ';
+        $query .= "(au_id, au_name, au_email) ";
+        $query .= "VALUES (";
+        $query .= "DEFAULT, ";             // au_id
+        $query .= "'".pg_escape_string($author->getName())."', ";  // au_name
+        $query .= "'".pg_escape_string($author->getEmail())."')";  // au_email
+        $query .= "RETURNING au_id";
+        
+        $result = $this->database->query($query);
+        
+        $returnRow = pg_fetch_row($result);
+        $author->setId($returnRow[0]);
+        
+        return $author;
     }
 
-    public function updateAuthor(Author $author) {
+    public function updateAuthor(\model\Author $author) {
         //TODO
     }
     

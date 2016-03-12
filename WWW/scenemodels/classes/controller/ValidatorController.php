@@ -52,18 +52,26 @@ abstract class ValidatorController extends ControllerMenu {
         }
     }
     
+    /**
+     * Generic validation without request modification
+     */
     public function validateRequestAction() {
         $request = $this->getRequest();
-        $sig = $request->getSig();
-        
         if ($request == null) {
             return;
         }
         
+        $this->validateRequest($request);
+    }
+    
+    public function validateRequest($request) {
+        $sig = $request->getSig();
+        
         $modelDaoRW = \dao\DAOFactory::getInstance()->getModelDaoRW();
         $objectDaoRW = \dao\DAOFactory::getInstance()->getObjectDaoRW();
         $requestDaoRW = \dao\DAOFactory::getInstance()->getRequestDaoRW();
-        $reqExecutor = new \submission\RequestExecutor($modelDaoRW, $objectDaoRW);
+        $authorDaoRW = \dao\DAOFactory::getInstance()->getAuthorDaoRW();
+        $reqExecutor = new \submission\RequestExecutor($modelDaoRW, $objectDaoRW, $authorDaoRW);
 
         // Executes request
         try {
