@@ -39,7 +39,8 @@ $(document).ready(function () {
 });    
 
 function validateForm() {
-    if (lastAction === 'accept' && $("input[name='au_add']:checked").length === 0) {
+    if (lastAction === 'accept' && $("input[name='au_add']").length > 0
+            && $("input[name='au_add']:checked").length === 0) {
         alert("Please choose if the new author should be added.");
         return false;
     }
@@ -65,7 +66,7 @@ function validateForm() {
             <td>
 <?php 
     echo $newModelMD->getAuthor()->getName().' ('.$newModelMD->getAuthor()->getEmail().")";
-    if ($newModelMD->getAuthor()->getId() == 1) {
+    if ($request->getNewAuthor() != null) {
         echo ' - <strong>New author!</strong>';
         echo '<input type="radio" name="au_add" value="true"/> Add this author';
         echo '<input type="radio" name="au_add" value="false"/> Ignore';
