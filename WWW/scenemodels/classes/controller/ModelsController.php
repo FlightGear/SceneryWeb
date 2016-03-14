@@ -160,6 +160,9 @@ class ModelsController extends ControllerMenu {
         return $modelfiles->getFile($filename);
     }
     
+    /**
+     * Gets file (content type will be guessed from content)
+     */
     public function getFileAction() {
         $finfo = new \finfo(FILEINFO_MIME);
         $content = $this->getRawFile();
@@ -167,6 +170,10 @@ class ModelsController extends ControllerMenu {
         echo $content;
     }
     
+    /**
+     * Gets model files from id.
+     * @return model files.
+     */
     private function getModelFiles() {
         $modelfiles = null;
         $id = $this->getVar('id');
