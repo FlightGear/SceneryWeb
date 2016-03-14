@@ -116,7 +116,7 @@ class ModelsController extends ControllerMenu {
             if ($thumbnail != "") {
                 echo $thumbnail;
             } else {
-                readfile("/img/nothumb.jpg");
+                readfile("img/nothumb.jpg");
             }
         }
     }
