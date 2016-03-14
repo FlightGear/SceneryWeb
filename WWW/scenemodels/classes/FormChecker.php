@@ -33,7 +33,7 @@ class FormChecker {
         'modelid' => '/^[0-9]+$/u',
         'modelgroupid' => '/^[0-9]+$/',
         'objgroupid' => '/^[1-9][0-9]*$/',
-        'modelname' => '/^[^|]+$/',
+        'modelname' => '/^.+$/',
         'filename' => '/^[a-zA-Z0-9_.-]*$/u',
         'png_filename' => '/^[a-zA-Z0-9_.-]+\.(png|PNG)$/u',
         'ac3d_filename' => '/^[a-zA-Z0-9_.-]+\.(ac|AC)$/u',
@@ -47,7 +47,7 @@ class FormChecker {
         'gndelevation' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
         'offset' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
         'heading' => '/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/u',
-        'obtext' => '/^[^|]+$/u',
+        'obtext' => '/^.+$/u',
         'sig' => '/[0-9a-z]/',
         'pageoffset' => '/^[0-9]+$/u'
        );

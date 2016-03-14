@@ -71,8 +71,8 @@ function checkComment(textfield)
 
 function chkComment(checkStr)
 {
-    var allValid = true;
-    return checkStr.indexOf("|") === -1;
+    // All chars are now allowed
+    return true;
 }
 
 function checkEmail(emailfield)
