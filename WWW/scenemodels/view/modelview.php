@@ -113,7 +113,7 @@ function showModelContentInfo(id) {
         $(xml).find("file").each(function(){
             var name=$(this).find('name').text();
             var size=$(this).find('size').text();
-            $("#filesInfos").append("<tr><td>"+name+"</td><td class='sizecol'>"+size+"</td></tr>");
+            $("#filesInfos").append("<tr><td><a href='app.php?c=Models&a=getFile&id="+id+"&name="+name+"'>"+name+"</a></td><td class='sizecol'>"+size+"</td></tr>");
         });
         
         $("#infoLink").toggle();

@@ -31,10 +31,10 @@ interface IModelFiles {
     public function getTexturesNames();
     
     /**
-     * Gets the texture content
-     * @param string $filename filename of the texture
+     * Gets the file content
+     * @param string $filename filename
      */
-    public function getTexture($filename);
+    public function getFile($filename);
 }
 
 ?>

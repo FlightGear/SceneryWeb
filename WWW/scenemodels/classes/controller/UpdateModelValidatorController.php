@@ -85,7 +85,7 @@ class UpdateModelValidatorController extends ValidatorController {
             $modelfiles = $request->getOldModel()->getModelFiles();
 
             header("Content-type: image/png");
-            echo $modelfiles->getTexture($filename);
+            echo $modelfiles->getFile($filename);
         }
     }
     
@@ -97,7 +97,7 @@ class UpdateModelValidatorController extends ValidatorController {
             $modelfiles = $request->getOldModel()->getModelFiles();
 
             header('Content-Type: image/png');
-            $this->displayThumbnail($modelfiles->getTexture($filename));
+            $this->displayThumbnail($modelfiles->getFile($filename));
         }
     }
 }

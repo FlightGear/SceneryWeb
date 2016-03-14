@@ -133,7 +133,7 @@ class ModelFilesTar implements IModelFiles {
         return $names;
     }
     
-    public function getTexture($filename) {
+    public function getFile($filename) {
         $targetPath = $this->openTGZ($this->modelfile);
         $dir = opendir($targetPath);
 

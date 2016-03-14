@@ -171,7 +171,7 @@ abstract class ValidatorController extends ControllerMenu {
             $modelfiles = $request->getNewModel()->getModelFiles();
 
             header("Content-type: image/png");
-            echo $modelfiles->getTexture($filename);
+            echo $modelfiles->getFile($filename);
         }
     }
     
@@ -183,7 +183,7 @@ abstract class ValidatorController extends ControllerMenu {
             $modelfiles = $request->getNewModel()->getModelFiles();
 
             header('Content-Type: image/png');
-            $this->displayThumbnail($modelfiles->getTexture($filename));
+            $this->displayThumbnail($modelfiles->getFile($filename));
         }
     }
     

@@ -148,12 +148,23 @@ class ModelsController extends ControllerMenu {
     }
     
     public function getTextureAction() {
-        $modelfiles = $this->getModelFiles();
-        $dir_array = preg_split("/\//", $this->getVar('name'));
-        $filename = $dir_array[count($dir_array)-1];
-        
         header("Content-type: image/png");
-        echo $modelfiles->getTexture($filename);
+        echo $this->getRawFile();
+    }
+    
+    public function getRawFile() {
+        $modelfiles = $this->getModelFiles();
+        $dirArray = preg_split("/\//", $this->getVar('name'));
+        $filename = $dirArray[count($dirArray)-1];
+        
+        return $modelfiles->getFile($filename);
+    }
+    
+    public function getFileAction() {
+        $finfo = new \finfo(FILEINFO_MIME);
+        $content = $this->getRawFile();
+        header("Content-type: ".$finfo->buffer($content));
+        echo $content;
     }
     
     private function getModelFiles() {
