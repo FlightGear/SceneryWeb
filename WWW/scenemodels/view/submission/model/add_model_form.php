@@ -20,9 +20,12 @@ function validateForm()
         form["mo_name"].value === "" || !checkComment(form["mo_name"]) ||
         !checkNumeric(form["offset"],-999,999) ||
         !checkNumeric(form["heading"],0,359.999) ||
-        !checkComment(form["notes"]) ||
-        form["recaptcha_response_field"].value === "")
+        !checkComment(form["notes"]))
         return false;
+<?php
+    if (\Config::isCaptchaEnabled())
+        echo 'if (form["recaptcha_response_field"].value === "")return false;';
+?>    
     
     return !ajaxSubmit("positions",
             "app.php?c=AddModel&a=addRequest&ajaxCheck=1",
@@ -266,7 +269,7 @@ $(function() {
         <div id="tabs-3">
             <ul>
                 <li>Choose the author for the model. If you are not listed, choose "Unknown" or ask for addition on the forums or mailing list. If you are building a new model based on another one, put your name here, and the original author's one into the "Model description" field.</li>
-                <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
+                <!--<li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>-->
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">

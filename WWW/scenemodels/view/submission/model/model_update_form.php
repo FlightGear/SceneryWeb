@@ -18,10 +18,12 @@ function validateForm()
     if (form["mo_name"].value === "" || !checkComment(form["mo_name"]) ||
         !checkComment(form["notes"]) ||
         !checkComment(form["comment"]) ||
-        !checkEmail(form["email"]) ||
-        form["recaptcha_response_field"].value === "")
+        !checkEmail(form["email"]))
         return false;
-    
+<?php
+    if (\Config::isCaptchaEnabled())
+        echo 'if (form["recaptcha_response_field"].value === "")return false;';
+?>
     return !ajaxSubmit("positions",
             "app.php?c=UpdateModel&a=addRequest&ajaxCheck=1",
             "app.php?c=UpdateModel&a=success&id=");
@@ -190,7 +192,7 @@ $(function() {
         <div id="tabs-2">
             <ul>
                 <li>Choose the author for the model. <em>If you've just made some fixes to the model, please keep the original author.</em></li>
-                <li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>
+                <!--<li>Don't forget to feed the Captcha, it's a mandatory item as well. Don't know what a Captcha is or what its goal is? Learn more <a href="http://en.wikipedia.org/wiki/Captcha">here</a></li>-->
                 <li>Be patient, there are human beings with real life constraints behind, and don't feel blamed if your models are rejected, but try to understand why.</li>
             </ul>
             <table style="width: auto; margin-left: auto; margin-right: auto;">
