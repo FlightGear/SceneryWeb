@@ -18,11 +18,11 @@ require.config({
     },
     baseUrl : '.',
     paths : {
-      'leaflet': 'http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet',
+      'leaflet': '3rdparty/leaflet',
       'jquery': 'https://code.jquery.com/jquery-1.11.3.min',
       'jquery-ui': 'https://code.jquery.com/ui/1.11.4/jquery-ui.min',
-      'leaflet-coordinates': 'http://mrmufflon.github.io/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3.min',
-      'leaflet-contextmenu': 'http://aratcliffe.github.io/Leaflet.contextmenu/dist/leaflet.contextmenu',
+      'leaflet-coordinates': '3rdparty/Leaflet.Coordinates-0.1.3.min',
+      'leaflet-contextmenu': '3rdparty/leaflet.contextmenu',
       'leaflet-tilegrid': 'tilegrid',
       'knockout': 'https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min',
       'text': 'https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min',
@@ -39,9 +39,9 @@ require([
           var self = this;
 
           self.stylesheets = ko.observableArray([
-            "http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css",
-            "http://mrmufflon.github.io/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3.css",
-            "http://aratcliffe.github.io/Leaflet.contextmenu/dist/leaflet.contextmenu.css",
+            "3rdparty/leaflet.css",
+            "3rdparty/Leaflet.Coordinates-0.1.3.css",
+            "3rdparty/leaflet.contextmenu.css",
             "https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css",
           ]);
         }
