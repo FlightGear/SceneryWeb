@@ -3,6 +3,7 @@ define(
 
 function(jquery) {
 
+
         function getRequestParameter(name) {
            if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
               return decodeURIComponent(name[1]);
@@ -12,7 +13,6 @@ function(jquery) {
         var lon = getRequestParameter('lon') || 0;
         var zoom = getRequestParameter('z') || 3;
         var icao = getRequestParameter('icao') || "";
-
 
         var SelectedObject = null;
         var measureStart = null;
@@ -25,7 +25,8 @@ function(jquery) {
           return this._div;
         };
         measureInfo.update = function(distance,heading) {
-          this._div.innerHTML = "<div><span>Distance: " + distance.toFixed(2) + "m</span><span> Heading: " + heading.toFixed(0) + "</span></div>";
+          var stg = heading > 180 ? 540 - heading : 180 - heading;
+          this._div.innerHTML = "<div><span>Distance: " + distance.toFixed(2) + "m</span><span> True: " + heading.toFixed(0) + "</span><span> STG: " + stg.toFixed(0) + "</div>";
         }
         measureLine = L.polyline([L.latLng(0,0), L.latLng(0,0)], { color: 'magenta' });
  
@@ -52,6 +53,7 @@ function(jquery) {
           var x = Math.cos(φ1)*Math.sin(φ2) -
                   Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
           var brng = toDegrees(Math.atan2(y, x));
+          if( brng < 0 ) brng += 360;
 
           measureInfo.update(dist,brng);
           measureLine.setLatLngs( [ from, to ] );
@@ -77,12 +79,12 @@ function(jquery) {
 		      text: 'Move marked object here',
 		      callback: function(e) { 
                         if( SelectedObject )
-                          window.open('http://scenemodels.flightgear.org/app.php?c=UpdateObjects&a=updateForm&id_to_update=' + SelectedObject + '&lon=' + e.latlng.lng.toFixed(6) + '&lat=' + e.latlng.lat.toFixed(6) + '', "_blank");
+                          window.open('/app.php?c=UpdateObjects&a=updateForm&id_to_update=' + SelectedObject + '&lon=' + e.latlng.lng.toFixed(6) + '&lat=' + e.latlng.lat.toFixed(6) + '', "_blank");
                       },
 	      }, {
 		      text: 'Place new object here',
 		      callback: function(e) { 
-                        var url = "http://scenemodels.flightgear.org/app.php?c=AddObjects&a=form&lat=" 
+                        var url = "/app.php?c=AddObjects&a=form&lat=" 
                                  + e.latlng.lat.toFixed(6) + "&lon=" + e.latlng.lng.toFixed(6);
                         window.open(url, "_blank" );
                       },
@@ -161,7 +163,7 @@ function(jquery) {
 
             onEachFeature : function(feature, layer) {
                 var popupContent = "<div><a href='/app.php?c=Objects&a=view&id=" + feature.id + "' target='_blank'>Object #" + feature.id + "</a></div>";
-                popupContent += "<a href='http://scenery.flightgear.org/map/?lat=" + feature.geometry.coordinates[1] +
+                popupContent += "<a href='/map/?lat=" + feature.geometry.coordinates[1] +
                                                                             "&lon=" + feature.geometry.coordinates[0] +
                                                                             "&z=13&obj=" + feature.properties.model_id + "'>permalink</a>";
                 if (feature.properties) {
@@ -246,7 +248,7 @@ function(jquery) {
 
             onEachFeature : function(feature, layer) {
                 var popupContent = "";
-                popupContent += "<a href='http://scenery.flightgear.org/map/?lat=" + feature.geometry.coordinates[1] +
+                popupContent += "<a href='/map/?lat=" + feature.geometry.coordinates[1] +
                                                                             "&lon=" + feature.geometry.coordinates[0] +
                                                                             "&z=13&obj=" + feature.properties.model_id + "'>permalink</a>";
                 if (feature.properties) {
