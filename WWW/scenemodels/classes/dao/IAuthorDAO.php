@@ -33,6 +33,8 @@ interface IAuthorDAO {
      */
     public function getAuthor($authorId);
     
+    public function getAuthorByEmail($email);
+    
     public function getAllAuthors($offset, $pagesize);
 }
 

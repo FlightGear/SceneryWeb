@@ -21,16 +21,34 @@
 namespace controller;
 
 /**
- * AddModelValidatorController
+ * Controller for model addition validation
  *
  * @author Julien Nguyen
  */
 class AddModelValidatorController extends ValidatorController {
+    
+    private $authorDaoRO;
+    
+    public function __construct() {
+        $this->authorDaoRO = \dao\DAOFactory::getInstance()->getAuthorDaoRO();
+    }
+    
+    /**
+     * View request page action
+     */
     public function viewRequestAction() {
         $request = $this->getRequest();
         
         if ($request != null) {
             $sig = $request->getSig();
+            
+            $authorExist = false;
+            $newAuthor = $request->getNewAuthor();
+            if ($newAuthor != null) {
+                // Check first if the author already exist
+                $authorExist = $this->authorDaoRO->getAuthorByEmail($newAuthor->getEmail()) != null;
+            }
+            
             include 'view/submission/model/validator/view_add_model_request.php';
         }
     }
@@ -87,13 +105,33 @@ class AddModelValidatorController extends ValidatorController {
             return;
         }
         
-        // Check if the new author must be added.
-        $mustAddAuthor = $this->getVar('au_add');
-        if ($mustAddAuthor == "false") {
-            $request->setNewAuthor(null);
-        }
+        $this->updateRequestAuthor($request);
         
         $this->validateRequest($request);
+    }
+    
+    /**
+     * Update request if a new author is defined
+     */
+    private function updateRequestAuthor($request) {
+        // If someone want to create a new author
+        $newAuthor = $request->getNewAuthor();
+        if ($newAuthor != null) {
+            // Check first if the author already exist
+            $existingAuthor = $this->authorDaoRO->getAuthorByEmail($newAuthor->getEmail());
+            
+            if ($existingAuthor != null) {
+                // If author exist
+                $request->setNewAuthor(null);
+                $request->getNewModel()->getMetadata()->setAuthor($existingAuthor);
+            } else {
+                // Author does not exist, check if the new author must be added.
+                $mustAddAuthor = $this->getVar('au_add');
+                if ($mustAddAuthor == "false") {
+                    $request->setNewAuthor(null);
+                }
+            }
+        }
     }
     
 }

@@ -67,9 +67,14 @@ function validateForm() {
 <?php 
     echo $newModelMD->getAuthor()->getName().' ('.$newModelMD->getAuthor()->getEmail().")";
     if ($request->getNewAuthor() != null) {
-        echo ' - <strong>New author!</strong>';
-        echo '<input type="radio" name="au_add" value="true"/> Add this author';
-        echo '<input type="radio" name="au_add" value="false"/> Ignore';
+        if ($authorExist) {
+            echo ' - <strong>Author with same email already exists, will not be added</strong>';
+        } else {
+            echo ' - <strong>New author!</strong>';
+            echo '<input type="radio" name="au_add" value="true"/> Add this author';
+            echo '<input type="radio" name="au_add" value="false"/> Ignore';
+        }
+        
     }
 ?>
             </td>
