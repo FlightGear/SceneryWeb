@@ -59,8 +59,8 @@ class ObjectDAO extends PgSqlDAO implements IObjectDAO {
     }
     
     public function getObject($objectId) {
-        $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir ".
-                                         "FROM fgs_objects, fgs_countries WHERE ob_id=".pg_escape_string($objectId)." AND ob_country = co_code;");
+        $result = $this->database->query("SELECT *, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, fn_SceneDir(wkb_geometry) AS ob_dir FROM fgs_objects ".
+                                         "LEFT JOIN fgs_countries ON ob_country = co_code WHERE ob_id=".pg_escape_string($objectId));
         
         $objectRow = pg_fetch_assoc($result);
         
