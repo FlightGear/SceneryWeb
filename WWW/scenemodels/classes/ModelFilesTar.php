@@ -135,15 +135,7 @@ class ModelFilesTar implements IModelFiles {
     
     public function getFile($filename) {
         $targetPath = $this->openTGZ($this->modelfile);
-        $dir = opendir($targetPath);
-
-        while ($file = readdir($dir)) {
-            if ($file == $filename) {
-                $filepath = $targetPath."/".$file;
-                $content = file_get_contents($filepath);
-                break;
-            }
-        }
+        $content = file_get_contents($targetPath."/".$filename);
         
         $this->closeTGZ($targetPath);
         
@@ -171,6 +163,15 @@ class ModelFilesTar implements IModelFiles {
         $this->closeTGZ($targetPath);
         
         return $filesInfos;
+    }
+    
+    public function getFileImageInfos($imageName) {
+        $targetPath = $this->openTGZ($this->modelfile);
+        $infos = getimagesize($targetPath."/".$imageName);
+        
+        $this->closeTGZ($targetPath);
+        
+        return $infos;
     }
 }
 

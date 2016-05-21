@@ -163,10 +163,10 @@ include 'view/header.php';
             $texturesNames = $newModelFiles->getTexturesNames();
             // Sending the directory as parameter. This is no user input, so low risk. Needs to be urlencoded.
             foreach ($texturesNames as $textureName) {
-                $texture_file = "http://".$_SERVER['SERVER_NAME'] ."/app.php?c=UpdateModelValidator&a=getNewModelTexture&sig=".$sig."&name=".$textureName;
-                $texture_file_tn = "http://".$_SERVER['SERVER_NAME'] ."/app.php?c=UpdateModelValidator&a=getNewModelTextureTN&sig=".$sig."&name=".$textureName;
+                $texture_file = "/app.php?c=UpdateModelValidator&a=getNewModelTexture&sig=".$sig."&name=".$textureName;
+                $texture_file_tn = "/app.php?c=UpdateModelValidator&a=getNewModelTextureTN&sig=".$sig."&name=".$textureName;
 
-                $tmp = getimagesize($texture_file);
+                $tmp = $modelFiles->getFileImageInfos($textureName);
                 $width  = $tmp[0];
                 $height = $tmp[1];
 ?>

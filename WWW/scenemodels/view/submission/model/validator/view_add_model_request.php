@@ -136,11 +136,10 @@ function validateForm() {
 <?php
             $texturesNames = $modelFiles->getTexturesNames();
             foreach ($texturesNames as $textureName) {
-                $urlPrefix = isset($_SERVER['HTTPS'])?"https://":"http://";
-                $texture_file = $urlPrefix.$_SERVER['SERVER_NAME'] ."/app.php?c=AddModelValidator&a=getNewModelTexture&sig=".$sig."&name=".$textureName;
-                $texture_file_tn = $urlPrefix.$_SERVER['SERVER_NAME'] ."/app.php?c=AddModelValidator&a=getNewModelTextureTN&sig=".$sig."&name=".$textureName;
+                $texture_file = "/app.php?c=AddModelValidator&a=getNewModelTexture&sig=".$sig."&name=".$textureName;
+                $texture_file_tn = "/app.php?c=AddModelValidator&a=getNewModelTextureTN&sig=".$sig."&name=".$textureName;
 
-                $tmp = getimagesize($texture_file);
+                $tmp = $modelFiles->getFileImageInfos($textureName);
                 $width  = $tmp[0];
                 $height = $tmp[1];
 ?>
