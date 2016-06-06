@@ -39,7 +39,6 @@ trap finish EXIT
 TIMESTAMP="$(date '+%Y%m%d %H:%M')"
 
 pushd "$FG_SCENERY"
-
 # Objects without valid tile numbers are ignored upon export
 ${PSQL} --quiet  << EOF
 UPDATE fgs_objects SET ob_tile = fn_GetTileNumber(wkb_geometry)
@@ -83,6 +82,13 @@ echo "creating directory index files"
 `dirname $0`/CreateDirectoryIndexes.py Models Models
 `dirname $0`/CreateDirectoryIndexes.py Objects Objects
 
+echo "version:1" > .dirindex
+echo "path:" >> .dirindex
+echo "d:Airports:$(sha1sum Airports/.dirindex|cut -f1 -d' ')" >> .dirindex
+echo "d:Models:$(sha1sum Models/.dirindex|cut -f1 -d' ')" >> .dirindex
+echo "d:Objects:$(sha1sum Objects/.dirindex|cut -f1 -d' ')" >> .dirindex
+echo "d:Terrain:$(sha1sum Terrain/.dirindex|cut -f1 -d' ')" >> .dirindex
+
 echo "Fixing permissions"
 find Objects/ Models/ -type d -not -perm 755 -exec chmod 755 {} \;
 find Objects/ Models/ -type f -not -perm 644 -exec chmod 644 {} \;
@@ -93,7 +99,8 @@ svn add --force --parents --depth infinity Objects Models || exit $?
 echo "committing to svn"
 svn ci -m "$TIMESTAMP" Models Objects || exit $?
 
-rsync -a --checksum --delete Models Objects web.sourceforge.net:htdocs/scenery/
+echo "rsyncing to SF"
+rsync -a --checksum --delete .dirindex Models Objects web.sourceforge.net:htdocs/scenery/
 
 `dirname $0`/pack.sh
 
