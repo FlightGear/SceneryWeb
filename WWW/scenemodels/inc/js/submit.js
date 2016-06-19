@@ -27,7 +27,7 @@ function ajaxSubmit(formId, checkURL, successURLPrefix) {
     });
     
     waitingDialog();
-    
+
     // Send form
     $.ajax({
         url: checkURL,
@@ -91,6 +91,7 @@ $(document).ready(function() {
     
     $("#submit-dialog").dialog({
         draggable: false,
+        dialogClass: "loadingScreenWindow",
         autoOpen: false,
         modal: true,
         width: 460,

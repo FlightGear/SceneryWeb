@@ -84,8 +84,8 @@ $(function() {
 
 <h1>Updating model #<?=$modelMD->getId()?></h1>
 
-<div id="loadingScreen"></div>
-<div id="submit-dialog">
+<div id="loadingScreen" style="display:none"></div>
+<div id="submit-dialog" style="display:none">
     <div id="submit-dialog-errors"></div>
     Please correct the models directly in your computer and submit again
     (no need to reselect them!)

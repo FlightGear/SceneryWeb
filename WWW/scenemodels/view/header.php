@@ -11,6 +11,7 @@
 <head>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/form.css" type="text/css"/>
     <link rel="stylesheet" href="/css/lightbox.css" type="text/css"/>
     <title><?php echo (isset($pageTitle))?$pageTitle:"FlightGear Scenery Website";?></title>
 
