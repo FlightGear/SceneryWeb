@@ -106,6 +106,8 @@ function showWebgl(id) {
 }
 
 function showModelContentInfo(id) {
+    $("#infoLink").toggle();
+    
     $.ajax({
         url: 'app.php?c=Models&a=contentFilesInfos&id='+id,
         context: document.body
@@ -115,8 +117,7 @@ function showModelContentInfo(id) {
             var size=$(this).find('size').text();
             $("#filesInfos").append("<tr><td><a href='app.php?c=Models&a=getFile&id="+id+"&name="+name+"'>"+name+"</a></td><td class='sizecol'>"+size+"</td></tr>");
         });
-        
-        $("#infoLink").toggle();
+
         $("#filesInfos").toggle();
     });
 }
