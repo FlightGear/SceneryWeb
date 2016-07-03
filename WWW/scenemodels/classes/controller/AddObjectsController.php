@@ -194,37 +194,14 @@ class AddObjectsController extends RequestController {
      * @throws Exception if model is not found
      */
     private function getModelFromSTG($modelFullPath) {
-        global $modelDaoRO;
-
         // Explodes the fields of the string separated by /
         $tabPath = explode("/", $modelFullPath);
 
-        // Checking that the label "Model" is correct
-        if (strcmp($tabPath[0],"Models") != 0) {
-            throw new \Exception("Model path should begin with \"Models\"!");
-        }
-
-        // Counts the number of fields.
-        $maxTabPath = count($tabPath);
-
         // Returns the last field value.
-        $queriedMoPath = $tabPath[$maxTabPath-1];
+        $filename = $tabPath[count($tabPath)-1];
 
         // Get the model (throw exception if not found)
-        $modelMD = $this->getModelDaoRO()->getModelMetadataFromSTGName($queriedMoPath);
-
-        // Now proceeding with the family
-        // The family path is the string between Models and the object name. Can be multiple.
-        $queriedFamilyPath = "";
-        for ($j=1; $j<$maxTabPath-1; $j++) {
-            $queriedFamilyPath .= $tabPath[$j]."/";
-        }
-
-        $modelsGroup = $this->getModelDaoRO()->getModelsGroupByPath($queriedFamilyPath);
-
-        if ($modelsGroup->getId() != $modelMD->getModelsGroup()->getId()) {
-            throw new \Exception("No $queriedMoPath found in $queriedFamilyPath!");
-        }
+        $modelMD = $this->getModelDaoRO()->getModelMetadataFromSTGName($filename);
 
         return $modelMD;
     }
