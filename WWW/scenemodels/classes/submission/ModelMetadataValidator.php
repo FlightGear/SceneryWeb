@@ -61,19 +61,19 @@ class ModelMetadataValidator implements Validator {
         $exceptions = array();
         
         if (!\FormChecker::isModelName($this->name)) {
-            $exceptions[] = new \Exception("Please check the model name.");
+            $exceptions[] = new \model\ErrorInfo("Please check the model name.");
         }
         
         if (!empty($this->description) && !\FormChecker::isComment($this->description)) {
-            $exceptions[] = new \Exception("Please check the model description.");
+            $exceptions[] = new \model\ErrorInfo("Please check the model description.");
         }
 
         if (!\FormChecker::isModelGroupId($this->moGroupId)) {
-            $exceptions[] = new \Exception("Please check the model group.");
+            $exceptions[] = new \model\ErrorInfo("Please check the model group.");
         }
 
         if (!\FormChecker::isAuthorId($this->authorId)) {
-            $exceptions[] = new \Exception("Please check the author value.");
+            $exceptions[] = new \model\ErrorInfo("Please check the author value.");
         }
         
         return $exceptions;

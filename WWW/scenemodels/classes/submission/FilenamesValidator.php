@@ -51,19 +51,19 @@ class FilenamesValidator implements Validator {
         
         if (!\FormChecker::isAC3DFilename($this->ac3dName)
                 || ($this->xmlName != "" && !\FormChecker::isXMLFilename($this->xmlName))) {
-            $exceptions[] = new \Exception("AC3D and XML name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
+            $exceptions[] = new \model\ErrorInfo("AC3D and XML name must used the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
         }
 
         // Checks PNG Filenames
         for ($i=0; $i<count($this->pngNames); $i++) {
             if (isset($this->pngNames[$i]) && $this->pngNames[$i] != "" && !\FormChecker::isPNGFilename($this->pngNames[$i])) {
-                $exceptions[] = new \Exception("Textures' name must be *.png or *.PNG with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
+                $exceptions[] = new \model\ErrorInfo("Textures' name must be *.png or *.PNG with the following characters: 'a' to 'z', 'A' to 'Z', '0' to '9', '_', '.' or '_'");
             }
         }
 
         if (empty($exceptions) && 
                 $this->xmlName != "" && $this->nameWithoutExtension($this->ac3dName) != $this->nameWithoutExtension($this->xmlName)) {
-            $exceptions[] = new \Exception("XML and AC files <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$this->xmlName."), tower.ac (currently ".$this->ac3dName.")).");
+            $exceptions[] = new \model\ErrorInfo("XML and AC files <u>must</u> share the same name. (i.e: tower.xml (if exists: currently ".$this->xmlName."), tower.ac (currently ".$this->ac3dName.")).");
         }
         
         return $exceptions;

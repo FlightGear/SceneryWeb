@@ -156,7 +156,7 @@ class DeleteObjectsController extends RequestController {
             if (\FormChecker::isEmail($inputEmail)) {
                 $safeEmail = htmlentities(stripslashes($this->getVar('email')));
             } else {
-                $errors[] = new \Exception('Email mismatch!');
+                $errors[] = new \model\ErrorInfo('Email mismatch!');
             }
         }
         

@@ -49,11 +49,11 @@ class AuthorValidator implements Validator {
         $exceptions = array();
         
         if (!\FormChecker::isEmail($this->email)) {
-            $exceptions[] = new \Exception("Please check email.");
+            $exceptions[] = new \model\ErrorInfo("Please check email.");
         }
 
         if (!\FormChecker::isComment($this->name)) {
-            $exceptions[] = new \Exception("Please check your name.");
+            $exceptions[] = new \model\ErrorInfo("Please check your name.");
         }
         
         return $exceptions;

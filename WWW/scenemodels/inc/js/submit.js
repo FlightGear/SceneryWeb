@@ -44,7 +44,7 @@ function ajaxSubmit(formId, checkURL, successURLPrefix) {
             text = "<ul>";
             errors.each(function(){
                 var errorText=$(this).text();
-                text+="<li>"+errorText+"</li>";
+                text+="<li>"+escapeXml(errorText)+"</li>";
             });
             text += "</ul>";
 
@@ -66,6 +66,17 @@ function ajaxSubmit(formId, checkURL, successURLPrefix) {
     return true;
 }
 
+function escapeXml(unsafe) {
+    return unsafe.replace(/[<>&'"]/g, function (c) {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+        }
+    });
+}
 
 $(document).ready(function() {
     // create the loading window and set autoOpen to false

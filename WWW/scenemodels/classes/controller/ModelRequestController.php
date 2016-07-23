@@ -71,7 +71,7 @@ class ModelRequestController extends RequestController {
             $xmlPath = $targetPath.$xmlName;
             // move XML file to temp dir
             if (!move_uploaded_file($_FILES['xml_file']['tmp_name'], $xmlPath)) {
-                $exceptions[] = new \Exception("There has been an error while moving the file \"".$xmlName."\" on the server.");
+                $exceptions[] = new \model\ErrorInfo("There has been an error while moving the file \"".$xmlName."\" on the server.");
             }
         }
         $thumbPath = $targetPath.$thumbName;
@@ -79,12 +79,12 @@ class ModelRequestController extends RequestController {
 
         // move A3CD file to temp dir
         if (!move_uploaded_file($_FILES['ac3d_file']['tmp_name'], $ac3dPath)) {
-            $exceptions[] = new \Exception("There has been an error while moving the file \"".$ac3dName."\" on the server.");
+            $exceptions[] = new \model\ErrorInfo("There has been an error while moving the file \"".$ac3dName."\" on the server.");
         }
 
         // move Thumbnail file to temp dir
         if (!move_uploaded_file($_FILES['mo_thumbfile']['tmp_name'], $thumbPath)) {
-            $exceptions[] = new \Exception("There has been an error while moving the file \"".$thumbName."\" on the server.");
+            $exceptions[] = new \model\ErrorInfo("There has been an error while moving the file \"".$thumbName."\" on the server.");
         }
 
         // move PNG files to temp dir
@@ -92,7 +92,7 @@ class ModelRequestController extends RequestController {
             for ($i=0; $i<count($_FILES['png_file']['name']); $i++) {
                 if (!empty($_FILES['png_file']['name'][$i])
                         && !move_uploaded_file($_FILES['png_file']['tmp_name'][$i], $targetPath.$_FILES['png_file']['name'][$i])) {
-                    $exceptions[] = new \Exception("There has been an error while moving the file \"".$_FILES['png_file']['name'][$i]."\" on the server."); 
+                    $exceptions[] = new \model\ErrorInfo("There has been an error while moving the file \"".$_FILES['png_file']['name'][$i]."\" on the server."); 
                 }
             }
         }

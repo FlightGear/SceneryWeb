@@ -36,17 +36,17 @@ class ModelChecker {
         
         // check if the file is a file uploaded by the user
         if (!is_uploaded_file($arrayXML['tmp_name'])) {
-            $exceptions[] = new \Exception("The XML file was not uploaded by the user");
+            $exceptions[] = new \model\ErrorInfo("The XML file was not uploaded by the user");
         }
         
         // check size file
         if ($arrayXML['size'] >= 2000000) {
-            $exceptions[] = new \Exception("Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$arrayXML['size']." bytes).");
+            $exceptions[] = new \model\ErrorInfo("Sorry, but the size of your XML file \"".$xmlName."\" exceeds 2Mb (current size: ".$arrayXML['size']." bytes).");
         }
         
         // check type
         if ($arrayXML['type'] != "text/xml") {
-            $exceptions[] = new \Exception("The format of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file.");
+            $exceptions[] = new \model\ErrorInfo("The format of your XML file \"".$xmlName."\"seems to be wrong. XML file needs to be an XML file.");
         }
         
         // If error is detected
@@ -70,7 +70,7 @@ class ModelChecker {
                     break;
             }
 
-            $exceptions[] = new \Exception($errormsg);
+            $exceptions[] = new \model\ErrorInfo($errormsg);
         }
         
         return $exceptions;
@@ -82,17 +82,17 @@ class ModelChecker {
         
         // check if the file is a file uploaded by the user
         if (!is_uploaded_file($arrayAC['tmp_name'])) {
-            $exceptions[] = new \Exception("The AC3D file was not uploaded by the user");
+            $exceptions[] = new \model\ErrorInfo("The AC3D file was not uploaded by the user");
         }
         
         // check size file
         if ($arrayAC['size'] >= 2000000) {
-            $exceptions[] = new \Exception("Sorry, but the size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$arrayAC['size']." bytes).");
+            $exceptions[] = new \model\ErrorInfo("Sorry, but the size of your AC3D file \"".$ac3dName."\" is over 2Mb (current size: ".$arrayAC['size']." bytes).");
         }
 
         // check type & extension file
         if (($arrayAC['type'] != "application/octet-stream" && $arrayAC['type'] != "application/pkix-attr-cert")) {
-            $exceptions[] = new \Exception("The format seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file.");
+            $exceptions[] = new \model\ErrorInfo("The format seems to be wrong for your AC3D file \"".$ac3dName."\". AC file needs to be a AC3D file.");
         }
         
         // If error is detected
@@ -115,7 +115,7 @@ class ModelChecker {
                     break;
             }
             
-            $exceptions[] = new \Exception($errormsg);
+            $exceptions[] = new \model\ErrorInfo($errormsg);
         }
         
         return $exceptions;
@@ -127,17 +127,17 @@ class ModelChecker {
         
         // check if the file is a file uploaded by the user
         if (!is_uploaded_file($arrayThumb['tmp_name'])) {
-            $exceptions[] = new \Exception("The thumb file was not uploaded by the user");
+            $exceptions[] = new \model\ErrorInfo("The thumb file was not uploaded by the user");
         }
         
         // check file size
         if ($arrayThumb['size'] >= 2000000) {
-            $exceptions[] = new \Exception("Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes).");
+            $exceptions[] = new \model\ErrorInfo("Sorry, but the size of your thumbnail file \"".$thumbName."\" exceeds 2Mb (current size: ".$_FILES['mo_thumbfile']['size']." bytes).");
         }
         
         // check type
         if ($arrayThumb['type'] != "image/jpeg") { 
-            $exceptions[] = new \Exception("The file format of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file.");
+            $exceptions[] = new \model\ErrorInfo("The file format of your thumbnail file \"".$thumbName."\" seems to be wrong. Thumbnail needs to be a JPEG file.");
         }
 
         // If an error is detected
@@ -160,7 +160,7 @@ class ModelChecker {
                     break;
             }
             
-            $exceptions[] = new \Exception($errormsg);
+            $exceptions[] = new \model\ErrorInfo($errormsg);
         }
 
         return $exceptions;
@@ -172,12 +172,12 @@ class ModelChecker {
         
         // check size file
         if ($arrayPNG['size'] >= 2000000) {
-            $exceptions[] = new \Exception("Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes).");
+            $exceptions[] = new \model\ErrorInfo("Sorry, but the size of your texture file \"".$pngName."\" exceeds 2Mb (current size: ".$pngsize." bytes).");
         }
         
         // check type
         if ($arrayPNG['type'] != 'image/png') {
-            $exceptions[] = new \Exception("The format of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.");
+            $exceptions[] = new \model\ErrorInfo("The format of your texture file \"".$pngName."\" seems to be wrong. Texture file needs to be a PNG file.");
         }
             
         
@@ -201,7 +201,7 @@ class ModelChecker {
                     break;
             }
             
-            $exceptions[] = new \Exception($errormsg);
+            $exceptions[] = new \model\ErrorInfo($errormsg);
         }
         
         return $exceptions;

@@ -58,7 +58,7 @@ abstract class Controller {
     protected function displayCaptchaError($xml = false) {
         if ($xml) {
             $errors = array();
-            $errors[] = new \Exception("The CAPTCHA is not correct. Please refresh it and try again.");
+            $errors[] = new \model\ErrorInfo("The CAPTCHA is not correct. Please refresh it and try again.");
             include 'view/submission/errors_xml.php';
         } else {
             $pageTitle = "Automated Submission Form";

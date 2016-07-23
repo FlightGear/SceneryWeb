@@ -114,10 +114,10 @@ class UpdateModelController extends ModelRequestController {
         if (\FormChecker::isModelId($modelId)) {
             $modelToUpdateOld = $this->getModelDaoRO()->getModelMetadata($modelId);
             if ($pathToUse != $modelToUpdateOld->getFilename() && $this->pathExists($pathToUse)) {
-                $exceptions[] = new \Exception("Filename \"".$pathToUse."\" is already used by another model");
+                $exceptions[] = new \model\ErrorInfo("Filename \"".$pathToUse."\" is already used by another model");
             }
         } else {
-            $exceptions[] = new \Exception("Please check the original model selected.");
+            $exceptions[] = new \model\ErrorInfo("Please check the original model selected.");
         }
         
         /** STEP 9 : CHECK MODEL INFORMATION */
@@ -134,18 +134,18 @@ class UpdateModelController extends ModelRequestController {
         $exceptions = array_merge($exceptions, $modelMDValidator->validate());
 
         if (empty($this->getVar('gpl'))) {
-            $exceptions[] = new \Exception("You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FlightGear must wear this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.");
+            $exceptions[] = new \model\ErrorInfo("You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FlightGear must wear this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.");
         }
 
         // Checking that comment exists. Just a small verification as it's not going into DB.
         $sentComment = $this->getVar('comment');
         if (!\FormChecker::isComment($sentComment)) {
-            $exceptions[] = new \Exception("Please add a comment to the maintainer.");
+            $exceptions[] = new \model\ErrorInfo("Please add a comment to the maintainer.");
         }
         
         $contrEmail = htmlentities(stripslashes($this->getVar('email')));
         if (!\FormChecker::isEmail($contrEmail)) {
-            $exceptions[] = new \Exception("Your email is mandatory.");
+            $exceptions[] = new \model\ErrorInfo("Your email is mandatory.");
         }
         
         if (!empty($exceptions)) {

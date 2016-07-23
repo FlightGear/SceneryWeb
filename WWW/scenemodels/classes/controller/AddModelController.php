@@ -106,7 +106,7 @@ class AddModelController extends ModelRequestController {
 
         // Check if path is already used
         if ($this->pathExists($pathToUse)) {
-            $exceptions[] = new \Exception("Filename \"".$pathToUse."\" is already used");
+            $exceptions[] = new \model\ErrorInfo("Filename \"".$pathToUse."\" is already used");
         }
         
         /** STEP 9 : CHECK MODEL INFORMATION */
@@ -144,7 +144,7 @@ class AddModelController extends ModelRequestController {
         $exceptions = array_merge($exceptions, $validatorsSet->validate());
 
         if (empty($this->getVar('gpl'))) {
-            $exceptions[] = new \Exception("You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FlightGear must wear this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.");
+            $exceptions[] = new \model\ErrorInfo("You did not accept the GNU GENERAL PUBLIC LICENSE Version 2, June 1991. As all the models shipped with FlightGear must wear this license, your contribution can't be accepted in our database. Please try to find GPLed textures and/or data.");
         }
 
         // Display errors if exist

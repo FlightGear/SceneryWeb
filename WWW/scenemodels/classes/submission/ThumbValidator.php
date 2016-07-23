@@ -42,16 +42,16 @@ class ThumbValidator implements Validator {
 
             // Check if JPEG file is a valid JPEG file (compare the type file)
             if ($mime != "image/jpeg") {
-                $errors[] = new \Exception("Your thumbnail file does not seem to be a JPEG file. Please upload a valid JPEG file.");
+                $errors[] = new \model\ErrorInfo("Your thumbnail file does not seem to be a JPEG file. Please upload a valid JPEG file.");
             }
 
-            // Check if PNG dimensions are a multiple of ^2
+            // Check if thumbnail dimension is 320x240
             if ($height != 240 || $width != 320) {
-                $errors[] = new \Exception("The dimension in pixels of your thumbnail file (".$width."x".$height.") does not seem to be 320x240.");
+                $errors[] = new \model\ErrorInfo("The dimension in pixels of your thumbnail file (".$width."x".$height.") does not seem to be 320x240.");
             }
         }
         else {
-            $errors[] = new \Exception("The thumbnail file does not exist on the server. Please try to upload it again.");
+            $errors[] = new \model\ErrorInfo("The thumbnail file does not exist on the server. Please try to upload it again.");
         }
         
         return $errors;

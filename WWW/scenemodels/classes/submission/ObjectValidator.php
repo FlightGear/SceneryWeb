@@ -65,27 +65,27 @@ class ObjectValidator implements Validator {
         $exceptions = array();
         
         if (isset($this->modelId) && !\FormChecker::isModelId($this->modelId)) {
-            $exceptions[] = new \Exception("Model ID is wrong!");
+            $exceptions[] = new \model\ErrorInfo("Model ID is wrong!");
         }
         
         if (!\FormChecker::isLatitude($this->latitude)) {
-            $exceptions[] = new \Exception("Latitude is wrong!");
+            $exceptions[] = new \model\ErrorInfo("Latitude is wrong!");
         }
         
         if (!\FormChecker::isLongitude($this->longitude)) {
-            $exceptions[] = new \Exception("Longitude is wrong!");
+            $exceptions[] = new \model\ErrorInfo("Longitude is wrong!");
         }
         
         if (!\FormChecker::isCountryId($this->countryId)) {
-            $exceptions[] = new \Exception("Country ID is wrong!");
+            $exceptions[] = new \model\ErrorInfo("Country ID is wrong!");
         }
 
         if (!\FormChecker::isOffset($this->offset)) {
-            $exceptions[] = new \Exception("Elevation offset is wrong!");
+            $exceptions[] = new \model\ErrorInfo("Elevation offset is wrong!");
         }
         
         if (!\FormChecker::isHeading($this->heading)) {
-            $exceptions[] = new \Exception("Heading is wrong!");
+            $exceptions[] = new \model\ErrorInfo("Heading is wrong!");
         }
 
         return $exceptions;

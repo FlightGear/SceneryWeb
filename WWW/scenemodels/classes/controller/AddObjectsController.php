@@ -110,7 +110,7 @@ class AddObjectsController extends RequestController {
 
                 // Detect if the object is already in the database
                 if ($this->objectDaoRO->checkObjectAlreadyExists($newObject)) {
-                    $objErrors[] = new \Exception("The object already exists in the database!");
+                    $objErrors[] = new \model\ErrorInfo("The object already exists in the database!");
                     $error = true;
                 }
                 
@@ -132,7 +132,7 @@ class AddObjectsController extends RequestController {
             $sentComment = $inputComment;
         }
         else {
-            $errors[] = new \Exception("Comment mismatch!");
+            $errors[] = new \model\ErrorInfo("Comment mismatch!");
             $error = true;
         }
         
@@ -220,7 +220,7 @@ class AddObjectsController extends RequestController {
 
         // Checking Label (must contain only letters and be strictly labelled OBJECT_SHARED for now)
         if (strcmp($lineValues[0], "OBJECT_SHARED") != 0) {
-            $errors[] = new \Exception("Only OBJECT_SHARED is supported!");
+            $errors[] = new \model\ErrorInfo("Only OBJECT_SHARED is supported!");
         }
 
         // Checking model (Contains only figures, letters, _/. and must exist in DB)
@@ -234,7 +234,7 @@ class AddObjectsController extends RequestController {
             }
         }
         else {
-            $errors[] = new \Exception("Model Error!");
+            $errors[] = new \model\ErrorInfo("Model Error!");
         }
 
         // Longitude
@@ -266,9 +266,9 @@ class AddObjectsController extends RequestController {
             $objectLineRequest->setObject($newObject);
 
             if ($this->objectDaoRO->checkObjectAlreadyExists($newObject)) {
-                $errors[] = new \Exception('Object exists already!');
+                $errors[] = new \model\ErrorInfo('Object exists already!');
             } else if ($this->objectDaoRO->detectNearbyObjects($lat, $long, $modelId)) {
-                $warnings[] = new \Exception('Nearby object');
+                $warnings[] = new \model\ErrorInfo('Nearby object');
             }
         }
 
