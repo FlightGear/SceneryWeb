@@ -110,7 +110,7 @@ class ModelFilesValidator implements Validator {
 
             // Check if the file begin with <?xml> tag
             $xmltag = str_replace(array("<", ">"), array("&lt;", "&gt;"), file_get_contents($xmlPath));
-            if (!preg_match('#^&lt;\?xml version="1\.0" encoding="UTF-8" \?&gt;#i', $xmltag)) {
+            if (!preg_match('#^&lt;\?xml +version="1\.0" +encoding="UTF-8" *\?&gt;#i', $xmltag)) {
                 $errors[] = new \model\ErrorInfo("Your XML must start with &lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt; !");
             }
         }
