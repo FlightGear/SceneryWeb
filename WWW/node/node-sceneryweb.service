@@ -1,0 +1,13 @@
+[Service]
+ExecStart=/usr/bin/npm start
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=node-sceneryweb
+User=torsten
+Group=users
+Environment=NODE_ENV=production
+WorkingDirectory=/srv/sceneryweb/WWW/node
+
+[Install]
+WantedBy=multi-user.target

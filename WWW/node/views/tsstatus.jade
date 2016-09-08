@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  table
+    caption DNS Entries for #{domainname}
+    thead
+      tr
+        th Order
+        th Preference
+        th Flags
+        th Service
+        th Regexp
+        th Replacement
+    tbody
+      each entry in dns
+        tr
+          td= entry.order
+          td= entry.preference
+          td= entry.flags
+          td= entry.service
+          td= entry.regexp
+          td= entry.replacement
+
