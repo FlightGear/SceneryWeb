@@ -271,7 +271,7 @@ function(jquery) {
             var self = this;
             var bounds = map.getBounds();
             self.clearLayers();
-            var url = "/svc/getsigns?w=" + bounds.getWest() 
+            var url = "/scenemodels/signs?w=" + bounds.getWest() 
                                        + "&e=" + bounds.getEast() 
                                        + "&n=" + bounds.getNorth() 
                                        + "&s=" + bounds.getSouth(); 
