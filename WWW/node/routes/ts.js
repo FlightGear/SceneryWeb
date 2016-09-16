@@ -15,15 +15,20 @@ router.get('/status/:id?', function(req, res, next) {
       return;
     } 
 
+    addresses = addresses || [];
+    addresses.forEach( function(address,index) {
+      var separator = address.regexp.charAt(0);
+      var tokens = address.regexp.split(separator);
+      address.url = tokens[2];
+      address.index = index;
+    });
+
     res.render('tsstatus', {
       title: "Terrasync Status",
       dns: addresses,
       domainname: dnsname,
     });
 
-    if( addresses ) addresses.forEach( function(address) {
-      console.log(address);
-    });
   });
 
 });

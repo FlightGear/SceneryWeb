@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var terrasync = require('./routes/ts');
+var scenemodels = require('./routes/scenemodels');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/ts', terrasync);
+app.use('/scenemodels', scenemodels);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

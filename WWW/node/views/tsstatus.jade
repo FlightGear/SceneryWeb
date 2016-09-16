@@ -8,17 +8,28 @@ block content
       tr
         th Order
         th Preference
-        th Flags
-        th Service
-        th Regexp
-        th Replacement
+        // th Flags
+        th Version
+        th URL
+        // th Replacement
+        th Models
+        th Objects
+        th Airports
+        th Terrain
+
     tbody
       each entry in dns
-        tr
+        tr.dnsentry(id= entry.index)
           td= entry.order
           td= entry.preference
-          td= entry.flags
+          // td= entry.flags
           td= entry.service
-          td= entry.regexp
-          td= entry.replacement
+          td.url= entry.url
+          // td= entry.replacement
+          td.models
+          td.objects
+          td.airports
+          td.terrain
 
+  // script(type='text/javascript',src='https://code.jquery.com/jquery-3.1.0.min.js')
+  // script(type='text/javascript',src='/scripts/tsstatus.js')

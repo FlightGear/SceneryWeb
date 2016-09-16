@@ -199,7 +199,8 @@ function(jquery) {
             var self = this;
             self.clearLayers();
             var bounds = map.getBounds();
-            var url = "/svc/getobjects?w=" + bounds.getWest() 
+//            var url = "/svc/getobjects?w=" + bounds.getWest() 
+            var url = "/scenemodels/objects?w=" + bounds.getWest() 
                                        + "&e=" + bounds.getEast() 
                                        + "&n=" + bounds.getNorth() 
                                        + "&s=" + bounds.getSouth(); 
@@ -292,7 +293,7 @@ function(jquery) {
         }
 
         var signsLayer = L.signsLayer({
-        }).addTo(map);
+        });//.addTo(map);
 
     
         var grid = L.tileGrid().addTo(map);
