@@ -3,6 +3,9 @@
 *  based on https://github.com/jieter/Leaflet.Grid
  */
 
+require(['./fgtile'], function(fgtile) {
+});
+
 L.TileGrid = L.LayerGroup.extend({
 	options: {
 		xticks: 8,

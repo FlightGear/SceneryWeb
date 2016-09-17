@@ -1,7 +1,7 @@
 define(
-  ['jquery', 'leaflet-tilegrid', 'leaflet-coordinates', 'leaflet-contextmenu' ], 
+  ['jquery', 'fgtile', 'leaflet-tilegrid', 'leaflet-coordinates', 'leaflet-contextmenu' ], 
 
-function(jquery) {
+function(jquery, fgtile) {
 
 
         function getRequestParameter(name) {
@@ -199,7 +199,6 @@ function(jquery) {
             var self = this;
             self.clearLayers();
             var bounds = map.getBounds();
-//            var url = "/svc/getobjects?w=" + bounds.getWest() 
             var url = "/scenemodels/objects?w=" + bounds.getWest() 
                                        + "&e=" + bounds.getEast() 
                                        + "&n=" + bounds.getNorth() 
@@ -325,6 +324,13 @@ function(jquery) {
             labelTemplateLat:"N {y}",
             labelTemplateLng:"E {x}",
             useLatLngOrder:true
+        }).addTo(map);
+
+        L.control.coordinates({
+            position:"bottomleft",
+            customLabelFcn: function(ll,opts) {
+              return "tile #" + fgtile.tileIndexFromCoordinate(ll.lat,ll.lng);
+            },
         }).addTo(map);
 
         map.on( "moveend", function(e) {

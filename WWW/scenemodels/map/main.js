@@ -21,12 +21,11 @@ require.config({
       'leaflet': '3rdparty/leaflet',
       'jquery': 'https://code.jquery.com/jquery-1.11.3.min',
       'jquery-ui': 'https://code.jquery.com/ui/1.11.4/jquery-ui.min',
-      'leaflet-coordinates': '3rdparty/Leaflet.Coordinates-0.1.3.min',
+      'leaflet-coordinates': '3rdparty/Leaflet.Coordinates-0.1.5.min',
       'leaflet-contextmenu': '3rdparty/leaflet.contextmenu',
       'leaflet-tilegrid': 'tilegrid',
       'knockout': 'https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min',
       'text': 'https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min',
-      'ggplat' : 'https://apis.google.com/js/platform.js',
     },          
     waitSeconds : 30,
 });     
@@ -40,7 +39,7 @@ require([
 
           self.stylesheets = ko.observableArray([
             "3rdparty/leaflet.css",
-            "3rdparty/Leaflet.Coordinates-0.1.3.css",
+            "3rdparty/Leaflet.Coordinates-0.1.5.css",
             "3rdparty/leaflet.contextmenu.css",
             "https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css",
           ]);
