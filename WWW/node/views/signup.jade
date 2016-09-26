@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  div.col-sm-6.col-sm-offset-3
+    h1 #{title}
+    // show any messages that come back with authentication
+    if message && message.length > 0 
+      div.alert.alert-danger #{message}
+
+    // LOGIN FORM
+    form(action='/signup',method='post')
+
+      div.form-group
+        label User ID
+        input(type="text",name="id").form-control
+
+      div.form-group
+        label Email
+        input(type="text",name="email").form-control
+
+      div.form-group
+        label Password
+        input(type="password",name="password").form-control
+
+      button(type="submit").btn.btn-warning.btn-lg Signup
+
+    hr
+
+    p Already have an account? 
+      a(href='/login') Login
+    p Or go 
+      a(href='/') home
+      |.

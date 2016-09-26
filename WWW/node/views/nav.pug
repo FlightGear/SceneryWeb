@@ -1,0 +1,42 @@
+extends bs-fluid
+
+block content
+  nav.navbar.navbar-default
+    div.container-fluid
+      div.navbar-header
+        button(type='button',data-toggle='collapse',data-target='#mainNavbar').navbar-toggle
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a(href="/",title="FlightGear Aviation Resources",alt="FlightGear Aviation Resources - home").navbar-brand FAR
+
+      div.collapse.navbar-collapse#mainNavbar
+        ul.nav.navbar-nav
+         li
+           a(href="/map") Map
+         li.dropdown
+           a(data-toggle='dropdown',href='#').dropdown-toggle Browse
+             span.caret
+           ul.dropdown-menu
+             li
+               a(href="/browse/models") Models
+             li
+               a(href="/browse/objects") Objects
+             li
+               a(href="/browse/navaids") Navaids
+         // li
+           // a(href="#") Page 1
+         // li
+           // a(href="#") Page 2
+         // li
+           // a(href="#") Page 3
+        ul.nav.navbar-nav.navbar-right
+         li.dropdown
+           a(data-toggle='dropdown',href='#').dropdown-toggle
+             span.glyphicon.glyphicon-user
+             span.caret
+           ul.dropdown-menu
+             li
+               a(href="/login") Login
+
+  block far-content

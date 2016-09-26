@@ -1,0 +1,36 @@
+extends nav
+
+block header
+  style(type='text/css').
+    .jumbotron {
+      min-height: 300px;
+    }
+  script(src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js')
+  script(src='https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js')
+
+  link(rel='stylesheet',type='text/css',href='https://cdn.datatables.net/v/bs-3.3.6/dt-1.10.12/datatables.min.css')
+  
+block far-content
+  div.jumbotron
+   div.table-responsive
+    table(cellspacing='0',width='100%').table.table-striped.table-condensed
+      thead
+        tr
+          th Thumb
+          th ID
+          th Name
+          th File
+          th Notes
+          th Modified
+          th Type
+      tfoot
+        tr
+          th Thumb
+          th ID
+          th Name
+          th File
+          th Notes
+          th Modified
+          th Type
+
+  script(type='text/javascript',async='async',data-main='/scripts/browser/models',src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js')

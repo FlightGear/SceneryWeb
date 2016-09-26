@@ -15,12 +15,26 @@
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
+    "express-session": "~1.0.0",
+    "connect-flash" : "~0.1.1",
     "debug": "~2.2.0",
     "express": "~4.13.4",
-    "jade": "~1.11.0",
+    "pug": "latest",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",
     "xml": "~1.0.1",
-    "pg": "~6.1.0"
+    "pg": "~6.1.0",
+    "bcrypt-nodejs" : "latest",
+
+    "passport" : "latest",         
+    "passport-debug" : "latest",
+    "passport-local" : "latest",    
+    "passport-oauth1" : "latest",
+    "passport-facebook" : "latest", 
+    "passport-twitter" : "latest",  
+    "passport-github2" : "latest",  
+    "passport-google-oauth" : "latest",
+    "connect-flash" : "latest",     
+    "bcrypt-nodejs" : "latest"
   }
 }

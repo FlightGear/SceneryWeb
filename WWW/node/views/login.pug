@@ -1,0 +1,21 @@
+extends nav
+
+block far-content
+  div.jumbotron
+    h2 Sign in
+    p Currently we do not provide a local user database as we can not guarantee integral security for locally stored passwords.
+    p Please use on of the most popular authentication providers below.
+    p
+      //a(href='/auth/dropbox').btn.btn-primary.btn-lg.fa.fa-dropbox <br>Dropbox
+      //a(href='/auth/facebook').btn.btn-primary.btn-lg.fa.fa-facebook-f <br>Facebook
+      //a(href='/auth/flickr').btn.btn-default.btn-lg.fa.fa-flickr <br>Flickr
+      a(href='/auth/github').btn.btn-success.btn-lg.fa.fa-github <br>GitHub
+      a(href='/auth/google').btn.btn-danger.btn-lg.fa.fa-google <br>Google
+      a(href='/auth/sourceforge').btn.btn-danger.btn-lg.fa.fa-sourceforge <br>Sourceforge
+      a(href='/auth/twitter').btn.btn-warning.btn-lg.fa.fa-twitter <br>Twitter
+
+    p Just looking? Go 
+      a(href='/') home
+      |.
+
+

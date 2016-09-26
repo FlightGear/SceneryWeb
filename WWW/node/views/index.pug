@@ -1,0 +1,47 @@
+extends nav
+
+block far-content
+  div.jumbotron
+
+    p Welcome to the FlightGear Aviation Resources
+    p This website is used to share common tools and data for all FlightGear scenery related items.
+    p.
+      We currently have 
+      #[span.index-stats-field#nummodels some]
+      #[a(href="/browse/models") models] placed at 
+      #[span.index-stats-field#numobjects some] individual positions 
+      #[a(href="/browse/objects") (objects)] and 
+      #[span.index-stats-field#numnavaids some]
+      #[a(href="/browse/navaids") navaids], contributed and maintained by 
+      #[span.index-stats-field#numauthors some]
+      #[a(href="/browse/authors") authors].
+
+    p.
+      Explore everything on our #[a(href="/map") world map]. 
+      Please #[a(href="/login") log in] to contribute. 
+
+  script.
+    $(function() {
+       var cnt = 10;
+       var t = -1;
+       function fakeCounter() {
+         $("#nummodels").text(cnt);
+         $("#numobjects").text(100*cnt+Math.floor(Math.random()*100));
+         $("#numauthors").text(cnt);
+         $("#numnavaids").text(10*cnt+Math.floor(Math.random()*100));
+         cnt++;
+         t = setTimeout(fakeCounter, 10);
+       }
+
+       fakeCounter();
+
+       $.getJSON( "/scenemodels/stats/", function( data ) {
+         clearTimeout(t);
+         data = data || {};
+         stats = data.stats || {}
+         $("#nummodels").text( stats.models || 0);
+         $("#numobjects").text(stats.objects || 0);
+         $("#numauthors").text(stats.authors || 0);
+         $("#numnavaids").text(stats.navaids || 0);
+       });
+    });

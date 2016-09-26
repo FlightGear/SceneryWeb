@@ -1,0 +1,14 @@
+extends nav
+
+block header
+  style(type='text/css').
+    .jumbotron {
+      min-height: 300px;
+    }
+  link(rel='stylesheet',href='https://unpkg.com/leaflet@1.0.1/dist/leaflet.css')
+  script(src='https://unpkg.com/leaflet@1.0.1/dist/leaflet.js')
+  
+block far-content
+  div.jumbotron#map
+
+  script(type='text/javascript',async='async',data-main='/scripts/map/main',src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js')

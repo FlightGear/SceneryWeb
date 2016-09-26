@@ -23,14 +23,6 @@ function toNumber(x) {
 }
 
 
-var selectModelsWithinSql = 
-   "SELECT ob_id, ob_text, ob_model, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, \
-           ob_heading, ob_gndelev, ob_elevoffset, ob_model, mo_shared, \
-           concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ob_tile \
-           FROM fgs_objects, fgs_models \
-           WHERE ST_Within(wkb_geometry, ST_GeomFromText($1,4326)) \
-           AND fgs_models.mo_id = fgs_objects.ob_model \
-           LIMIT 400";
 
 var selectSignsWithinSql = 
    "SELECT si_id, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, \
@@ -99,7 +91,13 @@ router.get('/objects/', function(req, res, next) {
 
   Query({
       name: 'Select Models Within',
-      text: selectModelsWithinSql, 
+      text: "SELECT ob_id, ob_text, ob_model, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, \
+           ob_heading, ob_gndelev, ob_elevoffset, ob_model, mo_shared, \
+           concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath, ob_tile \
+           FROM fgs_objects, fgs_models \
+           WHERE ST_Within(wkb_geometry, ST_GeomFromText($1,4326)) \
+           AND fgs_models.mo_id = fgs_objects.ob_model \
+           LIMIT 400",
       values: [ String.format('POLYGON(({0} {1},{2} {3},{4} {5},{6} {7},{0} {1}))',west,south,west,north,east,north,east,south) ]
     }, function(err, result) {
  
@@ -247,10 +245,169 @@ router.get('/stats/', function(req, res, next) {
   });
 });
 
+router.get('/models/list/:limit/:offset?', function(req, res, next) {
+
+  var offset = Number(req.params.offset || 0);
+  var limit = Number(req.params.limit||0);
+
+  if( isNaN(offset) || isNaN(limit) ) {
+      return res.status(500).send("Invalid Request");
+  }
+
+  limit = Math.min(10000,Math.max(1,limit));
+
+  Query({
+      name: 'ModelsList',
+      text: "select mo_id, mo_path, mo_name, mo_notes, mo_shared from fgs_models limit $1 offset $2",
+      values: [ limit, offset ]
+    }, function(err, result) {
+
+    if(err) {
+      return res.status(500).send("Database Error");
+    }
+
+    var j = [];
+    result.rows.forEach(function(row){
+      j.push({
+        'id': row.mo_id,
+        'filename': row.mo_path,
+        'name': row.mo_name,
+        'notes': row.mo_notes,
+        'shared': row.mo_shared
+      });
+    });
+    res.json(j);
+  });
+});
+
+router.get('/model/:id/thumb', function(req, res, next) {
+  var id = Number(req.params.id || 0);
+  if( isNaN(id) ) {
+      return res.status(500).send("Invalid Request");
+  }
+  
+  Query({
+      name: 'ModelsThumb',
+      text: "select mo_thumbfile from fgs_models where mo_id = $1",
+      values: [ id ]
+    }, function(err, result) {
+
+    if(err) {
+      return res.status(500).send("Database Error");
+    }
+
+    if( 0 == result.rows.length ) {
+      return res.status(404).send("model not found");
+    }
+
+    if( result.rows[0].mo_thumbfile == null ) 
+      return res.status(404).send("no thumbfile");
+
+    var buf = new Buffer(result.rows[0].mo_thumbfile, 'base64');
+    res.writeHead(200, {'Content-Type': 'image/jpeg'});
+    res.end(buf);
+  });
+});
+
+router.get('/models/datatable', function(req, res, next) {
+  var draw = toNumber(req.query.draw);
+  var start = toNumber(req.query.start);
+  var length = toNumber(req.query.length);
+
+  req.query.search = req.query.search || {}
+  var search = req.query.search.value || '';
+
+  order = req.query.order || [{ column: '1', dir: 'asc' }];
+
+  var order_cols = {
+    '1': 'mo_id',
+    '2': 'mo_name',
+    '3': 'mo_path',
+    '4': 'mo_notes',
+    '5': 'mo_modified',
+    '6': 'mo_shared',
+  }
+  order_col = order_cols[toNumber(order[0].column)] || 'mo_id';
+  order_dir = order[0].dir === 'asc' ? 'ASC' : 'DESC';
+
+  //TODO: need to construct prepared statements for each order/dir combination
+  var queryArgs = search == '' ? 
+    {
+      name: 'ModelsListDatatable',
+      text: "select mo_id, mo_path, mo_name, mo_notes, mo_modified, mo_shared from fgs_models order by mo_modified desc limit $1 offset $2",
+      values: [ length, start ]
+    } :
+    {
+      name: 'ModelsSearchDatatable',
+      text: "select mo_id, mo_path, mo_name, mo_notes, mo_modified, mo_shared from fgs_models where mo_path like $3 or mo_name like $3 or mo_notes like $3 order by mo_modified desc limit $1 offset $2",
+      values: [ length, start, "%" + search + "%" ]
+    };
+
+  Query(queryArgs, function(err, result) {
+    if(err) return res.status(500).send("Database Error");
+
+    var j = [];
+    result.rows.forEach(function(row){
+      j.push({
+        'id': row.mo_id,
+        'filename': row.mo_path,
+        'name': row.mo_name,
+        'notes': row.mo_notes,
+        'shared': row.mo_shared,
+        'modified': row.mo_modified,
+      });
+    });
+
+    Query({
+      name: 'CountModels',
+      text: 'select count(*) from fgs_models',
+    }, function(err,result) {
+      if(err) return res.status(500).send("Database Error");
+
+      var count = result.rows[0].count;
+
+      res.json({
+        'draw': draw,
+        'recordsTotal': count,
+        'recordsFiltered': search == '' ? count : j.length,
+        'data': j,
+      });
+    });
+  });
+});
+
+router.get('/modelgroup/:id?', function(req, res, next) {
+  var QueryArgs = req.params.id ?
+  {
+      name: 'ModelGroupsRead',
+      text: "select mg_id, mg_name from fgs_modelgroups where mg_id = $1",
+      values: [ toNumber(req.params.id) ]
+  } :
+  {
+      name: 'ModelGroupsReadAll',
+      text: "select mg_id, mg_name from fgs_modelgroups order by mg_id",
+  };
+  Query(QueryArgs, function(err, result) {
+
+    if(err) {
+      return res.status(500).send("Database Error");
+    }
+
+    var j = [];
+    result.rows.forEach(function(row){
+      j.push({
+        'id': row.mg_id,
+        'name': row.mg_name,
+      });
+    });
+    res.json(j);
+  });
+});
+
 router.get('/models/search/:pattern', function(req, res, next) {
 
   Query({
-      name: 'ModelsSearch ',
+      name: 'ModelsSearch',
       text: "select mo_id, mo_path, mo_name, mo_notes, mo_shared from fgs_models where mo_path like $1 or mo_name like $1 or mo_notes like $1",
       values: [ "%" + req.params.pattern + "%" ]
     }, function(err, result) {
@@ -265,7 +422,8 @@ router.get('/models/search/:pattern', function(req, res, next) {
         'id': row.mo_id,
         'filename': row.mo_path,
         'name': row.mo_name,
-        'notes': row.mo_notes
+        'notes': row.mo_notes,
+        'shared': row.mo_shared
       });
     });
     res.json(j);

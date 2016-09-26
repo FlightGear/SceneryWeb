@@ -1,0 +1,19 @@
+extends nav
+
+block far-content
+
+  div.jumbotron
+      div.well
+        h3
+          span.fa.fa-user
+          | Your Author settings
+
+          p
+            strong id: #{user.author.id}
+            br
+            strong name: #{user.author.name}
+            br
+            strong email: #{user.author.email}
+            br
+            strong notes: #{user.author.notes}
+            br
