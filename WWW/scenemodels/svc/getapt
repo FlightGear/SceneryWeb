@@ -25,6 +25,7 @@
 import cgi, sys
 import psycopg2, psycopg2.extras
 import re, json, os
+import urllib2
 
 #import cgitb
 #cgitb.enable()
@@ -36,6 +37,8 @@ pguser = "webuser"
 db_params = {"host":pghost, "port":pgport, "database":pgdatabase, "user":pguser}
 db_conn = psycopg2.connect(**db_params)
 db_cursor = db_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+clientId = '46348800113-at29k30f53kuk6ed5nisbkrl9g4utpbm.apps.googleusercontent.com'
 
 ################ GET FIX(es) ###################################
 def getfix():
@@ -130,9 +133,13 @@ def newProcedure( props ):
    props['type'],
    props['runways'],)
 
-  db_cursor.execute( sql, data )
-  db_conn.commit()
-  return { 'status': '?' }
+  try:
+    db_cursor.execute( sql, data )
+    db_conn.commit()
+    return { 'status': 'ok' }
+  except:
+    return { 'status': 'failure' }
+
 
 ################ Insert new waypoint ##############################
 def newWaypoint( props ):
@@ -179,6 +186,14 @@ def handleGet():
 ################ Handle POST Request ##############################
 def handlePost():
   request = json.load(sys.stdin);
+
+  id_token = request['id_token'];
+  if 0 == id_token:
+    return { 'status': 'not authorized' }
+    
+  auth = json.loads( urllib2.urlopen("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + str(id_token)).read() )
+  if auth['aud'] != clientId:
+    return { 'status': 'unknown client-id' }
 
   if request['command'] == 'newProcedure':
     return newProcedure( request );

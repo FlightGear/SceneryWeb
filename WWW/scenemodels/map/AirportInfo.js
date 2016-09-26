@@ -29,7 +29,7 @@ define([
                 url: '/svc/getapt',
                 data: JSON.stringify({
                     'command' : 'updateWaypoint',
-                    'id_token' : '',
+                    'id_token' : window.id_token || 0,
                     'id': self.id,
                     'name': props.name,
                     'type': props.type,
@@ -104,7 +104,7 @@ define([
                 url: '/svc/getapt',
                 data: JSON.stringify({
                     'command' : 'newWaypoint',
-                    'id_token' : '',
+                    'id_token' : window.id_token || 0,
                     'procedure': self.id,
                     'name': props.name,
                     'type': props.type,
@@ -188,7 +188,7 @@ define([
                 var val = val.trim();
                 var jqxhr = jquery.post('/svc/getapt', JSON.stringify({
                     'command' : 'newProcedure',
-                    'id_token' : '',
+                    'id_token' : window.id_token || 0,
                     'icao': self.airportId(),
                     'name': val,
                     'type': 'Star',
