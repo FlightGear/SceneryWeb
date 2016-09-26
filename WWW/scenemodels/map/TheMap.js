@@ -334,8 +334,10 @@ function(jquery, fgtile) {
         }).addTo(map);
 
         map.on( "moveend", function(e) {
-          scenemodelsLayer.refresh( map );
-          signsLayer.refresh( map );
+          if( map.hasLayer( scenemodelsLayer ) )
+            scenemodelsLayer.refresh( map );
+          if( map.hasLayer( signsLayer ) )
+            signsLayer.refresh( map );
         });
 
         var airportInfo = L.control({
