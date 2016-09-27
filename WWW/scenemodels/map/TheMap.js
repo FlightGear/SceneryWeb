@@ -205,7 +205,7 @@ function(jquery, fgtile) {
                                        + "&s=" + bounds.getSouth(); 
 
             if( map.getZoom() > 12 ) {
-                var jqxhr = $.get(url).done(function(data) {
+                var jqxhr = jquery.get(url).done(function(data) {
                     self.addData.call(self, data);
                 }).fail(function() {
                     console.log('failed to load scenemodels data');
@@ -215,8 +215,8 @@ function(jquery, fgtile) {
                 // make a grid of 200x200px for the map and display number
                 // of objects instead of individual objects per grid
                 var bounds = map.getBounds();
-                var mapWidth = $('#map').width();
-                var mapHeight = $('#map').height();
+                var mapWidth = jquery('#map').width();
+                var mapHeight = jquery('#map').height();
                 var gridSizeX = Math.floor(mapWidth/200);
                 var gridSizeY = Math.floor(mapHeight/200);
                 var degPerPixelX = (bounds.getEast()-bounds.getWest())/mapWidth;
@@ -276,10 +276,69 @@ function(jquery, fgtile) {
                                        + "&s=" + bounds.getSouth(); 
 
             if( map.getZoom() > 13 ) {
-                var jqxhr = $.get(url).done(function(data) {
+                var jqxhr = jquery.get(url).done(function(data) {
                     self.addData.call(self, data);
                 }).fail(function() {
                     console.log('failed to load scenemodels data');
+                }).always(function() {
+                });
+              }
+          },
+
+        });
+
+        L.NavaidsLayer = L.GeoJSON.extend({
+          options : {
+            pointToLayer : function(feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 3,
+                    fillColor: 'blue',
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8,
+                });
+            },
+
+            onEachFeature : function(feature, layer) {
+                var popupContent = "";
+                popupContent += "<a href='/map/?lat=" + feature.geometry.coordinates[1] +
+                                                                            "&lon=" + feature.geometry.coordinates[0] +
+                                                                            "&z=13'>permalink</a>";
+                if (feature.properties) {
+                    popupContent += '<div><span>Navaid: </span><span>' + feature.properties.type;
+                    popupContent += '<div><span>Elevation: </span><span>' + feature.properties.elevation;
+                    popupContent += '<div><span>Range: </span><span>' + feature.properties.range;
+                    popupContent += '<div><span>Multiuse: </span><span>' + feature.properties.multiuse;
+                    popupContent += '<div><span>Ident: </span><span>' + feature.properties.ident;
+                    popupContent += '<div><span>Name: </span><span>' + feature.properties.name;
+                    popupContent += '<div><span>Airport: </span><span>' + feature.properties.airport;
+                    popupContent += '<div><span>Runway: </span><span>' + feature.properties.runway;
+                }
+
+                layer.bindPopup(popupContent);
+            },
+          },
+
+          onAdd : function(map) {
+            L.GeoJSON.prototype.onAdd.call(this, map);
+            this.refresh(map);
+          },
+
+          refresh: function(map) {
+            var self = this;
+            var bounds = map.getBounds();
+            self.clearLayers();
+            var url = "/scenemodels/navaids/within?w=" + bounds.getWest() 
+                                       + "&e=" + bounds.getEast() 
+                                       + "&n=" + bounds.getNorth() 
+                                       + "&s=" + bounds.getSouth(); 
+
+            if( map.getZoom() > 8 ) {
+                var jqxhr = jquery.get(url).done(function(data) {
+                    self.addData.call(self, data);
+                }).fail(function() {
+                    console.log('failed to load scenemodels(navaids) data');
                 }).always(function() {
                 });
               }
@@ -294,6 +353,13 @@ function(jquery, fgtile) {
         var signsLayer = L.signsLayer({
         });//.addTo(map);
 
+        L.navaidsLayer = function(options) {
+          return new L.NavaidsLayer(null, options);
+        }
+
+        var navaidsLayer = L.navaidsLayer({
+        });//.addTo(map);
+
     
         var grid = L.tileGrid().addTo(map);
 
@@ -305,6 +371,7 @@ function(jquery, fgtile) {
         var overlays = {
             "Scenemodels": scenemodelsLayer,
             "Signs": signsLayer,
+            "Navaids": navaidsLayer,
             "Grid":  grid,
         }
 
@@ -338,6 +405,8 @@ function(jquery, fgtile) {
             scenemodelsLayer.refresh( map );
           if( map.hasLayer( signsLayer ) )
             signsLayer.refresh( map );
+          if( map.hasLayer( navaidsLayer ) )
+            navaidsLayer.refresh( map );
         });
 
         var airportInfo = L.control({

@@ -17,6 +17,12 @@ if (!String.format) {
   };
 }
 
+function toNumber(x) {
+  var n = Number(x||0);
+  return isNaN(n) ? 0 : n;
+}
+
+
 var selectModelsWithinSql = 
    "SELECT ob_id, ob_text, ob_model, ST_Y(wkb_geometry) AS ob_lat, ST_X(wkb_geometry) AS ob_lon, \
            ob_heading, ob_gndelev, ob_elevoffset, ob_model, mo_shared, \
@@ -31,6 +37,13 @@ var selectSignsWithinSql =
            si_heading, si_gndelev, si_definition \
            FROM fgs_signs \
            WHERE ST_Within(wkb_geometry, ST_GeomFromText($1,4326)) \
+           LIMIT 400";
+
+var selectNavaidsWithinSql = 
+   "SELECT na_id, ST_Y(na_position) AS na_lat, ST_X(na_position) AS na_lon, \
+           na_type, na_elevation, na_frequency, na_range, na_multiuse, na_ident, na_name, na_airport_id, na_runway \
+           FROM fgs_navaids \
+           WHERE ST_Within(na_position, ST_GeomFromText($1,4326)) \
            LIMIT 400";
 
 var pool = new pg.Pool({
@@ -56,11 +69,6 @@ pool.on('error', function (err, client) {
 router.get('/objects/', function(req, res, next) {
 
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
-
-  function toNumber(x) {
-    var n = Number(x||0);
-    return isNaN(n) ? 0 : n;
-  }
 
   var east = toNumber(req.query.e);
   var west = toNumber(req.query.w);
@@ -124,11 +132,6 @@ router.get('/signs/', function(req, res, next) {
 
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
-  function toNumber(x) {
-    var n = Number(x||0);
-    return isNaN(n) ? 0 : n;
-  }
-
   var east = toNumber(req.query.e);
   var west = toNumber(req.query.w);
   var north = toNumber(req.query.n);
@@ -183,5 +186,69 @@ router.get('/signs/', function(req, res, next) {
   });
 });
 
-module.exports = router;
+router.get('/navaids/within/', function(req, res, next) {
 
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+
+  var east = toNumber(req.query.e);
+  var west = toNumber(req.query.w);
+  var north = toNumber(req.query.n);
+  var south = toNumber(req.query.s);
+
+  pool.connect(function(err, client, done) {
+
+    if(err) {
+      console.error('error fetching client from pool', err);
+      res.status(500);
+      res.send(JSON.stringify({}));
+      return;
+    }
+
+    client.query({
+      name: 'Select Navaids Within',
+      text: selectNavaidsWithinSql, 
+      values: [ String.format('POLYGON(({0} {1},{2} {3},{4} {5},{6} {7},{0} {1}))',west,south,west,north,east,north,east,south) ]
+    }, function(err, result) {
+      //call `done()` to release the client back to the pool 
+      done();
+ 
+      if(err) {
+        console.error('error running query', err);
+        res.status(500);
+        res.send(JSON.stringify({}));
+        return;
+      }
+
+      var features = [];
+      if( result.rows ) result.rows.forEach(function(row) {
+        features.push({
+          'type': 'Feature',
+          'id': row['si_id'],
+          'geometry':{
+            'type': 'Point','coordinates': [row['na_lon'], row['na_lat']]
+          },
+          'properties': {
+            'id': row['na_id'],
+            'type': row['na_type'],
+            'elevation': row['na_elevation'],
+            'frequency': row['na_frequency'],
+            'range': row['na_range'],
+            'multiuse': row['na_multiuse'],
+            'ident': row['na_ident'],
+            'name': row['na_name'],
+            'airport': row['na_airport_id'],
+            'runway': row['na_runway'],
+          }
+        });
+      });
+
+      res.send(JSON.stringify({ 
+        'type': 'FeatureCollection', 
+        'features': features
+      }));
+
+    });
+  });
+});
+
+module.exports = router;
