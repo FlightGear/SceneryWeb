@@ -359,3 +359,8 @@ tr.object td{
 .ui-state-active a, .ui-tabs-panel {
     background-color: rgb(224, 255, 224) !important;
 }
+
+.statscounter {
+  font-weight: bold;
+  font-size: 110%;
+}

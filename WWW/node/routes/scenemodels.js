@@ -65,188 +65,185 @@ pool.on('error', function (err, client) {
   console.error('idle client error', err.message, err.stack)
 })
 
+function Query(options,cb) {
+
+  pool.connect(function(err, client, done) {
+
+    if(err) {
+      console.error('error fetching client from pool', err);
+      return cb(err);
+    }
+
+    client.query(options, function(err, result) {
+      //call `done()` to release the client back to the pool 
+      done();
+ 
+      if(err) {
+        console.error('error running query', err);
+        return cb(err);
+      }
+
+      return cb(null,result);
+
+    });
+  });
+}
+
  
 router.get('/objects/', function(req, res, next) {
-
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
   var east = toNumber(req.query.e);
   var west = toNumber(req.query.w);
   var north = toNumber(req.query.n);
   var south = toNumber(req.query.s);
 
-  pool.connect(function(err, client, done) {
-
-    if(err) {
-      console.error('error fetching client from pool', err);
-      res.status(500);
-      res.send(JSON.stringify({}));
-      return;
-    }
-
-    client.query({
+  Query({
       name: 'Select Models Within',
       text: selectModelsWithinSql, 
       values: [ String.format('POLYGON(({0} {1},{2} {3},{4} {5},{6} {7},{0} {1}))',west,south,west,north,east,north,east,south) ]
     }, function(err, result) {
-      //call `done()` to release the client back to the pool 
-      done();
  
-      if(err) {
-        console.error('error running query', err);
-        res.status(500);
-        res.send(JSON.stringify({}));
-        return;
-      }
+    if(err) {
+      return res.status(500).send("Database Error");
+    }
 
-      var features = [];
-      if( result.rows ) result.rows.forEach(function(row) {
-        features.push({
-          'type': 'Feature',
+    var features = [];
+    if( result.rows ) result.rows.forEach(function(row) {
+      features.push({
+        'type': 'Feature',
+        'id': row['ob_id'],
+        'geometry':{
+          'type': 'Point','coordinates': [row['ob_lon'], row['ob_lat']]
+        },
+        'properties': {
           'id': row['ob_id'],
-          'geometry':{
-            'type': 'Point','coordinates': [row['ob_lon'], row['ob_lat']]
-          },
-          'properties': {
-            'id': row['ob_id'],
-            'heading': row['ob_heading'],
-            'title': row['ob_text'],
-            'gndelev': row['ob_gndelev'],
-            'elevoffset': row['ob_elevoffset'],
-            'model_id': row['ob_model'],
-            'shared': row['mo_shared'],
-            'stg': row['obpath'] + row['ob_tile'] + '.stg',
-          }
-        });
+          'heading': row['ob_heading'],
+          'title': row['ob_text'],
+          'gndelev': row['ob_gndelev'],
+          'elevoffset': row['ob_elevoffset'],
+          'model_id': row['ob_model'],
+          'shared': row['mo_shared'],
+          'stg': row['obpath'] + row['ob_tile'] + '.stg',
+        }
       });
+    });
 
-      res.send(JSON.stringify({ 
+    res.json({ 
         'type': 'FeatureCollection', 
         'features': features
-      }));
+      });
     });
-  });
 });
 
 router.get('/signs/', function(req, res, next) {
-
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
   var east = toNumber(req.query.e);
   var west = toNumber(req.query.w);
   var north = toNumber(req.query.n);
   var south = toNumber(req.query.s);
 
-  pool.connect(function(err, client, done) {
-
-    if(err) {
-      console.error('error fetching client from pool', err);
-      res.status(500);
-      res.send(JSON.stringify({}));
-      return;
-    }
-
-    client.query({
+  Query({
       name: 'Select Signs Within',
       text: selectSignsWithinSql, 
       values: [ String.format('POLYGON(({0} {1},{2} {3},{4} {5},{6} {7},{0} {1}))',west,south,west,north,east,north,east,south) ]
     }, function(err, result) {
-      //call `done()` to release the client back to the pool 
-      done();
  
-      if(err) {
-        console.error('error running query', err);
-        res.status(500);
-        res.send(JSON.stringify({}));
-        return;
-      }
+    if(err) {
+      return res.status(500).send("Database Error");
+    }
 
-      var features = [];
-      if( result.rows ) result.rows.forEach(function(row) {
-        features.push({
-          'type': 'Feature',
+    var features = [];
+    if( result.rows ) result.rows.forEach(function(row) {
+      features.push({
+        'type': 'Feature',
+        'id': row['si_id'],
+        'geometry':{
+          'type': 'Point','coordinates': [row['ob_lon'], row['ob_lat']]
+        },
+        'properties': {
           'id': row['si_id'],
-          'geometry':{
-            'type': 'Point','coordinates': [row['ob_lon'], row['ob_lat']]
-          },
-          'properties': {
-            'id': row['si_id'],
-            'heading': row['si_heading'],
-            'definition': row['si_definition'],
-            'gndelev': row['si_gndelev'],
-          }
-        });
+          'heading': row['si_heading'],
+          'definition': row['si_definition'],
+          'gndelev': row['si_gndelev'],
+        }
       });
+    });
 
-      res.send(JSON.stringify({ 
-        'type': 'FeatureCollection', 
-        'features': features
-      }));
+    res.json({ 
+      'type': 'FeatureCollection', 
+      'features': features
     });
   });
 });
 
 router.get('/navaids/within/', function(req, res, next) {
 
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-
   var east = toNumber(req.query.e);
   var west = toNumber(req.query.w);
   var north = toNumber(req.query.n);
   var south = toNumber(req.query.s);
 
-  pool.connect(function(err, client, done) {
-
-    if(err) {
-      console.error('error fetching client from pool', err);
-      res.status(500);
-      res.send(JSON.stringify({}));
-      return;
-    }
-
-    client.query({
+  Query({
       name: 'Select Navaids Within',
       text: selectNavaidsWithinSql, 
       values: [ String.format('POLYGON(({0} {1},{2} {3},{4} {5},{6} {7},{0} {1}))',west,south,west,north,east,north,east,south) ]
     }, function(err, result) {
-      //call `done()` to release the client back to the pool 
-      done();
  
-      if(err) {
-        console.error('error running query', err);
-        res.status(500);
-        res.send(JSON.stringify({}));
-        return;
-      }
+    if(err) {
+      return res.status(500).send("Database Error");
+    }
 
-      var features = [];
-      if( result.rows ) result.rows.forEach(function(row) {
-        features.push({
-          'type': 'Feature',
-          'id': row['si_id'],
-          'geometry':{
-            'type': 'Point','coordinates': [row['na_lon'], row['na_lat']]
-          },
-          'properties': {
-            'id': row['na_id'],
-            'type': row['na_type'],
-            'elevation': row['na_elevation'],
-            'frequency': row['na_frequency'],
-            'range': row['na_range'],
-            'multiuse': row['na_multiuse'],
-            'ident': row['na_ident'],
-            'name': row['na_name'],
-            'airport': row['na_airport_id'],
-            'runway': row['na_runway'],
-          }
-        });
+    var features = [];
+    if( result.rows ) result.rows.forEach(function(row) {
+      features.push({
+        'type': 'Feature',
+        'id': row['si_id'],
+        'geometry':{
+          'type': 'Point','coordinates': [row['na_lon'], row['na_lat']]
+        },
+        'properties': {
+          'id': row['na_id'],
+          'type': row['na_type'],
+          'elevation': row['na_elevation'],
+          'frequency': row['na_frequency'],
+          'range': row['na_range'],
+          'multiuse': row['na_multiuse'],
+          'ident': row['na_ident'],
+          'name': row['na_name'],
+          'airport': row['na_airport_id'],
+          'runway': row['na_runway'],
+        }
       });
+    });
 
-      res.send(JSON.stringify({ 
-        'type': 'FeatureCollection', 
-        'features': features
-      }));
+    res.json({ 
+      'type': 'FeatureCollection', 
+      'features': features
+    });
+  });
+});
 
+router.get('/stats/', function(req, res, next) {
+
+  Query({
+      name: 'Statistics ',
+      text: "with t1 as (select count(*) objects from fgs_objects), t2 as (select count(*) models from fgs_models), t3 as (select count(*) authors from fgs_authors) select objects, models, authors from t1, t2, t3",
+      values: []
+    }, function(err, result) {
+ 
+    if(err) {
+      return res.status(500).send("Database Error");
+    }
+
+    console.log(result.rows);
+    var row = result.rows.length ? result.rows[0] : {};
+
+    res.json({ 
+      'stats': {
+        'objects': row.objects || 0,
+        'models':  row.models || 0,
+        'authors': row.authors || 0,
+      }
     });
   });
 });

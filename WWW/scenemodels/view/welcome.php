@@ -24,7 +24,8 @@ require 'view/header.php';
     <h1>FlightGear Scenery Website</h1>
 
     <p>Welcome to the <a href="http://www.flightgear.org">FlightGear</a> scenery website!</p>
-    <p>This website is used to share common tools and data for all FlightGear scenery related items. It also features webforms to help gathering 3D models and objects positions all around the world. You can here contribute to FlightGear scenery by adding objects in your favorite place. Please don't hesitate, your help is welcomed! If you have not already done so, please consider <a href="https://scenery.flightgear.org/">using https to connect</a>.</p>
+    <p>This website is used to share common tools and data for all FlightGear scenery related items. It also features webforms to help gathering 3D models and objects positions all around the world. You can here contribute to FlightGear scenery by adding objects in your favorite place. Please don't hesitate, your help is welcomed!</p>
+    <p>We currently have <span id="nummodels" class="statscounter">?</span> models at <span id="numobjects" class="statscounter">?</span> individual positions from <span id="numauthors" class="statscounter">?</span> authors in our database.</p>
   
     <table class="left">
         <tr><th colspan="2">Recently updated objects</th></tr>
@@ -73,5 +74,16 @@ require 'view/header.php';
         </tr>
     </table>
     <div class="clear"></div>
+    <script type="text/javascript">
+      $(function() {
+        $.getJSON( "/scenemodels/stats/", function( data ) {
+          data = data || {};
+          stats = data.stats || {}
+          $("#nummodels").text( stats.models || 0);
+          $("#numobjects").text(stats.objects || 0);
+          $("#numauthors").text(stats.authors || 0);
+        });
+      });
+    </script>
   
 <?php require 'view/footer.php';?>
