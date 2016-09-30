@@ -76,7 +76,20 @@ require 'view/header.php';
     <div class="clear"></div>
     <script type="text/javascript">
       $(function() {
+        var cnt = 10;
+        var t = -1;
+        function fakeCounter() {
+          $("#nummodels").text(cnt);
+          $("#numobjects").text(100*cnt+Math.floor(Math.random()*100));
+          $("#numauthors").text(cnt);
+          cnt++;
+          t = setTimeout(fakeCounter, 10);
+        }
+
+        fakeCounter();
+
         $.getJSON( "/scenemodels/stats/", function( data ) {
+          clearTimeout(t);
           data = data || {};
           stats = data.stats || {}
           $("#nummodels").text( stats.models || 0);
