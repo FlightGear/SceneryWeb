@@ -235,7 +235,6 @@ router.get('/stats/', function(req, res, next) {
       return res.status(500).send("Database Error");
     }
 
-    console.log(result.rows);
     var row = result.rows.length ? result.rows[0] : {};
 
     res.json({ 
@@ -245,6 +244,31 @@ router.get('/stats/', function(req, res, next) {
         'authors': row.authors || 0,
       }
     });
+  });
+});
+
+router.get('/models/search/:pattern', function(req, res, next) {
+
+  Query({
+      name: 'ModelsSearch ',
+      text: "select mo_id, mo_path, mo_name, mo_notes, mo_shared from fgs_models where mo_path like $1 or mo_name like $1 or mo_notes like $1",
+      values: [ "%" + req.params.pattern + "%" ]
+    }, function(err, result) {
+
+    if(err) {
+      return res.status(500).send("Database Error");
+    }
+
+    var j = [];
+    result.rows.forEach(function(row){
+      j.push({
+        'id': row.mo_id,
+        'filename': row.mo_path,
+        'name': row.mo_name,
+        'notes': row.mo_notes
+      });
+    });
+    res.json(j);
   });
 });
 
