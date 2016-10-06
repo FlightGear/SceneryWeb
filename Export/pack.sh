@@ -15,10 +15,10 @@ for f in Objects/[ew][01][0-9]0[ns][0-9]0; do
 done
 
 echo "Creating Release Scenery Pack"
-SCENERY_PACK=SceneryPack.SBRJ
+SCENERY_PACK=SceneryPack.LSZH
 rm -f ${SCENERY_PACK}
 ln -s . ${SCENERY_PACK}
-tar --create --owner=root --group=root --gzip --file=$OUTPUTDIR/${SCENERY_PACK}.tgz ${SCENERY_PACK}/[OT][be]*/w050s30/w04[34]s2[23] ${SCENERY_PACK}/Airports ${SCENERY_PACK}/Models
+tar --create --owner=root --group=root --gzip --file=$OUTPUTDIR/${SCENERY_PACK}.tgz ${SCENERY_PACK}/[OT][be]*/e000n40/e00[89]n4[67] ${SCENERY_PACK}/Airports ${SCENERY_PACK}/Models
 rm ${SCENERY_PACK}
 
 cd "$OUTPUTDIR"
