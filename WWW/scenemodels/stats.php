@@ -1,425 +1,114 @@
 <?php
 // Including librairies
 require_once 'autoload.php';
-$modelDaoRO = \dao\DAOFactory::getInstance()->getModelDaoRO();
-$objectDaoRO = \dao\DAOFactory::getInstance()->getObjectDaoRO();
-
-// Connects Read Only to the database
-// ==================================
-function connect_sphere_r() {
-    global $dbhost;
-    global $dbport;
-    global $dbname;
-    global $dbuser;
-    global $dbpass;
-    
-    // Connecting to database
-    $resource_r = pg_connect('dbname='.$dbname.' host='.$dbhost.' port='.$dbport.' user='.$dbuser.' password='.$dbpass.' sslmode=disable');
-
-    // If could not connect to the database
-    if ($resource_r == '0') {
-        $errorText = "We're sorry, but an error has occurred while connecting to the database.";
-        include "error_page.php";
-        exit;
-    } else {
-        // Returning connection resource
-        return $resource_r;
-    }
-}
-
 require 'view/header.php';
-
 ?>
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript'>
     google.load('visualization', '1', {'packages': ['geochart','corechart']});
 
-    var regionId = 'world';
-    var worldmap = 'data1';
+    google.setOnLoadCallback(function(){
 
-    function drawRegionsMap() {
-        if (google.visualization === undefined) {
-            return;
-        }
-        if (arguments[0]!== 'auto' && arguments[0]) {
-            regionId = arguments[0];
-        }
-        if (arguments[1] !== 'auto' && arguments[1]) {
-            worldmap = arguments[1];
-        }
-        var data1 = google.visualization.arrayToDataTable([
-            ['Country', 'Object density'],
-            <?php
-            $resource_r = connect_sphere_r();
-
-            // Preprocessing signs and models and objects, as they are used later on.
-//            $models = $modelDaoRO->countTotalModels();
-//            $objects = $objectDaoRO->countObjects();
-
-//            $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
-//            $row    = pg_fetch_assoc($result);
-//            $signs  = $row["count"];
-
-            $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
-                     "FROM fgs_objects, fgs_countries " .
-                     "WHERE ob_country = co_code AND co_three IS NOT NULL " .
-                     "GROUP BY co_code " .
-                     "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
-                     "ORDER BY count DESC ";
-            $result = pg_query($resource_r, $query);
-
-            $list = "";
-            while ($row = pg_fetch_assoc($result)) {
-                $country = rtrim($row['co_name']);
-                if ($country == "Iran (Islamic Republic of)") {
-                    $country = "Iran";
-                }
-                $list .= "[\"".$country."\", ".round($row['density'])."],\n ";
-            }
-            echo $list;
-            ?>
-        ]);
-        var data2 = google.visualization.arrayToDataTable([
-            ['Country', 'Objects'],
-            <?php
-            pg_result_seek($result,0);
-            $list = "";
-            while ($row = pg_fetch_assoc($result)) {
-                $country = rtrim($row['co_name']);
-                if ($country == "Iran (Islamic Republic of)") {
-                    $country = "Iran";
-                }
-                $list .= "[\"".$country."\", ".$row['count']."],\n";
-            }
-            echo $list;
-            ?>
-        ]);
-        var data_static = google.visualization.arrayToDataTable([
-            ['Country', 'Unique models'],
-            <?php
-            $query_static = "SELECT COUNT(ob_id) AS count, co_name " .
-                            "FROM fgs_objects, fgs_countries, fgs_models " .
-                            "WHERE ob_country = co_code AND ob_model = mo_id AND mo_shared = 0 " .
-                            "GROUP BY co_code ";
-            $result_static = pg_query($resource_r, $query_static);
-            $list = "";
-            while ($row_static = pg_fetch_assoc($result_static)) {
-                $country = rtrim($row_static['co_name']);
-                if ($country == "Iran (Islamic Republic of)") {
-                    $country = "Iran";
-                }
-                $list .= "[\"".$country."\", ".$row_static['count']."],\n";
-            }
-            echo $list;
-            ?>
-        ]);
-        var data_static_dens = google.visualization.arrayToDataTable([
-            ['Country', 'Unique models density'],
-            <?php
-            $query_static = "SELECT COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name " .
-                            "FROM fgs_objects, fgs_countries, fgs_models " .
-                            "WHERE ob_country = co_code AND ob_model = mo_id AND mo_shared = 0 " .
-                            "GROUP BY co_code " .
-                            "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
-                            "ORDER BY density DESC ";
-            $result_static = pg_query($resource_r, $query_static);
-            $list = "";
-            while ($row_static = pg_fetch_assoc($result_static)) {
-                $country = rtrim($row_static['co_name']);
-                if ($country == "Iran (Islamic Republic of)") {
-                    $country = "Iran";
-                }
-                $list .= "[\"".$country."\", ".$row_static['density']."],\n";
-            }
-            echo $list;
-            ?>
-        ]);
-
-        var options = {
-            backgroundColor: '#ADCDFF',
-            keepAspectRatio: false,
-            colorAxis: { }
-        };
-        if (regionId !== '[object Event]') {
-            options['region'] = regionId;
-        }
-        var map = new google.visualization.GeoChart(document.getElementById('map_div'));
-        google.visualization.events.addListener(map, "error", function errorHandler(e) {
-            google.visualization.errors.removeError(e.id);
-        });
-
-        if (worldmap === "data2") {
-            map.draw(data2, options);
-        }
-        if (worldmap === "data1") {
-            options['colorAxis']['maxValue'] = 3000;
-            map.draw(data1, options);
-        }
-        if (worldmap === "static") {
-            map.draw(data_static, options);
-        }
-        if (worldmap === "static_dens") {
-            options['colorAxis']['maxValue'] = 100;
-            map.draw(data_static_dens, options);
-        }
-    };
-
-    function drawChart() {
-        var dataPie = google.visualization.arrayToDataTable([
-            ['Country', 'Objects'],
-            <?php
-            pg_result_seek($result,0);
-
-            $list = "";
-            while ($row = pg_fetch_assoc($result)) {
-                $list .= "[\"".rtrim($row['co_name'])."\", ".$row['count']."],\n";
-            }
-            echo $list;
-            ?>
-        ]);
-        var dataPieAuthors = google.visualization.arrayToDataTable([
-            ['Author', 'Objects'],
-            <?php
-            $query = "SELECT COUNT(mo_id) AS count, au_name " .
-                     "FROM fgs_models, fgs_authors " .
-                     "WHERE mo_author = au_id " .
-                     "GROUP BY au_id " .
-                     "ORDER BY count DESC";
-            $resultAuthors = pg_query($resource_r, $query);
-
-            $list = "";
-            while ($row = pg_fetch_assoc($resultAuthors)) {
-                $list .= "['".$row['au_name']."', ".$row['count']."],\n";
-            }
-            echo $list;
-            ?>
-        ]);
-
+      function drawPie(data, elementId ) {
         var optionsPie = {
-            chartArea: {height:"100%"},
-            backgroundColor: 'none',
-            pieSliceBorderColor: 'none',
-            slices: {20: {color: '#ccc'}},
-            sliceVisibilityThreshold: 1/100,
-            legend: { alignment: 'center' },
-            pieHole: 0.4
+          chartArea: {height:"100%"},
+          backgroundColor: 'none',
+          pieSliceBorderColor: 'none',
+          slices: {20: {color: '#ccc'}},
+          sliceVisibilityThreshold: 1/100,
+          legend: { alignment: 'center' },
+          pieHole: 0.4
         };
-
-        var chartPie = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
+        var chartPie = new google.visualization.PieChart(document.getElementById(elementId));
         google.visualization.events.addListener(chartPie, 'select', function () {
             // GeoChart selections return an array of objects with a row property; no column information
             var selection = chartPie.getSelection();
-            dataPie.removeRow(selection[0].row);
-            chartPie.draw(dataPie, optionsPie);
+            data.removeRow(selection[0].row);
+            chartPie.draw(data, optionsPie);
         });
-        chartPie.draw(dataPie, optionsPie);
+        chartPie.draw(data, optionsPie);
+      }
 
-        var chartPieAuthors = new google.visualization.PieChart(document.getElementById('chart_pie_authors_div'));
-        google.visualization.events.addListener(chartPieAuthors, 'select', function () {
-            // GeoChart selections return an array of objects with a row property; no column information
-            var selection = chartPieAuthors.getSelection();
-            dataPieAuthors.removeRow(selection[0].row);
-            chartPieAuthors.draw(dataPieAuthors, optionsPie);
+      $.getJSON('/scenemodels/stats/models/byauthor', function(data) {
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn('string', 'Author');
+        dataTable.addColumn('number', 'Objects');
+        data.modelsbyauthor.forEach(function(entry) {
+          dataTable.addRow([ entry.author, Number(entry.count) ]);
         });
-        chartPieAuthors.draw(dataPieAuthors, optionsPie);
-    };
-    
-    function drawBars(sorting) {
-        var dataBarCountryObjects = google.visualization.arrayToDataTable([
-            ['Country', 'Object density', 'Objects'],
-            <?php
-            pg_result_seek($result,0);
-            $i = 0;
-            $list = "";
-            while ($row = pg_fetch_assoc($result) && $i < 20) {
-                $country = rtrim($row['co_name']);
-                if ($country != "Unknown") {
-                    $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
-                    $i++;
-                }
-            }
-            echo $list;
-            ?>
-        ]);
-        var dataBarCountryDensity = google.visualization.arrayToDataTable([
-            ['Country', 'Object density', 'Objects'],
-            <?php
-            $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
-                     "FROM fgs_objects, fgs_countries " .
-                     "WHERE ob_country = co_code AND co_three IS NOT NULL " .
-                     "GROUP BY co_code " .
-                     "HAVING COUNT(ob_id)/(SELECT shape_sqm FROM gadm2_meta WHERE iso ILIKE co_three) > 0 " .
-                     "ORDER BY density DESC ";
-            $result = pg_query($resource_r, $query);
-        
-            $i = 0;
-            $list = "";
-            while ($row = pg_fetch_assoc($result) && $i < 20) {
-                $country = rtrim($row['co_name']);
-                if ($country != "Unknown") {
-                    $list .= "[\"".$country."\", ".round($row['density']).", ".$row['count']."],\n";
-                    $i++;
-                }
-            }
-            echo $list;
-            ?>
-        ]);
-        dataBarCountryDensity.sort([{column: 1,desc: true},{column: 2,desc: true}]);
-        
-        var optionsBarCountry = {
-            series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1}},
-            vAxes: {
-                0: {
-                    color: 'blue',
-                    title: 'Object density (objects per 10,000 sq. km)',
-                    baseline: <?php echo (($objects/148940000)*10000); ?>,
-                    baselineColor: 'blue'
-                },
-                1: {
-                    color: 'red',
-                    title: 'Objects',
-                    logScale: true
-                }
-            },
-            backgroundColor: 'none',
-            chartArea: {top: 35, height: 350, width: '75%'},
-            hAxis: { slantedTextAngle: 50},
-            focusTarget: 'category'
-        };
-        dataBarCountryObjects.sort([{column: 2,desc: true},{column: 1,desc: true}]);
 
-        var chartBarCountry = new google.visualization.ColumnChart(document.getElementById('chart_bar_country_div'));
-        chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
-        
-        if (sorting !== "[object Event]") {
-            if (sorting) {
-                chartBarCountry.draw(dataBarCountryObjects, optionsBarCountry);
-            } else {
-                chartBarCountry.draw(dataBarCountryDensity, optionsBarCountry);
-            }
-        }
-    };
+        drawPie(dataTable, 'chart_pie_authors_div' );
+      }); 
 
-    function drawVisualization() {
-        $.getJSON('/scenemodels/stats/all', function(data) {
-          // Create and populate the data table.
-          var dataObjects = new google.visualization.DataTable();
-          dataObjects.addColumn('date', 'Date');
-          dataObjects.addColumn('number', 'Objects');
-          dataObjects.addColumn('number', 'Models');
-          dataObjects.addColumn('number', 'Signs');
-          dataObjects.addColumn('number', 'Navaids');
-          dataObjects.addColumn('number', 'Authors');
+      $.getJSON('/scenemodels/stats/models/bycountry', function(data) {
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn('string', 'Country');
+        dataTable.addColumn('number', 'Objects');
+        data.modelsbycountry.forEach(function(entry) {
+          dataTable.addRow([ entry.name, Number(entry.count) ]);
+        });
 
-          var rows = [];
-          data.statistics.forEach(function(entry){
-            rows.push([
-              new Date(entry.date),
-              Number(entry.objects),
-              Number(entry.models),
-              Number(entry.signs),
-              Number(entry.navaids),
-              Number(entry.authors),
-            ]);
-          });
-          dataObjects.addRows(rows);
+        drawPie(dataTable, 'chart_pie_div' );
+      }); 
 
-          // Create and draw the visualization.
-          new google.visualization.LineChart(document.getElementById('chart_objects_div')).
-          draw(dataObjects, {
-            series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1},2:{targetAxisIndex:1}},
-            vAxes: {
-                0: {
-                    color: 'blue',
-                    title: 'Objects'
-                },
-                1: {
-                    color: 'red',
-                    title: 'Models and signs'
-                }
-            },
-            pointSize: 5,
-            backgroundColor: 'none',
-            chartArea: {top: 35, height: 430},
-            focusTarget: 'category'
-            }
-          );
+      $.getJSON('/scenemodels/stats/all', function(data) {
+        // Create and populate the data table.
+        var dataObjects = new google.visualization.DataTable();
+        dataObjects.addColumn('date', 'Date');
+        dataObjects.addColumn('number', 'Objects');
+        dataObjects.addColumn('number', 'Models');
+        dataObjects.addColumn('number', 'Signs');
+        dataObjects.addColumn('number', 'Navaids');
+        dataObjects.addColumn('number', 'Authors');
+
+        data.statistics.forEach(function(entry){
+          dataObjects.addRow([
+            new Date(entry.date),
+            Number(entry.objects),
+            Number(entry.models),
+            Number(entry.signs),
+            Number(entry.navaids),
+            Number(entry.authors),
+          ]);
+        });
+
+        // Create and draw the visualization.
+        new google.visualization.LineChart(document.getElementById('chart_objects_div')).
+        draw(dataObjects, {
+          series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1},2:{targetAxisIndex:1}},
+          vAxes: {
+              0: {
+                  color: 'blue',
+                  title: 'Objects'
+              },
+              1: {
+                  color: 'red',
+                  title: 'Models and signs'
+              }
+          },
+          pointSize: 5,
+          backgroundColor: 'none',
+          chartArea: {top: 35, height: 430},
+          focusTarget: 'category'
+          }
+        );
       });
-    };
-
-    google.setOnLoadCallback(drawChart);
-//    google.setOnLoadCallback(drawBars);
-    google.setOnLoadCallback(drawVisualization);
-//    google.setOnLoadCallback(drawRegionsMap('world','auto'));
+    });
 </script>
 
 <h1>FlightGear Scenery Statistics</h1>
-<?php
-
-//echo "<p class=\"center\">The database currently contains <a href=\"app.php?c=Models&amp;a=browseRecent\">".number_format($models, '0', '', ',')." models</a> placed in the scenery as <a href=\"app.php?c=Objects&amp;a=search\">".number_format($objects, '0', '', ',')." seperate objects</a>, plus ".number_format($signs, '0', '', ',')." taxiway signs.</p>\n";
-?>
-    
     <table class="left">
         <tr><th>Objects by country</th></tr>
         <tr><td>Click a country to remove it from the pie.</td></tr>
-        <tr><td><div id="chart_pie_div" style="width: 100%; height: 250px;"></div></td></tr>
+        <tr><td><div id="chart_pie_div" style="width: 100%; height: 250px;">Loading...</div></td></tr>
     </table>
     <table class="right">
         <tr><th>Models by author</th></tr>
         <tr><td>Click an author to remove him from the pie.</td></tr>
-        <tr><td><div id="chart_pie_authors_div" style="width: 100%; height: 250px;"></div></td></tr>
+        <tr><td><div id="chart_pie_authors_div" style="width: 100%; height: 250px;">Loading...</div></td></tr>
     </table>
 
     <div class="clear"></div><br/>
-
-    <!--table>
-        <tr>
-            <td style="border: 0px; width:80%;">
-                <div id="map_div" style="width: 100%; height: 500px;"></div>
-            </td>
-            <td valign="top" style="border: 0px;">
-                <b>Show:</b>
-                <ul>
-                    <li><a onclick="drawRegionsMap('auto','data1')">Object density</a><br/>(objects / 10,000 sq. km)</li>
-                    <li><a onclick="drawRegionsMap('auto','data2')">Absolute object count</a></li>
-                    <li><a onclick="drawRegionsMap('auto','static')">Unique (static) model count</a></li>
-                    <li><a onclick="drawRegionsMap('auto','static_dens')">Unique (static) model density</a></li>
-                </ul>
-                <b>Zoom in to:</b>
-                <ul>
-                    <li><a onclick="drawRegionsMap('002','auto')">Africa</a></li>
-                    <li><a onclick="drawRegionsMap('142','auto')">Asia</a></li>
-                    <li><a onclick="drawRegionsMap('029','auto')">Carribean</a></li>
-                    <li><a onclick="drawRegionsMap('150','auto')">Europe</a></li>
-                    <li><a onclick="drawRegionsMap('021','auto')">Northern America</a></li>
-                    <li><a onclick="drawRegionsMap('013','auto')">Central America</a></li>
-                    <li><a onclick="drawRegionsMap('005','auto')">South America</a></li>
-                    <li><a onclick="drawRegionsMap('009','auto')">Oceania</a></li><br/>
-                    <li><a onclick="drawRegionsMap('world','auto')">Reset view</a></li>
-                </ul>
-            </td>
-        </tr>
-    </table>
-
-    <div class="clear"></div><br/>
-
-    <table>
-        <tr>
-            <td style="border: 0px; width:80%;">
-                <div id="chart_bar_country_div" style="width: 100%; height: 500px;"></div>
-            </td>
-            <td valign="top" style="border: 0px;">
-                <p>The blue horizontal line indicates the world average object density.</p>
-                <b>Sort by:</b>
-                <ul>
-                    <li><a onclick="drawBars(false)">Object density</a><br/>(objects / 10,000 sq. km)</li>
-                    <li><a onclick="drawBars(true)">Absolute object count</a></li>
-                </ul>
-            </td>
-        </tr>
-    </table>
-
-    <div class="clear"></div><br/-->
 
     <table>
         <tr><th>Time evolution</th></tr>
