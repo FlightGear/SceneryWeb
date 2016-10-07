@@ -53,12 +53,12 @@ require 'view/header.php';
             $resource_r = connect_sphere_r();
 
             // Preprocessing signs and models and objects, as they are used later on.
-            $models = $modelDaoRO->countTotalModels();
-            $objects = $objectDaoRO->countObjects();
+//            $models = $modelDaoRO->countTotalModels();
+//            $objects = $objectDaoRO->countObjects();
 
-            $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
-            $row    = pg_fetch_assoc($result);
-            $signs  = $row["count"];
+//            $result = pg_query($resource_r, "SELECT count(si_id) AS count FROM fgs_signs;");
+//            $row    = pg_fetch_assoc($result);
+//            $signs  = $row["count"];
 
             $query = "SELECT COUNT(ob_id) AS count, COUNT(ob_id)/(SELECT shape_sqm/10000000000 FROM gadm2_meta WHERE iso ILIKE co_three) AS density, co_name, co_three " .
                      "FROM fgs_objects, fgs_countries " .
@@ -301,52 +301,32 @@ require 'view/header.php';
     };
 
     function drawVisualization() {
-        // Create and populate the data table.
-        var dataObjects = new google.visualization.DataTable();
-        dataObjects.addColumn('date', 'Date');
-        dataObjects.addColumn('number', 'Objects');
-        dataObjects.addColumn('number', 'Models');
-        dataObjects.addColumn('number', 'Signs');
+        $.getJSON('/scenemodels/stats/all', function(data) {
+          // Create and populate the data table.
+          var dataObjects = new google.visualization.DataTable();
+          dataObjects.addColumn('date', 'Date');
+          dataObjects.addColumn('number', 'Objects');
+          dataObjects.addColumn('number', 'Models');
+          dataObjects.addColumn('number', 'Signs');
+          dataObjects.addColumn('number', 'Navaids');
+          dataObjects.addColumn('number', 'Authors');
 
-        dataObjects.addRows([
-            [new Date(2008,3,8), 993836, 735, 0],
-            [new Date(2008,5,1), 994057, 786, 0],
-            [new Date(2008,9,15), 1038108, 1269, 573 ],
-            [new Date(2008,11,5), 1038477, 1306, 679 ],
-            [new Date(2009,0,7), 1036978, 1340, 723 ],
-            [new Date(2009,1,1), 1113318, 1371, 723],
-            [new Date(2009,2,6), 1113341, 1392, 723 ],
-            [new Date(2009,5,6), 1113531, 1501, 723 ],
-            [new Date(2009,10,4), 1115669, 1621, 967 ],
-            [new Date(2010,2,9), 1117244, 1725, 968 ],
-            [new Date(2010,3,30), 1117270, 1729, 1235 ],
-            [new Date(2010,5,30), 1117391, 1752, 1593 ],
-            [new Date(2010,10,3), 1120218, 1931, 1743 ],
-            [new Date(2011,0,20), 1120390, 2009, 1743 ],
-            [new Date(2011,3,12), 1121693, 2112, 1900 ],
-            [new Date(2011,5,9), 1122199, 2213, 1974 ],
-            [new Date(2011,10,1), 1122439, 2324, 1974 ],
-            [new Date(2012,0,4), 1122980, 2390, 2013 ],
-            [new Date(2012,1,24), 1123673, 2434, 2051 ],
-            [new Date(2012,4,4), 1123722, 2477, 2074 ],
-            [new Date(2012,6,18), 1123988, 2523, 2074 ],
-            [new Date(2012,7,25), 1106276, 2617, 2074 ],
-            [new Date(2012,9,8), 1106872, 2749, 2161 ],
-            [new Date(2013,0,4), 1108727, 2845, 2310 ],
-            [new Date(2013,3,3), 1114822, 3013, 2310 ],
-            [new Date(2013,7,6), 1118056, 3200, 2310 ],
-            [new Date(2014,0,5), 1130663, 3566, 2310 ],
-            [new Date(2014,6,4), 1176580, 3892, 2310 ],
-            [new Date(2014,10,28), 1178742, 4128, 2310 ],
-            [new Date(2016,03,12), 1220822, 5190, 2383],
-            [new Date(2016,05,27), 1224239, 5361, 2383],
-            [new Date(2016,09,30), 1234612, 5643, 2383],
-            [new Date(<?php echo date('Y').",".(date('n')-1).",".date('j')."), ".$objects.", ".$models.", ".$signs; ?> ]
-        ]);
+          var rows = [];
+          data.statistics.forEach(function(entry){
+            rows.push([
+              new Date(entry.date),
+              Number(entry.objects),
+              Number(entry.models),
+              Number(entry.signs),
+              Number(entry.navaids),
+              Number(entry.authors),
+            ]);
+          });
+          dataObjects.addRows(rows);
 
-        // Create and draw the visualization.
-        new google.visualization.LineChart(document.getElementById('chart_objects_div')).
-        draw(dataObjects, {
+          // Create and draw the visualization.
+          new google.visualization.LineChart(document.getElementById('chart_objects_div')).
+          draw(dataObjects, {
             series:{0:{targetAxisIndex:0},1:{targetAxisIndex:1},2:{targetAxisIndex:1}},
             vAxes: {
                 0: {
@@ -363,19 +343,20 @@ require 'view/header.php';
             chartArea: {top: 35, height: 430},
             focusTarget: 'category'
             }
-        );
+          );
+      });
     };
 
     google.setOnLoadCallback(drawChart);
-    google.setOnLoadCallback(drawBars);
+//    google.setOnLoadCallback(drawBars);
     google.setOnLoadCallback(drawVisualization);
-    google.setOnLoadCallback(drawRegionsMap('world','auto'));
+//    google.setOnLoadCallback(drawRegionsMap('world','auto'));
 </script>
 
 <h1>FlightGear Scenery Statistics</h1>
 <?php
 
-echo "<p class=\"center\">The database currently contains <a href=\"app.php?c=Models&amp;a=browseRecent\">".number_format($models, '0', '', ',')." models</a> placed in the scenery as <a href=\"app.php?c=Objects&amp;a=search\">".number_format($objects, '0', '', ',')." seperate objects</a>, plus ".number_format($signs, '0', '', ',')." taxiway signs.</p>\n";
+//echo "<p class=\"center\">The database currently contains <a href=\"app.php?c=Models&amp;a=browseRecent\">".number_format($models, '0', '', ',')." models</a> placed in the scenery as <a href=\"app.php?c=Objects&amp;a=search\">".number_format($objects, '0', '', ',')." seperate objects</a>, plus ".number_format($signs, '0', '', ',')." taxiway signs.</p>\n";
 ?>
     
     <table class="left">
@@ -391,7 +372,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"app.php?c=Mo
 
     <div class="clear"></div><br/>
 
-    <table>
+    <!--table>
         <tr>
             <td style="border: 0px; width:80%;">
                 <div id="map_div" style="width: 100%; height: 500px;"></div>
@@ -438,7 +419,7 @@ echo "<p class=\"center\">The database currently contains <a href=\"app.php?c=Mo
         </tr>
     </table>
 
-    <div class="clear"></div><br/>
+    <div class="clear"></div><br/-->
 
     <table>
         <tr><th>Time evolution</th></tr>

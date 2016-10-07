@@ -245,6 +245,30 @@ router.get('/stats/', function(req, res, next) {
   });
 });
 
+router.get('/stats/all', function(req, res, next) {
+
+  Query({
+      name: 'StatisticsAll',
+      text: 'SELECT * from fgs_statistics ORDER BY st_date',
+      values: []
+  }, function(err, result) {
+ 
+    if(err) return res.status(500).send("Database Error:" + err);
+    var reply = { statistics: [] };
+    result.rows.forEach( function(row) {
+      reply.statistics.push( {
+        'date' : row.st_date,
+        'objects': row.st_objects,
+        'models':  row.st_models,
+        'authors': row.st_authors,
+        'signs': row.st_signs,
+        'navaids': row.st_navaids,
+      });
+    });
+    res.json(reply);
+  });
+});
+
 router.get('/models/list/:limit/:offset?', function(req, res, next) {
 
   var offset = Number(req.params.offset || 0);
