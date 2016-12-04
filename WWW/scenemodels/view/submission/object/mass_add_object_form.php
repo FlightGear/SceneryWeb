@@ -10,7 +10,7 @@ function validateForm()
     var form = document.getElementById("positions");
 
     if (!checkStringNotDefault(form["stg"], "") || !checkSTG(form["stg"]) ||
-        (form['email'].value!=="" && !checkEmail(form['email'])) ||
+        !checkStringNotDefault(form["email"], "") || !checkEmail(form['email']) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form["comment"]))
         return false;
 }
@@ -67,7 +67,7 @@ function validateForm()
         <td><textarea name="stg" id="stg" rows="30" cols="100" onchange="checkSTG(this);"></textarea></td>
     </tr>
     <tr>
-        <td><label for="email">Email address<span>Please leave YOUR VALID email address over here. This will help you be informed of your submission process.</span></label></td>
+        <td><label for="email">Email address<em>*</em><span>Please leave YOUR VALID email address over here. This will help you be informed of your submission process.</span></label></td>
         <td>
             <input type="text" name="email" id="email" maxlength="50" size="50" value="" onkeyup="checkEmail(this);" />
         </td>
