@@ -45,9 +45,9 @@ function validateForm()
         !checkStringNotDefault(form["new_heading"], "") || !checkNumeric(form['new_heading'],0,359.999) ||
         !checkComment(form['new_ob_text']) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!=="" && !checkEmail(form['email'])) ||
+        !checkStringNotDefault(form["email"], "") || !checkEmail(form['email']) ||
         !checkStringNotDefault(form["recaptcha_response_field"], ""))
-        return false;
+            return false;
 }
 
 /*]]>*/
@@ -234,7 +234,7 @@ if (!$modelMDToUp->getModelsGroup()->isStatic()) {
         </tr>
         <tr>
           <td><span title="Please leave YOUR VALID email address over here. This will help you be informed of your submission process. EXPERIMENTAL">
-            <label for="email">Email address</label></span>
+            <label for="email">Email address<em>*</em></label></span>
           </td>
           <td colspan="2">
             <input type="text" name="email" id="email" maxlength="50" size="50" value="" onkeyup="checkEmail(this);"/>

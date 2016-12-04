@@ -32,7 +32,7 @@ function validateForm()
     var form = document.getElementById("delete_position");
 
     if (!checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-            (form['email'].value!=="" && !checkEmail(form['email'])) ||
+            !checkStringNotDefault(form["email"], "") || !checkEmail(form['email']) ||
             !checkStringNotDefault(form["recaptcha_response_field"], ""))
         return false;
 
@@ -95,7 +95,7 @@ function validateForm()
             <td colspan="4"><input type="text" id="comment" name="comment" maxlength="100" size="40" value="" onchange="checkComment(this);"/></td>
         </tr>
         <tr>
-            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address (not mandatory)</label></span></td>
+            <td><span title="Please live YOUR VALID email address over here. This will help you be informed of your submission process."><label for="email">Email address<em>*</em></label></span></td>
             <td colspan="4"><input type="text" id="email" name="email" maxlength="50" size="40" value="" onchange="checkEmail(this);"/></td>
         </tr>
         <tr>

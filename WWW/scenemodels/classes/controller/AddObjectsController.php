@@ -136,10 +136,10 @@ class AddObjectsController extends RequestController {
             $error = true;
         }
         
-        // Checking that email is valid (if it exists).
+        // Checking that email is valid.
         //(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
         $inputEmail = $this->getVar('email');
-        if (\FormChecker::isEmail($inputEmail)) {
+        if ($inputEmail != '' && \FormChecker::isEmail($inputEmail)) {
             $safeEmail = htmlentities(stripslashes($inputEmail));
         }
         

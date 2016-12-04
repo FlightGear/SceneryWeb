@@ -21,9 +21,9 @@ function validateForm()
         !checkNumeric(form['offset1'],-999,999) ||
         !checkStringNotDefault(form["heading1"], "") || !checkNumeric(form['heading1'],0,359.999) ||
         !checkStringNotDefault(form["comment"], "") || !checkComment(form['comment']) ||
-        (form['email'].value!=="" && !checkEmail(form['email'])) ||
+        !checkStringNotDefault(form["email"], "") || !checkEmail(form['email']) ||
         !checkStringNotDefault(form["recaptcha_response_field"], ""))
-        return false;
+            return false;
 }
 
 function validateTabs()
@@ -111,7 +111,7 @@ $(function() {
                     <td>
                         <input type="text" name="long1" id="long1" maxlength="13" value="<?php echo $defaultLon;?>" onkeyup="checkNumeric(form['long1'],-180,180);validateTabs();" onchange="update_map('long1','lat1');update_country('long1','lat1','countryId1');" />
                     </td>
-                    <td rowspan="6" style="width: 300px; height: 225px;">
+                    <td rowspan="5" style="width: 300px; height: 225px;">
                         <object id="map" data="/map/?z=1&lat=0&lon=0" type="text/html" width="300" height="225"></object>
                     </td>
                 </tr>
@@ -158,7 +158,7 @@ $(function() {
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="email">Email address<span>Please leave YOUR VALID email address over here. This will help you be informed of your submission process.</span></label></td>
+                    <td><label for="email">Email address<em>*</em><span>Please leave YOUR VALID email address over here. This will help you be informed of your submission process.</span></label></td>
                     <td>
                         <input type="text" name="email" id="email" maxlength="50" size="40" value="" onkeyup="checkEmail(this);" />
                     </td>
