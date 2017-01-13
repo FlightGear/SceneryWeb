@@ -95,24 +95,24 @@ def mkdir_p(path):
             pass
         else: raise
 
-def fn_exportModels():
-    sql = "SELECT m.mo_id AS id, concat('Objects/', fn_SceneDir(o.wkb_geometry), '/', fn_SceneSubDir(o.wkb_geometry), '/') AS path, \
-            m.mo_modelfile AS modelfile \
-        FROM fgs_objects AS o \
-        LEFT JOIN fgs_models AS m \
-            ON o.ob_model = m.mo_id \
-        WHERE LENGTH(m.mo_modelfile) > 15 \
-            AND o.ob_valid IS TRUE AND o.ob_tile IS NOT NULL \
-            AND o.ob_gndelev > -9999 AND m.mo_shared = 0 \
-        UNION \
-        SELECT m.mo_id AS id, concat('Models/', g.mg_path) AS path, \
+def fn_exportModels( constraint ):
+    sql = "SELECT m.mo_id AS id, concat('Models/', g.mg_path) AS path, \
             m.mo_modelfile AS modelfile \
         FROM fgs_models AS m \
         LEFT JOIN fgs_modelgroups AS g \
             ON m.mo_shared = g.mg_id \
-        WHERE LENGTH(m.mo_modelfile) > 15 \
-            AND m.mo_shared > 0 \
-        ORDER BY path, id;"
+        WHERE m.mo_shared > 0";
+
+    if constraint != '':
+      sql = "SELECT m.mo_id AS id, concat('Objects/', fn_SceneDir(o.wkb_geometry), '/', fn_SceneSubDir(o.wkb_geometry), '/') AS path, \
+              m.mo_modelfile AS modelfile \
+          FROM fgs_objects AS o \
+          LEFT JOIN fgs_models AS m \
+              ON o.ob_model = m.mo_id \
+          WHERE o.ob_gndelev > -9999 AND m.mo_shared = 0 \
+              AND ST_X(o.wkb_geometry) %s;" % (constraint)
+
+    print sql
     db_result = fn_pgexec(sql, "r")
     fn_error("Exporting %s models" % len(db_result))
     for row in db_result:
@@ -143,9 +143,9 @@ def fn_exportStgRows():
     Fetch the entire file content as a single string.
     '''
     sqlPath = "concat('Objects/', fn_SceneDir(wkb_geometry), '/', fn_SceneSubDir(wkb_geometry), '/') AS obpath"
-    sql = "SELECT DISTINCT ob_tile AS tile, %s FROM fgs_objects \
+    sql = "SELECT DISTINCT fn_gettilenumber(o.wkb_geometry) AS tile, %s FROM fgs_objects AS o \
         UNION \
-        SELECT DISTINCT si_tile AS tile, %s FROM fgs_signs \
+        SELECT DISTINCT fn_gettilenumber(s.wkb_geometry) AS tile, %s FROM fgs_signs AS s \
         ORDER BY tile;" % (sqlPath, sqlPath)
     db_result = fn_pgexec(sql, "r")
     num_rows = len(db_result)
@@ -174,9 +174,15 @@ def fn_exportStgRows():
 
     fn_error("Stg-Files done")
 
-print("### Exporting Models ....")
 try:
-    fn_exportModels()
+    print("### Exporting Eastern Models ....")
+    fn_exportModels( '>= 0')
+
+    print("### Exporting Western Models ....")
+    fn_exportModels( '< 0' )
+
+    print("### Exporting Shared Models ....")
+    fn_exportModels( '' )
 except Exception as e:
     logging.exception("Models export")
     sys.exit("Models export failed.")

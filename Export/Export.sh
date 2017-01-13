@@ -39,6 +39,11 @@ trap finish EXIT
 TIMESTAMP="$(date '+%Y%m%d %H:%M')"
 
 pushd "$FG_SCENERY"
+${PSQL} --quiet  << EOF
+DELETE FROM fgs_timestamps where ti_type = 1;
+INSERT INTO fgs_timestamps (ti_type,ti_stamp) VALUES (1,now());
+EOF
+
 # Objects without valid tile numbers are ignored upon export
 ${PSQL} --quiet  << EOF
 UPDATE fgs_objects SET ob_tile = fn_GetTileNumber(wkb_geometry)
@@ -87,6 +92,7 @@ echo "path:" >> .dirindex
 echo "d:Airports:$(sha1sum Airports/.dirindex|cut -f1 -d' ')" >> .dirindex
 echo "d:Models:$(sha1sum Models/.dirindex|cut -f1 -d' ')" >> .dirindex
 echo "d:Objects:$(sha1sum Objects/.dirindex|cut -f1 -d' ')" >> .dirindex
+echo "d:Objects_osmbuildings:$(sha1sum Objects_osmbuildings/.dirindex|cut -f1 -d' ')" >> .dirindex
 echo "d:Terrain:$(sha1sum Terrain/.dirindex|cut -f1 -d' ')" >> .dirindex
 
 echo "Fixing permissions"
@@ -103,5 +109,9 @@ echo "rsyncing to SF"
 rsync -a --checksum --delete .dirindex Models Objects web.sourceforge.net:htdocs/scenery/
 
 `dirname $0`/pack.sh
+
+${PSQL} --quiet  << EOF
+UPDATE fgs_timestamps SET ti_type = 2 WHERE ti_type = 1;
+EOF
 
 exit 0
