@@ -92,21 +92,20 @@ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; 
             <li>Details are available <a href="app.php?c=AddModel&amp;a=form">here</a>.</li>
         </ul>
 
-        <h3 id="tips"><a><font color="red">Models best practice:</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
+        <h3 id="tips"><a><font color="red">Model rules</font> To save you and us from avoidable and unnecessary extra work:</a></h3>
         <ul>
             <li>Never group different, detached buildings into a single geometry file.</li>
             <li>Never put surface materials (tarmac, grass, roads, parkings, ...) or trees into Scenery Model geometries.</li>
-        </ul>
-
-        <div class="conclusion"><b> -> </b> The reason is simple: Depending on the angle of view, the
-                    operating system, the graphics card and driver, the underlying
-                    terrain slope, various people might be seeing rendering
-                    artifacts.  Therefore: Please don't !</div>
-        <ul>
+            <ul class="detail">
+                <li>The reason is simple: Depending on the angle of view, the operating system, the graphics card and driver, the underlying terrain slope, various people might be seeing rendering artifacts.  Therefore: Please don't!</li>
+            </ul>
             <li>For groupings of individual models choose a distinct, corresponding position for each of them, never mount multiple models into a single position.</li>
-            <li>Textures should be in PNG format - older models which used rgb textures have been updated. <strong>The textures dimensions have to be a power of two: eg 128x256.</strong></li>
+            <li>Textures should be in PNG format - older models which used rgb textures have been updated. <strong>The textures dimensions have to be a power of two: eg 128x256, 256x256.</strong></li>
             <li>Apron, taxiway, runway or other airport pavements are being maintained at <a href="http://data.x-plane.com/">XPlane Robin Peel's airport database</a>.</li>
-            <li><strong>Always choose reasonable (meaningful, descriptive) filenames for your models</strong>. At urban areas having a geometry 'tower.ac' or a texture just named 'red.png' or 'concrete.png' might prove not to be unique ;-)</li>
+            <li><strong>Always choose reasonable (meaningful, descriptive) filenames for your models</strong>. At urban areas having a geometry 'tower.ac' might prove not to be unique ;-)</li>
+            <ul class="detail">
+                <li>Textures should have the name of the model, followed by an integer (1,2,3). For example, a model named EHAM_tower.ac can have textures EHAM_tower1.png, EHAM_tower2.png etc.</li>
+            </ul>
             <li>As a rule of thumb, try to let even a detailed, <strong>single model not exceed 1/2 MByte in total size</strong>, otherwise the simulation will face hard times when approaching densely packed areas. A typical, single office building usually can be done at (far!) less than 100 kByte;</li>
             <li><strong>Avoid spaces in file- and/or directory names.</strong></li>
             <li>As a general rule, do <strong>not</strong> try to (mis)use 3D models as a substitute for unfinished airfield layout or land cover. Do <strong>not</strong> place your models at incorrect positions just because the current land cover shapes do not match.</li>
