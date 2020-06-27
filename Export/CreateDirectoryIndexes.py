@@ -56,7 +56,9 @@ def fn_create_directory_index( path, parent ):
 
     # create dirindex first
     for child in os.listdir("."):
-      if os.path.isfile(child) and child != dirindex:
+      if os.path.isfile(child) and child != dirindex and os.path.splitext(child)[1] == ".tgz":
+        print( "t:" + child  + ":" + fn_hash_of_file(child) + ":" + str(os.stat(child).st_size), file=dirindexFile )
+      elif os.path.isfile(child) and child != dirindex:
         print( "f:" + child  + ":" + fn_hash_of_file(child) + ":" + str(os.stat(child).st_size), file=dirindexFile )
       elif os.path.isdir(child) and child != ".svn":
         print( "d:" + child + ":" + fn_create_directory_index(child,os.path.join(parent,child)), file=dirindexFile )
